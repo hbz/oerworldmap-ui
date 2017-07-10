@@ -1,0 +1,41 @@
+{
+  "name": "oerworldmap-ui",
+  "version": "0.0.1",
+  "description": "The user interface for https://oerworldmap.org/",
+  "scripts": {
+    "server:dev": "NODE_ENV=development node src/index.js",
+    "server:prod": "webpack -p && NODE_ENV=production node src/index.js",
+    "test": "standard",
+    "fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hbz/oerworldmap-ui.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hbz/oerworldmap-ui/issues"
+  },
+  "homepage": "https://github.com/hbz/oerworldmap-ui#readme",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "standard": "^10.0.2",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.1.0",
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.2",
+    "webpack-merge": "^4.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "getenv": "^0.7.0"
+  }
+}
