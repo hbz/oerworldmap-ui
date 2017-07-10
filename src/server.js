@@ -5,6 +5,10 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config.babel.js'
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+
+import App from './components/App'
 
 import Config from '../config'
 
@@ -32,10 +36,11 @@ if (process.env.NODE_ENV === 'development') {
 server.use(express.static(path.join(__dirname, '/../dist')))
 
 server.get(/^(.*)$/, function (req, res, next) {
+  const data = { source: 'Server' }
   res.send(template({
-    body: '<h1>Hello from server</h1>',
+    body: renderToString(<App {...data} />),
     title: 'Hello from server',
-    initialState: JSON.stringify({})
+    initialState: JSON.stringify(data)
   }))
 })
 
