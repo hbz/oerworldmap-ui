@@ -28,7 +28,9 @@ if (process.env.NODE_ENV === 'development') {
       }
     }),
 
-    webpackHotMiddleware(compiler)
+    webpackHotMiddleware(compiler, {
+      log: console.log
+    })
 
   ])
 }
