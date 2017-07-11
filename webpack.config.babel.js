@@ -46,6 +46,13 @@ let Config = {
         use: [
           'file-loader'
         ]
+      },
+
+      {
+        test: /\.json$/,
+        use: [
+          'json-loader'
+        ]
       }
     ]
   },
