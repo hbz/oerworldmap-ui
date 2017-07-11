@@ -1,0 +1,49 @@
+@darkBlue: #284664;
+@lightWhite: #dfeaf5;
+@orange: #ff8c00;
+
+.itemList {
+  border-top: 1px solid @darkBlue;
+  margin-top: 10px;
+  padding-top: 10px;
+  color: @darkBlue;
+  background-color: rgba(255, 255, 255, 0.95); // remove
+}
+
+.itemList a {
+  color: @darkBlue;
+  text-decoration: none;
+}
+
+.itemList a:hover {
+  color: @orange;
+}
+
+.itemList li {
+  padding: 0.3em 0px 0.3em 2em;
+  border-bottom: 1px solid @lightWhite;
+}
+
+.badge {
+  color: white;
+  background-color: @darkBlue;
+  border-radius: 10px;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: .8rem;
+  font-weight: bold;
+}
+
+.itemList ul {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid @lightWhite;
+  list-style-type: none;
+}
+
+.itemListHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 10.5px;
+  padding: 0 5px; // remove
+}
