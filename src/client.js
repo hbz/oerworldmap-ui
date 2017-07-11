@@ -1,21 +1,19 @@
 import './styles/main.less'
 import React from 'react'
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 import App from './components/App'
 
-(function() {
-
-  document.addEventListener('DOMContentLoaded', function() {
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
     ReactDOM.render(
       <App {...window.__APP_INITIAL_STATE__} />,
       document.getElementById('root')
-    );
-    setTimeout(function() {
+    )
+    setTimeout(function () {
       ReactDOM.render(
-        <App source="Client" />,
+        <App source='Client' />,
         document.getElementById('root')
       )
-    }, 3000);
-  });
-
-})();
+    }, 3000)
+  })
+})()

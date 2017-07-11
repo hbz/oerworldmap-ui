@@ -21,7 +21,7 @@ let Config = {
         use: {
           loader: 'babel-loader',
           query: {
-            presets: ["react-hmre"]
+            presets: ['react-hmre']
           }
         }
       },
@@ -59,8 +59,8 @@ if (TARGET === 'server:dev') {
     entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-    ],
+      new webpack.NoEmitOnErrorsPlugin()
+    ]
   })
 }
 
