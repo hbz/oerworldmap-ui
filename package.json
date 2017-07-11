@@ -5,7 +5,7 @@
   "scripts": {
     "server:dev": "NODE_ENV=development node src/index.js",
     "server:prod": "webpack -p && NODE_ENV=production node src/index.js",
-    "test": "mocha --require babel-core/register",
+    "test": "mocha --require babel-core/register test/helpers/browser.js test/*.js",
     "fix": "standard --fix"
   },
   "repository": {
@@ -25,11 +25,14 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "css-loader": "^0.28.4",
+    "enzyme": "^2.9.1",
     "file-loader": "^0.11.2",
+    "jsdom": "^11.1.0",
     "json-loader": "^0.5.4",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "mocha": "^3.4.2",
+    "react-test-renderer": "^15.6.1",
     "standard": "^10.0.2",
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
