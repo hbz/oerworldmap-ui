@@ -5,7 +5,7 @@
   "scripts": {
     "server:dev": "NODE_ENV=development node src/index.js",
     "server:prod": "webpack -p && NODE_ENV=production node src/index.js",
-    "test": "mocha --require babel-core/register test/helpers/browser.js --require ignore-styles test/*.js",
+    "test": "standard && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
     "fix": "standard --fix"
   },
   "repository": {
@@ -42,6 +42,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "asset-require-hook": "^1.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "getenv": "^0.7.0",
