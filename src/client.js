@@ -11,7 +11,7 @@ import App from './components/App'
     )
     setTimeout(function () {
       ReactDOM.render(
-        <App source='Client' language='de' />,
+        <App source='Client' />,
         document.getElementById('root')
       )
     }, 3000)

@@ -38,7 +38,8 @@ if (process.env.NODE_ENV === 'development') {
 server.use(express.static(path.join(__dirname, '/../dist')))
 
 server.get(/^(.*)$/, function (req, res, next) {
-  const data = { source: 'Server', language: 'es' }
+  const language = req.acceptsLanguages( 'en', 'de', 'es' ) || 'en'
+  const data = { source: 'Server', language: language }
   res.send(template({
     body: renderToString(<App {...data} />),
     title: 'Hello from server',

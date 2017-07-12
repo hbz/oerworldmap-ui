@@ -9,7 +9,8 @@ describe('<OERWorldMap />', () => {
   it('localizes correctly', () => {
     const expected = {
       de: 'Hallo Welt vom Test.',
-      es: 'Hola mundo desde Test.'
+      es: 'Hola mundo desde Test.',
+      en: 'Hello world from Test.'
     }
     for (let language in expected) {
       let wrapper = mount(<OERWorldMap language={language} />)

@@ -1,7 +1,10 @@
 import React from 'react'
+import OERWorldMap from './OERWorldMap'
 import Icon from './Icon'
 
-class ItemList extends React.Component {
+import '../styles/ItemList.less'
+
+class ItemList extends OERWorldMap {
   render () {
     return (
       <ul>
