@@ -1,0 +1,5 @@
+{
+  "hello": {
+    "world": "Hallo Welt vom %{source}."
+  }
+}

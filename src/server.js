@@ -8,7 +8,7 @@ import webpackConfig from '../webpack.config.babel.js'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 
-import OERWorldMap from './components/OERWorldMap'
+import App from './components/App'
 
 import Config from '../config'
 
@@ -38,9 +38,9 @@ if (process.env.NODE_ENV === 'development') {
 server.use(express.static(path.join(__dirname, '/../dist')))
 
 server.get(/^(.*)$/, function (req, res, next) {
-  const data = { source: 'Server' }
+  const data = { source: 'Server', language: 'es' }
   res.send(template({
-    body: renderToString(<OERWorldMap {...data} />),
+    body: renderToString(<App {...data} />),
     title: 'Hello from server',
     initialState: JSON.stringify(data)
   }))

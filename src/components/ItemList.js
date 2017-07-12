@@ -1,8 +1,6 @@
 import React from 'react'
 import Icon from './Icon'
 
-import '../styles/ItemList.less'
-
 class ItemList extends React.Component {
   render () {
     return (
