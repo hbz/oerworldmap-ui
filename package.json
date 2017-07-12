@@ -5,7 +5,7 @@
   "scripts": {
     "server:dev": "NODE_ENV=development node src/index.js",
     "server:prod": "webpack -p && NODE_ENV=production node src/index.js",
-    "test": "mocha --require babel-core/register test/helpers/browser.js test/*.js",
+    "test": "mocha --require babel-core/register test/helpers/browser.js --require ignore-styles test/*.js",
     "fix": "standard --fix"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "css-loader": "^0.28.4",
     "enzyme": "^2.9.1",
     "file-loader": "^0.11.2",
+    "ignore-styles": "^5.0.1",
     "jsdom": "^11.1.0",
     "json-loader": "^0.5.4",
     "less": "^2.7.2",

@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from './Icon'
 
-//import '../styles/ItemList.less'
+import '../styles/ItemList.less'
 
 class ItemList extends React.Component {
   render () {
