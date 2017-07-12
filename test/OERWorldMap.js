@@ -13,7 +13,7 @@ describe('<OERWorldMap />', () => {
       en: 'Hello world from Test.'
     }
     for (let language in expected) {
-      let wrapper = mount(<OERWorldMap language={language} />)
+      let wrapper = mount(<OERWorldMap languages={[language]} />)
       assert.equal(wrapper.node.t('hello.world', {source: 'Test'}), expected[language])
     }
   })

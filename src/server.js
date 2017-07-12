@@ -38,8 +38,18 @@ if (process.env.NODE_ENV === 'development') {
 server.use(express.static(path.join(__dirname, '/../dist')))
 
 server.get(/^(.*)$/, function (req, res, next) {
-  const language = req.acceptsLanguages( 'en', 'de', 'es' ) || 'en'
-  const data = { source: 'Server', language: language }
+  const defaultLanguage = 'en'
+  const supportedLanguages = [ 'en', 'de', 'es' ]
+  const requestedLanguages = req.headers['accept-language'].split(',').map(language => {
+    return language.split(';')[0]
+  })
+  const acceptedLanguages = requestedLanguages.filter(language => {
+    return supportedLanguages.includes(language)
+  })
+  if (!acceptedLanguages.includes(defaultLanguage)) {
+    acceptedLanguages.push(defaultLanguage)
+  }
+  const data = { source: 'Server', languages: acceptedLanguages }
   res.send(template({
     body: renderToString(<App {...data} />),
     title: 'Hello from server',

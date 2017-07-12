@@ -13,7 +13,7 @@ class ItemList extends OERWorldMap {
             <li key={listItem.about['@id']}>
               <Icon for={listItem.about['@type']} />
               <a href={'/resource/' + listItem.about['@id']}>
-                {listItem.about.name[0]['@value']}
+                {this.t(listItem.about.name)}
               </a>
             </li>
           )

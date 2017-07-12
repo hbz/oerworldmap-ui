@@ -46,6 +46,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "getenv": "^0.7.0",
+    "locale": "^0.1.0",
     "node-polyglot": "^2.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"

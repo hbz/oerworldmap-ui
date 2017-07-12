@@ -22,8 +22,12 @@
     "endDate": "2018",
     "@type": "Event",
     "name": [{
-      "@value": "Test Event",
-      "@language": "en"
+      "@value": "Evento",
+      "@language": "es"
+    },
+    {
+      "@value": "Test Veranstaltung",
+      "@language": "de"
     }],
     "description": [{
       "@value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
