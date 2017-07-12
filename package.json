@@ -47,6 +47,7 @@
     "express": "^4.15.3",
     "getenv": "^0.7.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-polyglot": "^0.2.3"
   }
 }
