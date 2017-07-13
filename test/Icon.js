@@ -7,7 +7,7 @@ import Icon from '../src/components/Icon'
 
 describe('<Icon />', () => {
   it('generates correct icon element', () => {
-    const wrapper = mount(<Icon for='Organization' />)
+    const wrapper = mount(<Icon type='Organization' />)
     assert.equal(wrapper.find('i').hasClass('fa-users'), true)
   })
 })

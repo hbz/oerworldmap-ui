@@ -8,7 +8,7 @@ import webpackConfig from '../webpack.config.babel.js'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 
-import App from './components/App'
+import Init from './components/Init'
 
 import Config from '../config'
 
@@ -49,9 +49,9 @@ server.get(/^(.*)$/, function (req, res, next) {
   if (!acceptedLanguages.includes(defaultLanguage)) {
     acceptedLanguages.push(defaultLanguage)
   }
-  const data = { source: 'Server', languages: acceptedLanguages }
+  const data = { source: 'Server', locales: acceptedLanguages }
   res.send(template({
-    body: renderToString(<App {...data} />),
+    body: renderToString(<Init {...data} />),
     title: 'Hello from server',
     initialState: JSON.stringify(data)
   }))

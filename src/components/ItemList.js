@@ -1,26 +1,31 @@
 import React from 'react'
-import OERWorldMap from './OERWorldMap'
+import PropTypes from 'prop-types'
 import Icon from './Icon'
 
 import '../styles/ItemList.less'
 
-class ItemList extends OERWorldMap {
-  render () {
-    return (
-      <ul>
-        {this.props.listItems.map(listItem => {
-          return (
-            <li key={listItem.about['@id']}>
-              <Icon for={listItem.about['@type']} />
-              <a href={'/resource/' + listItem.about['@id']}>
-                {this.t(listItem.about.name)}
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-    )
-  }
+import translate from './translate'
+
+const ItemList = ({translate, listItems}) => {
+  return (
+    <ul>
+      {listItems.map(listItem => {
+        return (
+          <li key={listItem.about['@id']}>
+            <Icon type={listItem.about['@type']} />
+            <a href={'/resource/' + listItem.about['@id']}>
+              {translate(listItem.about.name)}
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  )
 }
 
-export default ItemList
+ItemList.propTypes = {
+  translate: PropTypes.func.isRequired,
+  listItems: PropTypes.array.isRequired
+}
+
+export default translate(ItemList)

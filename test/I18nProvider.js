@@ -1,11 +1,11 @@
 import { describe, it } from 'mocha'
+import { mount } from 'enzyme'
 import React from 'react'
 import assert from 'assert'
-import { mount } from 'enzyme'
 
-import OERWorldMap from '../src/components/OERWorldMap'
+import I18nProvider from '../src/components/I18nProvider'
 
-describe('<OERWorldMap />', () => {
+describe('<I18nProvider />', () => {
   it('localizes correctly', () => {
     const expected = {
       de: 'Hallo Welt vom Test.',
@@ -13,7 +13,9 @@ describe('<OERWorldMap />', () => {
       en: 'Hello world from Test.'
     }
     for (let language in expected) {
-      let wrapper = mount(<OERWorldMap languages={[language]} />)
+      let wrapper = mount(
+        <I18nProvider locales={[language]}><div /></I18nProvider>
+      )
       assert.equal(wrapper.node.t('hello.world', {source: 'Test'}), expected[language])
     }
   })

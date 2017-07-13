@@ -1,18 +1,24 @@
 import React from 'react'
-import OERWorldMap from './OERWorldMap'
+import PropTypes from 'prop-types'
+
 import ItemList from './ItemList'
+
+import translate from './translate'
 
 import testdata from '../../test/resources/ItemList.json'
 
-class App extends OERWorldMap {
-  render () {
-    return (
-      <div>
-        <h1>{this.t('hello.world', {source: this.props.source})}</h1>
-        <ItemList listItems={testdata} />
-      </div>
-    )
-  }
+const App = ({translate, source}) => {
+  return (
+    <div>
+      <h1>{translate('hello.world', {source})}</h1>
+      <ItemList listItems={testdata} />
+    </div>
+  )
 }
 
-export default App
+App.propTypes = {
+  source: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired
+}
+
+export default translate(App)

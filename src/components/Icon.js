@@ -1,31 +1,24 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-class Icon extends React.Component {
-  constructor (props) {
-    super(props)
+const icons = {
+  'Service': 'desktop',
+  'Person': 'user',
+  'Organization': 'users',
+  'Article': 'comment',
+  'Action': 'gears',
+  'Concept': 'tag',
+  'ConceptScheme': 'sitemap',
+  'Event': 'calendar',
+  'WebPage': 'book'
+}
 
-    const icons = {
-      'Service': 'desktop',
-      'Person': 'user',
-      'Organization': 'users',
-      'Article': 'comment',
-      'Action': 'gears',
-      'Concept': 'tag',
-      'ConceptScheme': 'sitemap',
-      'Event': 'calendar',
-      'WebPage': 'book'
-    }
+const Icon = ({type}) => {
+  return <i className={'fa fa-fw fa-' + icons[type] || 'question'} />
+}
 
-    this.state = {
-      'icon': icons[props.for] || 'question'
-    }
-  }
-
-  render () {
-    return (
-      <i className={'fa fa-fw fa-' + this.state.icon} />
-    )
-  }
+Icon.propTypes = {
+  type: PropTypes.string.isRequired
 }
 
 export default Icon
