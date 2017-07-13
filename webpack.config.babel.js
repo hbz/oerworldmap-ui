@@ -19,10 +19,7 @@ let Config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          query: {
-            presets: ['react-hmre']
-          }
+          loader: 'babel-loader'
         }
       },
 
@@ -62,6 +59,9 @@ let Config = {
 }
 
 if (TARGET === 'server:dev') {
+  Config.module.rules[0].use.query = {
+    presets: ['react-hmre']
+  }
   Config = merge(Config, {
     entry: ['webpack-hot-middleware/client'],
     plugins: [

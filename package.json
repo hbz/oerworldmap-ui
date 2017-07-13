@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "description": "The user interface for https://oerworldmap.org/",
   "scripts": {
+    "clean": "rm -rf ./dist",
     "server:dev": "NODE_ENV=development node src/index.js",
-    "server:prod": "webpack -p && NODE_ENV=production node src/index.js",
+    "server:prod": "npm run clean && webpack -p && NODE_ENV=production node src/index.js",
     "test": "standard && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
     "fix": "standard --fix"
   },

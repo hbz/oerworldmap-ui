@@ -8,7 +8,7 @@ import translate from './translate'
 
 const ItemList = ({translate, listItems}) => {
   return (
-    <ul>
+    <ul className='ItemList' >
       {listItems.map(listItem => {
         return (
           <li key={listItem.about['@id']}>
