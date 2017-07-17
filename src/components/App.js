@@ -1,24 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ItemList from './ItemList'
+import PagedCollection from './PagedCollection'
+import WebPage from './WebPage'
 
-import translate from './translate'
+const components = {
+  'PagedCollection': PagedCollection,
+  'WebPage': WebPage
+}
 
-import testdata from '../../test/resources/ItemList.json'
-
-const App = ({translate, source}) => {
-  return (
-    <div>
-      <h1>{translate('hello.world', {source})}</h1>
-      <ItemList listItems={testdata} />
-    </div>
-  )
+const App = ({data}) => {
+  const Component = components[data['@type']]
+  return <Component {...data} />
 }
 
 App.propTypes = {
-  source: PropTypes.string.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
 }
 
-export default translate(App)
+export default App

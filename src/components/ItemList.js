@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from './Icon'
+import Link from './Link'
 
 import '../styles/ItemList.less'
 
@@ -13,9 +14,9 @@ const ItemList = ({translate, listItems}) => {
         return (
           <li key={listItem.about['@id']}>
             <Icon type={listItem.about['@type']} />
-            <a href={'/resource/' + listItem.about['@id']}>
+            <Link to={listItem.about['@id']}>
               {translate(listItem.about.name)}
-            </a>
+            </Link>
           </li>
         )
       })}

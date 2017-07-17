@@ -7,6 +7,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config.babel.js'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import Api from './api'
 
 import Init from './components/Init'
 
@@ -49,14 +50,20 @@ server.get(/^(.*)$/, function (req, res, next) {
   if (!acceptedLanguages.includes(defaultLanguage)) {
     acceptedLanguages.push(defaultLanguage)
   }
-  const data = { source: 'Server', locales: acceptedLanguages }
-  res.send(template({
-    body: renderToString(<Init {...data} />),
-    title: 'Hello from server',
-    initialState: JSON.stringify(data)
-  }))
+  const api = new Api()
+  api.load(req.url, function (response) {
+    const data = {
+      data: response,
+      locales: acceptedLanguages
+    }
+    res.send(template({
+      body: renderToString(<Init {...data} />),
+      title: 'Hello from server',
+      initialState: JSON.stringify(data)
+    }))
+  })
 })
 
 server.listen(Config.port, Config.host, function () {
-  console.log(`oerworldmap-ui server listening on http://${Config.host}:${Config.port}`)
+  console.info(`oerworldmap-ui server listening on http://${Config.host}:${Config.port}`)
 })
