@@ -7,7 +7,8 @@ const TARGET = process.env.npm_lifecycle_event
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
-    './client.js'
+    './client.js',
+    './views/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -39,7 +40,7 @@ let Config = {
       },
 
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|ico)$/,
         use: [
           'file-loader'
         ]

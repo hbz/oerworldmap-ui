@@ -1,3 +1,5 @@
+import favicon from '../assets/favicon.png'
+
 export default ({ body, title, initialState }) => {
   return `
     <!doctype html>
@@ -8,6 +10,7 @@ export default ({ body, title, initialState }) => {
         <script src="/bundle.js" ></script>
         <title>${title}</title>
         <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
+        <link rel="shortcut icon" href="/${favicon}" type="image/x-icon" />
       </head>
       <body>
         <div id="root"><div>${body}</div></div>
