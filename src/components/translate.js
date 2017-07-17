@@ -6,13 +6,15 @@ const translate = (BaseComponent) => {
     <BaseComponent
       translate={context.translate}
       locales={context.locales}
+      moment={context.moment}
       {...props}
     />
   )
 
   LocalizedComponent.contextTypes = {
     translate: PropTypes.func.isRequired,
-    locales: PropTypes.array.isRequired
+    locales: PropTypes.array.isRequired,
+    moment: PropTypes.func.isRequired
   }
 
   return LocalizedComponent

@@ -48,6 +48,7 @@
     "express": "^4.15.3",
     "getenv": "^0.7.0",
     "locale": "^0.1.0",
+    "moment": "^2.18.1",
     "node-polyglot": "^2.2.2",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

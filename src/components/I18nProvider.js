@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Polyglot from 'node-polyglot'
+import moment from 'moment'
 
 class I18nProvider extends React.Component {
   getChildContext () {
@@ -11,8 +12,10 @@ class I18nProvider extends React.Component {
       phrases: require('../locale/' + locales[0] + '.json')
     })
 
+    moment.locale(locales[0])
+
     const translate = this.t.bind(this)
-    return { locales, translate }
+    return { locales, translate, moment }
   }
 
   render () {
@@ -39,7 +42,8 @@ class I18nProvider extends React.Component {
 
 I18nProvider.childContextTypes = {
   locales: PropTypes.array.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  moment: PropTypes.func.isRequired
 }
 
 I18nProvider.PropTypes = {
