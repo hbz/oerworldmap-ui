@@ -46,6 +46,7 @@
     "asset-require-hook": "^1.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "font-awesome": "^4.7.0",
     "getenv": "^0.7.0",
     "moment": "^2.18.1",
     "node-polyglot": "^2.2.2",

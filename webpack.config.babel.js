@@ -40,7 +40,19 @@ let Config = {
       },
 
       {
-        test: /\.(png|svg|jpg|gif|ico)$/,
+        test: /\.css$/,
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      
+      {
+        test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot)$/,
         use: [
           'file-loader'
         ]
