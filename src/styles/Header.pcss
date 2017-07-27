@@ -1,0 +1,43 @@
+@import './Colors.pcss';
+
+.Header {
+  z-index: 1;
+  display: flex;
+  // flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: var(--blue-darker);
+
+  & a {
+    border-right: 1px solid var(--blue-dark);
+    color: var(--blue-lightest);
+    padding: 10px;
+    display: inline-block;
+
+    &:first-child {
+      border-left: 1px solid var(--blue-dark);
+    }
+
+    &:hover {
+      background-color: var(--blue-dark);
+      color: var(--blue-lightest);
+    }
+  }
+
+  & .mainNav h1,
+  & .userNav h2 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  & .userNav a:first-child {
+    border-left: none;
+
+    &:hover {
+      color: var(--orange);
+      background-color: transparent;
+    }
+  }
+}
