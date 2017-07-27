@@ -25,32 +25,32 @@ let Config = {
       },
 
       {
-        test: /\.less$/,
+        test: /\.(css|pcss)$/,
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules/normalize.css'),
+          path.resolve(__dirname, 'node_modules/font-awesome')
+        ],
         use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader',
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
             options: {
+              importLoaders: 1,
               sourceMap: true
-            }},
-          {loader: 'less-loader',
-            options: {
-              sourceMap: true
-            }}
-        ]
-      },
-
-      {
-        test: /\.css$/,
-        use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader',
+            }
+          },
+          {
+            loader: 'postcss-loader',
             options: {
               sourceMap: true
             }
           }
         ]
       },
-      
+
       {
         test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot)$/,
         use: [
