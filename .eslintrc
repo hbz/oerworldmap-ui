@@ -4,6 +4,7 @@
     // "jsx-a11y/href-no-hash": [ 2, "Link" ],
     "react/jsx-filename-extension": 0, // Comment to only use jsx on files with extension jsx
     // "linebreak-style": 0, // Accept windows JumpLines
+    "indent": ["error", 2],
     "semi": ["error", "never"]
   },
   "parser": "babel-eslint",
