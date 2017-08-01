@@ -50,7 +50,7 @@ let Config = {
           }
         ]
       },
-      
+
       {
         test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot)$/,
         use: [
