@@ -1,19 +1,32 @@
 import './styles/main.less'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/App'
+import Init from './components/Init'
+import Api from './api'
 
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
     ReactDOM.render(
-      <App {...window.__APP_INITIAL_STATE__} />,
+      <Init {...window.__APP_INITIAL_STATE__} />,
       document.getElementById('root')
     )
-    setTimeout(function () {
+  })
+
+  let currentPathname = window.location.pathname + window.location.search
+  window.addEventListener('popstate', function (e) {
+    let url = window.location.pathname + window.location.search
+    if (currentPathname === url) {
+      return
+    } else {
+      currentPathname = url
+    }
+    const api = new Api()
+    api.load(url, function (data) {
+      document.title = data.select ? data.select.name[0]['@value'] : '?'
       ReactDOM.render(
-        <App source='Client' />,
+        <Init data={data} />,
         document.getElementById('root')
       )
-    }, 3000)
+    })
   })
 })()

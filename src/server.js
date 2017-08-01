@@ -7,8 +7,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config.babel.js'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import Api from './api'
 
-import App from './components/App'
+import Init from './components/Init'
 
 import Config from '../config'
 
@@ -28,7 +29,9 @@ if (process.env.NODE_ENV === 'development') {
       }
     }),
 
-    webpackHotMiddleware(compiler)
+    webpackHotMiddleware(compiler, {
+      log: console.log
+    })
 
   ])
 }
@@ -36,14 +39,31 @@ if (process.env.NODE_ENV === 'development') {
 server.use(express.static(path.join(__dirname, '/../dist')))
 
 server.get(/^(.*)$/, function (req, res, next) {
-  const data = { source: 'Server' }
-  res.send(template({
-    body: renderToString(<App {...data} />),
-    title: 'Hello from server',
-    initialState: JSON.stringify(data)
-  }))
+  const defaultLanguage = 'en'
+  const supportedLanguages = [ 'en', 'de', 'es' ]
+  const requestedLanguages = req.headers['accept-language'].split(',').map(language => {
+    return language.split(';')[0]
+  })
+  const acceptedLanguages = requestedLanguages.filter(language => {
+    return supportedLanguages.includes(language)
+  })
+  if (!acceptedLanguages.includes(defaultLanguage)) {
+    acceptedLanguages.push(defaultLanguage)
+  }
+  const api = new Api()
+  api.load(req.url, function (response) {
+    const data = {
+      data: response,
+      locales: acceptedLanguages
+    }
+    res.send(template({
+      body: renderToString(<Init {...data} />),
+      title: 'Hello from server',
+      initialState: JSON.stringify(data)
+    }))
+  })
 })
 
 server.listen(Config.port, Config.host, function () {
-  console.log(`oerworldmap-ui server listening on http://${Config.host}:${Config.port}`)
+  console.info(`oerworldmap-ui server listening on http://${Config.host}:${Config.port}`)
 })

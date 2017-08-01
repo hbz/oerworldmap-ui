@@ -7,7 +7,8 @@ const TARGET = process.env.npm_lifecycle_event
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
-    './client.js'
+    './client.js',
+    './views/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -19,10 +20,7 @@ let Config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          query: {
-            presets: ['react-hmre']
-          }
+          loader: 'babel-loader'
         }
       },
 
@@ -42,9 +40,28 @@ let Config = {
       },
 
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.css$/,
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      },
+
+      {
+        test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot)$/,
         use: [
           'file-loader'
+        ]
+      },
+
+      {
+        test: /\.json$/,
+        use: [
+          'json-loader'
         ]
       }
     ]
@@ -55,6 +72,9 @@ let Config = {
 }
 
 if (TARGET === 'server:dev') {
+  Config.module.rules[0].use.query = {
+    presets: ['react-hmre']
+  }
   Config = merge(Config, {
     entry: ['webpack-hot-middleware/client'],
     plugins: [

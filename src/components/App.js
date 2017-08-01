@@ -1,9 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-class App extends React.Component {
-  render () {
-    return <h1>Hello from {this.props.source}</h1>
-  }
+import PagedCollection from './PagedCollection'
+import WebPage from './WebPage'
+
+const components = {
+  'PagedCollection': PagedCollection,
+  'WebPage': WebPage
+}
+
+const App = ({data}) => {
+  const Component = components[data['@type']]
+  return <Component {...data} />
+}
+
+App.propTypes = {
+  translate: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
 }
 
 export default App

@@ -1,0 +1,8 @@
+{
+  "PagedCollection": {
+    "totalItems": "%{smart_count} Eintrag |||| %{smart_count} Einträge"
+  },
+  "WebPage": {
+    "lastEdited": "Zuletzt bearbeitet durch %{contributor} am %{dateModified}"
+  }
+}
