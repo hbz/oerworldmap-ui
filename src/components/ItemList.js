@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Icon from './Icon'
 import Link from './Link'
 
-import '../styles/ItemList.less'
+import '../styles/ItemList.pcss'
 
 import translate from './translate'
 

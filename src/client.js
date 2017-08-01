@@ -1,4 +1,5 @@
-import './styles/main.less'
+import 'normalize.css'
+import './styles/main.pcss'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Init from './components/Init'
