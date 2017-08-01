@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "jsx-a11y/href-no-hash": "off", // Removed rule definiton 
+    // "jsx-a11y/href-no-hash": [ 2, "Link" ],
+    "react/jsx-filename-extension": 0, // Comment to only use jsx on files with extension jsx
+    // "linebreak-style": 0, // Accept windows JumpLines
+    "semi": ["error", "never"]
+  },
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "eslint-config-postcss"]
+}
