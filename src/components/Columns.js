@@ -8,7 +8,7 @@ import '../styles/Columns.pcss'
 import resource from '../../test/resources/Resource.json'
 
 const Columns = () => (
-  <aside className='Columns'>
+  <aside className="Columns">
 
     <Column>
       <Filters />

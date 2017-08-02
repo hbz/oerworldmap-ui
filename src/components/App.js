@@ -14,12 +14,12 @@ import ActionButtons from './ActionButtons'
 //   'WebPage': WebPage
 // }
 
-const App = ({data}) => (
-  <main className='main'>
+const App = ({ data }) => (
+  <main className="main">
 
     <Header />
 
-    <div className='content'>
+    <div className="content">
 
       <Map />
 
@@ -28,7 +28,7 @@ const App = ({data}) => (
       {/* const Component = components[data['@type']]
       return <Component {...data} /> */}
 
-      <NotificationWelcome data={[]} />
+      <NotificationWelcome data={data} />
 
       <ActionButtons />
 
@@ -37,7 +37,7 @@ const App = ({data}) => (
 )
 
 App.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default App

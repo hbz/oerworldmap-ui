@@ -4,14 +4,14 @@ import I18nProvider from './I18nProvider'
 import App from './App'
 
 class Init extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      locales: props.locales
+      locales: props.locales,
     }
   }
 
-  render () {
+  render() {
     return (
       <I18nProvider locales={this.state.locales}>
         <App data={this.props.data} />
@@ -21,8 +21,8 @@ class Init extends React.Component {
 }
 
 Init.propTypes = {
-  locales: PropTypes.array.isRequired,
-  data: PropTypes.object.isRequired
+  locales: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default Init

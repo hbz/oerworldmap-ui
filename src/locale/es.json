@@ -3,6 +3,7 @@
     "totalItems": "%{smart_count} Entrada |||| %{smart_count} Entradas"
   },
   "WebPage": {
-    "lastEdited": "Ultima edición por %{contributor} en %{dateModified}"
+    "lastEdited": "Ultima edición por %{contributor} en %{dateModified}",
+    "created": "Creado por %{author} en %{dateCreated}"
   }
 }

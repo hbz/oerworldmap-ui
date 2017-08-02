@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
+import StyleLintPlugin from 'stylelint-webpack-plugin'
 
 const TARGET = process.env.npm_lifecycle_event
 
@@ -17,7 +18,21 @@ let Config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              // cache: true,
+              emitWarning: true,
+            }
+          }
+        ]
+      },
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
@@ -68,7 +83,6 @@ let Config = {
   },
 
   devtool: 'source-map'
-
 }
 
 if (TARGET === 'server:dev') {
@@ -79,7 +93,15 @@ if (TARGET === 'server:dev') {
     entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin(),
+      new StyleLintPlugin(
+        {
+          emitErrors: false,
+          configFile: '.stylelintrc',
+          context: 'src',
+          files: '**/*.pcss',
+        },
+      ),
     ]
   })
 }

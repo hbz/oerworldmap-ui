@@ -1,3 +1,5 @@
+/* global window */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,88 +8,120 @@ import translate from './translate'
 import '../styles/NotificationWelcome.pcss'
 
 class NotificationWelcome extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
-      welcome: typeof window !== 'undefined' && window.localStorage
-                ? JSON.parse(window.localStorage.getItem('welcome'))
-                : null
+      welcome: typeof window !== 'undefined' && window.localStorage ?
+        JSON.parse(window.localStorage.getItem('welcome')) :
+        null
     }
 
     this.hideWelcome = this.hideWelcome.bind(this)
   }
 
-  hideWelcome (e) {
-    if (e.target.classList.contains('close') || e.target.classList.contains('NotificationWelcome')) {
+  hideWelcome(e) {
+    if (e.target.classList.contains('close') ||
+      e.target.classList.contains('NotificationWelcome')) {
       this.setState({
         welcome: false
       })
-      if (this.refs.close.checked) {
+      if (this.close.checked) {
         window.localStorage.setItem('welcome', false)
       }
     }
   }
 
-  render () {
+  render() {
     return (
       <div>
         {this.state.welcome === null ? (
-          <div className='NotificationWelcome' onClick={this.hideWelcome}>
-            <div className='modalContent'>
-              <div className='notificationHeader'>
-                <label> <input ref='close' type='checkbox' /> <span>"Don't show again"</span></label>
+          <div
+            role="button"
+            tabIndex="0"
+            className="NotificationWelcome"
+            onClick={this.hideWelcome}
+          >
+            <div className="modalContent">
+              <div className="notificationHeader">
+                <label htmlFor="close">
+                  <input
+                    id="close"
+                    ref={(c) => { this.close = c }}
+                    type="checkbox"
+                  />
+                  <span>&quot;Don&apos;t show again&quot;</span>
+                </label>
               </div>
 
-              <div className='notificationContent'>
+              <div className="notificationContent">
                 <h1>Welcome to the OER World Map!</h1>
-                <p>Our goal is to provide the most complete and comprehensible picture of the global Open Educational Resources (OER) movement. Information is collected on people, organizations, services, projects and events related to OER.</p>
+                <p>Our goal is to provide the most complete and comprehensible
+                  picture of the global Open Educational Resources (OER)
+                  movement. Information is collected on people,
+                  organizations,services, projects and events related
+                  to OER.</p>
                 <p>
-                  Building the map is a collaborative process. You can <a href='/contribute'>contribute</a>!
+                  Building the map is a collaborative process. You can
+                  <a href="/contribute"> contribute</a>!
                 </p>
 
                 <h2>Currently on the Map</h2>
 
-                <div className='numbersTable'>
+                <div className="numbersTable">
                   <div>
-                    <a href='#'>
-                      <i className='fa fa-fw fa-user' />
+                    <a href="#">
+                      <i className="fa fa-fw fa-user" />
                       <br />
-                      <span className='name' >Person</span>
+                      <span className="name" >Person</span>
                       <br />
-                      <span className='count' >2</span>
+                      <span className="count" >2</span>
                     </a>
                   </div>
 
                   <div>
-                    <a href='#'>
-                      <i className='fa fa-fw fa-users' />
+                    <a href="#">
+                      <i className="fa fa-fw fa-users" />
                       <br />
-                      <span className='name'>Organization</span>
+                      <span className="name">Organization</span>
                       <br />
-                      <span className='count' >1</span>
+                      <span className="count" >1</span>
                     </a>
                   </div>
 
                 </div>
 
                 <p>
-                  <a href='/aggregation/'>More Statistics</a>&ensp;–&ensp;<a href='/feed/'>Recent Additions</a>
+                  <a href="/aggregation/">More Statistics</a>
+                    &ensp;–&ensp;
+                  <a href="/feed/">Recent Additions</a>
                 </p>
 
                 <div>
                   <h2>Announcement</h2>
                   <p>
-                    Please take a moment to complete our <a href='https://www.surveymonkey.co.uk/r/OERWM2017' target='_blank'>user evaluation survey</a>. Thank you!
+                    Please take a moment to complete our
+                    <a
+                      href="https://www.surveymonkey.co.uk/r/OERWM2017"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      user evaluation survey</a>
+                      . Thank you!
                   </p>
                 </div>
 
               </div>
 
-              <i className='fa fa-times close' onClick={this.hideWelcome} />
+              <i
+                role="button"
+                tabIndex="0"
+                className="fa fa-times close"
+                onClick={this.hideWelcome}
+              />
             </div>
           </div>
-        ) : (null)
+        ) : null
         }
       </div>
     )
@@ -96,7 +130,7 @@ class NotificationWelcome extends React.Component {
 
 NotificationWelcome.propTypes = {
   translate: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired
+  data: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default translate(NotificationWelcome)
