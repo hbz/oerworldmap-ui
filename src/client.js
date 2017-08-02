@@ -1,9 +1,13 @@
-import 'normalize.css'
-import './styles/main.pcss'
+/* global document */
+/* global window */
+
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'normalize.css'
+
 import Init from './components/Init'
 import Api from './api'
+import './styles/main.pcss'
 
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
@@ -14,8 +18,8 @@ import Api from './api'
   })
 
   let currentPathname = window.location.pathname + window.location.search
-  window.addEventListener('popstate', function (e) {
-    let url = window.location.pathname + window.location.search
+  window.addEventListener('popstate', function () {
+    const url = window.location.pathname + window.location.search
     if (currentPathname === url) {
       return
     } else {

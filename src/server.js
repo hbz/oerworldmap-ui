@@ -1,12 +1,12 @@
+import React from 'react'
+import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
-import template from './views/index'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config.babel.js'
-import React from 'react'
-import { renderToString } from 'react-dom/server'
+import template from './views/index'
+import webpackConfig from '../webpack.config.babel'
 import Api from './api'
 
 import Init from './components/Init'
@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 
 server.use(express.static(path.join(__dirname, '/../dist')))
 
-server.get(/^(.*)$/, function (req, res, next) {
+server.get(/^(.*)$/, function (req, res) {
   const defaultLanguage = 'en'
   const supportedLanguages = [ 'en', 'de', 'es' ]
   const requestedLanguages = req.headers['accept-language'].split(',').map(language => {
