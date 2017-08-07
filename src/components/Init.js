@@ -14,7 +14,7 @@ class Init extends React.Component {
   render() {
     return (
       <I18nProvider locales={this.state.locales}>
-        <App data={this.props.data} />
+        <App data={this.props.data} mapboxConfig={this.props.mapboxConfig} />
       </I18nProvider>
     )
   }
@@ -23,6 +23,7 @@ class Init extends React.Component {
 Init.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
+  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default Init
