@@ -14,16 +14,16 @@ import ActionButtons from './ActionButtons'
 //   'WebPage': WebPage
 // }
 
-const App = ({ data }) => (
+const App = ({ data, mapboxConfig }) => (
   <main className="main">
 
     <Header />
 
     <div className="content">
 
-      <Map />
+      <Map mapboxConfig={mapboxConfig} />
 
-      <Columns />
+      <Columns /> 
 
       {/* const Component = components[data['@type']]
       return <Component {...data} /> */}
@@ -37,7 +37,8 @@ const App = ({ data }) => (
 )
 
 App.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
+  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default App

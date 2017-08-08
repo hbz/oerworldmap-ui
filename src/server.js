@@ -9,9 +9,10 @@ import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import Api from './api'
 
+
 import Init from './components/Init'
 
-import Config from '../config'
+import Config, { mapboxConfig } from '../config'
 
 const server = express()
 
@@ -54,7 +55,8 @@ server.get(/^(.*)$/, function (req, res) {
   api.load(req.url, function (response) {
     const data = {
       data: response,
-      locales: acceptedLanguages
+      locales: acceptedLanguages,
+      mapboxConfig
     }
     res.send(template({
       body: renderToString(<Init {...data} />),

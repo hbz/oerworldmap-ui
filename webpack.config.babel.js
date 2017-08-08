@@ -44,7 +44,8 @@ let Config = {
         include: [
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'node_modules/normalize.css'),
-          path.resolve(__dirname, 'node_modules/font-awesome')
+          path.resolve(__dirname, 'node_modules/font-awesome'),
+          path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
         ],
         use: [
           {
