@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import mitt from 'mitt'
 import I18nProvider from './I18nProvider'
 import App from './App'
+
+const emitter = mitt()
 
 class Init extends React.Component {
   constructor(props) {
@@ -14,7 +17,11 @@ class Init extends React.Component {
   render() {
     return (
       <I18nProvider locales={this.state.locales}>
-        <App data={this.props.data} mapboxConfig={this.props.mapboxConfig} />
+        <App
+          data={this.props.data}
+          emitter={emitter}
+          mapboxConfig={this.props.mapboxConfig}
+        />
       </I18nProvider>
     )
   }
