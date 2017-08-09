@@ -9,11 +9,11 @@ import translate from './translate'
 
 const ItemList = ({ translate, listItems }) => (
   <ul className="ItemList" >
-    {listItems.map(listItem => (
-      <li key={listItem.about['@id']}>
-        <Icon type={listItem.about['@type']} />
-        <Link to={listItem.about['@id']}>
-          {translate(listItem.about.name)}
+    {listItems.features.map(listItem => (
+      <li key={listItem.properties['@id']}>
+        <Icon type={listItem.properties['@type']} /> 
+        <Link to={listItem.properties['@id']}>
+          {translate(listItem.properties.name)}
         </Link>
       </li>
     )
@@ -24,7 +24,7 @@ const ItemList = ({ translate, listItems }) => (
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
-  listItems: PropTypes.arrayOf(PropTypes.array).isRequired
+  listItems: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default translate(ItemList)

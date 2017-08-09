@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import aggregation from '../../test/resources/aggregation.json'
-import data from '../../test/resources/data.json'
+import resource from '../../test/resources/resourceTest.json'
 
 class Map extends React.Component {
 
@@ -63,7 +63,7 @@ class Map extends React.Component {
       // Hack to use Mapbox studio styles with local data (source)
       map.addSource('pointsSource', {
         type: 'geojson',
-        data
+        data:resource
       })
       const pointsLayers = ['points', 'points-hover', 'points-select']
       pointsLayers.forEach(layer => {
