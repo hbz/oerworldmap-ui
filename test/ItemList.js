@@ -2,7 +2,7 @@ import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { mount } from 'enzyme'
-import testdata from './resources/ItemList.json'
+import testdata from './resources/resourceTest.json'
 
 import ItemList from '../src/components/ItemList'
 import I18nProvider from '../src/components/I18nProvider'
@@ -14,6 +14,6 @@ describe('<ItemList />', () => {
         <ItemList listItems={testdata} />
       </I18nProvider>
     )
-    assert.equal(wrapper.find('li').length, 6)
+    assert.equal(wrapper.find('li').length, 64)
   })
 })
