@@ -25,6 +25,11 @@ class Map extends React.Component {
       zoom: 2
     })
 
+    // Receive event from ItemList
+    this.props.emitter.on('hoverPoint', (e) => {
+      map.setFilter('points-hover', [ 'in', '@id' ].concat(e.id))
+    })
+
     map.on('load', function () {
 
       // The buckets holding the data for the choropleth layers
@@ -171,7 +176,8 @@ Map.propTypes = {
       token: PropTypes.string,
       style: PropTypes.string,
     }
-  ).isRequired
+  ).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default Map

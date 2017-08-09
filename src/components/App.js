@@ -14,16 +14,16 @@ import ActionButtons from './ActionButtons'
 //   'WebPage': WebPage
 // }
 
-const App = ({ data, mapboxConfig }) => (
+const App = ({ data, mapboxConfig, emitter }) => (
   <main className="main">
 
     <Header />
 
     <div className="content">
 
-      <Map mapboxConfig={mapboxConfig} />
+      <Map emitter={emitter} mapboxConfig={mapboxConfig} />
 
-      <Columns /> 
+      <Columns emitter={emitter} /> 
 
       {/* const Component = components[data['@type']]
       return <Component {...data} /> */}
@@ -38,7 +38,8 @@ const App = ({ data, mapboxConfig }) => (
 
 App.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
-  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
+  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default App

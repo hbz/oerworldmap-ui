@@ -11,7 +11,7 @@ describe('<ItemList />', () => {
   it('creates list entry for each item', () => {
     const wrapper = mount(
       <I18nProvider locales={['en']}>
-        <ItemList listItems={testdata} />
+        <ItemList listItems={testdata} emitter={{}} />
       </I18nProvider>
     )
     assert.equal(wrapper.find('li').length, 64)

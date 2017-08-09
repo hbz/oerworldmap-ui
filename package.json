@@ -58,6 +58,7 @@
     "getenv": "^0.7.0",
     "ignore-styles": "^5.0.1",
     "mapbox-gl": "^0.39.1",
+    "mitt": "^1.1.2",
     "moment": "^2.18.1",
     "node-polyglot": "^2.2.2",
     "normalize.css": "^7.0.0",
