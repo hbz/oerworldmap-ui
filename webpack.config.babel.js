@@ -2,6 +2,7 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
+import env from './config'
 
 const TARGET = process.env.npm_lifecycle_event
 
@@ -13,6 +14,7 @@ let Config = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
+    publicPath: `http://${env.host}:${env.port}/`,
     filename: 'bundle.js'
   },
   module: {

@@ -1,24 +1,29 @@
-/* @import "main.css";     */
-
-:root {
-  --red: maroon;
-  --green: aquamarine;
-  --gray: green;
-
-  /* user-select: none;  Example autoprefix  */
-}
+@import './Colors.pcss';
 
 .ItemList {
   margin: 0;
   padding: 0;
-  border-top: 1px solid gray;
   list-style-type: none;
 
-  & a {
-    /* color: var(--gray); */
+  & li {
+    position: relative;
+    border-top: 1px solid var(--blue-paler);
+    padding: 10px;
+    padding-left: 30px;
 
-    &:hover {
-      color: var(--red);
+    & i {
+      position: absolute;
+      left: 0;
+      top: 10px;
+    }
+
+    & a {
+      font-size: 0.9rem;
+      color: var(--blue-darker);
+
+      &:hover {
+        color: var(--orange);
+      }
     }
   }
 }
