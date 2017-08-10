@@ -11,54 +11,6 @@ class Map extends React.Component {
     this.updatePoints = this.updatePoints.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateChoropleth(nextProps.features)
-    this.updatePoints(nextProps.features)
-  }
-
-  updatePoints(features) {
-    this.map.getSource('pointsSource').setData(features)
-  }
-
-  updateChoropleth(features) {
-
-    // The buckets holding the data for the choropleth layers
-    const buckets = features.aggregations
-      ? features.aggregations["about.location.address.addressCountry"].buckets
-      : []
-
-    // Dynamically get layers to be used for choropleth country overlays
-    // and divide aggregation data into corresponding groups
-    const choroplethLayersCount = this.map.getStyle().layers
-      .filter(l => { return l.id.startsWith("choropleth")})
-      .map(l => { return l.id }).length
-
-    // Reduce to max doc_count value
-    const max = buckets.reduce(function(acc, val) {
-      return acc < val.doc_count ? val.doc_count : acc
-    }, 0)
-
-    // Divide into steps rounded to the next 10
-    const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
-
-    // Initialize array of arrays to hold bucket keys
-    const choroplethLayerGroups = []
-    for (let i = 0; i < choroplethLayersCount; i++) {
-      choroplethLayerGroups.push([])
-    }
-
-    // Add keys to layer groups
-    buckets.forEach(bucket => {
-      choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
-    })
-
-    // Set filters of actual choropleth layers
-    choroplethLayerGroups.forEach((group, i) => {
-      this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
-    })
-
-  }
-
   componentDidMount() {
 
     const mapboxgl = require('mapbox-gl')
@@ -149,6 +101,54 @@ class Map extends React.Component {
       const nav = new mapboxgl.NavigationControl()
       this.map.addControl(nav, 'bottom-left')
 
+    })
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateChoropleth(nextProps.features)
+    this.updatePoints(nextProps.features)
+  }
+
+  updatePoints(features) {
+    this.map.getSource('pointsSource').setData(features)
+  }
+
+  updateChoropleth(features) {
+
+    // The buckets holding the data for the choropleth layers
+    const buckets = features.aggregations
+      ? features.aggregations["about.location.address.addressCountry"].buckets
+      : []
+
+    // Dynamically get layers to be used for choropleth country overlays
+    // and divide aggregation data into corresponding groups
+    const choroplethLayersCount = this.map.getStyle().layers
+      .filter(l => { return l.id.startsWith("choropleth")})
+      .map(l => { return l.id }).length
+
+    // Reduce to max doc_count value
+    const max = buckets.reduce(function(acc, val) {
+      return acc < val.doc_count ? val.doc_count : acc
+    }, 0)
+
+    // Divide into steps rounded to the next 10
+    const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
+
+    // Initialize array of arrays to hold bucket keys
+    const choroplethLayerGroups = []
+    for (let i = 0; i < choroplethLayersCount; i++) {
+      choroplethLayerGroups.push([])
+    }
+
+    // Add keys to layer groups
+    buckets.forEach(bucket => {
+      choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
+    })
+
+    // Set filters of actual choropleth layers
+    choroplethLayerGroups.forEach((group, i) => {
+      this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
     })
 
   }

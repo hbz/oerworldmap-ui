@@ -10,7 +10,7 @@ class Api {
   }
 
   load (url, callback) {
-    url = url == '/' ? '/resource/' : url
+    url = url === '/' ? '/resource/' : url
     const init = {
       headers: {
         'Accept': 'application/geo+json'
