@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import aggregation from '../../test/resources/aggregation.json'
-
 class Map extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {}
+    this.updatePoints = this.updatePoints.bind(this)
   }
 
   componentDidMount() {
@@ -17,126 +16,145 @@ class Map extends React.Component {
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = this.props.mapboxConfig.token
 
-    const map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
       center: [-100.486052, 37.830348],
       zoom: 2
     })
 
-    // Receive event from ItemList
-    this.props.emitter.on('hoverPoint', (e) => {
-      map.setFilter('points-hover', [ 'in', '@id' ].concat(e.id))
-    })
+    this.map.on('load', () => {
 
-    map.on('load', function () {
-
-      // The buckets holding the data for the choropleth layers
-      const buckets = aggregation["about.location.address.addressCountry"].buckets
-
-      // Dynamically get layers to be used for choropleth country overlays
-      // and divide aggregation data into corresponding groups
-      const choroplethLayersCount = map.getStyle().layers
-        .filter(l => { return l.id.startsWith("choropleth")})
-        .map(l => { return l.id }).length
-
-      // Reduce to max doc_count value
-      const max = buckets.reduce(function(acc, val) {
-        return acc < val.doc_count ? val.doc_count : acc
-      }, 0)
-
-      // Divide into steps rounded to the next 10
-      const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
-
-      // Initialize array of arrays to hold bucket keys
-      const choroplethLayerGroups = []
-      for (let i = 0; i < choroplethLayersCount; i++) {
-        choroplethLayerGroups.push([])
-      }
-
-      // Add keys to layer groups
-      buckets.forEach(bucket => {
-        choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
-      })
-
-      // Set filters of actual choropleth layers
-      choroplethLayerGroups.forEach((group, i) => {
-        map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
+      // Set data source for points layers
+      this.map.addSource('pointsSource', {
+        type: 'geojson',
+        data: this.props.features
       })
 
       // Hack to use Mapbox studio styles with local data (source)
-      if (this.props.features) {
-        map.addSource('pointsSource', {
-          type: 'geojson',
-          data: this.props.features
-        })
-        const pointsLayers = ['points', 'points-hover', 'points-select']
-        pointsLayers.forEach(layer => {
-          const pointsLayer = map.getStyle().layers.find(l => { return l.id === layer})
-          delete pointsLayer['source-layer']
-          map.removeLayer(layer)
-          pointsLayer.source = 'pointsSource'
-          pointsLayer.paint['circle-opacity'] = 1
-          pointsLayer.paint['circle-stroke-opacity'] = 1
-          map.addLayer(pointsLayer)
-        })
-      }
+      const pointsLayers = ['points', 'points-hover', 'points-select']
+      pointsLayers.forEach(layer => {
+        const pointsLayer = this.map.getStyle().layers.find(l => { return l.id === layer})
+        delete pointsLayer['source-layer']
+        this.map.removeLayer(layer)
+        pointsLayer.source = 'pointsSource'
+        pointsLayer.paint['circle-opacity'] = 1
+        pointsLayer.paint['circle-stroke-opacity'] = 1
+        this.map.addLayer(pointsLayer)
+      })
 
-      map.on("mousemove", function(e) {
-        const hoveredCountry = map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-        const hoveredPoints = map.queryRenderedFeatures(e.point, { layers: ['points'] })
+      // Initialize choropleth layers
+      this.updateChoropleth(this.props.features)
+
+      // Get features currently under the mouse
+      this.map.on("mousemove", (e) => {
+        const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
+        const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
         this.setState({
           hoveredFeatures,
           point: e.point
         })
-      }.bind(this))
+      })
 
       // When the user moves their mouse over the points layer, we'll update the filter in
       // the points hover layer to only show the matching point, thus making a hover effect.
-      map.on("mousemove", "points", function(e) {
+      this.map.on("mousemove", "points", (e) => {
         const ids = e.features.map(function (feat) { return feat.properties['@id'] })
-        map.setFilter('points-hover', [ 'in', '@id' ].concat(ids))
-        map.getCanvas().style.cursor = 'pointer'
+        this.map.setFilter('points-hover', [ 'in', '@id' ].concat(ids))
+        this.map.getCanvas().style.cursor = 'pointer'
       })
 
       // Reset the point hover layer's filter when the mouse leaves the layer.
-      map.on("mouseleave", "points", function() {
-        map.setFilter('points-hover', ['==', "display", "hidden"])
-        map.getCanvas().style.cursor = ''
+      this.map.on("mouseleave", "points", () => {
+        this.map.setFilter('points-hover', ['==', "display", "hidden"])
+        this.map.getCanvas().style.cursor = ''
       })
 
       // When the user moves their mouse over the countries layer, we'll update the filter in
       // the countries hover layer to only show the matching country, thus making a hover effect.
-      map.on("mousemove", "countries", function(e) {
+      this.map.on("mousemove", "countries", (e) => {
         const ids = e.features.map(function (feat) { return feat.properties.iso_a2 })
-        map.setFilter('countries-hover', [ 'in', 'iso_a2' ].concat(ids))
-        map.getCanvas().style.cursor = 'pointer'
+        this.map.setFilter('countries-hover', [ 'in', 'iso_a2' ].concat(ids))
+        this.map.getCanvas().style.cursor = 'pointer'
       })
 
       // Reset the countries hover layer's filter when the mouse leaves the layer.
-      map.on("mouseleave", "countries", function() {
-        map.setFilter('countries-hover', ['!has', "iso_a2"])
-        map.getCanvas().style.cursor = ''
+      this.map.on("mouseleave", "countries", () => {
+        this.map.setFilter('countries-hover', ['!has', "iso_a2"])
+        this.map.getCanvas().style.cursor = ''
       })
 
-      // Add map mapbox controls
-      const nav = new mapboxgl.NavigationControl()
-      map.addControl(nav, 'bottom-left')
-
-      map.addControl(new mapboxgl.FullscreenControl())
-
-      map.on('drag', (e) => {
+      // Update popup position when dragging map
+      this.map.on('drag', (e) => {
         this.setState({
           point: { x: e.originalEvent.x, y: e.originalEvent.y -35}
         })
       })
 
-    }.bind( this ))
+      // Receive event from ItemList
+      this.props.emitter.on('hoverPoint', (e) => {
+        this.map.setFilter('points-hover', [ 'in', '@id' ].concat(e.id))
+      })
+
+      // Add mapbox controls
+      const nav = new mapboxgl.NavigationControl()
+      this.map.addControl(nav, 'bottom-left')
+
+    })
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateChoropleth(nextProps.features)
+    this.updatePoints(nextProps.features)
+  }
+
+  updatePoints(features) {
+    this.map.getSource('pointsSource').setData(features)
+  }
+
+  updateChoropleth(features) {
+
+    // The buckets holding the data for the choropleth layers
+    const buckets = features.aggregations
+      ? features.aggregations["about.location.address.addressCountry"].buckets
+      : []
+
+    // Dynamically get layers to be used for choropleth country overlays
+    // and divide aggregation data into corresponding groups
+    const choroplethLayersCount = this.map.getStyle().layers
+      .filter(l => { return l.id.startsWith("choropleth")})
+      .map(l => { return l.id }).length
+
+    // Reduce to max doc_count value
+    const max = buckets.reduce(function(acc, val) {
+      return acc < val.doc_count ? val.doc_count : acc
+    }, 0)
+
+    // Divide into steps rounded to the next 10
+    const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
+
+    // Initialize array of arrays to hold bucket keys
+    const choroplethLayerGroups = []
+    for (let i = 0; i < choroplethLayersCount; i++) {
+      choroplethLayerGroups.push([])
+    }
+
+    // Add keys to layer groups
+    buckets.forEach(bucket => {
+      choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
+    })
+
+    // Set filters of actual choropleth layers
+    choroplethLayerGroups.forEach((group, i) => {
+      this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
+    })
 
   }
 
   render() {
+
     return (
       <div
         id="Map"
@@ -179,7 +197,7 @@ Map.propTypes = {
     }
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  features: PropTypes.arrayOf(PropTypes.any).isRequired
+  features: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default Map

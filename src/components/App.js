@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
 import FeatureCollection from './FeatureCollection'
-import WebPage from './WebPage'
+import Feature from './Feature'
 import Header from './Header'
 import Map from './Map'
 import Filters from './Filters'
@@ -21,7 +21,7 @@ const App = ({ data, mapboxConfig, emitter }) => (
       <Map
         emitter={emitter}
         mapboxConfig={mapboxConfig}
-        features={data['type'] && data['type'] === 'FeatureCollection' ? data : null}
+        features={data}
       />
 
       <Columns emitter={emitter}>
@@ -31,9 +31,9 @@ const App = ({ data, mapboxConfig, emitter }) => (
             <FeatureCollection emitter={emitter} {...data} />
           }
         </Column>
-        {data['@type'] && data['@type'] === 'WebPage' &&
+        {data['type'] && data['type'] === 'Feature' &&
           <Column>
-            <WebPage emitter={emitter} {...data} />
+            <Feature emitter={emitter} {...data} />
           </Column>
         }
       </Columns>

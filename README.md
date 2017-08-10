@@ -28,6 +28,8 @@ SERVER_HOST=localhost
 SERVER_PORT=3000
 MAPBOX_ACCESS_TOKEN=your.mapbox.access.token
 MAPBOX_STYLE=username/style_id
+API_HOST=https://oerworldmap.org
+API_PORT=443
 ```
 
 Check if all is well and run:
