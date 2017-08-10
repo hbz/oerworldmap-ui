@@ -179,7 +179,7 @@ Map.propTypes = {
     }
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  features: PropTypes.arrayOf(PropTypes.any).isRequired
+  features: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default Map

@@ -2,7 +2,7 @@
   "FeatureCollection": {
     "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries"
   },
-  "WebPage": {
+  "Feature": {
     "lastEdited": "Last edited by %{contributor} on %{dateModified}",
     "created": "Created by %{author} on %{dateCreated}"
   }

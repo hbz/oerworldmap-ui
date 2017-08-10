@@ -10,8 +10,7 @@ const icons = {
   Action: 'gears',
   Concept: 'tag',
   ConceptScheme: 'sitemap',
-  Event: 'calendar',
-  WebPage: 'book'
+  Event: 'calendar'
 }
 
 const Icon = ({ type }) => (
