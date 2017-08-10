@@ -9,7 +9,7 @@ import translate from './translate'
 
 const ItemList = ({ translate, listItems, emitter }) => (
   <ul className="ItemList" >
-    {listItems.features.map(listItem => (
+    {listItems.map(listItem => (
       <li
         key={listItem.properties['@id']}
         onMouseEnter={() => {
@@ -19,7 +19,7 @@ const ItemList = ({ translate, listItems, emitter }) => (
           emitter.emit('hoverPoint', { id: '' })
         }}
       >
-        <Icon type={listItem.properties['@type']} /> 
+        <Icon type={listItem.properties['@type']} />
         <Link
           to={listItem.properties['@id']}
         >
@@ -34,7 +34,7 @@ const ItemList = ({ translate, listItems, emitter }) => (
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
-  listItems: PropTypes.objectOf(PropTypes.any).isRequired,
+  listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 

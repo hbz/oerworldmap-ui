@@ -27,9 +27,9 @@ WebPage.propTypes = {
   moment: PropTypes.func.isRequired,
   author: PropTypes.string.isRequired,
   contributor: PropTypes.string.isRequired,
-  dateCreated: PropTypes.instanceOf(Date).isRequired,
-  dateModified: PropTypes.instanceOf(Date).isRequired,
-  about: PropTypes.objectOf(PropTypes.array).isRequired
+  dateCreated: PropTypes.string.isRequired,
+  dateModified: PropTypes.string.isRequired,
+  about: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default translate(WebPage)

@@ -25,11 +25,11 @@ import './styles/main.pcss'
     } else {
       currentPathname = url
     }
-    const api = new Api()
+    const api = new Api(window.__APP_INITIAL_STATE__.apiConfig)
     api.load(url, function (data) {
       document.title = data.select ? data.select.name[0]['@value'] : '?'
       ReactDOM.render(
-        <Init data={data} />,
+        <Init {...window.__APP_INITIAL_STATE__} data={data}  />,
         document.getElementById('root')
       )
     })
