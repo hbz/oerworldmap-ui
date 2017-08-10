@@ -1,18 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
-// import PagedCollection from './PagedCollection'
-// import WebPage from './WebPage'
+import FeatureCollection from './FeatureCollection'
+import WebPage from './WebPage'
 import Header from './Header'
 import Map from './Map'
+import Filters from './Filters'
 import Columns from './Columns'
+import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
-
-// const components = {
-//   'PagedCollection': PagedCollection,
-//   'WebPage': WebPage
-// }
 
 const App = ({ data, mapboxConfig, emitter }) => (
   <main className="main">
@@ -21,18 +18,32 @@ const App = ({ data, mapboxConfig, emitter }) => (
 
     <div className="content">
 
-      <Map emitter={emitter} mapboxConfig={mapboxConfig} />
+      <Map
+        emitter={emitter}
+        mapboxConfig={mapboxConfig}
+        features={data['type'] && data['type'] === 'FeatureCollection' ? data : null}
+      />
 
-      <Columns emitter={emitter} /> 
-
-      {/* const Component = components[data['@type']]
-      return <Component {...data} /> */}
+      <Columns emitter={emitter}>
+        <Column>
+          <Filters />
+          {data['type'] && data['type'] === 'FeatureCollection' &&
+            <FeatureCollection emitter={emitter} {...data} />
+          }
+        </Column>
+        {data['@type'] && data['@type'] === 'WebPage' &&
+          <Column>
+            <WebPage emitter={emitter} {...data} />
+          </Column>
+        }
+      </Columns>
 
       <NotificationWelcome data={data} />
 
       <ActionButtons />
 
     </div>
+
   </main>
 )
 

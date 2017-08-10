@@ -16,7 +16,7 @@ describe('<I18nProvider />', () => {
       let wrapper = mount(
         <I18nProvider locales={[language]}><div /></I18nProvider>
       )
-      assert.equal(wrapper.node.t('PagedCollection.totalItems', {smart_count: 1}), expected[language])
+      assert.equal(wrapper.node.t('FeatureCollection.totalItems', {smart_count: 1}), expected[language])
     }
   })
 })

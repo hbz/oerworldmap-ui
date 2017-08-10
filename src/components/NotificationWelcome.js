@@ -1,9 +1,6 @@
 /* global window */
 
 import React from 'react'
-import PropTypes from 'prop-types'
-
-import translate from './translate'
 
 import '../styles/NotificationWelcome.pcss'
 
@@ -128,9 +125,4 @@ class NotificationWelcome extends React.Component {
   }
 }
 
-NotificationWelcome.propTypes = {
-  translate: PropTypes.func.isRequired,
-  data: PropTypes.objectOf(PropTypes.any).isRequired
-}
-
-export default translate(NotificationWelcome)
+export default NotificationWelcome

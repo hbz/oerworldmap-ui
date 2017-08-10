@@ -1,5 +1,5 @@
 {
-  "PagedCollection": {
+  "FeatureCollection": {
     "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries"
   },
   "WebPage": {

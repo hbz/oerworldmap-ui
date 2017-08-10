@@ -9,6 +9,11 @@ export const mapboxConfig = getenv.multi({
   style: 'MAPBOX_STYLE'
 })
 
+export const apiConfig = getenv.multi({
+  host: 'API_HOST',
+  port: 'API_PORT'
+})
+
 // export server configuration
 export default getenv.multi({
   env: 'NODE_ENV',

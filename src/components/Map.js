@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import aggregation from '../../test/resources/aggregation.json'
-import resource from '../../test/resources/resourceTest.json'
 
 class Map extends React.Component {
 
@@ -66,20 +65,22 @@ class Map extends React.Component {
       })
 
       // Hack to use Mapbox studio styles with local data (source)
-      map.addSource('pointsSource', {
-        type: 'geojson',
-        data:resource
-      })
-      const pointsLayers = ['points', 'points-hover', 'points-select']
-      pointsLayers.forEach(layer => {
-        const pointsLayer = map.getStyle().layers.find(l => { return l.id === layer})
-        delete pointsLayer['source-layer']
-        map.removeLayer(layer)
-        pointsLayer.source = 'pointsSource'
-        pointsLayer.paint['circle-opacity'] = 1
-        pointsLayer.paint['circle-stroke-opacity'] = 1
-        map.addLayer(pointsLayer)
-      })
+      if (this.props.features) {
+        map.addSource('pointsSource', {
+          type: 'geojson',
+          data: this.props.features
+        })
+        const pointsLayers = ['points', 'points-hover', 'points-select']
+        pointsLayers.forEach(layer => {
+          const pointsLayer = map.getStyle().layers.find(l => { return l.id === layer})
+          delete pointsLayer['source-layer']
+          map.removeLayer(layer)
+          pointsLayer.source = 'pointsSource'
+          pointsLayer.paint['circle-opacity'] = 1
+          pointsLayer.paint['circle-stroke-opacity'] = 1
+          map.addLayer(pointsLayer)
+        })
+      }
 
       map.on("mousemove", function(e) {
         const hoveredCountry = map.queryRenderedFeatures(e.point, { layers: ['countries'] })
@@ -144,7 +145,7 @@ class Map extends React.Component {
             width:'100%',
             height: '100%',
             top:0,
-            left: 0}} 
+            left: 0}}
       >
         {this.state.hoveredFeatures &&
           <div
@@ -177,7 +178,8 @@ Map.propTypes = {
       style: PropTypes.string,
     }
   ).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  features: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 export default Map
