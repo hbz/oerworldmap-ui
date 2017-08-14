@@ -1,8 +1,8 @@
 {
-  "FeatureCollection": {
+  "PagedCollection": {
     "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries"
   },
-  "Feature": {
+  "WebPage": {
     "lastEdited": "Last edited by %{contributor} on %{dateModified}",
     "created": "Created by %{author} on %{dateCreated}"
   }

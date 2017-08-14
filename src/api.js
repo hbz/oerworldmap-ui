@@ -13,7 +13,7 @@ class Api {
     url = url === '/' ? '/resource/' : url
     const init = {
       headers: {
-        'Accept': 'application/geo+json'
+        'Accept': 'application/json'
       }
     }
     console.log('requested', url)

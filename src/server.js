@@ -10,7 +10,7 @@ import webpackConfig from '../webpack.config.babel'
 import Api from './api'
 import Init from './components/Init'
 
-import Config, { mapboxConfig, apiConfig } from '../config'
+import Config, { apiConfig } from '../config'
 
 const server = express()
 
@@ -55,7 +55,6 @@ server.get(/^(.*)$/, function (req, res) {
     const data = {
       data: response,
       locales: acceptedLanguages,
-      mapboxConfig,
       apiConfig
     }
     res.send(template({

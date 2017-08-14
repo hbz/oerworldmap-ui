@@ -1,46 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
-import FeatureCollection from './FeatureCollection'
-import Feature from './Feature'
+import PagedCollection from './PagedCollection'
+import WebPage from './WebPage'
 import Header from './Header'
-import Map from './Map'
 import Filters from './Filters'
-import Columns from './Columns'
-import Column from './Column'
-import NotificationWelcome from './NotificationWelcome'
-import ActionButtons from './ActionButtons'
 
-const App = ({ data, mapboxConfig, emitter }) => (
+const App = ({ data, emitter }) => (
   <main className="main">
 
     <Header />
 
     <div className="content">
 
-      <Map
-        emitter={emitter}
-        mapboxConfig={mapboxConfig}
-        features={data}
-      />
-
-      <Columns emitter={emitter}>
-        <Column>
-          <Filters />
-          {data['type'] && data['type'] === 'FeatureCollection' &&
-            <FeatureCollection emitter={emitter} {...data} />
-          }
-        </Column>
-        {data['type'] && data['type'] === 'Feature' &&
-          <Column>
-            <Feature emitter={emitter} {...data} />
-          </Column>
-        }
-      </Columns>
-
-      <NotificationWelcome data={data} />
-
-      <ActionButtons />
+      <Filters />
+      {data['@type'] === 'PagedCollection' &&
+        <PagedCollection emitter={emitter} {...data} />
+      }
+      {data['@type'] === 'WebPage' &&
+        <WebPage emitter={emitter} {...data} />
+      }
 
     </div>
 
@@ -49,7 +28,6 @@ const App = ({ data, mapboxConfig, emitter }) => (
 
 App.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
-  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 

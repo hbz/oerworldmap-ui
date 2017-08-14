@@ -14,7 +14,7 @@ const icons = {
 }
 
 const Icon = ({ type }) => (
-  <i className={`fa fa-fw fa-${icons[type]}` || 'question'} />
+  <i className={`fa fa-fw fa-${icons[type] || 'question' }`} />
 )
 
 Icon.propTypes = {

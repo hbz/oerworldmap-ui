@@ -11,19 +11,14 @@ const ItemList = ({ translate, listItems, emitter }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li
-        key={listItem.properties['@id']}
+        key={listItem.about['@id']}
         onMouseEnter={() => {
-          emitter.emit('hoverPoint', { id: listItem.properties["@id"] })
-        }}
-        onMouseLeave={() => {
-          emitter.emit('hoverPoint', { id: '' })
+          emitter.emit('hoverListItem', { id: listItem.about["@id"] })
         }}
       >
-        <Icon type={listItem.properties['@type']} />
-        <Link
-          to={listItem.properties['@id']}
-        >
-          {translate(listItem.properties.name)}
+        <Icon type={listItem.about['@type']} />
+        <Link to={listItem.about['@id']}>
+          {translate(listItem.about.name)}
         </Link>
       </li>
     )

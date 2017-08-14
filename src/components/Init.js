@@ -6,6 +6,9 @@ import App from './App'
 
 const emitter = mitt()
 
+// Log all emissions
+emitter.on('*', (type, e) => console.log(type, e))
+
 class Init extends React.Component {
   constructor(props) {
     super(props)
@@ -17,11 +20,7 @@ class Init extends React.Component {
   render() {
     return (
       <I18nProvider locales={this.state.locales}>
-        <App
-          data={this.props.data}
-          emitter={emitter}
-          mapboxConfig={this.props.mapboxConfig}
-        />
+        <App data={this.props.data} emitter={emitter} />
       </I18nProvider>
     )
   }
@@ -29,8 +28,7 @@ class Init extends React.Component {
 
 Init.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
-  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
+  data: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default Init
