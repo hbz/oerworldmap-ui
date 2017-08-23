@@ -59,6 +59,7 @@
     "getenv": "^0.7.0",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
+    "json-pointer-form": "file:local_modules/json-pointer-form",
     "mapbox-gl": "^0.39.1",
     "mitt": "^1.1.2",
     "moment": "^2.18.1",
