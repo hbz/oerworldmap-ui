@@ -188,7 +188,7 @@
       margin-top: 5px;
     }
 
-    & label.title {
+    & input[placeholder="sameAs"] + label {
       display: none;
     }
   }
@@ -245,6 +245,10 @@
         text-indent: 0.01px;
         text-overflow: ''; */
       }
+    }
+
+    & .select.\@language + .input label {
+      display: none;
     }
 
     & .select.\@language + .input {
