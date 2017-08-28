@@ -35,6 +35,7 @@
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "A link to another entity",
       "type": "object",
+      "remote": true,
       "properties": {
         "@id": {
           "description": "The referenced entities unique identifier",
@@ -1963,7 +1964,8 @@
         "type": "object",
         "properties": {
           "@language": {
-            "type": "string"
+            "type": "string",
+            "enum": ["de", "en"]
           },
           "@value": {
             "type": "string"

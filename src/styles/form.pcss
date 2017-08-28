@@ -1,0 +1,262 @@
+@import 'Colors.pcss';
+
+::placeholder {
+  text-transform: capitalize;
+}
+
+.Forms {
+  & form::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  & fieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
+    clear: both;
+  }
+
+  & input[type=text],
+  & textarea {
+    border-radius: 2px;
+    padding: 10px 5px;
+    border: 1px solid var(--blue);
+  }
+
+  & input[type=submit],
+  & select {
+    border: 1px solid var(--blue);
+    background-color: color(var(--blue) l(96%));
+    color: var(--blue);
+    font-size: 0.9rem;
+    padding: 10px 5px;
+    border-radius: 2px;
+    transition: all 0.5s;
+
+    &:focus,
+    &:hover {
+      background-color: color(var(--blue) l(80%));
+    }
+  }
+
+  & input[type=submit] {
+    margin-top: 15px;
+    color: var(--white);
+    background-color: color(var(--blue) a(90%));
+    font-weight: bold;
+    padding: 10px;
+    float: right;
+  }
+
+  & legend {
+    padding: 10px 0;
+    text-transform: capitalize;
+    font-weight: bold;
+    color: var(--blue);
+  }
+
+  & form div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    position: relative;
+
+    & > label {
+      padding: 10px 0;
+      text-transform: capitalize;
+      font-weight: bold;
+      color: var(--blue);
+      position: relative;
+      left: -2px;
+    }
+
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      border-left: 1px solid var(--blue);
+      border-right: 1px solid var(--blue);
+      border-bottom: 1px solid var(--blue);
+      position: absolute;
+      width: 100%;
+      max-height: 150px;
+      z-index: 2;
+      overflow: auto;
+      bottom: 0;
+      transform: translateY(100%);
+      border-radius: 0 0 2px 2px;
+
+      & li input[type=checkbox] {
+        display: none;
+      }
+
+      & li:last-child label {
+        border-bottom: none;
+        border-radius: 0 0 2px 2px;
+      }
+
+      & li label {
+        display: block;
+        background-color: color(var(--blue) l(96%));
+        color: var(--blue);
+        padding: 10px 5px;
+        border-bottom: 1px solid var(--blue);
+        transition: all 0.5s;
+
+        &::after {
+          font-family: FontAwesome;
+          content: '\F00C';
+          position: absolute;
+          right: 15px;
+        }
+
+        &:focus,
+        &:hover {
+          background-color: color(var(--blue) l(80%));
+        }
+      }
+    }
+  }
+
+  & form > div {
+    margin: 10px 0;
+
+    /* border-top: 1px solid var(--blue); */
+  }
+
+  & .checkbox {
+    & input[type=checkbox] {
+      display: none;
+    }
+
+    & label {
+      background-color: color(var(--blue) l(96%));
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      display: block;
+      padding: 10px 5px;
+      position: relative;
+      cursor: pointer;
+      border-radius: 2px;
+      padding-right: 30px;
+      transition: all 0.5s;
+
+      &:focus,
+      &:hover {
+        background-color: color(var(--blue) l(80%));
+      }
+
+      &:hover::after {
+        color: var(--danger);
+      }
+
+      &::after {
+        font-family: FontAwesome;
+        content: '\F00D';
+        position: absolute;
+        right: 15px;
+        top: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+      }
+    }
+  }
+
+  & .dropdown {
+    position: relative;
+    flex-direction: column;
+  }
+
+  & .multiple-container .input:first-child {
+    & input {
+      margin-top: 0;
+    }
+
+    & label.title {
+      display: block;
+    }
+  }
+
+  & .multiple-container .input {
+    & input {
+      margin-top: 5px;
+    }
+
+    & label.title {
+      display: none;
+    }
+  }
+
+  & .select {
+    margin-top: 10px;
+
+    & label {
+      display: none;
+    }
+  }
+
+  & .hidden {
+    display: none;
+  }
+
+  /* Custom */
+
+  /* & fieldset div.\@id {
+    margin-top: 10px;
+  } */
+
+  & .geo {
+    text-align: center;
+
+    & .lat,
+    & .lon {
+      min-width: 45%;
+      margin: 0 5px;
+      display: inline-flex;
+    }
+  }
+
+  & .multiple-container {
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    & .select.\@language {
+      width: 20%;
+      float: right;
+      margin-top: 5px;
+
+      & select {
+        border-radius: 0 2px 2px 0;
+        width: 100%;
+        height: 40px;
+
+        /* Remove Firefox Arrow */
+
+        /* -moz-appearance: none;
+        text-indent: 0.01px;
+        text-overflow: ''; */
+      }
+    }
+
+    & .select.\@language + .input {
+      display: inline-block;
+      width: 80%;
+
+      & input[type="text"] {
+        width: 100%;
+        height: 40px;
+        border-right: 0;
+        border-radius: 2px 0 0 2px;
+      }
+    }
+  }
+}

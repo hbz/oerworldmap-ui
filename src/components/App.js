@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Composer } from 'json-pointer-form'
 import 'font-awesome/css/font-awesome.css'
 import FeatureCollection from './FeatureCollection'
 import Feature from './Feature'
@@ -10,6 +11,11 @@ import Columns from './Columns'
 import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
+
+import schema from '../json/schema.json'
+
+import '../styles/FullModal.pcss'
+import '../styles/form.pcss'
 
 const App = ({ data, mapboxConfig, emitter }) => (
   <main className="main">
@@ -41,6 +47,19 @@ const App = ({ data, mapboxConfig, emitter }) => (
       <NotificationWelcome data={data} />
 
       <ActionButtons />
+
+      <div className="FullModal">
+        <div className="modalDialog Forms">
+          
+          <Composer
+            value={{"@type": "Organization"}}
+            schema={schema}
+            submit={value => emitter.emit('save', value)}
+            getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+            getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
+          />
+        </div>
+      </div>
 
     </div>
 
