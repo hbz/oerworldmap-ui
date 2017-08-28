@@ -11,10 +11,10 @@ import Columns from './Columns'
 import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
+import FullModal from './FullModal'
 
 import schema from '../json/schema.json'
 
-import '../styles/FullModal.pcss'
 import '../styles/form.pcss'
 
 const App = ({ data, mapboxConfig, emitter }) => (
@@ -48,18 +48,15 @@ const App = ({ data, mapboxConfig, emitter }) => (
 
       <ActionButtons />
 
-      <div className="FullModal">
-        <div className="modalDialog Forms">
-          
-          <Composer
-            value={{"@type": "Organization"}}
-            schema={schema}
-            submit={value => emitter.emit('save', value)}
-            getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-            getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
-          />
-        </div>
-      </div>
+      <FullModal >
+        <Composer
+          value={{"@type": "Organization"}}
+          schema={schema}
+          submit={value => emitter.emit('save', value)}
+          getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+          getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
+        />
+      </FullModal>
 
     </div>
 
