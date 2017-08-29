@@ -1,56 +1,101 @@
-import React from 'react'
+/* global FormData */
 
+import React from 'react'
+import PropTypes from 'prop-types'
+// import Logo from '../assets/logo.svg'
 import '../styles/Filters.pcss'
 
-const Filters = () => (
-  <div className="Filters">
+import withEmitter from './withEmitter'
+import Icon from './Icon'
 
-    <div className="filterSearch">
-      <input type="search" placeholder="Search the map..." />
-      <button className="btn">
-        <i className="fa fa-search" />
-      </button>
-    </div>
+const onSubmit = (e, emitter) => {
+  e.preventDefault()
+  const form = e.target.parentElement.form || e.target.form || e.target
+  const formData = new FormData(form)
+  const parameters = [...formData.entries()]
+    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
+  emitter.emit('load', '/resource/?' + parameters)
+}
 
-    <div className="filterType">
-      <div className="btnGroup">
-        <button className="btn">
-          <i className="fa fa-users" />
-        </button>
-        <button className="btn">
-          <i className="fa fa-user" />
-        </button>
-        <button className="btn">
-          <i className="fa fa-desktop" />
-        </button>
-        <button className="btn">
-          <i className="fa fa-gears" />
-        </button>
-        <button className="btn">
-          <i className="fa fa-calendar" />
-        </button>
-        <button className="btn">
-          <i className="fa fa-comment" />
-        </button>
+const triggerClick = (e) => {
+  if (e.keyCode === 32) {
+    e.target.click()
+  }
+}
+
+const Filters = ({query, filters, aggregations, emitter, extended}) => (
+  <nav className="Filters">
+
+    <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
+
+      <div className="types-container">
+        {aggregations['about.@type']['buckets'].map(function (bucket) {
+          return (
+            <div className="filterBox" key={bucket.key}>
+              <input
+                type="radio"
+                value={bucket.key}
+                checked={filters.hasOwnProperty("about.@type")
+                  && filters["about.@type"].includes(bucket.key)
+                }
+                name="filter.about.@type"
+                id={"type:" + bucket.key}
+                onChange={(evt) => onSubmit(evt, emitter)}
+              />
+              <label
+                onClick={(evt) => {
+                  // Trigger submit only if onChange is not triggered
+                  if (filters.hasOwnProperty("about.@type")
+                    && filters["about.@type"].includes(bucket.key)) {
+                    onSubmit(evt, emitter)
+                  }
+                }}
+                onKeyDown={triggerClick}
+                role="button"
+                tabIndex="0"
+                htmlFor={"type:" + bucket.key}
+                title={bucket.key}
+              >
+                <Icon type={bucket.key} />
+              </label>
+            </div>
+          )
+        }, this)}
       </div>
 
-      <button className="btn dropdownToggle">
-        <i className="fa fa-globe" />
-        <i className="fa fa-chevron-down" />
-      </button>
+      {extended ? (
+        <div className="search-bar">
+          <div className="search-container">
+            <input type="search" name="q" defaultValue={query} placeholder="Search..." />
+            <input type="submit" className="btn" value="Search" />
+          </div>
 
-      <button className="btn dropdownToggle">
-        <i className="fa fa-tag" />
-        <i className="fa fa-chevron-down" />
-      </button>
+          <div className="sort-container">
+            <select name="sort" className="btn" onChange={(evt) => onSubmit(evt, emitter)}>
+              <option value="">Relevance</option>
+              <option value="dateCreated:ASC">Date Created</option>
+            </select>
+          </div>
+        </div>
+      ) : (
+        <noscript>
+          <div className="search-bar">
+            <input type="submit" className="btn" />
+          </div>
+        </noscript>
+      )}
 
-    </div>
+    </form>
 
-    <div className="clearFilter">
-      <a href="#">Clear Filter</a>
-    </div>
-
-  </div>
+  </nav>
 )
 
-export default Filters
+Filters.propTypes = {
+  query: PropTypes.string.isRequired,
+  filters: PropTypes.objectOf(PropTypes.any).isRequired,
+  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  extended: PropTypes.bool.isRequired
+}
+
+export default withEmitter(Filters)

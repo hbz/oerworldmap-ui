@@ -6,36 +6,34 @@ import Link from './Link'
 import '../styles/ItemList.pcss'
 
 import translate from './translate'
+import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, listItems, emitter }) => (
+const ItemList = ({ translate, emitter, listItems }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li
-        key={listItem.properties['@id']}
+        key={listItem.about['@id']}
         onMouseEnter={() => {
-          emitter.emit('hoverPoint', { id: listItem.properties["@id"] })
+          emitter.emit('hoverPoint', { id: listItem.about["@id"] })
         }}
         onMouseLeave={() => {
           emitter.emit('hoverPoint', { id: '' })
         }}
       >
-        <Icon type={listItem.properties['@type']} />
-        <Link
-          to={listItem.properties['@id']}
-        >
-          {translate(listItem.properties.name)}
+        <Link to={listItem.about['@id']}>
+          <Icon type={listItem.about['@type']} />&nbsp;
+          {translate(listItem.about.name) || listItem.about['@id']}
         </Link>
       </li>
-    )
-    )}
+    ))}
   </ul>
 )
 
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
-  listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  listItems: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
-export default translate(ItemList)
+export default withEmitter(translate(ItemList))
