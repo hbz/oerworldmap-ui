@@ -1,9 +1,9 @@
 {
-  "FeatureCollection": {
+  "PagedCollection": {
     "totalItems": "%{smart_count} Entrada |||| %{smart_count} Entradas"
   },
-  "Feature": {
-    "lastEdited": "Ultima edición por %{contributor} en %{dateModified}",
-    "created": "Creado por %{author} en %{dateCreated}"
+  "Metadata": {
+    "lastEdited": "Ultima edición por %{contributor} %{dateModified}",
+    "created": "Creado por %{author} %{dateCreated}"
   }
 }

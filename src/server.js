@@ -9,10 +9,17 @@ import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import Api from './api'
 import Init from './components/Init'
+import { getTitle } from './common'
 
 import Config, { mapboxConfig, apiConfig } from '../config'
 
 const server = express()
+
+server.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(webpackConfig)
@@ -37,7 +44,7 @@ if (process.env.NODE_ENV === 'development') {
 
 server.use(express.static(path.join(__dirname, '/../dist')))
 
-server.get(/^(.*)$/, function (req, res) {
+server.get(/^(.*)$/, (req, res) => {
   const defaultLanguage = 'en'
   const supportedLanguages = [ 'en', 'de', 'es' ]
   const requestedLanguages = req.headers['accept-language']
@@ -51,19 +58,21 @@ server.get(/^(.*)$/, function (req, res) {
     acceptedLanguages.push(defaultLanguage)
   }
   const api = new Api(apiConfig)
-  api.load(req.url, function (response) {
-    const data = {
-      data: response,
+  api.load(req.url, response => {
+    const initialState = {
+      data: response.data,
+      features: response.features,
+      user: response.user,
       locales: acceptedLanguages,
       mapboxConfig,
       apiConfig
     }
     res.send(template({
-      body: renderToString(<Init {...data} />),
-      title: 'Hello from server',
-      initialState: JSON.stringify(data)
+      body: renderToString(<Init {...initialState} emitter={{}} />),
+      title: getTitle(initialState.data),
+      initialState: JSON.stringify(initialState)
     }))
-  })
+  }, req.get('authorization'))
 })
 
 server.listen(Config.port, Config.host, function () {

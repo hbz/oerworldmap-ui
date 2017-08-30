@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
-import FeatureCollection from './FeatureCollection'
-import Feature from './Feature'
+import PagedCollection from './PagedCollection'
+import WebPage from './WebPage'
 import Header from './Header'
 import Map from './Map'
 import Filters from './Filters'
@@ -10,47 +10,87 @@ import Columns from './Columns'
 import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
+import withEmitter from './withEmitter'
 
-const App = ({ data, mapboxConfig, emitter }) => (
-  <main className="main">
+const defaultAggregations = {
+  'about.@type': {
+    'buckets': [
+      {key: 'Product'},
+      {key: 'Organization'},
+      {key: 'CustomerRelationship'},
+      {key: 'ContactPoint'}
+    ]
+  }
+}
 
-    <Header />
+const App = ({ data, mapboxConfig, user, features, emitter }) => (
+  <div id="wrapper">
 
-    <div className="content">
+    <main className="container">
 
-      <Map
-        emitter={emitter}
-        mapboxConfig={mapboxConfig}
-        features={data}
-      />
+      <Header />
 
-      <Columns emitter={emitter}>
-        <Column>
-          <Filters />
-          {data['type'] && data['type'] === 'FeatureCollection' &&
-            <FeatureCollection emitter={emitter} {...data} />
-          }
-        </Column>
-        {data['type'] && data['type'] === 'Feature' &&
+      <div className="content">
+
+        <Map
+          emitter={emitter}
+          mapboxConfig={mapboxConfig}
+          features={features}
+        />
+
+        <Columns emitter={emitter}>
           <Column>
-            <Feature emitter={emitter} {...data} />
+            {user ? (
+              <p>
+                <a href="/.logout" onClick={(e) => {e.preventDefault(); emitter.emit('logout')}}>
+                  Log out user {user}
+                </a>
+              </p>
+            ) : (
+              <p>
+                <a href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
+                  Log in
+                </a>
+              </p>
+            )}
+            <Filters
+              query={data['query'] || ''}
+              filters={data['filters'] || {'about.@type': [data.about['@type']]}}
+              aggregations={data['aggregations'] || defaultAggregations}
+              extended={data['@type'] === 'PagedCollection'}
+            />
+            {data['@type'] === 'PagedCollection' &&
+              <PagedCollection {...data} />
+            }
           </Column>
-        }
-      </Columns>
+          {data['@type'] === 'WebPage' &&
+            <Column>
+              <WebPage {...data} />
+            </Column>
+          }
+        </Columns>
 
-      <NotificationWelcome data={data} />
+        <NotificationWelcome data={data} />
 
-      <ActionButtons />
+        <ActionButtons />
 
-    </div>
+      </div>
 
-  </main>
+    </main>
+  </div>
 )
 
 App.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
+  features: PropTypes.objectOf(PropTypes.any),
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  user: PropTypes.string
 }
 
-export default App
+App.defaultProps = {
+  user: null,
+  features: null
+}
+
+export default withEmitter(App)
