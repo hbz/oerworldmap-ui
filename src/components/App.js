@@ -28,7 +28,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
     <main className="container">
 
-      <Header />
+      <Header user={user} />
 
       <div className="content">
 
@@ -40,19 +40,6 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
         <Columns emitter={emitter}>
           <Column>
-            {user ? (
-              <p>
-                <a href="/.logout" onClick={(e) => {e.preventDefault(); emitter.emit('logout')}}>
-                  Log out user {user}
-                </a>
-              </p>
-            ) : (
-              <p>
-                <a href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
-                  Log in
-                </a>
-              </p>
-            )}
             <Filters
               query={data['query'] || ''}
               filters={data['filters'] || {'about.@type': [data.about['@type']]}}
