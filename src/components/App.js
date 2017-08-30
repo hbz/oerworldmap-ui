@@ -15,7 +15,7 @@ import FullModal from './FullModal'
 
 import schema from '../json/schema.json'
 
-import '../styles/form.pcss'
+import '../styles/FormStyle.pcss'
 
 const App = ({ data, mapboxConfig, emitter }) => (
   <main className="main">

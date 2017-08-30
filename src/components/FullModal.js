@@ -30,7 +30,7 @@ class FullModal extends React.Component {
             tabIndex="-1"
             onClick={this.hideModal}
           >
-            <div className="modalDialog Forms">
+            <div className="modalDialog">
               {this.props.children}
             </div>
           </div>

@@ -1,0 +1,155 @@
+.Forms {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  & ::placeholder {
+    text-transform: capitalize;
+  }
+
+  & fieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
+    clear: both;
+  }
+
+  & input[type=text],
+  & textarea {
+    padding: 10px 5px;
+  }
+
+  & input[type=submit],
+  & select {
+    padding: 10px 5px;
+  }
+
+  & input[type=submit] {
+    margin-top: 15px;
+    padding: 10px;
+    float: right;
+  }
+
+  & legend {
+    padding: 10px 0;
+  }
+
+  & div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    position: relative;
+
+    & > label {
+      padding: 10px 0;
+    }
+
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      position: absolute;
+      width: 100%;
+      max-height: 160px;
+      overflow: auto;
+      bottom: 0;
+      transform: translateY(100%);
+      border: 1px solid black;
+      z-index: 3;
+
+      & li input[type=checkbox] {
+        display: none;
+      }
+
+      & li:last-child label {
+        border-bottom: none;
+      }
+
+      & li label {
+        display: block;
+        padding: 10px 5px;
+        border-bottom: 1px solid black;
+        background-color: white;
+
+        &::after {
+          content: '✔';
+          position: absolute;
+          right: 15px;
+        }
+      }
+    }
+  }
+
+  & > div {
+    margin: 10px 0;
+  }
+
+  & .checkbox {
+    & input[type=checkbox] {
+      display: none;
+    }
+
+    & label {
+      display: block;
+      padding: 10px 5px;
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 5px;
+      border: 1px solid black;
+
+      &::after {
+        content: 'x';
+        position: absolute;
+        right: 15px;
+        top: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  & .dropdown {
+    position: relative;
+    flex-direction: column;
+  }
+
+  & .multiple-container .input:first-child {
+    & input {
+      margin-top: 0;
+    }
+
+    & label.title {
+      display: block;
+    }
+  }
+
+  & .multiple-container .input {
+    & input {
+      margin-top: 5px;
+    }
+
+    & input[placeholder="sameAs"] + label {
+      display: none;
+    }
+  }
+
+  & .select {
+    margin-top: 10px;
+
+    & label {
+      display: none;
+    }
+  }
+
+  & .hidden {
+    display: none;
+  }
+}
