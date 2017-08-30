@@ -56,6 +56,7 @@ import './styles/main.pcss'
       api.load(url, response => {
         const state = window.__APP_INITIAL_STATE__
         state.data = response.data
+        state.features = response.features || state.features
         state.user = response.user
         renderApp(state, emitter)
       })

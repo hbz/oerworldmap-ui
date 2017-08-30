@@ -58,6 +58,7 @@
     "express": "^4.15.3",
     "font-awesome": "^4.7.0",
     "getenv": "^0.7.0",
+    "http-link-header": "^0.8.0",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
     "mapbox-gl": "^0.39.1",

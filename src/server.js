@@ -61,17 +61,18 @@ server.get(/^(.*)$/, (req, res) => {
   api.load(req.url, response => {
     const initialState = {
       data: response.data,
+      features: response.features,
       user: response.user,
       locales: acceptedLanguages,
       mapboxConfig,
       apiConfig
     }
     res.send(template({
-      body: renderToString(<Init {...initialState} emitter={{}}  />),
+      body: renderToString(<Init {...initialState} emitter={{}} />),
       title: getTitle(initialState.data),
       initialState: JSON.stringify(initialState)
     }))
-  }, req.get("authorization"))
+  }, req.get('authorization'))
 })
 
 server.listen(Config.port, Config.host, function () {

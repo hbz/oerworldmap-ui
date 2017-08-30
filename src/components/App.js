@@ -23,7 +23,7 @@ const defaultAggregations = {
   }
 }
 
-const App = ({ data, mapboxConfig, user, emitter }) => (
+const App = ({ data, mapboxConfig, user, features, emitter }) => (
   <div id="wrapper">
 
     <main className="container">
@@ -35,7 +35,7 @@ const App = ({ data, mapboxConfig, user, emitter }) => (
         <Map
           emitter={emitter}
           mapboxConfig={mapboxConfig}
-          features={data}
+          features={features}
         />
 
         <Columns emitter={emitter}>
@@ -83,12 +83,14 @@ const App = ({ data, mapboxConfig, user, emitter }) => (
 App.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
+  features: PropTypes.objectOf(PropTypes.any),
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
   user: PropTypes.string
 }
 
 App.defaultProps = {
-  user: null
+  user: null,
+  features: null
 }
 
 export default withEmitter(App)

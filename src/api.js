@@ -5,6 +5,7 @@
 
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
+import linkHeader from 'http-link-header'
 
 promise.polyfill()
 
@@ -20,6 +21,14 @@ const toJson = response => {
   return response.json().then(json => ({
     user: response.headers.get('X-Request-User'),
     data: json
+  }))
+}
+
+const toJsonWithLinks = response => {
+  return response.json().then(json => ({
+    user: response.headers.get('X-Request-User'),
+    data: json,
+    links: linkHeader.parse(response.headers.get('Link'))
   }))
 }
 
@@ -51,6 +60,7 @@ class Api {
 
   load (url, callback, authorization) {
     url = url === '/' ? '/resource/' : url
+    const jsonParser = url.startsWith('/resource/urn') ? toJson : toJsonWithLinks
     const headers = new Headers({
       'Accept': 'application/json'
     })
@@ -61,9 +71,26 @@ class Api {
       headers,
       credentials: 'include'
     }).then(checkStatus)
-      .then(toJson)
+      .then(jsonParser)
       .then(data => {
-        callback(data)
+        if (data.links) {
+          const geoJsonUrl = data.links.refs.find(link => {
+            return link.type === 'application/geo+json'
+          })
+          fetch(geoJsonUrl.uri, {
+            headers,
+            credentials: 'include'
+          }).then(checkStatus)
+            .then(toJson)
+            .then(geoJson => {
+              data.features = geoJson.data
+              callback(data)
+            }).catch(err => {
+              console.error(err)
+            })
+        } else {
+          callback(data)
+        }
       }).catch(err => {
         console.error(err)
       })
