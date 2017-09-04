@@ -11,10 +11,14 @@
   &.hideColumns {
     transform: translateX(98%);
 
-    & .toggleColumn i {
-      transform: scaleX(-1);
-      top: 0;
-      left: 0;
+    & .toggleColumn {
+      left: -5px;
+
+      & i {
+        transform: scaleX(-1);
+        top: 0;
+        left: 0;
+      }
     }
   }
 
