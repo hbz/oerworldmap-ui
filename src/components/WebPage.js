@@ -2,37 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import translate from './translate'
-
+import Metadata from './Metadata'
+  
 const WebPage = ({
   translate,
-  moment,
   about,
   contributor,
   dateModified,
   author,
   dateCreated
 }) => (
-  <div>
+  <div className="WebPage">
+    <Metadata
+      type={about['@type']}
+      author={author}
+      contributor={contributor}
+      dateModified={dateModified}
+      dateCreated={dateCreated}
+    />
     <h1>{translate(about.name)}</h1>
-    <p>
-      {translate('Metadata.lastEdited', {
-        contributor,
-        dateModified: moment(dateModified).calendar()
-      })}
-    </p>
-    <p>
-      {translate('Metadata.created', {
-        author,
-        dateCreated: moment(dateCreated).calendar()
-      })}
-    </p>
     <pre>{JSON.stringify(about, null, 2)}</pre>
   </div>
 )
 
 WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
-  moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   author: PropTypes.string.isRequired,
   contributor: PropTypes.string.isRequired,

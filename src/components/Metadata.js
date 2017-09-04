@@ -2,31 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
 
-const Metadata = ({author, contributor, dateModified, dateCreated, moment, translate} ) => (
-  <div>
+import Icon from './Icon'
+import '../styles/Metadata.pcss'
 
-    <p title={moment(dateModified).calendar()} className="alignRight">
-      {translate('Metadata.lastEdited', {
-        contributor,
-        dateModified: moment(dateModified).fromNow()
-      })}
-
-    </p>
-    <p title={moment(dateCreated).calendar()} className="alignRight">
-      {translate('Metadata.created', {
-        author,
-        dateCreated: moment(dateCreated).fromNow()
-      })}
-    </p>
+const Metadata = ({type, dateModified, moment, translate} ) => (
+  <div className="Metadata">
+    <div title={moment(dateModified).fromNow()} >
+      <Icon type={type} /> <b>{type} </b>
+      ({translate('Metadata.lastModified', {
+        dateModified : moment(dateModified).format('D. MMM YYYY')
+      })})
+    </div>
   </div>
 )
 
 Metadata.propTypes = {
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
-  author: PropTypes.string.isRequired,
-  contributor: PropTypes.string.isRequired,
-  dateCreated: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   dateModified: PropTypes.string.isRequired
 }
 
