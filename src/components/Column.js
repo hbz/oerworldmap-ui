@@ -9,7 +9,7 @@ const Column = ({ children }) => (
     </div>
 
     <div className="toggleColumn">
-      <i className="fa fa-fw fa-chevron-right" />
+      <i className="fa fa-chevron-right" />
     </div>
 
   </div>
