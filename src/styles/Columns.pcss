@@ -6,6 +6,17 @@
   top: 0;
   height: 100%;
   display: flex;
+  transition: all 1s;
+
+  &.hideColumns {
+    transform: translateX(98%);
+
+    & .toggleColumn i {
+      transform: scaleX(-1);
+      top: 0;
+      left: 0;
+    }
+  }
 
   & .column {
     color: var(--blue-darker);
@@ -13,6 +24,8 @@
     background-color: color(var(--white) alpha(95%));
     border-left: 1px solid var(--blue-lighter);
     position: relative;
+
+    
 
     & .columnContent {
       padding: 20px;
