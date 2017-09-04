@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import ItemList from './ItemList'
 import translate from './translate'
+import Pagination from './Pagination'
 
 import '../styles/PagedCollection.pcss'
 
@@ -13,6 +14,7 @@ const PagedCollection = ({ translate, member }) => (
       <div className="counter">
         <span className="badge">{member.length}</span> {translate('PagedCollection.results')}
       </div>
+      <Pagination current={2} total={member.lenght} />
       <ItemList listItems={member} />
     </div>
   </section>
