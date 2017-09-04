@@ -4,6 +4,9 @@ import '../styles/ActionButtons.pcss'
 
 const ActionButtons = () => (
   <div className="ActionButtons">
+    <a href="#" title="Add entry">
+      <i className="fa fa-plus" />
+    </a>
     <a href="/user/newsletter" title="Subscribe to Newsletter">
       <i className="fa fa-envelope" />
     </a>
