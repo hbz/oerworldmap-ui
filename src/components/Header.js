@@ -10,10 +10,10 @@ const Header = ({ user, emitter }) => (
       <a href="/" title="Home">
         <h1>OER W<i className="fa fa-globe" />RLD MAP</h1>
       </a>
-      <a href="#">FAQ</a>
-      <a href="#">About</a>
-      <a href="#">Contribute</a>
-      <a href="#">Blog</a>
+      <a href="#" title="FAQ">FAQ</a>
+      <a href="#" title="About">About</a>
+      <a href="#" title="Contribute">Contribute</a>
+      <a href="#" title="Blog">Blog</a>
       <a href="#" title="Facebook">
         <i className="fa fa-facebook-official" />
       </a>
