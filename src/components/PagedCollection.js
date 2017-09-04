@@ -9,7 +9,10 @@ import '../styles/PagedCollection.pcss'
 const PagedCollection = ({ translate, member }) => (
   <section className="PagedCollection pages">
     <div>
-      <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1>
+      {/* <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1> */}
+      <div className="counter">
+        <span className="badge">{member.length}</span> {translate('PagedCollection.results')}
+      </div>
       <ItemList listItems={member} />
     </div>
   </section>

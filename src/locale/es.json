@@ -1,6 +1,7 @@
 {
   "PagedCollection": {
-    "totalItems": "%{smart_count} Entrada |||| %{smart_count} Entradas"
+    "totalItems": "%{smart_count} Entrada |||| %{smart_count} Entradas",
+    "results": "Resultados"
   },
   "Metadata": {
     "lastEdited": "Ultima edición por %{contributor} %{dateModified}",
