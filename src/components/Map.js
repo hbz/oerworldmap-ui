@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+import Icon from './Icon'
+import translate from './translate'
+
 import '../styles/Map.pcss'
 
 class Map extends React.Component {
@@ -53,11 +56,7 @@ class Map extends React.Component {
         const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
 
-        // if (hoveredFeatures[0]) {
-        //   console.log(hoveredFeatures[0].properties)
-        // }
-
-        // console.log(hoveredFeatures).
+        console.log(hoveredFeatures)
 
         this.setState({
           hoveredFeatures,
@@ -187,21 +186,21 @@ class Map extends React.Component {
           >
             {this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries' ? (
               <ul>
-                <li>{this.state.hoveredFeatures[0].properties.iso_a2}</li>
+                {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
+                <li><b>{this.state.hoveredFeatures[0].properties.iso_a2}</b></li>
                 <li className="darker">Country Champion: <i className="fa fa-check" /></li>
               </ul>
             ) : (
               <ul>
                 {this.state.hoveredFeatures.map(feature => {
-                  return <li key={feature.properties['@id']}><pre>{feature.properties['@id']  }</pre></li>
+                  return (
+                    <li key={feature.properties['@id']}>
+                      <Icon type={feature.properties['@type']} /> <b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}
+                    </li>
+                  )
                 })}
               </ul>
-            )
-            }
-
-            {/* {this.state.hoveredFeatures.map(feature => {
-              return <pre key={feature.properties.iso_a2 || feature.properties['@id']}>{JSON.stringify(feature.properties.iso_a2 || feature.properties['@id'], null, 2)}</pre>
-            })} */}
+            )}
           </div>
         }
       </div>
@@ -221,4 +220,4 @@ Map.propTypes = {
   features: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default Map
+export default translate(Map)
