@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+import '../styles/Map.pcss'
 
 class Map extends React.Component {
 
@@ -51,6 +52,13 @@ class Map extends React.Component {
         const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
         const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
+
+        // if (hoveredFeatures[0]) {
+        //   console.log(hoveredFeatures[0].properties)
+        // }
+
+        // console.log(hoveredFeatures).
+
         this.setState({
           hoveredFeatures,
           point: e.point
@@ -172,15 +180,28 @@ class Map extends React.Component {
               { left: this.state.point.x + 5,
                 top: this.state.point.y + 5,
                 position: 'absolute',
-                backgroundColor: 'white',
                 zIndex: 9,
                 pointerEvents:'none',
                 overflow: 'hidden'
               }}
           >
-            {this.state.hoveredFeatures.map(feature => {
+            {this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries' ? (
+              <ul>
+                <li>{this.state.hoveredFeatures[0].properties.iso_a2}</li>
+                <li className="darker">Country Champion: <i className="fa fa-check" /></li>
+              </ul>
+            ) : (
+              <ul>
+                {this.state.hoveredFeatures.map(feature => {
+                  return <li key={feature.properties['@id']}><pre>{feature.properties['@id']  }</pre></li>
+                })}
+              </ul>
+            )
+            }
+
+            {/* {this.state.hoveredFeatures.map(feature => {
               return <pre key={feature.properties.iso_a2 || feature.properties['@id']}>{JSON.stringify(feature.properties.iso_a2 || feature.properties['@id'], null, 2)}</pre>
-            })}
+            })} */}
           </div>
         }
       </div>

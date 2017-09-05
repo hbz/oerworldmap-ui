@@ -1,0 +1,26 @@
+@import './Colors.pcss';
+
+.tooltip {
+  border: 1px solid var(--blue-darker);
+  box-shadow: 1px 1px 10px color(var(--black) a(45%));
+  background-color: var(--blue-paler);
+
+  & ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      padding: 10px 5px;
+      border-bottom: 1px solid var(--blue-darker);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.darker {
+        background-color: var(--blue-pale);
+      }
+    }
+  }
+}
