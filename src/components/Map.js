@@ -167,7 +167,7 @@ class Map extends React.Component {
       }
     })
     return Object.keys(types).map((key) => {
-      return <span>{types[key]} <Icon type={key} /> </span>
+      return <span key={key}>{types[key]} <Icon type={key} /> </span>
     })
   }
 
@@ -234,7 +234,8 @@ Map.propTypes = {
     }
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  features: PropTypes.objectOf(PropTypes.any).isRequired
+  features: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired
 }
 
 export default translate(Map)

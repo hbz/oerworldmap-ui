@@ -18,7 +18,8 @@ const PagedCollection = ({ translate, member }) => (
         </div>
         <DropdownButton />
       </div>
-      <Pagination current={2} total={member.lenght} />
+      {/* Add read values */}
+      <Pagination current={2} total={member.lenght || 10} /> 
       <ItemList listItems={member} />
     </div>
   </section>

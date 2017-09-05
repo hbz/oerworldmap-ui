@@ -11,7 +11,7 @@ import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
 import withEmitter from './withEmitter'
-import Loading from './Loading'
+// import Loading from './Loading'
 
 const defaultAggregations = {
   'about.@type': {

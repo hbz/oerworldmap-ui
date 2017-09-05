@@ -8,7 +8,7 @@ const Pagiantion = ({total, current}) => (
     <i className="fa fa-arrow-left " />
     <div className="numbers">
       <span>1</span>
-      <span className="current">2</span>
+      <span className="current">{current}</span>
       <span>3</span>
       <span>4</span>
       <span>5</span>
@@ -16,7 +16,7 @@ const Pagiantion = ({total, current}) => (
       <span>7</span>
       <span>8</span>
       <span>9</span>
-      <span>10</span>
+      <span>{total}</span>
     </div>
     <i className="fa fa-arrow-right " />
   </div>
