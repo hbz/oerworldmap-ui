@@ -55,9 +55,6 @@ class Map extends React.Component {
         const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
         const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
-
-        console.log(hoveredFeatures)
-
         this.setState({
           hoveredFeatures,
           point: e.point
@@ -160,6 +157,20 @@ class Map extends React.Component {
 
   }
 
+  calculateTypes(features) {
+    const types = []
+    features.forEach(feature => {
+      if (types[feature.properties['@type']]) {
+        types[feature.properties['@type']] = types[feature.properties['@type']] +1
+      } else {
+        types[feature.properties['@type']] = 1
+      }
+    })
+    return Object.keys(types).map((key) => {
+      return <span>{types[key]} <Icon type={key} /> </span>
+    })
+  }
+
   render() {
 
     return (
@@ -192,13 +203,19 @@ class Map extends React.Component {
               </ul>
             ) : (
               <ul>
-                {this.state.hoveredFeatures.map(feature => {
-                  return (
-                    <li key={feature.properties['@id']}>
-                      <Icon type={feature.properties['@type']} /> <b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}
-                    </li>
-                  )
-                })}
+                {this.state.hoveredFeatures.length < 5 ? (
+                  this.state.hoveredFeatures.map(feature => {
+                    return (
+                      <li key={feature.properties['@id']}>
+                        <Icon type={feature.properties['@type']} /> <b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}
+                      </li>
+                    )
+                  })
+                ) : (
+                  <li>
+                    {this.calculateTypes(this.state.hoveredFeatures)}   
+                  </li>
+                )}
               </ul>
             )}
           </div>
