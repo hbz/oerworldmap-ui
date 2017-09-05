@@ -12,6 +12,11 @@ const Column = ({ children, className }) => (
       role="button"
       tabIndex="0"
       className="toggleColumn"
+      onKeyDown={e => {
+        if (e.keyCode === 32) {
+          e.target.click()
+        }
+      }}
       onClick={e => {
         const column = e.target.parentElement.classList.contains('column')
           ? e.target.parentElement
