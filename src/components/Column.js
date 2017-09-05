@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Column = ({ children }) => (
-  <div className="column">
+const Column = ({ children, className }) => (
+  <div className={`column ${className}`}>
 
     <div className="columnContent">
       {children}
@@ -27,6 +27,11 @@ const Column = ({ children }) => (
 
 Column.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+}
+
+Column.defaultProps = {
+  className: null,
 }
 
 export default Column
