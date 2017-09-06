@@ -40,7 +40,8 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
         />
 
         <Columns emitter={emitter}>
-          <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}>
+          <Column>
+            {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
             <Filters
               query={data['query'] || ''}
               filters={data['filters'] || {'about.@type': [data.about['@type']]}}
