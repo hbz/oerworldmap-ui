@@ -33,11 +33,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
       <div className="content">
 
-        <Map
-          emitter={emitter}
-          mapboxConfig={mapboxConfig}
-          features={features}
-        />
+        <ActionButtons />
 
         <Columns emitter={emitter}>
           <Column>
@@ -59,9 +55,13 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
           }
         </Columns>
 
-        <NotificationWelcome data={data} />
+        <Map
+          emitter={emitter}
+          mapboxConfig={mapboxConfig}
+          features={features}
+        />
 
-        <ActionButtons />
+        <NotificationWelcome data={data} />
 
         {/* <Loading /> */}
 
