@@ -7,5 +7,11 @@
     "lastEdited": "Ultima edición por %{contributor} %{dateModified}",
     "created": "Creado por %{author} %{dateCreated}",
     "lastModified": "última modificación %{dateModified}"
+  },
+  "ActionButtons": {
+    "addEntry": "Añadir entrada",
+    "subscribeToNewsletter": "Suscribir a noticias",
+    "statistics": "Estadísticas",
+    "recentAdditions": "Adiciones recientes"
   }
 }
