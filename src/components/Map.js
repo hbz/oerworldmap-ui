@@ -28,6 +28,10 @@ class Map extends React.Component {
     })
 
     this.map.on('load', () => {
+      
+      this.Map.addEventListener('mouseleave', ()=> {
+        this.setState({hoveredFeatures:null})
+      })  
 
       // Set data source for points layers
       this.map.addSource('pointsSource', {
@@ -175,6 +179,7 @@ class Map extends React.Component {
 
     return (
       <div
+        ref={(map) => { this.Map = map }}
         id="Map"
         style={
           {position:'absolute',
