@@ -192,7 +192,6 @@ class Map extends React.Component {
                 position: 'absolute',
                 zIndex: 9,
                 pointerEvents:'none',
-                overflow: 'hidden'
               }}
           >
             {this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries' ? (

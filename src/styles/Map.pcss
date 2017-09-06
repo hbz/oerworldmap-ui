@@ -6,6 +6,21 @@
   background-color: var(--blue-paler);
   max-width: 250px;
   color: var(--blue-darker);
+  position: relative;
+
+  /* &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    transform: translateX(-50%) translateY(100%);
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: var(--blue-paler) transparent transparent transparent;
+  } */
 
   & ul {
     list-style-type: none;
