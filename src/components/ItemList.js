@@ -8,7 +8,7 @@ import '../styles/ItemList.pcss'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, emitter, listItems }) => (
+const ItemList = ({ translate, emitter, listItems, moment }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li
@@ -21,10 +21,30 @@ const ItemList = ({ translate, emitter, listItems }) => (
           emitter.emit('hoverPoint', { id: '' })
         }}
       >
-        <Link to={'#' + listItem.about['@id']}>
-          <Icon type={listItem.about['@type']} />&nbsp;
-          {translate(listItem.about.name) || listItem.about['@id']}
-        </Link>
+        {listItem.about['@type'] === 'Event' ? (
+          <Link className="item" to={'#' + listItem.about['@id']}>
+            <div className="sheet">
+              <div>
+                {moment(listItem.about.description.endDate).format('D')}
+              </div>
+              <div>
+                {moment(listItem.about.description.endDate).format('MMM')}
+              </div>
+            </div>
+            <span>
+              {translate(listItem.about.name) || listItem.about['@id']}<br />
+              {/* Edit to show the real start and end date */}
+              {/* {translate(listItem.about.description.startDate).format('D. MMM')} — {listItem.about.location.address.addressLocality},{listItem.about.location.address.addressCountry} */}
+            </span>
+          </Link>
+        ) : (
+          <Link className="item" to={'#' + listItem.about['@id']}>
+            <Icon type={listItem.about['@type']} />
+            <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
+          </Link>
+        )}
+        
+        
         {/* <pre>{JSON.stringify(listItem, null, 2)}</pre> */}
         <aside className="extract">
           <p>{translate(listItem.about.description)}</p>
