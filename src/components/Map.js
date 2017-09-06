@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import Icon from './Icon'
 import translate from './translate'
+import withEmitter from './withEmitter'
 
 import '../styles/Map.pcss'
 
@@ -99,6 +100,20 @@ class Map extends React.Component {
           point: { x: e.originalEvent.x, y: e.originalEvent.y -35}
         })
       })
+
+      this.map.on('click', 'points', function (e) {
+        if (e.features.length >1) { 
+          // Click on more than 1 resource
+          this.map.flyTo({
+            center: e.features[0].geometry.coordinates,
+            zoom: 10
+          })
+        } else {
+          // Click on a single resource          
+          const url = `/resource/${e.features[0].properties['@id']}`
+          this.props.emitter.emit('load', url)
+        }
+      }.bind(this))
 
       // Receive event from ItemList
       this.props.emitter.on('hoverPoint', (e) => {
@@ -242,4 +257,4 @@ Map.propTypes = {
   translate: PropTypes.func.isRequired
 }
 
-export default translate(Map)
+export default withEmitter(translate(Map))
