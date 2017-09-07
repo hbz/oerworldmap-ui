@@ -21,6 +21,17 @@ const WebPage = ({
       dateCreated={dateCreated}
     />
     <h1>{translate(about.name)}</h1>
+
+    {about.description[0]['@value'] &&
+      <p>{about.description[0]['@value']}</p>
+    }
+
+    {about.url &&
+      <a href={about.url} className="boxedLink">
+        <i className="fa fa-external-link" /> {about.url}
+      </a>
+    }
+
     <pre>{JSON.stringify(about, null, 2)}</pre>
   </div>
 )
