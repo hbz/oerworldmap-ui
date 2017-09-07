@@ -6,6 +6,13 @@
   "Event": "Veranstaltung",
   "Article": "Story",
   "Action": "Projekt",
+  "Header": {
+    "home": "Home",
+    "faq": "FAQ",
+    "about": "Über",
+    "contribute": "Beitragen",
+    "blog": "Blog"
+  },
   "Filters": {
     "searchTheMap": "Auf der OER World Map suchen",
     "relevance": "Relevanz",

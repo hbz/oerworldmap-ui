@@ -8,7 +8,7 @@ import '../styles/Metadata.pcss'
 const Metadata = ({type, dateModified, moment, translate} ) => (
   <div className="Metadata">
     <div title={moment(dateModified).fromNow()} >
-      <Icon type={type} /> <b>{type} </b>
+      <Icon type={type} /> <b>{translate(type)} </b>
       ({translate('Metadata.lastModified', {
         dateModified : moment(dateModified).format('D. MMM YYYY')
       })})

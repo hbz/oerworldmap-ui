@@ -6,6 +6,13 @@
   "Event": "Event",
   "Article": "Article",
   "Action": "Action",
+  "Header": {
+    "home": "Home",
+    "faq": "FAQ",
+    "about": "About",
+    "contribute": "Contribute",
+    "blog": "Blog"
+  },
   "Filters": {
     "searchTheMap": "Search the map",
     "relevance": "Relevance",

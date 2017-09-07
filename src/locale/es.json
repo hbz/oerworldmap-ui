@@ -6,6 +6,13 @@
   "Event": "Evento",
   "Article": "Artículo",
   "Action": "Acción",
+  "Header": {
+    "home": "Inicio",
+    "faq": "FAQ",
+    "about": "Acerca de",
+    "contribute": "Contribuir",
+    "blog": "Blog"
+  },
   "Filters": {
     "searchTheMap": "Buscar en el mapa",
     "relevance": "Relevancia",
