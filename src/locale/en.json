@@ -1,4 +1,17 @@
 {
+  "WebPage": "Web Page",
+  "Service": "Service",
+  "Person": "Person",
+  "Organization": "Organization",
+  "Event": "Event",
+  "Article": "Article",
+  "Action": "Action",
+  "Filters": {
+    "searchTheMap": "Search the map",
+    "relevance": "Relevance",
+    "dateCreated": "Date Created",
+    "clearFilters": "Clear filters"
+  },
   "PagedCollection": {
     "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries",
     "results": "Results"

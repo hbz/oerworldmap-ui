@@ -1,4 +1,17 @@
 {
+  "WebPage": "Internetseite",
+  "Service": "Service",
+  "Person": "Person",
+  "Organization": "Organisation",
+  "Event": "Veranstaltung",
+  "Article": "Story",
+  "Action": "Projekt",
+  "Filters": {
+    "searchTheMap": "Auf der OER World Map suchen",
+    "relevance": "Relevanz",
+    "dateCreated": "Erstellungsdatum",
+    "clearFilters": "Filter zurücksetzen"
+  },
   "PagedCollection": {
     "totalItems": "%{smart_count} Eintrag |||| %{smart_count} Einträge",
     "results": "Ergebnisse"
