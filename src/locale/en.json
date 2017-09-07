@@ -26,5 +26,8 @@
     "subscribeToNewsletter": "Subscribe to Newsletter",
     "statistics": "Statistics",
     "recentAdditions": "Recent Additions"
+  },
+  "ItemList": {
+    "readMore": "Read More"
   }
 }

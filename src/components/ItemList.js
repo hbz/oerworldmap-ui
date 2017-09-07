@@ -49,7 +49,8 @@ const ItemList = ({ translate, emitter, listItems, moment }) => (
         <aside className="extract">
           <p>{translate(listItem.about.description)}</p>
           <Link className="btn" to={'/resource/' + listItem.about['@id']}>
-            Read More
+            {/* Read More */}
+            {translate('ItemList.readMore')}
           </Link>
         </aside>
       </li>
