@@ -104,7 +104,8 @@ Filters.propTypes = {
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  extended: PropTypes.bool.isRequired
+  extended: PropTypes.bool.isRequired,
+  translate: PropTypes.func.isRequired
 }
 
 export default withEmitter(translate(Filters))

@@ -62,7 +62,8 @@ const ItemList = ({ translate, emitter, listItems, moment }) => (
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  listItems: PropTypes.arrayOf(PropTypes.any).isRequired
+  listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
+  moment: PropTypes.func.isRequired
 }
 
 export default withEmitter(translate(ItemList))

@@ -11,6 +11,7 @@ import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
 import withEmitter from './withEmitter'
+// import UserForm from './UserForm'
 // import Loading from './Loading'
 
 const defaultAggregations = {
@@ -62,6 +63,8 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
         />
 
         <NotificationWelcome data={data} />
+        {/* <UserForm /> */}
+
 
         {/* <Loading /> */}
 
