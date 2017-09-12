@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import translate from './translate'
 import Metadata from './Metadata'
+import { formatURL } from '../common'
   
 const WebPage = ({
   translate,
@@ -28,7 +29,7 @@ const WebPage = ({
 
     {about.url &&
       <a href={about.url} className="boxedLink">
-        <i className="fa fa-external-link" /> {about.url}
+        <i className="fa fa-external-link" /> {formatURL(about.url)}
       </a>
     }
 
