@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { renderToStaticMarkup } from 'react-dom/server'
+
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import Icon from './Icon'
+import Link from './Link'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
@@ -110,13 +113,35 @@ class Map extends React.Component {
       })
 
       this.map.on('click', 'points', function (e) {
-        if (e.features.length >1) { 
-          // Click on more than 1 resource
+        if (e.features.length > 6) { 
           this.map.flyTo({
             center: e.features[0].geometry.coordinates,
             zoom: 10
+          }) 
+
+        } else if (e.features.length > 1) {
+          const list = e.features.map(feature => {
+            return (
+              <li key={feature.properties['@id']}>
+                <Icon type={feature.properties['@type']} /> <Link to={feature.properties['@id']}><b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}</Link>
+              </li>
+            )
           })
-        } else {
+
+          // Show overlay
+          this.popup = new mapboxgl.Popup({closeButton:false})
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML(renderToStaticMarkup(<div className="tooltip"><ul>{list}</ul></div>))
+            .addTo(this.map)
+
+          this.setState({
+            overlayList:true,
+            hoveredFeatures:null
+          })
+        }
+        
+        else {
+          this.map.setFilter('points-select', [ 'in', '@id' ].concat(e.features[0].properties['@id']))          
           // Click on a single resource          
           const url = `/resource/${e.features[0].properties['@id']}`
           this.props.emitter.emit('load', url)
@@ -242,14 +267,12 @@ class Map extends React.Component {
               </ul>
             ) : (
               <ul>
-                {this.state.hoveredFeatures.length < 5 ? (
-                  this.state.hoveredFeatures.map(feature => {
-                    return (
-                      <li key={feature.properties['@id']}>
-                        <Icon type={feature.properties['@type']} /> <b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}
-                      </li>
-                    )
-                  })
+                {this.state.hoveredFeatures.length <= 6 ? (
+                  this.state.hoveredFeatures.map(feature => (
+                    <li key={feature.properties['@id']}>
+                      <Icon type={feature.properties['@type']} /> <b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}
+                    </li>
+                  ))
                 ) : (
                   <li>
                     {this.calculateTypes(this.state.hoveredFeatures)}   
@@ -258,6 +281,17 @@ class Map extends React.Component {
               </ul>
             )}
           </div>
+        }
+
+        {this.state.overlayList &&
+          <div
+            role="button"
+            tabIndex="0"
+            onClick={() => {
+              this.popup.remove()
+              this.setState({overlayList:false})}}
+            className="overlayList"
+          />
         }
       </div>
     )
