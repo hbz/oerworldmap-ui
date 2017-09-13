@@ -23,7 +23,8 @@ const WebPage = ({
     />
     <h1>{translate(about.name)}</h1>
 
-    {about.description[0]['@value'] &&
+    {about.url && 
+    about.description[0]['@value'] &&
       <p>{about.description[0]['@value']}</p>
     }
 
