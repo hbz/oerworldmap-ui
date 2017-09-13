@@ -133,6 +133,12 @@ class Map extends React.Component {
             .setLngLat(e.features[0].geometry.coordinates)
             .setHTML(renderToStaticMarkup(<div className="tooltip"><ul>{list}</ul></div>))
             .addTo(this.map)
+            
+          this.popup.on('close', () => {
+            this.setState({overlayList:false})
+          })
+
+          
 
           this.setState({
             overlayList:true,
@@ -251,6 +257,7 @@ class Map extends React.Component {
             left: 0}}
       >
         {this.state.hoveredFeatures &&
+        !this.state.overlayList &&
           <div
             className="tooltip"
             style={
@@ -286,14 +293,7 @@ class Map extends React.Component {
         }
 
         {this.state.overlayList &&
-          <div
-            role="button"
-            tabIndex="0"
-            onClick={() => {
-              this.popup.remove()
-              this.setState({overlayList:false})}}
-            className="overlayList"
-          />
+          <div className="overlayList" />
         }
       </div>
     )
