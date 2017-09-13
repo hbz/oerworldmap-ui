@@ -168,6 +168,7 @@ class Map extends React.Component {
 
   
   getBucket(country) {
+    if (this.props.features === null)  return    
     return this.props.features.aggregations["about.location.address.addressCountry"].buckets.find(e => {
       return e.key === country
     })
@@ -175,6 +176,7 @@ class Map extends React.Component {
   
   updateChoropleth(features) {
 
+    if (features === null)  return
     // The buckets holding the data for the choropleth layers
     const buckets = features.aggregations
       ? features.aggregations["about.location.address.addressCountry"].buckets
