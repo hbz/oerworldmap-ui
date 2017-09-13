@@ -1,6 +1,8 @@
+/* golbal document */
+
 import React from 'react'
 import PropTypes from 'prop-types'
-import { renderToStaticMarkup } from 'react-dom/server'
+import ReactDOM from 'react-dom'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -8,6 +10,7 @@ import Icon from './Icon'
 import Link from './Link'
 import translate from './translate'
 import withEmitter from './withEmitter'
+import EmittProvider from './EmittProvider'
 
 import '../styles/Map.pcss'
 
@@ -129,16 +132,16 @@ class Map extends React.Component {
           })
 
           // Show overlay
+          const popupDOM = document.createElement('div')
+          ReactDOM.render(<EmittProvider emitter={this.props.emitter}><div className="tooltip"><ul>{list}</ul></div></EmittProvider>, popupDOM)
           this.popup = new mapboxgl.Popup({closeButton:false})
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML(renderToStaticMarkup(<div className="tooltip"><ul>{list}</ul></div>))
+            .setDOMContent(popupDOM)
             .addTo(this.map)
             
           this.popup.on('close', () => {
             this.setState({overlayList:false})
           })
-
-          
 
           this.setState({
             overlayList:true,
