@@ -58,6 +58,14 @@ class Map extends React.Component {
       // Get features currently under the mouse
       this.map.on("mousemove", (e) => {
         const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
+
+        if (hoveredCountry
+          && hoveredCountry[0]
+          && (!this.state.bucket || this.state.bucket && this.state.bucket.key !== hoveredCountry[0].properties.iso_a)) {
+          const bucket = this.getBucket(hoveredCountry[0].properties.iso_a2)
+          this.setState({bucket})
+        }
+
         const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
         this.setState({
@@ -133,10 +141,13 @@ class Map extends React.Component {
     this.updatePoints(nextProps.features)
   }
 
-  updatePoints(features) {
-    this.map.getSource('pointsSource').setData(features)
+  
+  getBucket(country) {
+    return this.props.features.aggregations["about.location.address.addressCountry"].buckets.find(e => {
+      return e.key === country
+    })
   }
-
+  
   updateChoropleth(features) {
 
     // The buckets holding the data for the choropleth layers
@@ -168,14 +179,17 @@ class Map extends React.Component {
     buckets.forEach(bucket => {
       choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
     })
-
+    
     // Set filters of actual choropleth layers
     choroplethLayerGroups.forEach((group, i) => {
       this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
     })
-
   }
 
+  updatePoints(features) {
+    this.map.getSource('pointsSource').setData(features)
+  }
+  
   calculateTypes(features) {
     const types = []
     features.forEach(feature => {
@@ -187,6 +201,12 @@ class Map extends React.Component {
     })
     return Object.keys(types).map((key) => {
       return <span key={key}>{types[key]} <Icon type={key} /> </span>
+    })
+  }
+
+  renderTypes(types) {
+    return types.map((type) => {
+      return <span key={type.key}>{type.doc_count} <Icon type={type.key} /> </span>
     })
   }
 
@@ -217,8 +237,8 @@ class Map extends React.Component {
             {this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries' ? (
               <ul>
                 {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
-                <li><b>{this.state.hoveredFeatures[0].properties.iso_a2}</b></li>
-                <li className="darker">Country Champion: <i className="fa fa-check" /></li>
+                <li><b>{this.state.hoveredFeatures[0].properties.iso_a2} {this.state.bucket && this.renderTypes(this.state.bucket.by_type.buckets)}</b></li>
+                <li className="darker">Country Champion: <i className={`fa fa-${this.state.bucket && this.state.bucket.champions.doc_count > 0 ? 'check' : 'times'}`} /></li>
               </ul>
             ) : (
               <ul>
