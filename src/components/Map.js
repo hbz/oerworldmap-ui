@@ -1,4 +1,4 @@
-/* golbal document */
+/* global document */
 
 import React from 'react'
 import PropTypes from 'prop-types'
