@@ -147,6 +147,10 @@
   & .mapboxgl-popup-content {
     padding: 0;
 
+    &.noEvents {
+      pointer-events: none;
+    }
+
     & a:hover {
       color: var(--orange);
     }

@@ -37,6 +37,7 @@ class Map extends React.Component {
     this.map.on('load', () => {
       
       this.Map.addEventListener('mouseleave', ()=> {
+        this.hoverPopup.remove()
         this.setState({hoveredFeatures:null})
       })  
 
@@ -78,6 +79,67 @@ class Map extends React.Component {
           hoveredFeatures,
           point: e.point
         })
+        
+        let popupContent
+  
+        if (this.state.hoveredFeatures && this.state.hoveredFeatures.length && !this.state.overlayList) {
+          if (this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries') {
+            popupContent = (
+              <ul>
+                {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
+                <li>
+                  <b>
+                    {this.state.hoveredFeatures[0].properties.iso_a2}
+                    &nbsp;{this.state.bucket && this.renderTypes(this.state.bucket.by_type.buckets)}
+                  </b>
+                </li>
+                <li className="darker">
+                  Country Champion:&nbsp;
+                  <i className={`fa fa-${this.state.bucket && this.state.bucket.champions.doc_count > 0 
+                    ? 'check' : 'times'}`}
+                  />
+                </li>
+              </ul>
+            ) 
+          } else {
+            popupContent = (
+              <ul>  
+                {this.state.hoveredFeatures.length <= 6 ? (
+                  this.state.hoveredFeatures.map(feature => (
+                    <li key={feature.properties['@id']}>
+                      <Icon type={feature.properties['@type']} />
+                      &nbsp;<b>{feature.properties['@type']}:</b>
+                      &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    {this.calculateTypes(this.state.hoveredFeatures)}   
+                  </li>
+                )}
+              </ul>
+            )
+          }
+
+          const popupDOM = document.createElement('div')
+          this.hoverPopup
+            .setLngLat(e.lngLat)
+            .setDOMContent(ReactDOM.render(
+              <div
+                className="tooltip"
+                style={
+                  { zIndex: 9,
+                    pointerEvents:'none',
+                  }}
+              >
+                {popupContent}
+              </div>, popupDOM))
+            .addTo(this.map)
+            
+          this.hoverPopup._content.classList.add('noEvents')
+        } else {
+          this.hoverPopup.remove()
+        }
       })
 
       // When the user moves their mouse over the points layer, we'll update the filter in
@@ -126,14 +188,24 @@ class Map extends React.Component {
           const list = e.features.map(feature => {
             return (
               <li key={feature.properties['@id']}>
-                <Icon type={feature.properties['@type']} /> <Link to={feature.properties['@id']}><b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}</Link>
+                <Icon type={feature.properties['@type']} />
+                &nbsp;<Link to={feature.properties['@id']}>
+                  <b>{feature.properties['@type']}:</b>
+                  &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}</Link>
               </li>
             )
           })
 
           // Show overlay
           const popupDOM = document.createElement('div')
-          ReactDOM.render(<EmittProvider emitter={this.props.emitter}><div className="tooltip"><ul>{list}</ul></div></EmittProvider>, popupDOM)
+          ReactDOM.render(
+            <EmittProvider emitter={this.props.emitter}>
+              <div className="tooltip">
+                <ul>{list}</ul>
+              </div>
+            </EmittProvider>
+            , popupDOM)
+
           this.popup = new mapboxgl.Popup({closeButton:false})
             .setLngLat(e.features[0].geometry.coordinates)
             .setDOMContent(popupDOM)
@@ -168,6 +240,9 @@ class Map extends React.Component {
 
     })
 
+    // Create and hide popup for hover
+    this.hoverPopup = new mapboxgl.Popup({closeButton:false})
+      .remove()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -259,42 +334,6 @@ class Map extends React.Component {
             top:0,
             left: 0}}
       >
-        {this.state.hoveredFeatures &&
-        !this.state.overlayList &&
-          <div
-            className="tooltip"
-            style={
-              { left: this.state.point.x + 5,
-                top: this.state.point.y + 5,
-                position: 'absolute',
-                zIndex: 9,
-                pointerEvents:'none',
-              }}
-          >
-            {this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries' ? (
-              <ul>
-                {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
-                <li><b>{this.state.hoveredFeatures[0].properties.iso_a2} {this.state.bucket && this.renderTypes(this.state.bucket.by_type.buckets)}</b></li>
-                <li className="darker">Country Champion: <i className={`fa fa-${this.state.bucket && this.state.bucket.champions.doc_count > 0 ? 'check' : 'times'}`} /></li>
-              </ul>
-            ) : (
-              <ul>
-                {this.state.hoveredFeatures.length <= 6 ? (
-                  this.state.hoveredFeatures.map(feature => (
-                    <li key={feature.properties['@id']}>
-                      <Icon type={feature.properties['@type']} /> <b>{feature.properties['@type']}:</b> {this.props.translate(JSON.parse(feature.properties.name))}
-                    </li>
-                  ))
-                ) : (
-                  <li>
-                    {this.calculateTypes(this.state.hoveredFeatures)}   
-                  </li>
-                )}
-              </ul>
-            )}
-          </div>
-        }
-
         {this.state.overlayList &&
           <div className="overlayList" />
         }
