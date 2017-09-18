@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import '../styles/UserForm.pcss'
 
@@ -51,9 +50,5 @@ const UserForm = () => (
 
   </div>
 )
-
-UserForm.propTypes = {
-  children: PropTypes.node.isRequired
-}
 
 export default UserForm
