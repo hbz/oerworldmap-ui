@@ -4,4 +4,26 @@
   & h1 {
     color: color(var(--blue) l(15%));
   }
+
+  & .PagedCollectionHeader {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--blue-darker);
+    margin-top: 5px;
+  }
+
+  & .counter {
+    font-size: 0.8rem;
+
+    & .badge {
+      padding: 3px 7px;
+      font-weight: bold;
+      background-color: var(--blue-darker);
+      display: inline-block;
+      color: var(--white);
+      border-radius: 10px;
+    }
+  }
 }

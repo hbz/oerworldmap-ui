@@ -27,6 +27,7 @@ a {
     /* min-height: 100%; */
     flex: 1;
     position: relative;
+    overflow: hidden;
 
     /* overflow: hidden; */
 
@@ -43,7 +44,8 @@ a {
   background-color: var(--blue-paler);
   border: 1px solid #172738;
 
-  &:focus {
+  &:focus,
+  &:hover {
     color: var(--blue-darker);
     background-color: #b8d0e9;
     border-color: #040609;
@@ -89,4 +91,8 @@ a {
   text-align: right;
   font-size: 12.8px;
   font-size: 0.8rem;
+}
+
+pre {
+  white-space: pre-wrap;
 }

@@ -1,10 +1,40 @@
 {
+  "WebPage": "Pagina Web",
+  "Service": "Servicio",
+  "Person": "Persona",
+  "Organization": "Organización",
+  "Event": "Evento",
+  "Article": "Artículo",
+  "Action": "Acción",
+  "Header": {
+    "home": "Inicio",
+    "faq": "FAQ",
+    "about": "Acerca de",
+    "contribute": "Contribuir",
+    "blog": "Blog"
+  },
+  "Filters": {
+    "searchTheMap": "Buscar en el mapa",
+    "relevance": "Relevancia",
+    "dateCreated": "Fecha de Creación",
+    "clearFilters": "Borrar filtros"
+  },
   "PagedCollection": {
-    "totalItems": "%{smart_count} Entrada |||| %{smart_count} Entradas"
+    "totalItems": "%{smart_count} Entrada |||| %{smart_count} Entradas",
+    "results": "Resultados"
   },
   "Metadata": {
     "lastEdited": "Ultima edición por %{contributor} %{dateModified}",
     "created": "Creado por %{author} %{dateCreated}",
     "lastModified": "última modificación %{dateModified}"
+  },
+  "ActionButtons": {
+    "addEntry": "Añadir entrada",
+    "subscribeToNewsletter": "Suscribir a noticias",
+    "statistics": "Estadísticas",
+    "recentAdditions": "Adiciones recientes"
+  },
+  "ItemList": {
+    "readMore": "Leer Más"
   }
 }

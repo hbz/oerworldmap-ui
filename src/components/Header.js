@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
+import translate from './translate'
 
 import '../styles/Header.pcss'
 
-const Header = ({ user, emitter }) => (
+const Header = ({ user, emitter, translate }) => (
   <header className="Header">
     <nav className="mainNav">
-      <a href="/" title="Home">
+      <a href="/" title={translate('Header.home')}>
         <h1>OER W<i className="fa fa-globe" />RLD MAP</h1>
       </a>
-      <a href="#" title="FAQ">FAQ</a>
-      <a href="#" title="About">About</a>
-      <a href="#" title="Contribute">Contribute</a>
-      <a href="#" title="Blog">Blog</a>
+      <a href="#" title={translate('Header.faq')}>{translate('Header.faq')}</a>
+      <a href="#" title={translate('Header.about')}>{translate('Header.about')}</a>
+      <a href="#" title={translate('Header.contribute')}>{translate('Header.contribute')}</a>
+      <a href="#" title={translate('Header.blog')}>{translate('Header.blog')}</a>
       <a href="#" title="Facebook">
         <i className="fa fa-facebook-official" />
       </a>
@@ -43,6 +44,7 @@ const Header = ({ user, emitter }) => (
 
 Header.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.string.isRequired,
   user: PropTypes.string
 }
 
@@ -50,4 +52,4 @@ Header.defaultProps = {
   user: null,
 }
 
-export default withEmitter(Header)
+export default withEmitter(translate(Header))

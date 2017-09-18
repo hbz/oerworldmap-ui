@@ -11,6 +11,8 @@ import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
 import withEmitter from './withEmitter'
+// import UserForm from './UserForm'
+// import Loading from './Loading'
 
 const defaultAggregations = {
   'about.@type': {
@@ -32,14 +34,11 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
       <div className="content">
 
-        <Map
-          emitter={emitter}
-          mapboxConfig={mapboxConfig}
-          features={features}
-        />
+        <ActionButtons />
 
         <Columns emitter={emitter}>
           <Column>
+            {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
             <Filters
               query={data['query'] || ''}
               filters={data['filters'] || {'about.@type': [data.about['@type']]}}
@@ -57,9 +56,17 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
           }
         </Columns>
 
-        <NotificationWelcome data={data} />
+        <Map
+          emitter={emitter}
+          mapboxConfig={mapboxConfig}
+          features={features}
+        />
 
-        <ActionButtons />
+        <NotificationWelcome data={data} />
+        {/* <UserForm /> */}
+
+
+        {/* <Loading /> */}
 
       </div>
 

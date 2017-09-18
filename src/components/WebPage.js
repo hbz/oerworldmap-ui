@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import translate from './translate'
 import Metadata from './Metadata'
+import { formatURL } from '../common'
   
 const WebPage = ({
   translate,
@@ -21,6 +22,18 @@ const WebPage = ({
       dateCreated={dateCreated}
     />
     <h1>{translate(about.name)}</h1>
+
+    {about.url && 
+    about.description[0]['@value'] &&
+      <p>{about.description[0]['@value']}</p>
+    }
+
+    {about.url &&
+      <a href={about.url} className="boxedLink">
+        <i className="fa fa-external-link" /> {formatURL(about.url)}
+      </a>
+    }
+
     <pre>{JSON.stringify(about, null, 2)}</pre>
   </div>
 )

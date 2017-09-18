@@ -1,0 +1,17 @@
+@import './Colors.pcss';
+
+.Pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+
+  & .numbers span {
+    margin: 0 5px;
+    display: inline-block;
+
+    &.current {
+      font-weight: bold;
+      color: var(--blue-darker);
+    }
+  }
+}

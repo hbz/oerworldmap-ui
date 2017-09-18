@@ -4,6 +4,7 @@
   position: absolute;
   top: 15px;
   left: 15px;
+  z-index: 4;
 
   & a {
     margin: 5px;
@@ -17,5 +18,10 @@
     justify-content: center;
     align-items: center;
     background-color: var(--orange);
+
+    &:hover,
+    &:focus {
+      background-color: color(var(--orange) l(+20%));
+    }
   }
 }

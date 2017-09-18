@@ -1,0 +1,35 @@
+@import './Colors.pcss';
+
+.DropdownMenu {
+  z-index: 2;
+  width: 160px;
+  border: 1px solid var(--blue-darker);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  background-color: var(--blue-palest);
+  position: absolute;
+  right: 0;
+
+  & li {
+    border-bottom: 1px solid var(--blue-darker);
+    padding: 8px 10px;
+
+    &:hover,
+    &:focus {
+      background-color: var(--blue-paler);
+    }
+  }
+
+  & a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & li:last-child {
+    border-bottom: none;
+  }
+}
+

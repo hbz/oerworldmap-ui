@@ -6,6 +6,23 @@
   top: 0;
   height: 100%;
   display: flex;
+  transition: all 1s;
+  pointer-events: none;
+  z-index: 2;
+
+  &.hideColumns {
+    transform: translateX(98%);
+
+    & .toggleColumn {
+      left: -5px;
+
+      & i {
+        transform: scaleX(-1);
+        top: 0;
+        left: 0;
+      }
+    }
+  }
 
   & .column {
     color: var(--blue-darker);
@@ -13,6 +30,22 @@
     background-color: color(var(--white) alpha(95%));
     border-left: 1px solid var(--blue-lighter);
     position: relative;
+    pointer-events: all;
+
+    &.transparentColumn {
+      background-color: transparent;
+      pointer-events: none;
+      border-left: none;
+
+      & .columnContent {
+        height: auto;
+        pointer-events: all;
+      }
+
+      & .toggleColumn {
+        display: none;
+      }
+    }
 
     & .columnContent {
       padding: 20px;

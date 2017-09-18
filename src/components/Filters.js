@@ -8,6 +8,7 @@ import '../styles/Filters.pcss'
 import withEmitter from './withEmitter'
 import Icon from './Icon'
 import Link from './Link'
+import translate from './translate'
 
 const onSubmit = (e, emitter) => {
   e.preventDefault()
@@ -24,13 +25,13 @@ const triggerClick = (e) => {
   }
 }
 
-const Filters = ({query, filters, aggregations, emitter, extended}) => (
+const Filters = ({query, filters, aggregations, emitter, extended, translate}) => (
   <nav className="Filters">
 
     <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
       {extended ? (
         <div className="filterSearch">
-          <input type="search" name="q" defaultValue={query} placeholder="Search the map..." />
+          <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
           <button className="btn" type="submit">
             <i className="fa fa-search" />
           </button>
@@ -71,7 +72,7 @@ const Filters = ({query, filters, aggregations, emitter, extended}) => (
                   role="button"
                   tabIndex="0"
                   htmlFor={"type:" + bucket.key}
-                  title={bucket.key}
+                  title={translate(bucket.key)}
                   className="btn"
                 >
                   <Icon type={bucket.key} />
@@ -84,13 +85,13 @@ const Filters = ({query, filters, aggregations, emitter, extended}) => (
 
       <div className="sortContainer">
         <select name="sort" className="btn" onChange={(evt) => onSubmit(evt, emitter)}>
-          <option value="">Relevance</option>
-          <option value="dateCreated:ASC">Date Created</option>
+          <option value="">{translate('Filters.relevance')}</option>
+          <option value="dateCreated:ASC">{translate('Filters.dateCreated')}</option>
         </select>
       </div>
 
       <div className="clearFilter">
-        <Link to="/resource/">Clear Filter</Link>
+        <Link to="/resource/">{translate('Filters.clearFilters')}</Link>
       </div>
 
     </form>
@@ -103,7 +104,8 @@ Filters.propTypes = {
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  extended: PropTypes.bool.isRequired
+  extended: PropTypes.bool.isRequired,
+  translate: PropTypes.func.isRequired
 }
 
-export default withEmitter(Filters)
+export default withEmitter(translate(Filters))
