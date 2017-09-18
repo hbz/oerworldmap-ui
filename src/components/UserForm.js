@@ -28,20 +28,20 @@ const UserForm = () => (
         <input type="email" placeholder="Your Email Address ..." />
         <input type="text" placeholder="Choose Password" />
         <input type="text" placeholder="Repeat Password" />
-        <label>
-          <input type="checkbox" />
+        <label htmlFor="privacy">
+          <input type="checkbox" id="privacy" />
           <span>By registering, I agree to the terms of the <a href="/imprint" target="_blank">privacy policy</a>. I specifically agree to publish the information I provide, except for my password, which will be stored securely. Your activities within OER World Map will also be stored and processed for the purpose of improving the service as well as to prove your consent to specific activities.*</span>
         </label>
-        <label>
-          <input type="checkbox" />
+        <label htmlFor="service">
+          <input type="checkbox" id="service" />
           <span>I also agree to the <a href="/imprint" target="_blank">Terms of the service.</a> Especially, I will ensure, that no rights of others are violated by me publishing information through OER World Map. This includes the privacy and copyrights of others.*</span>
         </label>
-        <label>
-          <input type="checkbox" />
+        <label htmlFor="email">
+          <input type="checkbox" id="email" />
           <span>I agree to having my email-address published as part of my profile</span>
         </label>
-        <label>
-          <input type="checkbox" />
+        <label htmlFor="subscribe">
+          <input type="checkbox" id="subscribe" />
           <span>I want to subscribe to the OER World Map Newsletter</span>
         </label>
         <br />
