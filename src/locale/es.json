@@ -4,6 +4,7 @@
   },
   "Metadata": {
     "lastEdited": "Ultima edición por %{contributor} %{dateModified}",
-    "created": "Creado por %{author} %{dateCreated}"
+    "created": "Creado por %{author} %{dateCreated}",
+    "lastModified": "última modificación %{dateModified}"
   }
 }

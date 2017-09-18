@@ -10,11 +10,12 @@ const icons = {
   Action: 'gears',
   Concept: 'tag',
   ConceptScheme: 'sitemap',
-  Event: 'calendar'
+  Event: 'calendar',
+  WebPage: 'book'
 }
 
 const Icon = ({ type }) => (
-  <i className={`fa fa-fw fa-${icons[type]}` || 'question'} />
+  <i className={`fa fa-${icons[type] || 'question'}`} />
 )
 
 Icon.propTypes = {

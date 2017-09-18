@@ -68,7 +68,7 @@ class NotificationWelcome extends React.Component {
                 <div className="numbersTable">
                   <div>
                     <a href="#">
-                      <i className="fa fa-fw fa-user" />
+                      <i className="fa fa-user" />
                       <br />
                       <span className="name" >Person</span>
                       <br />
@@ -78,7 +78,7 @@ class NotificationWelcome extends React.Component {
 
                   <div>
                     <a href="#">
-                      <i className="fa fa-fw fa-users" />
+                      <i className="fa fa-users" />
                       <br />
                       <span className="name">Organization</span>
                       <br />

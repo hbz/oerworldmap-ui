@@ -87,7 +87,11 @@ let Config = {
     ]
   },
 
-  devtool: 'source-map'
+  devtool: 'source-map',
+
+  plugins: [
+    new ExtractTextPlugin("styles.css"),
+  ]
 }
 
 if (TARGET === 'server:dev') {
@@ -107,7 +111,6 @@ if (TARGET === 'server:dev') {
           files: '**/*.pcss',
         },
       ),
-      new ExtractTextPlugin("styles.css"),
     ]
   })
 }
