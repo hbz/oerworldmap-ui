@@ -44,7 +44,7 @@ const Header = ({ user, emitter, translate }) => (
 
 Header.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  translate: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired,
   user: PropTypes.string
 }
 
