@@ -32,43 +32,40 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
       <Header user={user} />
 
-      <div className="content">
+      {data['@type'] === 'WebPage' ? (
+        <div className="content">
+          <WebPage {...data} />
+        </div>
+      ): (
+        <div className="content">
+          <ActionButtons />
 
-        <ActionButtons />
-
-        <Columns emitter={emitter}>
-          <Column>
-            {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
-            <Filters
-              query={data['query'] || ''}
-              filters={data['filters'] || {'about.@type': [data.about['@type']]}}
-              aggregations={data['aggregations'] || defaultAggregations}
-              extended={data['@type'] === 'PagedCollection'}
-            />
-            {data['@type'] === 'PagedCollection' &&
-              <PagedCollection {...data} />
-            }
-          </Column>
-          {data['@type'] === 'WebPage' &&
+          <Columns emitter={emitter}>
             <Column>
-              <WebPage {...data} />
+              {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
+              <Filters
+                query={data['query'] || ''}
+                filters={data['filters'] || {'about.@type': [data.about['@type']]}}
+                aggregations={data['aggregations'] || defaultAggregations}
+                extended={data['@type'] === 'PagedCollection'}
+              />
+              {data['@type'] === 'PagedCollection' &&
+                <PagedCollection {...data} />
+              }
             </Column>
-          }
-        </Columns>
+          </Columns>
 
-        <Map
-          emitter={emitter}
-          mapboxConfig={mapboxConfig}
-          features={features}
-        />
+          <Map
+            emitter={emitter}
+            mapboxConfig={mapboxConfig}
+            features={features}
+          />
+        </div>
+      )}
 
-        <NotificationWelcome data={data} />
-        {/* <UserForm /> */}
-
-
-        {/* <Loading /> */}
-
-      </div>
+      <NotificationWelcome data={data} />
+      {/* <UserForm /> */}
+      {/* <Loading /> */}
 
     </main>
   </div>
