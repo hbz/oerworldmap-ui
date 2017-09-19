@@ -15,7 +15,7 @@ import './styles/main.pcss'
 
   const renderApp = (state, emitter) => {
 
-    document.title = getTitle(state.data)
+    document.title = getTitle(state.data, state.locales)
 
     ReactDOM.render(
       <Init {...state} emitter={emitter} />,

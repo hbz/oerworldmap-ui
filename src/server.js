@@ -69,7 +69,7 @@ server.get(/^(.*)$/, (req, res) => {
     }
     res.send(template({
       body: renderToString(<Init {...initialState} emitter={{}} />),
-      title: getTitle(initialState.data),
+      title: getTitle(initialState.data, initialState.locales),
       initialState: JSON.stringify(initialState)
     }))
   }, req.get('authorization'))
