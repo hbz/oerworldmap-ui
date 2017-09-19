@@ -123,7 +123,9 @@ class Map extends React.Component {
 
           const popupDOM = document.createElement('div')
           this.hoverPopup
-            .setLngLat(e.lngLat)
+            .setLngLat(
+              (hoveredPoints[0] && hoveredPoints[0].geometry.coordinates)
+              || e.lngLat)
             .setDOMContent(ReactDOM.render(
               <div
                 className="tooltip"
@@ -206,7 +208,11 @@ class Map extends React.Component {
             </EmittProvider>
             , popupDOM)
 
-          this.popup = new mapboxgl.Popup({closeButton:false})
+          this.popup = new mapboxgl.Popup(
+            {
+              closeButton:false,
+              offset:this.popupOffsets
+            })
             .setLngLat(e.features[0].geometry.coordinates)
             .setDOMContent(popupDOM)
             .addTo(this.map)
@@ -241,7 +247,21 @@ class Map extends React.Component {
     })
 
     // Create and hide popup for hover
-    this.hoverPopup = new mapboxgl.Popup({closeButton:false})
+    this.popupOffsets = {
+      'top': [0, 20],
+      'bottom': [0, -20],
+      'left': [20, 0],
+      'right': [-20, 0],
+      'top-left': [0, 20],
+      'top-right': [0, 20],
+      'bottom-left': [0, -20],
+      'bottom-right': [0, -20],
+    }
+    this.hoverPopup = new mapboxgl.Popup(
+      {
+        closeButton:false,
+        offset:this.popupOffsets
+      })
       .remove()
   }
 
