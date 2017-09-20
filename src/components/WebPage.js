@@ -49,6 +49,18 @@ const WebPage = ({
 
         <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
+        {about.provider &&
+          about.provider.map(provider => (
+            <div className="provider">
+              Provider: <Link
+                to={provider['@id']}
+              >
+                {formatURL(translate(provider.name))}
+              </Link>
+            </div>
+          ))
+        }
+
         {about.description && 
         about.description[0]['@value'] &&
           <p>{about.description[0]['@value']}</p>
