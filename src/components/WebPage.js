@@ -49,7 +49,7 @@ const WebPage = ({
 
         <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
-        {about.url && 
+        {about.description && 
         about.description[0]['@value'] &&
           <p>{about.description[0]['@value']}</p>
         }
@@ -58,6 +58,18 @@ const WebPage = ({
           <a href={about.url} className="boxedLink">
             {formatURL(about.url)}
           </a>
+        }
+
+        {about.availableChannel &&
+          <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
+            {formatURL(about.availableChannel[0].serviceUrl)}
+          </a>
+        }
+
+        {about.license &&
+          about.license.map(license => (
+            <img key={license['@id']} className="license" src={license.image} alt={translate(license.name)} />
+          ))
         }
         
         {/* Example of data, GENERATE THIS */}
