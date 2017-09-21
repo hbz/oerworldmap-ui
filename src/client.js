@@ -37,11 +37,11 @@ import './styles/main.pcss'
       state.user = response.user
       renderApp(state, emitter)
     }))
-    // Read data from the API
-    emitter.on('load', url => {
+    // Transition to a new URL
+    emitter.on('navigate', url => {
       if (window.location.pathname + window.location.search + window.location.hash !== url) {
         window.history.pushState(null, null, url)
-        window.dispatchEvent(new window.HashChangeEvent("hashchange"))
+        window.dispatchEvent(new window.HashChangeEvent('hashchange'))
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
@@ -64,16 +64,19 @@ import './styles/main.pcss'
       }
     })
 
+    let current_url = window.location.pathname + window.location.search
     window.addEventListener('popstate', () => {
-      console.log('popstate')
       const url = window.location.pathname + window.location.search
-      api.load(url, response => {
-        const state = window.__APP_INITIAL_STATE__
-        state.data = response.data
-        state.features = response.features || state.features
-        state.user = response.user
-        renderApp(state, emitter)
-      })
+      if (url !== current_url) {
+        current_url = url
+        api.load(url, response => {
+          const state = window.__APP_INITIAL_STATE__
+          state.data = response.data
+          state.features = response.features || state.features
+          state.user = response.user
+          renderApp(state, emitter)
+        })
+      }
     })
 
     renderApp(window.__APP_INITIAL_STATE__, emitter)
