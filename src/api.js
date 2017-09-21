@@ -40,7 +40,7 @@ class Api {
 
   save (data, callback) {
     const url = `/resource/${(data['@id'] || '')}`
-    fetch(`http://${this.host}:${this.host}${url}`, {
+    fetch(`http://${this.host}:${this.port}${url}`, {
       method: 'POST',
       mode: 'cors',
       headers: new Headers({
