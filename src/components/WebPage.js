@@ -49,9 +49,18 @@ const WebPage = ({
 
         <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
+        {about['@type'] === 'Action' &&
+          (about.agent &&
+          about.agent.map(agent => (
+            <div className="operator">
+              Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
+            </div>
+          )))
+        }
+
         {about.provider &&
           about.provider.map(provider => (
-            <div className="provider">
+            <div key={provider['@id']} className="provider">
               Provider: <Link
                 to={provider['@id']}
               >
