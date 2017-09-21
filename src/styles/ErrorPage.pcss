@@ -1,0 +1,28 @@
+@import './Colors.pcss';
+
+.ErrorPage {
+  background-color: var(--blue);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 40px;
+  color: var(--blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > .ErrorPageContainer {
+    background-color: var(--white);
+    margin: 0 auto;
+    border-radius: 2px;
+    max-width: 800px;
+    border: 1px solid var(--blue-dark);
+    padding: 20px;
+    text-align: center;
+  }
+}

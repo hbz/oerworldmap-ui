@@ -92,6 +92,12 @@ class Api {
           callback(data)
         }
       }).catch(err => {
+        const data = {}
+        data.data = {
+          '@type': 'ErrorPage',
+          'message': err.message
+        }
+        callback(data)
         console.error(err)
       })
   }
