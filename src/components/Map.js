@@ -35,11 +35,11 @@ class Map extends React.Component {
     })
 
     this.map.on('load', () => {
-      
+
       this.Map.addEventListener('mouseleave', ()=> {
         this.hoverPopup.remove()
         this.setState({hoveredFeatures:null})
-      })  
+      })
 
       // Set data source for points layers
       this.map.addSource('pointsSource', {
@@ -79,9 +79,9 @@ class Map extends React.Component {
           hoveredFeatures,
           point: e.point
         })
-        
+
         let popupContent
-  
+
         if (this.state.hoveredFeatures && this.state.hoveredFeatures.length && !this.state.overlayList) {
           if (this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries') {
             popupContent = (
@@ -95,15 +95,15 @@ class Map extends React.Component {
                 </li>
                 <li className="darker">
                   Country Champion:&nbsp;
-                  <i className={`fa fa-${this.state.bucket && this.state.bucket.champions.doc_count > 0 
+                  <i className={`fa fa-${this.state.bucket && this.state.bucket.champions.doc_count > 0
                     ? 'check' : 'times'}`}
                   />
                 </li>
               </ul>
-            ) 
+            )
           } else {
             popupContent = (
-              <ul>  
+              <ul>
                 {this.state.hoveredFeatures.length <= 6 ? (
                   this.state.hoveredFeatures.map(feature => (
                     <li key={feature.properties['@id']}>
@@ -114,7 +114,7 @@ class Map extends React.Component {
                   ))
                 ) : (
                   <li>
-                    {this.calculateTypes(this.state.hoveredFeatures)}   
+                    {this.calculateTypes(this.state.hoveredFeatures)}
                   </li>
                 )}
               </ul>
@@ -123,7 +123,9 @@ class Map extends React.Component {
 
           const popupDOM = document.createElement('div')
           this.hoverPopup
-            .setLngLat(e.lngLat)
+            .setLngLat(
+              (hoveredPoints[0] && hoveredPoints[0].geometry.coordinates)
+              || e.lngLat)
             .setDOMContent(ReactDOM.render(
               <div
                 className="tooltip"
@@ -135,7 +137,7 @@ class Map extends React.Component {
                 {popupContent}
               </div>, popupDOM))
             .addTo(this.map)
-            
+
           this.hoverPopup._content.classList.add('noEvents')
         } else {
           this.hoverPopup.remove()
@@ -178,11 +180,11 @@ class Map extends React.Component {
       })
 
       this.map.on('click', 'points', function (e) {
-        if (e.features.length > 6) { 
+        if (e.features.length > 6) {
           this.map.flyTo({
             center: e.features[0].geometry.coordinates,
             zoom: 10
-          }) 
+          })
 
         } else if (e.features.length > 1) {
           const list = e.features.map(feature => {
@@ -206,11 +208,15 @@ class Map extends React.Component {
             </EmittProvider>
             , popupDOM)
 
-          this.popup = new mapboxgl.Popup({closeButton:false})
+          this.popup = new mapboxgl.Popup(
+            {
+              closeButton:false,
+              offset:this.popupOffsets
+            })
             .setLngLat(e.features[0].geometry.coordinates)
             .setDOMContent(popupDOM)
             .addTo(this.map)
-            
+
           this.popup.on('close', () => {
             this.setState({overlayList:false})
           })
@@ -220,12 +226,12 @@ class Map extends React.Component {
             hoveredFeatures:null
           })
         }
-        
+
         else {
-          this.map.setFilter('points-select', [ 'in', '@id' ].concat(e.features[0].properties['@id']))          
-          // Click on a single resource          
+          this.map.setFilter('points-select', [ 'in', '@id' ].concat(e.features[0].properties['@id']))
+          // Click on a single resource
           const url = `/resource/${e.features[0].properties['@id']}`
-          this.props.emitter.emit('load', url)
+          this.props.emitter.emit('navigate', url)
         }
       }.bind(this))
 
@@ -241,7 +247,21 @@ class Map extends React.Component {
     })
 
     // Create and hide popup for hover
-    this.hoverPopup = new mapboxgl.Popup({closeButton:false})
+    this.popupOffsets = {
+      'top': [0, 20],
+      'bottom': [0, -20],
+      'left': [20, 0],
+      'right': [-20, 0],
+      'top-left': [0, 20],
+      'top-right': [0, 20],
+      'bottom-left': [0, -20],
+      'bottom-right': [0, -20],
+    }
+    this.hoverPopup = new mapboxgl.Popup(
+      {
+        closeButton:false,
+        offset:this.popupOffsets
+      })
       .remove()
   }
 
@@ -250,14 +270,14 @@ class Map extends React.Component {
     this.updatePoints(nextProps.features)
   }
 
-  
+
   getBucket(country) {
-    if (this.props.features === null)  return    
+    if (this.props.features === null)  return
     return this.props.features.aggregations["about.location.address.addressCountry"].buckets.find(e => {
       return e.key === country
     })
   }
-  
+
   updateChoropleth(features) {
 
     if (features === null)  return
@@ -290,7 +310,7 @@ class Map extends React.Component {
     buckets.forEach(bucket => {
       choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
     })
-    
+
     // Set filters of actual choropleth layers
     choroplethLayerGroups.forEach((group, i) => {
       this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
@@ -300,7 +320,7 @@ class Map extends React.Component {
   updatePoints(features) {
     this.map.getSource('pointsSource').setData(features)
   }
-  
+
   calculateTypes(features) {
     const types = []
     features.forEach(feature => {

@@ -16,7 +16,7 @@ const onSubmit = (e, emitter) => {
   const formData = new FormData(form)
   const parameters = [...formData.entries()]
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
-  emitter.emit('load', '/resource/?' + parameters)
+  emitter.emit('navigate', '/resource/?' + parameters)
 }
 
 const triggerClick = (e) => {
@@ -36,7 +36,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
             <i className="fa fa-search" />
           </button>
         </div>
-        
+
       ) : (
         <noscript>
           <div className="search-bar">

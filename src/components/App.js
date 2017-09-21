@@ -11,6 +11,7 @@ import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
 import withEmitter from './withEmitter'
+import ErrorPage from './ErrorPage'
 // import UserForm from './UserForm'
 // import Loading from './Loading'
 
@@ -32,43 +33,46 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
       <Header user={user} />
 
-      <div className="content">
+      {data['@type'] === 'ErrorPage' ? (
+        <div className="content">
+          <ErrorPage {...data} />
+        </div>
+      ) : (
+        data['@type'] === 'WebPage' ? (
+          <div className="content">
+            <WebPage {...data} />
+          </div>
+        ): (
+          <div className="content">
+            <ActionButtons />
 
-        <ActionButtons />
+            <Columns emitter={emitter}>
+              <Column>
+                {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
+                <Filters
+                  query={data['query'] || ''}
+                  filters={data['filters'] || {'about.@type': [data.about['@type']]}}
+                  aggregations={data['aggregations'] || defaultAggregations}
+                  extended={data['@type'] === 'PagedCollection'}
+                />
+                {data['@type'] === 'PagedCollection' &&
+                  <PagedCollection {...data} />
+                }
+              </Column>
+            </Columns>
 
-        <Columns emitter={emitter}>
-          <Column>
-            {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
-            <Filters
-              query={data['query'] || ''}
-              filters={data['filters'] || {'about.@type': [data.about['@type']]}}
-              aggregations={data['aggregations'] || defaultAggregations}
-              extended={data['@type'] === 'PagedCollection'}
+            <Map
+              emitter={emitter}
+              mapboxConfig={mapboxConfig}
+              features={features}
             />
-            {data['@type'] === 'PagedCollection' &&
-              <PagedCollection {...data} />
-            }
-          </Column>
-          {data['@type'] === 'WebPage' &&
-            <Column>
-              <WebPage {...data} />
-            </Column>
-          }
-        </Columns>
+          </div>
+        )
+      )}
 
-        <Map
-          emitter={emitter}
-          mapboxConfig={mapboxConfig}
-          features={features}
-        />
-
-        <NotificationWelcome data={data} />
-        {/* <UserForm /> */}
-
-
-        {/* <Loading /> */}
-
-      </div>
+      <NotificationWelcome data={data} />
+      {/* <UserForm /> */}
+      {/* <Loading /> */}
 
     </main>
   </div>

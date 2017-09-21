@@ -23,7 +23,9 @@ class Link extends React.Component {
 
     if (!this.props.to.startsWith('#')) {
       event.preventDefault()
-      this.props.emitter.emit('load', this.href)
+      this.props.emitter.emit('navigate', this.href)
+    } else {
+      console.log("Link default behavior")
     }
   }
 
