@@ -14,6 +14,7 @@ import withEmitter from './withEmitter'
 import ErrorPage from './ErrorPage'
 // import UserForm from './UserForm'
 // import Loading from './Loading'
+// import Country from './Country'
 
 const defaultAggregations = {
   'about.@type': {
@@ -60,6 +61,8 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
                 }
               </Column>
             </Columns>
+
+            {/* <Country /> */}
 
             <Map
               emitter={emitter}
