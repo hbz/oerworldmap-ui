@@ -15,7 +15,14 @@ const triggerClick = (e) => {
 }
 
 const hideContainer = (header, container) => {
-  const icon = header.target.querySelector('i') || header.target
+
+  console.dir(header.target)
+
+  const icon = header.target.querySelector('i')
+    || (header.target.classList.contains('fa')
+      ? header.target
+      : header.target.parentElement.querySelector('i'))
+
   icon.classList.toggle('fa-plus')
   icon.classList.toggle('fa-minus')
 
