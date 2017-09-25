@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactMarkdown from 'react-markdown'
 
 import translate from './translate'
 import Metadata from './Metadata'
@@ -70,9 +71,12 @@ const WebPage = ({
           ))
         }
 
-        {about.description && 
-        about.description[0]['@value'] &&
-          <p>{about.description[0]['@value']}</p>
+        {about.description &&
+          <ReactMarkdown source={translate(about.description)} />
+        }
+
+        {about.articleBody &&
+          <ReactMarkdown source={translate(about.articleBody)} />
         }
 
         {about.url &&
@@ -92,7 +96,7 @@ const WebPage = ({
             <img key={license['@id']} className="license" src={license.image} alt={translate(license.name)} />
           ))
         }
-        
+
         {/* Example of data, GENERATE THIS */}
         <table>
           <tbody>
