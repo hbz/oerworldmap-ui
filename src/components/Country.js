@@ -16,22 +16,11 @@ const triggerClick = (e) => {
 
 const hideContainer = (header, container) => {
   const icon = header.target.querySelector('i') || header.target
-  if (icon.classList.contains('fa-minus')) {
-    icon.classList.remove('fa-minus')
-    icon.classList.add('fa-plus')
-  } else {
-    icon.classList.add('fa-minus')
-    icon.classList.remove('fa-plus')
-  }
+  icon.classList.toggle('fa-plus')
+  icon.classList.toggle('fa-minus')
 
   const el = document.querySelector(`.${container}`)
-
-  console.dir(el)
   el.classList.toggle('collapsed')
-  // el.classList.has('collapsed')
-  //   ? el.classList.remove('collapsed')
-  //   : el. classList.add('collapsed')
-
 }
 
 const Country = () => (
