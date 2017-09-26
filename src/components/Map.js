@@ -90,20 +90,21 @@ class Map extends React.Component {
                 <li>
                   <b>
                     {this.state.hoveredFeatures[0].properties.iso_a2}
-                    &nbsp;{this.state.bucket && this.renderTypes(this.state.bucket.by_type.buckets)}
+                    <br />
+                    {this.state.bucket && 
+                      <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
+                    }
                   </b>
                 </li>
-                <li className="darker">
-                  Country Champion:&nbsp;
-                  <i className={`fa fa-${this.state.bucket && this.state.bucket.champions.doc_count > 0
-                    ? 'check' : 'times'}`}
-                  />
-                </li>
+
+                {this.state.bucket && this.state.bucket.champions.doc_count > 0 &&
+                  <li className="separator"><span>Country Champion available</span></li>
+                }
               </ul>
             )
           } else {
             popupContent = (
-              <ul>
+              <ul className="list">
                 {this.state.hoveredFeatures.length <= 6 ? (
                   this.state.hoveredFeatures.map(feature => (
                     <li key={feature.properties['@id']}>
@@ -203,7 +204,7 @@ class Map extends React.Component {
           ReactDOM.render(
             <EmittProvider emitter={this.props.emitter}>
               <div className="tooltip">
-                <ul>{list}</ul>
+                <ul className="list">{list}</ul>
               </div>
             </EmittProvider>
             , popupDOM)
@@ -337,7 +338,7 @@ class Map extends React.Component {
 
   renderTypes(types) {
     return types.map((type) => {
-      return <span key={type.key}>{type.doc_count} <Icon type={type.key} /> </span>
+      return <div key={type.key}><Icon type={type.key} /><span>{type.doc_count}</span></div>
     })
   }
 
