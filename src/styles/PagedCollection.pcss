@@ -1,6 +1,8 @@
 @import './Colors.pcss';
 
 .PagedCollection {
+  position: relative;
+
   & h1 {
     color: color(var(--blue) l(15%));
   }
@@ -10,20 +12,12 @@
     padding: 10px;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid var(--blue-darker);
+    border-top: 2px solid var(--blue-light);
     margin-top: 5px;
   }
 
   & .counter {
-    font-size: 0.8rem;
-
-    & .badge {
-      padding: 3px 7px;
-      font-weight: bold;
-      background-color: var(--blue-darker);
-      display: inline-block;
-      color: var(--white);
-      border-radius: 10px;
-    }
+    color: var(--blue--dark);
+    font-size: 0.9rem;
   }
 }

@@ -10,18 +10,16 @@ import '../styles/PagedCollection.pcss'
 
 const PagedCollection = ({ translate, member }) => (
   <section className="PagedCollection pages">
-    <div>
-      {/* <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1> */}
-      <div className="PagedCollectionHeader">
-        <div className="counter">
-          <span className="badge">{member.length}</span> {translate('PagedCollection.results')}
-        </div>
-        <DropdownButton />
+    {/* <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1> */}
+    <div className="PagedCollectionHeader">
+      <div className="counter">
+        {member.length} entries shown
       </div>
-      {/* Add read values */}
-      <Pagination current={2} total={member.lenght || 10} /> 
-      <ItemList listItems={member} />
+      <DropdownButton />
     </div>
+    {/* Add read values */}
+    <ItemList listItems={member} />
+    <Pagination current={2} total={member.lenght || 10} /> 
   </section>
 )
 

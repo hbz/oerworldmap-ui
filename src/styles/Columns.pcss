@@ -25,10 +25,10 @@
   }
 
   & .column {
-    color: var(--blue-darker);
+    color: var(--blue-dark);
     width: 470px;
-    background-color: color(var(--white) alpha(95%));
-    border-left: 1px solid var(--blue-lighter);
+    background-color: var(--white);
+    border-left: 1px solid var(--blue-lightest);
     position: relative;
     pointer-events: all;
 
@@ -56,7 +56,7 @@
     & .toggleColumn {
       position: absolute;
       background-color: var(--white);
-      border: 1px solid var(--blue-lighter);
+      border: 1px solid var(--blue-lightest);
       border-radius: 50%;
       width: 32px;
       height: 32px;
@@ -73,7 +73,7 @@
 
       &:hover {
         border: 2px solid var(--white);
-        background: var(--blue-light);
+        background: var(--blue);
         color: var(--white);
       }
 
