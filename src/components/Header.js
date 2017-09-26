@@ -10,13 +10,13 @@ const Header = ({ user, emitter, translate }) => (
   <header className="Header">
     <nav className="mainNav">
       <Link to="/">
-        <h1>OER W<i className="fa fa-globe" />RLD MAP</h1>
+        <h1>OER WORLD MAP</h1>
       </Link>
       <a
-        href="/FAQ"
-        title={translate('Header.faq')}
+        href="/contribute"
+        title={translate('Header.contribute')}
       >
-        {translate('Header.faq')}
+        {translate('Header.contribute')}
       </a>
       <a
         href="/about"
@@ -25,10 +25,10 @@ const Header = ({ user, emitter, translate }) => (
         {translate('Header.about')}
       </a>
       <a
-        href="/contribute"
-        title={translate('Header.contribute')}
+        href="/FAQ"
+        title={translate('Header.faq')}
       >
-        {translate('Header.contribute')}
+        {translate('Header.faq')}
       </a>
       <a
         href="https://oerworldmap.wordpress.com/"
@@ -66,7 +66,7 @@ const Header = ({ user, emitter, translate }) => (
         </a>
       ) : (
         <a href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
-          Log in
+          <i className="fa fa-user" />
         </a>
       )}
     </nav>
