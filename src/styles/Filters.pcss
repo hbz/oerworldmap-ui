@@ -6,15 +6,22 @@
     padding-bottom: 15px;
 
     & input {
-      border-radius: 2px 0 0 2px;
+      border-radius: 2px;
       padding: 10px;
+      padding-left: 30px;
       flex: 1;
-      border: 1px solid var(--blue-darker);
-      border-right: none;
+      border: 1px solid var(--blue);
+      position: relative;
     }
 
-    & .btn {
-      border-radius: 0 2px 2px 0;
+    &:after {
+      font-family: FontAwesome;
+      content: "\f002";
+      position: absolute;
+      left: 30px;
+      top: 30px;
+      z-index: 5;
+      color: var(--blue);
     }
   }
 
@@ -23,17 +30,13 @@
 
     & .filterBox {
       display: inline-block;
-
-      &:first-child .btn {
-        border-left: none;
-      }
     }
 
     & input[type="radio"] {
       display: none;
 
       &:checked + label {
-        color: var(--blue-darker);
+        color: var(--blue-dark);
         background-color: #b8d0e9;
         border-color: #040609;
         outline: 5px auto -webkit-focus-ring-color;
@@ -43,7 +46,10 @@
 
     & .btn {
       display: inline-block;
-      padding: 10px;
+      padding: 10px 15px;
+      min-width: 40px;
+      text-align: center;
+      margin-right: 10px;
     }
   }
 

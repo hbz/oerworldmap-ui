@@ -32,9 +32,6 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
       {extended ? (
         <div className="filterSearch">
           <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
-          <button className="btn" type="submit">
-            <i className="fa fa-search" />
-          </button>
         </div>
 
       ) : (
@@ -46,7 +43,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
       )}
 
       <div className="filterType">
-        <div className="btnGroup">
+        <div>
           {aggregations['about.@type']['buckets'].map(function (bucket) {
             return (
               <div className="filterBox" key={bucket.key}>
