@@ -78,7 +78,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
                     role="button"
                     tabIndex="0"
                     htmlFor={"type:" + bucket.key}
-                    title={translate(bucket.key)}
+                    aria-label={translate(bucket.key)}
                     className="btn"
                   >
                     <Icon type={bucket.key} />
