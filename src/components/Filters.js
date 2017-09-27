@@ -49,23 +49,23 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
           {aggregations['about.@type']['buckets'].map(function (bucket) {
             return (
               <div className="filterBox" key={bucket.key}>
-                <input
-                  type="radio"
-                  value={bucket.key}
-                  checked={filters.hasOwnProperty("about.@type")
-                    && filters["about.@type"].includes(bucket.key)
-                  }
-                  name="filter.about.@type"
-                  id={"type:" + bucket.key}
-                  onChange={(evt) => onSubmit(evt, emitter)}
-                />
-
                 <Tooltip
                   message={translate(bucket.key)}
                   placement='top'
                   tooltipClassName='Tooltip'
                   arrowColor='#646464'
                 >
+                  <input
+                    type="radio"
+                    value={bucket.key}
+                    checked={filters.hasOwnProperty("about.@type")
+                      && filters["about.@type"].includes(bucket.key)
+                    }
+                    name="filter.about.@type"
+                    id={"type:" + bucket.key}
+                    onChange={(evt) => onSubmit(evt, emitter)}
+                  />
+
                   <label
                     onClick={(evt) => {
                       // Trigger submit only if onChange is not triggered
