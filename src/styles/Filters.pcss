@@ -4,6 +4,7 @@
   & .filterSearch {
     display: flex;
     padding-bottom: 15px;
+    position: relative;
 
     & input {
       border-radius: 2px;
@@ -14,14 +15,16 @@
       position: relative;
     }
 
-    &:after {
+    &::after {
       font-family: FontAwesome;
       content: "\f002";
       position: absolute;
-      left: 30px;
-      top: 30px;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-100%);
       z-index: 5;
       color: var(--blue);
+      pointer-events: none;
     }
   }
 

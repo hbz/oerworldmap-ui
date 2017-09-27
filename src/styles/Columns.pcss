@@ -55,14 +55,12 @@
 
     & .toggleColumn {
       position: absolute;
-      background-color: var(--white);
-      border: 1px solid var(--blue-lightest);
       border-radius: 50%;
       width: 32px;
       height: 32px;
       top: 50%;
       transform: translateY(-50%) translateX(-50%);
-      color: var(--blue-light);
+      color: var(--white);
       cursor: pointer;
       z-index: 3;
       display: flex;
@@ -70,11 +68,11 @@
       justify-content: center;
       align-items: center;
       font-size: 0.8rem;
+      border: 4px solid var(--white);
+      background-color: var(--blue);
 
       &:hover {
-        border: 2px solid var(--white);
-        background: var(--blue);
-        color: var(--white);
+        background-color: var(--blue-dark);
       }
 
       & i {
