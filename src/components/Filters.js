@@ -2,8 +2,10 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Tooltip } from 'react-popperjs'
 // import Logo from '../assets/logo.svg'
 import '../styles/Filters.pcss'
+
 
 import withEmitter from './withEmitter'
 import Icon from './Icon'
@@ -57,23 +59,32 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
                   id={"type:" + bucket.key}
                   onChange={(evt) => onSubmit(evt, emitter)}
                 />
-                <label
-                  onClick={(evt) => {
-                    // Trigger submit only if onChange is not triggered
-                    if (filters.hasOwnProperty("about.@type")
-                      && filters["about.@type"].includes(bucket.key)) {
-                      onSubmit(evt, emitter)
-                    }
-                  }}
-                  onKeyDown={triggerClick}
-                  role="button"
-                  tabIndex="0"
-                  htmlFor={"type:" + bucket.key}
-                  title={translate(bucket.key)}
-                  className="btn"
+
+                <Tooltip
+                  message={translate(bucket.key)}
+                  placement='top'
+                  tooltipClassName='Tooltip'
+                  arrowColor='#646464'
                 >
-                  <Icon type={bucket.key} />
-                </label>
+                  <label
+                    onClick={(evt) => {
+                      // Trigger submit only if onChange is not triggered
+                      if (filters.hasOwnProperty("about.@type")
+                        && filters["about.@type"].includes(bucket.key)) {
+                        onSubmit(evt, emitter)
+                      }
+                    }}
+                    onKeyDown={triggerClick}
+                    role="button"
+                    tabIndex="0"
+                    htmlFor={"type:" + bucket.key}
+                    title={translate(bucket.key)}
+                    className="btn"
+                  >
+                    <Icon type={bucket.key} />
+                  </label>
+
+                </Tooltip>
               </div>
             )
           }, this)}
