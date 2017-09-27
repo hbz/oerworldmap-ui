@@ -2,6 +2,9 @@
 
 .PagedCollection {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 
   & h1 {
     color: color(var(--blue) l(15%));
@@ -14,6 +17,7 @@
     align-items: center;
     border-top: 2px solid var(--blue-light);
     margin-top: 5px;
+    padding-top: 15px;
   }
 
   & .counter {
