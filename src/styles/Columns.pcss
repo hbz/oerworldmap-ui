@@ -13,6 +13,12 @@
   &.hideColumns {
     transform: translateX(98%);
 
+    & .Filters {
+      position: relative;
+      left: -107%;
+      transition: all 1s;
+    }
+
     & .toggleColumn {
       left: -5px;
 
@@ -32,6 +38,10 @@
     position: relative;
     pointer-events: all;
 
+    & .columnContent.noDisplay {
+      display: none;
+    }
+
     &.transparentColumn {
       background-color: transparent;
       pointer-events: none;
@@ -49,10 +59,10 @@
 
     & .columnContent {
       padding: 20px;
-      overflow-y: auto;
       height: 100%;
       display: flex;
       flex-direction: column;
+      overflow: visible;
     }
 
     & .toggleColumn {

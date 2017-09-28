@@ -1,15 +1,28 @@
 @import './Colors.pcss';
 
 .Filters {
+  position: relative;
+  transition: all 1s;
+  left: 0;
+
   & .filterSearch {
     display: flex;
     padding-bottom: 15px;
     position: relative;
 
+    & i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-100%);
+      color: #b3b3b3;
+    }
+
     & input {
       border-radius: 2px;
       padding: 10px;
       padding-left: 30px;
+      padding-right: 30px;
       flex: 1;
       border: 1px solid var(--blue);
       position: relative;
