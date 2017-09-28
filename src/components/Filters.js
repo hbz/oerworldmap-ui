@@ -36,7 +36,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
           <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
           <Tooltip
             message={translate('Show List')}
-            placement='top'
+            placement='bottom'
             tooltipClassName='Tooltip'
             arrowColor='#646464'
           >
