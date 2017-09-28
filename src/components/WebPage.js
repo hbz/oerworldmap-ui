@@ -40,7 +40,12 @@ const WebPage = ({
 
       {about.image &&
         <div className="webPageCover">
-          <img src={about.image} alt={translate(about.name)} />
+          <img
+            src={about.image}
+            onError={e => {
+              e.target.parentElement.remove()}}
+            alt={translate(about.name)}
+          />
         </div>
       }
 
