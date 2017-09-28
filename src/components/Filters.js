@@ -11,6 +11,7 @@ import withEmitter from './withEmitter'
 import Icon from './Icon'
 import Link from './Link'
 import translate from './translate'
+import PagedCollection from './PagedCollection'
 
 const onSubmit = (e, emitter) => {
   e.preventDefault()
@@ -27,7 +28,7 @@ const triggerClick = (e) => {
   }
 }
 
-const Filters = ({query, filters, aggregations, emitter, extended, translate}) => (
+const Filters = ({query, filters, aggregations, emitter, extended, translate, member}) => (
   <nav className="Filters">
 
     <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
@@ -99,15 +100,19 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
         </div>
       </div>
 
-      <div className="sortContainer">
-        <select name="sort" className="btn" onChange={(evt) => onSubmit(evt, emitter)}>
-          <option value="">{translate('Filters.relevance')}</option>
-          <option value="dateCreated:ASC">{translate('Filters.dateCreated')}</option>
-        </select>
-      </div>
-
       <div className="clearFilter">
         <Link to="/resource/">{translate('Filters.clearFilters')}</Link>
+      </div>
+
+      <div className="sortContainer">
+        {extended &&
+          <PagedCollection member={member}>
+            <select name="sort" className="styledSelect" onChange={(evt) => onSubmit(evt, emitter)}>
+              <option value="">{translate('Filters.relevance')}</option>
+              <option value="dateCreated:ASC">{translate('Filters.dateCreated')}</option>
+            </select>
+          </PagedCollection>
+        }
       </div>
 
     </form>
