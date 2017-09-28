@@ -34,6 +34,14 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate}) =
       {extended ? (
         <div className="filterSearch">
           <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
+          <Tooltip
+            message={translate('Show List')}
+            placement='top'
+            tooltipClassName='Tooltip'
+            arrowColor='#646464'
+          >
+            <i className="fa fa-th-list" />
+          </Tooltip>
         </div>
 
       ) : (
