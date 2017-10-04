@@ -245,6 +245,11 @@ class Map extends React.Component {
       const nav = new mapboxgl.NavigationControl()
       this.map.addControl(nav, 'bottom-left')
 
+      // Receive event from Filters
+      this.props.emitter.on('hideOverlay', () => {
+        this.popup ? this.popup.remove() : null
+      })
+
     })
 
     // Create and hide popup for hover

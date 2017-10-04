@@ -14,6 +14,7 @@ import translate from './translate'
 import PagedCollection from './PagedCollection'
 
 const onSubmit = (e, emitter) => {
+  emitter.emit('hideOverlay')
   e.preventDefault()
   const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
