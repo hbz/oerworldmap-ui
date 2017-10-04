@@ -60,7 +60,15 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
                 {data['@type'] === 'PagedCollection' &&
                 <div className="ColumnList">
                   <ItemList listItems={data.member} />
-                  <Pagination current={2} total={data.member.lenght || 10} />
+                  <Pagination
+                    totalItems={data.totalItems}
+                    currentPage={data.currentPage}
+                    pages={data.pages}
+                    nextPage={data.nextPage}
+                    previousPage={data.previousPage}
+                    from={data.from}
+                    size={data.size}
+                  />
                 </div>
                 }
               </Column>
