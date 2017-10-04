@@ -14,7 +14,7 @@ import ErrorPage from './ErrorPage'
 import ItemList from './ItemList'
 import Pagination from './Pagination'
 // import UserForm from './UserForm'
-// import Loading from './Loading'
+import Loading from './Loading'
 
 const defaultAggregations = {
   'about.@type': {
@@ -85,7 +85,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
       <NotificationWelcome data={data} />
       {/* <UserForm /> */}
-      {/* <Loading /> */}
+      <Loading />
 
     </main>
   </div>

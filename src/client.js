@@ -21,6 +21,7 @@ import './styles/main.pcss'
       <Init {...state} emitter={emitter} />,
       document.getElementById('root')
     )
+    emitter.emit('setLoading', false)
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -69,6 +70,7 @@ import './styles/main.pcss'
       const url = window.location.pathname + window.location.search
       if (url !== current_url) {
         current_url = url
+        emitter.emit('setLoading', true)
         api.load(url, response => {
           const state = window.__APP_INITIAL_STATE__
           state.data = response.data
