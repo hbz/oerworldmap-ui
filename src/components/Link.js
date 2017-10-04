@@ -6,31 +6,28 @@ import withEmitter from './withEmitter'
 class Link extends React.Component {
   constructor(props) {
     super(props)
-    this.href = props.to.startsWith('urn:uuid') ?
-      `/resource/${props.to}` : props.to
     this.onClick = this.onClick.bind(this)
+    this.getRef = this.getRef.bind(this)
   }
 
-  onClick(event) {
-    // const link = document.createElement('a')
-    // link.href = this.href
 
-    // const hash = link.hash.substr(1)
-    // document.querySelectorAll('.target').forEach(e => {
-    //   e.classList.remove('target')
-    // })
-    // document.getElementById(hash).classList.add('target')
+  onClick(event) {
 
     if (!this.props.to.startsWith('#')) {
       event.preventDefault()
-      this.props.emitter.emit('navigate', this.href)
+      this.props.emitter.emit('navigate', this.getRef())
     } else {
       console.log("Link default behavior")
     }
   }
 
+  getRef() {
+    return this.props.to.startsWith('urn:uuid') ?
+      `/resource/${this.props.to}` : this.props.to
+  }
+
   render() {
-    return <a className={this.props.className} href={this.href} onClick={this.onClick}>{this.props.children}</a>
+    return <a className={this.props.className} href={this.getRef()} onClick={this.onClick}>{this.props.children}</a>
   }
 }
 
