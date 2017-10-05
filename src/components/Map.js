@@ -91,14 +91,14 @@ class Map extends React.Component {
                   <b>
                     {this.state.hoveredFeatures[0].properties.iso_a2}
                     <br />
-                    {this.state.bucket && 
+                    {this.state.bucket &&
                       <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
                     }
                   </b>
                 </li>
 
                 {this.state.bucket && this.state.bucket.champions.doc_count > 0 &&
-                  <li className="separator"><span>Country Champion available</span></li>
+                  <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
                 }
               </ul>
             )

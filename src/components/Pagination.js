@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import translate from './translate'
 import Link from './Link'
 
 import '../styles/Pagination.pcss'
 
-const Pagiantion = ({totalItems, nextPage, previousPage, from, size}) => {
+const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
     <div className="Pagination">
       {previousPage ?
         (
-          <Link to={previousPage}><i className="fa fa-arrow-left " /></Link>
+          <Link title={translate('Pagination.prevPage')} to={previousPage}><i className="fa fa-arrow-left " /></Link>
         ) :
         (
           <span>&nbsp;</span>
@@ -18,11 +19,11 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size}) => {
       <div className="numbers">
         <span>{from}-{parseInt(from)+parseInt(size) >= totalItems
           ? totalItems
-          : parseInt(from)+parseInt(size)} of {totalItems}</span>
+          : parseInt(from)+parseInt(size)} {translate('Pagination.of')} {totalItems}</span>
       </div>
       {nextPage ?
         (
-          <Link to={nextPage}><i className="fa fa-arrow-right " /></Link>
+          <Link title={translate('Pagination.nextPage')} to={nextPage}><i className="fa fa-arrow-right " /></Link>
         ) :
         (
           <span>&nbsp;</span>
@@ -39,6 +40,7 @@ Pagiantion.propTypes = {
   previousPage: PropTypes.string,
   from: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired,
 }
 
 Pagiantion.defaultProps = {
@@ -46,4 +48,4 @@ Pagiantion.defaultProps = {
   previousPage: null
 }
 
-export default Pagiantion
+export default translate(Pagiantion)

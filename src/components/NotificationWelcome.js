@@ -1,6 +1,9 @@
 /* global window */
 
 import React from 'react'
+import PropTypes from 'prop-types'
+
+import translate from './translate'
 
 import '../styles/NotificationWelcome.pcss'
 
@@ -47,23 +50,19 @@ class NotificationWelcome extends React.Component {
                     ref={(c) => { this.close = c }}
                     type="checkbox"
                   />
-                  <span>&quot;Don&apos;t show again&quot;</span>
+                  <span> {this.props.translate('NotificationWelcome.dontShow')}</span>
                 </label>
               </div>
 
               <div className="notificationContent">
-                <h1>Welcome to the OER World Map!</h1>
-                <p>Our goal is to provide the most complete and comprehensible
-                  picture of the global Open Educational Resources (OER)
-                  movement. Information is collected on people,
-                  organizations,services, projects and events related
-                  to OER.</p>
+                <h1>{this.props.translate('NotificationWelcome.welcomeTo')}</h1>
+                <p>{this.props.translate('NotificationWelcome.goal')}</p>
                 <p>
-                  Building the map is a collaborative process. You can
-                  <a href="/contribute"> contribute</a>!
+                  {this.props.translate('NotificationWelcome.building')}
+                  <a href="/contribute"> {this.props.translate('NotificationWelcome.contribute')}</a>!
                 </p>
 
-                <h2>Currently on the Map</h2>
+                <h2>{this.props.translate('NotificationWelcome.currently')}</h2>
 
                 <div className="numbersTable">
                   <div>
@@ -95,16 +94,16 @@ class NotificationWelcome extends React.Component {
                 </p>
 
                 <div>
-                  <h2>Announcement</h2>
+                  <h2>{this.props.translate('NotificationWelcome.announcement')}</h2>
                   <p>
-                    Please take a moment to complete our
+                    {this.props.translate('NotificationWelcome.takeAMoment')}
                     <a
                       href="https://www.surveymonkey.co.uk/r/OERWM2017"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      user evaluation survey</a>
-                      . Thank you!
+                      {this.props.translate('NotificationWelcome.userEvaluation')}</a>
+                      . {this.props.translate('NotificationWelcome.thankYou')}
                   </p>
                 </div>
 
@@ -125,4 +124,8 @@ class NotificationWelcome extends React.Component {
   }
 }
 
-export default NotificationWelcome
+NotificationWelcome.propTypes = {
+  translate: PropTypes.func.isRequired,
+}
+
+export default translate(NotificationWelcome)
