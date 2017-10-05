@@ -33,7 +33,7 @@ class Loading extends React.Component {
 }
 
 Loading.propTypes = {
-  emitter: PropTypes.object.isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(Loading)
