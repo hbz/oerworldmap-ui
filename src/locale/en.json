@@ -17,7 +17,8 @@
     "searchTheMap": "Search the map",
     "relevance": "Relevance",
     "dateCreated": "Date Created",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "showList": "Show List"
   },
   "PagedCollection": {
     "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries",

@@ -38,7 +38,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
             <Tooltip
-              message={translate('Show List')}
+              message={translate('Filters.showList')}
               placement='bottom'
               tooltipClassName='Tooltip'
               arrowColor='#646464'
@@ -128,7 +128,8 @@ Filters.propTypes = {
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   extended: PropTypes.bool.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  member: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(translate(Filters))
