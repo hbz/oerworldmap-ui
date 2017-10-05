@@ -129,7 +129,7 @@ Filters.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   extended: PropTypes.bool.isRequired,
   translate: PropTypes.func.isRequired,
-  member: PropTypes.objectOf(PropTypes.any).isRequired
+  member: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(translate(Filters))
