@@ -10,7 +10,6 @@ class Link extends React.Component {
     this.getRef = this.getRef.bind(this)
   }
 
-
   onClick(event) {
 
     if (!this.props.to.startsWith('#')) {
@@ -27,7 +26,16 @@ class Link extends React.Component {
   }
 
   render() {
-    return <a className={this.props.className} href={this.getRef()} onClick={this.onClick}>{this.props.children}</a>
+    return (
+      <a
+        title={this.props.title}
+        className={this.props.className}
+        href={this.getRef()}
+        onClick={this.onClick}
+      >
+        {this.props.children}
+      </a>
+    )
   }
 }
 
@@ -38,11 +46,13 @@ Link.propTypes = {
     PropTypes.node
   ]).isRequired,
   to: PropTypes.string.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  title: PropTypes.string
 }
 
 Link.defaultProps = {
-  className: null
+  className: null,
+  title: null
 }
 
 export default withEmitter(Link)
