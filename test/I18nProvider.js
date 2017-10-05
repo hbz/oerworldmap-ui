@@ -10,7 +10,7 @@ describe('<I18nProvider />', () => {
     const expected = {
       de: '1 Eintrag',
       es: '1 Entrada',
-      en: '1 Entry'
+      en: '1 entry'
     }
     for (let language in expected) {
       let wrapper = mount(
