@@ -12,8 +12,8 @@ describe('<I18nProvider />', () => {
       es: '1 Entrada',
       en: '1 entry'
     }
-    for (let language in expected) {
-      let wrapper = mount(
+    for (const language in expected) {
+      const wrapper = mount(
         <I18nProvider locales={[language]}><div /></I18nProvider>
       )
       assert.equal(wrapper.node.t('PagedCollection.totalItems', {smart_count: 1}), expected[language])
