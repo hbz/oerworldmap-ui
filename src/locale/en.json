@@ -33,7 +33,9 @@
     "addEntry": "Add entry",
     "subscribeToNewsletter": "Subscribe to Newsletter",
     "statistics": "Statistics",
-    "recentAdditions": "Recent Additions"
+    "recentAdditions": "Recent Additions",
+    "liked": "Liked",
+    "lighthouse": "Lighthouse"
   },
   "ItemList": {
     "readMore": "Read More"
