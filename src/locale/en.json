@@ -44,5 +44,9 @@
     "share": "Share",
     "export": "Export",
     "print": "Print"
+  },
+  "ErrorPage": {
+    "error": "Error",
+    "anErrorOccured": "An error occured"
   }
 }
