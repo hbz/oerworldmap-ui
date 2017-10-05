@@ -39,5 +39,10 @@
   },
   "ItemList": {
     "readMore": "Read More"
+  },
+  "DropdownMenu": {
+    "share": "Share",
+    "export": "Export",
+    "print": "Print"
   }
 }
