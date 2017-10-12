@@ -44,6 +44,23 @@ a {
   background-color: var(--blue-lightest);
   border: none;
 
+  &.expand {
+    padding-right: 40px !important;
+    position: relative;
+
+    margin-top: 5px;
+
+    &::before {
+      font-family: FontAwesome;
+      content: "\f078";
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+    }
+  }
+
   &:focus,
   &:hover {
     color: var(--white);

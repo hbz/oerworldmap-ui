@@ -12,6 +12,7 @@ import Icon from './Icon'
 import Link from './Link'
 import translate from './translate'
 import PagedCollection from './PagedCollection'
+import DropdownFilter from './DropdownFilter'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -28,6 +29,37 @@ const triggerClick = (e) => {
     e.target.click()
   }
 }
+
+const dropdownFilters = [
+  {
+    name: "about.location.address.addressCountry",
+    icon: "globe"
+  },
+  {
+    name: "about.keywords",
+    icon: "tag"
+  },
+  {
+    name: "about.availableChannel.availableLanguage",
+    icon: "flag"
+  },
+  {
+    name: "about.primarySector.@id",
+    icon: "gear"
+  },
+  {
+    name: "about.secondarySector.@id",
+    icon: "gear"
+  },
+  {
+    name: "about.audience.@id",
+    icon: "users"
+  },
+  {
+    name: "about.about.@id",
+    icon: "book"
+  }
+]
 
 const Filters = ({query, filters, aggregations, emitter, extended, translate, member}) => (
   <nav className="Filters">
@@ -99,17 +131,48 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
                 </div>
               )
             }, this)}
+
+
+            {dropdownFilters.map(f => (
+              aggregations[f.name] &&
+              aggregations[f.name].buckets.length > 0 &&
+              <DropdownFilter
+                icon={f.icon}
+                aggregations={aggregations[f.name]}
+                filters={filters.length ? filters[f.name] : []}
+                filterName={`filter.${f.name}`}
+                submit={onSubmit}
+              />
+            ))}
+
+
+
           </div>
         </div>
+
 
         <div className="clearFilter">
           <Link to="/resource/">{translate('Filters.clearFilters')}</Link>
         </div>
       </div>
+
+      <div className="Tags">
+        <span className="tag">Advanced Education</span>
+        <span className="tag">Oer</span>
+      </div>
+
       <div className="sortContainer">
         {extended &&
           <PagedCollection member={member}>
-            <select name="sort" className="styledSelect" onChange={(evt) => onSubmit(evt, emitter)}>
+            <select
+              name="sort"
+              className="styledSelect"
+              style={{width: (translate('Filters.relevance').length * 8)+15}}
+              onChange={(evt) => {
+                evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                onSubmit(evt, emitter)
+              }}
+            >
               <option value="">{translate('Filters.relevance')}</option>
               <option value="dateCreated:ASC">{translate('Filters.dateCreated')}</option>
             </select>
