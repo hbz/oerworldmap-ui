@@ -76,4 +76,43 @@
     background-color: transparent;
     text-decoration: underline;
   }
+
+  & .Tags {
+    padding: 10px 0;
+    border-top: 2px solid var(--blue-lightest);
+    margin-top: 15px;
+
+    &.noDisplay {
+      display: none;
+    }
+
+    & .tag {
+      border: 1px solid var(--blue-lightest);
+      display: inline-block;
+      padding: 5px 15px;
+      padding-right: 25px;
+      position: relative;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      border-radius: 2px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &::before {
+        font-family: FontAwesome;
+        content: "\f00d";
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #b3b3b3;
+      }
+
+      &:hover::before {
+        color: var(--orange);
+      }
+    }
+  }
 }

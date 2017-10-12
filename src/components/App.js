@@ -28,7 +28,14 @@ const defaultAggregations = {
 }
 
 const App = ({ data, mapboxConfig, user, features, emitter }) => (
-  <div id="wrapper">
+  <div
+    id="wrapper"
+    tabIndex="-1"
+    role="button"
+    onClick={(e) => {
+      emitter.emit("click", e)
+    }}
+  >
 
     <main className="container">
 
