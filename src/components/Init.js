@@ -1,36 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import mitt from 'mitt'
 import I18nProvider from './I18nProvider'
+import EmittProvider from './EmittProvider'
 import App from './App'
 
-const emitter = mitt()
-
-class Init extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      locales: props.locales,
-    }
-  }
-
-  render() {
-    return (
-      <I18nProvider locales={this.state.locales}>
-        <App
-          data={this.props.data}
-          emitter={emitter}
-          mapboxConfig={this.props.mapboxConfig}
-        />
-      </I18nProvider>
-    )
-  }
-}
+const Init = ({locales, emitter, data, mapboxConfig, user, features }) => (
+  <I18nProvider locales={locales}>
+    <EmittProvider emitter={emitter}>
+      <App data={data} user={user} features={features} mapboxConfig={mapboxConfig} />
+    </EmittProvider>
+  </I18nProvider>
+)
 
 Init.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
-  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
+  features: PropTypes.objectOf(PropTypes.any),
+  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
+  user: PropTypes.string
+}
+
+Init.defaultProps = {
+  user: null,
+  features: null
 }
 
 export default Init

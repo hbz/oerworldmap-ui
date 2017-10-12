@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 import 'font-awesome/css/font-awesome.css'
-import FeatureCollection from './FeatureCollection'
-import Feature from './Feature'
+import WebPage from './WebPage'
 import Header from './Header'
 import Map from './Map'
 import Filters from './Filters'
@@ -16,57 +15,116 @@ import FullModal from './FullModal'
 import schema from '../json/schema.json'
 
 import '../styles/FormStyle.pcss'
+import withEmitter from './withEmitter'
+import ErrorPage from './ErrorPage'
+import ItemList from './ItemList'
+import Pagination from './Pagination'
+// import UserForm from './UserForm'
+import Loading from './Loading'
 
-const App = ({ data, mapboxConfig, emitter }) => (
-  <main className="main">
+const defaultAggregations = {
+  'about.@type': {
+    'buckets': [
+      {key: 'Product'},
+      {key: 'Organization'},
+      {key: 'CustomerRelationship'},
+      {key: 'ContactPoint'}
+    ]
+  }
+}
 
-    <Header />
+const App = ({ data, mapboxConfig, user, features, emitter }) => (
+  <div
+    id="wrapper"
+    tabIndex="-1"
+    role="button"
+    onClick={(e) => {
+      emitter.emit("click", e)
+    }}
+  >
 
-    <div className="content">
+    <main className="container">
 
-      <Map
-        emitter={emitter}
-        mapboxConfig={mapboxConfig}
-        features={data}
-      />
+      <Header user={user} />
 
-      <Columns emitter={emitter}>
-        <Column>
-          <Filters />
-          {data['type'] && data['type'] === 'FeatureCollection' &&
-            <FeatureCollection emitter={emitter} {...data} />
-          }
-        </Column>
-        {data['type'] && data['type'] === 'Feature' &&
-          <Column>
-            <Feature emitter={emitter} {...data} />
-          </Column>
-        }
-      </Columns>
+      {data['@type'] === 'ErrorPage' ? (
+        <div className="content">
+          <ErrorPage {...data} />
+        </div>
+      ) : (
+        data['@type'] === 'WebPage' ? (
+          <div className="content">
+            <WebPage {...data} />
+          </div>
+        ): (
+          <div className="content">
+            <ActionButtons />
+
+            <Columns emitter={emitter}>
+              <Column>
+                {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
+                <Filters
+                  query={data['query'] || ''}
+                  filters={data['filters'] || {'about.@type': [data.about['@type']]}}
+                  aggregations={data['aggregations'] || defaultAggregations}
+                  extended={data['@type'] === 'PagedCollection'}
+                  member={data.member || null}
+                />
+                {data['@type'] === 'PagedCollection' &&
+                <div className="ColumnList">
+                  <ItemList listItems={data.member} />
+                  <Pagination
+                    totalItems={data.totalItems}
+                    currentPage={data.currentPage}
+                    pages={data.pages}
+                    nextPage={data.nextPage}
+                    previousPage={data.previousPage}
+                    from={data.from}
+                    size={data.size}
+                  />
+                </div>
+                }
+              </Column>
+            </Columns>
+
+            <FullModal >
+              <Composer
+                value={{"@type": "Organization"}}
+                schema={schema}
+                submit={value => emitter.emit('save', value)}
+                getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+                getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
+              />
+            </FullModal>
+
+            <Map
+              emitter={emitter}
+              mapboxConfig={mapboxConfig}
+              features={features}
+            />
+          </div>
+        )
+      )}
 
       <NotificationWelcome data={data} />
+      {/* <UserForm /> */}
+      <Loading />
 
-      <ActionButtons />
-
-      <FullModal >
-        <Composer
-          value={{"@type": "Organization"}}
-          schema={schema}
-          submit={value => emitter.emit('save', value)}
-          getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-          getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
-        />
-      </FullModal>
-
-    </div>
-
-  </main>
+    </main>
+  </div>
 )
 
 App.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   data: PropTypes.objectOf(PropTypes.any).isRequired,
+  features: PropTypes.objectOf(PropTypes.any),
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  user: PropTypes.string
 }
 
-export default App
+App.defaultProps = {
+  user: null,
+  features: null
+}
+
+export default withEmitter(App)

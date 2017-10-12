@@ -6,36 +6,66 @@ import Link from './Link'
 import '../styles/ItemList.pcss'
 
 import translate from './translate'
+import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, listItems, emitter }) => (
+const ItemList = ({ translate, emitter, listItems, moment }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li
-        key={listItem.properties['@id']}
+        id={listItem.about['@id']}
+        key={listItem.about['@id']}
         onMouseEnter={() => {
-          emitter.emit('hoverPoint', { id: listItem.properties["@id"] })
+          emitter.emit('hoverPoint', { id: listItem.about["@id"] })
         }}
         onMouseLeave={() => {
           emitter.emit('hoverPoint', { id: '' })
         }}
       >
-        <Icon type={listItem.properties['@type']} />
-        <Link
-          to={listItem.properties['@id']}
-        >
-          {translate(listItem.properties.name)}
-        </Link>
+        {listItem.about['@type'] === 'Event' ? (
+          <Link className="item" to={'#' + listItem.about['@id']}>
+            {listItem.about.endDate &&
+              <div className="sheet">
+                <div>
+                  {moment(listItem.about.endDate).format('D')}
+                </div>
+                <div>
+                  {moment(listItem.about.endDate).format('MMM')}
+                </div>
+              </div>
+            }
+            <span>
+              {translate(listItem.about.name) || listItem.about['@id']}<br />
+              {/* Edit to show the real start and end date */}
+              {/* {translate(listItem.about.description.startDate).format('D. MMM')} — {listItem.about.location.address.addressLocality},{listItem.about.location.address.addressCountry} */}
+            </span>
+          </Link>
+        ) : (
+          <Link className="item" to={'#' + listItem.about['@id']}>
+            <Icon type={listItem.about['@type']} />
+            <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
+          </Link>
+        )}
+
+
+        {/* <pre>{JSON.stringify(listItem, null, 2)}</pre> */}
+        <aside className="extract">
+          <p>{translate(listItem.about.description)}</p>
+          <Link className="btn clear" to={'/resource/' + listItem.about['@id']}>
+            {/* Read More */}
+            {translate('ItemList.readMore')}
+          </Link>
+        </aside>
       </li>
-    )
-    )}
+    ))}
   </ul>
 )
 
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  moment: PropTypes.func.isRequired
 }
 
-export default translate(ItemList)
+export default withEmitter(translate(ItemList))

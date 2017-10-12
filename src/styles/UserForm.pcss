@@ -1,0 +1,95 @@
+@import './Colors.pcss';
+
+.fullModal {
+  background-color: color(var(--black) alpha(42%));
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  z-index: 4;
+  padding: 20px;
+}
+
+.UserForm {
+  max-width: 600px;
+  margin: 0 auto;
+  overflow-y: auto;
+  background-color: var(--white);
+  padding: 20px;
+  color: var(--blue-dark);
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+  & h2 {
+    margin: 0;
+    padding: 5px 0;
+  }
+
+  & .combined {
+    display: flex;
+    align-items: stretch;
+    width: 90%;
+    margin: 0 auto;
+
+    & input[type="email"] {
+      flex: 1;
+      border-right: none;
+      margin-bottom: 0;
+      border-radius: 2px 2px 0 0;
+      padding: 10px;
+
+      & + .btn {
+        border: 1px solid var(--blue-dark);
+      }
+    }
+
+    & .btn {
+      font-size: 0.8rem;
+      border-radius: 0 2px 2px 0;
+    }
+  }
+
+  & .btn {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  & .separator {
+    border-top: 1px solid var(--blue-lightest);
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  & input[type="text"],
+  & input[type="email"] {
+    border: 1px solid var(--blue-dark);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  & label {
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+    padding-top: 10px;
+
+    & span {
+      position: relative;
+      top: -1px;
+      padding-left: 10px;
+      flex: 1;
+    }
+  }
+}

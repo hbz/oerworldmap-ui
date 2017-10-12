@@ -1,30 +1,70 @@
 @import './Colors.pcss';
 
 .Filters {
+  & .FiltersControls {
+    position: relative;
+    transition: all 1s;
+    left: 0;
+  }
+
   & .filterSearch {
     display: flex;
     padding-bottom: 15px;
+    position: relative;
 
-    & input {
-      border-radius: 2px 0 0 2px;
-      padding: 10px;
-      flex: 1;
-      border: 1px solid var(--blue-darker);
-      border-right: none;
+    & i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-100%);
+      color: #b3b3b3;
     }
 
-    & .btn {
-      border-radius: 0 2px 2px 0;
+    & input {
+      border-radius: 2px;
+      padding: 10px;
+      padding-left: 30px;
+      padding-right: 30px;
+      flex: 1;
+      border: 1px solid var(--blue);
+      position: relative;
+    }
+
+    &::after {
+      font-family: FontAwesome;
+      content: "\f002";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-100%);
+      z-index: 0;
+      color: var(--blue);
+      pointer-events: none;
     }
   }
 
   & .filterType {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+    display: inline-flex;
+
+    & .filterBox {
+      display: inline-block;
+    }
+
+    & input[type="radio"] {
+      display: none;
+
+      &:checked + label {
+        color: var(--white);
+        background-color: var(--blue-dark);
+      }
+    }
 
     & .btn {
-      padding: 10px 12px;
+      display: inline-block;
+      padding: 10px 15px;
+      min-width: 45px;
+      text-align: center;
+      margin-right: 5px;
     }
   }
 
@@ -32,6 +72,47 @@
     padding-top: 10px;
     text-align: right;
     font-size: 0.8rem;
+    border: none;
+    background-color: transparent;
     text-decoration: underline;
+  }
+
+  & .Tags {
+    padding: 10px 0;
+    border-top: 2px solid var(--blue-lightest);
+    margin-top: 15px;
+
+    &.noDisplay {
+      display: none;
+    }
+
+    & .tag {
+      border: 1px solid var(--blue-lightest);
+      display: inline-block;
+      padding: 5px 15px;
+      padding-right: 25px;
+      position: relative;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      border-radius: 2px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &::before {
+        font-family: FontAwesome;
+        content: "\f00d";
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #b3b3b3;
+      }
+
+      &:hover::before {
+        color: var(--orange);
+      }
+    }
   }
 }
