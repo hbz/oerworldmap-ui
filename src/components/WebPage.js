@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
+import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
 import Metadata from './Metadata'
 import { formatURL } from '../common'
 import Link from './Link'
+import withEmitter from './withEmitter'
 
 import '../styles/WebPage.pcss'
+
+import schema from '../json/schema.json'
+
 
 const WebPage = ({
   translate,
@@ -16,7 +21,8 @@ const WebPage = ({
   contributor,
   dateModified,
   author,
-  dateCreated
+  dateCreated,
+  emitter
 }) => (
   <div className="WebPage">
     <div className="webPageContainer">
@@ -136,6 +142,14 @@ const WebPage = ({
         </table>
 
         <pre>{JSON.stringify(about, null, 2)}</pre>
+
+        <Composer
+          value={about}
+          schema={schema}
+          submit={value => emitter.emit('save', value)}
+          getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+          getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
+        />
       </div>
     </div>
   </div>
@@ -143,6 +157,7 @@ const WebPage = ({
 
 WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   author: PropTypes.string.isRequired,
@@ -151,4 +166,4 @@ WebPage.propTypes = {
   dateModified: PropTypes.string.isRequired
 }
 
-export default translate(WebPage)
+export default withEmitter(translate(WebPage))

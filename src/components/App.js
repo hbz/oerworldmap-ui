@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from 'json-pointer-form'
 import 'font-awesome/css/font-awesome.css'
 import WebPage from './WebPage'
 import Header from './Header'
@@ -10,9 +9,6 @@ import Columns from './Columns'
 import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
-import FullModal from './FullModal'
-
-import schema from '../json/schema.json'
 
 import '../styles/FormStyle.pcss'
 import withEmitter from './withEmitter'
@@ -86,16 +82,6 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
                 }
               </Column>
             </Columns>
-
-            <FullModal >
-              <Composer
-                value={{"@type": "Organization"}}
-                schema={schema}
-                submit={value => emitter.emit('save', value)}
-                getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-                getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
-              />
-            </FullModal>
 
             <Map
               emitter={emitter}
