@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactMarkdown from 'react-markdown'
 
 import translate from './translate'
 import Metadata from './Metadata'
@@ -76,8 +77,11 @@ const WebPage = ({
         }
 
         {about.description &&
-        about.description[0]['@value'] &&
-          <p>{about.description[0]['@value']}</p>
+          <ReactMarkdown source={translate(about.description)} />
+        }
+
+        {about.articleBody &&
+          <ReactMarkdown source={translate(about.articleBody)} />
         }
 
         {about.url &&
