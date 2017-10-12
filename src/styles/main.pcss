@@ -14,7 +14,7 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--blue-darker);
+  color: var(--blue-dark);
 }
 
 .container {
@@ -40,43 +40,31 @@ a {
   cursor: pointer;
   padding: 6px 12px;
   border-radius: 2px;
-  color: var(--blue-darker);
-  background-color: var(--blue-paler);
-  border: 1px solid #172738;
+  color: var(--blue-dark);
+  background-color: var(--blue-lightest);
+  border: none;
 
   &:focus,
   &:hover {
-    color: var(--blue-darker);
-    background-color: #b8d0e9;
+    color: var(--white);
+    background-color: var(--blue-dark);
     border-color: #040609;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
   }
 
   &.active {
-    color: var(--blue-darker);
-    background-color: #b8d0e9;
+    color: var(--blue-dark);
+    background-color: var(--blue-darkest);
     border-color: #172738;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   }
-}
 
-.btnGroup {
-  border: 1px solid var(--blue-darker);
-  border-radius: 2px;
-
-  /* display: inline-block; */
-
-  & .btn {
-    min-width: 45px;
-    border: none;
-    border-radius: 0;
-    border-left: 1px solid #172738;
-    text-align: center;
-  }
-
-  & .btn:first-child {
-    border: none;
+  &.clear {
+    border: 2px solid var(--blue);
+    background-color: var(--white);
+    color: var(--blue-dark);
+    padding: 6px 15px;
   }
 }
 
@@ -95,4 +83,12 @@ a {
 
 pre {
   white-space: pre-wrap;
+}
+
+.Tooltip {
+  padding: 10px;
+  background-color: #646464;
+  border-radius: 2px;
+  color: white;
+  font-size: 0.9rem;
 }

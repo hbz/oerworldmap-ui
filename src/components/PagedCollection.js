@@ -1,26 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ItemList from './ItemList'
 import translate from './translate'
-import Pagination from './Pagination'
 import DropdownButton from './DropdownButton'
 
 import '../styles/PagedCollection.pcss'
 
-const PagedCollection = ({ translate, member }) => (
+const PagedCollection = ({ translate, member, children }) => (
+  member &&
   <section className="PagedCollection pages">
-    <div>
-      {/* <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1> */}
-      <div className="PagedCollectionHeader">
-        <div className="counter">
-          <span className="badge">{member.length}</span> {translate('PagedCollection.results')}
-        </div>
-        <DropdownButton />
+    <div className="PagedCollectionHeader">
+      <div className="counter">
+        {translate('PagedCollection.totalItems', { smart_count: member.length })},&nbsp;
+        {translate('PagedCollection.orderBy')}
+        {children}
       </div>
-      {/* Add read values */}
-      <Pagination current={2} total={member.lenght || 10} /> 
-      <ItemList listItems={member} />
+      <DropdownButton />
     </div>
   </section>
 )

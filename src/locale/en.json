@@ -11,17 +11,21 @@
     "faq": "FAQ",
     "about": "About",
     "contribute": "Contribute",
-    "blog": "Blog"
+    "blog": "Blog",
+    "joinUs": "Join us in mapping the world of OER!",
+    "logIn": "Log in",
+    "logOut": "Log out user"
   },
   "Filters": {
     "searchTheMap": "Search the map",
     "relevance": "Relevance",
     "dateCreated": "Date Created",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "showList": "Show List"
   },
   "PagedCollection": {
-    "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries",
-    "results": "Results"
+    "totalItems": "%{smart_count} entry |||| %{smart_count} entries shown",
+    "orderBy": "order by"
   },
   "Metadata": {
     "lastEdited": "Last edited by %{contributor} %{dateModified}",
@@ -32,9 +36,40 @@
     "addEntry": "Add entry",
     "subscribeToNewsletter": "Subscribe to Newsletter",
     "statistics": "Statistics",
-    "recentAdditions": "Recent Additions"
+    "recentAdditions": "Recent Additions",
+    "liked": "Liked",
+    "lighthouse": "Lighthouse"
   },
   "ItemList": {
     "readMore": "Read More"
+  },
+  "DropdownMenu": {
+    "share": "Share",
+    "export": "Export",
+    "print": "Print"
+  },
+  "ErrorPage": {
+    "error": "Error",
+    "anErrorOccured": "An error occured"
+  },
+  "Pagination": {
+    "of": "of",
+    "nextPage": "Next Page",
+    "prevPage": "Previous Page"
+  },
+  "NotificationWelcome": {
+    "dontShow": "\"Don't show again\"",
+    "welcomeTo": "Welcome to the OER World Map!",
+    "goal": "Our goal is to provide the most complete and comprehensible picture of the global Open Educational Resources (OER) movement. Information is collected on people, organizations,services, projects and events related to OER.",
+    "building": "Building the map is a collaborative process. You can",
+    "contribute": "contribute",
+    "currently": "Currently on the Map",
+    "announcement": "Announcement",
+    "takeAMoment": "Please take a moment to complete our",
+    "userEvaluation": "user evaluation survey",
+    "thankYou": "Thank you!"
+  },
+  "Map": {
+    "countryChampionAvailable": "Country Champion available"
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
-import PagedCollection from './PagedCollection'
 import WebPage from './WebPage'
 import Header from './Header'
 import Map from './Map'
@@ -12,8 +11,10 @@ import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
 import withEmitter from './withEmitter'
 import ErrorPage from './ErrorPage'
+import ItemList from './ItemList'
+import Pagination from './Pagination'
 // import UserForm from './UserForm'
-// import Loading from './Loading'
+import Loading from './Loading'
 
 const defaultAggregations = {
   'about.@type': {
@@ -54,9 +55,21 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
                   filters={data['filters'] || {'about.@type': [data.about['@type']]}}
                   aggregations={data['aggregations'] || defaultAggregations}
                   extended={data['@type'] === 'PagedCollection'}
+                  member={data.member || null}
                 />
                 {data['@type'] === 'PagedCollection' &&
-                  <PagedCollection {...data} />
+                <div className="ColumnList">
+                  <ItemList listItems={data.member} />
+                  <Pagination
+                    totalItems={data.totalItems}
+                    currentPage={data.currentPage}
+                    pages={data.pages}
+                    nextPage={data.nextPage}
+                    previousPage={data.previousPage}
+                    from={data.from}
+                    size={data.size}
+                  />
+                </div>
                 }
               </Column>
             </Columns>
@@ -72,7 +85,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
 
       <NotificationWelcome data={data} />
       {/* <UserForm /> */}
-      {/* <Loading /> */}
+      <Loading />
 
     </main>
   </div>

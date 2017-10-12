@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
+import Link from './Link'
 
 import '../styles/ActionButtons.pcss'
 
@@ -20,6 +21,12 @@ const ActionButtons = ({translate}) => (
     <a href="/feed/" title={translate('ActionButtons.recentAdditions')}>
       <i className="fa fa-rss" />
     </a>
+    <a href="#" title={translate('ActionButtons.liked')}>
+      <i className="fa fa-thumbs-up" />
+    </a>
+    <Link to="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={translate('ActionButtons.lighthouse')}>
+      <i className="fa fa-lightbulb-o" />
+    </Link>
   </div>
 )
 

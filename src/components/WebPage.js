@@ -41,7 +41,12 @@ const WebPage = ({
 
       {about.image &&
         <div className="webPageCover">
-          <img src={about.image} alt={translate(about.name)} />
+          <img
+            src={about.image}
+            onError={e => {
+              e.target.parentElement.remove()}}
+            alt={translate(about.name)}
+          />
         </div>
       }
 
@@ -80,7 +85,7 @@ const WebPage = ({
         }
 
         {about.url &&
-          <a href={about.url} className="boxedLink">
+          <a href={about.url} target="_blank" className="boxedLink">
             {formatURL(about.url)}
           </a>
         }

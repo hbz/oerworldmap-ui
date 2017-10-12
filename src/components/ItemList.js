@@ -23,14 +23,16 @@ const ItemList = ({ translate, emitter, listItems, moment }) => (
       >
         {listItem.about['@type'] === 'Event' ? (
           <Link className="item" to={'#' + listItem.about['@id']}>
-            <div className="sheet">
-              <div>
-                {moment(listItem.about.description.endDate).format('D')}
+            {listItem.about.endDate &&
+              <div className="sheet">
+                <div>
+                  {moment(listItem.about.endDate).format('D')}
+                </div>
+                <div>
+                  {moment(listItem.about.endDate).format('MMM')}
+                </div>
               </div>
-              <div>
-                {moment(listItem.about.description.endDate).format('MMM')}
-              </div>
-            </div>
+            }
             <span>
               {translate(listItem.about.name) || listItem.about['@id']}<br />
               {/* Edit to show the real start and end date */}
@@ -43,12 +45,12 @@ const ItemList = ({ translate, emitter, listItems, moment }) => (
             <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
           </Link>
         )}
-        
-        
+
+
         {/* <pre>{JSON.stringify(listItem, null, 2)}</pre> */}
         <aside className="extract">
           <p>{translate(listItem.about.description)}</p>
-          <Link className="btn" to={'/resource/' + listItem.about['@id']}>
+          <Link className="btn clear" to={'/resource/' + listItem.about['@id']}>
             {/* Read More */}
             {translate('ItemList.readMore')}
           </Link>
