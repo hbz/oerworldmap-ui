@@ -32,6 +32,7 @@ class Link extends React.Component {
         className={this.props.className}
         href={this.getRef()}
         onClick={this.onClick}
+        data-show={this.props.dataShow}
       >
         {this.props.children}
       </a>
@@ -47,12 +48,14 @@ Link.propTypes = {
   ]).isRequired,
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
+  dataShow: PropTypes.string,
   title: PropTypes.string
 }
 
 Link.defaultProps = {
   className: null,
-  title: null
+  title: null,
+  dataShow: null
 }
 
 export default withEmitter(Link)

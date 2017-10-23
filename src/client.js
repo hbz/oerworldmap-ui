@@ -63,6 +63,14 @@ import './styles/main.pcss'
       if (target) {
         target.classList.add('target')
       }
+
+      document.querySelectorAll('[data-show]').forEach(el => {
+        if (el.dataset.show === hash) {
+          el.classList.add('show')
+        } else {
+          el.classList.remove('show')
+        }
+      })
     })
 
     let current_url = window.location.pathname + window.location.search
