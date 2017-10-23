@@ -167,14 +167,6 @@ class Map extends React.Component {
         this.map.getCanvas().style.cursor = ''
       })
 
-      // When the user moves their mouse over the countries layer, we'll update the filter in
-      // the countries hover layer to only show the matching country, thus making a hover effect.
-      this.map.on("mousemove", "countries", (e) => {
-        const ids = e.features.map(function (feat) { return feat.properties.iso_a2 })
-        this.map.setFilter('countries-hover', [ 'in', 'iso_a2' ].concat(ids))
-        this.map.getCanvas().style.cursor = 'pointer'
-      })
-
       // Reset the countries hover layer's filter when the mouse leaves the layer.
       this.map.on("mouseleave", "countries", () => {
         this.map.setFilter('countries-hover', ['!has', "iso_a2"])
