@@ -36,6 +36,14 @@ class Map extends React.Component {
 
     this.map.on('load', () => {
 
+      this.map.on('zoom', function(e) {
+        if (e.target.getZoom() >= 7) {
+          e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
+        } else {
+          e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+        }
+      })
+
       this.Map.addEventListener('mouseleave', ()=> {
         this.hoverPopup.remove()
         this.setState({hoveredFeatures:null})
