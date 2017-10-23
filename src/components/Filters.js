@@ -132,11 +132,11 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
               )
             }, this)}
 
-
             {dropdownFilters.map(f => (
               aggregations[f.name] &&
               aggregations[f.name].buckets.length > 0 &&
               <DropdownFilter
+                key={f.name}
                 icon={f.icon}
                 aggregations={aggregations[f.name]}
                 filters={filters.length ? filters[f.name] : []}
@@ -154,11 +154,6 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
         <div className="clearFilter">
           <Link to="/resource/">{translate('Filters.clearFilters')}</Link>
         </div>
-      </div>
-
-      <div className="Tags">
-        <span className="tag">Advanced Education</span>
-        <span className="tag">Oer</span>
       </div>
 
       <div className="sortContainer">
