@@ -36,5 +36,10 @@
   },
   "ItemList": {
     "readMore": "Read More"
+  },
+  "Country": {
+    "countryChampion": "Country Champion",
+    "reports": "Country Reports",
+    "statistics": "Statistics"
   }
 }

@@ -39,7 +39,7 @@ class Country  extends React.Component {
             role="button"
             onClick={() => this.setState({showCountryChampion:!this.state.showCountryChampion})}
           >
-            <span>Country Champion</span> <i className="fa fa-minus" />
+            <span>{this.props.translate('Country.countryChampion')}</span> <i className="fa fa-minus" />
           </h3>
 
           <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
@@ -90,7 +90,7 @@ class Country  extends React.Component {
               role="button"
               onClick={() => this.setState({showReports:!this.state.showReports})}
             >
-              <span>Country Reports</span> <i className="fa fa-minus" />
+              <span>{this.props.translate('Country.reports')}</span> <i className="fa fa-minus" />
             </h3>
 
             <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
@@ -119,7 +119,7 @@ class Country  extends React.Component {
             role="button"
             onClick={() => this.setState({showStatistics:!this.state.showStatistics})}
           >
-            <span>Statistics</span> <i className="fa fa-minus" />
+            <span>{this.props.translate('Country.statistics')}</span> <i className="fa fa-minus" />
           </h3>
           <div className={`statisticsContainer ${this.state.showStatistics ? '' : 'collapsed'}`}>
             <table>
