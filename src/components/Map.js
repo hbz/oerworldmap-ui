@@ -20,6 +20,8 @@ class Map extends React.Component {
     super(props)
     this.state = {}
     this.updatePoints = this.updatePoints.bind(this)
+    this.updateZoom = this.updateZoom.bind(this)
+    this.updateActiveCountry = this.updateActiveCountry.bind(this)
   }
 
   componentDidMount() {
@@ -61,6 +63,8 @@ class Map extends React.Component {
 
       // Initialize choropleth layers
       this.updateChoropleth(this.props.features)
+      this.updateZoom(this.props.iso3166)
+      this.updateActiveCountry(this.props.iso3166)
 
       // Get features currently under the mouse
       this.map.on("mousemove", (e) => {
@@ -235,6 +239,14 @@ class Map extends React.Component {
         }
       }.bind(this))
 
+      this.map.on('click', 'countries', function (e) {
+        // Check if a point is clicked too and do nothing in that case
+        const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+        if (!features.length) {
+          this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+        }
+      }.bind(this))
+
       // Receive event from ItemList
       this.props.emitter.on('hoverPoint', (e) => {
         this.map.setFilter('points-hover', [ 'in', '@id' ].concat(e.id))
@@ -267,15 +279,51 @@ class Map extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.updateChoropleth(nextProps.features)
+    this.updateZoom(nextProps.iso3166)
+    this.updateActiveCountry(nextProps.iso3166)
     this.updatePoints(nextProps.features)
   }
-
 
   getBucket(country) {
     if (this.props.features === null)  return
     return this.props.features.aggregations["about.location.address.addressCountry"].buckets.find(e => {
       return e.key === country
     })
+  }
+
+  updateActiveCountry(iso3166) {
+    if (iso3166) {
+      this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
+    }
+  }
+
+  updateZoom(iso3166) {
+    const mapboxgl = require('mapbox-gl')
+    // Zoom if a country is selected
+    if (iso3166) {
+      const coutryFeatures = this.map.queryRenderedFeatures({
+        layers:['countries'],
+        filter: ['in', 'iso_a2', iso3166]
+      })
+
+      if (coutryFeatures) {
+        const sumCoords = []
+
+        coutryFeatures.forEach(feature => {
+          feature.geometry.coordinates.forEach(land => {
+            sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
+          })
+        })
+
+        const bounds = sumCoords.reduce(function(bounds, coord) {
+          return bounds.extend(coord)
+        }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+
+        this.map.fitBounds(bounds, {
+          padding: 20
+        })
+      }
+    }
   }
 
   updateChoropleth(features) {
@@ -372,7 +420,12 @@ Map.propTypes = {
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   features: PropTypes.objectOf(PropTypes.any).isRequired,
+  iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired
+}
+
+Map.defaultProps = {
+  iso3166: null,
 }
 
 export default withEmitter(translate(Map))
