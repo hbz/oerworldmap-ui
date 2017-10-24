@@ -14,7 +14,7 @@ import withEmitter from './withEmitter'
 import ErrorPage from './ErrorPage'
 // import UserForm from './UserForm'
 // import Loading from './Loading'
-// import Country from './Country'
+import Country from './Country'
 
 const defaultAggregations = {
   'about.@type': {
@@ -62,12 +62,18 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
               </Column>
             </Columns>
 
-            {/* <Country /> */}
+            {data.iso3166 &&
+              <Country
+                iso3166={data.iso3166}
+                countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
+              />
+            }
 
             <Map
               emitter={emitter}
               mapboxConfig={mapboxConfig}
               features={features}
+              iso3166={data.iso3166}
             />
           </div>
         )
@@ -91,7 +97,7 @@ App.propTypes = {
 
 App.defaultProps = {
   user: null,
-  features: null
+  features: null,
 }
 
 export default withEmitter(App)

@@ -11,6 +11,14 @@
   width: 230px;
   color: var(--white);
 
+  & a {
+    color: var(--white);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   & > h2 {
     margin: 0;
     border-bottom: 1px solid var(--blue-paler);
@@ -62,9 +70,39 @@
         margin-right: 10px;
       }
 
+      & .frame {
+        position: relative;
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        min-height: 35px;
+        border: 1px solid var(--white);
+
+        & i {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+        }
+      }
+
       & img {
-        margin-right: 10px;
-        border: 1px solid var(--blue-paler);
+        width: 100%;
+        height: 100%;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        visibility: hidden;
+        background-color: var(--blue-dark);
+
+        &.visible {
+          visibility: visible;
+        }
+      }
+
+      & .text {
+        margin-left: 10px;
       }
     }
 
