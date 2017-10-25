@@ -27,7 +27,14 @@ class Country  extends React.Component {
   render() {
     return (
       <div className="Country">
-        <h2>{this.props.translate(this.props.iso3166)}</h2>
+        <div className="countryHeader">
+          <img
+            className="countryFlag"
+            src={`https://lipis.github.io/flag-icon-css/flags/4x3/${this.props.iso3166.toLowerCase()}.svg`}
+            alt={`Flag for ${this.props.translate(this.props.iso3166)}`}
+          />
+          <h2>{this.props.translate(this.props.iso3166)}</h2>
+        </div>
 
         {this.props.countryData &&
         this.props.countryData.country_champions &&
