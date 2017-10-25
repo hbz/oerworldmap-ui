@@ -294,6 +294,7 @@ class Map extends React.Component {
   updateActiveCountry(iso3166) {
     if (iso3166) {
       this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
+      this.map.setFilter('Regions', ['==', 'iso_a2', iso3166])
     }
   }
 
