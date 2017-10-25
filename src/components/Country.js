@@ -77,9 +77,11 @@ class Country  extends React.Component {
                     {this.props.translate(champion._source.about.name)}
                   </Link>
                   <br />
-                  <Link to={`/resource/${champion._source.about['@id']}`}>
-                    {champion._source.about.email}
-                  </Link>
+                  {champion._source.about.email &&
+                    <Link to={`/resource/${champion._source.about['@id']}`}>
+                      {champion._source.about.email}
+                    </Link>
+                  }
                 </div>
               </div>
             ))}
