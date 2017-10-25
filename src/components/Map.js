@@ -38,6 +38,12 @@ class Map extends React.Component {
 
     this.map.on('load', () => {
 
+      this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('road-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('minor-place-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('major-place-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('place-label', 'text-field', `{name_${this.props.locales[0]}}`)
+
       this.Map.addEventListener('mouseleave', ()=> {
         this.hoverPopup.remove()
         this.setState({hoveredFeatures:null})
@@ -420,6 +426,7 @@ Map.propTypes = {
     }
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   features: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired
