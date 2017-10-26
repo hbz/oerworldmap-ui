@@ -68,7 +68,7 @@ class Map extends React.Component {
       })
 
       // Initialize choropleth layers
-      this.updateChoropleth(this.props.features)
+      this.updateChoropleth(this.props.aggregations)
       this.updateZoom(this.props.iso3166)
       this.updateActiveCountry(this.props.iso3166)
 
@@ -290,7 +290,7 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateChoropleth(nextProps.features)
+    this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166)
     this.updateActiveCountry(nextProps.iso3166)
     this.updatePoints(nextProps.features)
@@ -307,6 +307,9 @@ class Map extends React.Component {
     if (iso3166) {
       this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
       this.map.setFilter('Regions', ['==', 'iso_a2', iso3166])
+    } else {
+      this.map.setFilter('countries-inactive', ["!has", "iso_a2"])
+      this.map.setFilter('Regions', ["!has", "iso_a2"])
     }
   }
 
@@ -339,12 +342,12 @@ class Map extends React.Component {
     }
   }
 
-  updateChoropleth(features) {
+  updateChoropleth(aggregations) {
 
-    if (features === null)  return
+    if (aggregations === null) return
     // The buckets holding the data for the choropleth layers
-    const buckets = features.aggregations
-      ? features.aggregations["about.location.address.addressCountry"].buckets
+    const buckets = aggregations
+      ? aggregations["about.location.address.addressCountry"].buckets
       : []
 
     // Dynamically get layers to be used for choropleth country overlays

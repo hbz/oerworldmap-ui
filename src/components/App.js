@@ -91,6 +91,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
             }
 
             <Map
+              aggregations={data.aggregations}
               emitter={emitter}
               mapboxConfig={mapboxConfig}
               features={features}
