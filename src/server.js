@@ -58,21 +58,22 @@ server.get(/^(.*)$/, (req, res) => {
     acceptedLanguages.push(defaultLanguage)
   }
   const api = new Api(apiConfig)
-  api.load(req.url, response => {
-    const initialState = {
-      data: response.data,
-      features: response.features,
-      user: response.user,
-      locales: acceptedLanguages,
-      mapboxConfig,
-      apiConfig
-    }
-    res.send(template({
-      body: renderToString(<Init {...initialState} emitter={{}} />),
-      title: getTitle(initialState.data, initialState.locales),
-      initialState: JSON.stringify(initialState)
-    }))
-  }, req.get('authorization'))
+  api.load(req.url, req.get('authorization'))
+    .then(response => {
+      const initialState = {
+        data: response.data,
+        features: response.features,
+        user: response.user,
+        locales: acceptedLanguages,
+        mapboxConfig,
+        apiConfig
+      }
+      res.send(template({
+        body: renderToString(<Init {...initialState} emitter={{}} />),
+        title: getTitle(initialState.data, initialState.locales),
+        initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")
+      }))
+    })
 })
 
 server.listen(Config.port, Config.host, function () {
