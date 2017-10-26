@@ -73,7 +73,7 @@ server.get(/^(.*)$/, (req, res) => {
         title: getTitle(initialState.data, initialState.locales),
         initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")
       }))
-  })
+    })
 })
 
 server.listen(Config.port, Config.host, function () {
