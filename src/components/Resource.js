@@ -1,18 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import translate from './translate'
 import Icon from './Icon'
 
-const Resource = ({ resource }) => (
+const Resource = ({ resource, translate }) => (
   <div className="Resource">
     <div className="topline">
       <Icon type={resource.about['@type']} />
       <strong>{resource.about['@type']} </strong> ({resource.dateModified})
     </div>
 
-    <h1>{resource.about.name[0]['@value']}</h1>
+    <h1>{translate(resource.about.name)}</h1>
 
-    <p>{resource.about.description[0]['@value']}</p>
+    <p>{translate(resource.about.description)}</p>
 
     <a href={resource.about.url} className="boxedLink">
       <i className="fa fa-external-link" /> {resource.about.url}
@@ -44,8 +45,8 @@ const Resource = ({ resource }) => (
 )
 
 Resource.propTypes = {
-  // resource: PropTypes.objectOf(PropTypes.object).isRequired
-  resource: PropTypes.objectOf(PropTypes.any).isRequired
+  resource: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired,
 }
 
-export default Resource
+export default translate(Resource)

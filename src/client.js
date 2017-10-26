@@ -21,6 +21,7 @@ import './styles/main.pcss'
       <Init {...state} emitter={emitter} />,
       document.getElementById('root')
     )
+    emitter.emit('setLoading', false)
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -31,12 +32,14 @@ import './styles/main.pcss'
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
     // Save data to the API
-    emitter.on('save', data => api.save(data, response => {
-      const state = window.__APP_INITIAL_STATE__
-      state.data = response.data
-      state.user = response.user
-      renderApp(state, emitter)
-    }))
+    emitter.on('save', data => api.save(data)
+      .then(response => {
+        const state = window.__APP_INITIAL_STATE__
+        state.data = response.data
+        state.user = response.user
+        renderApp(state, emitter)
+      })
+    )
     // Transition to a new URL
     emitter.on('navigate', url => {
       if (window.location.pathname + window.location.search + window.location.hash !== url) {
@@ -69,13 +72,15 @@ import './styles/main.pcss'
       const url = window.location.pathname + window.location.search
       if (url !== current_url) {
         current_url = url
-        api.load(url, response => {
-          const state = window.__APP_INITIAL_STATE__
-          state.data = response.data
-          state.features = response.features || state.features
-          state.user = response.user
-          renderApp(state, emitter)
-        })
+        emitter.emit('setLoading', true)
+        api.load(url)
+          .then(response => {
+            const state = window.__APP_INITIAL_STATE__
+            state.data = response.data
+            state.features = response.features || state.features
+            state.user = response.user
+            renderApp(state, emitter)
+          })
       }
     })
 

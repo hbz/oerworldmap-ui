@@ -8,10 +8,16 @@
   display: flex;
   transition: all 1s;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 
   &.hideColumns {
     transform: translateX(98%);
+
+    & .FiltersControls {
+      position: relative;
+      left: -107%;
+      transition: all 1s;
+    }
 
     & .toggleColumn {
       left: -5px;
@@ -25,10 +31,10 @@
   }
 
   & .column {
-    color: var(--blue-darker);
+    color: var(--blue-dark);
     width: 470px;
-    background-color: color(var(--white) alpha(95%));
-    border-left: 1px solid var(--blue-lighter);
+    background-color: var(--white);
+    border-left: 1px solid var(--blue-lightest);
     position: relative;
     pointer-events: all;
 
@@ -49,20 +55,31 @@
 
     & .columnContent {
       padding: 20px;
-      overflow-y: auto;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+
+      & .ColumnList {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        &.noDisplay {
+          display: none;
+        }
+      }
     }
 
     & .toggleColumn {
       position: absolute;
-      background-color: var(--white);
-      border: 1px solid var(--blue-lighter);
       border-radius: 50%;
       width: 32px;
       height: 32px;
       top: 50%;
       transform: translateY(-50%) translateX(-50%);
-      color: var(--blue-light);
+      color: var(--white);
       cursor: pointer;
       z-index: 3;
       display: flex;
@@ -70,11 +87,11 @@
       justify-content: center;
       align-items: center;
       font-size: 0.8rem;
+      border: 4px solid var(--white);
+      background-color: var(--blue);
 
       &:hover {
-        border: 2px solid var(--white);
-        background: var(--blue-light);
-        color: var(--white);
+        background-color: var(--blue-dark);
       }
 
       & i {
@@ -91,7 +108,7 @@
     }
 
     & h1 {
-      color: var(--blue-darker);
+      color: var(--blue-dark);
     }
 
     & > p {
@@ -101,10 +118,10 @@
     }
 
     & .boxedLink {
-      color: var(--blue-darker);
-      background-color: var(--blue-paler);
+      color: var(--blue-dark);
+      background-color: var(--blue-lightest);
       padding: 6px 12px;
-      border: 1px solid var(--blue-darker);
+      border: 1px solid var(--blue-dark);
       font-size: 0.8rem;
       font-weight: bold;
 
@@ -125,7 +142,7 @@
       & td:last-child {
         padding: 10px;
         font-size: 0.8rem;
-        border-top: 1px solid var(--blue-pale);
+        border-top: 1px solid var(--blue-lightest);
       }
 
       & td:first-child {

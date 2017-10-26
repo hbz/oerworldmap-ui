@@ -8,22 +8,16 @@
 
   /* flex-wrap: wrap; */
   justify-content: space-between;
-  background-color: var(--blue-darker);
+  background-color: var(--blue-dark);
 
   & a {
-    border-right: 1px solid var(--blue-dark);
     color: var(--blue-lightest);
     padding: 10px;
     display: inline-block;
 
-    &:first-child {
-      border-left: 1px solid var(--blue-dark);
-    }
-
     &:focus,
     &:hover {
-      background-color: var(--blue-dark);
-      color: var(--blue-lightest);
+      color: var(--blue-light);
     }
   }
 
@@ -36,12 +30,18 @@
     font-size: 1.3rem;
   }
 
-  & .userNav a:first-child {
-    border-left: none;
+  & .mainNav h1 {
+    padding: 0 20px;
+  }
 
-    &:hover {
+  & .userNav {
+    & a:last-child {
+      color: var(--white);
+    }
+
+    & a:hover {
       color: var(--orange);
-      background-color: transparent;
     }
   }
 }
+

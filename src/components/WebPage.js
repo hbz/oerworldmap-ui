@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactMarkdown from 'react-markdown'
 
 import translate from './translate'
 import Metadata from './Metadata'
@@ -40,7 +41,12 @@ const WebPage = ({
 
       {about.image &&
         <div className="webPageCover">
-          <img src={about.image} alt={translate(about.name)} />
+          <img
+            src={about.image}
+            onError={e => {
+              e.target.parentElement.remove()}}
+            alt={translate(about.name)}
+          />
         </div>
       }
 
@@ -70,13 +76,16 @@ const WebPage = ({
           ))
         }
 
-        {about.description && 
-        about.description[0]['@value'] &&
-          <p>{about.description[0]['@value']}</p>
+        {about.description &&
+          <ReactMarkdown source={translate(about.description)} />
+        }
+
+        {about.articleBody &&
+          <ReactMarkdown source={translate(about.articleBody)} />
         }
 
         {about.url &&
-          <a href={about.url} className="boxedLink">
+          <a href={about.url} target="_blank" className="boxedLink">
             {formatURL(about.url)}
           </a>
         }
@@ -92,7 +101,7 @@ const WebPage = ({
             <img key={license['@id']} className="license" src={license.image} alt={translate(license.name)} />
           ))
         }
-        
+
         {/* Example of data, GENERATE THIS */}
         <table>
           <tbody>

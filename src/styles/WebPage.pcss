@@ -10,7 +10,7 @@
   overflow: auto;
   padding: 20px;
   padding-top: 40px;
-  color: var(--blue);
+  color: var(--blue-dark);
 
   & > .webPageContainer {
     background-color: var(--white);
@@ -29,8 +29,10 @@
         & a {
           font-size: 1.3rem;
           padding-right: 15px;
+          color: var(--blue);
 
           &:last-child {
+            color: #b4b4b4;
             padding-right: 0;
           }
 
@@ -42,7 +44,7 @@
     }
 
     & .webPageCover {
-      background-color: var(--blue-lighter);
+      background-color: #f0f0f0;
       padding: 40px;
 
       & img {
@@ -67,10 +69,10 @@
         margin-top: 20px;
 
         & tr {
-          border-bottom: 1px solid var(--blue-light-gradient-end);
+          border-bottom: 1px solid var(--blue-lightest);
 
           &:first-child {
-            border-top: 1px solid var(--blue-light-gradient-end);
+            border-top: 1px solid var(--blue-lightest);
           }
         }
 
@@ -80,7 +82,7 @@
 
         & tr td:first-child {
           font-weight: bold;
-          color: var(--blue);
+          color: var(--blue-dark);
           vertical-align: top;
         }
       }

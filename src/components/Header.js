@@ -10,13 +10,13 @@ const Header = ({ user, emitter, translate }) => (
   <header className="Header">
     <nav className="mainNav">
       <Link to="/">
-        <h1>OER W<i className="fa fa-globe" />RLD MAP</h1>
+        <h1>OER WORLD MAP</h1>
       </Link>
       <a
-        href="/FAQ"
-        title={translate('Header.faq')}
+        href="/contribute"
+        title={translate('Header.contribute')}
       >
-        {translate('Header.faq')}
+        {translate('Header.contribute')}
       </a>
       <a
         href="/about"
@@ -25,10 +25,10 @@ const Header = ({ user, emitter, translate }) => (
         {translate('Header.about')}
       </a>
       <a
-        href="/contribute"
-        title={translate('Header.contribute')}
+        href="/FAQ"
+        title={translate('Header.faq')}
       >
-        {translate('Header.contribute')}
+        {translate('Header.faq')}
       </a>
       <a
         href="https://oerworldmap.wordpress.com/"
@@ -58,15 +58,15 @@ const Header = ({ user, emitter, translate }) => (
 
     <nav className="userNav">
       <a href="/contribute">
-        <h2>Join us in mapping the world of OER!</h2>
+        <h2>{translate('Header.joinUs')}</h2>
       </a>
       {user ? (
         <a href="/.logout" onClick={(e) => {e.preventDefault(); emitter.emit('logout')}}>
-          Log out user {user}
+          {translate('Header.logOut')} {user}
         </a>
       ) : (
-        <a href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
-          Log in
+        <a title={translate('Header.logIn')} href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
+          <i className="fa fa-user" />
         </a>
       )}
     </nav>
