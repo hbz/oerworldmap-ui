@@ -20,13 +20,6 @@ const checkStatus = response => {
 const toJson = response => {
   return response.json().then(json => ({
     user: response.headers.get('X-Request-User'),
-    data: json
-  }))
-}
-
-const toJsonWithLinks = response => {
-  return response.json().then(json => ({
-    user: response.headers.get('X-Request-User'),
     data: json,
     links: linkHeader.parse(response.headers.get('Link'))
   }))
@@ -38,9 +31,9 @@ class Api {
     this.port = apiConfig.port
   }
 
-  save (data, callback) {
+  save (data) {
     const url = `/resource/${(data['@id'] || '')}`
-    fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       method: 'POST',
       mode: 'cors',
       headers: new Headers({
@@ -51,54 +44,37 @@ class Api {
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
-      .then(data => {
-        callback(data)
-      }).catch(err => {
-        console.error(err)
+      .catch(err => {
+        console.error("Error saving to " + url, err)
+        return Promise.resolve({
+          data: {
+            '@type': 'ErrorPage',
+            'message': err.message
+          }
+        })
       })
   }
 
-  load (url, callback, authorization) {
-    url = url === '/' ? '/resource/' : url
-    const jsonParser = url.startsWith('/resource/urn') ? toJson : toJsonWithLinks
+  load (url, authorization) {
     const headers = new Headers({
       'Accept': 'application/json'
     })
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
       credentials: 'include'
     }).then(checkStatus)
-      .then(jsonParser)
-      .then(data => {
-        if (data.links) {
-          const geoJsonUrl = data.links.refs.find(link => {
-            return link.type === 'application/geo+json'
-          })
-          fetch(geoJsonUrl.uri, {
-            headers,
-            credentials: 'include'
-          }).then(checkStatus)
-            .then(toJson)
-            .then(geoJson => {
-              data.features = geoJson.data
-              callback(data)
-            }).catch(err => {
-              console.error(err)
-            })
-        } else {
-          callback(data)
-        }
-      }).catch(err => {
-        const data = {}
-        data.data = {
-          '@type': 'ErrorPage',
-          'message': err.message
-        }
-        callback(data)
-        console.error(err)
+      .then(toJson)
+      .catch(err => {
+        console.error("Error loading " + url, err)
+        return Promise.resolve({
+          data: {
+            '@type': 'ErrorPage',
+            'message': err.message
+          }
+        })
       })
   }
 
