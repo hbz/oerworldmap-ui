@@ -56,6 +56,13 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
           <div className="content">
             <ActionButtons />
 
+            {data.iso3166 &&
+              <Country
+                iso3166={data.iso3166}
+                countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
+              />
+            }
+
             <Columns emitter={emitter}>
               <Column>
                 {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
@@ -82,13 +89,6 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
                 }
               </Column>
             </Columns>
-
-            {data.iso3166 &&
-              <Country
-                iso3166={data.iso3166}
-                countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
-              />
-            }
 
             <Map
               aggregations={data.aggregations}
