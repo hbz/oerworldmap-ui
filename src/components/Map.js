@@ -394,8 +394,14 @@ class Map extends React.Component {
         colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
       })
 
+      const regionMax = regionBuckets.reduce(function(acc, val) {
+        return acc < val.doc_count ? val.doc_count : acc
+      }, 0)
+
+      const regionSteps = Math.ceil(regionMax / choroplethLayersCount / 10) * 10
+
       regionBuckets.forEach(function(bucket) {
-        stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / steps)]])
+        stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / regionSteps)]])
       })
 
       this.map.setPaintProperty('Regions', 'fill-color', {
