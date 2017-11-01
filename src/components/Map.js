@@ -322,7 +322,7 @@ class Map extends React.Component {
         filter: ['in', 'iso_a2', iso3166]
       })
 
-      if (coutryFeatures) {
+      if (coutryFeatures.length) {
         const sumCoords = []
 
         coutryFeatures.forEach(feature => {
