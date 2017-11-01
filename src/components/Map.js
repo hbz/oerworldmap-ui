@@ -383,13 +383,13 @@ class Map extends React.Component {
     if (aggregations["about.location.address.addressRegion"]) {
 
       const regionBuckets = aggregations
-      ? aggregations["about.location.address.addressRegion"].buckets
-      : []
+        ? aggregations["about.location.address.addressRegion"].buckets
+        : []
 
-      const stops = [];
-      const colors = [];
+      const stops = []
+      const colors = []
 
-      // Get colors for choropleth
+      // Get mapbox colors for choropleth
       choroplethLayerGroups.forEach((group, i) => {
         colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
       })
