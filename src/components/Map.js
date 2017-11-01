@@ -379,6 +379,32 @@ class Map extends React.Component {
     choroplethLayerGroups.forEach((group, i) => {
       this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
     })
+
+    if (aggregations["about.location.address.addressRegion"]) {
+
+      const regionBuckets = aggregations
+      ? aggregations["about.location.address.addressRegion"].buckets
+      : []
+
+      const stops = [];
+      const colors = [];
+
+      // Get colors for choropleth
+      choroplethLayerGroups.forEach((group, i) => {
+        colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
+      })
+
+      regionBuckets.forEach(function(bucket) {
+        stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / steps)]])
+      })
+
+      this.map.setPaintProperty('Regions', 'fill-color', {
+        "property": 'code_hasc',
+        "type": "categorical",
+        "default": 'rgba(255, 255, 255, 1)',
+        "stops": stops
+      })
+    }
   }
 
   updatePoints(features) {
