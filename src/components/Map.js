@@ -298,7 +298,7 @@ class Map extends React.Component {
 
   getBucket(country) {
     if (this.props.features === null)  return
-    return this.props.features.aggregations["about.location.address.addressCountry"].buckets.find(e => {
+    return this.props.aggregations["about.location.address.addressCountry"].buckets.find(e => {
       return e.key === country
     })
   }
