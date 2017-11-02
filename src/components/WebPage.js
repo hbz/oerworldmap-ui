@@ -127,7 +127,7 @@ const WebPage = ({
 
           {about.license &&
             about.license.map(license => (
-              <img key={license['@id']} className="license" src={license.image} alt={translate(license.name)} />
+              <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
             ))
           }
 
