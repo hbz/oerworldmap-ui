@@ -149,4 +149,32 @@
       }
     }
   }
+
+  & .description .multiple-container {
+    & .textarea {
+      width: 100%;
+
+      & textarea {
+        border-radius: 2px 2px 0 0;
+        border-bottom: 0;
+        min-height: 144px;
+        resize: vertical;
+
+        & + label {
+          display: none;
+        }
+      }
+    }
+
+    & .select.\@language {
+      width: 100%;
+      float: none;
+      margin-top: 0;
+      margin-bottom: 10px;
+
+      & select {
+        border-radius: 0 0 2px 2px;
+      }
+    }
+  }
 }
