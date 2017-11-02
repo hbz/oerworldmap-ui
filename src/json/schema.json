@@ -2123,15 +2123,15 @@
       "items": {
         "type": "object",
         "properties": {
-          "@language": {
-            "type": "string",
-            "enum": ["de", "en"]
-          },
           "@value": {
             "type": "string",
             "_display": {
               "rows": 5
             }
+          },
+          "@language": {
+            "type": "string",
+            "enum": ["de", "en"]
           }
         },
         "required": [
