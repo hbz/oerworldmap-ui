@@ -132,11 +132,24 @@ class Map extends React.Component {
             )
           }
 
+          let coords = hoveredPoints[0] && hoveredPoints[0].geometry.coordinates
+
+          // In case of multipoint choose the closest to the mouse position
+          if (coords && coords.length > 2) {
+            let current = coords[0]
+            coords.forEach((pos) => {
+              if (this.getDistanceFromLatLonInKm(pos[1], pos[0], e.lngLat.lat, e.lngLat.lng)
+                < this.getDistanceFromLatLonInKm(current[1], current[0], e.lngLat.lat, e.lngLat.lng)) {
+                current = pos
+              }
+              coords = current
+            })
+          }
+
           const popupDOM = document.createElement('div')
           this.hoverPopup
-            .setLngLat(
-              (hoveredPoints[0] && hoveredPoints[0].geometry.coordinates)
-              || e.lngLat)
+            .setLngLat((coords && typeof coords[0] === 'number')
+              ? coords : e.lngLat)
             .setDOMContent(ReactDOM.render(
               <div
                 className="tooltip"
@@ -224,7 +237,7 @@ class Map extends React.Component {
               closeButton:false,
               offset:this.popupOffsets
             })
-            .setLngLat(e.features[0].geometry.coordinates)
+            .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
             .setDOMContent(popupDOM)
             .addTo(this.map)
 
@@ -301,6 +314,23 @@ class Map extends React.Component {
     return this.props.aggregations["about.location.address.addressCountry"].buckets.find(e => {
       return e.key === country
     })
+  }
+
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    const R = 6371 // Radius of the earth in km
+    const dLat = this.deg2rad(lat2-lat1)  // this. below
+    const dLon = this.deg2rad(lon2-lon1)
+    const a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    const d = R * c // Distance in km
+    return d
+  }
+
+  deg2rad(deg) {
+    return deg * (Math.PI / 180)
   }
 
   updateActiveCountry(iso3166) {
