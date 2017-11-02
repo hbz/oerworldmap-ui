@@ -15,6 +15,8 @@ import ItemList from './ItemList'
 import Pagination from './Pagination'
 // import UserForm from './UserForm'
 import Loading from './Loading'
+import Country from './Country'
+
 
 const defaultAggregations = {
   'about.@type': {
@@ -54,6 +56,13 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
           <div className="content">
             <ActionButtons />
 
+            {data.iso3166 &&
+              <Country
+                iso3166={data.iso3166}
+                countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
+              />
+            }
+
             <Columns emitter={emitter}>
               <Column>
                 {/* <Column className={data['@type'] === 'WebPage' ? 'transparentColumn' : null}> */}
@@ -82,9 +91,11 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
             </Columns>
 
             <Map
+              aggregations={data.aggregations}
               emitter={emitter}
               mapboxConfig={mapboxConfig}
               features={features}
+              iso3166={data.iso3166}
             />
           </div>
         )
@@ -108,7 +119,7 @@ App.propTypes = {
 
 App.defaultProps = {
   user: null,
-  features: null
+  features: null,
 }
 
 export default withEmitter(App)

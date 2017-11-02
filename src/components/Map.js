@@ -20,6 +20,8 @@ class Map extends React.Component {
     super(props)
     this.state = {}
     this.updatePoints = this.updatePoints.bind(this)
+    this.updateZoom = this.updateZoom.bind(this)
+    this.updateActiveCountry = this.updateActiveCountry.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +37,12 @@ class Map extends React.Component {
     })
 
     this.map.on('load', () => {
+
+      this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('road-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('minor-place-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('major-place-label', 'text-field', `{name_${this.props.locales[0]}}`)
+      this.map.setLayoutProperty('place-label', 'text-field', `{name_${this.props.locales[0]}}`)
 
       this.Map.addEventListener('mouseleave', ()=> {
         this.hoverPopup.remove()
@@ -60,7 +68,9 @@ class Map extends React.Component {
       })
 
       // Initialize choropleth layers
-      this.updateChoropleth(this.props.features)
+      this.updateChoropleth(this.props.aggregations)
+      this.updateZoom(this.props.iso3166)
+      this.updateActiveCountry(this.props.iso3166)
 
       // Get features currently under the mouse
       this.map.on("mousemove", (e) => {
@@ -122,11 +132,24 @@ class Map extends React.Component {
             )
           }
 
+          let coords = hoveredPoints[0] && hoveredPoints[0].geometry.coordinates
+
+          // In case of multipoint choose the closest to the mouse position
+          if (coords && coords.length > 2) {
+            let current = coords[0]
+            coords.forEach((pos) => {
+              if (this.getDistanceFromLatLonInKm(pos[1], pos[0], e.lngLat.lat, e.lngLat.lng)
+                < this.getDistanceFromLatLonInKm(current[1], current[0], e.lngLat.lat, e.lngLat.lng)) {
+                current = pos
+              }
+              coords = current
+            })
+          }
+
           const popupDOM = document.createElement('div')
           this.hoverPopup
-            .setLngLat(
-              (hoveredPoints[0] && hoveredPoints[0].geometry.coordinates)
-              || e.lngLat)
+            .setLngLat((coords && typeof coords[0] === 'number')
+              ? coords : e.lngLat)
             .setDOMContent(ReactDOM.render(
               <div
                 className="tooltip"
@@ -214,7 +237,7 @@ class Map extends React.Component {
               closeButton:false,
               offset:this.popupOffsets
             })
-            .setLngLat(e.features[0].geometry.coordinates)
+            .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
             .setDOMContent(popupDOM)
             .addTo(this.map)
 
@@ -233,6 +256,14 @@ class Map extends React.Component {
           // Click on a single resource
           const url = `/resource/${e.features[0].properties['@id']}`
           this.props.emitter.emit('navigate', url)
+        }
+      }.bind(this))
+
+      this.map.on('click', 'countries', function (e) {
+        // Check if a point is clicked too and do nothing in that case
+        const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+        if (!features.length) {
+          this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
         }
       }.bind(this))
 
@@ -272,24 +303,81 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateChoropleth(nextProps.features)
+    this.updateChoropleth(nextProps.aggregations)
+    this.updateZoom(nextProps.iso3166)
+    this.updateActiveCountry(nextProps.iso3166)
     this.updatePoints(nextProps.features)
   }
 
-
   getBucket(country) {
     if (this.props.features === null)  return
-    return this.props.features.aggregations["about.location.address.addressCountry"].buckets.find(e => {
+    return this.props.aggregations["about.location.address.addressCountry"].buckets.find(e => {
       return e.key === country
     })
   }
 
-  updateChoropleth(features) {
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    const R = 6371 // Radius of the earth in km
+    const dLat = this.deg2rad(lat2-lat1)  // this. below
+    const dLon = this.deg2rad(lon2-lon1)
+    const a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    const d = R * c // Distance in km
+    return d
+  }
 
-    if (features === null)  return
+  deg2rad(deg) {
+    return deg * (Math.PI / 180)
+  }
+
+  updateActiveCountry(iso3166) {
+    if (iso3166) {
+      this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
+      this.map.setFilter('Regions', ['==', 'iso_a2', iso3166])
+    } else {
+      this.map.setFilter('countries-inactive', ["!has", "iso_a2"])
+      this.map.setFilter('Regions', ["!has", "iso_a2"])
+    }
+  }
+
+  updateZoom(iso3166) {
+    const mapboxgl = require('mapbox-gl')
+    // Zoom if a country is selected
+    if (iso3166) {
+      const coutryFeatures = this.map.queryRenderedFeatures({
+        layers:['countries'],
+        filter: ['in', 'iso_a2', iso3166]
+      })
+
+      if (coutryFeatures.length) {
+        const sumCoords = []
+
+        coutryFeatures.forEach(feature => {
+          feature.geometry.coordinates.forEach(land => {
+            sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
+          })
+        })
+
+        const bounds = sumCoords.reduce(function(bounds, coord) {
+          return bounds.extend(coord)
+        }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+
+        this.map.fitBounds(bounds, {
+          padding: 20
+        })
+      }
+    }
+  }
+
+  updateChoropleth(aggregations) {
+
+    if (aggregations === null) return
     // The buckets holding the data for the choropleth layers
-    const buckets = features.aggregations
-      ? features.aggregations["about.location.address.addressCountry"].buckets
+    const buckets = aggregations
+      ? aggregations["about.location.address.addressCountry"].buckets
       : []
 
     // Dynamically get layers to be used for choropleth country overlays
@@ -321,6 +409,38 @@ class Map extends React.Component {
     choroplethLayerGroups.forEach((group, i) => {
       this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
     })
+
+    if (aggregations["about.location.address.addressRegion"]) {
+
+      const regionBuckets = aggregations
+        ? aggregations["about.location.address.addressRegion"].buckets
+        : []
+
+      const stops = []
+      const colors = []
+
+      // Get mapbox colors for choropleth
+      choroplethLayerGroups.forEach((group, i) => {
+        colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
+      })
+
+      const regionMax = regionBuckets.reduce(function(acc, val) {
+        return acc < val.doc_count ? val.doc_count : acc
+      }, 0)
+
+      const regionSteps = Math.ceil(regionMax / choroplethLayersCount / 10) * 10
+
+      regionBuckets.forEach(function(bucket) {
+        stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / regionSteps)]])
+      })
+
+      this.map.setPaintProperty('Regions', 'fill-color', {
+        "property": 'code_hasc',
+        "type": "categorical",
+        "default": 'rgba(255, 255, 255, 1)',
+        "stops": stops
+      })
+    }
   }
 
   updatePoints(features) {
@@ -377,8 +497,15 @@ Map.propTypes = {
     }
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   features: PropTypes.objectOf(PropTypes.any).isRequired,
+  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
+  iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired
+}
+
+Map.defaultProps = {
+  iso3166: null,
 }
 
 export default withEmitter(translate(Map))

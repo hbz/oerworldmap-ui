@@ -62,7 +62,7 @@ server.get(/^(.*)$/, (req, res) => {
     .then(response => {
       const initialState = {
         data: response.data,
-        features: response.features,
+        features: response.data.features,
         user: response.user,
         locales: acceptedLanguages,
         mapboxConfig,

@@ -1,0 +1,145 @@
+@import './Colors.pcss';
+
+.Country {
+  background-color: var(--blue-dark);
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 5;
+  border: 1px solid var(--white);
+  padding: 15px;
+  width: 230px;
+  color: var(--white);
+
+  & .countryHeader {
+    border-bottom: 1px solid var(--white);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: end;
+
+    & h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      display: inline-block;
+    }
+
+    & .countryFlag {
+      width: 30px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  & a {
+    color: var(--white);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+
+    &:hover span {
+      text-decoration: underline;
+    }
+
+    & i {
+      text-decoration: none;
+    }
+  }
+
+  & .resourcesContainer,
+  & .countryChampionContainer,
+  & .statisticsContainer {
+    display: block;
+    max-height: 500px;
+    transition: all 0.5s;
+    overflow: hidden;
+
+    &.collapsed {
+      max-height: 0;
+      transition: all 0.5s;
+    }
+  }
+
+  & .countryChampion,
+  & .countryReports {
+    padding-bottom: 5px;
+
+    & .user,
+    & .resource {
+      display: flex;
+      align-items: flex-start;
+      font-size: 0.8rem;
+      margin-bottom: 15px;
+
+      & i {
+        margin-right: 10px;
+      }
+
+      & .frame {
+        position: relative;
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        min-height: 35px;
+        border: 1px solid var(--white);
+
+        & i {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+        }
+      }
+
+      & img {
+        width: 100%;
+        height: 100%;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        visibility: hidden;
+        background-color: var(--blue-dark);
+
+        &.visible {
+          visibility: visible;
+        }
+      }
+
+      & .text {
+        margin-left: 10px;
+      }
+    }
+
+    & .resource {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--white);
+
+      &:last-child {
+        border: none;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  & .countryChampion,
+  & .countryReports {
+    border-bottom: 1px solid var(--white);
+  }
+
+  & .statistics table {
+    width: 100%;
+
+    & td {
+      font-size: 0.9rem;
+      padding: 5px 0;
+    }
+  }
+}
