@@ -49,9 +49,16 @@ import './styles/main.pcss'
       }
     })
     // Find data from the API
-    emitter.on('getOptions', ({term, types, callback}) => api.find(term, types).then(
-      response => callback(response.data))
-    )
+    emitter.on('getOptions', ({term, schema, callback}) => {
+      console.log(schema)
+      if (schema.properties.inScheme) {
+        api.vocab(schema.properties.inScheme.properties['@id'].enum[0]).then(response => {
+          callback(response.data)
+        })
+      } else {
+        api.find(term, schema.properties['@type'].enum).then(response => callback(response.data))
+      }
+    })
     // Log in to the API
     emitter.on('login', () => api.login())
     // Log out of the API

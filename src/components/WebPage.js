@@ -74,7 +74,7 @@ const WebPage = ({
             value={about}
             schema={schema}
             submit={value => emitter.emit('save', value)}
-            getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+            getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
             getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
           />
         </div>
@@ -168,7 +168,7 @@ const WebPage = ({
         </div>
       </div>
     </div>
-    <script src="https://hypothes.is/embed.js" async></script>
+    <script src="https://hypothes.is/embed.js" async />
   </div>
 )
 
