@@ -21,7 +21,7 @@ const onSubmit = (e, emitter) => {
   const formData = new FormData(form)
   const parameters = [...formData.entries()]
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
-  emitter.emit('navigate', '/resource/?' + parameters)
+  emitter.emit('navigate', '?' + parameters)
 }
 
 const triggerClick = (e) => {
@@ -64,7 +64,7 @@ const dropdownFilters = [
 const Filters = ({query, filters, aggregations, emitter, extended, translate, member}) => (
   <nav className="Filters">
 
-    <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
+    <form action="" onSubmit={(evt) => onSubmit(evt, emitter)}>
       <div className="FiltersControls">
         {extended ? (
           <div className="filterSearch">
