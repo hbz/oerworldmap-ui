@@ -49,7 +49,9 @@ import './styles/main.pcss'
       }
     })
     // Find data from the API
-    emitter.on('getOptions', ({term, types, callback}) => api.find(term, types, callback))
+    emitter.on('getOptions', ({term, types, callback}) => api.find(term, types).then(
+      response => callback(response.data))
+    )
     // Log in to the API
     emitter.on('login', () => api.login())
     // Log out of the API

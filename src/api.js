@@ -80,17 +80,20 @@ class Api {
 
   find (term, types, callback) {
     const url = `/resource/?q=${term}*` + (types ? `&filter.about.@type=${types.join(',')}` : '')
-    fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       headers: new Headers({
         'Accept': 'application/json'
       }),
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)
-      .then(data => {
-        callback(data.data)
-      }).catch(err => {
-        console.error(err)
+      .catch(err => {
+        console.error("Error loading " + url, err)
+        return Promise.resolve({
+          data: {
+            member: []
+          }
+        })
       })
   }
 
