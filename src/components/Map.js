@@ -417,6 +417,14 @@ class Map extends React.Component {
       this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
     })
 
+    // Get mapbox colors for choropleth
+    const colors = []
+    choroplethLayerGroups.forEach((group, i) => {
+      colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
+    })
+
+    this.setState({colors})
+
     if (aggregations["about.location.address.addressRegion"]) {
 
       const regionBuckets = aggregations
@@ -424,12 +432,6 @@ class Map extends React.Component {
         : []
 
       const stops = []
-      const colors = []
-
-      // Get mapbox colors for choropleth
-      choroplethLayerGroups.forEach((group, i) => {
-        colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
-      })
 
       const regionMax = regionBuckets.reduce(function(acc, val) {
         return acc < val.doc_count ? val.doc_count : acc
@@ -490,6 +492,42 @@ class Map extends React.Component {
         {this.state.overlayList &&
           <div className="overlayList" />
         }
+
+        {this.state.colors &&
+          <div className="mapLeyend">
+            <div className="infoContainer">
+              <span className="min">0</span>
+
+              <span className="description">
+                {this.props.aggregations['about.location.address.addressRegion'] &&
+                  this.props.aggregations['about.location.address.addressRegion'].buckets.length
+                  ? this.props.translate('Map.entriesPerRegion') : this.props.translate('Map.entriesPerCountry')}
+              </span>
+
+              <span className="max">
+                {this.props.aggregations['about.location.address.addressRegion'] &&
+                  this.props.aggregations['about.location.address.addressRegion'].buckets.length
+                  ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
+                  : this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count}
+              </span>
+            </div>
+
+            <div className="stepsContainer">
+              {this.state.colors.map(color => (
+                <div style={{backgroundColor: color}} className="step" />
+              ))}
+            </div>
+          </div>
+        }
+
+        {this.props.aggregations['about.location.address.addressRegion'] &&
+          <div className='goToMap'>
+            <Link to='/resource/'>
+              <i className='fa fa-globe' />
+            </Link>
+          </div>
+        }
+
       </div>
     )
   }
