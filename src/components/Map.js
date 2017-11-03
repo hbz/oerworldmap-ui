@@ -520,6 +520,14 @@ class Map extends React.Component {
           </div>
         }
 
+        {this.props.aggregations['about.location.address.addressRegion'] &&
+          <div className='goToMap'>
+            <Link to='/resource/'>
+              <i className='fa fa-globe' />
+            </Link>
+          </div>
+        }
+
       </div>
     )
   }
