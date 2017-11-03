@@ -266,6 +266,7 @@ class Map extends React.Component {
       }.bind(this))
 
       this.map.on('click', 'countries', function (e) {
+        if (this.popup && this.popup.isOpen()) return
         // Check if a point is clicked too and do nothing in that case
         const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         if (!features.length) {
