@@ -231,23 +231,27 @@ class Map extends React.Component {
             </EmittProvider>
             , popupDOM)
 
-          this.popup = new mapboxgl.Popup(
-            {
-              closeButton:false,
-              offset:this.popupOffsets
+          if (this.popup && this.popup.isOpen()) {
+            this.popup.remove()
+          } else {
+            this.popup = new mapboxgl.Popup(
+              {
+                closeButton:false,
+                offset:this.popupOffsets
+              })
+              .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
+              .setDOMContent(popupDOM)
+              .addTo(this.map)
+
+            this.popup.on('close', () => {
+              this.setState({overlayList:false})
             })
-            .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
-            .setDOMContent(popupDOM)
-            .addTo(this.map)
 
-          this.popup.on('close', () => {
-            this.setState({overlayList:false})
-          })
-
-          this.setState({
-            overlayList:true,
-            hoveredFeatures:null
-          })
+            this.setState({
+              overlayList:true,
+              hoveredFeatures:null
+            })
+          }
         }
 
         else {
