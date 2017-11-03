@@ -173,7 +173,13 @@ class Map extends React.Component {
       this.map.on("mousemove", "points", (e) => {
         const ids = e.features.map(function (feat) { return feat.properties['@id'] })
         this.map.setFilter('points-hover', [ 'in', '@id' ].concat(ids))
-        this.map.getCanvas().style.cursor = 'pointer'
+        if (ids.length > 6) {
+          this.map.getCanvas().style.cursor = 'zoom-in'
+        } else if (ids.length > 2) {
+          this.map.getCanvas().style.cursor = 'context-menu'
+        } else {
+          this.map.getCanvas().style.cursor = 'pointer'
+        }
       })
 
       // Reset the point hover layer's filter when the mouse leaves the layer.
@@ -260,6 +266,7 @@ class Map extends React.Component {
       }.bind(this))
 
       this.map.on('click', 'countries', function (e) {
+        if (this.popup && this.popup.isOpen()) return
         // Check if a point is clicked too and do nothing in that case
         const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
         if (!features.length) {
