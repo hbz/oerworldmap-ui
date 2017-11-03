@@ -189,12 +189,6 @@ class Map extends React.Component {
         this.map.getCanvas().style.cursor = ''
       })
 
-      // Reset the countries hover layer's filter when the mouse leaves the layer.
-      this.map.on("mouseleave", "countries", () => {
-        this.map.setFilter('countries-hover', ['!has', "iso_a2"])
-        this.map.getCanvas().style.cursor = ''
-      })
-
       // Update popup position when dragging map
       this.map.on('drag', (e) => {
         this.setState({
