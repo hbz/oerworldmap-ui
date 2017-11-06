@@ -13,9 +13,37 @@ import './styles/main.pcss'
 
 (function () {
 
+  const getParams = () => {
+    const params = {}
+    if (window.location.search.substr(1)) {
+      const q = window.location.search.substr(1).split('&')
+      for (let i = 0; i < q.length; ++i) {
+        const [param, val] = q[i].split('=', 2).map(
+          s => decodeURIComponent(s).replace(/\+/g, " ")
+        )
+        if (!val) {
+          params[param] = ""
+        } else if (params[param] instanceof Array) {
+          params[param].push(val)
+        } else if (params[param]) {
+          params[param] = [params[param], val]
+        } else {
+          params[param] = val
+        }
+      }
+    }
+    return params
+  }
+
   const renderApp = (state, emitter) => {
 
     document.title = getTitle(state.data, state.locales)
+
+    state.route = {
+      'path': window.location.pathname,
+      'params': getParams(),
+      'hash': window.location.hash
+    }
 
     ReactDOM.render(
       <Init {...state} emitter={emitter} />,
