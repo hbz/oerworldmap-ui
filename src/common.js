@@ -7,7 +7,7 @@ export const translateArray = (locales, key) => {
   if (Array.isArray(key)) {
     let localesString = false
     for (const i in locales) {
-      localesString = key.find(value => 
+      localesString = key.find(value =>
         value['@language'] === locales[i]
       )
       if (localesString) {
@@ -24,6 +24,28 @@ export const getTitle = (data, locales='en') => (
     : data.totalItems + " Entries"
 )
 
-export default {  
-  getTitle, formatURL
+export const getParams = (q) => {
+  const params = {}
+  if (q) {
+    const q = window.location.search.substr(1).split('&')
+    for (let i = 0; i < q.length; ++i) {
+      const [param, val] = q[i].split('=', 2).map(
+        s => decodeURIComponent(s).replace(/\+/g, " ")
+      )
+      if (!val) {
+        params[param] = ""
+      } else if (params[param] instanceof Array) {
+        params[param].push(val)
+      } else if (params[param]) {
+        params[param] = [params[param], val]
+      } else {
+        params[param] = val
+      }
+    }
+  }
+  return params
+}
+
+export default {
+  getTitle, formatURL, getParams
 }

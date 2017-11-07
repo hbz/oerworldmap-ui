@@ -8,32 +8,10 @@ import mitt from 'mitt'
 
 import Init from './components/Init'
 import Api from './api'
-import { getTitle } from './common'
+import { getTitle, getParams } from './common'
 import './styles/main.pcss'
 
 (function () {
-
-  const getParams = () => {
-    const params = {}
-    if (window.location.search.substr(1)) {
-      const q = window.location.search.substr(1).split('&')
-      for (let i = 0; i < q.length; ++i) {
-        const [param, val] = q[i].split('=', 2).map(
-          s => decodeURIComponent(s).replace(/\+/g, " ")
-        )
-        if (!val) {
-          params[param] = ""
-        } else if (params[param] instanceof Array) {
-          params[param].push(val)
-        } else if (params[param]) {
-          params[param] = [params[param], val]
-        } else {
-          params[param] = val
-        }
-      }
-    }
-    return params
-  }
 
   const renderApp = (state, emitter) => {
 
@@ -41,7 +19,7 @@ import './styles/main.pcss'
 
     state.route = {
       'path': window.location.pathname,
-      'params': getParams(),
+      'params': getParams(window.location.search.substr(1)),
       'hash': window.location.hash
     }
 
