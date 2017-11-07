@@ -24,10 +24,10 @@ export const getTitle = (data, locales='en') => (
     : data.totalItems + " Entries"
 )
 
-export const getParams = (q) => {
+export const getParams = (qstring) => {
   const params = {}
-  if (q) {
-    const q = window.location.search.substr(1).split('&')
+  if (qstring) {
+    const q = qstring.substr(1).split('&')
     for (let i = 0; i < q.length; ++i) {
       const [param, val] = q[i].split('=', 2).map(
         s => decodeURIComponent(s).replace(/\+/g, " ")

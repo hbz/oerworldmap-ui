@@ -19,7 +19,7 @@ import './styles/main.pcss'
 
     state.route = {
       'path': window.location.pathname,
-      'params': getParams(window.location.search.substr(1)),
+      'params': getParams(window.location.search),
       'hash': window.location.hash
     }
 
