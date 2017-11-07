@@ -29,7 +29,7 @@ const defaultAggregations = {
   }
 }
 
-const App = ({ data, mapboxConfig, user, features, emitter }) => (
+const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
   <div
     id="wrapper"
     tabIndex="-1"
@@ -38,6 +38,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
       emitter.emit("click", e)
     }}
   >
+    {console.log("ROUTE", route)}
 
     <main className="container">
 
@@ -114,7 +115,8 @@ App.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
   features: PropTypes.objectOf(PropTypes.any),
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
+  route: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 App.defaultProps = {

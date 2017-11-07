@@ -8,7 +8,7 @@ import mitt from 'mitt'
 
 import Init from './components/Init'
 import Api from './api'
-import { getTitle } from './common'
+import { getTitle, getParams } from './common'
 import './styles/main.pcss'
 
 (function () {
@@ -16,6 +16,12 @@ import './styles/main.pcss'
   const renderApp = (state, emitter) => {
 
     document.title = getTitle(state.data, state.locales)
+
+    state.route = {
+      'path': window.location.pathname,
+      'params': getParams(window.location.search),
+      'hash': window.location.hash
+    }
 
     ReactDOM.render(
       <Init {...state} emitter={emitter} />,
