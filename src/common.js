@@ -46,6 +46,26 @@ export const getParams = (qstring) => {
   return params
 }
 
+export const getURL = (route) => {
+  let url = route.path
+  const params = []
+  for (const param in route.params) {
+    const value = route.params[param]
+    if (Array.isArray(value)) {
+      params.concat(value.map(value => `${param}=${value}`))
+    } else {
+      params.push(`${param}=${value}`)
+    }
+  }
+  if (params) {
+    url += `?${params.join('&')}`
+  }
+  if (route.hash) {
+    url += `#${route.hash}`
+  }
+  return url
+}
+
 export default {
-  getTitle, formatURL, getParams
+  getTitle, formatURL, getParams, getURL
 }
