@@ -547,8 +547,13 @@ class Map extends React.Component {
               <span className="max">
                 {this.props.aggregations['about.location.address.addressRegion'] &&
                   this.props.aggregations['about.location.address.addressRegion'].buckets.length
-                  ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
-                  : this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count}
+                  ? (this.props.aggregations['about.location.address.addressRegion'].buckets.length
+                    ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
+                    : '')
+                  : (this.props.aggregations['about.location.address.addressCountry'].buckets[0]
+                    ? this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count
+                    : ''
+                  )}
               </span>
             </div>
 
