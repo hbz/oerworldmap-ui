@@ -97,6 +97,7 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
               mapboxConfig={mapboxConfig}
               features={features}
               iso3166={data.iso3166}
+              route={route}
             />
           </div>
         )

@@ -1,4 +1,5 @@
 /* global document */
+/* global window */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -11,6 +12,7 @@ import Link from './Link'
 import translate from './translate'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
+import { getURL } from '../common'
 
 import '../styles/Map.pcss'
 
@@ -18,7 +20,13 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      center: {
+        lng: null,
+        lat: null,
+        zoom: null,
+      }
+    }
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -29,14 +37,26 @@ class Map extends React.Component {
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = this.props.mapboxConfig.token
 
+    const mapParameters = this.props.route.params.map
+      && this.props.route.params.map.split(',')
+
+    const center = {}
+    if (mapParameters) {
+      center.lng = (mapParameters[0] && !isNaN(mapParameters[0])) ? mapParameters[0] : null
+      center.lat = (mapParameters[1] && !isNaN(mapParameters[1])) ? mapParameters[1] : null
+      center.zoom = (mapParameters[2] && !isNaN(mapParameters[2])) ? mapParameters[2] : null
+    }
+
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
-      center: [-100.486052, 37.830348],
-      zoom: 2
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-100.486052, 37.830348],
+      zoom: center.zoom || 2
     })
 
     this.map.on('load', () => {
+
+      this.setState({center})
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
       this.map.setLayoutProperty('road-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -71,6 +91,18 @@ class Map extends React.Component {
       this.updateChoropleth(this.props.aggregations)
       this.updateZoom(this.props.iso3166)
       this.updateActiveCountry(this.props.iso3166)
+
+      // Update URL values
+      this.map.on("moveend", (e) => {
+        if (!this.props.iso3166) {
+          const center = e.target.getCenter()
+          const route = JSON.parse(JSON.stringify(this.props.route))
+          center.zoom = e.target.getZoom()
+          route.params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
+          window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
+          this.setState({center})
+        }
+      })
 
       // Get features currently under the mouse
       this.map.on("mousemove", (e) => {
@@ -376,6 +408,14 @@ class Map extends React.Component {
           padding: 20
         })
       }
+    } else {
+      if (Object.keys(this.state.center).length) {
+        this.map.flyTo(
+          {center: [this.state.center.lng, this.state.center.lat],
+            zoom: this.state.center.zoom || 2
+          }
+        )
+      }
     }
   }
 
@@ -507,8 +547,13 @@ class Map extends React.Component {
               <span className="max">
                 {this.props.aggregations['about.location.address.addressRegion'] &&
                   this.props.aggregations['about.location.address.addressRegion'].buckets.length
-                  ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
-                  : this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count}
+                  ? (this.props.aggregations['about.location.address.addressRegion'].buckets.length
+                    ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
+                    : '')
+                  : (this.props.aggregations['about.location.address.addressCountry'].buckets[0]
+                    ? this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count
+                    : ''
+                  )}
               </span>
             </div>
 
@@ -546,7 +591,8 @@ Map.propTypes = {
   features: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  route: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 Map.defaultProps = {
