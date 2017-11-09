@@ -59,7 +59,6 @@
     "font-awesome": "^4.7.0",
     "getenv": "^0.7.0",
     "http-link-header": "^0.8.0",
-    "hypothesis": "^1.50.0",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
     "json-pointer-form": "file:local_modules/json-pointer-form",
