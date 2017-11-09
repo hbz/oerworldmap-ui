@@ -59,6 +59,7 @@
     "font-awesome": "^4.7.0",
     "getenv": "^0.7.0",
     "http-link-header": "^0.8.0",
+    "hypothesis": "^1.50.0",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
     "json-pointer-form": "file:local_modules/json-pointer-form",
@@ -72,8 +73,8 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-popperjs": "0.0.3",
     "react-markdown": "^2.5.0",
+    "react-popperjs": "0.0.3",
     "webpack": "^3.4.1",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.18.2"

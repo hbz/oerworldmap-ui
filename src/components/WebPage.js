@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { Composer } from 'json-pointer-form'
+import 'hypothesis'
 
 import translate from './translate'
 import Metadata from './Metadata'
@@ -168,7 +169,6 @@ const WebPage = ({
         </div>
       </div>
     </div>
-    <script src="https://hypothes.is/embed.js" async></script>
   </div>
 )
 
