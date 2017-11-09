@@ -1,6 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import pointer from 'json-pointer'
-import _ from 'lodash'
 import Link from './Link'
 
 import translate from './translate'
@@ -14,25 +14,10 @@ class ResourceTable extends React.Component {
     this.getSchema = this.getSchema.bind(this)
   }
 
-  process(schema, value) {
-    return (
-      <table className="ResourceTable">
-        <tbody>
-          {Object.keys(schema.properties).map(property => {
-            if (value[property]) {
-              const definition = schema.properties[property]
-              const className = definition._display ? definition._display.className : null
-              return (
-                <tr key={property} className={className}>
-                  <td>{property}</td>
-                  <td>{this.property(property, definition, value[property])}</td>
-                </tr>
-              )
-            }
-          })}
-        </tbody>
-      </table>
-    )
+  getSchema(ptr) {
+    return ptr.charAt(0) === '#'
+      ? pointer.get(this.props.schema, ptr.slice(1))
+      : { "type" : "string", "remote": ptr }
   }
 
   property(name, definition, value) {
@@ -42,7 +27,7 @@ class ResourceTable extends React.Component {
     }
 
     if ('allOf' in definition) {
-      var allOf = {}
+      const allOf = {}
       definition.allOf.map(function(definition) {
         if ('$ref' in definition) {
           Object.assign(allOf, this.getSchema(definition['$ref']))
@@ -69,36 +54,58 @@ class ResourceTable extends React.Component {
     }
 
     switch(definition.type) {
-      case 'array':
-        const itemsDefinition = definition.items['$ref']
-          ? this.getSchema(definition.items['$ref'])
-          : definition.items
-        return (
-          <ul>
-            {value.map((value, index) => {
-              return <li key={index}>{this.property(name, itemsDefinition, value)}</li>
-            })}
-          </ul>
-        )
-      case 'string':
-      case 'number':
-      case 'integer':
-      case 'boolean':
-        return <span>
+    case 'array': {
+      const itemsDefinition = definition.items['$ref']
+        ? this.getSchema(definition.items['$ref'])
+        : definition.items
+      return (
+        <ul>
+          {value.map(value => {
+            return (
+              <li key={JSON.stringify(value)}>
+                {this.property(name, itemsDefinition, value)}
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
+    case 'string':
+    case 'number':
+    case 'integer':
+    case 'boolean':
+      return (
+        <span>
           {definition.format === 'uri' ? <Link to={value}> {label ? label : value}</Link> : value}
         </span>
-      case 'object':
-        return this.process(definition, value)
-      default:
-        console.warn("Unkown property type", name, definition)
+      )
+    case 'object':
+      return this.process(definition, value)
+    default:
+      console.warn("Unkown property type", name, definition)
     }
 
   }
 
-  getSchema(ptr) {
-    return ptr.charAt(0) == '#'
-      ? pointer.get(this.props.schema, ptr.slice(1))
-      : { "type" : "string", "remote": ptr }
+  process(schema, value) {
+    return (
+      <table className="ResourceTable">
+        <tbody>
+          {Object.keys(schema.properties).map(property => {
+            if (value[property]) {
+              const definition = schema.properties[property]
+              const className = definition._display ? definition._display.className : null
+              return (
+                <tr key={property} className={className}>
+                  <td>{property}</td>
+                  <td>{this.property(property, definition, value[property])}</td>
+                </tr>
+              )
+            }
+          })}
+        </tbody>
+      </table>
+    )
   }
 
   render() {
@@ -107,6 +114,12 @@ class ResourceTable extends React.Component {
     return this.process(schema, this.props.value)
   }
 
+}
+
+ResourceTable.propTypes = {
+  value: PropTypes.objectOf(PropTypes.any).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired
 }
 
 export default translate(ResourceTable)
