@@ -66,7 +66,12 @@ server.get(/^(.*)$/, (req, res) => {
         user: response.user,
         locales: acceptedLanguages,
         mapboxConfig,
-        apiConfig
+        apiConfig,
+        route: {
+          path: req.path,
+          params: req.query,
+          hash: ""
+        }
       }
       res.send(template({
         body: renderToString(<Init {...initialState} emitter={{}} />),

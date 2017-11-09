@@ -11,13 +11,8 @@ class Link extends React.Component {
   }
 
   onClick(event) {
-
-    if (!this.props.to.startsWith('#')) {
-      event.preventDefault()
-      this.props.emitter.emit('navigate', this.getRef())
-    } else {
-      console.log("Link default behavior")
-    }
+    event.preventDefault()
+    this.props.emitter.emit('navigate', this.getRef())
   }
 
   getRef() {
