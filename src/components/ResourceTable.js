@@ -38,16 +38,16 @@ class ResourceTable extends React.Component {
   property(name, definition, value) {
 
     if ('$ref' in definition) {
-      _.merge(definition, this.getSchema(definition['$ref']))
+      Object.assign(definition, this.getSchema(definition['$ref']))
     }
 
     if ('allOf' in definition) {
       var allOf = {}
       definition.allOf.map(function(definition) {
         if ('$ref' in definition) {
-          _.merge(allOf, this.getSchema(definition['$ref']))
+          Object.assign(allOf, this.getSchema(definition['$ref']))
         } else {
-          _.merge(allOf, definition)
+          Object.assign(allOf, definition)
         }
       }, this)
       definition = allOf
