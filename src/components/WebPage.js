@@ -23,7 +23,8 @@ const WebPage = ({
   dateModified,
   author,
   dateCreated,
-  emitter
+  emitter,
+  view
 }) => (
   <div className="WebPage">
     <div className="webPageContainer">
@@ -39,9 +40,11 @@ const WebPage = ({
         </b>
 
         <div className="webPageActions">
-          <Link to="#edit" dataShow="view" className="show"><i className="fa fa-pencil" /></Link>
-          <Link to="#view" dataShow="edit"><i className="fa fa-eye" /></Link>
-          <Link to="#view"><i className="fa fa-gear" /></Link>
+          {view === 'edit' ? (
+            <Link to="#view"><i className="fa fa-eye" /></Link>
+          ) : (
+            <Link to="#edit"><i className="fa fa-pencil" /></Link>
+          )}
           <Link to="/resource/"><i className="fa fa-close" /></Link>
         </div>
 
@@ -70,103 +73,105 @@ const WebPage = ({
 
       <div className="webPageContent">
 
-        <div id="edit" className="page">
-          <Composer
-            value={about}
-            schema={schema}
-            submit={value => emitter.emit('save', value)}
-            getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-            getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
-          />
-        </div>
+        {view === 'edit' ? (
+          <div id="edit">
+            <Composer
+              value={about}
+              schema={schema}
+              submit={value => emitter.emit('save', value)}
+              getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+              getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
+            />
+          </div>
+        ) : (
+          <div id="view">
+            <h1>{translate(about.name)}</h1>
 
-        <div className="page">
-          <h1>{translate(about.name)}</h1>
+            <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
-          <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
+            {about['@type'] === 'Action' &&
+              (about.agent &&
+              about.agent.map(agent => (
+                <div className="operator">
+                  Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
+                </div>
+              )))
+            }
 
-          {about['@type'] === 'Action' &&
-            (about.agent &&
-            about.agent.map(agent => (
-              <div className="operator">
-                Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
-              </div>
-            )))
-          }
+            {about.provider &&
+              about.provider.map(provider => (
+                <div key={provider['@id']} className="provider">
+                  Provider: <Link
+                    to={provider['@id']}
+                  >
+                    {formatURL(translate(provider.name))}
+                  </Link>
+                </div>
+              ))
+            }
 
-          {about.provider &&
-            about.provider.map(provider => (
-              <div key={provider['@id']} className="provider">
-                Provider: <Link
-                  to={provider['@id']}
-                >
-                  {formatURL(translate(provider.name))}
-                </Link>
-              </div>
-            ))
-          }
+            {about.description &&
+              <ReactMarkdown source={translate(about.description)} />
+            }
 
-          {about.description &&
-            <ReactMarkdown source={translate(about.description)} />
-          }
+            {about.articleBody &&
+              <ReactMarkdown source={translate(about.articleBody)} />
+            }
 
-          {about.articleBody &&
-            <ReactMarkdown source={translate(about.articleBody)} />
-          }
+            {about.url &&
+              <a href={about.url} target="_blank" className="boxedLink">
+                {formatURL(about.url)}
+              </a>
+            }
 
-          {about.url &&
-            <a href={about.url} target="_blank" className="boxedLink">
-              {formatURL(about.url)}
-            </a>
-          }
+            {about.availableChannel &&
+              <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
+                {formatURL(about.availableChannel[0].serviceUrl)}
+              </a>
+            }
 
-          {about.availableChannel &&
-            <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
-              {formatURL(about.availableChannel[0].serviceUrl)}
-            </a>
-          }
+            {about.license &&
+              about.license.map(license => (
+                <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
+              ))
+            }
 
-          {about.license &&
-            about.license.map(license => (
-              <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
-            ))
-          }
+            {/* Example of data, GENERATE THIS */}
+            <table>
+              <tbody>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    Whitehurst Freeway<br />
+                    Washington <br />
+                    United States
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tags</td>
+                  <td>
+                    OER
+                  </td>
+                </tr>
+                <tr>
+                  <td>Creator</td>
+                  <td>
+                    Katy Jordan
+                  </td>
+                </tr>
+                <tr>
+                  <td>Entries mentioned</td>
+                  <td>
+                    The Saylor Academy <br />
+                    OER Hub
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-          {/* Example of data, GENERATE THIS */}
-          <table>
-            <tbody>
-              <tr>
-                <td>Location</td>
-                <td>
-                  Whitehurst Freeway<br />
-                  Washington <br />
-                  United States
-                </td>
-              </tr>
-              <tr>
-                <td>Tags</td>
-                <td>
-                  OER
-                </td>
-              </tr>
-              <tr>
-                <td>Creator</td>
-                <td>
-                  Katy Jordan
-                </td>
-              </tr>
-              <tr>
-                <td>Entries mentioned</td>
-                <td>
-                  The Saylor Academy <br />
-                  OER Hub
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <pre>{JSON.stringify(about, null, 2)}</pre>
-        </div>
+            <pre>{JSON.stringify(about, null, 2)}</pre>
+          </div>
+        )}
       </div>
     </div>
   </div>
@@ -180,7 +185,8 @@ WebPage.propTypes = {
   author: PropTypes.string.isRequired,
   contributor: PropTypes.string.isRequired,
   dateCreated: PropTypes.string.isRequired,
-  dateModified: PropTypes.string.isRequired
+  dateModified: PropTypes.string.isRequired,
+  view: PropTypes.string.isRequired
 }
 
 export default withEmitter(translate(WebPage))
