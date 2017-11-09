@@ -1,0 +1,22 @@
+@import './Colors.pcss';
+
+.FullModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: color(var(--black) a(15%));
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+  overflow: auto;
+
+  & .modalDialog {
+    background-color: var(--blue-palest);
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border: 1px solid #284664;
+    border-radius: 2px;
+  }
+}

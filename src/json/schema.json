@@ -1,0 +1,2410 @@
+{
+  "id": "#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/Person"
+    },
+    {
+      "$ref": "#/definitions/Organization"
+    },
+    {
+      "$ref": "#/definitions/Service"
+    },
+    {
+      "$ref": "#/definitions/Action"
+    },
+    {
+      "$ref": "#/definitions/Concept"
+    },
+    {
+      "$ref": "#/definitions/ConceptScheme"
+    },
+    {
+      "$ref": "#/definitions/Article"
+    },
+    {
+      "$ref": "#/definitions/Event"
+    },
+    {
+      "$ref": "#/definitions/WebPage"
+    }
+  ],
+  "definitions": {
+    "Link": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A link to another entity",
+      "type": "object",
+      "remote": true,
+      "properties": {
+        "@id": {
+          "description": "The referenced entities unique identifier",
+          "type": "string",
+          "format": "uri"
+        },
+        "@type": {
+          "type": "string"
+        }
+      },
+      "required": ["@id", "@type"]
+    },
+    "WebPage": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Bookmark",
+      "description": "A bookmark",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "WebPage"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "publisher": {
+          "description": "The publisher of the bookmark",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization", "Event", "Action", "Service" ] } } }
+            ]
+          }
+        },
+        "comment": {
+          "description": "A comment about the bookmark",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        }
+      },
+      "required": [ "name", "url" ],
+      "additionalProperties": false
+    },
+    "ConceptScheme": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Concept Scheme",
+      "description": "A SKOS Concept Scheme",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The concept schemes's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "ConceptScheme"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "hasTopConcept": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] } } }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Concept": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Concept",
+      "description": "A SKOS Concept",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The concepts's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Concept"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "scopeNote": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "inScheme": {
+          "$ref": "#/definitions/ConceptScheme"
+        },
+        "topConceptOf": {
+          "$ref": "#/definitions/ConceptScheme"
+        },
+        "narrower": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] } } }
+            ]
+          }
+        },
+        "broader": {
+          "allOf": [
+            { "$ref": "#/definitions/Link" },
+            { "properties": { "@type": { "enum": [ "Concept" ] } } }
+          ]
+        },
+        "notation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Article": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Article",
+      "description": "An article about activity that is being carried through in the realm of OER.",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The article's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Article"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "creator": {
+          "description": "The author of the article",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "articleBody": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mentions": {
+          "description": "Something mentioned in the article",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization", "Person", "Service", "Action", "Event" ] } } }
+            ]
+          }
+        },
+        "dateCreated": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "comment": {
+          "description": "A comment about the Organization",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "exampleOfWork": {
+          "type": "string",
+          "format": "uri"
+        },
+        "citation": {
+          "type": "string"
+        },
+        "license": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/licenses.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "name", "description", "articleBody", "location"
+          ],
+          "oneOf": [
+            {
+              "required": [ "license", "creator", "dateCreated" ]
+            },
+            {
+              "required": [ "citation", "exampleOfWork" ]
+            }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "Comment": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Comment",
+      "description": "A comment about an entry",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The comment's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Comment"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "author": {
+          "description": "The author of the comment",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "text": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "dateCreated": {
+          "$ref": "#/definitions/iso-8601-date"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Action": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Action",
+      "description": "An action / project that is being carried through in the realm of OER.",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The action's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Action"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "additionalType": {
+          "description": "An additonal type for the Action",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "funder": {
+          "description": "The funder of the action",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
+        },
+        "isFundedBy": {
+          "description": "The grant funding the action",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grant"
+          }
+        },
+        "duration": {
+          "type": "string"
+        },
+        "agent": {
+          "description": "The direct performer or driver of the action (i.e. also primary contact)",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
+        },
+        "participant": {
+          "description": "Other co-agents that participated in the action",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
+        },
+        "memberOf": {
+          "description": "An organization the project is member of.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
+            ]
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "displayName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "startTime": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "endTime": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "instrument": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          }
+        },
+        "result": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mentionedIn": {
+          "description": "An article that mentions the project.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "comment": {
+          "description": "A comment about the project",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "isPartOf": {
+          "description": "A project that this project is part of",
+          "allOf": [
+            { "$ref": "#/definitions/Link" },
+            { "properties": { "@type": { "enum": [ "Action" ] } } }
+          ]
+        },
+        "hasPart": {
+          "description": "A subproject of this project",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "affiliate": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "organizerFor": {
+          "description": "An event the project is organizer for.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Event" ] } } }
+            ]
+          }
+        },
+        "publication": {
+          "description": "A publication of the Project",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "name"
+          ],
+          "anyOf": [
+            {
+              "required": [ "location" ]
+            },
+            {
+              "required": [ "agent" ]
+            }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "Service": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Service",
+      "description": "A service used in an Action.",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The services's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Service"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "serviceType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "provider": {
+          "description": "The person or organization responsible for provision of the service.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
+        },
+        "availableChannel": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "ServiceChannel",
+                  "WebAPI"
+                ]
+              },
+              "availableLanguage": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "documentation": {
+                "type": "string",
+                "format": "uri"
+              },
+              "serviceUrl": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [ "serviceUrl" ]
+          }
+        },
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "startDate": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "endDate": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "about": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://w3id.org/class/esc/scheme"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "license": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/licenses.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "audience": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://w3id.org/isced/1997/scheme"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mentionedIn": {
+          "description": "An article that mentions the service.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "instrumentIn": {
+          "description": "A project that has the service as an instrument.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "resultOf": {
+          "description": "A project that has the service as its result.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "member": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
+            ]
+          }
+        },
+        "affiliate": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "memberOf": {
+          "description": "An organization the service is member of.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
+            ]
+          }
+        },
+        "comment": {
+          "description": "A comment about the Service",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "publication": {
+          "description": "A publication of the Service",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "isRelatedTo": {
+          "description": "Tools used to implement this service",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Product" ] } } }
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "name", "description", "availableChannel"
+          ],
+          "anyOf": [
+            {
+              "required": [ "location" ]
+            },
+            {
+              "required": [ "provider" ]
+            }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "Person": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Person",
+      "description": "A person serving or working with Open Educational Resources.",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The person's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Person"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "affiliation": {
+          "description": "An organization or service the person is affiliated with.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization", "Service", "Action" ] } } }
+            ]
+          }
+        },
+        "performerIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Event" ] } } }
+            ]
+          }
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mbox_sha1sum": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "countryChampionFor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Country"
+          }
+        },
+        "agentIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "participantIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "funderOf": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "created": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mentionedIn": {
+          "description": "An article that mentions the person.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "organizerFor": {
+          "description": "An event the person is organizer for.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Event" ] } } }
+            ]
+          }
+        },
+        "authorOf": {
+          "description": "Comments by the Person",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "attends": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Event" ] } } }
+            ]
+          }
+        },
+        "provides": {
+          "description": "Services provided by this Person.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          }
+        },
+        "publication": {
+          "description": "A publication of the Person",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "manufactured": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Product" ] } } }
+            ]
+          }
+        }
+      },
+      "required": [
+        "name", "location"
+      ],
+      "additionalProperties": false
+    },
+    "Organization": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Organization",
+      "description": "An institution serving or working with Open Educational Resources.",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The organization's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Organization"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "location": {
+          "description": "The organization's address and geo data",
+          "$ref": "#/definitions/Place"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the organization",
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "displayName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "contactPoint": {
+          "description": "A contact person",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "additionalType": {
+          "description": "An additional type for the Organization",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provides": {
+          "description": "Services provided by this Organization.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          }
+        },
+        "countryChampionFor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Country"
+          }
+        },
+        "agentIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "participantIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "funderOf": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        },
+        "created": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "member": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization", "Service", "Action" ] } } }
+            ]
+          }
+        },
+        "affiliate": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "memberOf": {
+          "description": "An organization or service the organization is member of.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization", "Service" ] } } }
+            ]
+          }
+        },
+        "mentionedIn": {
+          "description": "An article that mentions the organization.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "organizerFor": {
+          "description": "An event the organization is organizer for.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Event" ] } } }
+            ]
+          }
+        },
+        "comment": {
+          "description": "A comment about the Organization",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "awards": {
+          "description": "A grant the organization awards.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grant"
+          }
+        },
+        "publication": {
+          "description": "A publication of the Organization",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "manufactured": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Product" ] } } }
+            ]
+          }
+        }
+      },
+      "required": [ "name", "location" ],
+      "additionalProperties": false
+    },
+    "Event": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Event",
+      "description": "An event that is being held for/by members of the OER community.",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The event's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Event"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "organizer": {
+          "description": "The event's organizer ",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization", "Action" ] } } }
+            ]
+          }
+        },
+        "performer": {
+          "description": "People presenting, leading a workshop etc. at the event",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "recordedIn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "inLanguage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "startDate": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "endDate": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "mentionedIn": {
+          "description": "An article that mentions the event.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "hashtag": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "about": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://w3id.org/class/esc/scheme"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "comment": {
+          "description": "A comment about the Event",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "attendee": {
+          "description": "People attending the event",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "publication": {
+          "description": "A publication of the Event",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        }
+      },
+      "required": [
+        "name", "description", "startDate", "endDate", "location"
+      ],
+      "additionalProperties": false
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Tool",
+      "description": "A tool used to implement OER services",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The tools's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Product"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "description": "The description of the tool",
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "isRelatedTo": {
+          "description": "Services implemented using this Tool",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          }
+        },
+        "manufacturer": {
+          "description": "The manufacturer of this tool",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization", "Person" ] } } }
+            ]
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "comment": {
+          "description": "A comment about the Tool",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          }
+        },
+        "primarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "secondarySector": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/sectors.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        }
+      },
+      "required": [ "name" ],
+      "additionalProperties": false
+    },
+    "Grant": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Grant",
+      "description": "A grant awarded to a project",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Grant"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "duration": {
+          "type": "string"
+        },
+        "hasMonetaryValue": {
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the grant",
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "alternateName": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "isAwardedBy": {
+          "description": "An organization the grant is awarded by.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
+            ]
+          }
+        },
+        "hasAwardDate": {
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "mentionedIn": {
+          "description": "An article that mentions the grant.",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "funds": {
+          "description": "The action being funded",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Place": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Place",
+      "description": "An location description consisting of an address and/or geo data",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The place's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "Place"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "geo": {
+          "$ref": "#/definitions/GeoCoordinates"
+        },
+        "address": {
+          "$ref": "#/definitions/PostalAddress"
+        }
+      },
+      "required": [ "address" ],
+      "additionalProperties": false
+    },
+    "GeoCoordinates": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "GeoCoordinates",
+      "description": "A geographical coordinate",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The geo coordinates's unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "additionalProperties": false
+    },
+    "PostalAddress": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "PostalAddress",
+      "description": "An universal address description",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@id": {
+          "description": "The geo addresses' unique identifier",
+          "type": "string",
+          "format": "uri",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "PostalAddress"
+          ],
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "streetAddress": {
+          "type": "string"
+        },
+        "postalCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "postOfficeBoxNumber": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "addressLocality": {
+          "type": "string"
+        },
+        "addressRegion": {
+          "type": "string"
+        },
+        "addressCountry": {
+          "$ref": "#/definitions/Country"
+        }
+      },
+      "required": [ "addressCountry" ],
+      "additionalProperties": false
+    },
+    "LocalizedString": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Localized string",
+      "description": "A language-tagged string",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@language": {
+            "type": "string",
+            "enum": ["de", "en"]
+          },
+          "@value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@language",
+          "@value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "LocalizedText": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Localized text",
+      "description": "A language-tagged text",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@value": {
+            "type": "string",
+            "_display": {
+              "rows": 5
+            }
+          },
+          "@language": {
+            "type": "string",
+            "enum": ["de", "en"]
+          }
+        },
+        "required": [
+          "@language",
+          "@value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "iso-8601-date": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "ISO 8601 Date",
+      "description": "A date in ISO 8601 format.",
+      "type": "string",
+      "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+    },
+    "Country": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Country",
+      "description": "A country, represented by its ISO country code",
+      "type": "string",
+      "enum": [
+        "AD",
+        "AE",
+        "AF",
+        "AG",
+        "AI",
+        "AL",
+        "AM",
+        "AN",
+        "AO",
+        "AQ",
+        "AR",
+        "AS",
+        "AT",
+        "AU",
+        "AW",
+        "AX",
+        "AZ",
+        "BA",
+        "BB",
+        "BD",
+        "BE",
+        "BF",
+        "BG",
+        "BH",
+        "BI",
+        "BJ",
+        "BL",
+        "BM",
+        "BN",
+        "BO",
+        "BQ",
+        "BR",
+        "BS",
+        "BT",
+        "BV",
+        "BW",
+        "BY",
+        "BZ",
+        "CA",
+        "CC",
+        "CD",
+        "CF",
+        "CG",
+        "CH",
+        "CI",
+        "CK",
+        "CL",
+        "CM",
+        "CN",
+        "CO",
+        "CR",
+        "CU",
+        "CV",
+        "CW",
+        "CX",
+        "CY",
+        "CZ",
+        "DE",
+        "DJ",
+        "DK",
+        "DM",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "EG",
+        "EH",
+        "ER",
+        "ES",
+        "ET",
+        "FI",
+        "FJ",
+        "FK",
+        "FM",
+        "FO",
+        "FR",
+        "GA",
+        "GB",
+        "GD",
+        "GE",
+        "GF",
+        "GG",
+        "GH",
+        "GI",
+        "GL",
+        "GM",
+        "GN",
+        "GP",
+        "GQ",
+        "GR",
+        "GS",
+        "GT",
+        "GU",
+        "GW",
+        "GY",
+        "HK",
+        "HM",
+        "HN",
+        "HR",
+        "HT",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IM",
+        "IN",
+        "IO",
+        "IQ",
+        "IR",
+        "IS",
+        "IT",
+        "JE",
+        "JM",
+        "JO",
+        "JP",
+        "KE",
+        "KG",
+        "KH",
+        "KI",
+        "KM",
+        "KN",
+        "KP",
+        "KR",
+        "KW",
+        "KY",
+        "KZ",
+        "LA",
+        "LB",
+        "LC",
+        "LI",
+        "LK",
+        "LR",
+        "LS",
+        "LT",
+        "LU",
+        "LV",
+        "LY",
+        "MA",
+        "MC",
+        "MD",
+        "ME",
+        "MF",
+        "MG",
+        "MH",
+        "MK",
+        "ML",
+        "MM",
+        "MN",
+        "MO",
+        "MP",
+        "MQ",
+        "MR",
+        "MS",
+        "MT",
+        "MU",
+        "MV",
+        "MW",
+        "MX",
+        "MY",
+        "MZ",
+        "NA",
+        "NC",
+        "NE",
+        "NF",
+        "NG",
+        "NI",
+        "NL",
+        "NO",
+        "NP",
+        "NR",
+        "NU",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PF",
+        "PG",
+        "PH",
+        "PK",
+        "PL",
+        "PM",
+        "PN",
+        "PR",
+        "PS",
+        "PT",
+        "PW",
+        "PY",
+        "QA",
+        "RE",
+        "RO",
+        "RS",
+        "RU",
+        "RW",
+        "SA",
+        "SB",
+        "SC",
+        "SD",
+        "SE",
+        "SG",
+        "SH",
+        "SI",
+        "SJ",
+        "SK",
+        "SL",
+        "SM",
+        "SN",
+        "SO",
+        "SR",
+        "SS",
+        "ST",
+        "SV",
+        "SX",
+        "SY",
+        "SZ",
+        "TC",
+        "TD",
+        "TF",
+        "TG",
+        "TH",
+        "TJ",
+        "TK",
+        "TL",
+        "TM",
+        "TN",
+        "TO",
+        "TR",
+        "TT",
+        "TV",
+        "TW",
+        "TZ",
+        "UA",
+        "UG",
+        "UM",
+        "US",
+        "UY",
+        "UZ",
+        "VA",
+        "VC",
+        "VE",
+        "VG",
+        "VI",
+        "VN",
+        "VU",
+        "WF",
+        "WS",
+        "YE",
+        "YT",
+        "ZA",
+        "ZM",
+        "ZW"
+      ]
+    }
+  }
+}

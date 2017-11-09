@@ -20,23 +20,13 @@ import './styles/main.pcss'
     state.route = {
       'path': window.location.pathname,
       'params': getParams(window.location.search),
-      'hash': window.location.hash
+      'hash': window.location.hash.substr(1)
     }
 
     ReactDOM.render(
       <Init {...state} emitter={emitter} />,
       document.getElementById('root')
     )
-
-    document.querySelectorAll('.target').forEach(e => {
-      e.classList.remove('target')
-    })
-
-    const target = document.getElementById(window.location.hash.substr(1))
-    if (target) {
-      target.classList.add('target')
-      target.scrollIntoView()
-    }
 
     emitter.emit('setLoading', false)
 

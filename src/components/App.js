@@ -9,6 +9,8 @@ import Columns from './Columns'
 import Column from './Column'
 import NotificationWelcome from './NotificationWelcome'
 import ActionButtons from './ActionButtons'
+
+import '../styles/FormStyle.pcss'
 import withEmitter from './withEmitter'
 import ErrorPage from './ErrorPage'
 import ItemList from './ItemList'
@@ -38,7 +40,6 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
       emitter.emit("click", e)
     }}
   >
-    {console.log("ROUTE", route)}
 
     <main className="container">
 
@@ -51,7 +52,7 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
       ) : (
         data['@type'] === 'WebPage' ? (
           <div className="content">
-            <WebPage {...data} />
+            <WebPage {...data} view={route.hash} />
           </div>
         ): (
           <div className="content">
@@ -76,7 +77,7 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
                 />
                 {data['@type'] === 'PagedCollection' &&
                 <div className="ColumnList">
-                  <ItemList listItems={data.member} />
+                  <ItemList listItems={data.member} selected={route.hash} />
                   <Pagination
                     totalItems={data.totalItems}
                     currentPage={data.currentPage}

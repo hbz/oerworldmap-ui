@@ -56,6 +56,13 @@ class Map extends React.Component {
 
     this.map.on('load', () => {
 
+      this.map.on('zoom', function(e) {
+        if (e.target.getZoom() >= 7) {
+          e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
+        } else {
+          e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+        }
+      })
       this.setState({center})
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -220,20 +227,6 @@ class Map extends React.Component {
         this.map.getCanvas().style.cursor = ''
       })
 
-      // When the user moves their mouse over the countries layer, we'll update the filter in
-      // the countries hover layer to only show the matching country, thus making a hover effect.
-      this.map.on("mousemove", "countries", (e) => {
-        const ids = e.features.map(function (feat) { return feat.properties.iso_a2 })
-        this.map.setFilter('countries-hover', [ 'in', 'iso_a2' ].concat(ids))
-        this.map.getCanvas().style.cursor = 'pointer'
-      })
-
-      // Reset the countries hover layer's filter when the mouse leaves the layer.
-      this.map.on("mouseleave", "countries", () => {
-        this.map.setFilter('countries-hover', ['!has', "iso_a2"])
-        this.map.getCanvas().style.cursor = ''
-      })
-
       // Update popup position when dragging map
       this.map.on('drag', (e) => {
         this.setState({
@@ -270,23 +263,27 @@ class Map extends React.Component {
             </EmittProvider>
             , popupDOM)
 
-          this.popup = new mapboxgl.Popup(
-            {
-              closeButton:false,
-              offset:this.popupOffsets
+          if (this.popup && this.popup.isOpen()) {
+            this.popup.remove()
+          } else {
+            this.popup = new mapboxgl.Popup(
+              {
+                closeButton:false,
+                offset:this.popupOffsets
+              })
+              .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
+              .setDOMContent(popupDOM)
+              .addTo(this.map)
+
+            this.popup.on('close', () => {
+              this.setState({overlayList:false})
             })
-            .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
-            .setDOMContent(popupDOM)
-            .addTo(this.map)
 
-          this.popup.on('close', () => {
-            this.setState({overlayList:false})
-          })
-
-          this.setState({
-            overlayList:true,
-            hoveredFeatures:null
-          })
+            this.setState({
+              overlayList:true,
+              hoveredFeatures:null
+            })
+          }
         }
 
         else {

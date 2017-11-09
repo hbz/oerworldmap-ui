@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
+import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
 import Metadata from './Metadata'
 import { formatURL } from '../common'
 import Link from './Link'
+import withEmitter from './withEmitter'
 
 import '../styles/WebPage.pcss'
+
+import schema from '../json/schema.json'
+
 
 const WebPage = ({
   translate,
@@ -16,7 +21,9 @@ const WebPage = ({
   contributor,
   dateModified,
   author,
-  dateCreated
+  dateCreated,
+  emitter,
+  view
 }) => (
   <div className="WebPage">
     <div className="webPageContainer">
@@ -32,110 +39,138 @@ const WebPage = ({
         </b>
 
         <div className="webPageActions">
-          <Link to="/resource/"><i className="fa fa-pencil" /></Link>
-          <Link to="/resource/"><i className="fa fa-gear" /></Link>
+          {view === 'edit' ? (
+            <Link to="#view"><i className="fa fa-eye" /></Link>
+          ) : (
+            <Link to="#edit"><i className="fa fa-pencil" /></Link>
+          )}
           <Link to="/resource/"><i className="fa fa-close" /></Link>
         </div>
 
       </div>
 
-      {about.image &&
-        <div className="webPageCover">
+      {(about.image || about.location) &&
+        <div
+          className="webPageCover"
+          style={{
+            backgroundImage:
+              about.location && about.location.geo ?
+                `url("https://api.mapbox.com/styles/v1/mapbox/basic-v9/static/pin-s-circle+000000(${about.location.geo.lon},${about.location.geo.lat})/${about.location.geo.lon-1},${about.location.geo.lat},7/800x225@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
+                : ''
+          }}
+        >
+          {about.image &&
           <img
             src={about.image}
             onError={e => {
-              e.target.parentElement.remove()}}
+              e.target.remove()}}
             alt={translate(about.name)}
           />
+          }
         </div>
       }
 
       <div className="webPageContent">
-        <h1>{translate(about.name)}</h1>
 
-        <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
+        {view === 'edit' ? (
+          <div id="edit">
+            <Composer
+              value={about}
+              schema={schema}
+              submit={value => emitter.emit('save', value)}
+              getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+              getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
+            />
+          </div>
+        ) : (
+          <div id="view">
+            <h1>{translate(about.name)}</h1>
 
-        {about['@type'] === 'Action' &&
-          (about.agent &&
-          about.agent.map(agent => (
-            <div className="operator">
-              Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
-            </div>
-          )))
-        }
+            <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
-        {about.provider &&
-          about.provider.map(provider => (
-            <div key={provider['@id']} className="provider">
-              Provider: <Link
-                to={provider['@id']}
-              >
-                {formatURL(translate(provider.name))}
-              </Link>
-            </div>
-          ))
-        }
+            {about['@type'] === 'Action' &&
+              (about.agent &&
+              about.agent.map(agent => (
+                <div className="operator">
+                  Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
+                </div>
+              )))
+            }
 
-        {about.description &&
-          <ReactMarkdown source={translate(about.description)} />
-        }
+            {about.provider &&
+              about.provider.map(provider => (
+                <div key={provider['@id']} className="provider">
+                  Provider: <Link
+                    to={provider['@id']}
+                  >
+                    {formatURL(translate(provider.name))}
+                  </Link>
+                </div>
+              ))
+            }
 
-        {about.articleBody &&
-          <ReactMarkdown source={translate(about.articleBody)} />
-        }
+            {about.description &&
+              <ReactMarkdown source={translate(about.description)} />
+            }
 
-        {about.url &&
-          <a href={about.url} target="_blank" className="boxedLink">
-            {formatURL(about.url)}
-          </a>
-        }
+            {about.articleBody &&
+              <ReactMarkdown source={translate(about.articleBody)} />
+            }
 
-        {about.availableChannel &&
-          <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
-            {formatURL(about.availableChannel[0].serviceUrl)}
-          </a>
-        }
+            {about.url &&
+              <a href={about.url} target="_blank" className="boxedLink">
+                {formatURL(about.url)}
+              </a>
+            }
 
-        {about.license &&
-          about.license.map(license => (
-            <img key={license['@id']} className="license" src={license.image} alt={translate(license.name)} />
-          ))
-        }
+            {about.availableChannel &&
+              <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
+                {formatURL(about.availableChannel[0].serviceUrl)}
+              </a>
+            }
 
-        {/* Example of data, GENERATE THIS */}
-        <table>
-          <tbody>
-            <tr>
-              <td>Location</td>
-              <td>
-                Whitehurst Freeway<br />
-                Washington <br />
-                United States
-              </td>
-            </tr>
-            <tr>
-              <td>Tags</td>
-              <td>
-                OER
-              </td>
-            </tr>
-            <tr>
-              <td>Creator</td>
-              <td>
-                Katy Jordan
-              </td>
-            </tr>
-            <tr>
-              <td>Entries mentioned</td>
-              <td>
-                The Saylor Academy <br />
-                OER Hub
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            {about.license &&
+              about.license.map(license => (
+                <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
+              ))
+            }
 
-        <pre>{JSON.stringify(about, null, 2)}</pre>
+            {/* Example of data, GENERATE THIS */}
+            <table>
+              <tbody>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    Whitehurst Freeway<br />
+                    Washington <br />
+                    United States
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tags</td>
+                  <td>
+                    OER
+                  </td>
+                </tr>
+                <tr>
+                  <td>Creator</td>
+                  <td>
+                    Katy Jordan
+                  </td>
+                </tr>
+                <tr>
+                  <td>Entries mentioned</td>
+                  <td>
+                    The Saylor Academy <br />
+                    OER Hub
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <pre>{JSON.stringify(about, null, 2)}</pre>
+          </div>
+        )}
       </div>
     </div>
   </div>
@@ -143,12 +178,14 @@ const WebPage = ({
 
 WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   author: PropTypes.string.isRequired,
   contributor: PropTypes.string.isRequired,
   dateCreated: PropTypes.string.isRequired,
-  dateModified: PropTypes.string.isRequired
+  dateModified: PropTypes.string.isRequired,
+  view: PropTypes.string.isRequired
 }
 
-export default translate(WebPage)
+export default withEmitter(translate(WebPage))
