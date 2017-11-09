@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Polyglot from 'node-polyglot'
 import moment from 'moment'
 
+import { getEntryByLocales } from '../common'
+
 class I18nProvider extends React.Component {
   getChildContext() {
     const locales = this.props.locales
@@ -22,16 +24,7 @@ class I18nProvider extends React.Component {
     if (typeof key === 'string') {
       return this.polyglot.t(key, interpolationOptions)
     } else if (Array.isArray(key)) {
-      let localesString = false
-      for (let i = 0; i < this.props.locales.length; i += 1) {
-        localesString = key.find(value =>
-          value['@language'] === this.props.locales[i]
-        )
-        if (localesString) {
-          return localesString['@value']
-        }
-      }
-      return key[0]['@value']
+      return getEntryByLocales(this.props.locales, key)
     }
   }
 
