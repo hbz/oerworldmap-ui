@@ -75,6 +75,8 @@
     "thankYou": "Thank you!"
   },
   "Map": {
-    "countryChampionAvailable": "Country Champion available"
+    "countryChampionAvailable": "Country Champion available",
+    "entriesPerRegion": "Entries per region",
+    "entriesPerCountry": "Entries per country"
   }
 }
