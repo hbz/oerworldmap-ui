@@ -62,6 +62,7 @@
     "http-link-header": "^0.8.0",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
+    "json-pointer": "^0.6.0",
     "json-pointer-form": "file:local_modules/json-pointer-form",
     "mapbox-gl": "^0.41.0",
     "mitt": "^1.1.2",
