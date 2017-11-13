@@ -12,7 +12,7 @@ export default ({ body, title, initialState, env }) => {
         <title>${title}</title>
         <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
         <link rel="shortcut icon" href="/${favicon}" type="image/x-icon" />
-        ${env !== 'development' ? '<link rel="stylesheet" href="/styles.css">' : null}
+        ${env !== 'development' ? '<link rel="stylesheet" href="/styles.css">' : ''}
       </head>
       <body>
         <div id="root"><div>${body}</div></div>
