@@ -23,16 +23,6 @@ const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
       >
         {listItem.about['@type'] === 'Event' ? (
           <Link className="item" to={'#' + listItem.about['@id']}>
-            {listItem.about.endDate &&
-              <div className="sheet">
-                <div>
-                  {moment(listItem.about.endDate).format('D')}
-                </div>
-                <div>
-                  {moment(listItem.about.endDate).format('MMM')}
-                </div>
-              </div>
-            }
             <span>
               {translate(listItem.about.name) || listItem.about['@id']}<br />
               {/* Edit to show the real start and end date */}
