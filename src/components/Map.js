@@ -550,7 +550,7 @@ class Map extends React.Component {
 
             <div className="stepsContainer">
               {this.state.colors.map(color => (
-                <div style={{backgroundColor: color}} className="step" />
+                <div key={color} style={{backgroundColor: color}} className="step" />
               ))}
             </div>
           </div>
