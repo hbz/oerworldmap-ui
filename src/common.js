@@ -3,7 +3,7 @@ export const formatURL = (url) =>  {
   return re.exec(url)[1] || url
 }
 
-export const translateArray = (locales, key) => {
+export const getEntryByLocales = (locales, key) => {
   if (Array.isArray(key)) {
     let localesString = false
     for (const i in locales) {
@@ -18,9 +18,9 @@ export const translateArray = (locales, key) => {
   }
 }
 
-export const getTitle = (data, locales='en') => (
+export const getTitle = (data, locales=['en']) => (
   data.about && (data.about.name || data.about['@id'])
-    ? translateArray(locales, data.about.name) || data.about['@id']
+    ? getEntryByLocales(locales, data.about.name) || data.about['@id']
     : data.totalItems + " Entries"
 )
 
@@ -67,5 +67,5 @@ export const getURL = (route) => {
 }
 
 export default {
-  getTitle, formatURL, getParams, getURL
+  getTitle, formatURL, getParams, getURL, getEntryByLocales
 }

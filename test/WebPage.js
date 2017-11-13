@@ -13,7 +13,7 @@ describe('<WebPage />', () => {
     const wrapper = mount(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{}}>
-          <WebPage {...testdata} />
+          <WebPage {...testdata} view='' />
         </EmittProvider>
       </I18nProvider>
     )
