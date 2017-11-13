@@ -53,7 +53,7 @@ class Country  extends React.Component {
             {this.props.countryData.country_champions.hits.hits.map(champion => (
               <div className="user" key={champion._source.about['@id']}>
                 {champion._source.about.image ? (
-                  <Link to={`/resource/${champion._source.about['@id']}`}>
+                  <Link href={`/resource/${champion._source.about['@id']}`}>
                     <div className="frame">
                       <img
                         src={champion._source.about.image}
@@ -73,12 +73,12 @@ class Country  extends React.Component {
                 )
                 }
                 <div className="text">
-                  <Link to={`/resource/${champion._source.about['@id']}`}>
+                  <Link href={`/resource/${champion._source.about['@id']}`}>
                     {this.props.translate(champion._source.about.name)}
                   </Link>
                   <br />
                   {champion._source.about.email &&
-                    <Link to={`/resource/${champion._source.about['@id']}`}>
+                    <Link href={`/resource/${champion._source.about['@id']}`}>
                       {champion._source.about.email}
                     </Link>
                   }
@@ -107,7 +107,7 @@ class Country  extends React.Component {
                 <div className="resource">
                   <i className="fa fa-book" />
                   <div className="text">
-                    <Link to={`/resource/${report._source.about['@id']}`}>
+                    <Link href={`/resource/${report._source.about['@id']}`}>
                       {report._source.about.name}
                     </Link>
                   </div>
@@ -139,7 +139,7 @@ class Country  extends React.Component {
                     <td>{bucket.doc_count}</td>
                     <td>
                       <Icon type={bucket.key} />
-                      &nbsp;<Link to={`/country/${this.props.iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>{bucket.key}</Link>
+                      &nbsp;<Link href={`/country/${this.props.iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>{bucket.key}</Link>
                     </td>
                   </tr>
                 ))}

@@ -29,6 +29,11 @@ class FullModal extends React.Component {
             role="button"
             tabIndex="-1"
             onClick={this.hideModal}
+            onKeyDown={(e) => {
+              if (e.keyCode === 27) {
+                e.target.click()
+              }
+            }}
           >
             <div className="modalDialog">
               {this.props.children}

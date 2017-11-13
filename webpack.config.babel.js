@@ -19,6 +19,7 @@ let Config = {
     filename: 'bundle.js'
   },
   module: {
+    exprContextCritical: false,
     rules: [
       // Lint commented due to erros with Hot Module Reload
       // {
