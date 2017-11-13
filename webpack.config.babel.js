@@ -36,24 +36,6 @@ let Config = {
           path.resolve(__dirname, 'node_modules/font-awesome'),
           path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
         ],
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                sourceMap: true,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
-          ],
-        }),
       },
 
       {
@@ -73,10 +55,45 @@ let Config = {
   },
 
   devtool: 'source-map',
+}
 
-  plugins: [
-    new ExtractTextPlugin("styles.css"),
-  ]
+if (TARGET === 'server:prod') {
+  Config = merge(Config, {
+    plugins: [
+      new ExtractTextPlugin("styles.css"),
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.(css|pcss)$/,
+          include: [
+            path.resolve(__dirname, 'src'),
+            path.resolve(__dirname, 'node_modules/normalize.css'),
+            path.resolve(__dirname, 'node_modules/font-awesome'),
+            path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
+          ],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  sourceMap: true,
+                },
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  sourceMap: true,
+                },
+              },
+            ],
+          }),
+        },
+      ]
+    }
+  })
 }
 
 if (TARGET === 'server:dev') {
@@ -84,9 +101,13 @@ if (TARGET === 'server:dev') {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
-    entry: ['webpack-hot-middleware/client'],
+    entry: [
+    'webpack-hot-middleware/client?reload=true',
+    'react-hot-loader/patch'
+    ],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
       new StyleLintPlugin(
         {
@@ -96,7 +117,38 @@ if (TARGET === 'server:dev') {
           files: '**/*.pcss',
         },
       ),
-    ]
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.(css|pcss)$/,
+          include: [
+            path.resolve(__dirname, 'src'),
+            path.resolve(__dirname, 'node_modules/normalize.css'),
+            path.resolve(__dirname, 'node_modules/font-awesome'),
+            path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
+          ],
+          use: [
+            {
+              loader: 'style-loader'
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        }
+      ]
+    }
   })
 }
 
