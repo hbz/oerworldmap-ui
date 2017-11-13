@@ -26,10 +26,10 @@ const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
             {listItem.about.endDate &&
               <div className="sheet">
                 <div>
-                  {moment(listItem.about.endDate).format('D')}
+                  {moment(listItem.about.endDate, 'DD-MM-YYY').format('D')}
                 </div>
                 <div>
-                  {moment(listItem.about.endDate).format('MMM')}
+                  {moment(listItem.about.endDate, 'DD-MM-YYY').format('MMM')}
                 </div>
               </div>
             }

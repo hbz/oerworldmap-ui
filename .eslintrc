@@ -1,7 +1,10 @@
 {
+  "env": {"es6": true},
+  "parserOptions": {"ecmaVersion": 2017},
   "rules": {
     "jsx-a11y/href-no-hash": "off", // Removed rule definiton
     "jsx-a11y/label-has-for": "off",
+    "node/no-unsupported-features": "off", // Disable es6 node check
     "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
     "react/jsx-filename-extension": 0, // Comment to only use jsx on files with extension jsx
     // "linebreak-style": 0, // Accept windows JumpLines
