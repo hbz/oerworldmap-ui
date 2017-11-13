@@ -8,7 +8,7 @@ import '../styles/ItemList.pcss'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
+const ItemList = ({ translate, emitter, listItems, selected }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li
@@ -23,16 +23,6 @@ const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
       >
         {listItem.about['@type'] === 'Event' ? (
           <Link className="item" href={'#' + listItem.about['@id']}>
-            {listItem.about.endDate &&
-              <div className="sheet">
-                <div>
-                  {moment(listItem.about.endDate, 'DD-MM-YYY').format('D')}
-                </div>
-                <div>
-                  {moment(listItem.about.endDate, 'DD-MM-YYY').format('MMM')}
-                </div>
-              </div>
-            }
             <span>
               {translate(listItem.about.name) || listItem.about['@id']}<br />
               {/* Edit to show the real start and end date */}
@@ -65,7 +55,6 @@ ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
-  moment: PropTypes.func.isRequired,
   selected: PropTypes.string.isRequired
 }
 

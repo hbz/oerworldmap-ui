@@ -5,6 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'normalize.css'
 import mitt from 'mitt'
+import { AppContainer } from 'react-hot-loader'
 
 import Init from './components/Init'
 import Api from './api'
@@ -24,7 +25,9 @@ import './styles/main.pcss'
     }
 
     ReactDOM.render(
-      <Init {...state} emitter={emitter} />,
+      <AppContainer>
+        <Init {...state} emitter={emitter} />
+      </AppContainer>,
       document.getElementById('root')
     )
 

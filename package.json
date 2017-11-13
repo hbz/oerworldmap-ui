@@ -5,8 +5,8 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "server:dev": "NODE_ENV=development node src/index.js",
-    "server:prod": "npm run clean && NODE_ENV=production webpack -p && NODE_ENV=production node src/index.js",
-    "test": "mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
+    "server:prod": "npm run clean && NODE_ENV=production webpack && NODE_ENV=production node src/index.js",
+    "test": "eslint src --quiet && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
     "fix": "eslint src --fix",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint src --ext .jsx,.js --quiet",
@@ -74,6 +74,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
+    "react-hot-loader": "^3.1.2",
     "react-markdown": "^2.5.0",
     "react-popperjs": "0.0.3",
     "webpack": "^3.8.1",
