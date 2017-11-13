@@ -19,6 +19,7 @@ let Config = {
     filename: 'bundle.js'
   },
   module: {
+    exprContextCritical: false,
     rules: [
       {
         test: /\.jsx?$/,
