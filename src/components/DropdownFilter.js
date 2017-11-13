@@ -53,16 +53,17 @@ class DropdownFilter extends React.Component {
           ref={dropdownContent => this.dropdownContent = dropdownContent}
         >
 
-          {<div className="searchContainer">
-            <input
-              type="submit"
-              value="Apply Filter"
-              onClick={evt => {
-                this.props.submit(evt, this.props.emitter)
-              }}
-            />
-            {<input type="text" placeholder="..." />}
-          </div>}
+          {
+            <div className="searchContainer">
+              <input
+                type="submit"
+                value="Apply Filter"
+                onClick={evt => {
+                  this.props.submit(evt, this.props.emitter)
+                }}
+              />
+              {<input type="text" placeholder="..." />}
+            </div>}
 
           <ul>
             {this.props.aggregations.buckets.map((bucket,i) => (

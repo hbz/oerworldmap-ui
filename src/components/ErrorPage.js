@@ -7,7 +7,7 @@ import Link from './Link'
 import '../styles/ErrorPage.pcss'
 
 const ErrorPage = ({message, translate}) => (
-  <Link to="/">
+  <Link href="/">
     <div className="ErrorPage">
       <div className="ErrorPageContainer">
         <h3>{translate('ErrorPage.anErrorOccured')}</h3>

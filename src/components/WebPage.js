@@ -41,11 +41,11 @@ const WebPage = ({
 
         <div className="webPageActions">
           {view === 'edit' ? (
-            <Link to="#view"><i className="fa fa-eye" /></Link>
+            <Link href="#view"><i className="fa fa-eye" /></Link>
           ) : (
-            <Link to="#edit"><i className="fa fa-pencil" /></Link>
+            <Link href="#edit"><i className="fa fa-pencil" /></Link>
           )}
-          <Link to="/resource/"><i className="fa fa-close" /></Link>
+          <Link href="/resource/"><i className="fa fa-close" /></Link>
         </div>
 
       </div>
@@ -93,7 +93,7 @@ const WebPage = ({
               (about.agent &&
               about.agent.map(agent => (
                 <div className="operator">
-                  Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
+                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
                 </div>
               )))
             }
@@ -101,9 +101,8 @@ const WebPage = ({
             {about.provider &&
               about.provider.map(provider => (
                 <div key={provider['@id']} className="provider">
-                  Provider: <Link
-                    to={provider['@id']}
-                  >
+                  Provider:&nbsp;
+                  <Link href={provider['@id']}>
                     {formatURL(translate(provider.name))}
                   </Link>
                 </div>

@@ -22,7 +22,7 @@ const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
         }}
       >
         {listItem.about['@type'] === 'Event' ? (
-          <Link className="item" to={'#' + listItem.about['@id']}>
+          <Link className="item" href={'#' + listItem.about['@id']}>
             <span>
               {translate(listItem.about.name) || listItem.about['@id']}<br />
               {/* Edit to show the real start and end date */}
@@ -30,7 +30,7 @@ const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
             </span>
           </Link>
         ) : (
-          <Link className="item" to={'#' + listItem.about['@id']}>
+          <Link className="item" href={'#' + listItem.about['@id']}>
             <Icon type={listItem.about['@type']} />
             <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
           </Link>
@@ -39,7 +39,7 @@ const ItemList = ({ translate, emitter, listItems, moment, selected }) => (
         {selected === listItem.about['@id'] &&
           <aside className="extract">
             <p>{translate(listItem.about.description)}</p>
-            <Link className="btn clear" to={'/resource/' + listItem.about['@id']}>
+            <Link className="btn clear" href={'/resource/' + listItem.about['@id']}>
               {/* Read More */}
               {translate('ItemList.readMore')}
             </Link>
