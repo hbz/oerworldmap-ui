@@ -20,21 +20,6 @@ let Config = {
   },
   module: {
     rules: [
-      // Lint commented due to erros with Hot Module Reload
-      // {
-      //   test: /\.jsx?$/,
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   use: [
-      //     {
-      //       loader: 'eslint-loader',
-      //       options: {
-      //         // cache: true,
-      //         emitWarning: true,
-      //       }
-      //     }
-      //   ]
-      // },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
