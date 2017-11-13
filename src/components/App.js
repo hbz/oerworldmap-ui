@@ -36,6 +36,11 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
     id="wrapper"
     tabIndex="-1"
     role="button"
+    onKeyDown={(e) => {
+      if (e.keyCode === 27) {
+        e.target.click()
+      }
+    }}
     onClick={(e) => {
       emitter.emit("click", e)
     }}

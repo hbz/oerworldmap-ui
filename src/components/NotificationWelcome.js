@@ -41,6 +41,11 @@ class NotificationWelcome extends React.Component {
             tabIndex="0"
             className="NotificationWelcome"
             onClick={this.hideWelcome}
+            onKeyDown={(e) => {
+              if (e.keyCode === 27) {
+                e.target.click()
+              }
+            }}
           >
             <div className="modalContent">
               <div className="notificationHeader">
@@ -66,7 +71,7 @@ class NotificationWelcome extends React.Component {
 
                 <div className="numbersTable">
                   <div>
-                    <a href="#">
+                    <a href="/resource/">
                       <i className="fa fa-user" />
                       <br />
                       <span className="name" >Person</span>
@@ -76,7 +81,7 @@ class NotificationWelcome extends React.Component {
                   </div>
 
                   <div>
-                    <a href="#">
+                    <a href="/resource/">
                       <i className="fa fa-users" />
                       <br />
                       <span className="name">Organization</span>
@@ -102,7 +107,8 @@ class NotificationWelcome extends React.Component {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {this.props.translate('NotificationWelcome.userEvaluation')}</a>
+                      {this.props.translate('NotificationWelcome.userEvaluation')}
+                    </a>
                       . {this.props.translate('NotificationWelcome.thankYou')}
                   </p>
                 </div>
@@ -114,6 +120,11 @@ class NotificationWelcome extends React.Component {
                 tabIndex="0"
                 className="fa fa-times close"
                 onClick={this.hideWelcome}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 32) {
+                    e.target.click()
+                  }
+                }}
               />
             </div>
           </div>
