@@ -2101,12 +2101,12 @@
       "items": {
         "type": "object",
         "properties": {
+          "@value": {
+            "type": "string"
+          },
           "@language": {
             "type": "string",
             "enum": ["de", "en"]
-          },
-          "@value": {
-            "type": "string"
           }
         },
         "required": [
