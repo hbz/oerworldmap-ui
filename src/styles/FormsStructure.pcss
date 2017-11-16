@@ -17,73 +17,58 @@
   }
 
   & input[type=text],
+  & input[type=submit],
+  & select,
   & textarea {
-    padding: 10px 5px;
+    padding: 10px;
+    border: 1px solid lightgrey;
   }
 
-  & input[type=submit],
-  & select {
-    padding: 10px 5px;
+  & .textarea {
+    border: 1px solid lightgrey;
+    border-bottom: 0;
+  }
+
+  & textarea {
+    position: relative;
+    min-height: 144px;
+    resize: vertical;
+    width: 100%;
+    border: none;
   }
 
   & input[type=submit] {
     margin-top: 15px;
     padding: 10px;
-    float: right;
+    cursor: pointer;
   }
 
   & legend {
     padding: 10px 0;
   }
 
-  & div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column-reverse;
-    position: relative;
-
-    & > label {
-      padding: 10px 0;
+  & .input,
+  & .textarea {
+    &.\@value .title {
+      display: none;
     }
 
-    & ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-      position: absolute;
+    & label.hidden + input {
+      margin-top: 10px;
+    }
+
+    & input[type="text"] {
       width: 100%;
-      max-height: 160px;
-      overflow: auto;
-      bottom: 0;
-      transform: translateY(100%);
-      border: 1px solid black;
-      z-index: 3;
-
-      & li input[type=checkbox] {
-        display: none;
-      }
-
-      & li:last-child label {
-        border-bottom: none;
-      }
-
-      & li label {
-        display: block;
-        padding: 10px 5px;
-        border-bottom: 1px solid black;
-        background-color: white;
-
-        &::after {
-          content: '✔';
-          position: absolute;
-          right: 15px;
-        }
-      }
     }
   }
 
-  & > div {
-    margin: 10px 0;
+  & div {
+    position: relative;
+
+    & > label {
+      display: block;
+      padding: 10px 0;
+    }
   }
 
   & .checkbox {
@@ -93,23 +78,20 @@
 
     & label {
       display: block;
-      padding: 10px 5px;
+      padding: 10px;
+      padding-right: 35px;
       position: relative;
       cursor: pointer;
       margin-bottom: 5px;
-      border: 1px solid black;
+      border: 1px solid lightgray;
 
       &::after {
         content: 'x';
         position: absolute;
         right: 15px;
-        top: 0;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 2;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
         font-size: 0.9rem;
         font-weight: bold;
       }
@@ -118,37 +100,161 @@
 
   & .dropdown {
     position: relative;
-    flex-direction: column;
+
+    & ul {
+      list-style-type: none;
+    }
+
+    & > ul {
+      margin: 0;
+      padding: 0;
+      height: auto;
+      max-height: 200px;
+      width: 100%;
+      overflow-y: auto;
+      position: absolute;
+      z-index: 2;
+      border: 1px solid lightgrey;
+    }
+
+    & li {
+      border-bottom: 1px solid lightgrey;
+      background-color: white;
+
+      & input[type=checkbox] {
+        display: none;
+      }
+
+      & label {
+        padding: 10px;
+        display: block;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 
-  & .multiple-container .input:first-child {
-    & input {
-      margin-top: 0;
-    }
+  & .toggleDropdown {
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightgray;
+    background-color: white;
+    padding-right: 20px;
+  }
 
-    & label.title {
-      display: block;
+  & .optionlistContainer {
+    margin-bottom: 10px;
+
+    & .optionlist {
+      margin: 0;
+      list-style-type: none;
+      padding: 0;
+
+      & input[type=checkbox] {
+        display: none;
+      }
+
+      & label {
+        display: block;
+        padding: 10px;
+        padding-right: 35px;
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 5px;
+        border: 1px solid lightgray;
+
+        &::after {
+          content: 'x';
+          position: absolute;
+          right: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1;
+          font-size: 0.9rem;
+          font-weight: bold;
+        }
+      }
     }
   }
 
-  & .multiple-container .input {
-    & input {
-      margin-top: 5px;
+  & .dropdownList {
+    border: 1px solid lightgray;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+
+    & > ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      height: auto;
+      max-height: 200px;
+      overflow-y: auto;
+      width: 400px;
     }
 
-    & input[placeholder="sameAs"] + label {
+    & .filter {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid lightgray;
+    }
+
+    & input[type=checkbox] {
       display: none;
     }
+
+    & li {
+      border-bottom: 1px solid lightgray;
+
+      & label {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
   }
 
-  & .select {
+  & .multiple-container {
+    margin-bottom: 5px;
+  }
+
+  & .input + .optionlistContainer {
     margin-top: 10px;
+  }
 
-    & label {
-      display: none;
+  & .input.\@value input[type="text"] {
+    width: 75%;
+    float: left;
+    margin-bottom: 10px;
+    border-right: none;
+  }
+
+  & .input.\@value + .optionlistContainer {
+    width: 25%;
+    float: right;
+    margin-top: 0;
+
+    & .optionlist {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    & .toggleDropdown {
+      text-align: left;
     }
   }
 
+  /* Fields hidden in the schema */
   & .hidden {
     display: none;
   }
