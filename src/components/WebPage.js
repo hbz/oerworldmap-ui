@@ -49,7 +49,7 @@ const WebPage = ({
 
       </div>
 
-      {(about.image || about.location) &&
+      {(about.image || Object.keys(about.location).length >= 0) &&
         <div
           className="webPageCover"
           style={{
@@ -63,7 +63,11 @@ const WebPage = ({
           <img
             src={about.image}
             onError={e => {
-              e.target.remove()}}
+              if (Object.keys(about.location).length <= 0) {
+                e.target.parentElement.remove()
+              }
+              e.target.remove()
+            }}
             alt={translate(about.name)}
           />
           }
