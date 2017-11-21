@@ -26,6 +26,7 @@
     border-radius: 2px;
     max-width: 800px;
     border: 1px solid var(--blue-dark);
+    margin-bottom: 20px;
 
     & > .webPageHeader {
       display: flex;
@@ -130,6 +131,20 @@
         padding: 5px;
         font-weight: bold;
       }
+    }
+  }
+
+  & #view,
+  & #edit {
+    opacity: 0;
+    transition: all 0.5s;
+    height: 0;
+    overflow: hidden;
+
+    &.visible {
+      opacity: 1;
+      overflow: unset;
+      height: auto;
     }
   }
 }

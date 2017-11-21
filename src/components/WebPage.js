@@ -82,8 +82,7 @@ const WebPage = ({
 
       <div className="webPageContent">
 
-        {view === 'edit' ? (
-          <div id="edit">
+          <div id="edit" className={view === 'edit' ? 'visible' : ''}>
             <Composer
               value={about}
               schema={schema}
@@ -92,8 +91,8 @@ const WebPage = ({
               getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
             />
           </div>
-        ) : (
-          <div id="view">
+
+          <div id="view" className={view === 'view' ? 'visible' : ''}>
             <h1>{translate(about.name)}</h1>
 
             <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
@@ -147,7 +146,7 @@ const WebPage = ({
             <ResourceTable value={about} schema={schema} />
 
           </div>
-        )}
+
       </div>
     </div>
 
