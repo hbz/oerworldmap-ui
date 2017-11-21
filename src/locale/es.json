@@ -36,5 +36,12 @@
   },
   "ItemList": {
     "readMore": "Leer Más"
+  },
+  "properties": {
+    "submitLabel": "Enviar",
+    "@language": "Language",
+    "address": "Dirección",
+    "lat": "Latitud",
+    "lon": "Longitud"
   }
 }

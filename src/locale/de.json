@@ -26,7 +26,7 @@
   "Metadata": {
     "lastEdited": "Zuletzt bearbeitet durch %{contributor} %{dateModified}",
     "created": "Erstellt von %{author} %{dateCreated}",
-    "lastModified": "zuletzt bearbeitet %{dateModified}"    
+    "lastModified": "zuletzt bearbeitet %{dateModified}"
   },
   "ActionButtons": {
     "addEntry": "Eintrag hinzufügen",
@@ -36,5 +36,12 @@
   },
   "ItemList": {
     "readMore": "Mehr Lesen"
+  },
+  "properties": {
+    "submitLabel": "Veröffentlichen",
+    "@language": "Sprache",
+    "address": "Adresse",
+    "lat": "Breitengrad",
+    "lon": "Längengrad"
   }
 }
