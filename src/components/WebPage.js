@@ -14,6 +14,14 @@ import '../styles/WebPage.pcss'
 
 import schema from '../json/schema.json'
 
+const getLabel = (translate, value) => {
+  if (!value) return ''
+  if (typeof value === "object") {
+    return (value["name"] ? translate(value["name"]) : value["@id"])
+  } else {
+    return translate(`properties.${value}`)
+  }
+}
 
 const WebPage = ({
   translate,
@@ -88,7 +96,8 @@ const WebPage = ({
               schema={schema}
               submit={value => emitter.emit('save', value)}
               getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-              getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
+              getLabel={value => getLabel(translate, value)}
+              submitLabel={translate('properties.submitLabel')}
             />
           </div>
 
