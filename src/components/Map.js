@@ -126,7 +126,6 @@ class Map extends React.Component {
         const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
         this.setState({
           hoveredFeatures,
-          point: e.point
         })
 
         let popupContent
@@ -227,13 +226,6 @@ class Map extends React.Component {
         this.map.getCanvas().style.cursor = ''
       })
 
-      // Update popup position when dragging map
-      this.map.on('drag', (e) => {
-        this.setState({
-          point: { x: e.originalEvent.x, y: e.originalEvent.y -35}
-        })
-      })
-
       this.map.on('click', 'points', function (e) {
         if (e.features.length > 6) {
           this.map.flyTo({
@@ -246,9 +238,11 @@ class Map extends React.Component {
             return (
               <li key={feature.properties['@id']}>
                 <Icon type={feature.properties['@type']} />
-                &nbsp;<Link to={feature.properties['@id']}>
+                &nbsp;
+                <Link href={feature.properties['@id']}>
                   <b>{feature.properties['@type']}:</b>
-                  &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}</Link>
+                  &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+                </Link>
               </li>
             )
           })
@@ -556,7 +550,7 @@ class Map extends React.Component {
 
             <div className="stepsContainer">
               {this.state.colors.map(color => (
-                <div style={{backgroundColor: color}} className="step" />
+                <div key={color} style={{backgroundColor: color}} className="step" />
               ))}
             </div>
           </div>
@@ -564,7 +558,7 @@ class Map extends React.Component {
 
         {this.props.aggregations['about.location.address.addressRegion'] &&
           <div className='goToMap'>
-            <Link to='/resource/'>
+            <Link href='/resource/'>
               <i className='fa fa-globe' />
             </Link>
           </div>

@@ -152,7 +152,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
 
 
         <div className="clearFilter">
-          <Link to="/resource/">{translate('Filters.clearFilters')}</Link>
+          <Link href="/resource/">{translate('Filters.clearFilters')}</Link>
         </div>
       </div>
 

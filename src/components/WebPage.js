@@ -7,6 +7,7 @@ import translate from './translate'
 import Metadata from './Metadata'
 import { formatURL } from '../common'
 import Link from './Link'
+import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
 
 import '../styles/WebPage.pcss'
@@ -41,11 +42,11 @@ const WebPage = ({
 
         <div className="webPageActions">
           {view === 'edit' ? (
-            <Link to="#view"><i className="fa fa-eye" /></Link>
+            <Link href="#view"><i className="fa fa-eye" /></Link>
           ) : (
-            <Link to="#edit"><i className="fa fa-pencil" /></Link>
+            <Link href="#edit"><i className="fa fa-pencil" /></Link>
           )}
-          <Link to="/resource/"><i className="fa fa-close" /></Link>
+          <Link href="/resource/"><i className="fa fa-close" /></Link>
         </div>
 
       </div>
@@ -101,7 +102,7 @@ const WebPage = ({
               (about.agent &&
               about.agent.map(agent => (
                 <div className="operator">
-                  Operator: <Link key={agent['@id']} to={agent['@id']}>{translate(agent.name)}</Link>
+                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
                 </div>
               )))
             }
@@ -109,9 +110,8 @@ const WebPage = ({
             {about.provider &&
               about.provider.map(provider => (
                 <div key={provider['@id']} className="provider">
-                  Provider: <Link
-                    to={provider['@id']}
-                  >
+                  Provider:&nbsp;
+                  <Link href={provider['@id']}>
                     {formatURL(translate(provider.name))}
                   </Link>
                 </div>
@@ -144,40 +144,8 @@ const WebPage = ({
               ))
             }
 
-            {/* Example of data, GENERATE THIS */}
-            <table>
-              <tbody>
-                <tr>
-                  <td>Location</td>
-                  <td>
-                    Whitehurst Freeway<br />
-                    Washington <br />
-                    United States
-                  </td>
-                </tr>
-                <tr>
-                  <td>Tags</td>
-                  <td>
-                    OER
-                  </td>
-                </tr>
-                <tr>
-                  <td>Creator</td>
-                  <td>
-                    Katy Jordan
-                  </td>
-                </tr>
-                <tr>
-                  <td>Entries mentioned</td>
-                  <td>
-                    The Saylor Academy <br />
-                    OER Hub
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <ResourceTable value={about} schema={schema} />
 
-            <pre>{JSON.stringify(about, null, 2)}</pre>
           </div>
         )}
       </div>
