@@ -101,7 +101,7 @@ const WebPage = ({
             />
           </div>
 
-          <div id="view" className={view === 'view' ? 'visible' : ''}>
+          <div id="view" className={(view === 'view' || view === '') ? 'visible' : ''}>
             <h1>{translate(about.name)}</h1>
 
             <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
