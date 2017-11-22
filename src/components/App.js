@@ -79,6 +79,7 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
                   aggregations={data['aggregations'] || defaultAggregations}
                   extended={data['@type'] === 'PagedCollection'}
                   member={data.member || null}
+                  size={data.size}
                 />
                 {data['@type'] === 'PagedCollection' &&
                 <div className="ColumnList">
