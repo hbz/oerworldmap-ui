@@ -14,6 +14,14 @@ import '../styles/WebPage.pcss'
 
 import schema from '../json/schema.json'
 
+const getLabel = (translate, value) => {
+  if (!value) return ''
+  if (typeof value === "object") {
+    return (value["name"] ? translate(value["name"]) : value["@id"])
+  } else {
+    return translate(`properties.${value}`)
+  }
+}
 
 const WebPage = ({
   translate,
@@ -51,7 +59,7 @@ const WebPage = ({
 
       </div>
 
-      {about.image || geo &&
+      {(about.image &&  about.image.lenght)  || geo &&
         <div
           className="webPageCover"
           style={{
@@ -65,7 +73,7 @@ const WebPage = ({
                 : ''
           }}
         >
-          {about.image &&
+          {(about.image &&  about.image.lenght) &&
           <img
             src={about.image}
             alt={translate(about.name)}
@@ -83,72 +91,72 @@ const WebPage = ({
 
       <div className="webPageContent">
 
-        {view === 'edit' ? (
-          <div id="edit">
-            <Composer
-              value={about}
-              schema={schema}
-              submit={value => emitter.emit('save', value)}
-              getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-              getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
-            />
-          </div>
-        ) : (
-          <div id="view">
-            <h1>{translate(about.name)}</h1>
+        <div id="edit" className={view === 'edit' ? 'visible' : ''}>
+          <Composer
+            value={about}
+            schema={schema}
+            submit={value => emitter.emit('save', value)}
+            getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+            getLabel={value => getLabel(translate, value)}
+            submitLabel={translate('properties.submitLabel')}
+          />
+        </div>
 
-            <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
+        <div id="view" className={(view === 'view' || view === '') ? 'visible' : ''}>
+          <h1>{translate(about.name)}</h1>
 
-            {about['@type'] === 'Action' &&
-              (about.agent &&
-              about.agent.map(agent => (
-                <div className="operator">
-                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
-                </div>
-              )))
-            }
+          <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
-            {about.provider &&
-              about.provider.map(provider => (
-                <div key={provider['@id']} className="provider">
-                  Provider:&nbsp;
-                  <Link href={provider['@id']}>
-                    {formatURL(translate(provider.name))}
-                  </Link>
-                </div>
-              ))
-            }
+          {about['@type'] === 'Action' &&
+            (about.agent &&
+            about.agent.map(agent => (
+              <div className="operator">
+                Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
+              </div>
+            )))
+          }
 
-            {about.description &&
-              <ReactMarkdown source={translate(about.description)} />
-            }
+          {about.provider &&
+            about.provider.map(provider => (
+              <div key={provider['@id']} className="provider">
+                Provider:&nbsp;
+                <Link href={provider['@id']}>
+                  {formatURL(translate(provider.name))}
+                </Link>
+              </div>
+            ))
+          }
 
-            {about.articleBody &&
-              <ReactMarkdown source={translate(about.articleBody)} />
-            }
+          {about.description &&
+            <ReactMarkdown source={translate(about.description)} />
+          }
 
-            {about.url &&
-              <a href={about.url} target="_blank" className="boxedLink">
-                {formatURL(about.url)}
-              </a>
-            }
+          {about.articleBody &&
+            <ReactMarkdown source={translate(about.articleBody)} />
+          }
 
-            {about.availableChannel &&
-              <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
-                {formatURL(about.availableChannel[0].serviceUrl)}
-              </a>
-            }
+          {about.url &&
+            <a href={about.url} target="_blank" className="boxedLink">
+              {formatURL(about.url)}
+            </a>
+          }
 
-            {about.license &&
-              about.license.map(license => (
-                <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
-              ))
-            }
+          {about.availableChannel &&
+            <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
+              {formatURL(about.availableChannel[0].serviceUrl)}
+            </a>
+          }
 
-            <ResourceTable value={about} schema={schema} />
+          {about.license &&
+            about.license.map(license => (
+              <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
+            ))
+          }
 
-          </div>
-        )}
+          <ResourceTable value={about} schema={schema} />
+
+        </div>
+
       </div>
     </div>
 

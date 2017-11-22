@@ -78,5 +78,12 @@
     "countryChampionAvailable": "Country Champion available",
     "entriesPerRegion": "Entries per region",
     "entriesPerCountry": "Entries per country"
+  },
+  "properties": {
+    "submitLabel": "Submit",
+    "@language": "Language",
+    "address": "Address",
+    "lat": "Latitude",
+    "lon": "Longitude"
   }
 }

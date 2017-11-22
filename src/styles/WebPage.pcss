@@ -26,6 +26,7 @@
     border-radius: 2px;
     max-width: 800px;
     border: 1px solid var(--blue-dark);
+    margin-bottom: 20px;
 
     & > .webPageHeader {
       display: flex;
@@ -84,19 +85,33 @@
 
       & table {
         border-collapse: collapse;
+        max-width: 100%;
         width: 100%;
         margin-top: 20px;
 
         & tr {
+          display: flex;
+          flex: 1;
           border-bottom: 1px solid var(--blue-lightest);
 
           &:first-child {
             border-top: 1px solid var(--blue-lightest);
           }
+
+          & td:first-child {
+            max-width: 30%;
+            min-width: 30%;
+            padding-right: 5px;
+          }
         }
 
         & td {
+          width: 100%;
           padding: 10px 0;
+
+          & ul:first-child {
+            padding-left: 15px;
+          }
         }
 
         & tr td:first-child {
@@ -130,6 +145,20 @@
         padding: 5px;
         font-weight: bold;
       }
+    }
+  }
+
+  & #view,
+  & #edit {
+    opacity: 0;
+    transition: all 0.5s;
+    height: 0;
+    overflow: hidden;
+
+    &.visible {
+      opacity: 1;
+      overflow: unset;
+      height: auto;
     }
   }
 }

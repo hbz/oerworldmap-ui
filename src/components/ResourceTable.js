@@ -97,7 +97,7 @@ class ResourceTable extends React.Component {
               const className = definition._display ? definition._display.className : null
               return (
                 <tr key={property} className={className}>
-                  <td>{property}</td>
+                  <td>{this.props.translate(`properties.${property}`)}</td>
                   <td>{this.property(property, definition, value[property])}</td>
                 </tr>
               )
