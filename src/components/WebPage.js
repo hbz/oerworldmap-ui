@@ -59,7 +59,7 @@ const WebPage = ({
 
       </div>
 
-      {about.image || geo &&
+      {(about.image &&  about.image.lenght)  || geo &&
         <div
           className="webPageCover"
           style={{
@@ -73,7 +73,7 @@ const WebPage = ({
                 : ''
           }}
         >
-          {about.image &&
+          {(about.image &&  about.image.lenght) &&
           <img
             src={about.image}
             alt={translate(about.name)}
