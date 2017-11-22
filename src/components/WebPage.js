@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
-import { Composer } from '../../local_modules/json-pointer-form/lib'
+import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
 import Metadata from './Metadata'
