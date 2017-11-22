@@ -51,7 +51,7 @@ const WebPage = ({
 
       </div>
 
-      {(about.image || Object.keys(geo.geometry).length >= 0) &&
+      {about.image || geo &&
         <div
           className="webPageCover"
           style={{
@@ -68,6 +68,7 @@ const WebPage = ({
           {about.image &&
           <img
             src={about.image}
+            alt={translate(about.name)}
             onError={e => {
               if (Object.keys(geo.geometry).length <= 0) {
                 e.target.parentElement.remove()
