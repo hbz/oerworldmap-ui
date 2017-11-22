@@ -24,7 +24,8 @@ const WebPage = ({
   author,
   dateCreated,
   emitter,
-  view
+  view,
+  geo
 }) => (
   <div className="WebPage">
     <div className="webPageContainer">
@@ -50,22 +51,31 @@ const WebPage = ({
 
       </div>
 
-      {(about.image || about.location) &&
+      {about.image || geo &&
         <div
           className="webPageCover"
           style={{
             backgroundImage:
-              about.location && about.location.geo ?
-                `url("https://api.mapbox.com/styles/v1/mapbox/basic-v9/static/pin-s-circle+000000(${about.location.geo.lon},${about.location.geo.lat})/${about.location.geo.lon-1},${about.location.geo.lat},7/800x225@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
+              geo.geometry && geo.geometry.coordinates
+                ? `url("https://api.mapbox.com/styles/v1/mapbox/basic-v9/static/geojson(${encodeURIComponent(
+                  JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
+                  ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
+                  : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
+                },7/800x225@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
                 : ''
           }}
         >
           {about.image &&
           <img
             src={about.image}
-            onError={e => {
-              e.target.remove()}}
             alt={translate(about.name)}
+            onError={e => {
+              if (Object.keys(geo.geometry).length <= 0) {
+                e.target.parentElement.remove()
+              }
+              e.target.remove()
+            }}
+            aria-label={translate(about.name)}
           />
           }
         </div>
@@ -79,7 +89,7 @@ const WebPage = ({
               value={about}
               schema={schema}
               submit={value => emitter.emit('save', value)}
-              getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+              getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
               getLabel={value => value && value["name"] ? translate(value["name"]) : value["@id"]}
             />
           </div>
@@ -141,6 +151,7 @@ const WebPage = ({
         )}
       </div>
     </div>
+
   </div>
 )
 
@@ -153,7 +164,8 @@ WebPage.propTypes = {
   contributor: PropTypes.string.isRequired,
   dateCreated: PropTypes.string.isRequired,
   dateModified: PropTypes.string.isRequired,
-  view: PropTypes.string.isRequired
+  view: PropTypes.string.isRequired,
+  geo: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(translate(WebPage))

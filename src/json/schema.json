@@ -790,7 +790,8 @@
               "availableLanguage": {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": ["en", "de"]
                 }
               },
               "documentation": {
@@ -2103,12 +2104,12 @@
       "items": {
         "type": "object",
         "properties": {
+          "@value": {
+            "type": "string"
+          },
           "@language": {
             "type": "string",
             "enum": ["de", "en"]
-          },
-          "@value": {
-            "type": "string"
           }
         },
         "required": [
