@@ -13,7 +13,7 @@ describe('<ItemList />', () => {
     const wrapper = mount(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{}}>
-          <ItemList listItems={testdata} />
+          <ItemList listItems={testdata} selected='none' />
         </EmittProvider>
       </I18nProvider>
     )

@@ -16,8 +16,8 @@ class Link extends React.Component {
   }
 
   getRef() {
-    return this.props.to.startsWith('urn:uuid') ?
-      `/resource/${this.props.to}` : this.props.to
+    return this.props.href.startsWith('urn:uuid') ?
+      `/resource/${this.props.href}` : this.props.href
   }
 
   render() {
@@ -41,7 +41,7 @@ Link.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  to: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
   className: PropTypes.string,
   dataShow: PropTypes.string,
   title: PropTypes.string

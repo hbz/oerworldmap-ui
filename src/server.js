@@ -74,6 +74,7 @@ server.get(/^(.*)$/, (req, res) => {
         }
       }
       res.send(template({
+        env: process.env.NODE_ENV,
         body: renderToString(<Init {...initialState} emitter={{}} />),
         title: getTitle(initialState.data, initialState.locales),
         initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")

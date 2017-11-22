@@ -4,7 +4,7 @@ import DropdownMenu from './DropdownMenu'
 import '../styles/DropdownButton.pcss'
 
 class DropdownButton extends React.Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -20,6 +20,7 @@ class DropdownButton extends React.Component {
           tabIndex="0"
           className="fa fa-gear"
           onClick={() => {this.setState({showing:!this.state.showing})}}
+          onKeyDown={null}
         >
           { this.state.showing &&
             <DropdownMenu />

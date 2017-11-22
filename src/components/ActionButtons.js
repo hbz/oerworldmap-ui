@@ -7,7 +7,7 @@ import '../styles/ActionButtons.pcss'
 
 const ActionButtons = ({translate}) => (
   <div className="ActionButtons">
-    <a href="#" title={translate('ActionButtons.addEntry')}>
+    <a href="#addEntry" title={translate('ActionButtons.addEntry')}>
       <i className="fa fa-plus" />
     </a>
     <a href="/user/newsletter" title={translate('ActionButtons.subscribeToNewsletter')}>
@@ -21,10 +21,10 @@ const ActionButtons = ({translate}) => (
     <a href="/feed/" title={translate('ActionButtons.recentAdditions')}>
       <i className="fa fa-rss" />
     </a>
-    <a href="#" title={translate('ActionButtons.liked')}>
+    <a href="#liked" title={translate('ActionButtons.liked')}>
       <i className="fa fa-thumbs-up" />
     </a>
-    <Link to="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={translate('ActionButtons.lighthouse')}>
+    <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={translate('ActionButtons.lighthouse')}>
       <i className="fa fa-lightbulb-o" />
     </Link>
   </div>
