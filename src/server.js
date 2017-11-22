@@ -66,9 +66,15 @@ server.get(/^(.*)$/, (req, res) => {
         user: response.user,
         locales: acceptedLanguages,
         mapboxConfig,
-        apiConfig
+        apiConfig,
+        route: {
+          path: req.path,
+          params: req.query,
+          hash: ""
+        }
       }
       res.send(template({
+        env: process.env.NODE_ENV,
         body: renderToString(<Init {...initialState} emitter={{}} />),
         title: getTitle(initialState.data, initialState.locales),
         initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")

@@ -31,11 +31,16 @@ const defaultAggregations = {
   }
 }
 
-const App = ({ data, mapboxConfig, user, features, emitter }) => (
+const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
   <div
     id="wrapper"
     tabIndex="-1"
     role="button"
+    onKeyDown={(e) => {
+      if (e.keyCode === 27) {
+        e.target.click()
+      }
+    }}
     onClick={(e) => {
       emitter.emit("click", e)
     }}
@@ -52,7 +57,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
       ) : (
         data['@type'] === 'WebPage' ? (
           <div className="content">
-            <WebPage {...data} />
+            <WebPage {...data} view={route.hash} />
           </div>
         ): (
           <div className="content">
@@ -78,7 +83,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
                 />
                 {data['@type'] === 'PagedCollection' &&
                 <div className="ColumnList">
-                  <ItemList listItems={data.member} />
+                  <ItemList listItems={data.member} selected={route.hash} />
                   <Pagination
                     totalItems={data.totalItems}
                     currentPage={data.currentPage}
@@ -99,6 +104,7 @@ const App = ({ data, mapboxConfig, user, features, emitter }) => (
               mapboxConfig={mapboxConfig}
               features={features}
               iso3166={data.iso3166}
+              route={route}
             />
           </div>
         )
@@ -117,7 +123,8 @@ App.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
   features: PropTypes.objectOf(PropTypes.any),
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
+  route: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 App.defaultProps = {

@@ -158,7 +158,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
 
 
           <div className="clearFilter">
-            <Link to="/resource/">{translate('Filters.clearFilters')}</Link>
+            <Link href="/resource/">{translate('Filters.clearFilters')}</Link>
           </div>
         </div>
 
@@ -188,6 +188,10 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
           }
         </div>
 
+        <div className="clearFilter">
+          <Link href="/resource/">{translate('Filters.clearFilters')}</Link>
+        </div>
+
       </form>
 
     </nav>
@@ -201,7 +205,8 @@ Filters.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   extended: PropTypes.bool.isRequired,
   translate: PropTypes.func.isRequired,
-  member: PropTypes.arrayOf(PropTypes.any).isRequired
+  member: PropTypes.arrayOf(PropTypes.any).isRequired,
+  size: PropTypes.number.isRequired
 }
 
 export default withEmitter(translate(Filters))
