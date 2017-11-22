@@ -76,6 +76,7 @@ const WebPage = ({
           {about.image &&
           <img
             src={about.image}
+            alt={translate(about.name)}
             onError={e => {
               if (Object.keys(geo.geometry).length <= 0) {
                 e.target.parentElement.remove()
@@ -90,71 +91,71 @@ const WebPage = ({
 
       <div className="webPageContent">
 
-          <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-            <Composer
-              value={about}
-              schema={schema}
-              submit={value => emitter.emit('save', value)}
-              getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-              getLabel={value => getLabel(translate, value)}
-              submitLabel={translate('properties.submitLabel')}
-            />
-          </div>
+        <div id="edit" className={view === 'edit' ? 'visible' : ''}>
+          <Composer
+            value={about}
+            schema={schema}
+            submit={value => emitter.emit('save', value)}
+            getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+            getLabel={value => getLabel(translate, value)}
+            submitLabel={translate('properties.submitLabel')}
+          />
+        </div>
 
-          <div id="view" className={(view === 'view' || view === '') ? 'visible' : ''}>
-            <h1>{translate(about.name)}</h1>
+        <div id="view" className={(view === 'view' || view === '') ? 'visible' : ''}>
+          <h1>{translate(about.name)}</h1>
 
-            <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
+          <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
 
-            {about['@type'] === 'Action' &&
-              (about.agent &&
-              about.agent.map(agent => (
-                <div className="operator">
-                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
-                </div>
-              )))
-            }
+          {about['@type'] === 'Action' &&
+            (about.agent &&
+            about.agent.map(agent => (
+              <div className="operator">
+                Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
+              </div>
+            )))
+          }
 
-            {about.provider &&
-              about.provider.map(provider => (
-                <div key={provider['@id']} className="provider">
-                  Provider:&nbsp;
-                  <Link href={provider['@id']}>
-                    {formatURL(translate(provider.name))}
-                  </Link>
-                </div>
-              ))
-            }
+          {about.provider &&
+            about.provider.map(provider => (
+              <div key={provider['@id']} className="provider">
+                Provider:&nbsp;
+                <Link href={provider['@id']}>
+                  {formatURL(translate(provider.name))}
+                </Link>
+              </div>
+            ))
+          }
 
-            {about.description &&
-              <ReactMarkdown source={translate(about.description)} />
-            }
+          {about.description &&
+            <ReactMarkdown source={translate(about.description)} />
+          }
 
-            {about.articleBody &&
-              <ReactMarkdown source={translate(about.articleBody)} />
-            }
+          {about.articleBody &&
+            <ReactMarkdown source={translate(about.articleBody)} />
+          }
 
-            {about.url &&
-              <a href={about.url} target="_blank" className="boxedLink">
-                {formatURL(about.url)}
-              </a>
-            }
+          {about.url &&
+            <a href={about.url} target="_blank" className="boxedLink">
+              {formatURL(about.url)}
+            </a>
+          }
 
-            {about.availableChannel &&
-              <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
-                {formatURL(about.availableChannel[0].serviceUrl)}
-              </a>
-            }
+          {about.availableChannel &&
+            <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
+              {formatURL(about.availableChannel[0].serviceUrl)}
+            </a>
+          }
 
-            {about.license &&
-              about.license.map(license => (
-                <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
-              ))
-            }
+          {about.license &&
+            about.license.map(license => (
+              <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
+            ))
+          }
 
-            <ResourceTable value={about} schema={schema} />
+          <ResourceTable value={about} schema={schema} />
 
-          </div>
+        </div>
 
       </div>
     </div>
