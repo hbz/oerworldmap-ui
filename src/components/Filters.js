@@ -62,7 +62,6 @@ const dropdownFilters = [
 const Filters = ({query, filters, aggregations, emitter, extended, translate, member, size}) => {
 
   let sizes = [10,20,50,100,200]
-  size = parseInt(size)
 
   if (!sizes.includes(size) && size !== 0) {
     sizes.push(size)
