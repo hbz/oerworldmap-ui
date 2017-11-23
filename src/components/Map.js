@@ -34,6 +34,7 @@ class Map extends React.Component {
 
   componentDidMount() {
 
+    const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = this.props.mapboxConfig.token
 
@@ -51,7 +52,8 @@ class Map extends React.Component {
       container: 'Map',
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
       center: (center.lng && center.lat) ? [center.lng, center.lat] : [-100.486052, 37.830348],
-      zoom: center.zoom || 2
+      zoom: center.zoom || 2,
+      maxBounds: bounds
     })
 
     this.map.on('load', () => {
