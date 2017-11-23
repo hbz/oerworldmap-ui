@@ -12,10 +12,12 @@ class DropdownFilter extends React.Component {
 
     this.state ={
       showContent: false,
+      search: '',
+      initialList: this.props.aggregations.buckets,
+      selectedElements: []
     }
 
     this.handleClick = this.handleClick.bind(this)
-
   }
 
   handleClick(e) {
@@ -29,6 +31,32 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
+    const list = (this.state.initialList.filter(
+      item => item.key.includes(this.state.search)
+    ) || this.state.initialList).map((bucket, i) => (
+      <li key={bucket.key}>
+        <input
+          type="checkbox"
+          value={bucket.key}
+          name={this.props.filterName}
+          id={this.props.filterName+i}
+          defaultChecked={this.props.filters.includes(bucket.key) || this.state.selectedElements.includes(bucket.key)}
+          onChange={e => {
+            const array = this.state.selectedElements
+            const index = array.indexOf(e.target.value)
+            if (index === -1) {
+              array.push(e.target.value)
+              this.setState({selectedElements: array})
+            } else {
+              array.splice(index, 1)
+              this.setState({selectedElements: array})
+            }
+          }}
+        />
+        <label htmlFor={this.props.filterName+i}>{bucket.key}</label>
+      </li>
+    ))
+
     return (
       <div
         ref={DropdownFilter => {
@@ -47,38 +75,37 @@ class DropdownFilter extends React.Component {
           <i className={`fa fa-${this.props.icon}`} />
         </span>
 
-
         <div
           className={`dropdownContent${this.state.showContent ? '' : ' hidden'}`}
           ref={dropdownContent => this.dropdownContent = dropdownContent}
         >
-
-          {
-            <div className="searchContainer">
-              <input
-                type="submit"
-                value="Apply Filter"
-                onClick={evt => {
-                  this.props.submit(evt, this.props.emitter)
-                }}
-              />
-              {<input type="text" placeholder="..." />}
-            </div>}
-
+          <div className="searchContainer">
+            <input
+              type="submit"
+              value={this.props.translate('Apply Filter')}
+              onClick={evt => {
+                evt.preventDefault()
+                this.setState({search: ''})
+                this.props.submit(evt, this.props.emitter)
+              }}
+            />
+            {<input
+              type="text"
+              placeholder="..."
+              value={this.state.search}
+              onChange={e => this.setState({search: e.target.value})}
+            />}
+          </div>
           <ul>
-            {this.props.aggregations.buckets.map((bucket,i) => (
-              <li key={bucket.key}>
-                <input
-                  type="checkbox"
-                  value={bucket.key}
-                  name={this.props.filterName}
-                  id={this.props.filterName+i}
-                  defaultChecked={this.props.filters.includes(bucket.key)}
-                />
-                <label htmlFor={this.props.filterName+i}>{bucket.key}</label>
-              </li>
-            ))}
-
+            {list.length
+              ? list
+              : (
+                <li>
+                  <label>
+                    {this.props.translate('Nothing Found')}
+                  </label>
+                </li>
+              )}
           </ul>
         </div>
       </div>
@@ -87,7 +114,7 @@ class DropdownFilter extends React.Component {
 }
 
 DropdownFilter.propTypes = {
-  // translate: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   filters: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string.isRequired,
