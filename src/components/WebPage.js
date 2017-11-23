@@ -7,6 +7,7 @@ import translate from './translate'
 import Metadata from './Metadata'
 import { formatURL } from '../common'
 import Link from './Link'
+import Icon from './Icon'
 import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
 
@@ -17,7 +18,12 @@ import schema from '../json/schema.json'
 const getLabel = (translate, value) => {
   if (!value) return ''
   if (typeof value === "object") {
-    return (value["name"] ? translate(value["name"]) : value["@id"])
+    return (
+      <span>
+        <Icon type={value["@type"]} />
+        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
+      </span>
+    )
   } else {
     return translate(`properties.${value}`)
   }
