@@ -61,7 +61,10 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
           </div>
         ): (
           <div className="content">
-            <ActionButtons />
+
+            {!route.path.includes('/country') &&
+              <ActionButtons />
+            }
 
             {data.iso3166 &&
               <Country
