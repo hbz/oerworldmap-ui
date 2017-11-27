@@ -179,7 +179,11 @@ WebPage.propTypes = {
   dateCreated: PropTypes.string.isRequired,
   dateModified: PropTypes.string.isRequired,
   view: PropTypes.string.isRequired,
-  geo: PropTypes.objectOf(PropTypes.any).isRequired
+  geo: PropTypes.objectOf(PropTypes.any)
+}
+
+WebPage.defaultProps = {
+  geo: null,
 }
 
 export default withEmitter(translate(WebPage))
