@@ -187,10 +187,6 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
           }
         </div>
 
-        <div className="clearFilter">
-          <Link href="/resource/">{translate('Filters.clearFilters')}</Link>
-        </div>
-
       </form>
 
     </nav>
