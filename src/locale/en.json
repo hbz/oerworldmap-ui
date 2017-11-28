@@ -85,5 +85,9 @@
     "address": "Address",
     "lat": "Latitude",
     "lon": "Longitude"
+  },
+  "Feed": {
+    "title": "Recent Additions",
+    "more": "more"
   }
 }
