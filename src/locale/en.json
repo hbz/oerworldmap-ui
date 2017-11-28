@@ -85,5 +85,14 @@
     "address": "Address",
     "lat": "Latitude",
     "lon": "Longitude"
+  },
+  "Newsletter": {
+    "title": "Subscribe to the OER World Map Newsletter",
+    "leaveMessage": "Leave your email address so we can keep you posted!",
+    "emailPlaceholder": "Your Email Address ...",
+    "privacyPolicy": "privacy policy",
+    "policyMessage": "Don't worry, we won't put your email address on the map or share it with anyone else - check out our",
+    "subscribe": "Subscribe",
+    "cancel": "Cancel"
   }
 }
