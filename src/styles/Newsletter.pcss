@@ -1,0 +1,28 @@
+@import './Colors.pcss';
+
+.Newsletter {
+  text-align: center;
+  color: var(--blue-dark);
+
+  & .title {
+    text-align: center;
+    color: var(--blue-dark);
+  }
+
+  & input[type="email"] {
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid var(--blue-dark);
+    padding: 10px;
+  }
+
+  & p a {
+    color: var(--blue--dark);
+    text-decoration: underline;
+
+    &:focus,
+    &:hover {
+      color: var(--orange);
+    }
+  }
+}

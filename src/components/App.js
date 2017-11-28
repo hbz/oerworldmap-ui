@@ -18,7 +18,7 @@ import Pagination from './Pagination'
 // import UserForm from './UserForm'
 import Loading from './Loading'
 import Country from './Country'
-
+// import Newsletter from './Newsletter'
 
 const defaultAggregations = {
   'about.@type': {
@@ -111,6 +111,8 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
       )}
 
       <NotificationWelcome data={data} />
+
+      {/* <Newsletter /> */}
       {/* <UserForm /> */}
       <Loading />
 
