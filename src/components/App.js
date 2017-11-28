@@ -112,7 +112,7 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
             />
 
             {/* {route.path.includes('/aggregation') && */}
-              <Statistics aggregations={data.aggregations} />
+            <Statistics aggregations={data.aggregations} />
             {/* } */}
 
           </div>
