@@ -10,6 +10,7 @@ const TARGET = process.env.npm_lifecycle_event
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
+    'babel-polyfill',
     './client.js',
     './views/index.js'
   ],

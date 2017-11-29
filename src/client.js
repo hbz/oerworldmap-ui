@@ -8,37 +8,13 @@ import mitt from 'mitt'
 import { AppContainer } from 'react-hot-loader'
 
 import Init from './components/Init'
-import Api from './api'
+import router from './router'
 import { getTitle, getParams } from './common'
 import './styles/main.pcss'
 
 (function () {
 
-  const renderApp = (state, emitter) => {
-
-    document.title = getTitle(state.data, state.locales)
-
-    state.route = {
-      'path': window.location.pathname,
-      'params': getParams(window.location.search),
-      'hash': window.location.hash.substr(1)
-    }
-
-    ReactDOM.render(
-      <AppContainer>
-        <Init {...state} emitter={emitter} />
-      </AppContainer>,
-      document.getElementById('root')
-    )
-
-    emitter.emit('setLoading', false)
-
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
-
-    const state = window.__APP_INITIAL_STATE__
-    const api = new Api(window.__APP_INITIAL_STATE__.apiConfig)
 
     const emitter = mitt()
     // Log all emissions
@@ -77,25 +53,35 @@ import './styles/main.pcss'
     // Log out of the API
     emitter.on('logout', () => api.logout())
 
-    let current_url = window.location.pathname + window.location.search
+    //let current_url = window.location.pathname + window.location.search
+    const context = {}
+    Object.assign(context, window.__APP_INITIAL_STATE__)
+    context.emitter = emitter
+
     window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
-      if (url !== current_url) {
-        current_url = url
-        emitter.emit('setLoading', true)
-        api.load(url)
-          .then(response => {
-            state.data = response.data
-            state.features = response.data.features || state.features
-            state.user = response.user
-            renderApp(state, emitter)
-          })
-      } else {
-        renderApp(state, emitter)
-      }
+      emitter.emit('setLoading', true)
+      router(context.apiConfig).route(url, context).then(component => {
+        ReactDOM.render(
+          <AppContainer>
+            {component}
+          </AppContainer>,
+          document.getElementById('root')
+        )
+        emitter.emit('setLoading', false)
+      })
     })
 
-    renderApp(window.__APP_INITIAL_STATE__, emitter)
+    const url = window.location.pathname + window.location.search
+    router(context.apiConfig).route(url, context).then(component => {
+      ReactDOM.render(
+        <AppContainer>
+          {component}
+        </AppContainer>,
+        document.getElementById('root')
+      )
+      emitter.emit('setLoading', false)
+    })
 
   })
 })()

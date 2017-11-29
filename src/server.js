@@ -7,8 +7,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
-//import Api from './api'
-import route from './router'
+
+import router from './router'
 import Init from './components/Init'
 import { getTitle } from './common'
 
@@ -59,11 +59,12 @@ server.get(/^(.*)$/, (req, res) => {
     locales.push(defaultLanguage)
   }
   const authorization = req.get('authorization')
-  const context = { locales, authorization }
-  route(req.url, context).then(component => {
+  const context = { locales, authorization, mapboxConfig }
+  router(apiConfig).route(req.url, context).then(component => {
     res.send(template({
       env: process.env.NODE_ENV,
-      body: renderToString(component)
+      body: renderToString(component),
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig})
       //title: getTitle(initialState.data, initialState.locales),
       //initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")
     }))
