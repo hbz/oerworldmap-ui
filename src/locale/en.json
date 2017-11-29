@@ -86,6 +86,10 @@
     "lat": "Latitude",
     "lon": "Longitude"
   },
+  "Feed": {
+    "title": "Recent Additions",
+    "more": "more"
+  },
   "Statistics": {
     "about.@type": "Entries by Type",
     "about.secondarySector.@id": "Entries by secondary education sector",

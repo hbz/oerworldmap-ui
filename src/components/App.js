@@ -18,8 +18,8 @@ import Pagination from './Pagination'
 // import UserForm from './UserForm'
 import Loading from './Loading'
 import Country from './Country'
+// import Feed from './Feed'
 import Statistics from './Statistics'
-
 
 const defaultAggregations = {
   'about.@type': {
@@ -120,6 +120,8 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
       )}
 
       <NotificationWelcome data={data} />
+
+      {/* <Feed member={data.member} /> */}
       {/* <UserForm /> */}
       <Loading />
 
