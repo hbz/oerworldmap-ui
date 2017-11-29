@@ -7,31 +7,32 @@ import '../styles/Pagination.pcss'
 
 const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
-    <div className="Pagination">
-      {previousPage ?
-        (
-          <Link title={translate('Pagination.prevPage')} href={previousPage}><i className="fa fa-arrow-left " /></Link>
-        ) :
-        (
-          <span>&nbsp;</span>
-        )
-      }
-      <div className="numbers">
-        <span>{from}-{parseInt(from)+parseInt(size) >= totalItems
-          ? totalItems
-          : parseInt(from)+parseInt(size)} {translate('Pagination.of')} {totalItems}
-        </span>
-      </div>
-      {nextPage ?
-        (
-          <Link title={translate('Pagination.nextPage')} href={nextPage}><i className="fa fa-arrow-right " /></Link>
-        ) :
-        (
-          <span>&nbsp;</span>
-        )
-      }
+    size > 0 &&
+      <div className="Pagination">
+        {previousPage ?
+          (
+            <Link title={translate('Pagination.prevPage')} href={previousPage}><i className="fa fa-arrow-left " /></Link>
+          ) :
+          (
+            <span>&nbsp;</span>
+          )
+        }
+        <div className="numbers">
+          <span>{from}-{parseInt(from)+parseInt(size) >= totalItems
+            ? totalItems
+            : parseInt(from)+parseInt(size)} {translate('Pagination.of')} {totalItems}
+          </span>
+        </div>
+        {nextPage ?
+          (
+            <Link title={translate('Pagination.nextPage')} href={nextPage}><i className="fa fa-arrow-right " /></Link>
+          ) :
+          (
+            <span>&nbsp;</span>
+          )
+        }
 
-    </div>
+      </div>
   )
 }
 
