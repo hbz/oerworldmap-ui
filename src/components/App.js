@@ -19,6 +19,7 @@ import Pagination from './Pagination'
 import Loading from './Loading'
 import Country from './Country'
 // import Feed from './Feed'
+import Statistics from './Statistics'
 
 const defaultAggregations = {
   'about.@type': {
@@ -61,7 +62,10 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
           </div>
         ): (
           <div className="content">
-            <ActionButtons />
+
+            {!route.path.includes('/country') &&
+              <ActionButtons />
+            }
 
             {data.iso3166 &&
               <Country
@@ -106,6 +110,11 @@ const App = ({ route, data, mapboxConfig, user, features, emitter }) => (
               iso3166={data.iso3166}
               route={route}
             />
+
+            {/* {route.path.includes('/aggregation') && */}
+            <Statistics aggregations={data.aggregations} />
+            {/* } */}
+
           </div>
         )
       )}
