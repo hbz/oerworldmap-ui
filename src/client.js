@@ -58,22 +58,7 @@ import './styles/main.pcss'
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
 
-    window.addEventListener('popstate', () => {
-      const url = window.location.pathname + window.location.search
-      emitter.emit('setLoading', true)
-      router(context.apiConfig).route(url, context).then(component => {
-        ReactDOM.render(
-          <AppContainer>
-            {component}
-          </AppContainer>,
-          document.getElementById('root')
-        )
-        emitter.emit('setLoading', false)
-      })
-    })
-
-    const url = window.location.pathname + window.location.search
-    router(context.apiConfig).route(url, context).then(component => {
+    const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
           {component}
@@ -81,7 +66,25 @@ import './styles/main.pcss'
         document.getElementById('root')
       )
       emitter.emit('setLoading', false)
+      window.location.hash
+        && document.getElementById(window.location.hash.replace('#', ''))
+        && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
+      document.title = title
+    }
+
+    window.addEventListener('popstate', () => {
+      const url = window.location.pathname + window.location.search
+      emitter.emit('setLoading', true)
+      router(context.apiConfig).route(url, context).then(({title, component}) => {
+        renderApp(title, component)
+      })
     })
+
+    const url = window.location.pathname + window.location.search
+    router(context.apiConfig).route(url, context, window.__APP_INITIAL_STATE__.data)
+      .then(({title, component}) => {
+        renderApp(title, component)
+      })
 
   })
 })()

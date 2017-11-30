@@ -60,13 +60,13 @@ server.get(/^(.*)$/, (req, res) => {
   }
   const authorization = req.get('authorization')
   const context = { locales, authorization, mapboxConfig }
-  router(apiConfig).route(req.url, context).then(component => {
+  router(apiConfig).route(req.url, context).then(({title, data, component}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(component),
-      initialState: JSON.stringify({apiConfig, locales, mapboxConfig})
-      //title: getTitle(initialState.data, initialState.locales),
-      //initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data})
+        .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
+      title: title
     }))
   })
 })

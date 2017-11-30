@@ -26,7 +26,8 @@ const ResourceIndex = ({
   previousPage,
   from,
   features,
-  iso3166
+  iso3166,
+  map
 }) => (
   <div>
     <Columns>
@@ -59,7 +60,7 @@ const ResourceIndex = ({
       mapboxConfig={mapboxConfig}
       features={features}
       iso3166={iso3166}
-      route={{params: {map: '-44.67805,43.07440,2'}}}
+      map={map}
     />
   </div>
 
@@ -73,14 +74,14 @@ ResourceIndex.propTypes = {
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
   size: PropTypes.string.isRequired,
   selected: PropTypes.string,
-  totalItems: PropTypes.string.isRequired,
+  totalItems: PropTypes.number.isRequired,
   currentPage: PropTypes.string.isRequired,
   pages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  nextPage: PropTypes.string.isRequired,
-  previousPage: PropTypes.string.isRequired,
+  nextPage: PropTypes.string,
+  previousPage: PropTypes.string,
   from: PropTypes.string.isRequired,
-  features: PropTypes.arrayOf(PropTypes.any).isRequired,
-  iso3166: PropTypes.string.isRequired,
+  features: PropTypes.objectOf(PropTypes.any).isRequired,
+  iso3166: PropTypes.string,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   query: PropTypes.string.isRequired,
 }

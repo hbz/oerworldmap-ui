@@ -27,7 +27,7 @@ export const getTitle = (data, locales=['en']) => (
 export const getParams = (qstring) => {
   const params = {}
   if (qstring) {
-    const q = qstring.substr(1).split('&')
+    const q = qstring.replace('?', '').split('&')
     for (let i = 0; i < q.length; ++i) {
       const [param, val] = q[i].split('=', 2).map(
         s => decodeURIComponent(s).replace(/\+/g, " ")

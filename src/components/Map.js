@@ -12,7 +12,7 @@ import Link from './Link'
 import translate from './translate'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getURL } from '../common'
+import { getParams, getURL } from '../common'
 
 import '../styles/Map.pcss'
 
@@ -38,8 +38,8 @@ class Map extends React.Component {
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = this.props.mapboxConfig.token
 
-    const mapParameters = this.props.route.params.map
-      && this.props.route.params.map.split(',')
+    const mapParameters = this.props.map
+      && this.props.map.split(',')
 
     const center = {}
     if (mapParameters) {
@@ -105,9 +105,14 @@ class Map extends React.Component {
       this.map.on("moveend", (e) => {
         if (!this.props.iso3166) {
           const center = e.target.getCenter()
-          const route = JSON.parse(JSON.stringify(this.props.route))
           center.zoom = e.target.getZoom()
-          route.params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
+          const params = getParams(window.location.search)
+          params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
+          const route = {
+            params,
+            path: window.location.pathname,
+            hash: window.location.hash.replace('#', '')
+          }
           window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
           this.setState({center})
         }
@@ -585,7 +590,7 @@ Map.propTypes = {
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
-  route: PropTypes.objectOf(PropTypes.any).isRequired
+  view: PropTypes.string
 }
 
 Map.defaultProps = {

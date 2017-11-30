@@ -9,7 +9,7 @@ import '../styles/Header.pcss'
 const Header = ({ user, emitter, translate }) => (
   <header className="Header">
     <nav className="mainNav">
-      <Link href="/">
+      <Link href="/resource/">
         <h1>OER WORLD MAP</h1>
       </Link>
       <a

@@ -28,7 +28,7 @@ const App = ({ user, emitter, children }) => (
         {children}
       </div>
 
-      {/* <Loading /> */}
+      <Loading />
 
     </main>
   </div>
