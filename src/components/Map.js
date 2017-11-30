@@ -379,27 +379,34 @@ class Map extends React.Component {
     const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
-      const coutryFeatures = this.map.queryRenderedFeatures({
-        layers:['countries'],
-        filter: ['in', 'iso_a2', iso3166]
-      })
 
-      if (coutryFeatures.length) {
-        const sumCoords = []
+      if (this.map.isStyleLoaded()) {
+        const coutryFeatures = this.map.queryRenderedFeatures({
+          layers:['countries'],
+          filter: ['in', 'iso_a2', iso3166]
+        })
 
-        coutryFeatures.forEach(feature => {
-          feature.geometry.coordinates.forEach(land => {
-            sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
+        if (coutryFeatures.length) {
+          const sumCoords = []
+
+          coutryFeatures.forEach(feature => {
+            feature.geometry.coordinates.forEach(land => {
+              sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
+            })
           })
-        })
 
-        const bounds = sumCoords.reduce(function(bounds, coord) {
-          return bounds.extend(coord)
-        }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+          const bounds = sumCoords.reduce(function(bounds, coord) {
+            return bounds.extend(coord)
+          }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
-        this.map.fitBounds(bounds, {
-          padding: 20
-        })
+          this.map.fitBounds(bounds, {
+            padding: 20
+          })
+        }
+      } else {
+        window.setTimeout(()=> {
+          this.updateZoom(iso3166)
+        }, 500)
       }
     } else {
       if (Object.keys(this.state.center).length) {
@@ -475,6 +482,10 @@ class Map extends React.Component {
       regionBuckets.forEach(function(bucket) {
         stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / regionSteps)]])
       })
+
+      // In case of not having any stops, set an empty
+      if (stops.length === 0)
+        stops.push(['none', 'rgba(255, 255, 255, 1)'])
 
       this.map.setPaintProperty('Regions', 'fill-color', {
         "property": 'code_hasc',
