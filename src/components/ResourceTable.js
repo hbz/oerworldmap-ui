@@ -45,8 +45,9 @@ class ResourceTable extends React.Component {
       label = this.props.translate(value.name)
       value = value['@id']
     } else if (definition.translate) {
-      definition.type = 'string'
-      value = this.props.translate(value)
+      //FIXME: do not (never!) modify schema in place
+      //definition.type = 'string'
+      //value = this.props.translate(value)
     }
 
     if (!definition.type && definition.enum) {

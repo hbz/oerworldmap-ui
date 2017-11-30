@@ -17,16 +17,18 @@ import './styles/main.pcss'
   document.addEventListener('DOMContentLoaded', () => {
 
     const emitter = mitt()
+    const context = {}
+    Object.assign(context, window.__APP_INITIAL_STATE__)
+    context.emitter = emitter
+
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
     // Save data to the API
-    emitter.on('save', data => api.save(data)
-      .then(response => {
-        state.data = response.data
-        state.user = response.user
-        renderApp(state, emitter)
+    emitter.on('save', data => {
+      router(context.apiConfig).route('/resource/', context).post(data).then(({title, component}) => {
+        renderApp(title, component)
       })
-    )
+    })
     // Transition to a new URL
     emitter.on('navigate', url => {
       const actualUrl = url.startsWith('#')
@@ -53,11 +55,6 @@ import './styles/main.pcss'
     // Log out of the API
     emitter.on('logout', () => api.logout())
 
-    //let current_url = window.location.pathname + window.location.search
-    const context = {}
-    Object.assign(context, window.__APP_INITIAL_STATE__)
-    context.emitter = emitter
-
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
@@ -73,15 +70,17 @@ import './styles/main.pcss'
     }
 
     window.addEventListener('popstate', () => {
-      const url = window.location.pathname + window.location.search
+      const url = window.location.pathname
+      const params = getParams(window.location.search)
       emitter.emit('setLoading', true)
-      router(context.apiConfig).route(url, context).then(({title, component}) => {
+      router(context.apiConfig).route(url, context).get(params).then(({title, component}) => {
         renderApp(title, component)
       })
     })
 
-    const url = window.location.pathname + window.location.search
-    router(context.apiConfig).route(url, context, window.__APP_INITIAL_STATE__.data)
+    const url = window.location.pathname
+    const params = getParams(window.location.search)
+    router(context.apiConfig).route(url, context, window.__APP_INITIAL_STATE__.data).get(params)
       .then(({title, component}) => {
         renderApp(title, component)
       })

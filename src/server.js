@@ -60,7 +60,7 @@ server.get(/^(.*)$/, (req, res) => {
   }
   const authorization = req.get('authorization')
   const context = { locales, authorization, mapboxConfig }
-  router(apiConfig).route(req.url, context).then(({title, data, component}) => {
+  router(apiConfig).route(req.path, context).get(req.params).then(({title, data, component}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(component),

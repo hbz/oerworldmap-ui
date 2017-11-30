@@ -21,7 +21,7 @@ export default function (apiConfig) {
   const routes = [
     {
       path: '/resource/',
-      async action(params, context, state) {
+      async get(params, context, state) {
         const url = getURL({ path: '/resource/', params })
         const data = state || await api.load(url, context.authorization)
         const component = (
@@ -35,11 +35,21 @@ export default function (apiConfig) {
           </ResourceIndex>
         )
         return { title: 'ResourceIndex', data, component }
+      },
+      async post(params, context) {
+        const data = await api.save(params)
+        const component = (
+          <WebPage
+            {...data}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
+        )
+        return { title: 'Updated WebPage', data, component }
       }
     },
     {
       path: '/resource/:id',
-      async action(params, context, state) {
+      async get(params, context, state) {
         const data = state || await api.load(`/resource/${params.id}`, context.authorization)
         const component = (
           <WebPage
@@ -52,7 +62,7 @@ export default function (apiConfig) {
     },
     {
       'path': '/country/:id',
-      async action(params, context, state) {
+      async get(params, context, state) {
         const url = getURL({ path: `/country/${params.id}`, params })
         const data = state || await api.load(url, context.authorization)
         const component = (
@@ -69,7 +79,7 @@ export default function (apiConfig) {
     },
     {
       'path': '/aggregation/',
-      async action(params, context, state) {
+      async get(params, context, state) {
         const data = state || await api.load('/aggregation/', context.authorization)
         const component = <Statistics aggregations={data} />
         return { title: 'Aggregation', data, component }
@@ -77,7 +87,7 @@ export default function (apiConfig) {
     },
     {
       'path': '/feed/',
-      async action(params, context, state) {
+      async get(params, context, state) {
         const data = state || await api.load('/resource/?size=20&sort=dateCreated:desc', context.authorization)
         const component = <Feed {...data} />
         return { title: 'Feed', data, component }
@@ -88,45 +98,58 @@ export default function (apiConfig) {
   const matchURI = (path, uri) => {
     const keys = [];
     const pattern = toRegExp(path, keys);
-    const [p, q] = uri.split("?")
-    const match = pattern.exec(p);
+    const match = pattern.exec(uri);
     if (!match) return null;
     const params = Object.create(null);
     for (let i = 1; i < match.length; i++) {
       params[keys[i - 1].name] =
         match[i] !== undefined ? match[i] : undefined;
     }
-    Object.assign(params, getParams(q))
     return params;
   }
 
-  return {
-    async route(uri, context, state) {
-      const [user, ...rest] = context.authorization
-        ? new Buffer(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
-      try {
-        for (const route of routes) {
-          const params = matchURI(route.path, uri)
-          if (params === null) continue
-          const result = await route.action(params, context, state)
-          if (result) {
-            result.component = <Init {...context} user={user}>{result.component}</Init>
-            return result
-          }
+  async function handle(method, uri, context, state, params) {
+    const [user, ...rest] = context.authorization
+      ? new Buffer(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
+    try {
+      for (const route of routes) {
+        const uriParams = matchURI(route.path, uri)
+        if (uriParams === null) continue
+        if (typeof route[method] !== 'function') {
+          throw "Method not implemented"
         }
-      } catch (err) {
-        console.error(err)
-        return {
-          title: 'Error',
-          data: err,
-          component: <pre>{JSON.stringify(err, null, 2)}</pre>
+        Object.assign(params, uriParams)
+        const result = await route[method](params, context, state)
+        if (result) {
+          result.component = <Init {...context} user={user}>{result.component}</Init>
+          return result
         }
       }
-      // 404
+    } catch (err) {
+      console.error(err)
       return {
-        title: 'Not found',
-        data: {},
-        component: <h1>Page not found</h1>
+        title: 'Error',
+        data: err,
+        component: <pre>{JSON.stringify(err, null, 2)}</pre>
+      }
+    }
+    // 404
+    return {
+      title: 'Not found',
+      data: {},
+      component: <h1>Page not found</h1>
+    }
+  }
+
+  return {
+    route: function(uri, context, state) {
+      return {
+        get: async function(params) {
+          return handle("get", uri, context, state, params)
+        },
+        post: async function(params) {
+          return handle("post", uri, context, state, params)
+        }
       }
     }
   }

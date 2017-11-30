@@ -45,15 +45,6 @@ class Api {
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
-      .catch(err => {
-        console.error("Error saving to " + url, err)
-        return Promise.resolve({
-          data: {
-            '@type': 'ErrorPage',
-            'message': err.message
-          }
-        })
-      })
   }
 
   load (url, authorization) {
@@ -79,14 +70,6 @@ class Api {
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)
-      .catch(err => {
-        console.error("Error loading " + url, err)
-        return Promise.resolve({
-          data: {
-            member: []
-          }
-        })
-      })
   }
 
   vocab (url) {
