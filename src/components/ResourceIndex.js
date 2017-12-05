@@ -27,7 +27,8 @@ const ResourceIndex = ({
   from,
   features,
   iso3166,
-  map
+  map,
+  children
 }) => (
   <div>
     <Columns>
@@ -62,6 +63,9 @@ const ResourceIndex = ({
       iso3166={iso3166}
       map={map}
     />
+
+    {children}
+
   </div>
 
 )
@@ -84,6 +88,7 @@ ResourceIndex.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   query: PropTypes.string,
   map: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 ResourceIndex.defaultProps = {
