@@ -72,7 +72,10 @@ class DropdownFilter extends React.Component {
         <span
           className="btn expand"
         >
-          <i className={`fa fa-${this.props.icon}`} />
+          <span className="btnText">
+            {(this.state.selectedElements.join(', '))
+            ||  (<i className={`fa fa-${this.props.icon}`} />)}
+          </span>
         </span>
 
         <div

@@ -3,13 +3,12 @@
 .DropdownFilter {
   display: inline-block;
 
-  /* & > input[type=checkbox] {
-    display: none;
-
-    &:checked ~ .dropdownContent {
-      display: block;
-    }
-  } */
+  & .btn.expand {
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   & .dropdownContent {
     right: 0;
