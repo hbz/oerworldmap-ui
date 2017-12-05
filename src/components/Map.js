@@ -590,11 +590,12 @@ Map.propTypes = {
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
-  view: PropTypes.string
+  map: PropTypes.string,
 }
 
 Map.defaultProps = {
   iso3166: null,
+  map: null,
 }
 
 export default withEmitter(translate(Map))

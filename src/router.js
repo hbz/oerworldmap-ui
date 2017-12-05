@@ -1,18 +1,17 @@
+/* global window */
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import toRegExp from 'path-to-regexp'
 
 import Init from './components/Init'
-import App from './components/App'
 import WebPage from './components/WebPage'
 import ActionButtons from './components/ActionButtons'
-import ErrorPage from './components/ErrorPage'
 import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
 import Api from './api'
-import { getURL, getParams } from './common'
+import { getURL } from './common'
 
 export default function (apiConfig) {
 
@@ -36,7 +35,7 @@ export default function (apiConfig) {
         )
         return { title: 'ResourceIndex', data, component }
       },
-      async post(params, context) {
+      async post(params) {
         const data = await api.save(params)
         const component = (
           <WebPage
@@ -71,7 +70,7 @@ export default function (apiConfig) {
             mapboxConfig={context.mapboxConfig}
             selected={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
-            <Country {...data}/>
+            <Country {...data} />
           </ResourceIndex>
         )
         return { title: 'Country', data, component }
@@ -96,21 +95,21 @@ export default function (apiConfig) {
   ]
 
   const matchURI = (path, uri) => {
-    const keys = [];
-    const pattern = toRegExp(path, keys);
-    const match = pattern.exec(uri);
-    if (!match) return null;
-    const params = Object.create(null);
+    const keys = []
+    const pattern = toRegExp(path, keys)
+    const match = pattern.exec(uri)
+    if (!match) return null
+    const params = Object.create(null)
     for (let i = 1; i < match.length; i++) {
       params[keys[i - 1].name] =
-        match[i] !== undefined ? match[i] : undefined;
+        match[i] !== undefined ? match[i] : undefined
     }
-    return params;
+    return params
   }
 
   async function handle(method, uri, context, state, params) {
-    const [user, ...rest] = context.authorization
-      ? new Buffer(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
+    const [user] = context.authorization
+      ? Buffer.from(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
     try {
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -142,16 +141,16 @@ export default function (apiConfig) {
   }
 
   return {
-    route: function(uri, context, state) {
-      return {
-        get: async function(params) {
-          return handle("get", uri, context, state, params)
-        },
-        post: async function(params) {
-          return handle("post", uri, context, state, params)
-        }
+    route: (uri, context, state) => (
+      {
+        get: async (params) => (
+          handle("get", uri, context, state, params)
+        ),
+        post: async (params) => (
+          handle("post", uri, context, state, params)
+        )
       }
-    }
+    )
   }
 
 }

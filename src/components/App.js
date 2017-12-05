@@ -36,7 +36,8 @@ const App = ({ user, emitter, children }) => (
 
 App.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 App.defaultProps = {

@@ -17,7 +17,8 @@ const Init = ({locales, emitter, user, children}) => (
 Init.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any),
-  user: PropTypes.string
+  user: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 Init.defaultProps = {

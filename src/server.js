@@ -1,4 +1,3 @@
-import React from 'react'
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -7,10 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
-
 import router from './router'
-import Init from './components/Init'
-import { getTitle } from './common'
 
 import Config, { mapboxConfig, apiConfig } from '../config'
 
@@ -66,7 +62,7 @@ server.get(/^(.*)$/, (req, res) => {
       body: renderToString(component),
       initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
-      title: title
+      title
     }))
   })
 })

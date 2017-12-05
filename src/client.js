@@ -7,19 +7,36 @@ import 'normalize.css'
 import mitt from 'mitt'
 import { AppContainer } from 'react-hot-loader'
 
-import Init from './components/Init'
 import router from './router'
-import { getTitle, getParams } from './common'
+import { getParams } from './common'
 import './styles/main.pcss'
+import Api from './api'
 
 (function () {
 
   document.addEventListener('DOMContentLoaded', () => {
 
+
     const emitter = mitt()
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
+
+    const api = new Api(context.apiConfig)
+
+    const renderApp = (title, component) => {
+      ReactDOM.render(
+        <AppContainer>
+          {component}
+        </AppContainer>,
+        document.getElementById('root')
+      )
+      emitter.emit('setLoading', false)
+      window.location.hash
+        && document.getElementById(window.location.hash.replace('#', ''))
+        && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
+      document.title = title
+    }
 
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
@@ -54,20 +71,6 @@ import './styles/main.pcss'
     emitter.on('login', () => api.login())
     // Log out of the API
     emitter.on('logout', () => api.logout())
-
-    const renderApp = (title, component) => {
-      ReactDOM.render(
-        <AppContainer>
-          {component}
-        </AppContainer>,
-        document.getElementById('root')
-      )
-      emitter.emit('setLoading', false)
-      window.location.hash
-        && document.getElementById(window.location.hash.replace('#', ''))
-        && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
-      document.title = title
-    }
 
     window.addEventListener('popstate', () => {
       const url = window.location.pathname

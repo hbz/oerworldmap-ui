@@ -68,7 +68,6 @@ const ResourceIndex = ({
 
 ResourceIndex.propTypes = {
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  query: PropTypes.string,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -83,12 +82,17 @@ ResourceIndex.propTypes = {
   features: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  query: PropTypes.string.isRequired,
+  query: PropTypes.string,
+  map: PropTypes.string,
 }
 
 ResourceIndex.defaultProps = {
   query: '',
-  selected: ''
+  selected: '',
+  map: null,
+  nextPage: null,
+  previousPage: null,
+  iso3166: ''
 }
 
 export default withEmitter(ResourceIndex)
