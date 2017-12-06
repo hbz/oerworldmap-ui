@@ -53,7 +53,7 @@ class DropdownFilter extends React.Component {
             }
           }}
         />
-        <label htmlFor={this.props.filterName+i}>{bucket.key}</label>
+        <label htmlFor={this.props.filterName+i}>{`${this.props.translate(bucket.key)} (${bucket.doc_count})` } </label>
       </li>
     ))
 
