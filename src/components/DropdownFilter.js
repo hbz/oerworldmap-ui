@@ -70,7 +70,7 @@ class DropdownFilter extends React.Component {
         className="DropdownFilter"
       >
         <span
-          className="btn expand"
+          className={`btn expand${this.props.filters.length ? ' inUse' : ''}`}
         >
           <span className="btnText">
             {
