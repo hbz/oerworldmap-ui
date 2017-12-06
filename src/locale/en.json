@@ -29,6 +29,8 @@
     "about.audience.@id": "Audience",
     "about.award": "Award",
     "about.about.@id": "Subject",
+    "about.award": "Award",
+    "about.license.@id": "License",
     "about.availableChannel.availableLanguage": "Language"
   },
   "PagedCollection": {

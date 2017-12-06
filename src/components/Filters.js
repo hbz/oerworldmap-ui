@@ -51,7 +51,13 @@ const dropdownFilters = [
   },
   {
     name: "about.about.@id",
-  }
+  },
+  {
+    name: "about.award",
+  },
+  {
+    name: "about.license.@id",
+  },
 ]
 
 const Filters = ({query, filters, aggregations, emitter, extended, translate, member, size}) => {
