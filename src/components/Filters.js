@@ -146,7 +146,7 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
                   key={f.name}
                   icon={f.icon}
                   aggregations={aggregations[f.name]}
-                  filters={filters.length ? filters[f.name] : []}
+                  filters={filters[f.name] ? filters[f.name] : []}
                   filterName={`filter.${f.name}`}
                   submit={onSubmit}
                 />
