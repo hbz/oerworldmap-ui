@@ -73,11 +73,13 @@ class DropdownFilter extends React.Component {
           className={`btn expand${this.props.filters.length ? ' inUse' : ''}`}
         >
           <span className="btnText">
-            {
-              (this.state.selectedElements.join(', '))
+            {this.props.icon ? (
+              <i className={`fa fa-${this.props.icon}`} />
+            ) : (
+              this.state.selectedElements.join(', ')
               || (this.props.filters.join(', '))
-              || (<i className={`fa fa-${this.props.icon}`} />)
-            }
+              || this.props.translate(`Dropdown${this.props.filterName}`)
+            )}
           </span>
         </span>
 
@@ -123,10 +125,14 @@ DropdownFilter.propTypes = {
   translate: PropTypes.func.isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   filters: PropTypes.arrayOf(PropTypes.any).isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
+}
+
+DropdownFilter.defaultProps = {
+  icon: null,
 }
 
 export default withEmitter(translate(DropdownFilter))
