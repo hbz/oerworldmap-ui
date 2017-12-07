@@ -112,5 +112,12 @@
     "about.agent.location.address.addressCountry": "Projects by Participant's Countries",
     "about.audience.@id": "Services by Audience",
     "about.primarySector.@id": "Entries by primary education sector"
+  },
+  "Register": {
+    "login": "Login",
+    "loginInfo": "When you click the login button your browser will present you a popup where you can enter your email address and password",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordInfo": "Enter your email address, we will send you a temporary password",
+    "register": "Register"
   }
 }
