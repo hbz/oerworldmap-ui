@@ -105,8 +105,6 @@ export default (api) => {
   }
 
   const handle = async (method, uri, context, state, params) => {
-    const [user] = context.authorization
-      ? Buffer.from(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
     try {
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -117,7 +115,7 @@ export default (api) => {
         Object.assign(params, uriParams)
         const result = await route[method](params, context, state)
         if (result) {
-          result.component = <Init {...context} user={user}>{result.component}</Init>
+          result.component = <Init {...context}>{result.component}</Init>
           return result
         }
       }
