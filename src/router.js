@@ -10,6 +10,7 @@ import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
+import Register from './components/Register'
 import { getURL } from './common'
 
 export default (api) => {
@@ -88,7 +89,18 @@ export default (api) => {
         const component = <Feed {...data} />
         return { title: 'Feed', data, component }
       }
-    }
+    },
+    {
+      path: '/user/register',
+      get: async (params, context, state) => {
+        // const url = getURL({ path: `/country/${params.id}`, params })
+        const data = state
+        const component = (
+          <Register />
+        )
+        return { title: 'Registration', data, component }
+      }
+    },
   ]
 
   const matchURI = (path, uri) => {
