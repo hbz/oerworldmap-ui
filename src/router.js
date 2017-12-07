@@ -20,7 +20,7 @@ export default function (apiConfig) {
   const routes = [
     {
       path: '/resource/',
-      async get(params, context, state) {
+      get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
         const data = state || await api.load(url, context.authorization)
         const component = (
@@ -35,7 +35,7 @@ export default function (apiConfig) {
         )
         return { title: 'ResourceIndex', data, component }
       },
-      async post(params) {
+      post: async (params) => {
         const data = await api.save(params)
         const component = (
           <WebPage
@@ -48,7 +48,7 @@ export default function (apiConfig) {
     },
     {
       path: '/resource/:id',
-      async get(params, context, state) {
+      get: async (params, context, state) => {
         const data = state || await api.load(`/resource/${params.id}`, context.authorization)
         const component = (
           <WebPage
@@ -60,8 +60,8 @@ export default function (apiConfig) {
       }
     },
     {
-      'path': '/country/:id',
-      async get(params, context, state) {
+      path: '/country/:id',
+      get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })
         const data = state || await api.load(url, context.authorization)
         const component = (
@@ -77,16 +77,16 @@ export default function (apiConfig) {
       }
     },
     {
-      'path': '/aggregation/',
-      async get(params, context, state) {
+      path: '/aggregation/',
+      get: async (params, context, state) => {
         const data = state || await api.load('/aggregation/', context.authorization)
         const component = <Statistics aggregations={data} />
         return { title: 'Aggregation', data, component }
       }
     },
     {
-      'path': '/feed/',
-      async get(params, context, state) {
+      path: '/feed/',
+      get: async (params, context, state) => {
         const data = state || await api.load('/resource/?size=20&sort=dateCreated:desc', context.authorization)
         const component = <Feed {...data} />
         return { title: 'Feed', data, component }
@@ -107,7 +107,7 @@ export default function (apiConfig) {
     return params
   }
 
-  async function handle(method, uri, context, state, params) {
+  const handle = async (method, uri, context, state, params) => {
     const [user] = context.authorization
       ? Buffer.from(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
     try {
