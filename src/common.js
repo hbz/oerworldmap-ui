@@ -48,11 +48,11 @@ export const getParams = (qstring) => {
 
 export const getURL = (route) => {
   let url = route.path
-  const params = []
+  let params = []
   for (const param in route.params) {
     const value = route.params[param]
     if (Array.isArray(value)) {
-      params.concat(value.map(value => `${param}=${value}`))
+      params = params.concat(value.map(value => `${param}=${value}`))
     } else {
       params.push(`${param}=${value}`)
     }
