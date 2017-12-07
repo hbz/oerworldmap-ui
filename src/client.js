@@ -42,7 +42,7 @@ import Api from './api'
     emitter.on('*', (type, e) => console.info(type, e))
     // Save data to the API
     emitter.on('save', data => {
-      router(context.apiConfig).route('/resource/', context).post(data).then(({title, component}) => {
+      router(api).route('/resource/', context).post(data).then(({title, component}) => {
         renderApp(title, component)
       })
     })
@@ -64,7 +64,7 @@ import Api from './api'
           callback(response.data)
         })
       } else {
-        api.find(term, schema.properties['@type'].enum).then(response => callback(response.data))
+        api.find(term, schema.properties['@type'].enum).then(response => callback(response))
       }
     })
     // Log in to the API
@@ -76,14 +76,14 @@ import Api from './api'
       const url = window.location.pathname
       const params = getParams(window.location.search)
       emitter.emit('setLoading', true)
-      router(context.apiConfig).route(url, context).get(params).then(({title, component}) => {
+      router(api).route(url, context).get(params).then(({title, component}) => {
         renderApp(title, component)
       })
     })
 
     const url = window.location.pathname
     const params = getParams(window.location.search)
-    router(context.apiConfig).route(url, context, window.__APP_INITIAL_STATE__.data).get(params)
+    router(api).route(url, context, window.__APP_INITIAL_STATE__.data).get(params)
       .then(({title, component}) => {
         renderApp(title, component)
       })

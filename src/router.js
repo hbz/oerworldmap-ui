@@ -10,12 +10,9 @@ import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
-import Api from './api'
 import { getURL } from './common'
 
-export default function (apiConfig) {
-
-  const api = new Api(apiConfig)
+export default (api) => {
 
   const routes = [
     {

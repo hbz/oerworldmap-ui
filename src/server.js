@@ -7,10 +7,12 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import router from './router'
+import Api from './api'
 
 import Config, { mapboxConfig, apiConfig } from '../config'
 
 const server = express()
+const api = new Api(apiConfig)
 
 server.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -56,7 +58,7 @@ server.get(/^(.*)$/, (req, res) => {
   }
   const authorization = req.get('authorization')
   const context = { locales, authorization, mapboxConfig }
-  router(apiConfig).route(req.path, context).get(req.params).then(({title, data, component}) => {
+  router(api).route(req.path, context).get(req.params).then(({title, data, component}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(component),
