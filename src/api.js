@@ -107,22 +107,6 @@ class Api {
     }
   }
 
-  login () {
-    const request = new XMLHttpRequest()
-    request.open('GET', `http://${this.host}:${this.port}/.login`, false)
-    request.send(null)
-    window.location.reload()
-  }
-
-  logout () {
-    if (!document.execCommand("ClearAuthenticationCache")) {
-      const request = new XMLHttpRequest()
-      request.open('GET', `http://logout@${this.host}:${this.port}/.logout`, false)
-      request.send(null)
-    }
-    window.location.reload()
-  }
-
 }
 
 export default Api

@@ -67,10 +67,23 @@ import Api from './api'
         api.find(term, schema.properties['@type'].enum).then(response => callback(response))
       }
     })
-    // Log in to the API
-    emitter.on('login', () => api.login())
-    // Log out of the API
-    emitter.on('logout', () => api.logout())
+    // Log in
+    emitter.on('login', () => {
+      const request = new XMLHttpRequest()
+      request.open('GET', '/.login', false)
+      request.send(null)
+      window.location.reload()
+    })
+    // Log out
+    emitter.on('logout', () => {
+      if (!document.execCommand("ClearAuthenticationCache")) {
+        const request = new XMLHttpRequest()
+        const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
+        request.open('GET', url, false)
+        request.send(null)
+      }
+      window.location.reload()
+    })
 
     window.addEventListener('popstate', () => {
       const url = window.location.pathname
