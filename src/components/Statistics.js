@@ -64,15 +64,21 @@ const Statistics = ({translate, aggregations, emitter}) => (
       <h1 className="title">Global Statistics</h1>
       <div className="links">
         {charts.map(aggregation => (
-          <Link href={`#${aggregation}`}>{translate(`Statistics.${aggregation}`)}</Link>
+          <Link key={aggregation} href={`#${aggregation}`}>
+            {translate(`Statistics.${aggregation}`)}
+          </Link>
         ))}
       </div>
       {charts.map(aggregation => (
         aggregations[aggregation] &&
-          <div className="chartContainer" key={aggregation} id={`#${aggregation}`}>
+          <div className="chartContainer" key={aggregation} id={aggregation}>
             <h2>{translate(`Statistics.${aggregation}`)}</h2>
             <div className="graph">
-              <PieChart emitter={emitter} name={aggregation} buckets={aggregations[aggregation].buckets} />
+              <PieChart
+                emitter={emitter}
+                name={aggregation}
+                buckets={aggregations[aggregation].buckets}
+              />
             </div>
             <ul>
               {aggregations[aggregation].buckets.map(bucket => (
@@ -95,8 +101,8 @@ const Statistics = ({translate, aggregations, emitter}) => (
 
 Statistics.propTypes = {
   translate: PropTypes.func.isRequired,
-  aggregations: PropTypes.arrayOf(PropTypes.any).isRequired,
-  emitter: PropTypes.func.isRequired,
+  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(translate(Statistics))

@@ -4,27 +4,30 @@ import I18nProvider from './I18nProvider'
 import EmittProvider from './EmittProvider'
 import App from './App'
 
-const Init = ({route, locales, emitter, data, mapboxConfig, user, features }) => (
+const Init = ({locales, emitter, user, children}) => (
   <I18nProvider locales={locales}>
     <EmittProvider emitter={emitter}>
-      <App route={route} data={data} user={user} features={features} mapboxConfig={mapboxConfig} />
+      <App user={user}>
+        {children}
+      </App>
     </EmittProvider>
   </I18nProvider>
 )
 
 Init.propTypes = {
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
-  features: PropTypes.objectOf(PropTypes.any),
-  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.string,
-  route: PropTypes.objectOf(PropTypes.any).isRequired
+  children: PropTypes.node.isRequired
 }
 
 Init.defaultProps = {
   user: null,
-  features: null
+  emitter: {
+    on: (event, handler) => console.log("Registered", event, handler),
+    off: (event, handler) => console.log("Unregistered", event, handler),
+    emit: (event, payload) => console.log("Triggered", event, payload)
+  }
 }
 
 export default Init

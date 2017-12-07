@@ -59,7 +59,7 @@ const dropdownFilters = [
   }
 ]
 
-const Filters = ({query, filters, aggregations, emitter, extended, translate, member, size}) => {
+const Filters = ({query, filters, aggregations, emitter, translate, member, size}) => {
 
   let sizes = [10,20,50,100,200]
 
@@ -73,26 +73,22 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
 
       <form action="" onSubmit={(evt) => onSubmit(evt, emitter)}>
         <div className="FiltersControls">
-          {extended ? (
-            <div className="filterSearch">
-              <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
-              <Tooltip
-                message={translate('Filters.showList')}
-                placement='bottom'
-                tooltipClassName='Tooltip'
-                arrowColor='#646464'
-              >
-                <i className="fa fa-th-list" />
-              </Tooltip>
-            </div>
-
-          ) : (
+          <div className="filterSearch">
+            <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
+            <Tooltip
+              message={translate('Filters.showList')}
+              placement='bottom'
+              tooltipClassName='Tooltip'
+              arrowColor='#646464'
+            >
+              <i className="fa fa-th-list" />
+            </Tooltip>
             <noscript>
               <div className="search-bar">
                 <input type="submit" className="btn" />
               </div>
             </noscript>
-          )}
+          </div>
 
           <div className="filterType">
             <div>
@@ -162,29 +158,27 @@ const Filters = ({query, filters, aggregations, emitter, extended, translate, me
         </div>
 
         <div className="sortContainer">
-          {extended &&
-            <PagedCollection size={size} member={member}>
-              <select
-                name="sort"
-                className="styledSelect"
-                style={{width: (translate('Filters.relevance').length * 8)+15}}
-                onChange={(evt) => {
-                  evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
-                  onSubmit(evt, emitter)
-                }}
-              >
-                <option value="">{translate('Filters.relevance')}</option>
-                <option value="dateCreated:ASC">{translate('Filters.dateCreated')}</option>
-              </select>
+          <PagedCollection size={size} member={member}>
+            <select
+              name="sort"
+              className="styledSelect"
+              style={{width: (translate('Filters.relevance').length * 8)+15}}
+              onChange={(evt) => {
+                evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                onSubmit(evt, emitter)
+              }}
+            >
+              <option value="">{translate('Filters.relevance')}</option>
+              <option value="dateCreated:ASC">{translate('Filters.dateCreated')}</option>
+            </select>
 
-              <select onChange={e => onSubmit(e, emitter)} className="btn" name="size" value={size}>
-                {sizes.map(number => (
-                  <option key={number} value={number}>{number}</option>
-                ))}
-                <option value="-1">All</option>
-              </select>
-            </PagedCollection>
-          }
+            <select onChange={e => onSubmit(e, emitter)} className="btn" name="size" value={size}>
+              {sizes.map(number => (
+                <option key={number} value={number}>{number}</option>
+              ))}
+              <option value="-1">All</option>
+            </select>
+          </PagedCollection>
         </div>
 
       </form>
@@ -198,7 +192,6 @@ Filters.propTypes = {
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  extended: PropTypes.bool.isRequired,
   translate: PropTypes.func.isRequired,
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
   size: PropTypes.number.isRequired

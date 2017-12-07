@@ -1,4 +1,3 @@
-import React from 'react'
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -7,13 +6,13 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
+import router from './router'
 import Api from './api'
-import Init from './components/Init'
-import { getTitle } from './common'
 
 import Config, { mapboxConfig, apiConfig } from '../config'
 
 const server = express()
+const api = new Api(apiConfig)
 
 server.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -51,35 +50,23 @@ server.get(/^(.*)$/, (req, res) => {
     ? req.headers['accept-language'].split(',').map(language => {
       return language.split(';')[0]
     }) : [defaultLanguage]
-  const acceptedLanguages = requestedLanguages.filter(language => {
+  const locales = requestedLanguages.filter(language => {
     return supportedLanguages.includes(language)
   })
-  if (!acceptedLanguages.includes(defaultLanguage)) {
-    acceptedLanguages.push(defaultLanguage)
+  if (!locales.includes(defaultLanguage)) {
+    locales.push(defaultLanguage)
   }
-  const api = new Api(apiConfig)
-  api.load(req.url, req.get('authorization'))
-    .then(response => {
-      const initialState = {
-        data: response.data,
-        features: response.data.features,
-        user: response.user,
-        locales: acceptedLanguages,
-        mapboxConfig,
-        apiConfig,
-        route: {
-          path: req.path,
-          params: req.query,
-          hash: ""
-        }
-      }
-      res.send(template({
-        env: process.env.NODE_ENV,
-        body: renderToString(<Init {...initialState} emitter={{}} />),
-        title: getTitle(initialState.data, initialState.locales),
-        initialState: JSON.stringify(initialState).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")
-      }))
-    })
+  const authorization = req.get('authorization')
+  const context = { locales, authorization, mapboxConfig }
+  router(api).route(req.path, context).get(req.params).then(({title, data, component}) => {
+    res.send(template({
+      env: process.env.NODE_ENV,
+      body: renderToString(component),
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data})
+        .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
+      title
+    }))
+  })
 })
 
 server.listen(Config.port, Config.host, function () {

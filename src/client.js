@@ -7,50 +7,45 @@ import 'normalize.css'
 import mitt from 'mitt'
 import { AppContainer } from 'react-hot-loader'
 
-import Init from './components/Init'
-import Api from './api'
-import { getTitle, getParams } from './common'
+import router from './router'
+import { getParams } from './common'
 import './styles/main.pcss'
+import Api from './api'
 
 (function () {
 
-  const renderApp = (state, emitter) => {
-
-    document.title = getTitle(state.data, state.locales)
-
-    state.route = {
-      'path': window.location.pathname,
-      'params': getParams(window.location.search),
-      'hash': window.location.hash.substr(1)
-    }
-
-    ReactDOM.render(
-      <AppContainer>
-        <Init {...state} emitter={emitter} />
-      </AppContainer>,
-      document.getElementById('root')
-    )
-
-    emitter.emit('setLoading', false)
-
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
 
-    const state = window.__APP_INITIAL_STATE__
-    const api = new Api(window.__APP_INITIAL_STATE__.apiConfig)
 
     const emitter = mitt()
+    const context = {}
+    Object.assign(context, window.__APP_INITIAL_STATE__)
+    context.emitter = emitter
+
+    const api = new Api(context.apiConfig)
+
+    const renderApp = (title, component) => {
+      ReactDOM.render(
+        <AppContainer>
+          {component}
+        </AppContainer>,
+        document.getElementById('root')
+      )
+      emitter.emit('setLoading', false)
+      window.location.hash
+        && document.getElementById(window.location.hash.replace('#', ''))
+        && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
+      document.title = title
+    }
+
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
     // Save data to the API
-    emitter.on('save', data => api.save(data)
-      .then(response => {
-        state.data = response.data
-        state.user = response.user
-        renderApp(state, emitter)
+    emitter.on('save', data => {
+      router(api).route('/resource/', context).post(data).then(({title, component}) => {
+        renderApp(title, component)
       })
-    )
+    })
     // Transition to a new URL
     emitter.on('navigate', url => {
       const actualUrl = url.startsWith('#')
@@ -69,7 +64,7 @@ import './styles/main.pcss'
           callback(response.data)
         })
       } else {
-        api.find(term, schema.properties['@type'].enum).then(response => callback(response.data))
+        api.find(term, schema.properties['@type'].enum).then(response => callback(response))
       }
     })
     // Log in to the API
@@ -77,25 +72,21 @@ import './styles/main.pcss'
     // Log out of the API
     emitter.on('logout', () => api.logout())
 
-    let current_url = window.location.pathname + window.location.search
     window.addEventListener('popstate', () => {
-      const url = window.location.pathname + window.location.search
-      if (url !== current_url) {
-        current_url = url
-        emitter.emit('setLoading', true)
-        api.load(url)
-          .then(response => {
-            state.data = response.data
-            state.features = response.data.features || state.features
-            state.user = response.user
-            renderApp(state, emitter)
-          })
-      } else {
-        renderApp(state, emitter)
-      }
+      const url = window.location.pathname
+      const params = getParams(window.location.search)
+      emitter.emit('setLoading', true)
+      router(api).route(url, context).get(params).then(({title, component}) => {
+        renderApp(title, component)
+      })
     })
 
-    renderApp(window.__APP_INITIAL_STATE__, emitter)
+    const url = window.location.pathname
+    const params = getParams(window.location.search)
+    router(api).route(url, context, window.__APP_INITIAL_STATE__.data).get(params)
+      .then(({title, component}) => {
+        renderApp(title, component)
+      })
 
   })
 })()

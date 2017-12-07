@@ -18,11 +18,12 @@ const checkStatus = response => {
 }
 
 const toJson = response => {
-  return response.json().then(json => ({
-    user: response.headers.get('X-Request-User'),
-    data: json,
-    links: linkHeader.parse(response.headers.get('Link'))
-  }))
+  return response.json().then(json => {
+    if (response.headers.has('Link')) {
+      json._links = linkHeader.parse(response.headers.get('Link'))
+    }
+    return json
+  })
 }
 
 class Api {
@@ -44,15 +45,6 @@ class Api {
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
-      .catch(err => {
-        console.error("Error saving to " + url, err)
-        return Promise.resolve({
-          data: {
-            '@type': 'ErrorPage',
-            'message': err.message
-          }
-        })
-      })
   }
 
   load (url, authorization) {
@@ -67,15 +59,6 @@ class Api {
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)
-      .catch(err => {
-        console.error("Error loading " + url, err)
-        return Promise.resolve({
-          data: {
-            '@type': 'ErrorPage',
-            'message': err.message
-          }
-        })
-      })
   }
 
   find (term, types) {
@@ -87,14 +70,6 @@ class Api {
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)
-      .catch(err => {
-        console.error("Error loading " + url, err)
-        return Promise.resolve({
-          data: {
-            member: []
-          }
-        })
-      })
   }
 
   vocab (url) {
