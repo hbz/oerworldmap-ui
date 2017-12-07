@@ -52,9 +52,9 @@ export const getURL = (route) => {
   for (const param in route.params) {
     const value = route.params[param]
     if (Array.isArray(value)) {
-      params = params.concat(value.map(value => `${param}=${value}`))
+      value && (params = params.concat(value.map(value => `${param}=${value}`)))
     } else {
-      params.push(`${param}=${value}`)
+      value && params.push(`${param}=${value}`)
     }
   }
   if (params) {
