@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Composer } from 'json-pointer-form'
+
 import translate from './translate'
 import FullModal from './FullModal'
-import '../styles/Register.pcss'
 import Link from './Link'
-import { Composer } from 'json-pointer-form'
+import '../styles/Register.pcss'
+import schema from '../json/schema.json'
 
 const Register = ({translate}) => (
   <div className="Register">
@@ -18,24 +20,24 @@ const Register = ({translate}) => (
       <div className="block">
         <h2>{translate('Register.forgotPassword')}</h2>
         <p>{translate('Register.forgotPasswordInfo')}.</p>
-        {/* <Composer
-          value={about}
+        <Composer
+          value={{'@type': 'ResetPasswordAction'}}
           schema={schema}
-          submit={value => emitter.emit('save', value)}
-          getLabel={value => getLabel(translate, value)}
+          submit={value => console.log(value)}
+          getLabel={value => translate(value)}
           submitLabel={translate('properties.submitLabel')}
-        /> */}
+        />
       </div>
 
       <div className="block">
         <h2>{translate('Register.register')}</h2>
-        {/* <Composer
-          value={about}
+        <Composer
+          value={{'@type': 'RegisterAction'}}
           schema={schema}
-          submit={value => emitter.emit('save', value)}
-          getLabel={value => getLabel(translate, value)}
+          submit={value => console.log(value)}
+          getLabel={value => translate(value)}
           submitLabel={translate('properties.submitLabel')}
-        /> */}
+        />
       </div>
     </FullModal>
   </div>
