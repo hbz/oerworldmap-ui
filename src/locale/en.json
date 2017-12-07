@@ -23,6 +23,16 @@
     "clearFilters": "Clear filters",
     "showList": "Show List"
   },
+  "Dropdownfilter": {
+    "about.secondarySector.@id": "Secondary sector",
+    "about.primarySector.@id": "Primary sector",
+    "about.audience.@id": "Audience",
+    "about.award": "Award",
+    "about.about.@id": "Subject",
+    "about.award": "Award",
+    "about.license.@id": "License",
+    "about.availableChannel.availableLanguage": "Language"
+  },
   "PagedCollection": {
     "totalItems": "%{smart_count} entry |||| %{smart_count} entries shown",
     "orderBy": "order by"

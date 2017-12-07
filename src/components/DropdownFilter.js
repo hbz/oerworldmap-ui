@@ -14,7 +14,7 @@ class DropdownFilter extends React.Component {
       showContent: false,
       search: '',
       initialList: this.props.aggregations.buckets,
-      selectedElements: []
+      selectedElements: this.props.filters || []
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -40,7 +40,7 @@ class DropdownFilter extends React.Component {
           value={bucket.key}
           name={this.props.filterName}
           id={this.props.filterName+i}
-          defaultChecked={this.props.filters.includes(bucket.key) || this.state.selectedElements.includes(bucket.key)}
+          defaultChecked={this.state.selectedElements.includes(bucket.key)}
           onChange={e => {
             const array = this.state.selectedElements
             const index = array.indexOf(e.target.value)
@@ -53,7 +53,7 @@ class DropdownFilter extends React.Component {
             }
           }}
         />
-        <label htmlFor={this.props.filterName+i}>{bucket.key}</label>
+        <label htmlFor={this.props.filterName+i}>{`${this.props.translate(bucket.key)} (${bucket.doc_count})` } </label>
       </li>
     ))
 
@@ -70,9 +70,17 @@ class DropdownFilter extends React.Component {
         className="DropdownFilter"
       >
         <span
-          className="btn expand"
+          className={`btn expand${this.props.filters.length ? ' inUse' : ''}`}
         >
-          <i className={`fa fa-${this.props.icon}`} />
+          <span className="btnText">
+            {this.props.icon ? (
+              <i className={`fa fa-${this.props.icon}`} />
+            ) : (
+              this.state.selectedElements.join(', ')
+              || (this.props.filters.join(', '))
+              || this.props.translate(`Dropdown${this.props.filterName}`)
+            )}
+          </span>
         </span>
 
         <div
@@ -117,10 +125,14 @@ DropdownFilter.propTypes = {
   translate: PropTypes.func.isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   filters: PropTypes.arrayOf(PropTypes.any).isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
+}
+
+DropdownFilter.defaultProps = {
+  icon: null,
 }
 
 export default withEmitter(translate(DropdownFilter))

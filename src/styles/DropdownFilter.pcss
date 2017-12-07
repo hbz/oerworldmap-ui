@@ -3,13 +3,17 @@
 .DropdownFilter {
   display: inline-block;
 
-  /* & > input[type=checkbox] {
-    display: none;
+  & .btn.expand {
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    &:checked ~ .dropdownContent {
-      display: block;
+    &.inUse {
+      color: var(--white);
+      background-color: var(--blue-dark);
     }
-  } */
+  }
 
   & .dropdownContent {
     right: 0;
@@ -39,14 +43,14 @@
         color: var(--white);
       }
 
-      /* &::after {
+      &::after {
         font-family: FontAwesome;
         content: "\f002";
         position: absolute;
         right: 10px;
-        top: 50%;
+        bottom: 0;
         transform: translateY(-51%);
-      } */
+      }
 
       & input {
         width: 100%;

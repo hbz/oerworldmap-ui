@@ -39,24 +39,25 @@ const dropdownFilters = [
   },
   {
     name: "about.availableChannel.availableLanguage",
-    icon: "flag"
   },
   {
     name: "about.primarySector.@id",
-    icon: "gear"
   },
   {
     name: "about.secondarySector.@id",
-    icon: "gear"
   },
   {
     name: "about.audience.@id",
-    icon: "users"
   },
   {
     name: "about.about.@id",
-    icon: "book"
-  }
+  },
+  {
+    name: "about.award",
+  },
+  {
+    name: "about.license.@id",
+  },
 ]
 
 const Filters = ({query, filters, aggregations, emitter, translate, member, size}) => {
@@ -140,9 +141,9 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
                 aggregations[f.name].buckets.length > 0 &&
                 <DropdownFilter
                   key={f.name}
-                  icon={f.icon}
+                  icon={f.icon || null}
                   aggregations={aggregations[f.name]}
-                  filters={filters.length ? filters[f.name] : []}
+                  filters={filters[f.name] ? filters[f.name] : []}
                   filterName={`filter.${f.name}`}
                   submit={onSubmit}
                 />
