@@ -18,6 +18,7 @@ const onSubmit = (e, emitter) => {
   const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
   const parameters = [...formData.entries()]
+    .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
 }
