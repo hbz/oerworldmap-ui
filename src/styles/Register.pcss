@@ -4,6 +4,15 @@
   text-align: center;
   color: var(--blue-dark);
 
+  & .btn {
+    border: 1px solid var(--blue-dark);
+    background-color: var(--white);
+
+    &:hover {
+      border: 1px solid var(--blue-dark);
+    }
+  }
+
   & h2 {
     color: var(--blue-dark);
     font-size: 1.3rem;
@@ -12,5 +21,75 @@
   & div.block {
     margin-top: 20px;
     border-top: 1px solid var(--blue-lightest);
+  }
+
+  & .forgotPassword {
+    & .input.email {
+      display: inline-block;
+      width: 65%;
+
+      & input[type="text"] {
+        border-radius: 2px 0 0 2px;
+      }
+    }
+
+    & input[type="submit"] {
+      display: inline-block;
+      padding: 11px;
+      border-left: none;
+      margin-top: 0;
+      border-radius: 0 2px 2px 0;
+    }
+  }
+
+  & div > label {
+    display: none;
+
+    &.error {
+      display: block;
+    }
+  }
+
+  & input[type=text],
+  & input[type=password] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 2px;
+    border: 1px solid var(--blue-dark);
+  }
+
+  & input[type=password] {
+    margin-top: 10px;
+  }
+
+  & .checkbox {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+
+    & > .title {
+      background-color: transparent;
+      color: var(--blue-dark);
+      border: none;
+      display: inline-block;
+      text-align: left;
+      padding: 0;
+      padding-left: 10px;
+      flex: 1;
+
+      &:hover {
+        border: none;
+        background-color: transparent;
+      }
+
+      &::after {
+        content: none;
+      }
+
+      & + input {
+        display: block;
+      }
+    }
   }
 }

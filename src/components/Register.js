@@ -16,7 +16,7 @@ const Register = ({translate}) => (
         <a className="btn" href="/.login">{translate('Register.login')}</a>
       </div>
 
-      <div className="block">
+      <div className="block forgotPassword">
         <h2>{translate('Register.forgotPassword')}</h2>
         <p>{translate('Register.forgotPasswordInfo')}.</p>
         <Composer
@@ -24,7 +24,7 @@ const Register = ({translate}) => (
           schema={schema}
           submit={value => console.log(value)}
           getLabel={value => translate(value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('Register.resetPassword')}
         />
       </div>
 
@@ -34,8 +34,8 @@ const Register = ({translate}) => (
           value={{'@type': 'RegisterAction'}}
           schema={schema}
           submit={value => console.log(value)}
-          getLabel={value => translate(value)}
-          submitLabel={translate('properties.submitLabel')}
+          getLabel={value => translate(`Register.${value}`)}
+          submitLabel={translate('Register.register')}
         />
       </div>
     </FullModal>
