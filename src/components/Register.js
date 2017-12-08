@@ -4,7 +4,6 @@ import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
 import FullModal from './FullModal'
-import Link from './Link'
 import '../styles/Register.pcss'
 import schema from '../json/schema.json'
 
