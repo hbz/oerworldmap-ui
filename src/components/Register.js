@@ -14,7 +14,7 @@ const Register = ({translate}) => (
       <div>
         <h2>{translate('Register.login')}</h2>
         <p>{translate('Register.loginInfo')}.</p>
-        <Link className="btn" href="/.login">{translate('Register.login')}</Link>
+        <a className="btn" href="/.login">{translate('Register.login')}</a>
       </div>
 
       <div className="block">
