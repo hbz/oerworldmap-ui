@@ -79,21 +79,21 @@ class ActionButtons extends React.Component {
           </ul>
         </div>
 
-        <a href="/user/newsletter" title={translate('ActionButtons.subscribeToNewsletter')}>
+        <a href="/user/newsletter" title={this.props.translate('ActionButtons.subscribeToNewsletter')}>
           <i className="fa fa-envelope" />
         </a>
 
-        <a href="/aggregation/" title={translate('ActionButtons.statistics')}>
+        <a href="/aggregation/" title={this.props.translate('ActionButtons.statistics')}>
           <i className="fa fa-pie-chart" />
         </a>
 
-        <a href="/feed/" title={translate('ActionButtons.recentAdditions')}>
+        <a href="/feed/" title={this.props.translate('ActionButtons.recentAdditions')}>
           <i className="fa fa-rss" />
         </a>
-        <a href="#liked" title={translate('ActionButtons.liked')}>
+        <a href="#liked" title={this.props.translate('ActionButtons.liked')}>
           <i className="fa fa-thumbs-up" />
         </a>
-        <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={translate('ActionButtons.lighthouse')}>
+        <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={this.props.translate('ActionButtons.lighthouse')}>
           <i className="fa fa-lightbulb-o" />
         </Link>
       </div>
