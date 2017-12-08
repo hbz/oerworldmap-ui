@@ -11,6 +11,7 @@ import Feed from './components/Feed'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
 import Register from './components/Register'
+import Password from './components/Password'
 import { getURL } from './common'
 
 export default (api) => {
@@ -99,6 +100,17 @@ export default (api) => {
           <Register />
         )
         return { title: 'Registration', data, component }
+      }
+    },
+    {
+      path: '/user/password',
+      get: async (params, context, state) => {
+        // const url = getURL({ path: `/country/${params.id}`, params })
+        const data = state
+        const component = (
+          <Password />
+        )
+        return { title: 'Reset Password', data, component }
       }
     },
   ]
