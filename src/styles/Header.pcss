@@ -1,7 +1,6 @@
 @import './Colors.pcss';
 
 .Header {
-  z-index: 1;
   display: flex;
   font-family: 'Economica', sans-serif;
   font-size: 1.3rem;
@@ -10,14 +9,47 @@
   justify-content: space-between;
   background-color: var(--blue-dark);
 
-  & a {
+  & a,
+  & .menuBtn {
     color: var(--blue-lightest);
     padding: 10px;
     display: inline-block;
+    position: relative;
 
     &:focus,
     &:hover {
       color: var(--blue-light);
+    }
+  }
+
+  & .userNav .menuBtn ul {
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top: 44px;
+    right: 0;
+    width: 170px;
+    background-color: var(--blue-lightest);
+    border: 1px solid var(--blue-dark);
+    z-index: 5;
+    border-radius: 2px;
+
+    & li a {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--blue-dark);
+      border-bottom: 1px solid var(--blue-dark);
+
+      &:hover,
+      &:focus {
+        background-color: var(--blue-light);
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
     }
   }
 
