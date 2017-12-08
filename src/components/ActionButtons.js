@@ -5,6 +5,12 @@ import Link from './Link'
 
 import '../styles/ActionButtons.pcss'
 
+const triggerClick = (e) => {
+  if (e.keyCode === 32) {
+    e.target.click()
+  }
+}
+
 class ActionButtons extends React.Component {
 
   constructor(props) {
@@ -18,9 +24,12 @@ class ActionButtons extends React.Component {
   render() {
     return (
       <div className="ActionButtons">
-        <button
+        <div
           title={this.props.translate('ActionButtons.addEntry')}
+          tabIndex="0"
+          role="button"
           onClick={() => this.setState({showMenu:!this.state.showMenu})}
+          onKeyDown={triggerClick}
         >
           <i className="fa fa-plus" />
 
@@ -68,8 +77,8 @@ class ActionButtons extends React.Component {
             </li>
 
           </ul>
+        </div>
 
-        </button>
         <a href="/user/newsletter" title={translate('ActionButtons.subscribeToNewsletter')}>
           <i className="fa fa-envelope" />
         </a>
