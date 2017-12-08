@@ -40,12 +40,6 @@ import Api from './api'
 
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
-    // Save data to the API
-    emitter.on('save', data => {
-      router(api).route('/resource/', context).post(data).then(({title, component}) => {
-        renderApp(title, component)
-      })
-    })
     // Transition to a new URL
     emitter.on('navigate', url => {
       const actualUrl = url.startsWith('#')
@@ -83,6 +77,12 @@ import Api from './api'
         request.send(null)
       }
       window.location.reload()
+    })
+    // Form submission
+    emitter.on('submit', ({url, data}) => {
+      router(api).route(url, context).post(data).then(({title, component}) => {
+        renderApp(title, component)
+      })
     })
 
     window.addEventListener('popstate', () => {

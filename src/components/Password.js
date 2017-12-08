@@ -13,13 +13,13 @@ const Password = ({translate}) => (
       <div>
         <h2>{translate('Password.changePassword')}</h2>
         <p>{translate('Password.info')}.</p>
-        {/* <Composer
-          value={{'@type': 'PasswordAction'}}
+        <Composer
+          value={{'@type': 'ChangePasswordAction'}}
           schema={schema}
-          submit={value => console.log(value)}
+          submit={data => emitter.emit('submit', {url: '/user/password/change', data})}
           getLabel={value => translate(`Password.${value}`)}
           submitLabel={translate('Password.setPassword')}
-        /> */}
+        />
       </div>
     </FullModal>
   </div>

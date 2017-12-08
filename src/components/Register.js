@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
+import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import '../styles/Register.pcss'
 import schema from '../json/schema.json'
 
-const Register = ({translate}) => (
+const Register = ({translate, emitter}) => (
   <div className="Register">
     <FullModal>
       <div>
@@ -22,7 +23,7 @@ const Register = ({translate}) => (
         <Composer
           value={{'@type': 'ResetPasswordAction'}}
           schema={schema}
-          submit={value => console.log(value)}
+          submit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
           getLabel={value => translate(value)}
           submitLabel={translate('Register.resetPassword')}
         />
@@ -33,7 +34,7 @@ const Register = ({translate}) => (
         <Composer
           value={{'@type': 'RegisterAction'}}
           schema={schema}
-          submit={value => console.log(value)}
+          submit={data => emitter.emit('submit', {url: '/user/register', data})}
           getLabel={value => translate(`Register.${value}`)}
           submitLabel={translate('Register.register')}
         />
@@ -46,4 +47,4 @@ Register.propTypes = {
   translate: PropTypes.func.isRequired,
 }
 
-export default translate(Register)
+export default withEmitter(translate(Register))

@@ -47,6 +47,35 @@ class Api {
       .then(toJson)
   }
 
+  register (data) {
+    const url = '/user/register'
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      method: 'POST',
+      //mode: 'cors',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }),
+      //credentials: 'include',
+      body: JSON.stringify(data)
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
+  post (url, data) {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }),
+      credentials: 'include',
+      body: JSON.stringify(data)
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
   load (url, authorization) {
     const headers = new Headers({
       'Accept': 'application/json'

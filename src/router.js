@@ -100,6 +100,15 @@ export default (api) => {
           <Register />
         )
         return { title: 'Registration', data, component }
+      },
+      post: async (params) => {
+        const data = await api.register(params)
+        const component = (
+          <div>
+            {data.username} registered{data.newsletter && " and signed up for newsletter"}.
+          </div>
+        )
+        return { title: 'Registered user', data, component }
       }
     },
     {
@@ -112,6 +121,16 @@ export default (api) => {
         return { title: 'Reset Password', data, component }
       }
     },
+    {
+      path: '/user/password/reset',
+      post: async (params) => {
+        const data = await api.post('/user/password/reset', params)
+        const component = (
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        )
+        return { title: 'Reset Password', data, component }
+      }
+    }
   ]
 
   const matchURI = (path, uri) => {
