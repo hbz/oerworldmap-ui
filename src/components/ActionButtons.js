@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
+import withEmitter from './withEmitter'
 import Link from './Link'
 
 import '../styles/ActionButtons.pcss'
@@ -17,8 +18,16 @@ class ActionButtons extends React.Component {
     super(props)
 
     this.state = {
-      showMenu: false
+      showAddMenu: false
     }
+  }
+
+  componentDidMount() {
+    this.props.emitter.on("click", (e) => {
+      console.log("I arrive here", e.target, this.addBtn)
+      if (e.target !== this.addBtn)
+        this.setState({showAddMenu:false})
+    })
   }
 
   render() {
@@ -28,12 +37,13 @@ class ActionButtons extends React.Component {
           title={this.props.translate('ActionButtons.addEntry')}
           tabIndex="0"
           role="button"
-          onClick={() => this.setState({showMenu:!this.state.showMenu})}
+          onClick={() => this.setState({showAddMenu:!this.state.showAddMenu})}
           onKeyDown={triggerClick}
+          ref={el => this.addBtn = el}
         >
           <i className="fa fa-plus" />
 
-          <ul className={this.state.showMenu ? '' : 'noDisplay'}>
+          <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
             <li>
               <a href="#addOrganization">
                 + {this.props.translate('Organization')} <i className="fa fa-users" />
@@ -102,7 +112,8 @@ class ActionButtons extends React.Component {
 }
 
 ActionButtons.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired
 }
 
-export default translate(ActionButtons)
+export default withEmitter(translate(ActionButtons))

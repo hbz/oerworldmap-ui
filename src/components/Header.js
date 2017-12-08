@@ -22,6 +22,13 @@ class Header extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.emitter.on("click", (e) => {
+      if (e.target !== this.menuBtn)
+        this.setState({showUserMenu:false})
+    })
+  }
+
   render() {
     return (
       <header className="Header">
@@ -86,6 +93,7 @@ class Header extends React.Component {
               role="button"
               onClick={() => {this.setState({showUserMenu:!this.state.showUserMenu})}}
               onKeyDown={triggerClick}
+              ref={el => this.menuBtn = el}
             >
               <i className="fa fa-user" />
 
