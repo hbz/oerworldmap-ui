@@ -94,7 +94,6 @@ export default (api) => {
     {
       path: '/user/register',
       get: async (params, context, state) => {
-        // const url = getURL({ path: `/country/${params.id}`, params })
         const data = state
         const component = (
           <Register />
@@ -105,7 +104,6 @@ export default (api) => {
     {
       path: '/user/password',
       get: async (params, context, state) => {
-        // const url = getURL({ path: `/country/${params.id}`, params })
         const data = state
         const component = (
           <Password />
