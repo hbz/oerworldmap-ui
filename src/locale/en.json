@@ -128,5 +128,10 @@
     "location": "Your Location ...",
     "email": "Your Email Address ...",
     "password": "Your Password ..."
+  },
+  "Password": {
+    "changePassword": "Change Password",
+    "info": "Enter your current and desired password. After hitting the button you will be logged out",
+    "setPassword": "Set Password"
   }
 }
