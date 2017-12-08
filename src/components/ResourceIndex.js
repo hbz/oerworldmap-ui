@@ -7,6 +7,9 @@ import Columns from './Columns'
 import Column from './Column'
 import ItemList from './ItemList'
 import Pagination from './Pagination'
+import FullModal from './FullModal'
+import { Composer } from 'json-pointer-form'
+import schema from '../json/schema.json'
 
 import withEmitter from './withEmitter'
 
@@ -28,6 +31,7 @@ const ResourceIndex = ({
   features,
   iso3166,
   map,
+  view,
   children
 }) => (
   <div>
@@ -66,6 +70,48 @@ const ResourceIndex = ({
 
     {children}
 
+    {view === 'addOrganization' &&
+      <FullModal>
+        <h2>Add Organization</h2>
+      </FullModal>
+    }
+
+    {view === 'addService' &&
+      <FullModal>
+        <h2>Add Service</h2>
+      </FullModal>
+    }
+
+    {view === 'addProject' &&
+      <FullModal>
+        <h2>Add Project</h2>
+      </FullModal>
+    }
+
+    {view === 'addStory' &&
+      <FullModal>
+        <h2>Add Story</h2>
+      </FullModal>
+    }
+
+    {view === 'addEvent' &&
+      <FullModal>
+        <h2>Add Event</h2>
+      </FullModal>
+    }
+
+    {view === 'addPublication' &&
+      <FullModal>
+        <h2>Add Publication</h2>
+      </FullModal>
+    }
+
+    {view === 'addTool' &&
+      <FullModal>
+        <h2>Add Tool</h2>
+      </FullModal>
+    }
+
   </div>
 
 )
@@ -88,6 +134,7 @@ ResourceIndex.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   query: PropTypes.string,
   map: PropTypes.string,
+  view: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired
 }
 
