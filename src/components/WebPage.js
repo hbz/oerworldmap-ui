@@ -10,6 +10,7 @@ import Link from './Link'
 import Icon from './Icon'
 import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
+import lighthouse from '../assets/lighthouse.svg'
 
 import '../styles/WebPage.pcss'
 import '../styles/FormStyle.pcss'
@@ -112,7 +113,19 @@ const WebPage = ({
         <div id="view" className={(view === 'view' || view === '') ? 'visible' : ''}>
           <h1>{translate(about.name)}</h1>
 
-          <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
+          <div className="lighthouse">
+            <div className="lighthouseCounter">
+            0
+            </div>
+            <img
+              src={lighthouse}
+              alt="Lighthouse"
+            />
+          </div>
+
+          <p>
+            <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
+          </p>
 
           {about['@type'] === 'Action' &&
             (about.agent &&

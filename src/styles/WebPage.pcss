@@ -74,6 +74,47 @@
     }
 
     & .webPageContent {
+      & .lighthouse {
+        display: inline-block;
+        position: relative;
+
+        & img {
+          position: relative;
+          background-color: var(--white);
+          border-radius: 50%;
+          transition: 1s all;
+        }
+
+        &:hover {
+          & .lighthouseCounter {
+            background-color: var(--blue);
+            color: var(--white);
+          }
+
+          & img {
+            background-color: yellow;
+          }
+        }
+
+        & .lighthouseCounter {
+          position: absolute;
+          color: var(--blue);
+          border: 1px solid var(--blue);
+          border-radius: 0 2px 2px 0;
+          top: 47%;
+          left: 14px;
+          padding: 5px;
+          padding-left: 20px;
+          height: 70%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          transform: translateY(-50%);
+          transition: 0.5s all;
+        }
+      }
+
       padding: 40px;
 
       & h1 {
