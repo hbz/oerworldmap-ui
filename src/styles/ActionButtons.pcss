@@ -5,6 +5,8 @@
   top: 15px;
   left: 15px;
   z-index: 4;
+  display: flex;
+  justify-content: space-between;
 
   & > a,
   & > div {
@@ -25,6 +27,11 @@
 
     & i {
       pointer-events: none;
+    }
+
+    & .lighthouse {
+      position: relative;
+      top: 2px;
     }
 
     &:hover,

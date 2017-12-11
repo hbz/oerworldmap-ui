@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import withEmitter from './withEmitter'
 import Link from './Link'
+import lighthouse from '../assets/icon_lighthouse_static_transparent.svg'
 
 import '../styles/ActionButtons.pcss'
 
@@ -101,11 +102,21 @@ class ActionButtons extends React.Component {
         <Link href="/feed/" title={this.props.translate('ActionButtons.recentAdditions')}>
           <i className="fa fa-rss" />
         </Link>
-        <Link href="#liked" title={this.props.translate('ActionButtons.liked')}>
+        <Link
+          href="?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC"
+          title={this.props.translate('ActionButtons.liked')}
+        >
           <i className="fa fa-thumbs-up" />
         </Link>
-        <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={this.props.translate('ActionButtons.lighthouse')}>
-          <i className="fa fa-lightbulb-o" />
+        <Link
+          href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC"
+          title={this.props.translate('ActionButtons.lighthouse')}
+        >
+          <img
+            src={lighthouse}
+            className="lighthouse"
+            alt="Lighthouse"
+          />
         </Link>
       </div>
     )
