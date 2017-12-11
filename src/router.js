@@ -30,7 +30,7 @@ export default (api) => {
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
-            <ActionButtons />
+            <ActionButtons user={context.user} />
           </ResourceIndex>
         )
         return { title: 'ResourceIndex', data, component }

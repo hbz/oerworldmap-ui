@@ -32,61 +32,63 @@ class ActionButtons extends React.Component {
   render() {
     return (
       <div className="ActionButtons">
-        <div
-          title={this.props.translate('ActionButtons.addEntry')}
-          tabIndex="0"
-          role="button"
-          onClick={() => this.setState({showAddMenu:!this.state.showAddMenu})}
-          onKeyDown={triggerClick}
-          ref={el => this.addBtn = el}
-        >
-          <i className="fa fa-plus" />
+        {this.props.user &&
+          <div
+            title={this.props.translate('ActionButtons.addEntry')}
+            tabIndex="0"
+            role="button"
+            onClick={() => this.setState({showAddMenu:!this.state.showAddMenu})}
+            onKeyDown={triggerClick}
+            ref={el => this.addBtn = el}
+          >
+            <i className="fa fa-plus" />
 
-          <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
-            <li>
-              <Link href="#addOrganization">
-                + {this.props.translate('Organization')} <i className="fa fa-users" />
-              </Link>
-            </li>
+            <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
+              <li>
+                <Link href="#addOrganization">
+                  + {this.props.translate('Organization')} <i className="fa fa-users" />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="#addService">
-                + {this.props.translate('Service')} <i className="fa fa-desktop" />
-              </Link>
-            </li>
+              <li>
+                <Link href="#addService">
+                  + {this.props.translate('Service')} <i className="fa fa-desktop" />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="#addProject">
-                + {this.props.translate('Project')} <i className="fa fa-gears" />
-              </Link>
-            </li>
+              <li>
+                <Link href="#addProject">
+                  + {this.props.translate('Project')} <i className="fa fa-gears" />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="#addStory">
-                + {this.props.translate('Story')} <i className="fa fa-comment" />
-              </Link>
-            </li>
+              <li>
+                <Link href="#addStory">
+                  + {this.props.translate('Story')} <i className="fa fa-comment" />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="#addEvent">
-                + {this.props.translate('Event')} <i className="fa fa-calendar" />
-              </Link>
-            </li>
+              <li>
+                <Link href="#addEvent">
+                  + {this.props.translate('Event')} <i className="fa fa-calendar" />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="#addPublication">
-                + {this.props.translate('Publication')} <i className="fa fa-book" />
-              </Link>
-            </li>
+              <li>
+                <Link href="#addPublication">
+                  + {this.props.translate('Publication')} <i className="fa fa-book" />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="#addTool">
-                + {this.props.translate('Tool')} <i className="fa fa-folder" />
-              </Link>
-            </li>
+              <li>
+                <Link href="#addTool">
+                  + {this.props.translate('Tool')} <i className="fa fa-folder" />
+                </Link>
+              </li>
 
-          </ul>
-        </div>
+            </ul>
+          </div>
+        }
 
         <Link href="/user/newsletter" title={this.props.translate('ActionButtons.subscribeToNewsletter')}>
           <i className="fa fa-envelope" />
@@ -112,7 +114,8 @@ class ActionButtons extends React.Component {
 
 ActionButtons.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired
 }
 
 export default withEmitter(translate(ActionButtons))
