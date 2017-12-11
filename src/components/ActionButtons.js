@@ -115,7 +115,11 @@ class ActionButtons extends React.Component {
 ActionButtons.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired
+  user: PropTypes.string
+}
+
+ActionButtons.defaultProps = {
+  user: null,
 }
 
 export default withEmitter(translate(ActionButtons))
