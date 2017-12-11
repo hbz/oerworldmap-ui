@@ -42,12 +42,12 @@ import Api from './api'
     emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
     emitter.on('navigate', url => {
-      const actualUrl = url.startsWith('#')
-        ? window.location.pathname + window.location.search + url
-        : ( url.startsWith('/') ? url : window.location.pathname + url)
-      if (window.location.pathname + window.location.search + window.location.hash !== actualUrl) {
-        window.history.pushState(null, null, url)
-        window.dispatchEvent(new window.PopStateEvent('popstate'))
+      const parser = document.createElement('a')
+      parser.href = url
+      if (parser.href !== window.location.href) {
+        const load = parser.href.split('#')[0] !== window.location.href.split('#')[0]
+        window.history.pushState({load}, null, url)
+        window.dispatchEvent(new window.PopStateEvent('popstate', {state: {load}}))
       }
     })
     // Find data from the API
@@ -85,13 +85,16 @@ import Api from './api'
       })
     })
 
-    window.addEventListener('popstate', () => {
+    window.addEventListener('popstate', (e) => {
+      let state = window.__APP_INITIAL_STATE__.data
       const url = window.location.pathname
       const params = getParams(window.location.search)
       emitter.emit('setLoading', true)
-      router(api).route(url, context).get(params).then(({title, component}) => {
-        renderApp(title, component)
-      })
+      router(api).route(url, context, e.state && e.state.load ? null : state).get(params)
+        .then(({title, component, data}) => {
+          state = data
+          renderApp(title, component)
+        })
     })
 
     const url = window.location.pathname
