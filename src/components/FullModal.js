@@ -1,5 +1,7 @@
+/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
+import withEmitter from './withEmitter'
 
 import '../styles/FullModal.pcss'
 
@@ -11,12 +13,16 @@ class FullModal extends React.Component {
       visible: true
     }
 
-    this.hideModal = this.hideModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
-  hideModal(e) {
+  closeModal(e) {
     if (e.target.classList.contains('FullModal')) {
       this.setState({visible: false})
+      window.history.state &&
+      window.history.state.hasOwnProperty('load')
+        ? window.history.back()
+        : this.props.emitter.emit('navigate', '/resource/')
     }
   }
 
@@ -28,7 +34,7 @@ class FullModal extends React.Component {
             className="FullModal"
             role="button"
             tabIndex="-1"
-            onClick={this.hideModal}
+            onClick={this.closeModal}
             onKeyDown={(e) => {
               if (e.keyCode === 27) {
                 e.target.click()
@@ -47,7 +53,8 @@ class FullModal extends React.Component {
 }
 
 FullModal.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.node.isRequired
 }
 
-export default FullModal
+export default withEmitter(FullModal)
