@@ -24,7 +24,6 @@ class ActionButtons extends React.Component {
 
   componentDidMount() {
     this.props.emitter.on("click", (e) => {
-      console.log("I arrive here", e.target, this.addBtn)
       if (e.target !== this.addBtn)
         this.setState({showAddMenu:false})
     })
@@ -45,64 +44,64 @@ class ActionButtons extends React.Component {
 
           <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
             <li>
-              <a href="#addOrganization">
+              <Link href="#addOrganization">
                 + {this.props.translate('Organization')} <i className="fa fa-users" />
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#addService">
+              <Link href="#addService">
                 + {this.props.translate('Service')} <i className="fa fa-desktop" />
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#addProject">
+              <Link href="#addProject">
                 + {this.props.translate('Project')} <i className="fa fa-gears" />
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#addStory">
+              <Link href="#addStory">
                 + {this.props.translate('Story')} <i className="fa fa-comment" />
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#addEvent">
+              <Link href="#addEvent">
                 + {this.props.translate('Event')} <i className="fa fa-calendar" />
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#addPublication">
+              <Link href="#addPublication">
                 + {this.props.translate('Publication')} <i className="fa fa-book" />
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#addTool">
+              <Link href="#addTool">
                 + {this.props.translate('Tool')} <i className="fa fa-folder" />
-              </a>
+              </Link>
             </li>
 
           </ul>
         </div>
 
-        <a href="/user/newsletter" title={this.props.translate('ActionButtons.subscribeToNewsletter')}>
+        <Link href="/user/newsletter" title={this.props.translate('ActionButtons.subscribeToNewsletter')}>
           <i className="fa fa-envelope" />
-        </a>
+        </Link>
 
-        <a href="/aggregation/" title={this.props.translate('ActionButtons.statistics')}>
+        <Link href="/aggregation/" title={this.props.translate('ActionButtons.statistics')}>
           <i className="fa fa-pie-chart" />
-        </a>
+        </Link>
 
-        <a href="/feed/" title={this.props.translate('ActionButtons.recentAdditions')}>
+        <Link href="/feed/" title={this.props.translate('ActionButtons.recentAdditions')}>
           <i className="fa fa-rss" />
-        </a>
-        <a href="#liked" title={this.props.translate('ActionButtons.liked')}>
+        </Link>
+        <Link href="#liked" title={this.props.translate('ActionButtons.liked')}>
           <i className="fa fa-thumbs-up" />
-        </a>
+        </Link>
         <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={this.props.translate('ActionButtons.lighthouse')}>
           <i className="fa fa-lightbulb-o" />
         </Link>
