@@ -35,10 +35,16 @@
       padding: 20px 20px 20px 40px;
 
       & .webPageActions {
-        & a {
+        & a,
+        & .like {
+          display: inline-block;
           font-size: 1.3rem;
           margin-right: 15px;
           color: var(--blue);
+
+          & span {
+            font-size: 1.1rem;
+          }
 
           &:last-child {
             color: #b4b4b4;

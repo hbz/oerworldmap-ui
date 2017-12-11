@@ -34,6 +34,7 @@ const getLabel = (translate, value) => {
 const WebPage = ({
   translate,
   moment,
+  user,
   about,
   contributor,
   dateModified,
@@ -57,6 +58,13 @@ const WebPage = ({
         </b>
 
         <div className="webPageActions">
+
+          {user &&
+            <div className="like">
+              <i className="fa fa-thumbs-up" /> <span>(0)</span>
+            </div>
+          }
+
           {view === 'edit' ? (
             <Link href="#view"><i className="fa fa-eye" /></Link>
           ) : (
@@ -122,10 +130,6 @@ const WebPage = ({
               alt="Lighthouse"
             />
           </div>
-
-          <p>
-            <b className="date">{moment(dateCreated).format('D.MMM YYYY')} by {author}</b>
-          </p>
 
           {about['@type'] === 'Action' &&
             (about.agent &&

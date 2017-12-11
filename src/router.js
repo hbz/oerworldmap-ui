@@ -53,6 +53,7 @@ export default (api) => {
         const component = (
           <WebPage
             {...data}
+            user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
