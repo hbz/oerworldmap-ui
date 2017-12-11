@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
+import Link from './Link'
 
 import '../styles/FullModal.pcss'
 
@@ -43,6 +44,14 @@ class FullModal extends React.Component {
           >
             <div className="modalDialog">
               {this.props.children}
+
+              <Link
+                href='/resource/'
+                className="closeModal"
+              >
+                <i className="fa fa-close" />
+              </Link>
+
             </div>
           </div>
         ) : null
