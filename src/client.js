@@ -85,8 +85,8 @@ import Api from './api'
       })
     })
 
+    let state = window.__APP_INITIAL_STATE__.data
     window.addEventListener('popstate', (e) => {
-      let state = window.__APP_INITIAL_STATE__.data
       const url = window.location.pathname
       const params = getParams(window.location.search)
       emitter.emit('setLoading', true)
@@ -99,7 +99,7 @@ import Api from './api'
 
     const url = window.location.pathname
     const params = getParams(window.location.search)
-    router(api).route(url, context, window.__APP_INITIAL_STATE__.data).get(params)
+    router(api).route(url, context, state).get(params)
       .then(({title, component}) => {
         renderApp(title, component)
       })
