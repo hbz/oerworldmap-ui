@@ -1,7 +1,4 @@
 /* global Headers */
-/* global window */
-/* global document */
-/* global XMLHttpRequest */
 
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
@@ -51,12 +48,12 @@ class Api {
     const url = '/user/register'
     return fetch(`http://${this.host}:${this.port}${url}`, {
       method: 'POST',
-      //mode: 'cors',
+      mode: 'cors',
       headers: new Headers({
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       }),
-      //credentials: 'include',
+      credentials: 'include',
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
@@ -85,6 +82,7 @@ class Api {
     }
     return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
+      mode: 'cors',
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)

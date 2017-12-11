@@ -130,6 +130,16 @@ export default (api) => {
         )
         return { title: 'Reset Password', data, component }
       }
+    },
+    {
+      path: '/user/password/change',
+      post: async (params) => {
+        const data = await api.post('/user/password/change', params)
+        const component = (
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        )
+        return { title: 'Change Password', data, component }
+      }
     }
   ]
 

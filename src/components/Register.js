@@ -45,6 +45,7 @@ const Register = ({translate, emitter}) => (
 
 Register.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(translate(Register))
