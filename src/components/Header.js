@@ -120,12 +120,12 @@ class Header extends React.Component {
               }
             </div>
           ) : (
-            <a
+            <Link
               title={this.props.translate('Header.logIn')}
-              href="/.login"
+              href="/user/register"
             >
               {this.props.translate('Header.logIn')}
-            </a>
+            </Link>
           )}
         </nav>
 
