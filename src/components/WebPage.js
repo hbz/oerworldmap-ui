@@ -11,6 +11,7 @@ import Icon from './Icon'
 import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
 import lighthouse from '../assets/lighthouse.svg'
+import FullModal from './FullModal'
 
 import '../styles/WebPage.pcss'
 import '../styles/FormStyle.pcss'
@@ -178,6 +179,20 @@ const WebPage = ({
           }
 
           <ResourceTable value={about} schema={schema} />
+
+          {user &&
+            <FullModal>
+              <h2>Lighthouse Action</h2>
+              {/* <Composer
+                value={{'@type': 'Organization'}}
+                schema={schema}
+                submit={data => emitter.emit('submit', {url: '/resource/', data})}
+                getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+                getLabel={value => getLabel(translate, value)}
+                submitLabel={translate('properties.submitLabel')}
+              /> */}
+            </FullModal>
+          }
 
         </div>
 
