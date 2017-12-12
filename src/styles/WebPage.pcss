@@ -209,4 +209,39 @@
       height: auto;
     }
   }
+
+  & .share {
+    border-radius: 2px;
+    border: 1px solid var(--blue-dark);
+    display: flex;
+    align-items: stretch;
+
+    & .title {
+      padding: 5px 20px;
+      border-right: 1px solid var(--blue-dark);
+      background-color: var(--blue-lightest);
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    & .content {
+      padding: 5px 10px;
+      flex: 1;
+    }
+
+    & + div {
+      padding-top: 20px;
+      text-align: center;
+      font-size: 1.3rem;
+
+      & > a {
+        margin: 0 10px;
+
+        &:hover {
+          color: var(--orange);
+        }
+      }
+    }
+  }
 }

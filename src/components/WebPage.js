@@ -43,7 +43,9 @@ const WebPage = ({
   dateCreated,
   emitter,
   view,
-  geo
+  geo,
+  _links,
+  _self
 }) => (
   <div className="WebPage">
     <div className="webPageContainer">
@@ -193,6 +195,30 @@ const WebPage = ({
                 submitLabel={translate('properties.submitLabel')}
               /> */}
             </FullModal>
+          }
+
+          {view === 'share' &&
+          <FullModal>
+            <h2>Share this Resource</h2>
+            <div className="share">
+              <span className="title">Permalik:</span>
+              <div className="content">{_self}</div>
+            </div>
+            <div>
+              <a target="_blank" href={`https://twitter.com/intent/tweet?url=${_self}`}>
+                <i className="fa fa-twitter" />
+              </a>
+              <a target="_blank" href={`https://www.facebook.com/sharer.php?u=${_self}`}>
+                <i className="fa fa-facebook" />
+              </a>
+              <a target="_blank" href={`https://reddit.com/submit?url=${_self}`}>
+                <i className="fa fa-reddit-alien" />
+              </a>
+              <a target="_blank" href={`mailto:?subject=&body=${_self}`}>
+                <i className="fa fa-envelope" />
+              </a>
+            </div>
+          </FullModal>
           }
 
         </div>
