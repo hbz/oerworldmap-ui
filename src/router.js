@@ -145,7 +145,7 @@ export default (api) => {
     {
       path: '/user/groups',
       get: async (params, context, state) => {
-        const data = state || await api.get('/user/groups')
+        const data = state || await api.get('/user/groups', context.authorization)
         const component = (
           <Groups {...data} />
         )
