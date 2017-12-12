@@ -221,6 +221,17 @@ const WebPage = ({
           </FullModal>
           }
 
+          {view === 'export' &&
+          <FullModal>
+            <h2>Export this Resource</h2>
+            <div className="export">
+              {_links.refs.map(link => (
+                <Link className="btn" href={link.uri}>{link.uri.split('.').slice(-1)}</Link>
+              ))}
+            </div>
+          </FullModal>
+          }
+
         </div>
 
       </div>
