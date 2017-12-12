@@ -1,3 +1,4 @@
+/* global FormData */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -9,30 +10,50 @@ import '../styles/Groups.pcss'
 const Groups = ({translate, groups, users}) => (
   <div className="Groups">
     <FullModal>
-      {console.log(users,groups)}
       <div>
         <h2>{translate('Groups.editGroups')}</h2>
-        <form action="">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            const formData = new FormData(e.target)
+            const data = {}
+            const uniqueKeys = [...new Set(formData.keys())]
+            uniqueKeys.forEach(key => {
+              data[key] = formData.getAll(key)
+            })
+            console.log(data)
+          }}
+        >
           <table>
             <thead>
               <tr>
                 <th>Profile</th>
                 <th>Account</th>
-                <th>Admin</th>
-                <th>Edit</th>
+                {groups.map(group => (
+                  <th>{group}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Username</td>
-                <td>user@localhost</td>
-                <td className="center">
-                  <input type="checkbox" name="role.admin" id="role.admin" />
-                </td>
-                <td className="center">
-                  <input type="checkbox" name="role.edit" id="role.edit" />
-                </td>
-              </tr>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>
+                    <Link href={`/resource/${user.id}`}>{translate(user.name)}</Link>
+                  </td>
+                  <td>{user.username}</td>
+                  {groups.map(group => (
+                    <td className="center">
+                      <input
+                        type="checkbox"
+                        defaultChecked={user.groups.includes(group)}
+                        name={user.username}
+                        id={user.username}
+                        value={group}
+                      />
+                    </td>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
 
@@ -48,6 +69,8 @@ const Groups = ({translate, groups, users}) => (
 
 Groups.propTypes = {
   translate: PropTypes.func.isRequired,
+  groups: PropTypes.arrayOf(PropTypes.any).isRequired,
+  users: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 export default translate(Groups)
