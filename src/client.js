@@ -60,7 +60,11 @@ import Api from './api'
           callback(response.data)
         })
       } else {
-        api.find(term, schema.properties['@type'].enum).then(response => callback(response))
+        const params = {
+          q: term,
+          'filter.about.@type': schema.properties['@type'].enum
+        }
+        router(api).route('/resource/', context).get(params).then(({data}) => callback(data))
       }
     })
     // Log in

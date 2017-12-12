@@ -25,49 +25,24 @@ const toJson = response => {
 }
 
 class Api {
+
   constructor (apiConfig) {
     this.host = apiConfig.host
     this.port = apiConfig.port
   }
 
-  save (data) {
-    const url = `/resource/${(data['@id'] || '')}`
+  post (url, data, authorization) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
+    if (authorization) {
+      headers.append('Authorization', authorization)
+    }
     return fetch(`http://${this.host}:${this.port}${url}`, {
+      headers,
       method: 'POST',
       mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }),
-      credentials: 'include',
-      body: JSON.stringify(data)
-    }).then(checkStatus)
-      .then(toJson)
-  }
-
-  register (data) {
-    const url = '/user/register'
-    return fetch(`http://${this.host}:${this.port}${url}`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }),
-      credentials: 'include',
-      body: JSON.stringify(data)
-    }).then(checkStatus)
-      .then(toJson)
-  }
-
-  post (url, data) {
-    return fetch(`http://${this.host}:${this.port}${url}`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }),
       credentials: 'include',
       body: JSON.stringify(data)
     }).then(checkStatus)
@@ -85,32 +60,6 @@ class Api {
       headers,
       method: 'GET',
       mode: 'cors',
-      credentials: 'include'
-    }).then(checkStatus)
-      .then(toJson)
-  }
-
-  load (url, authorization) {
-    const headers = new Headers({
-      'Accept': 'application/json'
-    })
-    if (authorization) {
-      headers.append('Authorization', authorization)
-    }
-    return fetch(`http://${this.host}:${this.port}${url}`, {
-      headers,
-      mode: 'cors',
-      credentials: 'include'
-    }).then(checkStatus)
-      .then(toJson)
-  }
-
-  find (term, types) {
-    const url = `/resource/?q=${term}*` + (types ? `&filter.about.@type=${types.join(',')}` : '')
-    return fetch(`http://${this.host}:${this.port}${url}`, {
-      headers: new Headers({
-        'Accept': 'application/json'
-      }),
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)

@@ -23,7 +23,7 @@ export default (api) => {
       path: '/resource/',
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
-        const data = state || await api.load(url, context.authorization)
+        const data = state || await api.get(url, context.authorization)
         const component = (
           <ResourceIndex
             {...data}
@@ -38,7 +38,30 @@ export default (api) => {
         return { title: 'ResourceIndex', data, component }
       },
       post: async (params) => {
-        const data = await api.save(params)
+        const data = await api.post('/resource/', params, context.authorization)
+        const component = (
+          <WebPage
+            {...data}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
+        )
+        return { title: 'Created WebPage', data, component }
+      }
+    },
+    {
+      path: '/resource/:id',
+      get: async (params, context, state) => {
+        const data = state || await api.get(`/resource/${params.id}`, context.authorization)
+        const component = (
+          <WebPage
+            {...data}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
+        )
+        return { title: 'WebPage', data, component }
+      },
+      post: async (params) => {
+        const data = await api.post(`/resource/${params.id}`, params, context.authorization)
         const component = (
           <WebPage
             {...data}
@@ -49,23 +72,10 @@ export default (api) => {
       }
     },
     {
-      path: '/resource/:id',
-      get: async (params, context, state) => {
-        const data = state || await api.load(`/resource/${params.id}`, context.authorization)
-        const component = (
-          <WebPage
-            {...data}
-            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-          />
-        )
-        return { title: 'WebPage', data, component }
-      }
-    },
-    {
       path: '/country/:id',
       get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })
-        const data = state || await api.load(url, context.authorization)
+        const data = state || await api.get(url, context.authorization)
         const component = (
           <ResourceIndex
             {...data}
@@ -81,7 +91,7 @@ export default (api) => {
     {
       path: '/aggregation/',
       get: async (params, context, state) => {
-        const data = state || await api.load('/aggregation/', context.authorization)
+        const data = state || await api.get('/aggregation/', context.authorization)
         const component = <Statistics aggregations={data} />
         return { title: 'Aggregation', data, component }
       }
@@ -89,7 +99,7 @@ export default (api) => {
     {
       path: '/feed/',
       get: async (params, context, state) => {
-        const data = state || await api.load('/resource/?size=20&sort=dateCreated:desc', context.authorization)
+        const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
         const component = <Feed {...data} />
         return { title: 'Feed', data, component }
       }
@@ -104,7 +114,7 @@ export default (api) => {
         return { title: 'Registration', data, component }
       },
       post: async (params) => {
-        const data = await api.register(params)
+        const data = await api.post('/user/register', params)
         const component = (
           <div>
             <Feedback>
