@@ -12,6 +12,7 @@ import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
 import Register from './components/Register'
 import Password from './components/Password'
+import Groups from './components/Groups'
 import { getURL } from './common'
 
 export default (api) => {
@@ -140,7 +141,17 @@ export default (api) => {
         )
         return { title: 'Change Password', data, component }
       }
-    }
+    },
+    {
+      path: '/user/groups',
+      get: async (params, context, state) => {
+        const data = state
+        const component = (
+          <Groups />
+        )
+        return { title: 'Edit Groups', data, component }
+      }
+    },
   ]
 
   const matchURI = (path, uri) => {

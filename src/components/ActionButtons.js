@@ -31,7 +31,12 @@ class ActionButtons extends React.Component {
 
   render() {
     return (
+
       <div className="ActionButtons">
+        <Link href="/user/groups" title={this.props.translate('ActionButtons.groups')}>
+          <i className="fa fa-gear" />
+        </Link>
+
         {this.props.user &&
           <div
             title={this.props.translate('ActionButtons.addEntry')}
