@@ -145,9 +145,9 @@ export default (api) => {
     {
       path: '/user/groups',
       get: async (params, context, state) => {
-        const data = state
+        const data = state || await api.get('/user/groups')
         const component = (
-          <Groups />
+          <Groups {...data} />
         )
         return { title: 'Edit Groups', data, component }
       }

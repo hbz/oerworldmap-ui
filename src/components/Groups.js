@@ -6,9 +6,10 @@ import Link from './Link'
 import FullModal from './FullModal'
 import '../styles/Groups.pcss'
 
-const Groups = ({translate}) => (
+const Groups = ({translate, groups, users}) => (
   <div className="Groups">
     <FullModal>
+      {console.log(users,groups)}
       <div>
         <h2>{translate('Groups.editGroups')}</h2>
         <form action="">

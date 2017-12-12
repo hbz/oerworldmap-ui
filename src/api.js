@@ -73,6 +73,22 @@ class Api {
       .then(toJson)
   }
 
+  get (url, authorization) {
+    const headers = new Headers({
+      'Accept': 'application/json'
+    })
+    if (authorization) {
+      headers.append('Authorization', authorization)
+    }
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      headers,
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
   load (url, authorization) {
     const headers = new Headers({
       'Accept': 'application/json'
