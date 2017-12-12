@@ -119,7 +119,7 @@ const WebPage = ({
           />
         </div>
 
-        <div id="view" className={(view === 'view' || view === '') ? 'visible' : ''}>
+        <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
           <h1>{translate(about.name)}</h1>
 
           <div className="lighthouse">
@@ -181,6 +181,7 @@ const WebPage = ({
           <ResourceTable value={about} schema={schema} />
 
           {user &&
+          view === 'addLighthouse' &&
             <FullModal>
               <h2>Lighthouse Action</h2>
               {/* <Composer
