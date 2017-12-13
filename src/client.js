@@ -17,7 +17,6 @@ import Api from './api'
 
   document.addEventListener('DOMContentLoaded', () => {
 
-
     const emitter = mitt()
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)

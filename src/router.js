@@ -37,8 +37,8 @@ export default (api) => {
         )
         return { title: 'ResourceIndex', data, component }
       },
-      post: async (params, context) => {
-        const data = await api.post('/resource/', params, context.authorization)
+      post: async (params, context, state, body) => {
+        const data = await api.post('/resource/', body, context.authorization)
         const component = (
           <WebPage
             {...data}
@@ -60,8 +60,8 @@ export default (api) => {
         )
         return { title: 'WebPage', data, component }
       },
-      post: async (params, context) => {
-        const data = await api.post(`/resource/${params.id}`, params, context.authorization)
+      post: async (params, context, state, body) => {
+        const data = await api.post(`/resource/${params.id}`, body, context.authorization)
         const component = (
           <WebPage
             {...data}
@@ -113,8 +113,8 @@ export default (api) => {
         )
         return { title: 'Registration', data, component }
       },
-      post: async (params, context) => {
-        const data = await api.post('/user/register', params, context.authorization)
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/register', body, context.authorization)
         const component = (
           <div>
             <Feedback>
@@ -137,8 +137,8 @@ export default (api) => {
     },
     {
       path: '/user/password/reset',
-      post: async (params, context) => {
-        const data = await api.post('/user/password/reset', params, context.authorization)
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/password/reset', body, context.authorization)
         const component = (
           <Feedback>
             Your password was reset
@@ -149,8 +149,8 @@ export default (api) => {
     },
     {
       path: '/user/password/change',
-      post: async (params, context) => {
-        const data = await api.post('/user/password/change', params, context.authorization)
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/password/change', body, context.authorization)
         const component = (
           <Feedback>
             Your password was changed
@@ -168,8 +168,8 @@ export default (api) => {
         )
         return { title: 'Edit Groups', data, component }
       },
-      post: async (params, context) => {
-        const data = await api.post('/user/groups', params, context.authorization)
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/groups', body, context.authorization)
         const component = (
           <Groups {...data} />
         )
@@ -191,7 +191,7 @@ export default (api) => {
     return params
   }
 
-  const handle = async (method, uri, context, state, params) => {
+  const handle = async (method, uri, context, state, params, body) => {
     try {
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -200,7 +200,7 @@ export default (api) => {
           throw "Method not implemented"
         }
         Object.assign(params, uriParams)
-        const result = await route[method](params, context, state)
+        const result = await route[method](params, context, state, body)
         if (result) {
           result.component = <Init {...context}>{result.component}</Init>
           return result
@@ -225,11 +225,11 @@ export default (api) => {
   return {
     route: (uri, context, state) => (
       {
-        get: async (params) => (
-          handle("get", uri, context, state, params)
+        get: async (params = {}) => (
+          handle("get", uri, context, state, params, null)
         ),
-        post: async (params) => (
-          handle("post", uri, context, state, params)
+        post: async (body, params = {}) => (
+          handle("post", uri, context, state, params, body)
         )
       }
     )
