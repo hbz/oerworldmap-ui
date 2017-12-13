@@ -25,6 +25,7 @@ import Api from './api'
 
     const api = new Api(context.apiConfig)
 
+    let referrer = window.location.href
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
@@ -37,6 +38,7 @@ import Api from './api'
         && document.getElementById(window.location.hash.replace('#', ''))
         && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
       document.title = title
+      referrer = window.location.href
     }
 
     // Log all emissions
@@ -46,9 +48,8 @@ import Api from './api'
       const parser = document.createElement('a')
       parser.href = url
       if (parser.href !== window.location.href) {
-        const load = parser.href.split('#')[0] !== window.location.href.split('#')[0]
-        window.history.pushState({load}, null, url)
-        window.dispatchEvent(new window.PopStateEvent('popstate', {state: {load}}))
+        window.history.pushState(null, null, url)
+        window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
     // Find data from the API
@@ -88,10 +89,11 @@ import Api from './api'
 
     let state = window.__APP_INITIAL_STATE__.data
     window.addEventListener('popstate', (e) => {
+      emitter.emit('setLoading', true)
       const url = window.location.pathname
       const params = getParams(window.location.search)
-      emitter.emit('setLoading', true)
-      router(api).route(url, context, e.state && e.state.load ? null : state).get(params)
+      const load = referrer.split('#')[0] !== window.location.href.split('#')[0]
+      router(api).route(url, context, load ? null : state).get(params)
         .then(({title, component, data}) => {
           state = data
           renderApp(title, component)

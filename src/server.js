@@ -60,7 +60,8 @@ server.get(/^(.*)$/, (req, res) => {
   const [user] = authorization
     ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
   const context = { locales, authorization, mapboxConfig }
-  router(api).route(req.path, context).get(req.params).then(({title, data, component}) => {
+  //TODO: use actual request method
+  router(api).route(req.path, context).get(req.query).then(({title, data, component}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(component),
