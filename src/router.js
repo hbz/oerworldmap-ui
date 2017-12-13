@@ -154,7 +154,7 @@ export default (api) => {
       post: async (params) => {
         const data = await api.post('/user/groups', params)
         const component = (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          <Groups {...data} />
         )
         return { title: 'Update Groups', data, component }
       }

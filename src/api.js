@@ -19,6 +19,7 @@ const toJson = response => {
     if (response.headers.has('Link')) {
       json._links = linkHeader.parse(response.headers.get('Link'))
     }
+    json._status = response.statusText
     return json
   })
 }

@@ -5,13 +5,15 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
 import FullModal from './FullModal'
+import withEmitter from './withEmitter'
 import '../styles/Groups.pcss'
 
-const Groups = ({translate, groups, users}) => (
+const Groups = ({translate, emitter, groups, users, _status}) => (
   <div className="Groups">
     <FullModal>
       <div>
         <h2>{translate('Groups.editGroups')}</h2>
+        <p>{_status}</p>
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -21,7 +23,7 @@ const Groups = ({translate, groups, users}) => (
             uniqueKeys.forEach(key => {
               data[key] = formData.getAll(key)
             })
-            console.log(data)
+            emitter.emit('submit', {url: '/user/groups', data})
           }}
         >
           <table>
@@ -30,7 +32,7 @@ const Groups = ({translate, groups, users}) => (
                 <th>Profile</th>
                 <th>Account</th>
                 {groups.map(group => (
-                  <th>{group}</th>
+                  <th key={group}>{group}</th>
                 ))}
               </tr>
             </thead>
@@ -47,7 +49,10 @@ const Groups = ({translate, groups, users}) => (
                   </td>
                   <td>{user.username}</td>
                   {groups.map(group => (
-                    <td className="center">
+                    <td
+                      className="center"
+                      key={`${user}${group}`}
+                    >
                       <input
                         type="checkbox"
                         defaultChecked={user.groups.includes(group)}
@@ -74,8 +79,14 @@ const Groups = ({translate, groups, users}) => (
 
 Groups.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   groups: PropTypes.arrayOf(PropTypes.any).isRequired,
   users: PropTypes.arrayOf(PropTypes.any).isRequired,
+  _status: PropTypes.string
 }
 
-export default translate(Groups)
+Groups.defaultProps = {
+  _status: null,
+}
+
+export default withEmitter(translate(Groups))
