@@ -38,7 +38,12 @@ const Groups = ({translate, groups, users}) => (
               {users.map(user => (
                 <tr key={user.id}>
                   <td>
-                    <Link href={`/resource/${user.id}`}>{translate(user.name)}</Link>
+                    <Link
+                      href={`/resource/${user.id}`}
+                      target="_blank"
+                    >
+                      {translate(user.name)}
+                    </Link>
                   </td>
                   <td>{user.username}</td>
                   {groups.map(group => (
