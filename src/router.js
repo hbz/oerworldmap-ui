@@ -14,6 +14,7 @@ import Register from './components/Register'
 import Password from './components/Password'
 import Groups from './components/Groups'
 import { getURL } from './common'
+import Feedback from './components/Feedback'
 
 export default (api) => {
 
@@ -106,7 +107,9 @@ export default (api) => {
         const data = await api.register(params)
         const component = (
           <div>
-            {data.username} registered{data.newsletter && " and signed up for newsletter"}.
+            <Feedback>
+              {data.username} registered{data.newsletter && " and signed up for newsletter"}.
+            </Feedback>
           </div>
         )
         return { title: 'Registered user', data, component }
@@ -127,7 +130,9 @@ export default (api) => {
       post: async (params) => {
         const data = await api.post('/user/password/reset', params)
         const component = (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          <Feedback>
+            Your password was reset
+          </Feedback>
         )
         return { title: 'Reset Password', data, component }
       }
@@ -137,7 +142,9 @@ export default (api) => {
       post: async (params) => {
         const data = await api.post('/user/password/change', params)
         const component = (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          <Feedback>
+            Your password was changed
+          </Feedback>
         )
         return { title: 'Change Password', data, component }
       }
