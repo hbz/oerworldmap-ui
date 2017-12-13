@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
@@ -24,11 +25,11 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    this.props.emitter.on("click", this.handleClick)
+    document.addEventListener("click", this.handleClick)
   }
 
   componentWillUnmount() {
-    this.props.emitter.off("click", this.handleClick)
+    document.removeEventListener("click", this.handleClick)
   }
 
   handleClick(e) {
