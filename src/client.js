@@ -85,9 +85,12 @@ import Api from './api'
     })
     // Form submission
     emitter.on('submit', ({url, data}) => {
-      router(api).route(url, context).post(data).then(({title, component}) => {
-        renderApp(title, component)
-      })
+      router(api).route(url, context).post(data)
+        .then(({title, data, render}) => {
+          state = data
+          window.history.pushState(null, null, data._location || url)
+          renderApp(title, render(data))
+        })
     })
 
     let state = window.__APP_INITIAL_STATE__.data
@@ -97,17 +100,17 @@ import Api from './api'
       const params = getParams(window.location.search)
       const load = referrer.split('#')[0] !== window.location.href.split('#')[0]
       router(api).route(url, context, load ? null : state).get(params)
-        .then(({title, component, data}) => {
+        .then(({title, data, render}) => {
           state = data
-          renderApp(title, component)
+          renderApp(title, render(data))
         })
     })
 
     const url = window.location.pathname
     const params = getParams(window.location.search)
     router(api).route(url, context, state).get(params)
-      .then(({title, component}) => {
-        renderApp(title, component)
+      .then(({title, data, render}) => {
+        renderApp(title, render(data))
       })
 
   })

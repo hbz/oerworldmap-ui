@@ -61,10 +61,10 @@ server.get(/^(.*)$/, (req, res) => {
     ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
   const context = { locales, authorization, mapboxConfig }
   //TODO: use actual request method
-  router(api).route(req.path, context).get(req.query).then(({title, data, component}) => {
+  router(api).route(req.path, context).get(req.query).then(({title, data, render}) => {
     res.send(template({
       env: process.env.NODE_ENV,
-      body: renderToString(component),
+      body: renderToString(render(data)),
       initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title

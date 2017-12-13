@@ -24,7 +24,7 @@ export default (api) => {
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
         const data = state || await api.get(url, context.authorization)
-        const component = (
+        const component = (data) => (
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}
@@ -39,7 +39,7 @@ export default (api) => {
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/resource/', body, context.authorization)
-        const component = (
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
@@ -52,7 +52,7 @@ export default (api) => {
       path: '/resource/:id',
       get: async (params, context, state) => {
         const data = state || await api.get(`/resource/${params.id}`, context.authorization)
-        const component = (
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
@@ -62,7 +62,7 @@ export default (api) => {
       },
       post: async (params, context, state, body) => {
         const data = await api.post(`/resource/${params.id}`, body, context.authorization)
-        const component = (
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
@@ -76,7 +76,7 @@ export default (api) => {
       get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })
         const data = state || await api.get(url, context.authorization)
-        const component = (
+        const component = (data) => (
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}
@@ -92,7 +92,7 @@ export default (api) => {
       path: '/aggregation/',
       get: async (params, context, state) => {
         const data = state || await api.get('/aggregation/', context.authorization)
-        const component = <Statistics aggregations={data} />
+        const component = (data) => <Statistics aggregations={data} />
         return { title: 'Aggregation', data, component }
       }
     },
@@ -100,7 +100,7 @@ export default (api) => {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
-        const component = <Feed {...data} />
+        const component = (data) => <Feed {...data} />
         return { title: 'Feed', data, component }
       }
     },
@@ -108,19 +108,15 @@ export default (api) => {
       path: '/user/register',
       get: async (params, context, state) => {
         const data = state
-        const component = (
-          <Register />
-        )
+        const component = () => <Register />
         return { title: 'Registration', data, component }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/user/register', body, context.authorization)
-        const component = (
-          <div>
-            <Feedback>
-              {data.username} registered{data.newsletter && " and signed up for newsletter"}.
-            </Feedback>
-          </div>
+        const component = (data) => (
+          <Feedback>
+            {data.username} registered{data.newsletter && " and signed up for newsletter"}.
+          </Feedback>
         )
         return { title: 'Registered user', data, component }
       }
@@ -129,9 +125,7 @@ export default (api) => {
       path: '/user/password',
       get: async (params, context, state) => {
         const data = state
-        const component = (
-          <Password />
-        )
+        const component = () => <Password />
         return { title: 'Reset Password', data, component }
       }
     },
@@ -139,7 +133,7 @@ export default (api) => {
       path: '/user/password/reset',
       post: async (params, context, state, body) => {
         const data = await api.post('/user/password/reset', body, context.authorization)
-        const component = (
+        const component = () => (
           <Feedback>
             Your password was reset
           </Feedback>
@@ -151,7 +145,7 @@ export default (api) => {
       path: '/user/password/change',
       post: async (params, context, state, body) => {
         const data = await api.post('/user/password/change', body, context.authorization)
-        const component = (
+        const component = () => (
           <Feedback>
             Your password was changed
           </Feedback>
@@ -163,14 +157,14 @@ export default (api) => {
       path: '/user/groups',
       get: async (params, context, state) => {
         const data = state || await api.get('/user/groups', context.authorization)
-        const component = (
+        const component = (data) => (
           <Groups {...data} />
         )
         return { title: 'Edit Groups', data, component }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/user/groups', body, context.authorization)
-        const component = (
+        const component = (data) => (
           <Groups {...data} />
         )
         return { title: 'Update Groups', data, component }
@@ -202,7 +196,7 @@ export default (api) => {
         Object.assign(params, uriParams)
         const result = await route[method](params, context, state, body)
         if (result) {
-          result.component = <Init {...context}>{result.component}</Init>
+          result.render = (data) => <Init {...context}>{result.component(data)}</Init>
           return result
         }
       }
