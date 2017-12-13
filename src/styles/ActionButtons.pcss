@@ -6,7 +6,10 @@
   left: 15px;
   z-index: 4;
 
-  & a {
+  & > a,
+  & > div {
+    border: none;
+    position: relative;
     margin: 5px;
     color: var(--white);
     font-size: 1.3rem;
@@ -18,10 +21,61 @@
     justify-content: center;
     align-items: center;
     background-color: var(--orange);
+    cursor: pointer;
+
+    & i {
+      pointer-events: none;
+    }
 
     &:hover,
     &:focus {
       background-color: color(var(--orange) l(+20%));
+    }
+  }
+
+  & ul {
+    list-style-type: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+    left: 25px;
+    top: 30px;
+    width: 170px;
+    z-index: 2;
+    border: 1px solid var(--blue-dark);
+    border-radius: 2px;
+
+    &.noDisplay {
+      display: none;
+    }
+
+    & li {
+      width: 100%;
+      border-bottom: 1px solid var(--blue-dark);
+      font-size: 0.7rem;
+
+      & i {
+        font-size: 1rem;
+      }
+
+      & a {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          background-color: var(--blue-light);
+        }
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 }

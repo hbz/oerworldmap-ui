@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Composer } from 'json-pointer-form'
 
 import Map from './Map'
 import Filters from './Filters'
@@ -7,12 +8,31 @@ import Columns from './Columns'
 import Column from './Column'
 import ItemList from './ItemList'
 import Pagination from './Pagination'
+import FullModal from './FullModal'
+import schema from '../json/schema.json'
+import translate from './translate'
+import Icon from './Icon'
 
 import withEmitter from './withEmitter'
+
+const getLabel = (translate, value) => {
+  if (!value) return ''
+  if (typeof value === "object") {
+    return (
+      <span>
+        <Icon type={value["@type"]} />
+        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
+      </span>
+    )
+  } else {
+    return translate(`properties.${value}`)
+  }
+}
 
 const ResourceIndex = ({
   mapboxConfig,
   emitter,
+  translate,
   query,
   filters,
   aggregations,
@@ -28,6 +48,7 @@ const ResourceIndex = ({
   features,
   iso3166,
   map,
+  view,
   children
 }) => (
   <div>
@@ -66,6 +87,104 @@ const ResourceIndex = ({
 
     {children}
 
+    {view === 'addOrganization' &&
+      <FullModal>
+        <h2>Add Organization</h2>
+        <Composer
+          value={{'@type': 'Organization'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
+    {view === 'addService' &&
+      <FullModal>
+        <h2>Add Service</h2>
+        <Composer
+          value={{'@type': 'Service'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
+    {view === 'addProject' &&
+      <FullModal>
+        <h2>Add Project</h2>
+        <Composer
+          value={{'@type': 'Action'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
+    {view === 'addStory' &&
+      <FullModal>
+        <h2>Add Story</h2>
+        <Composer
+          value={{'@type': 'Article'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
+    {view === 'addEvent' &&
+      <FullModal>
+        <h2>Add Event</h2>
+        <Composer
+          value={{'@type': 'Event'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
+    {view === 'addPublication' &&
+      <FullModal>
+        <h2>Add Publication</h2>
+        <Composer
+          value={{'@type': 'WebPage'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
+    {view === 'addTool' &&
+      <FullModal>
+        <h2>Add Tool</h2>
+        <Composer
+          value={{'@type': 'Product'}}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: '/resource/', data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('properties.submitLabel')}
+        />
+      </FullModal>
+    }
+
   </div>
 
 )
@@ -88,7 +207,9 @@ ResourceIndex.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   query: PropTypes.string,
   map: PropTypes.string,
-  children: PropTypes.node.isRequired
+  view: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  translate: PropTypes.func.isRequired,
 }
 
 ResourceIndex.defaultProps = {
@@ -97,7 +218,8 @@ ResourceIndex.defaultProps = {
   map: null,
   nextPage: null,
   previousPage: null,
-  iso3166: ''
+  iso3166: '',
+  view: ''
 }
 
-export default withEmitter(ResourceIndex)
+export default withEmitter(translate(ResourceIndex))

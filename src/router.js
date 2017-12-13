@@ -10,7 +10,11 @@ import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
+import Register from './components/Register'
+import Password from './components/Password'
+import Groups from './components/Groups'
 import { getURL } from './common'
+import Feedback from './components/Feedback'
 
 export default (api) => {
 
@@ -26,8 +30,9 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             selected={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             map={params.map}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
-            <ActionButtons />
+            <ActionButtons user={context.user} />
           </ResourceIndex>
         )
         return { title: 'ResourceIndex', data, component }
@@ -88,7 +93,79 @@ export default (api) => {
         const component = <Feed {...data} />
         return { title: 'Feed', data, component }
       }
-    }
+    },
+    {
+      path: '/user/register',
+      get: async (params, context, state) => {
+        const data = state
+        const component = (
+          <Register />
+        )
+        return { title: 'Registration', data, component }
+      },
+      post: async (params) => {
+        const data = await api.register(params)
+        const component = (
+          <div>
+            <Feedback>
+              {data.username} registered{data.newsletter && " and signed up for newsletter"}.
+            </Feedback>
+          </div>
+        )
+        return { title: 'Registered user', data, component }
+      }
+    },
+    {
+      path: '/user/password',
+      get: async (params, context, state) => {
+        const data = state
+        const component = (
+          <Password />
+        )
+        return { title: 'Reset Password', data, component }
+      }
+    },
+    {
+      path: '/user/password/reset',
+      post: async (params) => {
+        const data = await api.post('/user/password/reset', params)
+        const component = (
+          <Feedback>
+            Your password was reset
+          </Feedback>
+        )
+        return { title: 'Reset Password', data, component }
+      }
+    },
+    {
+      path: '/user/password/change',
+      post: async (params) => {
+        const data = await api.post('/user/password/change', params)
+        const component = (
+          <Feedback>
+            Your password was changed
+          </Feedback>
+        )
+        return { title: 'Change Password', data, component }
+      }
+    },
+    {
+      path: '/user/groups',
+      get: async (params, context, state) => {
+        const data = state || await api.get('/user/groups', context.authorization)
+        const component = (
+          <Groups {...data} />
+        )
+        return { title: 'Edit Groups', data, component }
+      },
+      post: async (params) => {
+        const data = await api.post('/user/groups', params)
+        const component = (
+          <Groups {...data} />
+        )
+        return { title: 'Update Groups', data, component }
+      }
+    },
   ]
 
   const matchURI = (path, uri) => {
@@ -105,8 +182,6 @@ export default (api) => {
   }
 
   const handle = async (method, uri, context, state, params) => {
-    const [user] = context.authorization
-      ? Buffer.from(context.authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
     try {
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -117,7 +192,7 @@ export default (api) => {
         Object.assign(params, uriParams)
         const result = await route[method](params, context, state)
         if (result) {
-          result.component = <Init {...context} user={user}>{result.component}</Init>
+          result.component = <Init {...context}>{result.component}</Init>
           return result
         }
       }

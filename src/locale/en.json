@@ -14,7 +14,7 @@
     "blog": "Blog",
     "joinUs": "Join us in mapping the world of OER!",
     "logIn": "Log in",
-    "logOut": "Log out user"
+    "logOut": "Logout"
   },
   "Filters": {
     "searchTheMap": "Search the map",
@@ -48,7 +48,8 @@
     "statistics": "Statistics",
     "recentAdditions": "Recent Additions",
     "liked": "Liked",
-    "lighthouse": "Lighthouse"
+    "lighthouse": "Lighthouse",
+    "groups": "Groups"
   },
   "ItemList": {
     "readMore": "Read More"
@@ -112,5 +113,26 @@
     "about.agent.location.address.addressCountry": "Projects by Participant's Countries",
     "about.audience.@id": "Services by Audience",
     "about.primarySector.@id": "Entries by primary education sector"
+  },
+  "Register": {
+    "login": "Login",
+    "loginInfo": "When you click the login button your browser will present you a popup where you can enter your email address and password",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset Password",
+    "forgotPasswordInfo": "Enter your email address, we will send you a temporary password",
+    "register": "Register",
+    "privacyAccepted": "By registering, I agree to the terms of the privacy policy. I specifically agree to publish the information I provide, except for my password, which will be stored securely. Your activities within OER World Map will also be stored and processed for the purpose of improving the service as well as to prove your consent to specific activities.*",
+    "termsAccepted": "I also agree to the Terms of the service. Especially, I will ensure, that no rights of others are violated by me publishing information through OER World Map. This includes the privacy and copyrights of others.*",
+    "publishEmail": "I agree to having my email-address published as part of my profile",
+    "subscribeNewsletter": "I want to subscribe to the OER World Map Newsletter",
+    "name": "Your Name ...",
+    "location": "Your Location ...",
+    "email": "Your Email Address ...",
+    "password": "Your Password ..."
+  },
+  "Password": {
+    "changePassword": "Change Password",
+    "info": "Enter your current and desired password. After hitting the button you will be logged out",
+    "setPassword": "Set Password"
   }
 }

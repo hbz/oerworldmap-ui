@@ -6,74 +6,133 @@ import Link from './Link'
 
 import '../styles/Header.pcss'
 
-const Header = ({ user, emitter, translate }) => (
-  <header className="Header">
-    <nav className="mainNav">
-      <Link href="/resource/">
-        <h1>OER WORLD MAP</h1>
-      </Link>
-      <a
-        href="/contribute"
-        title={translate('Header.contribute')}
-      >
-        {translate('Header.contribute')}
-      </a>
-      <a
-        href="/about"
-        title={translate('Header.about')}
-      >
-        {translate('Header.about')}
-      </a>
-      <a
-        href="/FAQ"
-        title={translate('Header.faq')}
-      >
-        {translate('Header.faq')}
-      </a>
-      <a
-        href="https://oerworldmap.wordpress.com/"
-        title={translate('Header.blog')}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {translate('Header.blog')}
-      </a>
-      <a
-        href="https://www.facebook.com/oerworldmap"
-        title="Facebook"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fa fa-facebook-official" />
-      </a>
-      <a
-        href="https://twitter.com/oerworldmap"
-        title="Twitter"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fa fa-twitter" />
-      </a>
-    </nav>
+const triggerClick = (e) => {
+  if (e.keyCode === 32) {
+    e.target.click()
+  }
+}
 
-    <nav className="userNav">
-      <a href="/contribute">
-        <h2>{translate('Header.joinUs')}</h2>
-      </a>
-      {user ? (
-        <a href="/.logout" onClick={(e) => {e.preventDefault(); emitter.emit('logout')}}>
-          {translate('Header.logOut')} {user}
-        </a>
-      ) : (
-        <a title={translate('Header.logIn')} href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
-          <i className="fa fa-user" />
-        </a>
-      )}
-    </nav>
+class Header extends React.Component {
 
-  </header>
-)
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      showUserMenu: false
+    }
+  }
+
+  componentDidMount() {
+    this.props.emitter.on("click", (e) => {
+      if (e.target !== this.menuBtn)
+        this.setState({showUserMenu:false})
+    })
+  }
+
+  render() {
+    return (
+      <header className="Header">
+        <nav className="mainNav">
+          <Link href="/resource/">
+            <h1>OER WORLD MAP</h1>
+          </Link>
+          <a
+            href="/contribute"
+            title={this.props.translate('Header.contribute')}
+          >
+            {this.props.translate('Header.contribute')}
+          </a>
+          <a
+            href="/about"
+            title={this.props.translate('Header.about')}
+          >
+            {this.props.translate('Header.about')}
+          </a>
+          <a
+            href="/FAQ"
+            title={this.props.translate('Header.faq')}
+          >
+            {this.props.translate('Header.faq')}
+          </a>
+          <a
+            href="https://oerworldmap.wordpress.com/"
+            title={this.props.translate('Header.blog')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {this.props.translate('Header.blog')}
+          </a>
+          <a
+            href="https://www.facebook.com/oerworldmap"
+            title="Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-facebook-official" />
+          </a>
+          <a
+            href="https://twitter.com/oerworldmap"
+            title="Twitter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-twitter" />
+          </a>
+        </nav>
+
+        <nav className="userNav">
+          <a href="/contribute">
+            <h2>{this.props.translate('Header.joinUs')}</h2>
+          </a>
+          {this.props.user ? (
+            <div
+              className="menuBtn"
+              href="#nothing"
+              title={this.props.user}
+              tabIndex="0"
+              role="button"
+              onClick={() => {this.setState({showUserMenu:!this.state.showUserMenu})}}
+              onKeyDown={triggerClick}
+              ref={el => this.menuBtn = el}
+            >
+              <i className="fa fa-user" />
+
+              {this.state.showUserMenu &&
+                <ul>
+                  <li>
+                    <Link href="/profile">My Profile <i className="fa fa-user" /></Link>
+                  </li>
+                  <li>
+                    <Link href="/user/password">Change Password <i className="fa fa-lock" /></Link>
+                  </li>
+                  <li>
+                    <a
+                      href="/.logout"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        this.props.emitter.emit('logout')
+                      }}
+                    >
+                      {this.props.translate('Header.logOut')} <i className="fa fa-sign-out" />
+                    </a>
+                  </li>
+                </ul>
+              }
+            </div>
+          ) : (
+            <Link
+              title={this.props.translate('Header.logIn')}
+              href="/user/register"
+            >
+              {this.props.translate('Header.logIn')}
+            </Link>
+          )}
+        </nav>
+
+      </header>
+    )
+  }
+}
 
 Header.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,

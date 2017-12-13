@@ -28,9 +28,86 @@
     },
     {
       "$ref": "#/definitions/WebPage"
+    },
+    {
+      "$ref": "#/definitions/RegisterAction"
     }
   ],
   "definitions": {
+    "RegisterAction": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "User registration",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/Country"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "_display": {
+            "type": "password"
+          }
+        },
+        "privacyAccepted": {
+          "type": "boolean"
+        },
+        "termsAccepted": {
+          "type": "boolean"
+        },
+        "publishEmail": {
+          "type": "boolean"
+        },
+        "subscribeNewsletter": {
+          "type": "boolean"
+        }
+      },
+      "required": ["name", "location", "email", "password", "privacyAccepted", "termsAccepted"]
+    },
+    "ResetPasswordAction": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Reset password",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "required": ["email"]
+    },
+    "ChangePasswordAction": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Reset password",
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "_display": {
+            "type": "password"
+          }
+        },
+        "password_new": {
+          "type": "string",
+          "_display": {
+            "type": "password"
+          }
+        },
+        "password_new_confirm": {
+          "type": "string",
+          "_display": {
+            "type": "password"
+          }
+        }
+      },
+      "required": ["password", "password_new", "password_new_confirm"]
+    },
     "Link": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "A link to another entity",

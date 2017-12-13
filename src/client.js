@@ -1,5 +1,6 @@
 /* global document */
 /* global window */
+/* global XMLHttpRequest */
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -24,6 +25,7 @@ import Api from './api'
 
     const api = new Api(context.apiConfig)
 
+    let referrer = window.location.href
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
@@ -36,22 +38,16 @@ import Api from './api'
         && document.getElementById(window.location.hash.replace('#', ''))
         && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
       document.title = title
+      referrer = window.location.href
     }
 
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
-    // Save data to the API
-    emitter.on('save', data => {
-      router(api).route('/resource/', context).post(data).then(({title, component}) => {
-        renderApp(title, component)
-      })
-    })
     // Transition to a new URL
     emitter.on('navigate', url => {
-      const actualUrl = url.startsWith('#')
-        ? window.location.pathname + window.location.search + url
-        : ( url.startsWith('/') ? url : window.location.pathname + url)
-      if (window.location.pathname + window.location.search + window.location.hash !== actualUrl) {
+      const parser = document.createElement('a')
+      parser.href = url
+      if (parser.href !== window.location.href) {
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
@@ -67,23 +63,46 @@ import Api from './api'
         api.find(term, schema.properties['@type'].enum).then(response => callback(response))
       }
     })
-    // Log in to the API
-    emitter.on('login', () => api.login())
-    // Log out of the API
-    emitter.on('logout', () => api.logout())
-
-    window.addEventListener('popstate', () => {
-      const url = window.location.pathname
-      const params = getParams(window.location.search)
-      emitter.emit('setLoading', true)
-      router(api).route(url, context).get(params).then(({title, component}) => {
+    // Log in
+    emitter.on('login', () => {
+      const request = new XMLHttpRequest()
+      request.open('GET', '/.login', false)
+      request.send(null)
+      window.location.reload()
+    })
+    // Log out
+    emitter.on('logout', () => {
+      if (!document.execCommand("ClearAuthenticationCache")) {
+        const request = new XMLHttpRequest()
+        const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
+        request.open('GET', url, false)
+        request.send(null)
+      }
+      window.location.reload()
+    })
+    // Form submission
+    emitter.on('submit', ({url, data}) => {
+      router(api).route(url, context).post(data).then(({title, component}) => {
         renderApp(title, component)
       })
     })
 
+    let state = window.__APP_INITIAL_STATE__.data
+    window.addEventListener('popstate', () => {
+      emitter.emit('setLoading', true)
+      const url = window.location.pathname
+      const params = getParams(window.location.search)
+      const load = referrer.split('#')[0] !== window.location.href.split('#')[0]
+      router(api).route(url, context, load ? null : state).get(params)
+        .then(({title, component, data}) => {
+          state = data
+          renderApp(title, component)
+        })
+    })
+
     const url = window.location.pathname
     const params = getParams(window.location.search)
-    router(api).route(url, context, window.__APP_INITIAL_STATE__.data).get(params)
+    router(api).route(url, context, state).get(params)
       .then(({title, component}) => {
         renderApp(title, component)
       })

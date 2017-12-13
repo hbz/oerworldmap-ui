@@ -1,7 +1,4 @@
 /* global Headers */
-/* global window */
-/* global document */
-/* global XMLHttpRequest */
 
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
@@ -22,6 +19,7 @@ const toJson = response => {
     if (response.headers.has('Link')) {
       json._links = linkHeader.parse(response.headers.get('Link'))
     }
+    json._status = response.statusText
     return json
   })
 }
@@ -47,6 +45,51 @@ class Api {
       .then(toJson)
   }
 
+  register (data) {
+    const url = '/user/register'
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }),
+      credentials: 'include',
+      body: JSON.stringify(data)
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
+  post (url, data) {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }),
+      credentials: 'include',
+      body: JSON.stringify(data)
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
+  get (url, authorization) {
+    const headers = new Headers({
+      'Accept': 'application/json'
+    })
+    if (authorization) {
+      headers.append('Authorization', authorization)
+    }
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      headers,
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
   load (url, authorization) {
     const headers = new Headers({
       'Accept': 'application/json'
@@ -56,6 +99,7 @@ class Api {
     }
     return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
+      mode: 'cors',
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)
@@ -105,22 +149,6 @@ class Api {
         }
       })
     }
-  }
-
-  login () {
-    const request = new XMLHttpRequest()
-    request.open('GET', `http://${this.host}:${this.port}/.login`, false)
-    request.send(null)
-    window.location.reload()
-  }
-
-  logout () {
-    if (!document.execCommand("ClearAuthenticationCache")) {
-      const request = new XMLHttpRequest()
-      request.open('GET', `http://logout@${this.host}:${this.port}/.logout`, false)
-      request.send(null)
-    }
-    window.location.reload()
   }
 
 }
