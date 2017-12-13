@@ -88,7 +88,7 @@ import Api from './api'
     })
 
     let state = window.__APP_INITIAL_STATE__.data
-    window.addEventListener('popstate', (e) => {
+    window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
       const url = window.location.pathname
       const params = getParams(window.location.search)
