@@ -20,13 +20,20 @@ class Header extends React.Component {
     this.state = {
       showUserMenu: false
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.props.emitter.on("click", (e) => {
-      if (e.target !== this.menuBtn)
-        this.setState({showUserMenu:false})
-    })
+    this.props.emitter.on("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    this.props.emitter.off("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (e.target !== this.menuBtn)
+      this.setState({showUserMenu:false})
   }
 
   render() {

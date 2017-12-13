@@ -20,13 +20,21 @@ class ActionButtons extends React.Component {
     this.state = {
       showAddMenu: false
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.props.emitter.on("click", (e) => {
-      if (e.target !== this.addBtn)
-        this.setState({showAddMenu:false})
-    })
+    this.props.emitter.on("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    this.props.emitter.off("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (e.target !== this.addBtn)
+      this.setState({showAddMenu:false})
   }
 
   render() {
