@@ -37,7 +37,7 @@ export default (api) => {
         )
         return { title: 'ResourceIndex', data, component }
       },
-      post: async (params) => {
+      post: async (params, context) => {
         const data = await api.post('/resource/', params, context.authorization)
         const component = (
           <WebPage
@@ -60,7 +60,7 @@ export default (api) => {
         )
         return { title: 'WebPage', data, component }
       },
-      post: async (params) => {
+      post: async (params, context) => {
         const data = await api.post(`/resource/${params.id}`, params, context.authorization)
         const component = (
           <WebPage
@@ -113,8 +113,8 @@ export default (api) => {
         )
         return { title: 'Registration', data, component }
       },
-      post: async (params) => {
-        const data = await api.post('/user/register', params)
+      post: async (params, context) => {
+        const data = await api.post('/user/register', params, context.authorization)
         const component = (
           <div>
             <Feedback>
@@ -137,8 +137,8 @@ export default (api) => {
     },
     {
       path: '/user/password/reset',
-      post: async (params) => {
-        const data = await api.post('/user/password/reset', params)
+      post: async (params, context) => {
+        const data = await api.post('/user/password/reset', params, context.authorization)
         const component = (
           <Feedback>
             Your password was reset
@@ -149,8 +149,8 @@ export default (api) => {
     },
     {
       path: '/user/password/change',
-      post: async (params) => {
-        const data = await api.post('/user/password/change', params)
+      post: async (params, context) => {
+        const data = await api.post('/user/password/change', params, context.authorization)
         const component = (
           <Feedback>
             Your password was changed
@@ -168,8 +168,8 @@ export default (api) => {
         )
         return { title: 'Edit Groups', data, component }
       },
-      post: async (params) => {
-        const data = await api.post('/user/groups', params)
+      post: async (params, context) => {
+        const data = await api.post('/user/groups', params, context.authorization)
         const component = (
           <Groups {...data} />
         )
