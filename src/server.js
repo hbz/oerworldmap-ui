@@ -20,7 +20,7 @@ server.use(function(req, res, next) {
   next()
 })
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)
 
   server.use([
