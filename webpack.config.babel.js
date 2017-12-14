@@ -104,8 +104,8 @@ if (TARGET === 'server:dev') {
   }
   Config = merge(Config, {
     entry: [
-    'webpack-hot-middleware/client?reload=true',
-    'react-hot-loader/patch'
+      'webpack-hot-middleware/client?reload=true',
+      'react-hot-loader/patch'
     ],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
