@@ -102,7 +102,7 @@ const WebPage = ({
           <Composer
             value={about}
             schema={schema}
-            submit={data => emitter.emit('submit', {url: '/resource/', data})}
+            submit={data => emitter.emit('submit', {url: `/resource/${about['@id']}`, data})}
             getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
             getLabel={value => getLabel(translate, value)}
             submitLabel={translate('properties.submitLabel')}
