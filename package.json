@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "server:dev": "NODE_ENV=development node src/index.js",
+    "server:static": "NODE_ENV=static node src/index.js",
     "server:prod": "npm run clean && NODE_ENV=production webpack && NODE_ENV=production node src/index.js",
     "test": "eslint src --quiet && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
     "fix": "eslint src --fix",

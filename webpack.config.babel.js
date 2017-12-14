@@ -154,5 +154,62 @@ if (TARGET === 'server:dev') {
   })
 }
 
+if (TARGET === 'server:static') {
+  Config.module.rules[0].use.query = {
+    presets: ['react-hmre']
+  }
+  Config = merge(Config, {
+    entry: [
+      'webpack-hot-middleware/client?reload=true',
+      'react-hot-loader/patch'
+    ],
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
+      new ExtractTextPlugin("styles.css"),
+      new StyleLintPlugin(
+        {
+          emitErrors: false,
+          configFile: '.stylelintrc',
+          context: 'src',
+          files: '**/*.pcss',
+        },
+      ),
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.(css|pcss)$/,
+          include: [
+            path.resolve(__dirname, 'src'),
+            path.resolve(__dirname, 'node_modules/normalize.css'),
+            path.resolve(__dirname, 'node_modules/font-awesome'),
+            path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
+          ],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  sourceMap: true,
+                },
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  sourceMap: true,
+                },
+              },
+            ],
+          }),
+        }
+      ]
+    }
+  })
+}
+
 const WebpackConfig = Config
 export default WebpackConfig
