@@ -13,8 +13,9 @@ import ResourceIndex from './components/ResourceIndex'
 import Register from './components/Register'
 import Password from './components/Password'
 import Groups from './components/Groups'
-import { getURL } from './common'
 import Feedback from './components/Feedback'
+import ErrorPage from './components/ErrorPage'
+import { getURL } from './common'
 
 export default (api) => {
 
@@ -202,18 +203,14 @@ export default (api) => {
       }
     } catch (err) {
       console.error(err)
-      return {
-        title: 'Error',
-        data: err,
-        component: <pre>{JSON.stringify(err, null, 2)}</pre>
-      }
+      const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
+      const render = (err) => <Init {...context}>{component(err)}</Init>
+      return { title: err.message, data: err, component, render }
     }
     // 404
-    return {
-      title: 'Not found',
-      data: {},
-      component: <h1>Page not found</h1>
-    }
+    const component = () => <ErrorPage translate={(key) => key} message={"Not found"} />
+    const render = () => <Init {...context}>{component()}</Init>
+    return { title: 'Not found', data: {}, component, render }
   }
 
   return {
