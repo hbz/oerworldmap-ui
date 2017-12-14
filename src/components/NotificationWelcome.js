@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import translate from './translate'
 
-import '../styles/NotificationWelcome.pcss'
+import '../styles/components/NotificationWelcome.pcss'
 
 class NotificationWelcome extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import '../styles/Feedback.pcss'
+import '../styles/components/Feedback.pcss'
 
 const Feedback = ({children}) => (
   <div className="Feedback">
