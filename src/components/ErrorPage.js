@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
 
-import '../styles/ErrorPage.pcss'
+import '../styles/components/ErrorPage.pcss'
 
 const ErrorPage = ({message, translate}) => (
   <Link href="/">

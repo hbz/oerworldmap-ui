@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownMenu from './DropdownMenu'
 
-import '../styles/DropdownButton.pcss'
+import '../styles/components/DropdownButton.pcss'
 
 class DropdownButton extends React.Component {
 

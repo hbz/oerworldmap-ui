@@ -36,12 +36,13 @@ let Config = {
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'node_modules/normalize.css'),
           path.resolve(__dirname, 'node_modules/font-awesome'),
+          path.resolve(__dirname, 'node_modules/source-sans-pro'),
           path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
         ],
       },
 
       {
-        test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot)$/,
+        test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
         use: [
           'file-loader'
         ]
@@ -72,6 +73,7 @@ if (TARGET === 'server:prod') {
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'node_modules/normalize.css'),
             path.resolve(__dirname, 'node_modules/font-awesome'),
+            path.resolve(__dirname, 'node_modules/source-sans-pro'),
             path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
           ],
           use: ExtractTextPlugin.extract({
@@ -128,6 +130,7 @@ if (TARGET === 'server:dev') {
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'node_modules/normalize.css'),
             path.resolve(__dirname, 'node_modules/font-awesome'),
+            path.resolve(__dirname, 'node_modules/source-sans-pro'),
             path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
           ],
           use: [
@@ -185,6 +188,7 @@ if (TARGET === 'server:static') {
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'node_modules/normalize.css'),
             path.resolve(__dirname, 'node_modules/font-awesome'),
+            path.resolve(__dirname, 'node_modules/source-sans-pro'),
             path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
           ],
           use: ExtractTextPlugin.extract({

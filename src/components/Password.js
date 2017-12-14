@@ -5,7 +5,7 @@ import { Composer } from 'json-pointer-form'
 import translate from './translate'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
-import '../styles/Password.pcss'
+import '../styles/components/Password.pcss'
 import schema from '../json/schema.json'
 
 const Password = ({translate, emitter}) => (

@@ -5,7 +5,7 @@ import withEmitter from './withEmitter'
 import translate from './translate'
 import Link from './Link'
 
-import '../styles/Header.pcss'
+import '../styles/components/Header.pcss'
 
 const triggerClick = (e) => {
   if (e.keyCode === 32) {

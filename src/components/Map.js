@@ -14,7 +14,7 @@ import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
 import { getParams, getURL } from '../common'
 
-import '../styles/Map.pcss'
+import '../styles/components/Map.pcss'
 
 class Map extends React.Component {
 

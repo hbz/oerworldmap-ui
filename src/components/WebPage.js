@@ -11,8 +11,8 @@ import Icon from './Icon'
 import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
 
-import '../styles/WebPage.pcss'
-import '../styles/FormStyle.pcss'
+import '../styles/components/WebPage.pcss'
+import '../styles/components/FormStyle.pcss'
 
 import schema from '../json/schema.json'
 

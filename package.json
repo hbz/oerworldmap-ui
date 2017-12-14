@@ -83,6 +83,7 @@
     "react-hot-loader": "^3.1.3",
     "react-markdown": "^3.0.1",
     "react-popperjs": "0.0.3",
+    "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.1",
     "webpack-hot-middleware": "^2.20.0"

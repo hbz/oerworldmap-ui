@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import DropdownButton from './DropdownButton'
 
-import '../styles/PagedCollection.pcss'
+import '../styles/components/PagedCollection.pcss'
 
 const PagedCollection = ({ translate, member, children }) => (
   member &&

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 
-import '../styles/Loading.pcss'
+import '../styles/components/Loading.pcss'
 
 class Loading extends React.Component {
 
