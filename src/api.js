@@ -6,11 +6,18 @@ import linkHeader from 'http-link-header'
 
 promise.polyfill()
 
+export class APIError {
+  constructor(message) {
+    this.name = 'APIError'
+    this.message = message
+  }
+}
+
 const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response)
   } else {
-    return Promise.reject(new Error(response.statusText))
+    return Promise.reject(new APIError(response.statusText))
   }
 }
 

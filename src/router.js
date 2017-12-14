@@ -16,6 +16,7 @@ import Groups from './components/Groups'
 import Feedback from './components/Feedback'
 import ErrorPage from './components/ErrorPage'
 import { getURL } from './common'
+import { APIError } from './api'
 
 export default (api) => {
 
@@ -188,6 +189,9 @@ export default (api) => {
 
   const handle = async (method, uri, context, state, params, body) => {
     try {
+      if (context.err) {
+        throw new APIError(context.err)
+      }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
         if (uriParams === null) continue
@@ -202,15 +206,18 @@ export default (api) => {
         }
       }
     } catch (err) {
-      console.error(err)
-      const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
-      const render = (err) => <Init {...context}>{component(err)}</Init>
-      return { title: err.message, data: err, component, render }
+      if (err instanceof APIError) {
+        console.error(err)
+        const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
+        const render = (err) => <Init {...context}>{component(err)}</Init>
+        return { title: err.message, data: err, component, render, err: err.message }
+      }
+      throw err
     }
     // 404
-    const component = () => <ErrorPage translate={(key) => key} message={"Not found"} />
+    const component = () => <ErrorPage translate={(key) => key} message="Not Found" />
     const render = () => <Init {...context}>{component()}</Init>
-    return { title: 'Not found', data: {}, component, render }
+    return { title: 'Not Found', data: {}, component, render }
   }
 
   return {

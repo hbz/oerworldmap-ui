@@ -17,6 +17,7 @@ import Api from './api'
 
   document.addEventListener('DOMContentLoaded', () => {
 
+    let state = window.__APP_INITIAL_STATE__.data
     const emitter = mitt()
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)
@@ -93,7 +94,6 @@ import Api from './api'
         })
     })
 
-    let state = window.__APP_INITIAL_STATE__.data
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
       const url = window.location.pathname
