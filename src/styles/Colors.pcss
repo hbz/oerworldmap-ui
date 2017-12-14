@@ -6,7 +6,120 @@
   --blue-lightest: #d1e9fa;
   --yellow: #ffe600;
   --green: #97c639;
+  --red: #e15636;
   --orange: #ff8000;
   --white: #fff;
+  --light-grey: #f5f5f5;
+  --grey: #777;
   --black: #000;
+}
+
+:root {
+  --primary-color: var(--blue-dark);
+  --action-color: var(--blue);
+  --highlight-color: var(--orange);
+}
+
+.bg-highlight-color {
+  background-color: var(--highlight-color);
+  color: var(--white);
+  
+  & a {
+    color: var(--white);
+    text-decoration: underline;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  & .btn {
+    color: var(--highlight-color);
+    
+    &:hover {
+      color: var(--highlight-color);
+    }
+  }
+}
+
+.bg-primary-color {
+  background-color: var(--primary-color);
+  color: var(--white);
+  
+  & a {
+    color: var(--white);
+    text-decoration: underline;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  & .btn {
+    color: var(--primary-color);
+    
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.bg-light-grey {
+  background-color: var(--light-grey);
+}
+
+.text-action-color {
+  color: var(--action-color);
+}
+
+.text-action-color-important {
+  color: var(--action-color) !important;
+}
+
+.text-highlight-color {
+  color: var(--highlight-color);
+}
+
+.text-blue-light {
+  color: var(--blue-light);
+}
+
+.text-blue-light-important {
+  color: var(--blue-light) !important;
+}
+
+.text-white {
+  color: var(--white);
+  
+  & a {
+    color: var(--white);
+    text-decoration: underline;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  & .btn {
+    border-color: var(--white);
+    
+    &:hover {
+      opacity: 0.8;
+      background: var(--white);
+    }
+    
+    &.invert {
+      background: transparent;
+      color: var(--white);
+    }
+  }
+  
+  & input {
+    border-color: var(--white);
+    color: var(--white);
+    
+    &::placeholder {
+      color: color(var(--white) alpha(-30%));
+    }
+  }
 }
