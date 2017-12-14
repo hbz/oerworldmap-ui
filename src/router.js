@@ -15,6 +15,8 @@ import Password from './components/Password'
 import Groups from './components/Groups'
 import Feedback from './components/Feedback'
 import ErrorPage from './components/ErrorPage'
+import Log from './components/Log'
+import Diffs from './components/Diffs'
 import { getURL } from './common'
 import { APIError } from './api'
 
@@ -172,6 +174,26 @@ export default (api) => {
         return { title: 'Update Groups', data, component }
       }
     },
+    {
+      path: '/log/',
+      get: async (params, context, state) => {
+        const data = state || await api.get('/log/', context.authorization)
+        const component = (data) => (
+          <Log entries={data} />
+        )
+        return { title: 'Edit Groups', data, component }
+      },
+    },
+    {
+      path: '/log/:id',
+      get: async (params, context, state) => {
+        const data = state || await api.get(`/log/${params.id}`, context.authorization)
+        const component = (data) => (
+          <Diffs {...data} />
+        )
+        return { title: 'Edit Groups', data, component }
+      }
+    }
   ]
 
   const matchURI = (path, uri) => {
