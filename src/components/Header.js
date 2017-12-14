@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
@@ -20,13 +21,20 @@ class Header extends React.Component {
     this.state = {
       showUserMenu: false
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.props.emitter.on("click", (e) => {
-      if (e.target !== this.menuBtn)
-        this.setState({showUserMenu:false})
-    })
+    document.addEventListener("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (e.target !== this.menuBtn)
+      this.setState({showUserMenu:false})
   }
 
   render() {

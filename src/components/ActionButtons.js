@@ -1,7 +1,7 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
-import withEmitter from './withEmitter'
 import Link from './Link'
 
 import '../styles/ActionButtons.pcss'
@@ -20,13 +20,21 @@ class ActionButtons extends React.Component {
     this.state = {
       showAddMenu: false
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.props.emitter.on("click", (e) => {
-      if (e.target !== this.addBtn)
-        this.setState({showAddMenu:false})
-    })
+    document.addEventListener("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (e.target !== this.addBtn)
+      this.setState({showAddMenu:false})
   }
 
   render() {
@@ -118,7 +126,6 @@ class ActionButtons extends React.Component {
 }
 
 ActionButtons.propTypes = {
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   user: PropTypes.string
 }
@@ -127,4 +134,4 @@ ActionButtons.defaultProps = {
   user: null,
 }
 
-export default withEmitter(translate(ActionButtons))
+export default translate(ActionButtons)
