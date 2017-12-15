@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from './Link'
 import translate from './translate'
 import FullModal from './FullModal'
-import '../styles/Feed.pcss'
+import '../styles/components/Feed.pcss'
 import Icon from './Icon'
 
 const Feed = ({translate, member}) => (

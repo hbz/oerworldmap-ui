@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
-import '../styles/DropdownFilter.pcss'
+import '../styles/components/DropdownFilter.pcss'
 
 class DropdownFilter extends React.Component {
 

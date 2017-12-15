@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Icon from './Icon'
 import Link from './Link'
 
-import '../styles/ItemList.pcss'
+import '../styles/components/ItemList.pcss'
 
 import translate from './translate'
 import withEmitter from './withEmitter'

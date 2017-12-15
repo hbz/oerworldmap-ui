@@ -6,7 +6,7 @@ import translate from './translate'
 import Link from './Link'
 import FullModal from './FullModal'
 import withEmitter from './withEmitter'
-import '../styles/Groups.pcss'
+import '../styles/components/Groups.pcss'
 
 const Groups = ({translate, emitter, groups, users, _status}) => (
   <div className="Groups">

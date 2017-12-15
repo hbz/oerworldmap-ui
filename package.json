@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "server:dev": "NODE_ENV=development node src/index.js",
+    "server:static": "NODE_ENV=static node src/index.js",
     "server:prod": "npm run clean && NODE_ENV=production webpack && NODE_ENV=production node src/index.js",
     "test": "eslint src --quiet && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
     "fix": "eslint src --fix",
@@ -82,6 +83,7 @@
     "react-hot-loader": "^3.1.3",
     "react-markdown": "^3.0.1",
     "react-popperjs": "0.0.3",
+    "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.1",
     "webpack-hot-middleware": "^2.20.0"

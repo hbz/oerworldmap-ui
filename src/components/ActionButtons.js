@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
 
-import '../styles/ActionButtons.pcss'
+import '../styles/components/ActionButtons.pcss'
 
 const triggerClick = (e) => {
   if (e.keyCode === 32) {

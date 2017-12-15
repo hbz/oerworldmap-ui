@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
+import 'source-sans-pro/source-sans-pro.css'
 import Header from './Header'
 import Loading from './Loading'
 
