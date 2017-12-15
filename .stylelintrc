@@ -13,6 +13,8 @@
         "except": ["first-nested"],
         "ignore": ["after-comment", "stylelint-commands"]
       }
-    ]
+    ],
+    "no-descending-specificity" : null,
+    "font-family-no-missing-generic-family-keyword": null
   }
 }
