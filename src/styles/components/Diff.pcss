@@ -1,0 +1,66 @@
+@import '../colors.pcss';
+
+.Diff {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  & .diffContent {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    width: 100%;
+
+    & .diffList {
+      padding: 20px;
+      overflow: auto;
+      flex: 1.5;
+
+      & .logBlock {
+        display: flex;
+        width: 100%;
+        padding: 20px 10px;
+        border-radius: 2px;
+        border: 1px solid var(--blue-light);
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+
+        & b {
+          color: var(--blue-light);
+        }
+
+        & > div:first-child {
+          flex: 1;
+          max-width: 100%;
+        }
+
+        & > div:last-child {
+          flex-basis: 50px;
+          display: flex;
+          justify-content: space-around;
+        }
+      }
+    }
+
+    & .diffView {
+      padding: 20px;
+      flex: 3;
+      border-left: 1px solid var(--blue-lightest);
+
+      & ins {
+        background-color: color(var(--green) a(50%));
+      }
+
+      & del {
+        background-color: color(var(--red) a(50%));
+      }
+    }
+  }
+
+  & .footer {
+    padding: 10px 20px;
+    text-align: right;
+    border-top: 1px solid var(--blue-dark);
+  }
+}
