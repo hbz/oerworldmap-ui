@@ -93,64 +93,61 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
           </div>
 
           <div className="filterType">
-            <div>
-              {aggregations['about.@type']['buckets'].map(function (bucket) {
-                return (
-                  <div className="filterBox" key={bucket.key}>
-                    <Tooltip
-                      message={translate(bucket.key)}
-                      placement='top'
-                      tooltipClassName='Tooltip'
-                      arrowColor='#646464'
-                    >
-                      <input
-                        type="radio"
-                        value={bucket.key}
-                        checked={filters.hasOwnProperty("about.@type")
-                          && filters["about.@type"].includes(bucket.key)
+            {aggregations['about.@type']['buckets'].map(function (bucket) {
+              return (
+                <div className="filterBox" key={bucket.key}>
+                  <Tooltip
+                    message={translate(bucket.key)}
+                    placement='top'
+                    tooltipClassName='Tooltip'
+                    arrowColor='#646464'
+                  >
+                    <input
+                      type="radio"
+                      value={bucket.key}
+                      checked={filters.hasOwnProperty("about.@type")
+                        && filters["about.@type"].includes(bucket.key)
+                      }
+                      name="filter.about.@type"
+                      id={"type:" + bucket.key}
+                      onChange={(evt) => onSubmit(evt, emitter)}
+                    />
+
+                    <label
+                      onClick={(evt) => {
+                        // Trigger submit only if onChange is not triggered
+                        if (filters.hasOwnProperty("about.@type")
+                          && filters["about.@type"].includes(bucket.key)) {
+                          onSubmit(evt, emitter)
                         }
-                        name="filter.about.@type"
-                        id={"type:" + bucket.key}
-                        onChange={(evt) => onSubmit(evt, emitter)}
-                      />
+                      }}
+                      onKeyDown={triggerClick}
+                      role="button"
+                      tabIndex="0"
+                      htmlFor={"type:" + bucket.key}
+                      aria-label={translate(bucket.key)}
+                      className="btn"
+                    >
+                      <Icon type={bucket.key} />
+                    </label>
 
-                      <label
-                        onClick={(evt) => {
-                          // Trigger submit only if onChange is not triggered
-                          if (filters.hasOwnProperty("about.@type")
-                            && filters["about.@type"].includes(bucket.key)) {
-                            onSubmit(evt, emitter)
-                          }
-                        }}
-                        onKeyDown={triggerClick}
-                        role="button"
-                        tabIndex="0"
-                        htmlFor={"type:" + bucket.key}
-                        aria-label={translate(bucket.key)}
-                        className="btn"
-                      >
-                        <Icon type={bucket.key} />
-                      </label>
+                  </Tooltip>
+                </div>
+              )
+            }, this)}
 
-                    </Tooltip>
-                  </div>
-                )
-              }, this)}
-
-              {dropdownFilters.map(f => (
-                aggregations[f.name] &&
-                aggregations[f.name].buckets.length > 0 &&
-                <DropdownFilter
-                  key={f.name}
-                  icon={f.icon || null}
-                  aggregations={aggregations[f.name]}
-                  filters={filters[f.name] ? filters[f.name] : []}
-                  filterName={`filter.${f.name}`}
-                  submit={onSubmit}
-                />
-              ))}
-
-            </div>
+            {dropdownFilters.map(f => (
+              aggregations[f.name] &&
+              aggregations[f.name].buckets.length > 0 &&
+              <DropdownFilter
+                key={f.name}
+                icon={f.icon || null}
+                aggregations={aggregations[f.name]}
+                filters={filters[f.name] ? filters[f.name] : []}
+                filterName={`filter.${f.name}`}
+                submit={onSubmit}
+              />
+            ))}
           </div>
 
 
