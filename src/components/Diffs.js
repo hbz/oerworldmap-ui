@@ -39,45 +39,51 @@ const Diffs = ({emitter, log, compare, to}) => {
     <div className="Diff">
       <div className="diffContent">
         <div className="diffList">
-          <h1>History for: <a href={`/Resource/${compare.about["@id"]}`}>{compare.about["@id"]}</a></h1>
+          <div className="scroll">
+            <h1>History for: <a href={`/Resource/${compare.about["@id"]}`}>{compare.about["@id"]}</a></h1>
 
-          <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)} >
-            {log.map(l => (
-              <div key={l.commit} className="logBlock">
-                <div>
-                  <a href={`/log/${l.commit}`}>{l.commit}</a>
-                  <br />
-                  <span><b>Author:</b> {l.author}</span>
-                  <br />
-                  <span><b>Date:</b> {l.date}</span>
+            <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)} >
+              {log.map(l => (
+                <div key={l.commit} className="logBlock">
+                  <div>
+                    <a href={`/log/${l.commit}`}>{l.commit}</a>
+                    <br />
+                    <span><b>Author:</b> {l.author}</span>
+                    <br />
+                    <span><b>Date:</b> {l.date}</span>
+                  </div>
+                  <div>
+                    <input
+                      name="compare"
+                      type="radio"
+                      value={l.commit}
+                      checked={compare.version === l.commit}
+                      onChange={onSubmit}
+                    />
+                    <input
+                      name="to"
+                      type="radio"
+                      value={l.commit}
+                      checked={to.version === l.commit}
+                      onChange={onSubmit}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <input
-                    name="compare"
-                    type="radio"
-                    value={l.commit}
-                    checked={compare.version === l.commit}
-                    onChange={onSubmit}
-                  />
-                  <input
-                    name="to"
-                    type="radio"
-                    value={l.commit}
-                    checked={to.version === l.commit}
-                    onChange={onSubmit}
-                  />
-                </div>
-              </div>
-            ))}
-            <noscript>
-              <input type="sumbit" className="btn" />
-            </noscript>
-          </form>
+              ))}
+              <noscript>
+                <input type="sumbit" className="btn" />
+              </noscript>
+            </form>
+          </div>
 
         </div>
         <div className="diffView">
-          <div  dangerouslySetInnerHTML={{__html: diff}} />
+
+          <div className="scroll">
+            <div dangerouslySetInnerHTML={{__html: diff}} />
+          </div>
         </div>
+
       </div>
       <div className="footer">
         <a href="https://beta.oerworldmap.org/imprint">Terms of Use &amp; Privacy Policy</a>
