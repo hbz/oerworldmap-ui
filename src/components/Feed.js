@@ -14,10 +14,10 @@ const Feed = ({translate, member}) => (
       </h2>
       <ul className="list">
         {member.map(item => (
-          <li key={item['@id']}>
-            <Link href={`/resource/${item['@id']}`}>
+          <li key={item.about['@id']}>
+            <Link href={`/resource/${item.about['@id']}`}>
               <Icon type={item['@type']} />
-              &nbsp;{translate(item.about.name) || item['@id']}
+              &nbsp;{translate(item.about.name) || item.about['@id']}
             </Link>
           </li>
         ))}
