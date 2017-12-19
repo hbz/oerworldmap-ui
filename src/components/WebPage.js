@@ -13,8 +13,8 @@ import withEmitter from './withEmitter'
 import lighthouse from '../assets/lighthouse.svg'
 import FullModal from './FullModal'
 
-import '../styles/WebPage.pcss'
-import '../styles/FormStyle.pcss'
+import '../styles/components/WebPage.pcss'
+import '../styles/components/FormStyle.pcss'
 
 import schema from '../json/schema.json'
 
@@ -73,6 +73,7 @@ const WebPage = ({
           ) : (
             <Link href="#edit"><i className="fa fa-pencil" /></Link>
           )}
+          <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
           <Link href="/resource/"><i className="fa fa-close" /></Link>
         </div>
 
@@ -114,7 +115,7 @@ const WebPage = ({
           <Composer
             value={about}
             schema={schema}
-            submit={data => emitter.emit('submit', {url: '/resource/', data})}
+            submit={data => emitter.emit('submit', {url: `/resource/${about['@id']}`, data})}
             getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
             getLabel={value => getLabel(translate, value)}
             submitLabel={translate('properties.submitLabel')}

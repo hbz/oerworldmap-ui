@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
+import withEmitter from './withEmitter'
 import FullModal from './FullModal'
-import '../styles/Password.pcss'
+import '../styles/components/Password.pcss'
 import schema from '../json/schema.json'
 
-const Password = ({translate}) => (
+const Password = ({translate, emitter}) => (
   <div className="Password">
     <FullModal>
       <div>
@@ -27,6 +28,7 @@ const Password = ({translate}) => (
 
 Password.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
-export default translate(Password)
+export default withEmitter(translate(Password))

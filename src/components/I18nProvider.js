@@ -12,6 +12,7 @@ class I18nProvider extends React.Component {
     this.polyglot = new Polyglot({
       locale: locales[0],
       phrases: require(`../locale/${locales[0]}.json`),
+      warn: () => {}
     })
 
     moment.locale(locales[0])

@@ -207,7 +207,7 @@ ResourceIndex.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   query: PropTypes.string,
   map: PropTypes.string,
-  view: PropTypes.string.isRequired,
+  view: PropTypes.string,
   children: PropTypes.node.isRequired,
   translate: PropTypes.func.isRequired,
 }
@@ -218,7 +218,8 @@ ResourceIndex.defaultProps = {
   map: null,
   nextPage: null,
   previousPage: null,
-  iso3166: ''
+  iso3166: '',
+  view: ''
 }
 
 export default withEmitter(translate(ResourceIndex))

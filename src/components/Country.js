@@ -5,7 +5,7 @@ import translate from './translate'
 import Link from './Link'
 import Icon from './Icon'
 
-import '../styles/Country.pcss'
+import '../styles/components/Country.pcss'
 
 const triggerClick = (e) => {
   if (e.keyCode === 32) {

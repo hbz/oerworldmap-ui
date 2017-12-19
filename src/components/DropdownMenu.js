@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
 
-import '../styles/DropdownMenu.pcss'
+import '../styles/components/DropdownMenu.pcss'
 
 const DropdownMenu = ( {translate} ) => (
   <ul className="DropdownMenu">

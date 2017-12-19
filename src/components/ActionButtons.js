@@ -1,11 +1,11 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
-import withEmitter from './withEmitter'
 import Link from './Link'
 import lighthouse from '../assets/icon_lighthouse_static_transparent.svg'
 
-import '../styles/ActionButtons.pcss'
+import '../styles/components/ActionButtons.pcss'
 
 const triggerClick = (e) => {
   if (e.keyCode === 32) {
@@ -21,18 +21,31 @@ class ActionButtons extends React.Component {
     this.state = {
       showAddMenu: false
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.props.emitter.on("click", (e) => {
-      if (e.target !== this.addBtn)
-        this.setState({showAddMenu:false})
-    })
+    document.addEventListener("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (e.target !== this.addBtn)
+      this.setState({showAddMenu:false})
   }
 
   render() {
     return (
+
       <div className="ActionButtons">
+        <Link href="/user/groups" title={this.props.translate('ActionButtons.groups')}>
+          <i className="fa fa-gear" />
+        </Link>
+
         {this.props.user &&
           <div
             title={this.props.translate('ActionButtons.addEntry')}
@@ -120,7 +133,6 @@ class ActionButtons extends React.Component {
 }
 
 ActionButtons.propTypes = {
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   user: PropTypes.string
 }
@@ -129,4 +141,4 @@ ActionButtons.defaultProps = {
   user: null,
 }
 
-export default withEmitter(translate(ActionButtons))
+export default translate(ActionButtons)

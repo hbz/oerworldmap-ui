@@ -1,0 +1,62 @@
+@import '../colors.pcss';
+@import '../variables.pcss';
+
+.ItemList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  overflow: auto;
+  margin-bottom: 40px;
+  margin-top: 5px;
+  flex: 1;
+
+  & li {
+    position: relative;
+    border-top: 1px solid var(--blue-lightest);
+    padding: 10px;
+
+    & a {
+      font-size: 0.9rem;
+      color: var(--blue-dark);
+
+      &:hover {
+        color: var(--orange);
+      }
+    }
+
+    & .extract {
+      padding: 10px;
+      font-size: 0.9rem;
+
+      & p {
+        margin-top: 0;
+      }
+    }
+
+    & .item {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+
+      & .sheet {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 2px;
+        border: 1px solid var(--blue-dark);
+        padding: 5px;
+
+        & div:first-child {
+          font-size: 1.1rem;
+          padding-bottom: 5px;
+        }
+      }
+
+      & span {
+        flex: 1;
+        margin-left: 10px;
+      }
+    }
+  }
+}

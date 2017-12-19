@@ -12,7 +12,13 @@ import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
 import Register from './components/Register'
 import Password from './components/Password'
+import Groups from './components/Groups'
+import Feedback from './components/Feedback'
+import ErrorPage from './components/ErrorPage'
+import Log from './components/Log'
+import Diffs from './components/Diffs'
 import { getURL } from './common'
+import { APIError } from './api'
 
 export default (api) => {
 
@@ -21,8 +27,8 @@ export default (api) => {
       path: '/resource/',
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
-        const data = state || await api.load(url, context.authorization)
-        const component = (
+        const data = state || await api.get(url, context.authorization)
+        const component = (data) => (
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}
@@ -35,9 +41,33 @@ export default (api) => {
         )
         return { title: 'ResourceIndex', data, component }
       },
-      post: async (params) => {
-        const data = await api.save(params)
-        const component = (
+      post: async (params, context, state, body) => {
+        const data = await api.post('/resource/', body, context.authorization)
+        const component = (data) => (
+          <WebPage
+            {...data}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
+        )
+        return { title: 'Created WebPage', data, component }
+      }
+    },
+    {
+      path: '/resource/:id',
+      get: async (params, context, state) => {
+        const data = state || await api.get(`/resource/${params.id}`, context.authorization)
+        const component = (data) => (
+          <WebPage
+            {...data}
+            user={context.user}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
+        )
+        return { title: 'WebPage', data, component }
+      },
+      post: async (params, context, state, body) => {
+        const data = await api.post(`/resource/${params.id}`, body, context.authorization)
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
@@ -47,25 +77,11 @@ export default (api) => {
       }
     },
     {
-      path: '/resource/:id',
-      get: async (params, context, state) => {
-        const data = state || await api.load(`/resource/${params.id}`, context.authorization)
-        const component = (
-          <WebPage
-            {...data}
-            user={context.user}
-            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-          />
-        )
-        return { title: 'WebPage', data, component }
-      }
-    },
-    {
       path: '/country/:id',
       get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })
-        const data = state || await api.load(url, context.authorization)
-        const component = (
+        const data = state || await api.get(url, context.authorization)
+        const component = (data) => (
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}
@@ -80,16 +96,16 @@ export default (api) => {
     {
       path: '/aggregation/',
       get: async (params, context, state) => {
-        const data = state || await api.load('/aggregation/', context.authorization)
-        const component = <Statistics aggregations={data} />
+        const data = state || await api.get('/aggregation/', context.authorization)
+        const component = (data) => <Statistics aggregations={data} />
         return { title: 'Aggregation', data, component }
       }
     },
     {
       path: '/feed/',
       get: async (params, context, state) => {
-        const data = state || await api.load('/resource/?size=20&sort=dateCreated:desc', context.authorization)
-        const component = <Feed {...data} />
+        const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
+        const component = (data) => <Feed {...data} />
         return { title: 'Feed', data, component }
       }
     },
@@ -97,17 +113,15 @@ export default (api) => {
       path: '/user/register',
       get: async (params, context, state) => {
         const data = state
-        const component = (
-          <Register />
-        )
+        const component = () => <Register />
         return { title: 'Registration', data, component }
       },
-      post: async (params) => {
-        const data = await api.register(params)
-        const component = (
-          <div>
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/register', body, context.authorization)
+        const component = (data) => (
+          <Feedback>
             {data.username} registered{data.newsletter && " and signed up for newsletter"}.
-          </div>
+          </Feedback>
         )
         return { title: 'Registered user', data, component }
       }
@@ -116,20 +130,71 @@ export default (api) => {
       path: '/user/password',
       get: async (params, context, state) => {
         const data = state
-        const component = (
-          <Password />
-        )
+        const component = () => <Password />
         return { title: 'Reset Password', data, component }
       }
     },
     {
       path: '/user/password/reset',
-      post: async (params) => {
-        const data = await api.post('/user/password/reset', params)
-        const component = (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/password/reset', body, context.authorization)
+        const component = () => (
+          <Feedback>
+            Your password was reset
+          </Feedback>
         )
         return { title: 'Reset Password', data, component }
+      }
+    },
+    {
+      path: '/user/password/change',
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/password/change', body, context.authorization)
+        const component = () => (
+          <Feedback>
+            Your password was changed
+          </Feedback>
+        )
+        return { title: 'Change Password', data, component }
+      }
+    },
+    {
+      path: '/user/groups',
+      get: async (params, context, state) => {
+        const data = state || await api.get('/user/groups', context.authorization)
+        const component = (data) => (
+          <Groups {...data} />
+        )
+        return { title: 'Edit Groups', data, component }
+      },
+      post: async (params, context, state, body) => {
+        const data = await api.post('/user/groups', body, context.authorization)
+        const component = (data) => (
+          <Groups {...data} />
+        )
+        return { title: 'Update Groups', data, component }
+      }
+    },
+    {
+      path: '/log/',
+      get: async (params, context, state) => {
+        const data = state || await api.get('/log/', context.authorization)
+        const component = (data) => (
+          <Log entries={data} />
+        )
+        return { title: 'Edit Groups', data, component }
+      },
+    },
+    {
+      path: '/log/:id',
+      get: async (params, context, state) => {
+        const versions = { compare: params.compare, to: params.to }
+        const url = getURL({ path: `/log/${params.id}`, params: versions })
+        const data = state || await api.get(url, context.authorization)
+        const component = (data) => (
+          <Diffs {...data} />
+        )
+        return { title: 'Edit Groups', data, component }
       }
     }
   ]
@@ -147,8 +212,11 @@ export default (api) => {
     return params
   }
 
-  const handle = async (method, uri, context, state, params) => {
+  const handle = async (method, uri, context, state, params, body) => {
     try {
+      if (context.err) {
+        throw new APIError(context.err)
+      }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
         if (uriParams === null) continue
@@ -156,36 +224,35 @@ export default (api) => {
           throw "Method not implemented"
         }
         Object.assign(params, uriParams)
-        const result = await route[method](params, context, state)
+        const result = await route[method](params, context, state, body)
         if (result) {
-          result.component = <Init {...context}>{result.component}</Init>
+          result.render = (data) => <Init {...context}>{result.component(data)}</Init>
           return result
         }
       }
     } catch (err) {
-      console.error(err)
-      return {
-        title: 'Error',
-        data: err,
-        component: <pre>{JSON.stringify(err, null, 2)}</pre>
+      if (err instanceof APIError) {
+        console.error(err)
+        const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
+        const render = (err) => <Init {...context}>{component(err)}</Init>
+        return { title: err.message, data: err, component, render, err: err.message }
       }
+      throw err
     }
     // 404
-    return {
-      title: 'Not found',
-      data: {},
-      component: <h1>Page not found</h1>
-    }
+    const component = () => <ErrorPage translate={(key) => key} message="Not Found" />
+    const render = () => <Init {...context}>{component()}</Init>
+    return { title: 'Not Found', data: {}, component, render }
   }
 
   return {
     route: (uri, context, state) => (
       {
-        get: async (params) => (
-          handle("get", uri, context, state, params)
+        get: async (params = {}) => (
+          handle("get", uri, context, state, params, null)
         ),
-        post: async (params) => (
-          handle("post", uri, context, state, params)
+        post: async (body, params = {}) => (
+          handle("post", uri, context, state, params, body)
         )
       }
     )

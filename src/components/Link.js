@@ -11,8 +11,10 @@ class Link extends React.Component {
   }
 
   onClick(event) {
-    event.preventDefault()
-    this.props.emitter.emit('navigate', this.getRef())
+    if (!this.props.target) {
+      event.preventDefault()
+      this.props.emitter.emit('navigate', this.getRef())
+    }
   }
 
   getRef() {
@@ -28,6 +30,7 @@ class Link extends React.Component {
         href={this.getRef()}
         onClick={this.onClick}
         data-show={this.props.dataShow}
+        target={this.props.target}
       >
         {this.props.children}
       </a>
@@ -44,13 +47,15 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   className: PropTypes.string,
   dataShow: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  target: PropTypes.string
 }
 
 Link.defaultProps = {
   className: null,
   title: null,
-  dataShow: null
+  dataShow: null,
+  target: null
 }
 
 export default withEmitter(Link)

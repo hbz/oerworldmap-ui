@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 
 import Icon from './Icon'
-import '../styles/Metadata.pcss'
+import '../styles/components/Metadata.pcss'
 
 const Metadata = ({type, dateModified, moment, translate} ) => (
   <div className="Metadata">

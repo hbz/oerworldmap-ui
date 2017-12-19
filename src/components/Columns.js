@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import withEmitter from './withEmitter'
 
-import '../styles/Columns.pcss'
+import '../styles/components/Columns.pcss'
 
 const Columns = ({ children }) => (
   <aside className="Columns">

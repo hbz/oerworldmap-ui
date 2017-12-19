@@ -1,0 +1,169 @@
+@import '../colors.pcss';
+@import '../variables.pcss';
+@import 'FormsStructure.pcss';
+
+.Forms {
+  & fieldset > legend,
+  & .input > label {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  & input[type=text],
+  & .textarea {
+    border-radius: 2px;
+    border: 1px solid var(--blue-dark);
+  }
+
+  & .textarea {
+    border-radius: 2px 2px 0 0;
+    border-bottom: 0;
+  }
+
+  & input[type=submit] {
+    border: 1px solid var(--orange);
+    background-color: var(--orange);
+    font-weight: bold;
+    color: var(--white);
+    font-size: 0.9rem;
+    border-radius: 2px;
+    transition: all 0.3s;
+
+    &:focus,
+    &:hover {
+      border: 1px solid var(--blue-dark);
+      background-color: var(--white);
+      color: var(--blue-dark);
+    }
+  }
+
+  & .input.\@value input[type="text"] {
+    border-right: 0;
+    border-radius: 2px 0 0 2px;
+  }
+
+  & .toggleDropdown {
+    border-radius: 2px;
+    padding: 10px;
+    background-color: var(--blue-dark);
+    border: 1px solid var(--blue-dark);
+    color: var(--white);
+    padding-right: 40px;
+
+    &::after {
+      font-family: FontAwesome;
+      content: "\f078";
+      position: absolute;
+      right: 17px;
+      top: 50%;
+      transform: translateY(-51%);
+    }
+
+    &:hover,
+    &:focus {
+      border: 1px solid var(--orange);
+      background-color: var(--orange);
+    }
+  }
+
+  & .dropdownList {
+    border-radius: 2px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    border: 1px solid var(--blue-dark);
+    transform: translateY(10px);
+
+    & .filterContainer {
+      position: relative;
+
+      & input[type="text"] {
+        padding-right: 40px;
+        border-radius: 0;
+        border-bottom: 1px solid var(--blue-dark);
+      }
+
+      &::after {
+        font-family: FontAwesome;
+        content: "\f002";
+        position: absolute;
+        right: 17px;
+        top: 50%;
+        transform: translateY(-51%);
+      }
+    }
+
+    & li {
+      transition: all 0.2s;
+
+      & label {
+        border-bottom: 1px solid var(--blue-dark);
+
+        &:hover,
+        &:focus {
+          background-color: var(--orange);
+          color: var(--white);
+        }
+      }
+
+      &:last-child label {
+        border-bottom: none;
+      }
+
+      &:hover::after {
+        color: var(--orange);
+      }
+    }
+  }
+
+  & .input.dropdown label {
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: var(--orange);
+      color: var(--white);
+    }
+  }
+
+  & .optionlistContainer .optionlist label,
+  & .checkbox label {
+    background-color: var(--blue-dark);
+    border: 1px solid var(--blue-dark);
+    color: var(--white);
+    border-radius: 2px;
+    transition: all 0.2s;
+
+    &:hover,
+    &:focus {
+      border: 1px solid var(--orange);
+      background-color: var(--orange);
+    }
+
+    &::after {
+      font-family: FontAwesome;
+      content: "\f00d";
+      position: absolute;
+      right: 17px;
+      top: 50%;
+      transform: translateY(-51%);
+    }
+  }
+
+  & .textarea + .optionlistContainer .optionlist label,
+  & .textarea + .optionlistContainer .toggleDropdown {
+    border-radius: 0 0 2px 2px;
+  }
+
+  & .input.\@value + .optionlistContainer label,
+  & .input.\@value + .optionlistContainer .toggleDropdown {
+    border-radius: 0 2px 2px 0;
+  }
+
+  & .error {
+    color: var(--orange);
+
+    & + input {
+      border-color: var(--orange);
+    }
+  }
+}

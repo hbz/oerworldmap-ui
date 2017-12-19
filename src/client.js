@@ -1,5 +1,6 @@
 /* global document */
 /* global window */
+/* global XMLHttpRequest */
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -16,7 +17,7 @@ import Api from './api'
 
   document.addEventListener('DOMContentLoaded', () => {
 
-
+    let state = window.__APP_INITIAL_STATE__.data
     const emitter = mitt()
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)
@@ -24,6 +25,7 @@ import Api from './api'
 
     const api = new Api(context.apiConfig)
 
+    let referrer = window.location.href
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
@@ -36,6 +38,7 @@ import Api from './api'
         && document.getElementById(window.location.hash.replace('#', ''))
         && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
       document.title = title
+      referrer = window.location.href
     }
 
     // Log all emissions
@@ -45,9 +48,8 @@ import Api from './api'
       const parser = document.createElement('a')
       parser.href = url
       if (parser.href !== window.location.href) {
-        const load = parser.href.split('#')[0] !== window.location.href.split('#')[0]
-        window.history.pushState({load}, null, url)
-        window.dispatchEvent(new window.PopStateEvent('popstate', {state: {load}}))
+        window.history.pushState(null, null, url)
+        window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
     // Find data from the API
@@ -58,7 +60,11 @@ import Api from './api'
           callback(response.data)
         })
       } else {
-        api.find(term, schema.properties['@type'].enum).then(response => callback(response))
+        const params = {
+          q: term,
+          'filter.about.@type': schema.properties['@type'].enum
+        }
+        router(api).route('/resource/', context).get(params).then(({data}) => callback(data))
       }
     })
     // Log in
@@ -80,28 +86,31 @@ import Api from './api'
     })
     // Form submission
     emitter.on('submit', ({url, data}) => {
-      router(api).route(url, context).post(data).then(({title, component}) => {
-        renderApp(title, component)
-      })
+      router(api).route(url, context).post(data)
+        .then(({title, data, render}) => {
+          state = data
+          window.history.pushState(null, null, data._location || url)
+          renderApp(title, render(data))
+        })
     })
 
-    let state = window.__APP_INITIAL_STATE__.data
-    window.addEventListener('popstate', (e) => {
+    window.addEventListener('popstate', () => {
+      emitter.emit('setLoading', true)
       const url = window.location.pathname
       const params = getParams(window.location.search)
-      emitter.emit('setLoading', true)
-      router(api).route(url, context, e.state && e.state.load ? null : state).get(params)
-        .then(({title, component, data}) => {
+      const load = referrer.split('#')[0] !== window.location.href.split('#')[0]
+      router(api).route(url, context, load ? null : state).get(params)
+        .then(({title, data, render}) => {
           state = data
-          renderApp(title, component)
+          renderApp(title, render(data))
         })
     })
 
     const url = window.location.pathname
     const params = getParams(window.location.search)
     router(api).route(url, context, state).get(params)
-      .then(({title, component}) => {
-        renderApp(title, component)
+      .then(({title, data, render}) => {
+        renderApp(title, render(data))
       })
 
   })

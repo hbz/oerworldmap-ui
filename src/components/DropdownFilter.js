@@ -1,9 +1,10 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
-import '../styles/DropdownFilter.pcss'
+import '../styles/components/DropdownFilter.pcss'
 
 class DropdownFilter extends React.Component {
 
@@ -61,9 +62,9 @@ class DropdownFilter extends React.Component {
       <div
         ref={DropdownFilter => {
           if (DropdownFilter) {
-            this.props.emitter.on("click", this.handleClick)
+            document.addEventListener("click", this.handleClick)
           } else {
-            this.props.emitter.off("click", this.handleClick)
+            document.removeEventListener("click", this.handleClick)
           }
           this.DropdownFilter = DropdownFilter
         }}

@@ -5,7 +5,7 @@ import { Composer } from 'json-pointer-form'
 import translate from './translate'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
-import '../styles/Register.pcss'
+import '../styles/components/Register.pcss'
 import schema from '../json/schema.json'
 
 const Register = ({translate, emitter}) => (
@@ -45,6 +45,7 @@ const Register = ({translate, emitter}) => (
 
 Register.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(translate(Register))

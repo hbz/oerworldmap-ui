@@ -6,7 +6,7 @@ import Link from './Link'
 import translate from './translate'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
-import '../styles/Statistics.pcss'
+import '../styles/components/Statistics.pcss'
 
 const color = d3.scaleOrdinal(["#ff8c00", "#ffb900", "#ffe600", "#d0d723", "#a0c846"])
 

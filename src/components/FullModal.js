@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import Link from './Link'
 
-import '../styles/FullModal.pcss'
+import '../styles/components/FullModal.pcss'
 
 class FullModal extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../styles/UserForm.pcss'
+import '../styles/components/UserForm.pcss'
 
 const UserForm = () => (
   <div className="fullModal">

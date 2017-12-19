@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Tooltip } from 'react-popperjs'
-import '../styles/Filters.pcss'
+import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
 import Icon from './Icon'
@@ -18,6 +18,7 @@ const onSubmit = (e, emitter) => {
   const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
   const parameters = [...formData.entries()]
+    .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
 }
@@ -76,14 +77,6 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
         <div className="FiltersControls">
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
-            <Tooltip
-              message={translate('Filters.showList')}
-              placement='bottom'
-              tooltipClassName='Tooltip'
-              arrowColor='#646464'
-            >
-              <i className="fa fa-th-list" />
-            </Tooltip>
             <noscript>
               <div className="search-bar">
                 <input type="submit" className="btn" />
@@ -92,64 +85,61 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
           </div>
 
           <div className="filterType">
-            <div>
-              {aggregations['about.@type']['buckets'].map(function (bucket) {
-                return (
-                  <div className="filterBox" key={bucket.key}>
-                    <Tooltip
-                      message={translate(bucket.key)}
-                      placement='top'
-                      tooltipClassName='Tooltip'
-                      arrowColor='#646464'
-                    >
-                      <input
-                        type="radio"
-                        value={bucket.key}
-                        checked={filters.hasOwnProperty("about.@type")
-                          && filters["about.@type"].includes(bucket.key)
+            {aggregations['about.@type']['buckets'].map(function (bucket) {
+              return (
+                <div className="filterBox" key={bucket.key}>
+                  <Tooltip
+                    message={translate(bucket.key)}
+                    placement='top'
+                    tooltipClassName='Tooltip'
+                    arrowColor='#646464'
+                  >
+                    <input
+                      type="radio"
+                      value={bucket.key}
+                      checked={filters.hasOwnProperty("about.@type")
+                        && filters["about.@type"].includes(bucket.key)
+                      }
+                      name="filter.about.@type"
+                      id={"type:" + bucket.key}
+                      onChange={(evt) => onSubmit(evt, emitter)}
+                    />
+
+                    <label
+                      onClick={(evt) => {
+                        // Trigger submit only if onChange is not triggered
+                        if (filters.hasOwnProperty("about.@type")
+                          && filters["about.@type"].includes(bucket.key)) {
+                          onSubmit(evt, emitter)
                         }
-                        name="filter.about.@type"
-                        id={"type:" + bucket.key}
-                        onChange={(evt) => onSubmit(evt, emitter)}
-                      />
+                      }}
+                      onKeyDown={triggerClick}
+                      role="button"
+                      tabIndex="0"
+                      htmlFor={"type:" + bucket.key}
+                      aria-label={translate(bucket.key)}
+                      className="btn"
+                    >
+                      <Icon type={bucket.key} />
+                    </label>
 
-                      <label
-                        onClick={(evt) => {
-                          // Trigger submit only if onChange is not triggered
-                          if (filters.hasOwnProperty("about.@type")
-                            && filters["about.@type"].includes(bucket.key)) {
-                            onSubmit(evt, emitter)
-                          }
-                        }}
-                        onKeyDown={triggerClick}
-                        role="button"
-                        tabIndex="0"
-                        htmlFor={"type:" + bucket.key}
-                        aria-label={translate(bucket.key)}
-                        className="btn"
-                      >
-                        <Icon type={bucket.key} />
-                      </label>
+                  </Tooltip>
+                </div>
+              )
+            }, this)}
 
-                    </Tooltip>
-                  </div>
-                )
-              }, this)}
-
-              {dropdownFilters.map(f => (
-                aggregations[f.name] &&
-                aggregations[f.name].buckets.length > 0 &&
-                <DropdownFilter
-                  key={f.name}
-                  icon={f.icon || null}
-                  aggregations={aggregations[f.name]}
-                  filters={filters[f.name] ? filters[f.name] : []}
-                  filterName={`filter.${f.name}`}
-                  submit={onSubmit}
-                />
-              ))}
-
-            </div>
+            {dropdownFilters.map(f => (
+              aggregations[f.name] &&
+              aggregations[f.name].buckets.length > 0 &&
+              <DropdownFilter
+                key={f.name}
+                icon={f.icon || null}
+                aggregations={aggregations[f.name]}
+                filters={filters[f.name] ? filters[f.name] : []}
+                filterName={`filter.${f.name}`}
+                submit={onSubmit}
+              />
+            ))}
           </div>
 
 

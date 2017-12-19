@@ -1,0 +1,35 @@
+@import '../colors.pcss';
+@import '../variables.pcss';
+
+.Groups {
+  color: var(--blue-dark);
+
+  & .center {
+    text-align: center;
+  }
+
+  & .controls {
+    border-top: 1px solid var(--blue-lightest);
+    padding-top: 10px;
+
+    & input[type="submit"] {
+      margin-right: 10px;
+    }
+  }
+
+  & table {
+    border-collapse: collapse;
+    width: 100%;
+
+    & thead tr {
+      border-top: 1px solid var(--blue-lightest);
+      border-bottom: 1px solid var(--blue-lightest);
+    }
+
+    & td,
+    & th {
+      padding: 10px;
+    }
+  }
+}
+

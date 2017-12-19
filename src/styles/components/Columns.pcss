@@ -1,0 +1,155 @@
+@import '../colors.pcss';
+@import '../variables.pcss';
+
+.Columns {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  transition: all 1s;
+  pointer-events: none;
+  z-index: 3;
+
+  &.hideColumns {
+    transform: translateX(98%);
+
+    & .FiltersControls {
+      position: relative;
+      left: -107%;
+      transition: all 1s;
+    }
+
+    & .toggleColumn {
+      left: -5px;
+
+      & i {
+        transform: scaleX(-1);
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+
+  & .column {
+    color: var(--blue-dark);
+    width: 470px;
+    background-color: var(--white);
+    border-left: 1px solid var(--blue-lightest);
+    position: relative;
+    pointer-events: all;
+
+    &.transparentColumn {
+      background-color: transparent;
+      pointer-events: none;
+      border-left: none;
+
+      & .columnContent {
+        height: auto;
+        pointer-events: all;
+      }
+
+      & .toggleColumn {
+        display: none;
+      }
+    }
+
+    & .columnContent {
+      padding: 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+
+      & .ColumnList {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+
+        &.noDisplay {
+          display: none;
+        }
+      }
+    }
+
+    & .toggleColumn {
+      position: absolute;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      color: var(--white);
+      cursor: pointer;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      border: 4px solid var(--white);
+      background-color: var(--blue);
+
+      &:hover {
+        background-color: var(--blue-dark);
+      }
+
+      & i {
+        position: relative;
+        top: 1px;
+        left: 1px;
+      }
+    }
+
+    /* Move to resource Type */
+    & .topline {
+      padding-top: 15px;
+      font-size: 0.8rem;
+    }
+
+    & h1 {
+      color: var(--blue-dark);
+    }
+
+    & > p {
+      padding-top: 20px;
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
+
+    & .boxedLink {
+      color: var(--blue-dark);
+      background-color: var(--blue-lightest);
+      padding: 6px 12px;
+      border: 1px solid var(--blue-dark);
+      font-size: 0.8rem;
+      font-weight: bold;
+
+      &:hover {
+        background-color: #b8d0e9;
+      }
+    }
+
+    & .ResourceDetails {
+      margin-top: 35px;
+
+      & table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      & td,
+      & td:last-child {
+        padding: 10px;
+        font-size: 0.8rem;
+        border-top: 1px solid var(--blue-lightest);
+      }
+
+      & td:first-child {
+        font-weight: bold;
+      }
+    }
+  }
+}

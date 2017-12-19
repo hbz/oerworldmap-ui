@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
 
-import '../styles/Pagination.pcss'
+import '../styles/components/Pagination.pcss'
 
 const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
