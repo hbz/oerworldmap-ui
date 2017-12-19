@@ -57,6 +57,7 @@ const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
+  moment: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
   selected: PropTypes.string.isRequired
