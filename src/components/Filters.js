@@ -77,14 +77,6 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
         <div className="FiltersControls">
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
-            <Tooltip
-              message={translate('Filters.showList')}
-              placement='bottom'
-              tooltipClassName='Tooltip'
-              arrowColor='#646464'
-            >
-              <i className="fa fa-th-list" />
-            </Tooltip>
             <noscript>
               <div className="search-bar">
                 <input type="submit" className="btn" />
