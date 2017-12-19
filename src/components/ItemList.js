@@ -8,7 +8,7 @@ import '../styles/components/ItemList.pcss'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, emitter, listItems, selected }) => (
+const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li
@@ -21,26 +21,30 @@ const ItemList = ({ translate, emitter, listItems, selected }) => (
           emitter.emit('hoverPoint', { id: '' })
         }}
       >
-        {listItem.about['@type'] === 'Event' ? (
-          <Link className="item" href={'#' + listItem.about['@id']}>
-            <span>
-              {translate(listItem.about.name) || listItem.about['@id']}<br />
-              {/* Edit to show the real start and end date */}
-              {/* {translate(listItem.about.description.startDate).format('D. MMM')} — {listItem.about.location.address.addressLocality},{listItem.about.location.address.addressCountry} */}
-            </span>
-          </Link>
-        ) : (
-          <Link className="item" href={'#' + listItem.about['@id']}>
-            <Icon type={listItem.about['@type']} />
-            <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
-          </Link>
-        )}
+        {listItem.about['@type'] === 'Event' &&
+        listItem.about.startDate
+          ? (
+            <Link className="item" href={'#' + listItem.about['@id']}>
+              <div className="sheet">
+                <span>{moment(listItem.about.startDate).format('D')}</span>
+                <span>{moment(listItem.about.startDate).format('ddd')}</span>
+              </div>
+              <span>
+                {translate(listItem.about.name) || listItem.about['@id']}<br />
+                {moment(listItem.about.startDate).format('dddd, D. MMMM')} — {listItem.about.location.address.addressLocality}, {listItem.about.location.address.addressCountry}
+              </span>
+            </Link>
+          ) : (
+            <Link className="item" href={'#' + listItem.about['@id']}>
+              <Icon type={listItem.about['@type']} />
+              <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
+            </Link>
+          )}
 
         {selected === listItem.about['@id'] &&
           <aside className="extract">
             <p>{translate(listItem.about.description)}</p>
             <Link className="btn clear" href={'/resource/' + listItem.about['@id']}>
-              {/* Read More */}
               {translate('ItemList.readMore')}
             </Link>
           </aside>
