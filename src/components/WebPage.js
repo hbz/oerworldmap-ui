@@ -10,7 +10,6 @@ import Link from './Link'
 import Icon from './Icon'
 import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
-import lighthouse from '../assets/lighthouse.svg'
 import FullModal from './FullModal'
 
 import '../styles/components/WebPage.pcss'
@@ -130,7 +129,7 @@ const WebPage = ({
             0
             </div>
             <img
-              src={lighthouse}
+              src='/assets/lighthouse.svg'
               alt="Lighthouse"
             />
           </div>

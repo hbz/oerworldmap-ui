@@ -3,7 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
-import lighthouse from '../assets/icon_lighthouse_static_transparent.svg'
 
 import '../styles/components/ActionButtons.pcss'
 
@@ -122,7 +121,7 @@ class ActionButtons extends React.Component {
           title={this.props.translate('ActionButtons.lighthouse')}
         >
           <img
-            src={lighthouse}
+            src='/assets/icon_lighthouse_static_transparent.svg'
             className="lighthouse"
             alt="Lighthouse"
           />
