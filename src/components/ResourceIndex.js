@@ -59,7 +59,7 @@ const ResourceIndex = ({
           filters={filters}
           aggregations={aggregations}
           member={member}
-          size={+size || 10}
+          size={Number.isInteger(+size) ? +size : 10}
         />
         <div className="ColumnList">
           <ItemList listItems={member} selected={selected} />
