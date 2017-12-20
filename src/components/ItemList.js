@@ -31,7 +31,11 @@ const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
               </div>
               <span>
                 {translate(listItem.about.name) || listItem.about['@id']}<br />
-                {moment(listItem.about.startDate).format('dddd, D. MMMM')} — {listItem.about.location.address.addressLocality}, {listItem.about.location.address.addressCountry}
+                {moment(listItem.about.startDate).format('dddd, D. MMMM')} —&nbsp;
+                {listItem.about.location &&
+                  listItem.about.location.address &&
+                  (`${listItem.about.location.address.addressLocality}, ${listItem.about.location.address.addressCountry}`)
+                }
               </span>
             </Link>
           ) : (
