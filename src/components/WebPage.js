@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
-import { Composer } from 'json-pointer-form'
+import { Composer } from '../../local_modules/json-pointer-form/lib'
 
 import translate from './translate'
 import Metadata from './Metadata'
@@ -35,7 +35,6 @@ const getLabel = (translate, value) => {
 
 const WebPage = ({
   translate,
-  moment,
   user,
   about,
   contributor,
@@ -130,10 +129,13 @@ const WebPage = ({
             <div className="lighthouseCounter">
             0
             </div>
-            <img
-              src='/assets/lighthouse.svg'
-              alt="Lighthouse"
-            />
+
+            <a href="#addLighthouse">
+              <img
+                src="/assets/lighthouse.svg"
+                alt="Lighthouse"
+              />
+            </a>
           </div>
 
           {about['@type'] === 'Action' &&
@@ -184,18 +186,23 @@ const WebPage = ({
 
           <ResourceTable value={about} schema={schema} />
 
-          {user &&
+          { user &&
           view === 'addLighthouse' &&
             <FullModal>
               <h2>Lighthouse Action</h2>
-              {/* <Composer
-                value={{'@type': 'Organization'}}
+              <Composer
+                value={
+                  {
+                    '@type': 'LighthouseAction',
+                    'object': about
+                  }
+                }
                 schema={schema}
                 submit={data => emitter.emit('submit', {url: '/resource/', data})}
                 getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
                 getLabel={value => getLabel(translate, value)}
                 submitLabel={translate('properties.submitLabel')}
-              /> */}
+              />
             </FullModal>
           }
 
@@ -226,12 +233,15 @@ WebPage.propTypes = {
   dateModified: PropTypes.string.isRequired,
   view: PropTypes.string.isRequired,
   geo: PropTypes.objectOf(PropTypes.any),
+  user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
-  _links: PropTypes.objectOf(PropTypes.any).isRequired,
+  _links: PropTypes.objectOf(PropTypes.any)
 }
 
 WebPage.defaultProps = {
   geo: null,
+  user: null,
+  _links: { refs: [] }
 }
 
 export default withEmitter(translate(WebPage))

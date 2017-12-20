@@ -133,7 +133,7 @@ class ActionButtons extends React.Component {
 
 ActionButtons.propTypes = {
   translate: PropTypes.func.isRequired,
-  user: PropTypes.string
+  user: PropTypes.objectOf(PropTypes.any)
 }
 
 ActionButtons.defaultProps = {

@@ -46,6 +46,7 @@ export default (api) => {
         const component = (data) => (
           <WebPage
             {...data}
+            user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
@@ -70,6 +71,7 @@ export default (api) => {
         const component = (data) => (
           <WebPage
             {...data}
+            user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
@@ -173,6 +175,17 @@ export default (api) => {
           <Groups {...data} />
         )
         return { title: 'Update Groups', data, component }
+      }
+    },
+    {
+      path: '/user/profile',
+      get: async (params, context, state) => {
+        console.log(context.authorization)
+        const data = state || await api.get('/user/profile', context.authorization)
+        const component = (data) => (
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        )
+        return { title: 'Current User', data, component }
       }
     },
     {

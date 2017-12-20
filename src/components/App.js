@@ -23,7 +23,7 @@ const App = ({ user, children }) => (
 )
 
 App.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.objectOf(PropTypes.any),
   children: PropTypes.node.isRequired
 }
 
