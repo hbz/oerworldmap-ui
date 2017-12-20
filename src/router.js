@@ -214,7 +214,9 @@ export default (api) => {
   const handle = async (method, uri, context, state, params, body) => {
     try {
       if (context.err) {
-        throw new APIError(context.err)
+        const message = context.err
+        context.err = null
+        throw new APIError(message)
       }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
