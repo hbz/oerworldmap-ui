@@ -19,10 +19,6 @@ body {
     flex: 1;
     position: relative;
     overflow: hidden;
-
-    /* overflow: hidden; */
-
-    /* overflow: auto; */
   }
 }
 
@@ -31,6 +27,12 @@ body {
 input, textarea, button, select {
   font-family: inherit;
   letter-spacing: inherit;
+}
+
+select {
+  &:focus {
+    outline: none;
+  }
 }
 
 .btn {
@@ -45,7 +47,8 @@ input, textarea, button, select {
   text-decoration: none !important;
 
   &:focus,
-  &:hover {
+  &:hover,
+  &:active {
     color: var(--white);
     background-color: var(--action-color);
   }
@@ -76,22 +79,6 @@ input, textarea, button, select {
     }
   }
 
-  &:focus,
-  &:hover {
-    color: var(--white);
-    background-color: var(--blue-dark);
-    border-color: #040609;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-  }
-
-  &.active {
-    color: var(--blue-dark);
-    background-color: var(--blue-darkest);
-    border-color: #172738;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  }
-
   &.clear {
     border: 2px solid var(--blue);
     background-color: var(--white);
@@ -100,14 +87,47 @@ input, textarea, button, select {
   }
 }
 
-input {
-  padding: 6px 12px;
+input,
+textarea {
+  padding: 7px 11px;
   border: 1px solid var(--action-color);
   border-radius: var(--border-radius);
   background: transparent;
+  color: var(--primary-color);
   
   &::placeholder {
     color: var(--light-grey);
+  }
+  
+  &:focus {
+    outline: none;
+    background-color: color(var(--primary-color) alpha(-90%));
+  }
+}
+
+.no-border-select {
+  display: inline-block;
+  position: relative;
+  padding-right: 1em;
+  margin: 0 .1em;
+  z-index: 0;
+  cursor: pointer;
+  
+  & select {
+    appearance: none;
+    background: none;
+    border: none;
+  }
+  
+  &:before {
+    font-family: FontAwesome;
+    font-size: 0.7em;
+    content: "\f078";
+    color: var(--blue-light);
+    position: absolute;
+    right: 0;
+    top: 0.3em;
+    z-index: -1;
   }
 }
 
@@ -128,7 +148,9 @@ input {
   }
 }
 
-
+.bottom-grid {
+  margin-bottom: 20px;
+}
 
 .alignRight {
   color: rgb(0, 70, 120);

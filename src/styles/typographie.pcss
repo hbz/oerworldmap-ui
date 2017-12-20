@@ -1,11 +1,13 @@
 body {
   color: var(--primary-color);
-  font-family: 'Source Sans Pro', futura-pt, sans-serif;
+  font-family: var(--font-family);
   font-size: var(--font-size);
   line-height: 1.4;
+  
   & .small {
     font-size: var(--font-size-small);
   }
+  
   & .large {
     font-size: var(--font-size-large);
   }
@@ -31,12 +33,20 @@ h3 {
   }
 }
 
-h1 {
-  font-size: 42px;
-  font-weight: 600;
-}
-
 a {
   text-decoration: none;
   color: var(--action-color);
+  
+  &:hover {
+    color: var(--highlight-color);
+  }
+}
+
+.a-neutral {
+  & a {
+    color: inherit;
+    &:hover {
+      color: var(--highlight-color);
+    }
+  }
 }
