@@ -17,7 +17,7 @@ let Config = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: `http://${env.host}:${env.port}/`,
-    filename: 'bundle.js'
+    filename: 'assets/bundle.js'
   },
   module: {
     exprContextCritical: false,
@@ -43,16 +43,12 @@ let Config = {
 
       {
         test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
-        use: [
-          'file-loader'
-        ]
-      },
-
-      {
-        test: /\.json$/,
-        use: [
-          'json-loader'
-        ]
+        use: {
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets/'
+          }
+        }
       }
     ]
   },
@@ -63,19 +59,12 @@ let Config = {
 if (TARGET === 'server:prod') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("styles.css"),
+      new ExtractTextPlugin("assets/styles.css"),
     ],
     module: {
       rules: [
         {
           test: /\.(css|pcss)$/,
-          include: [
-            path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'node_modules/normalize.css'),
-            path.resolve(__dirname, 'node_modules/font-awesome'),
-            path.resolve(__dirname, 'node_modules/source-sans-pro'),
-            path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-          ],
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
@@ -126,13 +115,6 @@ if (TARGET === 'server:dev') {
       rules: [
         {
           test: /\.(css|pcss)$/,
-          include: [
-            path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'node_modules/normalize.css'),
-            path.resolve(__dirname, 'node_modules/font-awesome'),
-            path.resolve(__dirname, 'node_modules/source-sans-pro'),
-            path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-          ],
           use: [
             {
               loader: 'style-loader'
@@ -170,7 +152,7 @@ if (TARGET === 'server:static') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
-      new ExtractTextPlugin("styles.css"),
+      new ExtractTextPlugin("assets/styles.css"),
       new StyleLintPlugin(
         {
           emitErrors: false,
@@ -184,13 +166,6 @@ if (TARGET === 'server:static') {
       rules: [
         {
           test: /\.(css|pcss)$/,
-          include: [
-            path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'node_modules/normalize.css'),
-            path.resolve(__dirname, 'node_modules/font-awesome'),
-            path.resolve(__dirname, 'node_modules/source-sans-pro'),
-            path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-          ],
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
