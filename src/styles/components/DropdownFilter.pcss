@@ -72,9 +72,6 @@
       & li {
         border-bottom: 1px solid var(--blue-dark);
 
-        &:hover {
-          background-color: var(--blue-light);
-        }
 
         &:last-child {
           border: none;
@@ -84,6 +81,11 @@
           padding: 10px 20px;
           display: block;
           position: relative;
+
+          &:hover,
+          &:focus {
+            background-color: var(--blue-light);
+          }
         }
 
         & > input[type=checkbox] {

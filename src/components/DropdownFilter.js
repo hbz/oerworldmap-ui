@@ -42,19 +42,19 @@ class DropdownFilter extends React.Component {
           name={this.props.filterName}
           id={this.props.filterName+i}
           defaultChecked={this.state.selectedElements.includes(bucket.key)}
-          onChange={e => {
-            const array = this.state.selectedElements
-            const index = array.indexOf(e.target.value)
-            if (index === -1) {
-              array.push(e.target.value)
-              this.setState({selectedElements: array})
-            } else {
-              array.splice(index, 1)
-              this.setState({selectedElements: array})
+        />
+        <label
+          htmlFor={this.props.filterName+i}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              e.target.click()
             }
           }}
-        />
-        <label htmlFor={this.props.filterName+i}>{`${this.props.translate(bucket.key)} (${bucket.doc_count})` } </label>
+          tabIndex="0"
+          role="button"
+        >
+          {`${this.props.translate(bucket.key)} (${bucket.doc_count})`}
+        </label>
       </li>
     ))
 
@@ -71,6 +71,13 @@ class DropdownFilter extends React.Component {
         className="DropdownFilter"
       >
         <span
+          tabIndex="0"
+          role="button"
+          onKeyDown={e => {
+            if (e.keyCode === 32) {
+              e.target.click()
+            }
+          }}
           className={`btn expand${this.props.filters.length ? ' inUse' : ''}`}
         >
           <span className="btnText">
