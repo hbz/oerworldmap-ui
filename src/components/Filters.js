@@ -65,7 +65,7 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
 
   let sizes = [10,20,50,100,200]
 
-  if (!sizes.includes(size) && size !== 0) {
+  if (!sizes.includes(size) && size > -1) {
     sizes.push(size)
     sizes = sizes.sort((a, b) => a - b)
   }
@@ -165,7 +165,8 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
 
             <select onChange={e => onSubmit(e, emitter)} className="btn" name="size" value={size}>
               {sizes.map(number => (
-                <option key={number} value={number}>{number}</option>
+                number >= 0 &&
+                  <option key={number} value={number}>{number}</option>
               ))}
               <option value="-1">All</option>
             </select>
