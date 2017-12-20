@@ -29,6 +29,7 @@
       flex: 1;
       border: 1px solid var(--blue);
       position: relative;
+      background-color: white;
     }
 
     &::after {
@@ -36,7 +37,7 @@
       content: "\f002";
       position: absolute;
       left: 10px;
-      top: 50%;
+      top: 55%;
       transform: translateY(-100%);
       z-index: 0;
       color: var(--blue);
@@ -45,10 +46,12 @@
   }
 
   & .filterType {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
 
     & .filterBox {
       display: inline-block;
+      margin-right: 5px;
     }
 
     & input[type="radio"] {
@@ -65,7 +68,6 @@
       padding: 10px 15px;
       min-width: 45px;
       text-align: center;
-      margin-right: 5px;
     }
   }
 

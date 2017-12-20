@@ -61,6 +61,7 @@ const WebPage = ({
           ) : (
             <Link href="#edit"><i className="fa fa-pencil" /></Link>
           )}
+          <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
           <Link href="/resource/"><i className="fa fa-close" /></Link>
         </div>
 
