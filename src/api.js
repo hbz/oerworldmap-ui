@@ -76,6 +76,22 @@ class Api {
       .then(toJson)
   }
 
+  delete (url, authorization) {
+    const headers = new Headers({
+      'Accept': 'application/json'
+    })
+    if (authorization) {
+      headers.append('Authorization', authorization)
+    }
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      headers,
+      method: 'DELETE',
+      mode: 'cors',
+      credentials: 'include'
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
   vocab (url) {
     switch(url) {
     case 'https://w3id.org/class/esc/scheme':

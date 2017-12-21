@@ -93,6 +93,15 @@ import Api from './api'
           renderApp(title, render(data))
         })
     })
+    // Deletion
+    emitter.on('delete', ({url}) => {
+      router(api).route(url, context).delete()
+        .then(({title, data, render}) => {
+          state = data
+          window.history.pushState(null, null, url)
+          renderApp(title, render(data))
+        })
+    })
 
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)

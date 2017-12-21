@@ -266,6 +266,9 @@ export default (api) => {
         ),
         post: async (body, params = {}) => (
           handle("post", uri, context, state, params, body)
+        ),
+        delete: async (body, params = {}) => (
+          handle("delete", uri, context, state, params, body)
         )
       }
     )
