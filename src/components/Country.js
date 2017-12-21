@@ -47,7 +47,8 @@ class Country  extends React.Component {
                 role="button"
                 onClick={() => this.setState({showCountryChampion:!this.state.showCountryChampion})}
               >
-                <span>{this.props.translate('Country.countryChampion')}</span> <i className="fa fa-minus" />
+                <span>{this.props.translate('Country.countryChampion')}</span>
+                &nbsp;<i className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
@@ -96,7 +97,8 @@ class Country  extends React.Component {
                 role="button"
                 onClick={() => this.setState({showCountryChampion: !this.state.showCountryChampion})}
               >
-                <span>{this.props.translate('Country.countryChampion')}</span> <i className="fa fa-minus" />
+                <span>{this.props.translate('Country.countryChampion')}</span>
+                &nbsp;<i className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
@@ -123,7 +125,8 @@ class Country  extends React.Component {
               role="button"
               onClick={() => this.setState({showReports:!this.state.showReports})}
             >
-              <span>{this.props.translate('Country.reports')}</span> <i className="fa fa-minus" />
+              <span>{this.props.translate('Country.reports')}</span>
+              &nbsp;<i className={`fa fa-${this.state.showReports ? 'minus' : 'plus'}`} />
             </h3>
 
             <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
@@ -152,7 +155,8 @@ class Country  extends React.Component {
             role="button"
             onClick={() => this.setState({showStatistics:!this.state.showStatistics})}
           >
-            <span>{this.props.translate('Country.statistics')}</span> <i className="fa fa-minus" />
+            <span>{this.props.translate('Country.statistics')}</span>
+            &nbsp;<i className={`fa fa-${this.state.showStatistics ? 'minus' : 'plus'}`} />
           </h3>
           <div className={`statisticsContainer ${this.state.showStatistics ? '' : 'collapsed'}`}>
             <table>
