@@ -127,6 +127,9 @@ class Map extends React.Component {
           && (!this.state.bucket || this.state.bucket && this.state.bucket.key !== hoveredCountry[0].properties.iso_a)) {
           const bucket = this.getBucket(hoveredCountry[0].properties.iso_a2)
           this.setState({bucket})
+          this.map.getCanvas().style.cursor = 'pointer'
+        } else {
+          this.map.getCanvas().style.cursor = ''
         }
 
         const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
@@ -218,11 +221,7 @@ class Map extends React.Component {
       this.map.on("mousemove", "points", (e) => {
         const ids = e.features.map(function (feat) { return feat.properties['@id'] })
         this.map.setFilter('points-hover', [ 'in', '@id' ].concat(ids))
-        if (ids.length > 6) {
-          this.map.getCanvas().style.cursor = 'zoom-in'
-        } else if (ids.length > 2) {
-          this.map.getCanvas().style.cursor = 'context-menu'
-        } else {
+        if (ids.length) {
           this.map.getCanvas().style.cursor = 'pointer'
         }
       })
