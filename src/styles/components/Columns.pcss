@@ -12,21 +12,18 @@
   z-index: 3;
 
   &.hideColumns {
-    transform: translateX(98%);
+    transform: translate3d(98%, 0, 0);
 
     & .FiltersControls {
-      position: relative;
-      left: -107%;
+      transform: translate3d(-107.3%, 0, 0);
       transition: all 1s;
     }
 
-    & .toggleColumn {
-      left: -5px;
-
+    & .column .toggleColumn {
       & i {
         transform: scaleX(-1);
         top: 0;
-        left: 0;
+        left: -1px;
       }
     }
   }
@@ -98,8 +95,8 @@
 
       & i {
         position: relative;
-        top: 1px;
-        left: 1px;
+        top: 0;
+        left: 0;
       }
     }
 
