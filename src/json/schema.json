@@ -1251,15 +1251,6 @@
             ]
           }
         },
-        "objectIn": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
-          }
-        },
         "participantIn": {
           "type": "array",
           "items": {
@@ -1672,6 +1663,15 @@
           "items": {
             "type": "string",
             "format": "uri"
+          }
+        },
+        "objectIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
+            ]
           }
         }
       },

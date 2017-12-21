@@ -46,186 +46,195 @@ const WebPage = ({
   geo,
   _links,
   _self
-}) => (
-  <div className="WebPage">
-    <div className="webPageContainer">
-      <div className="webPageHeader">
-        <b>
-          <Metadata
-            type={about['@type']}
-            author={author}
-            contributor={contributor}
-            dateModified={dateModified}
-            dateCreated={dateCreated}
-          />
-        </b>
+}) => {
+  const lighthouses = (about.objectIn || []).filter(action =>
+    action['@type'] === 'LighthouseAction'
+  ) || []
+  const lighthouse = lighthouses.find(action =>
+    action.agent.some(agent => agent['@id'] === user.id)
+  ) || {
+    '@type': 'LighthouseAction',
+    'object': about,
+    'agent': [{
+      '@id': user.id,
+      '@type': 'Person'
+    }]
+  }
+  return (
+    <div className="WebPage">
+      <div className="webPageContainer">
+        <div className="webPageHeader">
+          <b>
+            <Metadata
+              type={about['@type']}
+              author={author}
+              contributor={contributor}
+              dateModified={dateModified}
+              dateCreated={dateCreated}
+            />
+          </b>
 
-        <div className="webPageActions">
+          <div className="webPageActions">
 
-          {user &&
-            <div className="like">
-              <i className="fa fa-thumbs-up" /> <span>(0)</span>
-            </div>
-          }
+            {user &&
+              <div className="like">
+                <i className="fa fa-thumbs-up" /> <span>(0)</span>
+              </div>
+            }
 
-          {view === 'edit' ? (
-            <Link href="#view"><i className="fa fa-eye" /></Link>
-          ) : (
-            <Link href="#edit"><i className="fa fa-pencil" /></Link>
-          )}
-          <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
-          <Link href="/resource/"><i className="fa fa-close" /></Link>
-        </div>
-
-      </div>
-
-      {(about.image || geo) &&
-      <div
-        className="webPageCover"
-        style={{
-          backgroundImage:
-          geo && geo.geometry && geo.geometry.coordinates
-            ? `url("https://api.mapbox.com/styles/v1/mapbox/basic-v9/static/geojson(${encodeURIComponent(
-              JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
-              ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
-              : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
-            },7/800x225@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
-            : ''
-        }}
-      >
-        {about.image &&
-          <img
-            src={about.image}
-            alt={translate(about.name)}
-            onError={e => {
-              if (Object.keys(geo.geometry).length <= 0) {
-                e.target.parentElement.remove()
-              }
-              e.target.remove()
-            }}
-            aria-label={translate(about.name)}
-          />
-        }
-      </div>
-      }
-
-      <div className="webPageContent">
-
-        <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-          <Composer
-            value={about}
-            schema={schema}
-            submit={data => emitter.emit('submit', {url: `/resource/${about['@id']}`, data})}
-            getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-            getLabel={value => getLabel(translate, value)}
-            submitLabel={translate('properties.submitLabel')}
-          />
-        </div>
-
-        <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
-          <h1>{translate(about.name)}</h1>
-
-          <div className="lighthouse">
-            <div className="lighthouseCounter">
-            0
-            </div>
-
-            <a href="#addLighthouse">
-              <img
-                src="/assets/lighthouse.svg"
-                alt="Lighthouse"
-              />
-            </a>
+            {view === 'edit' ? (
+              <Link href="#view"><i className="fa fa-eye" /></Link>
+            ) : (
+              <Link href="#edit"><i className="fa fa-pencil" /></Link>
+            )}
+            <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
+            <Link href="/resource/"><i className="fa fa-close" /></Link>
           </div>
 
-          {about['@type'] === 'Action' &&
-            (about.agent &&
-            about.agent.map(agent => (
-              <div className="operator">
-                Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
-              </div>
-            )))
-          }
-
-          {about.provider &&
-            about.provider.map(provider => (
-              <div key={provider['@id']} className="provider">
-                Provider:&nbsp;
-                <Link href={provider['@id']}>
-                  {formatURL(translate(provider.name))}
-                </Link>
-              </div>
-            ))
-          }
-
-          {about.description &&
-            <ReactMarkdown source={translate(about.description)} />
-          }
-
-          {about.articleBody &&
-            <ReactMarkdown source={translate(about.articleBody)} />
-          }
-
-          {about.url &&
-            <a href={about.url} target="_blank" className="boxedLink">
-              {formatURL(about.url)}
-            </a>
-          }
-
-          {about.availableChannel &&
-            <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
-              {formatURL(about.availableChannel[0].serviceUrl)}
-            </a>
-          }
-
-          {about.license &&
-            about.license.map(license => (
-              <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
-            ))
-          }
-
-          <ResourceTable value={about} schema={schema} />
-
-          { user &&
-          view === 'addLighthouse' &&
-            <FullModal>
-              <h2>Lighthouse Action</h2>
-              <Composer
-                value={
-                  {
-                    '@type': 'LighthouseAction',
-                    'object': about
-                  }
-                }
-                schema={schema}
-                submit={data => emitter.emit('submit', {url: '/resource/', data})}
-                getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-                getLabel={value => getLabel(translate, value)}
-                submitLabel={translate('properties.submitLabel')}
-              />
-            </FullModal>
-          }
-
-          {view === 'share' &&
-            <Share _self={_self} />
-          }
-
-          {view === 'export' &&
-            <Export _links={_links} />
-          }
-
         </div>
 
-      </div>
-    </div>
+        {(about.image || geo) &&
+        <div
+          className="webPageCover"
+          style={{
+            backgroundImage:
+            geo && geo.geometry && geo.geometry.coordinates
+              ? `url("https://api.mapbox.com/styles/v1/mapbox/basic-v9/static/geojson(${encodeURIComponent(
+                JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
+                ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
+                : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
+              },7/800x225@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
+              : ''
+          }}
+        >
+          {about.image &&
+            <img
+              src={about.image}
+              alt={translate(about.name)}
+              onError={e => {
+                if (Object.keys(geo.geometry).length <= 0) {
+                  e.target.parentElement.remove()
+                }
+                e.target.remove()
+              }}
+              aria-label={translate(about.name)}
+            />
+          }
+        </div>
+        }
 
-  </div>
-)
+        <div className="webPageContent">
+
+          <div id="edit" className={view === 'edit' ? 'visible' : ''}>
+            <Composer
+              value={about}
+              schema={schema}
+              submit={data => emitter.emit('submit', {url: `/resource/${about['@id']}`, data})}
+              getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+              getLabel={value => getLabel(translate, value)}
+              submitLabel={translate('properties.submitLabel')}
+            />
+          </div>
+
+          <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
+            <h1>{translate(about.name)}</h1>
+
+            <div className="lighthouse">
+              <div className="lighthouseCounter">
+                {lighthouses.length}
+              </div>
+
+              <a href="#addLighthouse">
+                <img
+                  src="/assets/lighthouse.svg"
+                  alt="Lighthouse"
+                />
+              </a>
+            </div>
+
+            {about['@type'] === 'Action' &&
+              (about.agent &&
+              about.agent.map(agent => (
+                <div className="operator">
+                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
+                </div>
+              )))
+            }
+
+            {about.provider &&
+              about.provider.map(provider => (
+                <div key={provider['@id']} className="provider">
+                  Provider:&nbsp;
+                  <Link href={provider['@id']}>
+                    {formatURL(translate(provider.name))}
+                  </Link>
+                </div>
+              ))
+            }
+
+            {about.description &&
+              <ReactMarkdown source={translate(about.description)} />
+            }
+
+            {about.articleBody &&
+              <ReactMarkdown source={translate(about.articleBody)} />
+            }
+
+            {about.url &&
+              <a href={about.url} target="_blank" className="boxedLink">
+                {formatURL(about.url)}
+              </a>
+            }
+
+            {about.availableChannel &&
+              <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
+                {formatURL(about.availableChannel[0].serviceUrl)}
+              </a>
+            }
+
+            {about.license &&
+              about.license.map(license => (
+                <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
+              ))
+            }
+
+            <ResourceTable value={about} schema={schema} />
+
+            { user &&
+            view === 'addLighthouse' &&
+              <FullModal>
+                {console.log("about", about['@id'])}
+                <h2>Lighthouse Action</h2>
+                <Composer
+                  value={lighthouse}
+                  schema={schema}
+                  submit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
+                  getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+                  getLabel={value => getLabel(translate, value)}
+                  submitLabel={translate('properties.submitLabel')}
+                />
+              </FullModal>
+            }
+
+            {view === 'share' &&
+              <Share _self={_self} />
+            }
+
+            {view === 'export' &&
+              <Export _links={_links} />
+            }
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  )
+}
 
 WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   author: PropTypes.string.isRequired,
   contributor: PropTypes.string.isRequired,
