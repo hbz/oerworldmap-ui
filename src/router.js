@@ -86,7 +86,10 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             selected={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
-            <Country {...data} />
+            <Country
+              iso3166={data.iso3166}
+              countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
+            />
           </ResourceIndex>
         )
         return { title: 'Country', data, component }
