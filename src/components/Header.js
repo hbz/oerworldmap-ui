@@ -96,7 +96,7 @@ class Header extends React.Component {
             <div
               className="menuBtn"
               href="#nothing"
-              title={this.props.user}
+              title={this.props.user.username}
               tabIndex="0"
               role="button"
               onClick={() => {this.setState({showUserMenu:!this.state.showUserMenu})}}
@@ -145,7 +145,7 @@ class Header extends React.Component {
 Header.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  user: PropTypes.string
+  user: PropTypes.objectOf(PropTypes.any)
 }
 
 Header.defaultProps = {

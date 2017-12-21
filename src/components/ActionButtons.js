@@ -103,10 +103,6 @@ class ActionButtons extends React.Component {
           </div>
         }
 
-        <Link href="/user/newsletter" title={this.props.translate('ActionButtons.subscribeToNewsletter')}>
-          <i className="fa fa-envelope" />
-        </Link>
-
         <Link href="/aggregation/" title={this.props.translate('ActionButtons.statistics')}>
           <i className="fa fa-pie-chart" />
         </Link>
@@ -114,11 +110,21 @@ class ActionButtons extends React.Component {
         <Link href="/feed/" title={this.props.translate('ActionButtons.recentAdditions')}>
           <i className="fa fa-rss" />
         </Link>
-        <Link href="#liked" title={this.props.translate('ActionButtons.liked')}>
+        <Link
+          href="?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC"
+          title={this.props.translate('ActionButtons.liked')}
+        >
           <i className="fa fa-thumbs-up" />
         </Link>
-        <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC" title={this.props.translate('ActionButtons.lighthouse')}>
-          <i className="fa fa-lightbulb-o" />
+        <Link
+          href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC"
+          title={this.props.translate('ActionButtons.lighthouse')}
+        >
+          <img
+            src='/assets/icon_lighthouse_static_transparent.svg'
+            className="lighthouse"
+            alt="Lighthouse"
+          />
         </Link>
       </div>
     )
@@ -127,7 +133,7 @@ class ActionButtons extends React.Component {
 
 ActionButtons.propTypes = {
   translate: PropTypes.func.isRequired,
-  user: PropTypes.string
+  user: PropTypes.objectOf(PropTypes.any)
 }
 
 ActionButtons.defaultProps = {
