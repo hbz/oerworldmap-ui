@@ -38,55 +38,79 @@ class Country  extends React.Component {
 
         {this.props.countryData &&
         this.props.countryData.country_champions &&
-        this.props.countryData.country_champions.hits.hits.length > 0 &&
-        <div className="countryChampion">
-          <h3
-            onKeyDown={triggerClick}
-            tabIndex="0"
-            role="button"
-            onClick={() => this.setState({showCountryChampion:!this.state.showCountryChampion})}
-          >
-            <span>{this.props.translate('Country.countryChampion')}</span> <i className="fa fa-minus" />
-          </h3>
+        this.props.countryData.country_champions.hits.hits.length > 0 ?
+          (
+            <div className="countryChampion">
+              <h3
+                onKeyDown={triggerClick}
+                tabIndex="0"
+                role="button"
+                onClick={() => this.setState({showCountryChampion:!this.state.showCountryChampion})}
+              >
+                <span>{this.props.translate('Country.countryChampion')}</span> <i className="fa fa-minus" />
+              </h3>
 
-          <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
-            {this.props.countryData.country_champions.hits.hits.map(champion => (
-              <div className="user" key={champion._source.about['@id']}>
-                {champion._source.about.image ? (
-                  <Link href={`/resource/${champion._source.about['@id']}`}>
-                    <div className="frame">
-                      <img
-                        src={champion._source.about.image}
-                        alt={this.props.translate(champion._source.about.name)}
-                        onLoad={e => {
-                          if (e.target.complete) {
-                            e.target.classList.add('visible')
-                          }}}
-                      />
-                      <Icon type={champion._type} />
+              <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
+                {this.props.countryData.country_champions.hits.hits.map(champion => (
+                  <div className="user" key={champion._source.about['@id']}>
+                    {champion._source.about.image ? (
+                      <Link href={`/resource/${champion._source.about['@id']}`}>
+                        <div className="frame">
+                          <img
+                            src={champion._source.about.image}
+                            alt={this.props.translate(champion._source.about.name)}
+                            onLoad={e => {
+                              if (e.target.complete) {
+                                e.target.classList.add('visible')
+                              }}}
+                          />
+                          <Icon type={champion._type} />
+                        </div>
+                      </Link>
+                    ) :(
+                      <div className="frame">
+                        <Icon type={champion._type} />
+                      </div>
+                    )
+                    }
+                    <div className="text">
+                      <Link href={`/resource/${champion._source.about['@id']}`}>
+                        {this.props.translate(champion._source.about.name)}
+                      </Link>
+                      <br />
+                      {champion._source.about.email &&
+                        <Link href={`/resource/${champion._source.about['@id']}`}>
+                          {champion._source.about.email}
+                        </Link>
+                      }
                     </div>
-                  </Link>
-                ) :(
-                  <div className="frame">
-                    <Icon type={champion._type} />
                   </div>
-                )
-                }
-                <div className="text">
-                  <Link href={`/resource/${champion._source.about['@id']}`}>
-                    {this.props.translate(champion._source.about.name)}
-                  </Link>
-                  <br />
-                  {champion._source.about.email &&
-                    <Link href={`/resource/${champion._source.about['@id']}`}>
-                      {champion._source.about.email}
-                    </Link>
-                  }
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="countryChampion">
+              <h3
+                onKeyDown={triggerClick}
+                tabIndex="0"
+                role="button"
+                onClick={() => this.setState({showCountryChampion: !this.state.showCountryChampion})}
+              >
+                <span>{this.props.translate('Country.countryChampion')}</span> <i className="fa fa-minus" />
+              </h3>
+
+              <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
+                <div className="user">
+                  <div className="frame">
+                    <i className="fa fa-question" />
+                  </div>
+                  <div className="text">
+                    There is no <Link href="/contribute">contry champion</Link> for Colombia, yet. <a href="mailto:info@oerworldmap.org">Contact us</a> if you can jump in!
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          )
         }
 
         {this.props.countryData &&
