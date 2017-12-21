@@ -31,6 +31,12 @@
     },
     {
       "$ref": "#/definitions/RegisterAction"
+    },
+    {
+      "$ref": "#/definitions/LikeAction"
+    },
+    {
+      "$ref": "#/definitions/LighthouseAction"
     }
   ],
   "definitions": {
@@ -1012,7 +1018,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action", "LikeAction", "LighthouseAction" ] } } }
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
             ]
           }
         },
@@ -1238,16 +1244,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
-            ]
-          }
-        },
-        "objectIn": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
+              { "properties": { "@type": { "enum": [ "Action", "LikeAction", "LighthouseAction" ] } } }
             ]
           }
         },
@@ -1505,6 +1502,15 @@
             ]
           }
         },
+        "objectIn": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
+            ]
+          }
+        },
         "participantIn": {
           "type": "array",
           "items": {
@@ -1663,15 +1669,6 @@
           "items": {
             "type": "string",
             "format": "uri"
-          }
-        },
-        "objectIn": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
           }
         }
       },
@@ -2261,11 +2258,13 @@
         },
         "agent": {
           "description": "The agent of the like action",
-          "type": "object",
-          "allOf": [
-            { "$ref": "#/definitions/Link" },
-            { "properties": { "@type": { "enum": [ "Person" ] } } }
-          ],
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          },
           "_display": {
             "className": "hidden"
           }
@@ -2288,7 +2287,7 @@
           }
         }
       },
-      "required": [ "agent", "object", "startTime" ],
+      "required": [ "agent", "object" ],
       "additionalProperties": false
     },
     "LighthouseAction": {

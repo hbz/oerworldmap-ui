@@ -76,6 +76,15 @@ export default (api) => {
           />
         )
         return { title: 'Updated WebPage', data, component }
+      },
+      delete: async (params, context) => {
+        const data = await api.delete(`/resource/${params.id}`, context.authorization)
+        const component = (data) => (
+          <Feedback>
+            {data.message}
+          </Feedback>
+        )
+        return { title: 'Deleted WebPage', data, component }
       }
     },
     {

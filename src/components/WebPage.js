@@ -47,19 +47,48 @@ const WebPage = ({
   _links,
   _self
 }) => {
+
   const lighthouses = (about.objectIn || []).filter(action =>
     action['@type'] === 'LighthouseAction'
   ) || []
   const lighthouse = lighthouses.find(action =>
     action.agent.some(agent => agent['@id'] === user.id)
-  ) || {
-    '@type': 'LighthouseAction',
-    'object': about,
-    'agent': [{
-      '@id': user.id,
-      '@type': 'Person'
-    }]
+  ) || user ? {
+      '@type': 'LighthouseAction',
+      'object': about,
+      'agent': [{
+        '@id': user.id,
+        '@type': 'Person'
+      }]
+    } : null
+
+  const likes = (about.objectIn || []).filter(action =>
+    action['@type'] === 'LikeAction'
+  ) || []
+  const like = likes.find(action =>
+    action.agent.some(agent => agent['@id'] === user.id)
+  )
+
+  const toggleLike = (e) => {
+    e.preventDefault()
+    if (like) {
+      console.log(like)
+      emitter.emit('delete', {url: `/resource/${like['@id']}`})
+    } else {
+      emitter.emit('submit', {
+        url: '/resource/',
+        data: {
+          '@type': 'LikeAction',
+          'object': about,
+          'agent': [{
+            '@id': user.id,
+            '@type': 'Person'
+          }]
+        }
+      })
+    }
   }
+
   return (
     <div className="WebPage">
       <div className="webPageContainer">
@@ -78,7 +107,11 @@ const WebPage = ({
 
             {user &&
               <div className="like">
-                <i className="fa fa-thumbs-up" /> <span>(0)</span>
+                <form onSubmit={toggleLike}>
+                  <button type="submit" title="Like">
+                    <i className="fa fa-thumbs-up" /> <span>({likes.length})</span>
+                  </button>
+                </form>
               </div>
             }
 
