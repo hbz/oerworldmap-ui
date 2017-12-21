@@ -73,18 +73,6 @@
     "nextPage": "Next Page",
     "prevPage": "Previous Page"
   },
-  "NotificationWelcome": {
-    "dontShow": "\"Don't show again\"",
-    "welcomeTo": "Welcome to the OER World Map!",
-    "goal": "Our goal is to provide the most complete and comprehensible picture of the global Open Educational Resources (OER) movement. Information is collected on people, organizations,services, projects and events related to OER.",
-    "building": "Building the map is a collaborative process. You can",
-    "contribute": "contribute",
-    "currently": "Currently on the Map",
-    "announcement": "Announcement",
-    "takeAMoment": "Please take a moment to complete our",
-    "userEvaluation": "user evaluation survey",
-    "thankYou": "Thank you!"
-  },
   "Map": {
     "countryChampionAvailable": "Country Champion available",
     "entriesPerRegion": "Entries per region",
