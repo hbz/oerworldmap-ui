@@ -29,7 +29,7 @@ class FullModal extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={this.props.className} >
         {this.state.visible === true ? (
           <div
             className="FullModal"
@@ -63,7 +63,11 @@ class FullModal extends React.Component {
 
 FullModal.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 }
 
+FullModal.defaultProps = {
+  className: null,
+}
 export default withEmitter(FullModal)
