@@ -11,6 +11,8 @@ import Icon from './Icon'
 import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
+import Export from './Export'
+import Share from './Share'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -198,38 +200,11 @@ const WebPage = ({
           }
 
           {view === 'share' &&
-          <FullModal>
-            <h2>Share this Resource</h2>
-            <div className="share">
-              <span className="title">Permalik:</span>
-              <div className="content">{_self}</div>
-            </div>
-            <div>
-              <a target="_blank" href={`https://twitter.com/intent/tweet?url=${_self}`}>
-                <i className="fa fa-twitter" />
-              </a>
-              <a target="_blank" href={`https://www.facebook.com/sharer.php?u=${_self}`}>
-                <i className="fa fa-facebook" />
-              </a>
-              <a target="_blank" href={`https://reddit.com/submit?url=${_self}`}>
-                <i className="fa fa-reddit-alien" />
-              </a>
-              <a target="_blank" href={`mailto:?subject=&body=${_self}`}>
-                <i className="fa fa-envelope" />
-              </a>
-            </div>
-          </FullModal>
+            <Share _self={_self} />
           }
 
           {view === 'export' &&
-          <FullModal>
-            <h2>Export this Resource</h2>
-            <div className="export">
-              {_links.refs.map(link => (
-                <Link className="btn" href={link.uri}>{link.uri.split('.').slice(-1)}</Link>
-              ))}
-            </div>
-          </FullModal>
+            <Export _links={_links} />
           }
 
         </div>
@@ -250,7 +225,9 @@ WebPage.propTypes = {
   dateCreated: PropTypes.string.isRequired,
   dateModified: PropTypes.string.isRequired,
   view: PropTypes.string.isRequired,
-  geo: PropTypes.objectOf(PropTypes.any)
+  geo: PropTypes.objectOf(PropTypes.any),
+  _self: PropTypes.string.isRequired,
+  _links: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 WebPage.defaultProps = {
