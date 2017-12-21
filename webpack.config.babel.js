@@ -82,6 +82,7 @@ if (TARGET === 'server:prod') {
                 options: {
                   importLoaders: 1,
                   sourceMap: true,
+                  minimize: true,
                 },
               },
               {
@@ -132,7 +133,7 @@ if (TARGET === 'server:dev') {
               loader: 'css-loader',
               options: {
                 importLoaders: 1,
-                sourceMap: true
+                sourceMap: true,
               }
             },
             {
