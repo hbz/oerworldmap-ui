@@ -4,6 +4,7 @@ import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import env from './config'
 
 const TARGET = process.env.npm_lifecycle_event
@@ -55,6 +56,14 @@ let Config = {
   },
 
   devtool: 'source-map',
+
+  plugins: [
+    new ExtractTextPlugin("styles.css"),
+    new CopyWebpackPlugin([
+      { from: 'assets', to: 'assets' },
+    ])
+  ]
+
 }
 
 if (TARGET === 'server:prod') {

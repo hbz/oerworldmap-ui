@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
+import Link from './Link'
 
 import '../styles/components/FullModal.pcss'
 
@@ -28,7 +29,7 @@ class FullModal extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={this.props.className} >
         {this.state.visible === true ? (
           <div
             className="FullModal"
@@ -43,6 +44,14 @@ class FullModal extends React.Component {
           >
             <div className="modalDialog">
               {this.props.children}
+
+              <Link
+                href='/resource/'
+                className="closeModal"
+              >
+                <i className="fa fa-close" />
+              </Link>
+
             </div>
           </div>
         ) : null
@@ -54,7 +63,11 @@ class FullModal extends React.Component {
 
 FullModal.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 }
 
+FullModal.defaultProps = {
+  className: null,
+}
 export default withEmitter(FullModal)

@@ -19,10 +19,6 @@ body {
     flex: 1;
     position: relative;
     overflow: hidden;
-
-    /* overflow: hidden; */
-
-    /* overflow: auto; */
   }
 }
 
@@ -33,6 +29,12 @@ button,
 select {
   font-family: inherit;
   letter-spacing: inherit;
+}
+
+select {
+  &:focus {
+    outline: none;
+  }
 }
 
 .btn {
@@ -47,7 +49,8 @@ select {
   text-decoration: none !important;
 
   &:focus,
-  &:hover {
+  &:hover,
+  &:active {
     color: var(--white);
     background-color: var(--action-color);
     background-color: var(--blue-dark);
@@ -96,14 +99,47 @@ select {
   }
 }
 
-input {
-  padding: 6px 12px;
+input,
+textarea {
+  padding: 7px 11px;
   border: 1px solid var(--action-color);
   border-radius: var(--border-radius);
   background: transparent;
+  color: var(--primary-color);
 
   &::placeholder {
     color: var(--light-grey);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: color(var(--primary-color) alpha(-90%));
+  }
+}
+
+.no-border-select {
+  display: inline-block;
+  position: relative;
+  padding-right: 1em;
+  margin: 0 .1em;
+  z-index: 0;
+  cursor: pointer;
+
+  & select {
+    appearance: none;
+    background: none;
+    border: none;
+  }
+
+  &:before {
+    font-family: FontAwesome;
+    font-size: 0.7em;
+    content: "\f078";
+    color: var(--blue-light);
+    position: absolute;
+    right: 0;
+    top: 0.3em;
+    z-index: -1;
   }
 }
 
@@ -122,6 +158,10 @@ input {
     flex: 1;
     padding: 0 10px;
   }
+}
+
+.bottom-grid {
+  margin-bottom: 20px;
 }
 
 .alignRight {

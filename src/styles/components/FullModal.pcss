@@ -19,5 +19,19 @@
     padding: 20px;
     border: 1px solid var(--blue-dark);
     border-radius: 2px;
+    position: relative;
+
+    & .closeModal {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      border: none;
+      color: var(--blue-dark);
+      background-color: transparent;
+
+      &:hover {
+        color: var(--orange);
+      }
+    }
   }
 }

@@ -12,6 +12,8 @@ import FullModal from './FullModal'
 import schema from '../json/schema.json'
 import translate from './translate'
 import Icon from './Icon'
+import Export from './Export'
+import Share from './Share'
 
 import withEmitter from './withEmitter'
 
@@ -49,9 +51,11 @@ const ResourceIndex = ({
   iso3166,
   map,
   view,
-  children
+  children,
+  _self,
+  _links
 }) => (
-  <div>
+  <div className="ResourceIndex">
     <Columns>
       <Column>
         <Filters
@@ -59,7 +63,7 @@ const ResourceIndex = ({
           filters={filters}
           aggregations={aggregations}
           member={member}
-          size={+size || 10}
+          size={Number.isInteger(+size) ? +size : 10}
         />
         <div className="ColumnList">
           <ItemList listItems={member} selected={selected} />
@@ -185,6 +189,14 @@ const ResourceIndex = ({
       </FullModal>
     }
 
+    {view === 'share' &&
+      <Share _self={_self} />
+    }
+
+    {view === 'export' &&
+      <Export _links={_links} />
+    }
+
   </div>
 
 )
@@ -210,6 +222,8 @@ ResourceIndex.propTypes = {
   view: PropTypes.string,
   children: PropTypes.node.isRequired,
   translate: PropTypes.func.isRequired,
+  _self: PropTypes.string.isRequired,
+  _links: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 ResourceIndex.defaultProps = {

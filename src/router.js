@@ -46,6 +46,7 @@ export default (api) => {
         const component = (data) => (
           <WebPage
             {...data}
+            user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
@@ -59,6 +60,7 @@ export default (api) => {
         const component = (data) => (
           <WebPage
             {...data}
+            user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
@@ -69,10 +71,20 @@ export default (api) => {
         const component = (data) => (
           <WebPage
             {...data}
+            user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
         return { title: 'Updated WebPage', data, component }
+      },
+      delete: async (params, context) => {
+        const data = await api.delete(`/resource/${params.id}`, context.authorization)
+        const component = (data) => (
+          <Feedback>
+            {data.message}
+          </Feedback>
+        )
+        return { title: 'Deleted WebPage', data, component }
       }
     },
     {
@@ -175,6 +187,17 @@ export default (api) => {
       }
     },
     {
+      path: '/user/profile',
+      get: async (params, context, state) => {
+        console.log(context.authorization)
+        const data = state || await api.get('/user/profile', context.authorization)
+        const component = (data) => (
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        )
+        return { title: 'Current User', data, component }
+      }
+    },
+    {
       path: '/log/',
       get: async (params, context, state) => {
         const data = state || await api.get('/log/', context.authorization)
@@ -214,7 +237,9 @@ export default (api) => {
   const handle = async (method, uri, context, state, params, body) => {
     try {
       if (context.err) {
-        throw new APIError(context.err)
+        const message = context.err
+        context.err = null
+        throw new APIError(message)
       }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -252,6 +277,9 @@ export default (api) => {
         ),
         post: async (body, params = {}) => (
           handle("post", uri, context, state, params, body)
+        ),
+        delete: async (body, params = {}) => (
+          handle("delete", uri, context, state, params, body)
         )
       }
     )

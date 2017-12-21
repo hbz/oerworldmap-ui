@@ -1,6 +1,6 @@
 body {
   color: var(--primary-color);
-  font-family: 'Source Sans Pro', futura-pt, sans-serif;
+  font-family: var(--font-family);
   font-size: var(--font-size);
   line-height: 1.4;
 
@@ -41,4 +41,17 @@ h3 {
 a {
   text-decoration: none;
   color: var(--action-color);
+
+  &:hover {
+    color: var(--highlight-color);
+  }
+}
+
+.a-neutral {
+  & a {
+    color: inherit;
+    &:hover {
+      color: var(--highlight-color);
+    }
+  }
 }

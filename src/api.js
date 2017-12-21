@@ -26,6 +26,7 @@ const toJson = response => {
     if (response.headers.has('Link')) {
       json._links = linkHeader.parse(response.headers.get('Link'))
     }
+    json._self = response.url
     if (response.headers.has('Location')) {
       json._location = response.headers.get('Location')
     }
@@ -69,6 +70,22 @@ class Api {
     return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
       method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
+  delete (url, authorization) {
+    const headers = new Headers({
+      'Accept': 'application/json'
+    })
+    if (authorization) {
+      headers.append('Authorization', authorization)
+    }
+    return fetch(`http://${this.host}:${this.port}${url}`, {
+      headers,
+      method: 'DELETE',
       mode: 'cors',
       credentials: 'include'
     }).then(checkStatus)
