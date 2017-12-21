@@ -103,10 +103,6 @@ class ActionButtons extends React.Component {
           </div>
         }
 
-        <Link href="/user/newsletter" title={this.props.translate('ActionButtons.subscribeToNewsletter')}>
-          <i className="fa fa-envelope" />
-        </Link>
-
         <Link href="/aggregation/" title={this.props.translate('ActionButtons.statistics')}>
           <i className="fa fa-pie-chart" />
         </Link>
