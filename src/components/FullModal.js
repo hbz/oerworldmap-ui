@@ -20,8 +20,7 @@ class FullModal extends React.Component {
   closeModal(e) {
     if (e.target.classList.contains('FullModal')) {
       this.setState({visible: false})
-      window.history.state &&
-      window.history.state.hasOwnProperty('load')
+      window.history.length
         ? window.history.back()
         : this.props.emitter.emit('navigate', '/resource/')
     }
