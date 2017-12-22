@@ -84,7 +84,11 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
                 tabIndex="0"
                 role="button"
                 onClick={() => {emitter.emit('toggleColumns')}}
-                onKeyDown={null}
+                onKeyDown={e => {
+                  if (e.keyCode === 32) {
+                    e.target.click()
+                  }
+                }}
               />
             }
             <noscript>
