@@ -36,7 +36,7 @@
       padding: 20px 20px 20px 40px;
 
       & .webPageActions {
-        & a,
+        & > a,
         & .like {
           display: inline-block;
           font-size: 1.3rem;
@@ -54,6 +54,15 @@
 
           &:hover {
             color: var(--orange);
+          }
+        }
+
+        & .DropdownButton {
+          margin-right: 15px;
+          color: var(--blue);
+
+          & > i {
+            font-size: 1.3rem;
           }
         }
       }
