@@ -11,6 +11,7 @@ import Link from './Link'
 import translate from './translate'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
+import { getParams, getURL } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -61,7 +62,7 @@ const dropdownFilters = [
   },
 ]
 
-const Filters = ({query, filters, aggregations, emitter, translate, member, size}) => {
+const Filters = ({query, filters, aggregations, emitter, translate, member, size, _self}) => {
 
   let sizes = [10,20,50,100,200]
 
@@ -70,6 +71,18 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
     sizes = sizes.sort((a, b) => a - b)
   }
 
+  const url = document.createElement('a')
+  url.href = _self
+
+
+  const route = {
+    params: getParams(url.search),
+    path: url.pathname
+  }
+  route.params.size = 10
+
+
+
   return (
     <nav className="Filters">
 
@@ -77,7 +90,7 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
         <div className="FiltersControls">
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
-            {size > 0 &&
+            {size > 0 ? (
               <i
                 className="fa fa-th-list"
                 title="Show List"
@@ -90,6 +103,11 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
                   }
                 }}
               />
+            ) : (
+              <Link href={getURL(route)}>
+                <i className="fa fa-th-list" title="Show List" />
+              </Link>
+            )
             }
             <noscript>
               <div className="search-bar">
