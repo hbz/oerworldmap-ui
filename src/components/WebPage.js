@@ -13,6 +13,7 @@ import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import Export from './Export'
 import Share from './Share'
+import DropdownButton from './DropdownButton'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -115,6 +116,8 @@ const WebPage = ({
               </div>
             }
 
+            <DropdownButton />
+
             {view === 'edit' ? (
               <Link href="#view"><i className="fa fa-eye" /></Link>
             ) : (
@@ -122,6 +125,7 @@ const WebPage = ({
             )}
             <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
             <Link href="/resource/"><i className="fa fa-close" /></Link>
+
           </div>
 
         </div>
