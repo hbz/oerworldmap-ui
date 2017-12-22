@@ -22,12 +22,9 @@
     }
 
     & input {
-      border-radius: 2px;
-      padding: 10px;
       padding-left: 30px;
       padding-right: 30px;
       flex: 1;
-      border: 1px solid var(--blue);
       position: relative;
       background-color: white;
     }
@@ -59,15 +56,24 @@
 
       &:checked + label {
         color: var(--white);
-        background-color: var(--blue-dark);
+        background: var(--primary-color);
       }
     }
 
     & .btn {
       display: inline-block;
-      padding: 10px 15px;
-      min-width: 45px;
-      text-align: center;
+      border: none;
+      padding: 7px 12px;
+      background: var(--blue-lightest);
+      color: var(--primary-color);
+      font-size: var(--font-size);
+
+      &:focus,
+      &:hover,
+      &:active {
+        color: var(--white);
+        background: var(--primary-color);
+      }
     }
   }
 
