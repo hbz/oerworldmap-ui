@@ -56,7 +56,7 @@ const ResourceIndex = ({
   _links
 }) => (
   <div className="ResourceIndex">
-    <Columns>
+    <Columns size={Number.isInteger(+size) ? +size : 10} >
       <Column>
         <Filters
           query={query}
