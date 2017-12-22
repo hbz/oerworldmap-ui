@@ -77,6 +77,16 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
         <div className="FiltersControls">
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
+            {size > 0 &&
+              <i
+                className="fa fa-th-list"
+                title="Show List"
+                tabIndex="0"
+                role="button"
+                onClick={() => {emitter.emit('toggleColumns')}}
+                onKeyDown={null}
+              />
+            }
             <noscript>
               <div className="search-bar">
                 <input type="submit" className="btn" />
