@@ -108,7 +108,7 @@ class Header extends React.Component {
               {this.state.showUserMenu &&
                 <ul>
                   <li>
-                    <Link href="/profile">My Profile <i className="fa fa-user" /></Link>
+                    <Link href={`/resource/${this.props.user.id}`} >My Profile <i className="fa fa-user" /></Link>
                   </li>
                   <li>
                     <Link href="/user/password">Change Password <i className="fa fa-lock" /></Link>
