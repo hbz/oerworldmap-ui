@@ -18,14 +18,6 @@
       transform: translate3d(-109.6%, 0, 0);
       transition: all 1s;
     }
-
-    & .column .toggleColumn {
-      & i {
-        transform: scaleX(-1);
-        top: 0;
-        left: -1px;
-      }
-    }
   }
 
   & .column {
@@ -44,10 +36,6 @@
       & .columnContent {
         height: auto;
         pointer-events: all;
-      }
-
-      & .toggleColumn {
-        display: none;
       }
     }
 
@@ -68,35 +56,6 @@
         &.noDisplay {
           display: none;
         }
-      }
-    }
-
-    & .toggleColumn {
-      position: absolute;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      top: 50%;
-      transform: translateY(-50%) translateX(-50%);
-      color: var(--white);
-      cursor: pointer;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.8rem;
-      border: 4px solid var(--white);
-      background-color: var(--blue);
-
-      &:hover {
-        background-color: var(--blue-dark);
-      }
-
-      & i {
-        position: relative;
-        top: 0;
-        left: 0;
       }
     }
 
