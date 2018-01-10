@@ -1,3 +1,4 @@
+/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
@@ -89,6 +90,12 @@ const WebPage = ({
     }
   }
 
+  const closeResource = () => {
+    window.history.length
+      ? window.history.back()
+      : emitter.emit('navigate', '/resource/')
+  }
+
   return (
     <div className="WebPage">
       <div className="webPageContainer">
@@ -121,7 +128,31 @@ const WebPage = ({
               <Link href="#edit"><i className="fa fa-pencil" /></Link>
             )}
             <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
-            <Link href="/resource/"><i className="fa fa-close" /></Link>
+            {/* <Link href="/resource/"><i className="fa fa-close" /></Link> */}
+            {typeof window !== 'undefined' &&
+              window.history.length ?
+              (
+                <span
+                  onClick={closeResource}
+                  role="button"
+                  tabIndex="0"
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 27) {
+                      e.target.click()
+                    }
+                  }}
+                >
+                  <i className="fa fa-close" />
+                </span>
+              ) : (
+                <Link
+                  href='/resource/'
+                  className="closeModal"
+                >
+                  <i className="fa fa-close" />
+                </Link>
+              )
+            }
           </div>
 
         </div>
