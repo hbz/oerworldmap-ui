@@ -523,10 +523,10 @@
             "allOf": [
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ],
-            "_display": {
-              "className": "hidden"
-            }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "text": {
