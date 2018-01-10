@@ -192,8 +192,8 @@ const WebPage = ({
             {about['@type'] === 'Action' &&
               (about.agent &&
               about.agent.map(agent => (
-                <div className="operator">
-                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
+                <div key={agent['@id']} className="operator">
+                  Operator: <Link href={agent['@id']}>{translate(agent.name)}</Link>
                 </div>
               )))
             }
