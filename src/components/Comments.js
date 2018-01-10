@@ -26,7 +26,7 @@ const getLabel = (translate, value) => {
 
 const Comments = ({moment, translate, emitter, id, comments}) => (
   <div className="Comments">
-    {comments.length && <h2>Comments</h2>}
+    {comments.length > 0 && <h2>Comments</h2>}
     {comments.map(comment => (
       <div className="Comment" key={comment['@id']}>
         <p>
