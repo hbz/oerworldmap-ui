@@ -44,6 +44,17 @@
           margin-right: 15px;
           color: var(--blue);
 
+          & button {
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            color: var(--blue);
+
+            &:hover {
+              color: var(--orange);
+            }
+          }
+
           & span {
             font-size: 1.1rem;
           }
@@ -55,6 +66,15 @@
 
           &:hover {
             color: var(--orange);
+          }
+        }
+
+        & .DropdownButton {
+          margin-right: 15px;
+          color: var(--blue);
+
+          & > i {
+            font-size: 1.3rem;
           }
         }
       }

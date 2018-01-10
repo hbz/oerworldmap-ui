@@ -437,10 +437,7 @@ class Map extends React.Component {
       .filter(l => { return l.id.startsWith("choropleth")})
       .map(l => { return l.id }).length
 
-    // Reduce to max doc_count value
-    const max = buckets.reduce(function(acc, val) {
-      return acc < val.doc_count ? val.doc_count : acc
-    }, 0)
+    const max = buckets.length && buckets[0].doc_count || 0
 
     // Divide into steps rounded to the next 10
     const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
