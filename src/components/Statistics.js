@@ -15,11 +15,11 @@ const PieChart = ({name, buckets, emitter}) => {
   const el = ReactFauxDOM.createElement('svg')
   el.setAttribute("width", "300")
   el.setAttribute("height", "300")
-  const svg = d3.select(el),
-    width = +svg.attr("width"),
-    height = +svg.attr("height"),
-    radius = Math.min(width, height) / 2,
-    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+  const svg = d3.select(el)
+  const width = +svg.attr("width")
+  const height = +svg.attr("height")
+  const radius = Math.min(width, height) / 2
+  const g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
   const pie = d3.pie()
     .sort(null)
