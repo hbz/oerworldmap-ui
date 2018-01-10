@@ -88,6 +88,20 @@ export default (api) => {
       }
     },
     {
+      path: '/resource/:id/comment',
+      post: async (params, context, state, body) => {
+        const data = await api.post(`/resource/${params.id}/comment`, body, context.authorization)
+        const component = (data) => (
+          <WebPage
+            {...data}
+            user={context.user}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
+        )
+        return { title: 'Updated Comment', data, component }
+      }
+    },
+    {
       path: '/country/:id',
       get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })

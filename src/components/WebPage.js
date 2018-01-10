@@ -15,6 +15,7 @@ import FullModal from './FullModal'
 import Export from './Export'
 import Share from './Share'
 import DropdownButton from './DropdownButton'
+import Comments from './Comments'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -264,6 +265,8 @@ const WebPage = ({
             }
 
             <ResourceTable value={about} schema={schema} />
+
+            <Comments comments={about['comment']} id={about['@id']} />
 
             { user &&
             view === 'addLighthouse' &&
