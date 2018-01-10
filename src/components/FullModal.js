@@ -18,7 +18,8 @@ class FullModal extends React.Component {
   }
 
   closeModal(e) {
-    if (e.target.classList.contains('FullModal')) {
+    if (e.target.classList.contains('FullModal') ||
+      e.target.classList.contains('closeModal')) {
       this.setState({visible: false})
       window.history.length
         ? window.history.back()
@@ -44,12 +45,31 @@ class FullModal extends React.Component {
             <div className="modalDialog">
               {this.props.children}
 
-              <Link
-                href='/resource/'
-                className="closeModal"
-              >
-                <i className="fa fa-close" />
-              </Link>
+              {typeof window !== 'undefined' &&
+                window.history.length ?
+                (
+                  <span
+                    className="closeModal"
+                    onClick={this.closeModal}
+                    role="button"
+                    tabIndex="0"
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 27) {
+                        e.target.click()
+                      }
+                    }}
+                  >
+                    <i className="fa fa-close" />
+                  </span>
+                ) : (
+                  <Link
+                    href='/resource/'
+                    className="closeModal"
+                  >
+                    <i className="fa fa-close" />
+                  </Link>
+                )
+              }
 
             </div>
           </div>
