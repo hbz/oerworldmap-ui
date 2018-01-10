@@ -118,11 +118,11 @@ const WebPage = ({
 
             <DropdownButton />
 
-            {view === 'edit' ? (
+            {user && (view === 'edit' ? (
               <Link href="#view"><i className="fa fa-eye" /></Link>
             ) : (
               <Link href="#edit"><i className="fa fa-pencil" /></Link>
-            )}
+            ))}
             <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
             <Link href="/resource/"><i className="fa fa-close" /></Link>
 
