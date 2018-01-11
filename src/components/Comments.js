@@ -44,7 +44,10 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
     ))}
     <h2>Comment</h2>
     <Composer
-      value={{'@type': 'Comment'}}
+      value={{
+        '@type': 'Comment',
+        'text': [{ '@language': 'en', '@value': '' }]
+      }}
       schema={schema}
       submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
       //submit={data => console.log(data, id)}
