@@ -95,6 +95,7 @@ export default (api) => {
         const component = (data) => (
           <ResourceIndex
             {...data}
+            className="countryView"
             mapboxConfig={context.mapboxConfig}
             selected={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >

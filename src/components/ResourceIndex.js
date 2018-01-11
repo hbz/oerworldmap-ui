@@ -53,9 +53,12 @@ const ResourceIndex = ({
   view,
   children,
   _self,
-  _links
+  _links,
+  className
 }) => (
-  <div className="ResourceIndex">
+  <div className={`ResourceIndex ${className ? className:''}`}>
+    {children}
+
     <Columns>
       <Column>
         <Filters
@@ -88,8 +91,6 @@ const ResourceIndex = ({
       iso3166={iso3166}
       map={map}
     />
-
-    {children}
 
     {view === 'addOrganization' &&
       <FullModal>
@@ -224,6 +225,7 @@ ResourceIndex.propTypes = {
   translate: PropTypes.func.isRequired,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
+  className: PropTypes.string,
 }
 
 ResourceIndex.defaultProps = {
@@ -233,7 +235,11 @@ ResourceIndex.defaultProps = {
   nextPage: null,
   previousPage: null,
   iso3166: '',
-  view: ''
+  view: '',
+  className: null,
 }
+
+
+
 
 export default withEmitter(translate(ResourceIndex))
