@@ -68,4 +68,17 @@
     height: 100%;
     padding: 20px;
   }
+
+  @media print {
+    display: block;
+    position: relative;
+
+    & .diffContent {
+      display: block;
+
+      & .diffList {
+        width: 100%;
+      }
+    }
+  }
 }
