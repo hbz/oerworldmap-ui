@@ -24,6 +24,11 @@ const getLabel = (translate, value) => {
   }
 }
 
+const deleteComment = (id, emitter, e) => {
+  e.preventDefault()
+  emitter.emit('delete', {url: `/resource/${id}`})
+}
+
 const Comments = ({moment, translate, emitter, id, comments}) => (
   <div className="Comments">
     {comments.length > 0 && <h2>Comments</h2>}
@@ -39,10 +44,7 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
             &nbsp; {moment(comment.dateCreated).fromNow()}
           </small>
         </p>
-        <form onSubmit={(e) => {
-          e.preventDefault()
-          emitter.emit('delete', {url: `/resource/${comment['@id']}`})
-        }}>
+        <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
           <button type="submit" title="Delete">
             <i className="fa fa-fw fa-trash" />
           </button>
