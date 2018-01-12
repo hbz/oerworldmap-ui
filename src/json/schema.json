@@ -524,13 +524,19 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Person" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "text": {
-          "$ref": "#/definitions/LocalizedString"
+          "$ref": "#/definitions/LocalizedText"
         },
         "dateCreated": {
-          "$ref": "#/definitions/iso-8601-date"
+          "$ref": "#/definitions/iso-8601-date",
+          "_display": {
+            "className": "hidden"
+          }
         }
       },
       "additionalProperties": false
