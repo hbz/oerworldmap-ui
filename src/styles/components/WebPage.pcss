@@ -36,9 +36,9 @@
       padding: 20px 20px 20px 40px;
 
       & .webPageActions {
-        & a,
-        & i,
-        & .like {
+        & > a,
+        & > i,
+        & > .like {
           display: inline-block;
           font-size: 1.3rem;
           margin-right: 15px;
@@ -50,21 +50,27 @@
             background-color: transparent;
             color: var(--blue);
 
-            &:hover {
+            &:hover,
+            &:focus {
               color: var(--orange);
             }
           }
 
-          & span {
-            font-size: 1.1rem;
+          &:hover,
+          &:focus {
+            color: var(--orange);
           }
+        }
 
-          &:last-child {
-            color: #b4b4b4;
-            margin-right: 0;
-          }
+        & > span:last-child {
+          font-size: 1.1rem;
+          color: #b4b4b4;
+          margin-right: 0;
+          position: relative;
+          top: -2px;
 
-          &:hover {
+          &:hover,
+          &:focus {
             color: var(--orange);
           }
         }
