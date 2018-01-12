@@ -12,6 +12,9 @@
   padding: 20px;
   padding-top: 40px;
   color: var(--blue-dark);
+  background-image: url(https://raw.githubusercontent.com/hbz/oerworldmap-static/master/assets/img/landingpage/map-bg.png);
+  background-size: cover;
+  background-position: center center;
 
   & a[data-show] {
     display: none;
@@ -102,6 +105,10 @@
     }
 
     & .webPageContent {
+      & .ResourceTable .hidden {
+        display: none;
+      }
+
       & .lighthouse {
         display: inline-block;
         position: relative;
@@ -120,7 +127,7 @@
           }
 
           & img {
-            background-color: yellow;
+            background-color: var(--yellow);
           }
         }
 

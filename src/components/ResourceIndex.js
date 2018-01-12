@@ -56,6 +56,8 @@ const ResourceIndex = ({
   _links
 }) => (
   <div className="ResourceIndex">
+    {children}
+
     <Columns>
       <Column>
         <Filters
@@ -88,8 +90,6 @@ const ResourceIndex = ({
       iso3166={iso3166}
       map={map}
     />
-
-    {children}
 
     {view === 'addOrganization' &&
       <FullModal>
