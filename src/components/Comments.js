@@ -39,6 +39,14 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
             &nbsp; {moment(comment.dateCreated).fromNow()}
           </small>
         </p>
+        <form onSubmit={(e) => {
+          e.preventDefault()
+          emitter.emit('delete', {url: `/resource/${comment['@id']}`})
+        }}>
+          <button type="submit" title="Delete">
+            <i className="fa fa-fw fa-trash" />
+          </button>
+        </form>
         <ReactMarkdown source={translate(comment.text)} />
       </div>
     ))}
@@ -50,7 +58,6 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
       }}
       schema={schema}
       submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
-      //submit={data => console.log(data, id)}
       getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
       getLabel={value => getLabel(translate, value)}
       submitLabel={translate('properties.submitLabel')}
