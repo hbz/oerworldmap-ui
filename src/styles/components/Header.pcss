@@ -81,5 +81,23 @@
       color: var(--orange);
     }
   }
+
+  @media print {
+    display: block;
+    text-align: center;
+
+    & .mainNav a {
+      display: none;
+    }
+
+    & .mainNav a:first-child {
+      display: block;
+      width: 100%;
+    }
+
+    & .userNav {
+      display: none;
+    }
+  }
 }
 

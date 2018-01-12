@@ -347,4 +347,17 @@
       color: var(--orange);
     }
   }
+
+  @media print {
+    position: relative !important;
+    max-height: 700px;
+
+    & .mapboxgl-canvas {
+      position: relative !important;
+    }
+
+    & .goToMap {
+      display: none;
+    }
+  }
 }

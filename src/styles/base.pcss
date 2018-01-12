@@ -15,7 +15,6 @@ body {
   flex-direction: column;
 
   & .content {
-    /* min-height: 100%; */
     flex: 1;
     position: relative;
     overflow: hidden;
@@ -188,4 +187,26 @@ pre {
 
 .hidden {
   display: none;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .container {
+    display: block;
+    overflow: visible;
+
+    & .content {
+      overflow: visible;
+
+      & .ResourceIndex.countryView {
+        & .Columns {
+          display: none;
+        }
+      }
+    }
+  }
 }

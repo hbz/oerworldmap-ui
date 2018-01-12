@@ -139,4 +139,27 @@
       padding: 5px 0;
     }
   }
+
+  @media print {
+    position: relative;
+    border: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    color: var(--blue-dark);
+    padding: 20px;
+
+    & h3 i {
+      display: none;
+    }
+
+    & .statisticsContainer.collapsed {
+      max-height: 100%;
+    }
+
+    & a {
+      color: var(--blue-dark);
+    }
+  }
 }
