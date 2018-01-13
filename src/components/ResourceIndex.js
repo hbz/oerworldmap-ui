@@ -64,7 +64,6 @@ const ResourceIndex = ({
           aggregations={aggregations}
           member={member}
           size={Number.isInteger(+size) ? +size : 10}
-          _self={_self}
         />
         <div className="ColumnList">
           <ItemList listItems={member} selected={selected} />

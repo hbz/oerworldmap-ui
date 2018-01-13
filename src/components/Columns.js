@@ -38,10 +38,6 @@ class Columns extends React.Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({showColumns: nextProps.size ? true : false})
-  }
-
   render() {
     return (
       <aside
