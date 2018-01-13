@@ -208,7 +208,7 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
 
 Filters.propTypes = {
   query: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,

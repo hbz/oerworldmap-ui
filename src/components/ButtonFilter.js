@@ -49,7 +49,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
 )
 
 ButtonFilter.propTypes = {
-  filter: PropTypes.objectOf(PropTypes.any).isRequired,
+  filter: PropTypes.arrayOf(PropTypes.any).isRequired,
   aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
