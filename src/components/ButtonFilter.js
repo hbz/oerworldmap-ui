@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Icon from './Icon'
 import translate from './translate'
@@ -10,7 +11,7 @@ const triggerClick = (e) => {
   }
 }
 
-const ButtonFilter = ({aggregation, filter, submit, emitter}) => (
+const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
   <div className="ButtonFilter">
     {aggregation.buckets.map((bucket) => {
       return (
@@ -46,5 +47,13 @@ const ButtonFilter = ({aggregation, filter, submit, emitter}) => (
   </div>
 
 )
+
+ButtonFilter.propTypes = {
+  filter: PropTypes.objectOf(PropTypes.any).isRequired,
+  aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+}
 
 export default withEmitter(translate(ButtonFilter))

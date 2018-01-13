@@ -1,4 +1,3 @@
-/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -12,7 +11,7 @@ class Columns extends React.Component {
     super(props)
 
     this.state = {
-      showColumns: this.props.size ? true : false
+      showColumns: false
     }
   }
 
@@ -53,7 +52,6 @@ class Columns extends React.Component {
 
 Columns.propTypes = {
   children: PropTypes.node.isRequired,
-  size: PropTypes.number.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 

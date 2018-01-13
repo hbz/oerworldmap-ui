@@ -2,11 +2,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Tooltip } from 'react-popperjs'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
-import Icon from './Icon'
 import Link from './Link'
 import translate from './translate'
 import PagedCollection from './PagedCollection'
@@ -22,12 +20,6 @@ const onSubmit = (e, emitter) => {
     .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
-}
-
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
 }
 
 const primaryFilters = [
@@ -87,20 +79,18 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
         <div className="FiltersControls">
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
-            {size > 0 &&
-              <i
-                className="fa fa-th-list"
-                title="Show List"
-                tabIndex="0"
-                role="button"
-                onClick={() => {emitter.emit('toggleColumns')}}
-                onKeyDown={e => {
-                  if (e.keyCode === 32) {
-                    e.target.click()
-                  }
-                }}
-              />
-            }
+            <i
+              className="fa fa-th-list"
+              title="Show List"
+              tabIndex="0"
+              role="button"
+              onClick={() => {emitter.emit('toggleColumns')}}
+              onKeyDown={e => {
+                if (e.keyCode === 32) {
+                  e.target.click()
+                }
+              }}
+            />
             <noscript>
               <div className="search-bar">
                 <input type="submit" className="btn" />
@@ -118,27 +108,27 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
                 return
               }
               switch(filterDef.type) {
-                case 'button':
-                  return (
-                    <ButtonFilter
-                      key={filterDef.name}
-                      aggregation={aggregation}
-                      filter={filter}
-                      submit={onSubmit}
-                    />
-                  )
-                case 'dropdown':
-                default:
-                  return (
-                    <DropdownFilter
-                      key={filterDef.name}
-                      icon={filterDef.icon}
-                      aggregations={aggregation}
-                      filters={filter}
-                      filterName={`filter.${filterDef.name}`}
-                      submit={onSubmit}
-                    />
-                  )
+              case 'button':
+                return (
+                  <ButtonFilter
+                    key={filterDef.name}
+                    aggregation={aggregation}
+                    filter={filter}
+                    submit={onSubmit}
+                  />
+                )
+              case 'dropdown':
+              default:
+                return (
+                  <DropdownFilter
+                    key={filterDef.name}
+                    icon={filterDef.icon}
+                    aggregations={aggregation}
+                    filters={filter}
+                    filterName={`filter.${filterDef.name}`}
+                    submit={onSubmit}
+                  />
+                )
               }
             })}
 
@@ -154,27 +144,27 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
                 return
               }
               switch(filterDef.type) {
-                case 'button':
-                  return (
-                    <ButtonFilter
-                      key={filterDef.name}
-                      aggregation={aggregation}
-                      filter={filter}
-                      submit={onSubmit}
-                    />
-                  )
-                case 'dropdown':
-                default:
-                  return (
-                    <DropdownFilter
-                      key={filterDef.name}
-                      icon={filterDef.icon}
-                      aggregations={aggregation}
-                      filters={filter}
-                      filterName={`filter.${filterDef.name}`}
-                      submit={onSubmit}
-                    />
-                  )
+              case 'button':
+                return (
+                  <ButtonFilter
+                    key={filterDef.name}
+                    aggregation={aggregation}
+                    filter={filter}
+                    submit={onSubmit}
+                  />
+                )
+              case 'dropdown':
+              default:
+                return (
+                  <DropdownFilter
+                    key={filterDef.name}
+                    icon={filterDef.icon}
+                    aggregations={aggregation}
+                    filters={filter}
+                    filterName={`filter.${filterDef.name}`}
+                    submit={onSubmit}
+                  />
+                )
               }
             })}
 
@@ -218,12 +208,12 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
 
 Filters.propTypes = {
   query: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
-  size: PropTypes.number.isRequired
 }
 
 export default withEmitter(translate(Filters))
