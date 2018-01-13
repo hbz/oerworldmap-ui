@@ -55,7 +55,7 @@ const WebPage = ({
     action['@type'] === 'LighthouseAction'
   ) || []
   const lighthouse = lighthouses.find(action =>
-    action.agent.some(agent => agent['@id'] === user.id)
+    action.agent.some(agent => user && agent['@id'] === user.id)
   ) || user ? {
       '@type': 'LighthouseAction',
       'object': about,
@@ -69,7 +69,7 @@ const WebPage = ({
     action['@type'] === 'LikeAction'
   ) || []
   const like = likes.find(action =>
-    action.agent.some(agent => agent['@id'] === user.id)
+    action.agent.some(agent => user && agent['@id'] === user.id)
   )
 
   const toggleLike = (e) => {
