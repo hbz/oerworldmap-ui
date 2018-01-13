@@ -17,23 +17,7 @@ class Columns extends React.Component {
 
   componentDidMount() {
     this.props.emitter.on('toggleColumns', () => {
-      this.setState({showColumns:!this.state.showColumns})
-
-      const ColumnList = this.columns.querySelector('.ColumnList')
-      const PagedCollection = this.columns.querySelector('.PagedCollection')
-
-      ColumnList.classList.remove('noDisplay')
-      PagedCollection.classList.remove('noDisplay')
-
-      window.setTimeout(()=> {
-        if (!this.state.showColumns) {
-          ColumnList.classList.add('noDisplay')
-          PagedCollection.classList.add('noDisplay')
-        } else {
-          ColumnList.classList.remove('noDisplay')
-          PagedCollection.classList.remove('noDisplay')
-        }
-      },1200)
+      this.setState({showColumns: !this.state.showColumns})
     })
   }
 
@@ -41,7 +25,6 @@ class Columns extends React.Component {
     return (
       <aside
         className={`Columns ${this.state.showColumns ? '' : 'hideColumns'}`}
-        ref={col => this.columns = col}
       >
         {this.props.children}
       </aside>
