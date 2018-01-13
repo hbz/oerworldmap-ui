@@ -39,5 +39,12 @@
   & .counter {
     color: var(--blue-dark);
     font-size: 0.9rem;
+
+    & select:last-child {
+
+      @media print {
+        display: none;
+      }
+    }
   }
 }

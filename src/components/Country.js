@@ -80,9 +80,9 @@ class Country  extends React.Component {
                       </Link>
                       <br />
                       {champion._source.about.email &&
-                        <Link href={`/resource/${champion._source.about['@id']}`}>
+                        <a href={`mailto:${champion._source.about.email}`}>
                           {champion._source.about.email}
-                        </Link>
+                        </a>
                       }
                     </div>
                   </div>

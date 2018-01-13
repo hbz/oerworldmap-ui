@@ -19,4 +19,13 @@
       color: var(--blue-dark);
     }
   }
+
+  @media print {
+    display: block;
+    text-align: center;
+
+    & a {
+      display: none;
+    }
+  }
 }

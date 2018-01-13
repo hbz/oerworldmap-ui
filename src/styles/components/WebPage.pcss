@@ -12,6 +12,9 @@
   padding: 20px;
   padding-top: 40px;
   color: var(--blue-dark);
+  background-image: url(https://raw.githubusercontent.com/hbz/oerworldmap-static/master/assets/img/landingpage/map-bg.png);
+  background-size: cover;
+  background-position: center center;
 
   & a[data-show] {
     display: none;
@@ -37,7 +40,8 @@
 
       & .webPageActions {
         & > a,
-        & .like {
+        & > i,
+        & > .like {
           display: inline-block;
           font-size: 1.3rem;
           margin-right: 15px;
@@ -49,21 +53,27 @@
             background-color: transparent;
             color: var(--blue);
 
-            &:hover {
+            &:hover,
+            &:focus {
               color: var(--orange);
             }
           }
 
-          & span {
-            font-size: 1.1rem;
+          &:hover,
+          &:focus {
+            color: var(--orange);
           }
+        }
 
-          &:last-child {
-            color: #b4b4b4;
-            margin-right: 0;
-          }
+        & > span:last-child {
+          font-size: 1.1rem;
+          color: #b4b4b4;
+          margin-right: 0;
+          position: relative;
+          top: -2px;
 
-          &:hover {
+          &:hover,
+          &:focus {
             color: var(--orange);
           }
         }
@@ -101,6 +111,10 @@
     }
 
     & .webPageContent {
+      & .ResourceTable .hidden {
+        display: none;
+      }
+
       & .lighthouse {
         display: inline-block;
         position: relative;
@@ -119,7 +133,7 @@
           }
 
           & img {
-            background-color: yellow;
+            background-color: var(--yellow);
           }
         }
 
@@ -212,6 +226,14 @@
         font-weight: bold;
       }
     }
+
+    & .Comments .Forms > fieldset > fieldset {
+      display: none;
+    }
+
+    & .Comments .Forms > fieldset > fieldset:first-of-type {
+      display: block;
+    }
   }
 
   & #view,
@@ -225,6 +247,21 @@
       opacity: 1;
       overflow: unset;
       height: auto;
+    }
+  }
+
+  @media print {
+    position: relative;
+    background-color: var(--white);
+    padding: 0;
+
+    & .webPageContainer {
+      max-width: 100%;
+      border: none;
+
+      & .webPageHeader {
+        display: none;
+      }
     }
   }
 }

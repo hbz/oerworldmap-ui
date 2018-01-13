@@ -8,6 +8,10 @@
   color: var(--blue-dark);
   position: relative;
 
+  & a {
+    color: var(--blue-dark);
+  }
+
   & ul {
     list-style-type: none;
     margin: 0;
@@ -341,6 +345,19 @@
 
     & a:hover {
       color: var(--orange);
+    }
+  }
+
+  @media print {
+    position: relative !important;
+    max-height: 700px;
+
+    & .mapboxgl-canvas {
+      position: relative !important;
+    }
+
+    & .goToMap {
+      display: none;
     }
   }
 }

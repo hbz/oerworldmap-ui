@@ -113,4 +113,21 @@
       }
     }
   }
+
+  @media print {
+    position: relative;
+
+    & .column {
+      width: 100%;
+      border: none;
+
+      & .toggleColumn {
+        display: none;
+      }
+
+      & .columnContent {
+        display: block;
+      }
+    }
+  }
 }
