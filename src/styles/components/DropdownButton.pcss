@@ -7,5 +7,14 @@
   & > i {
     position: relative;
     font-size: 1.1rem;
+
+    &:hover,
+    &:focus {
+      color: var(--orange);
+    }
+  }
+
+  @media print {
+    display: none;
   }
 }

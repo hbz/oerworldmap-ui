@@ -29,9 +29,33 @@
       color: var(--blue-dark);
       background-color: transparent;
 
+      & i {
+        pointer-events: none;
+      }
+
       &:hover {
         color: var(--orange);
       }
+    }
+  }
+
+  @media print {
+    position: relative;
+    background-color: transparent;
+
+    & .modalDialog {
+      box-shadow: none;
+      border: none;
+      max-width: 100%;
+      margin: 0;
+
+      & .more {
+        display: none;
+      }
+    }
+
+    & .closeModal {
+      display: none;
     }
   }
 }

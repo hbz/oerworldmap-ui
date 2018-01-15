@@ -1,3 +1,4 @@
+/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
@@ -14,6 +15,7 @@ import FullModal from './FullModal'
 import Export from './Export'
 import Share from './Share'
 import DropdownButton from './DropdownButton'
+import Comments from './Comments'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -73,7 +75,6 @@ const WebPage = ({
   const toggleLike = (e) => {
     e.preventDefault()
     if (like) {
-      console.log(like)
       emitter.emit('delete', {url: `/resource/${like['@id']}`})
     } else {
       emitter.emit('submit', {
@@ -88,6 +89,12 @@ const WebPage = ({
         }
       })
     }
+  }
+
+  const closeResource = () => {
+    window.history.length
+      ? window.history.back()
+      : emitter.emit('navigate', '/resource/')
   }
 
   return (
@@ -118,16 +125,37 @@ const WebPage = ({
 
             <DropdownButton />
 
-            {view === 'edit' ? (
+            {user && (view === 'edit' ? (
               <Link href="#view"><i className="fa fa-eye" /></Link>
             ) : (
               <Link href="#edit"><i className="fa fa-pencil" /></Link>
-            )}
+            ))}
             <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
-            <Link href="/resource/"><i className="fa fa-close" /></Link>
-
+            {typeof window !== 'undefined' &&
+              window.history.length ?
+              (
+                <span
+                  onClick={closeResource}
+                  role="button"
+                  tabIndex="0"
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 27) {
+                      e.target.click()
+                    }
+                  }}
+                >
+                  <i className="fa fa-close" />
+                </span>
+              ) : (
+                <Link
+                  href='/resource/'
+                  className="closeModal"
+                >
+                  <i className="fa fa-close" />
+                </Link>
+              )
+            }
           </div>
-
         </div>
 
         {(about.image || geo) &&
@@ -192,8 +220,8 @@ const WebPage = ({
             {about['@type'] === 'Action' &&
               (about.agent &&
               about.agent.map(agent => (
-                <div className="operator">
-                  Operator: <Link key={agent['@id']} href={agent['@id']}>{translate(agent.name)}</Link>
+                <div key={agent['@id']} className="operator">
+                  Operator: <Link href={agent['@id']}>{translate(agent.name)}</Link>
                 </div>
               )))
             }
@@ -236,6 +264,8 @@ const WebPage = ({
             }
 
             <ResourceTable value={about} schema={schema} />
+
+            <Comments comments={about['comment']} id={about['@id']} />
 
             { user &&
             view === 'addLighthouse' &&
