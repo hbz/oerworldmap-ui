@@ -44,15 +44,6 @@ const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
               <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
             </Link>
           )}
-
-        {selected === listItem.about['@id'] &&
-          <aside className="extract">
-            <p>{translate(listItem.about.description)}</p>
-            <Link className="btn clear" href={'/resource/' + listItem.about['@id']}>
-              {translate('ItemList.readMore')}
-            </Link>
-          </aside>
-        }
       </li>
     ))}
   </ul>

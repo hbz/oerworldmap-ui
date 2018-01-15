@@ -32,7 +32,6 @@ export default (api) => {
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}
-            selected={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
@@ -111,7 +110,6 @@ export default (api) => {
             {...data}
             className="countryView"
             mapboxConfig={context.mapboxConfig}
-            selected={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
             <Country
               iso3166={data.iso3166}
