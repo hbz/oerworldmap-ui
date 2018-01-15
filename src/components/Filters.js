@@ -2,15 +2,14 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Tooltip } from 'react-popperjs'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
-import Icon from './Icon'
 import Link from './Link'
 import translate from './translate'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
+import ButtonFilter from './ButtonFilter'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -21,23 +20,27 @@ const onSubmit = (e, emitter) => {
     .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
+  emitter.emit('toggleColumns', true)
 }
 
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
-}
-
-const dropdownFilters = [
+const primaryFilters = [
+  {
+    name: "about.@type",
+    type: "button"
+  },
   {
     name: "about.location.address.addressCountry",
+    type: "dropdown",
     icon: "globe"
   },
   {
     name: "about.keywords",
+    type: "dropdown",
     icon: "tag"
-  },
+  }
+]
+
+const secondaryFilters = [
   {
     name: "about.availableChannel.availableLanguage",
   },
@@ -77,6 +80,18 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
         <div className="FiltersControls">
           <div className="filterSearch">
             <input type="search" name="q" defaultValue={query} placeholder={`${translate('Filters.searchTheMap')}...`} />
+            <i
+              className="fa fa-th-list"
+              title="Show List"
+              tabIndex="0"
+              role="button"
+              onClick={() => {emitter.emit('toggleColumns')}}
+              onKeyDown={e => {
+                if (e.keyCode === 32) {
+                  e.target.click()
+                }
+              }}
+            />
             <noscript>
               <div className="search-bar">
                 <input type="submit" className="btn" />
@@ -84,64 +99,77 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
             </noscript>
           </div>
 
-          <div className="filterType">
-            {aggregations['about.@type']['buckets'].map(function (bucket) {
-              return (
-                <div className="filterBox" key={bucket.key}>
-                  <Tooltip
-                    message={translate(bucket.key)}
-                    placement='top'
-                    tooltipClassName='Tooltip'
-                    arrowColor='#646464'
-                  >
-                    <input
-                      type="radio"
-                      value={bucket.key}
-                      checked={filters.hasOwnProperty("about.@type")
-                        && filters["about.@type"].includes(bucket.key)
-                      }
-                      name="filter.about.@type"
-                      id={"type:" + bucket.key}
-                      onChange={(evt) => onSubmit(evt, emitter)}
-                    />
+          <div className="filterType primary">
+            {primaryFilters.map((filterDef) => {
+              const aggregation = aggregations[filterDef.name]
+                && aggregations[filterDef.name].buckets.length
+                ? aggregations[filterDef.name] : null
+              const filter = filters[filterDef.name] || []
+              if (!aggregation) {
+                return
+              }
+              switch(filterDef.type) {
+              case 'button':
+                return (
+                  <ButtonFilter
+                    key={filterDef.name}
+                    aggregation={aggregation}
+                    filter={filter}
+                    submit={onSubmit}
+                  />
+                )
+              case 'dropdown':
+              default:
+                return (
+                  <DropdownFilter
+                    key={filterDef.name}
+                    icon={filterDef.icon}
+                    aggregations={aggregation}
+                    filters={filter}
+                    filterName={`filter.${filterDef.name}`}
+                    submit={onSubmit}
+                  />
+                )
+              }
+            })}
 
-                    <label
-                      onClick={(evt) => {
-                        // Trigger submit only if onChange is not triggered
-                        if (filters.hasOwnProperty("about.@type")
-                          && filters["about.@type"].includes(bucket.key)) {
-                          onSubmit(evt, emitter)
-                        }
-                      }}
-                      onKeyDown={triggerClick}
-                      role="button"
-                      tabIndex="0"
-                      htmlFor={"type:" + bucket.key}
-                      aria-label={translate(bucket.key)}
-                      className="btn"
-                    >
-                      <Icon type={bucket.key} />
-                    </label>
-
-                  </Tooltip>
-                </div>
-              )
-            }, this)}
-
-            {dropdownFilters.map(f => (
-              aggregations[f.name] &&
-              aggregations[f.name].buckets.length > 0 &&
-              <DropdownFilter
-                key={f.name}
-                icon={f.icon || null}
-                aggregations={aggregations[f.name]}
-                filters={filters[f.name] ? filters[f.name] : []}
-                filterName={`filter.${f.name}`}
-                submit={onSubmit}
-              />
-            ))}
           </div>
 
+          <div className="filterType secondary">
+            {secondaryFilters.map((filterDef) => {
+              const aggregation = aggregations[filterDef.name]
+                && aggregations[filterDef.name].buckets.length
+                ? aggregations[filterDef.name] : null
+              const filter = filters[filterDef.name] || []
+              if (!aggregation) {
+                return
+              }
+              switch(filterDef.type) {
+              case 'button':
+                return (
+                  <ButtonFilter
+                    key={filterDef.name}
+                    aggregation={aggregation}
+                    filter={filter}
+                    submit={onSubmit}
+                  />
+                )
+              case 'dropdown':
+              default:
+                return (
+                  <DropdownFilter
+                    key={filterDef.name}
+                    icon={filterDef.icon}
+                    aggregations={aggregation}
+                    filters={filter}
+                    filterName={`filter.${filterDef.name}`}
+                    submit={onSubmit}
+                  />
+                )
+              }
+            })}
+
+          </div>
 
           <div className="clearFilter">
             <Link href="/resource/">{translate('Filters.clearFilters')}</Link>
@@ -181,12 +209,12 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
 
 Filters.propTypes = {
   query: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
-  size: PropTypes.number.isRequired
 }
 
 export default withEmitter(translate(Filters))
