@@ -20,6 +20,7 @@ const onSubmit = (e, emitter) => {
     .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
+  emitter.emit('toggleColumns', true)
 }
 
 const primaryFilters = [
