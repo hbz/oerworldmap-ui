@@ -17,13 +17,14 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
     {aggregation.buckets.map((bucket) => {
       return (
         <Tooltip
+          key={bucket.key}
           html={translate(bucket.key)}
           position="top"
           arrow="true"
           trigger="mouseenter"
           animateFill={false}
         >
-          <div className="filterBox" key={bucket.key}>
+          <div className="filterBox">
             <input
               type="radio"
               value={bucket.key}
