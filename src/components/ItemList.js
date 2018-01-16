@@ -41,6 +41,7 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
               position="top"
               followCursor="true"
               trigger="mouseenter"
+              delay="200"
             >
               <Link className="item" href={'/resource/' + listItem.about['@id']}>
                 <div className="sheet">
@@ -74,6 +75,7 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
               position="top"
               followCursor="true"
               trigger="mouseenter"
+              delay="200"
             >
               <Link className="item" href={'/resource/' + listItem.about['@id']}>
                 <Icon type={listItem.about['@type']} />
