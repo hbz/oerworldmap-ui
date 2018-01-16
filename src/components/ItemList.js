@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Tooltip } from 'react-tippy'
+import Tooltip from 'rc-tooltip'
 import Icon from './Icon'
 import Link from './Link'
 
@@ -26,7 +26,7 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
         listItem.about.startDate
           ? (
             <Tooltip
-              html={
+              overlay={
                 <div>
                   <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
                   {listItem.about.description ?
@@ -40,30 +40,30 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                   }
                 </div>
               }
-              animateFill={false}
-              position="top"
-              followCursor="true"
-              trigger="mouseenter"
-              delay="200"
+              placement="left"
+              mouseEnterDelay="0.2"
+              overlayClassName="itemListTooltip"
             >
-              <Link className="item" href={'/resource/' + listItem.about['@id']}>
-                <div className="sheet">
-                  <span>{moment(listItem.about.startDate).format('D')}</span>
-                  <span>{moment(listItem.about.startDate).format('ddd')}</span>
-                </div>
-                <span>
-                  {translate(listItem.about.name) || listItem.about['@id']}<br />
-                  {moment(listItem.about.startDate).format('dddd, D. MMMM')} —&nbsp;
-                  {listItem.about.location &&
-                    listItem.about.location.address &&
-                    (`${listItem.about.location.address.addressLocality}, ${listItem.about.location.address.addressCountry}`)
-                  }
-                </span>
-              </Link>
+              <div>
+                <Link className="item" href={'/resource/' + listItem.about['@id']}>
+                  <div className="sheet">
+                    <span>{moment(listItem.about.startDate).format('D')}</span>
+                    <span>{moment(listItem.about.startDate).format('ddd')}</span>
+                  </div>
+                  <span>
+                    {translate(listItem.about.name) || listItem.about['@id']}<br />
+                    {moment(listItem.about.startDate).format('dddd, D. MMMM')} —&nbsp;
+                    {listItem.about.location &&
+                      listItem.about.location.address &&
+                      (`${listItem.about.location.address.addressLocality}, ${listItem.about.location.address.addressCountry}`)
+                    }
+                  </span>
+                </Link>
+              </div>
             </Tooltip>
           ) : (
             <Tooltip
-              html={
+              overlay={
                 <div>
                   <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
                   {listItem.about.description ?
@@ -77,16 +77,16 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                   }
                 </div>
               }
-              animateFill={false}
-              position="top"
-              followCursor="true"
-              trigger="mouseenter"
-              delay="200"
+              placement="left"
+              mouseEnterDelay="0.2"
+              overlayClassName="itemListTooltip"
             >
-              <Link className="item" href={'/resource/' + listItem.about['@id']}>
-                <Icon type={listItem.about['@type']} />
-                <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
-              </Link>
+              <div>
+                <Link className="item" href={'/resource/' + listItem.about['@id']}>
+                  <Icon type={listItem.about['@type']} />
+                  <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
+                </Link>
+              </div>
             </Tooltip>
           )}
       </li>

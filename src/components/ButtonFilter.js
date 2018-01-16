@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Tooltip } from 'react-tippy'
+import Tooltip from 'rc-tooltip'
 
 import Icon from './Icon'
 import translate from './translate'
@@ -18,11 +18,8 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
       return (
         <Tooltip
           key={bucket.key}
-          html={translate(bucket.key)}
-          position="top"
-          arrow="true"
-          trigger="mouseenter"
-          animateFill={false}
+          overlay={translate(bucket.key)}
+          placement="top"
         >
           <div className="filterBox">
             <input
