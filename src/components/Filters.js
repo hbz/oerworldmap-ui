@@ -70,7 +70,9 @@ class Filters extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      collapsed: !Object.keys(this.props.filters).some(v => secondaryFilters.map(f => f.name).includes(v))
+      collapsed: !Object.keys(this.props.filters).some(
+        v => secondaryFilters.map(f => f.name).includes(v)
+      )
     }
 
     this.sizes = [10,20,50,100,200]
@@ -79,6 +81,12 @@ class Filters extends React.Component {
       this.sizes.push(this.props.size)
       this.sizes = this.sizes.sort((a, b) => a - b)
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({collapsed: !Object.keys(nextProps.filters).some(
+      v => secondaryFilters.map(f => f.name).includes(v))}
+    )
   }
 
   render() {
@@ -93,7 +101,7 @@ class Filters extends React.Component {
               <Tooltip
                 overlay="Show List"
                 placement="top"
-                mouseEnterDelay="0.2"
+                mouseEnterDelay={0.2}
               >
                 <i
                   className="fa fa-th-list"
@@ -191,29 +199,21 @@ class Filters extends React.Component {
             </div>
 
             <div className="filtersControls">
-              {this.state.collapsed ?
-                (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      this.setState({collapsed:false})
-                    }}
-                  >
-                    Show more filter
-                  </button>
-                ) :
-                (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      this.setState({collapsed:true})
-                    }}
-                  >
-                    Hide extended filter
-                  </button>
-                )
+              {secondaryFilters.map(f => f.name).some(
+                v => this.props.aggregations[v] && this.props.aggregations[v].buckets.length
+              ) &&
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    this.setState({ collapsed: !this.state.collapsed })
+                  }}
+                >
+                  {this.state.collapsed
+                    ? this.props.translate("Filters.showMore")
+                    : this.props.translate("Filters.hideExtended")
+                  }
+                </button>
               }
-
               <div className="clearFilter">
                 <Link href="/resource/">{this.props.translate('Filters.clearFilters')}</Link>
               </div>

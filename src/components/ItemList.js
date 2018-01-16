@@ -41,7 +41,7 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                 </div>
               }
               placement="left"
-              mouseEnterDelay="0.2"
+              mouseEnterDelay={0.2}
               overlayClassName="itemListTooltip"
             >
               <div>
@@ -78,7 +78,7 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                 </div>
               }
               placement="left"
-              mouseEnterDelay="0.2"
+              mouseEnterDelay={0.2}
               overlayClassName="itemListTooltip"
             >
               <div>
