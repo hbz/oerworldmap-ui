@@ -26,7 +26,6 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
         listItem.about.startDate
           ? (
             <Tooltip
-              // options
               html={
                 <div>
                   <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
@@ -38,6 +37,7 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                   }
                 </div>
               }
+              animateFill={false}
               position="top"
               followCursor="true"
               trigger="mouseenter"
@@ -59,7 +59,6 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
             </Tooltip>
           ) : (
             <Tooltip
-              // options
               html={
                 <div>
                   <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
@@ -71,11 +70,10 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                   }
                 </div>
               }
+              animateFill={false}
               position="top"
               followCursor="true"
               trigger="mouseenter"
-              animateFill="false"
-              animation="fade"
             >
               <Link className="item" href={'/resource/' + listItem.about['@id']}>
                 <Icon type={listItem.about['@type']} />
