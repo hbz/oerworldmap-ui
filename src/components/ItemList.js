@@ -30,9 +30,12 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                 <div>
                   <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
                   {listItem.about.description ?
-                    (<p>{translate(listItem.about.description).length > 140
-                      ? translate(listItem.about.description).substring(0,140)
-                      : translate(listItem.about.description)}</p>)
+                    (
+                      <p>{translate(listItem.about.description).length > 140
+                        ? translate(listItem.about.description).substring(0,140)
+                        : translate(listItem.about.description)}
+                      </p>
+                    )
                     : (<p>No description available</p>)
                   }
                 </div>
@@ -64,9 +67,12 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
                 <div>
                   <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
                   {listItem.about.description ?
-                    (<p>{translate(listItem.about.description).length > 140
-                      ? translate(listItem.about.description).substring(0,140)
-                      : translate(listItem.about.description)}</p>)
+                    (
+                      <p>{translate(listItem.about.description).length > 140
+                        ? translate(listItem.about.description).substring(0,140)
+                        : translate(listItem.about.description)}
+                      </p>
+                    )
                     : (<p>No description available</p>)
                   }
                 </div>
