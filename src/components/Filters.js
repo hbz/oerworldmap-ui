@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
@@ -88,18 +89,26 @@ class Filters extends React.Component {
           <div className="FiltersControls">
             <div className="filterSearch">
               <input type="search" name="q" defaultValue={this.props.query} placeholder={`${this.props.translate('Filters.searchTheMap')}...`} />
-              <i
-                className="fa fa-th-list"
-                title="Show List"
-                tabIndex="0"
-                role="button"
-                onClick={() => {this.props.emitter.emit('toggleColumns')}}
-                onKeyDown={e => {
-                  if (e.keyCode === 32) {
-                    e.target.click()
-                  }
-                }}
-              />
+
+              <Tooltip
+                overlay="Show List"
+                placement="top"
+                mouseEnterDelay="0.2"
+              >
+                <i
+                  className="fa fa-th-list"
+                  title="Show List"
+                  tabIndex="0"
+                  role="button"
+                  onClick={() => {this.props.emitter.emit('toggleColumns')}}
+                  onKeyDown={e => {
+                    if (e.keyCode === 32) {
+                      e.target.click()
+                    }
+                  }}
+                />
+              </Tooltip>
+
               <noscript>
                 <div className="search-bar">
                   <input type="submit" className="btn" />
