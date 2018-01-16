@@ -75,13 +75,39 @@
     }
   }
 
-  & .clearFilter {
+  & .filtersControls {
     padding-top: 10px;
-    text-align: right;
     font-size: 0.8rem;
-    border: none;
-    background-color: transparent;
-    text-decoration: underline;
+    transition: all 1s;
+    clear: bloth;
+
+    &::after {
+      content: ".";
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
+
+    & button {
+      border: none;
+      background-color: transparent;
+      color: var(--blue-dark);
+    }
+
+    & .clearFilter {
+      text-decoration: underline;
+      float: right;
+    }
+  }
+
+  & .secondary {
+    max-height: auto;
+
+    &.collapsed {
+      max-height: 0;
+      overflow: hidden;
+    }
   }
 
   & .Tags {
