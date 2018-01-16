@@ -15,7 +15,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
   <div className="ButtonFilter">
     {aggregation.buckets.map((bucket) => {
       return (
-        <div className="filterBox" key={bucket.key}>
+        <div className={`filterBox value-${bucket.key}`} key={bucket.key}>
           <input
             type="radio"
             value={bucket.key}

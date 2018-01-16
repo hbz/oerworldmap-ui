@@ -49,10 +49,81 @@
   & .filterType {
     display: flex;
     flex-wrap: wrap;
+    margin: 0 -5px;
 
-    & .filterBox {
-      display: inline-block;
-      margin-right: 5px;
+    &.primary {
+      flex-wrap: nowrap;
+
+      & .DropdownFilter {
+        flex-grow: 1;
+      }
+    }
+
+    &.secondary {
+      & .DropdownFilter {
+        width: 33.333%;
+
+        & .btn {
+          font-size: var(--font-size-xs);
+
+          &::before {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+
+    & .ButtonFilter,
+    & .DropdownFilter {
+      padding: 0 5px;
+      margin-bottom: 10px;
+    }
+
+    & .ButtonFilter {
+      width: 66.666%;
+      display: flex;
+      flex-wrap: nowrap;
+
+      & .filterBox {
+        display: none;
+        padding: 0 2px;
+        flex-grow: 1;
+
+        & .btn {
+          text-align: center;
+        }
+
+        &.value-Service,
+        &.value-Person,
+        &.value-Organization,
+        &.value-Event,
+        &.value-Article,
+        &.value-Action {
+          display: block;
+        }
+
+        &.value-Organization {
+          order: 1;
+          padding-left: 0;
+        }
+        &.value-Service {
+          order: 2;
+        }
+        &.value-Person {
+          order: 3;
+        }
+        &.value-Action {
+          order: 4;
+        }
+        &.value-Event {
+          order: 5;
+        }
+        &.value-Article {
+          order: 6;
+          padding-right: 0;
+        }
+
+      }
     }
 
     & input[type="radio"] {
@@ -65,12 +136,23 @@
     }
 
     & .btn {
-      display: inline-block;
+      height: 30px;
+      line-height: 16px;
+      display: block;
       border: none;
-      padding: 7px 12px;
+      padding: 7px 9px;
       background: var(--blue-lightest);
       color: var(--primary-color);
       font-size: var(--font-size);
+
+      &.expand {
+        padding-right: 32px !important;
+
+        &::before {
+          font-size: 10px;
+          right: 10px;
+        }
+      }
 
       &:focus,
       &:hover,
