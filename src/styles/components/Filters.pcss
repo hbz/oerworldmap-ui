@@ -77,10 +77,17 @@
 
   & .filtersControls {
     padding-top: 10px;
-    display: flex;
-    justify-content: space-between;
     font-size: 0.8rem;
     transition: all 1s;
+    clear: bloth;
+
+    &::after {
+      content: ".";
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
 
     & button {
       border: none;
@@ -90,6 +97,7 @@
 
     & .clearFilter {
       text-decoration: underline;
+      float: right;
     }
   }
 
