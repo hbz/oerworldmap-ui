@@ -21,7 +21,45 @@ const onSubmit = (e, emitter) => {
     .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
-  emitter.emit('toggleColumns', true)
+}
+
+const onReset = (e, emitter) => {
+  e.preventDefault()
+  const form = e.target.parentElement.form || e.target.form || e.target
+
+  // clearing inputs
+  var inputs = form.getElementsByTagName('input')
+  for (var i = 0; i<inputs.length; i++) {
+    switch (inputs[i].type) {
+    case 'radio':
+    case 'checkbox':
+      inputs[i].checked = false
+      break
+    default:
+      inputs[i].value = ''
+      break
+    }
+  }
+
+  // clearing selects
+  var selects = form.getElementsByTagName('select')
+  for (var i = 0; i<selects.length; i++) {
+    selects[i].selectedIndex = 0
+  }
+
+  // clearing textarea
+  var text= form.getElementsByTagName('textarea')
+  for (var i = 0; i<text.length; i++) {
+    text[i].innerHTML= ''
+  }
+
+  // navigate
+  const formData = new FormData(form)
+  const parameters = [...formData.entries()]
+    .filter(p => !!p[1])
+    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
+  emitter.emit('navigate', '/resource/')
+
 }
 
 const primaryFilters = [
@@ -93,10 +131,19 @@ class Filters extends React.Component {
     return (
       <nav className="Filters">
 
-        <form action="" onSubmit={(evt) => onSubmit(evt, this.props.emitter)}>
+        <form
+          action=""
+          onSubmit={(evt) => onSubmit(evt, this.props.emitter)}
+          onReset={(evt) => onReset(evt, this.props.emitter)}
+        >
           <div className="FiltersControls">
             <div className="filterSearch">
-              <input type="search" name="q" defaultValue={this.props.query} placeholder={`${this.props.translate('Filters.searchTheMap')}...`} />
+              <input
+                type="search"
+                name="q"
+                defaultValue={this.props.query}
+                placeholder={`${this.props.translate('Filters.searchTheMap')}...`}
+              />
 
               <Tooltip
                 overlay="Show List"
@@ -215,7 +262,9 @@ class Filters extends React.Component {
                 </button>
               }
               <div className="clearFilter">
-                <Link href="/resource/">{this.props.translate('Filters.clearFilters')}</Link>
+                <button type="reset">
+                  {this.props.translate('Filters.clearFilters')}
+                </button>
               </div>
 
             </div>
