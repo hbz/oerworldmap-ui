@@ -11,25 +11,24 @@ class Columns extends React.Component {
     super(props)
 
     this.state = {
-      showColumns: Object.keys(this.props.showDefault).length > 0
+      show: props.show
     }
   }
 
   componentDidMount() {
-    this.props.emitter.on('toggleColumns', (to) => {
-      this.setState({showColumns: to || !this.state.showColumns})
+    this.props.emitter.on('toggleColumns', () => {
+      this.setState({show: !this.state.show})
     })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({showColumns: Object.keys(nextProps.showDefault).length > 0})
+    this.setState({show: nextProps.show || this.state.show})
   }
-
 
   render() {
     return (
       <aside
-        className={`Columns ${this.state.showColumns ? '' : 'hideColumns'}`}
+        className={`Columns ${this.state.show ? '' : 'hideColumns'}`}
       >
         {this.props.children}
       </aside>
@@ -40,7 +39,7 @@ class Columns extends React.Component {
 
 Columns.propTypes = {
   children: PropTypes.node.isRequired,
-  showDefault: PropTypes.objectOf(PropTypes.any).isRequired,
+  show: PropTypes.bool.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 

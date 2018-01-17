@@ -70,7 +70,7 @@ class Filters extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      collapsed: !Object.keys(this.props.filters).some(
+      extended: Object.keys(this.props.filters).some(
         v => secondaryFilters.map(f => f.name).includes(v)
       )
     }
@@ -84,9 +84,9 @@ class Filters extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({collapsed: !Object.keys(nextProps.filters).some(
-      v => secondaryFilters.map(f => f.name).includes(v))}
-    )
+    this.setState({extended: Object.keys(nextProps.filters).some(
+      v => secondaryFilters.map(f => f.name).includes(v)) || this.state.extended
+    })
   }
 
   render() {
@@ -161,7 +161,7 @@ class Filters extends React.Component {
             </div>
 
             <div
-              className={`filterType secondary${this.state.collapsed ? ' collapsed' : ''}`}
+              className={`filterType secondary${this.state.extended ? '' : ' collapsed'}`}
             >
               {secondaryFilters.map((filterDef) => {
                 const aggregation = this.props.aggregations[filterDef.name]
@@ -205,12 +205,12 @@ class Filters extends React.Component {
                 <button
                   onClick={(e) => {
                     e.preventDefault()
-                    this.setState({ collapsed: !this.state.collapsed })
+                    this.setState({ extended: !this.state.extended })
                   }}
                 >
-                  {this.state.collapsed
-                    ? this.props.translate("Filters.showMore")
-                    : this.props.translate("Filters.hideExtended")
+                  {this.state.extended
+                    ? this.props.translate("Filters.hideExtended")
+                    : this.props.translate("Filters.showMore")
                   }
                 </button>
               }
