@@ -176,6 +176,8 @@ const Filters = ({query, filters, aggregations, emitter, translate, member, size
           </div>
         </div>
 
+        <hr/>
+
         <div className="sortContainer">
           <PagedCollection size={size} member={member}>
             <select

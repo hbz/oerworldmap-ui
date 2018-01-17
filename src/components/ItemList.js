@@ -9,7 +9,7 @@ import translate from './translate'
 import withEmitter from './withEmitter'
 
 const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
-  <ul className="ItemList" >
+  <ul className="linedList ItemList" >
     {listItems.map(listItem => (
       <li
         id={listItem.about['@id']}

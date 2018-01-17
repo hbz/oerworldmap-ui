@@ -59,28 +59,8 @@
     }
   }
 
-  & .linedList {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    & li {
-      border-bottom: 1px solid var(--grey-light);
-      padding: calc(0.25 * var(--p-margin)) 0;
-      line-height: 1.3;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      & a {
-        color: var(--primary-color);
-
-        &:hover {
-          color: var(--highlight-color);
-        }
-      }
-    }
+  & .linedList li {
+    padding: 0.35em 0 !important;
   }
 
   & .slick-slider {

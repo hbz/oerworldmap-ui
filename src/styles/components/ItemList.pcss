@@ -2,32 +2,17 @@
 @import '../variables.pcss';
 
 .ItemList {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
   overflow: auto;
-  margin-bottom: 40px;
-  margin-top: 5px;
   flex: 1;
 
   & li {
-    position: relative;
-    border-top: 1px solid var(--blue-lightest);
-    padding: 10px;
 
-    & a {
-      font-size: 0.9rem;
-      color: var(--blue-dark);
-
-      &:hover {
-        color: var(--orange);
-
-        & .sheet {
-          border-color: var(--orange);
-        }
-      }
+    /* calendar sheet */
+    & a:hover .sheet {
+      border-color: var(--orange);
     }
 
+    /* unfolded preview within the list item, will be replaced by popover */
     & .extract {
       padding: 10px;
       font-size: 0.9rem;
@@ -48,6 +33,14 @@
       display: flex;
       align-items: start;
       justify-content: space-between;
+
+      & .fa {
+        line-height: inherit;
+        display: block;
+        width: 2.5em;
+        margin-right: 0.1em;
+        text-align: center;
+      }
 
       & .sheet {
         display: flex;

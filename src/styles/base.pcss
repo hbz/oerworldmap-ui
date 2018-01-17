@@ -24,7 +24,13 @@ body {
   }
 }
 
+hr {
+  border: none;
+  border-top: 1px solid var(--grey-light);
+}
+
 /* Forms */
+
 input,
 textarea,
 button,
@@ -206,6 +212,29 @@ pre {
         & .Columns {
           display: none;
         }
+      }
+    }
+  }
+}
+
+.linedList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  & li {
+    border-bottom: 1px solid var(--grey-light);
+    padding: 0.35em 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    & a {
+      color: var(--primary-color);
+
+      &:hover {
+        color: var(--highlight-color);
       }
     }
   }
