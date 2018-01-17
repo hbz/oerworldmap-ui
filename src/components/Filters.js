@@ -6,7 +6,6 @@ import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
-import Link from './Link'
 import translate from './translate'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
@@ -21,7 +20,41 @@ const onSubmit = (e, emitter) => {
     .filter(p => !!p[1])
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '?' + parameters)
-  emitter.emit('toggleColumns', true)
+}
+
+const onReset = (e, emitter) => {
+  e.preventDefault()
+  const form = e.target.parentElement.form || e.target.form || e.target
+
+  // clearing inputs
+  const inputs = form.getElementsByTagName('input')
+  for (let i = 0; i<inputs.length; i++) {
+    switch (inputs[i].type) {
+    case 'radio':
+    case 'checkbox':
+      inputs[i].checked = false
+      break
+    default:
+      inputs[i].value = ''
+      break
+    }
+  }
+
+  // clearing selects
+  const selects = form.getElementsByTagName('select')
+  for (let i = 0; i<selects.length; i++) {
+    selects[i].selectedIndex = 0
+  }
+
+  // clearing textarea
+  const text= form.getElementsByTagName('textarea')
+  for (let i = 0; i<text.length; i++) {
+    text[i].innerHTML= ''
+  }
+
+  // navigate
+  emitter.emit('navigate', '/resource/')
+
 }
 
 const primaryFilters = [
@@ -70,7 +103,7 @@ class Filters extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      collapsed: !Object.keys(this.props.filters).some(
+      extended: Object.keys(this.props.filters).some(
         v => secondaryFilters.map(f => f.name).includes(v)
       )
     }
@@ -84,19 +117,28 @@ class Filters extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({collapsed: !Object.keys(nextProps.filters).some(
-      v => secondaryFilters.map(f => f.name).includes(v))}
-    )
+    this.setState({extended: Object.keys(nextProps.filters).some(
+      v => secondaryFilters.map(f => f.name).includes(v)) || this.state.extended
+    })
   }
 
   render() {
     return (
       <nav className="Filters">
 
-        <form action="" onSubmit={(evt) => onSubmit(evt, this.props.emitter)}>
+        <form
+          action=""
+          onSubmit={(evt) => onSubmit(evt, this.props.emitter)}
+          onReset={(evt) => onReset(evt, this.props.emitter)}
+        >
           <div className="FiltersControls">
             <div className="filterSearch">
-              <input type="search" name="q" defaultValue={this.props.query} placeholder={`${this.props.translate('Filters.searchTheMap')}...`} />
+              <input
+                type="search"
+                name="q"
+                defaultValue={this.props.query}
+                placeholder={`${this.props.translate('Filters.searchTheMap')}...`}
+              />
 
               <Tooltip
                 overlay="Show List"
@@ -161,7 +203,7 @@ class Filters extends React.Component {
             </div>
 
             <div
-              className={`filterType secondary${this.state.collapsed ? ' collapsed' : ''}`}
+              className={`filterType secondary${this.state.extended ? '' : ' collapsed'}`}
             >
               {secondaryFilters.map((filterDef) => {
                 const aggregation = this.props.aggregations[filterDef.name]
@@ -205,17 +247,19 @@ class Filters extends React.Component {
                 <button
                   onClick={(e) => {
                     e.preventDefault()
-                    this.setState({ collapsed: !this.state.collapsed })
+                    this.setState({ extended: !this.state.extended })
                   }}
                 >
-                  {this.state.collapsed
-                    ? this.props.translate("Filters.showMore")
-                    : this.props.translate("Filters.hideExtended")
+                  {this.state.extended
+                    ? this.props.translate("Filters.hideExtended")
+                    : this.props.translate("Filters.showMore")
                   }
                 </button>
               }
               <div className="clearFilter">
-                <Link href="/resource/">{this.props.translate('Filters.clearFilters')}</Link>
+                <button type="reset">
+                  {this.props.translate('Filters.clearFilters')}
+                </button>
               </div>
 
             </div>

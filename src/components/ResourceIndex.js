@@ -58,7 +58,7 @@ const ResourceIndex = ({
   <div className={`ResourceIndex ${className ? className:''}`}>
     {children}
 
-    <Columns showDefault={filters} >
+    <Columns show={!!query || Object.keys(filters).length > 0} >
       <Column>
         <Filters
           query={query}

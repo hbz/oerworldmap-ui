@@ -11,11 +11,9 @@ class DropdownFilter extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state ={
+    this.state = {
       showContent: false,
-      search: '',
-      initialList: this.props.aggregations.buckets,
-      selectedElements: this.props.filters || []
+      search: ''
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -32,16 +30,16 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
-    const list = (this.state.initialList.filter(
+    const list = (this.props.aggregations.buckets.filter(
       item => item.key.includes(this.state.search)
-    ) || this.state.initialList).map((bucket, i) => (
+    ) || this.props.aggregations.buckets).map((bucket, i) => (
       <li key={bucket.key}>
         <input
           type="checkbox"
           value={bucket.key}
           name={this.props.filterName}
           id={this.props.filterName+i}
-          defaultChecked={this.state.selectedElements.includes(bucket.key)}
+          defaultChecked={this.props.filters.includes(bucket.key)}
         />
         <label
           htmlFor={this.props.filterName+i}
@@ -84,8 +82,7 @@ class DropdownFilter extends React.Component {
             {this.props.icon ? (
               <i className={`fa fa-${this.props.icon}`} />
             ) : (
-              this.state.selectedElements.join(', ')
-              || (this.props.filters.join(', '))
+              this.props.filters.join(', ')
               || this.props.translate(`Dropdown${this.props.filterName}`)
             )}
           </span>
@@ -105,12 +102,12 @@ class DropdownFilter extends React.Component {
                 this.props.submit(evt, this.props.emitter)
               }}
             />
-            {<input
+            <input
               type="text"
               placeholder="..."
               value={this.state.search}
               onChange={e => this.setState({search: e.target.value})}
-            />}
+            />
           </div>
           <ul>
             {list.length
