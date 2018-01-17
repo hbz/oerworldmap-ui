@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import Icon from './Icon'
 import Link from './Link'
 
@@ -8,7 +9,7 @@ import '../styles/components/ItemList.pcss'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
+const ItemList = ({ translate, moment, emitter, listItems }) => (
   <ul className="linedList ItemList" >
     {listItems.map(listItem => (
       <li
@@ -24,35 +25,70 @@ const ItemList = ({ translate, moment, emitter, listItems, selected }) => (
         {listItem.about['@type'] === 'Event' &&
         listItem.about.startDate
           ? (
-            <Link className="item" href={'#' + listItem.about['@id']}>
-              <div className="sheet">
-                <span>{moment(listItem.about.startDate).format('D')}</span>
-                <span>{moment(listItem.about.startDate).format('ddd')}</span>
+            <Tooltip
+              overlay={
+                <div>
+                  <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
+                  {listItem.about.description ?
+                    (
+                      <p>{translate(listItem.about.description).length > 140
+                        ? translate(listItem.about.description).substring(0,140)
+                        : translate(listItem.about.description)}
+                      </p>
+                    )
+                    : (<p>No description available</p>)
+                  }
+                </div>
+              }
+              placement="left"
+              mouseEnterDelay={0.2}
+              overlayClassName="itemListTooltip"
+            >
+              <div>
+                <Link className="item" href={'/resource/' + listItem.about['@id']}>
+                  <div className="sheet">
+                    <span>{moment(listItem.about.startDate).format('D')}</span>
+                    <span>{moment(listItem.about.startDate).format('ddd')}</span>
+                  </div>
+                  <span>
+                    {translate(listItem.about.name) || listItem.about['@id']}<br />
+                    {moment(listItem.about.startDate).format('dddd, D. MMMM')} —&nbsp;
+                    {listItem.about.location &&
+                      listItem.about.location.address &&
+                      (`${listItem.about.location.address.addressLocality}, ${listItem.about.location.address.addressCountry}`)
+                    }
+                  </span>
+                </Link>
               </div>
-              <span>
-                {translate(listItem.about.name) || listItem.about['@id']}<br />
-                {moment(listItem.about.startDate).format('dddd, D. MMMM')} —&nbsp;
-                {listItem.about.location &&
-                  listItem.about.location.address &&
-                  (`${listItem.about.location.address.addressLocality}, ${listItem.about.location.address.addressCountry}`)
-                }
-              </span>
-            </Link>
+            </Tooltip>
           ) : (
-            <Link className="item" href={'#' + listItem.about['@id']}>
-              <Icon type={listItem.about['@type']} />
-              <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
-            </Link>
+            <Tooltip
+              overlay={
+                <div>
+                  <b>{translate(listItem.about.name) || listItem.about['@id']}</b>
+                  {listItem.about.description ?
+                    (
+                      <p>{translate(listItem.about.description).length > 140
+                        ? translate(listItem.about.description).substring(0,140)
+                        : translate(listItem.about.description)}
+                      </p>
+                    )
+                    : (<p>No description available</p>)
+                  }
+                </div>
+              }
+              placement="left"
+              mouseEnterDelay={0.2}
+              overlayClassName="itemListTooltip"
+            >
+              <div>
+                <Link className="item" href={'/resource/' + listItem.about['@id']}>
+                  <Icon type={listItem.about['@type']} />
+                  <span>{translate(listItem.about.name) || listItem.about['@id']}</span>
+                </Link>
+              </div>
+            </Tooltip>
           )}
-
-        {selected === listItem.about['@id'] &&
-          <aside className="extract">
-            <p>{translate(listItem.about.description)}</p>
-            <Link className="btn clear" href={'/resource/' + listItem.about['@id']}>
-              {translate('ItemList.readMore')}
-            </Link>
-          </aside>
-        }
       </li>
     ))}
   </ul>
@@ -64,7 +100,6 @@ ItemList.propTypes = {
   moment: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
-  selected: PropTypes.string.isRequired
 }
 
 export default withEmitter(translate(ItemList))

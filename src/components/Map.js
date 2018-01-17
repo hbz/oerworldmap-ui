@@ -529,7 +529,7 @@ class Map extends React.Component {
         id="Map"
         style={
           {position:'absolute',
-            width:'100%',
+            width:'101%',
             height: '100%',
             top:0,
             left: 0}}
