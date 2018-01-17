@@ -6,7 +6,6 @@ import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
-import Link from './Link'
 import translate from './translate'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
@@ -28,8 +27,8 @@ const onReset = (e, emitter) => {
   const form = e.target.parentElement.form || e.target.form || e.target
 
   // clearing inputs
-  var inputs = form.getElementsByTagName('input')
-  for (var i = 0; i<inputs.length; i++) {
+  const inputs = form.getElementsByTagName('input')
+  for (let i = 0; i<inputs.length; i++) {
     switch (inputs[i].type) {
     case 'radio':
     case 'checkbox':
@@ -42,22 +41,18 @@ const onReset = (e, emitter) => {
   }
 
   // clearing selects
-  var selects = form.getElementsByTagName('select')
-  for (var i = 0; i<selects.length; i++) {
+  const selects = form.getElementsByTagName('select')
+  for (let i = 0; i<selects.length; i++) {
     selects[i].selectedIndex = 0
   }
 
   // clearing textarea
-  var text= form.getElementsByTagName('textarea')
-  for (var i = 0; i<text.length; i++) {
+  const text= form.getElementsByTagName('textarea')
+  for (let i = 0; i<text.length; i++) {
     text[i].innerHTML= ''
   }
 
   // navigate
-  const formData = new FormData(form)
-  const parameters = [...formData.entries()]
-    .filter(p => !!p[1])
-    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('navigate', '/resource/')
 
 }
