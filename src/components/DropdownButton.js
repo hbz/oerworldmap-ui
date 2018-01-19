@@ -1,5 +1,6 @@
 import React from 'react'
 import DropdownMenu from './DropdownMenu'
+import { triggerClick } from '../common'
 
 import '../styles/components/DropdownButton.pcss'
 
@@ -20,7 +21,7 @@ class DropdownButton extends React.Component {
           tabIndex="0"
           className="fa fa-gear"
           onClick={() => {this.setState({showing:!this.state.showing})}}
-          onKeyDown={null}
+          onKeyDown={triggerClick}
         >
           { this.state.showing &&
             <DropdownMenu />
