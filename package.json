@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "The user interface for https://oerworldmap.org/",
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rimraf dist/",
     "server:dev": "NODE_ENV=development node src/index.js",
     "server:static": "NODE_ENV=static node src/index.js",
     "server:prod": "npm run clean && NODE_ENV=production webpack && NODE_ENV=production node src/index.js",
@@ -31,6 +31,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.9",
+    "del-cli": "^1.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.15.0",
