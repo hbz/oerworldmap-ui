@@ -40,7 +40,6 @@ const ResourceIndex = ({
   aggregations,
   member,
   size,
-  selected,
   totalItems,
   currentPage,
   pages,
@@ -59,7 +58,7 @@ const ResourceIndex = ({
   <div className={`ResourceIndex ${className ? className:''}`}>
     {children}
 
-    <Columns showDefault={filters} >
+    <Columns show={!!query || Object.keys(filters).length > 0} >
       <Column>
         <Filters
           query={query}
@@ -69,7 +68,7 @@ const ResourceIndex = ({
           size={Number.isInteger(+size) ? +size : 10}
         />
         <div className="wrapper-ItemList-Pagination">
-          <ItemList listItems={member} selected={selected} />
+          <ItemList listItems={member} />
           <Pagination
             totalItems={totalItems}
             currentPage={currentPage}
@@ -208,7 +207,6 @@ ResourceIndex.propTypes = {
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
   size: PropTypes.string.isRequired,
-  selected: PropTypes.string,
   totalItems: PropTypes.number.isRequired,
   currentPage: PropTypes.string.isRequired,
   pages: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -230,7 +228,6 @@ ResourceIndex.propTypes = {
 
 ResourceIndex.defaultProps = {
   query: '',
-  selected: '',
   map: null,
   nextPage: null,
   previousPage: null,
