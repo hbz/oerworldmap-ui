@@ -77,19 +77,20 @@
       padding: 0.35em 0 !important;
     }
 
-    & .slick-slider {
-      & .slick-arrow {
-        z-index: 1;
-        &:before {
-          font-family: var(--font-family);
-          font-size: 37px;
-          color: var(--action-color);
-        }
+    & .slick-arrow {
+      z-index: 1;
+      width: 45px;
+      height: 45px;
+
+      &:before {
+        content: '';
       }
-      & .slick-prev {
+
+      &.slick-prev {
         left: calc(50vw - 550px - 30px);
       }
-      & .slick-next {
+
+      &.slick-next {
         right: calc(50vw - 550px - 30px);
       }
     }
