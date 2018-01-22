@@ -53,11 +53,14 @@
   display: none;
 }
 
-a:hover {
-  & .visible-hover {
-    display: initial;
-  }
-  & .hidden-hover {
-    display: none;
+a,
+button {
+  &:hover {
+    & .visible-hover {
+      display: initial;
+    }
+    & .hidden-hover {
+      display: none;
+    }
   }
 }
