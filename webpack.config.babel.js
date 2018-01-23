@@ -73,6 +73,7 @@ if (TARGET === 'server:prod') {
       new UglifyJSPlugin({
         parallel: true,
         sourceMap: true,
+        cache: true,
       })
     ],
     module: {

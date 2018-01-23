@@ -4,14 +4,9 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
 import Icon from './Icon'
+import { triggerClick } from '../common'
 
 import '../styles/components/Country.pcss'
-
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
-}
 
 class Country  extends React.Component {
 
@@ -37,8 +32,9 @@ class Country  extends React.Component {
         </div>
 
         {this.props.countryData &&
-        this.props.countryData.country_champions &&
-        this.props.countryData.country_champions.hits.hits.length > 0 ?
+        this.props.countryData.champions &&
+        this.props.countryData.champions.country_champions &&
+        this.props.countryData.champions.country_champions.hits.hits.length > 0 ?
           (
             <div className="countryChampion">
               <h3
@@ -52,7 +48,7 @@ class Country  extends React.Component {
               </h3>
 
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
-                {this.props.countryData.country_champions.hits.hits.map(champion => (
+                {this.props.countryData.champions.country_champions.hits.hits.map(champion => (
                   <div className="user" key={champion._source.about['@id']}>
                     {champion._source.about.image ? (
                       <Link href={`/resource/${champion._source.about['@id']}`}>
@@ -65,15 +61,14 @@ class Country  extends React.Component {
                                 e.target.classList.add('visible')
                               }}}
                           />
-                          <Icon type={champion._type} />
+                          <Icon type={champion._source.about['@type']} />
                         </div>
                       </Link>
                     ) :(
                       <div className="frame">
-                        <Icon type={champion._type} />
+                        <Icon type={champion._source.about['@type']} />
                       </div>
-                    )
-                    }
+                    )}
                     <div className="text">
                       <Link href={`/resource/${champion._source.about['@id']}`}>
                         {this.props.translate(champion._source.about.name)}
@@ -107,7 +102,7 @@ class Country  extends React.Component {
                     <i className="fa fa-question" />
                   </div>
                   <div className="text">
-                    There is no <Link href="/contribute">contry champion</Link> for Colombia, yet. <a href="mailto:info@oerworldmap.org">Contact us</a> if you can jump in!
+                    There is no <Link href="/contribute">contry champion</Link> for {this.props.iso3166}, yet. <a href="mailto:info@oerworldmap.org">Contact us</a> if you can jump in!
                   </div>
                 </div>
               </div>
@@ -116,8 +111,8 @@ class Country  extends React.Component {
         }
 
         {this.props.countryData &&
-        this.props.countryData.reports &&
-        this.props.countryData.reports.doc_count > 0 &&
+        this.props.countryData.reports.country_reports &&
+        this.props.countryData.reports.country_reports.hits.hits.length > 0 &&
           <div className="countryReports">
             <h3
               onKeyDown={triggerClick}
@@ -131,11 +126,11 @@ class Country  extends React.Component {
 
             <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
               {this.props.countryData.reports.country_reports.hits.hits.map(report => (
-                <div className="resource">
+                <div className="resource" key={report._source.about['@id']}>
                   <i className="fa fa-book" />
                   <div className="text">
                     <Link href={`/resource/${report._source.about['@id']}`}>
-                      {report._source.about.name}
+                      {this.props.translate(report._source.about.name)}
                     </Link>
                   </div>
                 </div>

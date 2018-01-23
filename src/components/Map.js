@@ -13,6 +13,7 @@ import translate from './translate'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
 import { getParams, getURL } from '../common'
+import bounds from  '../json/bounds.json'
 
 import '../styles/components/Map.pcss'
 
@@ -391,21 +392,31 @@ class Map extends React.Component {
         })
 
         if (coutryFeatures.length) {
-          const sumCoords = []
 
-          coutryFeatures.forEach(feature => {
-            feature.geometry.coordinates.forEach(land => {
-              sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
+          if (iso3166 in bounds) {
+            const bound = bounds[iso3166]
+            this.map.flyTo(
+              {center: [bound[0],bound[1]],
+                zoom: [bound[2]]
+              }
+            )
+          } else {
+            const sumCoords = []
+
+            coutryFeatures.forEach(feature => {
+              feature.geometry.coordinates.forEach(land => {
+                sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
+              })
             })
-          })
 
-          const bounds = sumCoords.reduce(function(bounds, coord) {
-            return bounds.extend(coord)
-          }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+            const bounds = sumCoords.reduce(function(bounds, coord) {
+              return bounds.extend(coord)
+            }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
-          this.map.fitBounds(bounds, {
-            padding: 20
-          })
+            this.map.fitBounds(bounds, {
+              padding: 20
+            })
+          }
         }
       } else {
         window.setTimeout(()=> {

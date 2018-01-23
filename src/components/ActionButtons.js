@@ -3,14 +3,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
+import { triggerClick } from '../common'
 
 import '../styles/components/ActionButtons.pcss'
-
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
-}
 
 class ActionButtons extends React.Component {
 
