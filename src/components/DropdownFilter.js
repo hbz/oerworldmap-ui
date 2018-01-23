@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import translate from './translate'
 import withEmitter from './withEmitter'
+import { triggerClick } from '../common'
 
 import '../styles/components/DropdownFilter.pcss'
 
@@ -71,11 +72,7 @@ class DropdownFilter extends React.Component {
         <span
           tabIndex="0"
           role="button"
-          onKeyDown={e => {
-            if (e.keyCode === 32) {
-              e.target.click()
-            }
-          }}
+          onKeyDown={triggerClick}
           className={`btn expand${this.props.filters.length ? ' inUse' : ''}`}
         >
           <span className="btnText">

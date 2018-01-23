@@ -4,14 +4,9 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import translate from './translate'
 import Link from './Link'
+import { triggerClick } from '../common'
 
 import '../styles/components/Header.pcss'
-
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
-}
 
 class Header extends React.Component {
 

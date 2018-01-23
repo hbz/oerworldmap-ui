@@ -4,14 +4,9 @@ import PropTypes from 'prop-types'
 import translate from './translate'
 import Link from './Link'
 import Icon from './Icon'
+import { triggerClick } from '../common'
 
 import '../styles/components/Country.pcss'
-
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
-}
 
 class Country  extends React.Component {
 

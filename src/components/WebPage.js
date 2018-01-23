@@ -139,7 +139,7 @@ const WebPage = ({
                   role="button"
                   tabIndex="0"
                   onKeyDown={(e) => {
-                    if (e.keyCode === 27) {
+                    if (e.keyCode === 13) {
                       e.target.click()
                     }
                   }}
