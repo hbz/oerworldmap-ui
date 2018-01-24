@@ -16,7 +16,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
           overlay={translate(bucket.key)}
           placement="top"
         >
-          <div className="filterBox">
+          <div className={`filterBox value-${bucket.key}`}>
             <input
               type="radio"
               value={bucket.key}

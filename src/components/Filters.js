@@ -263,6 +263,8 @@ class Filters extends React.Component {
 
           </div>
 
+          <hr />
+
           <div className="sortContainer">
             <PagedCollection size={this.props.size} member={this.props.member}>
               <select

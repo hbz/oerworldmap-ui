@@ -67,7 +67,7 @@ const ResourceIndex = ({
           member={member}
           size={Number.isInteger(+size) ? +size : 10}
         />
-        <div className="ColumnList">
+        <div className="wrapper-ItemList-Pagination">
           <ItemList listItems={member} />
           <Pagination
             totalItems={totalItems}

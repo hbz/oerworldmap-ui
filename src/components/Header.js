@@ -35,59 +35,17 @@ class Header extends React.Component {
   render() {
     return (
       <header className="Header">
+
         <nav className="mainNav">
           <Link href="/resource/">
-            <h1>OER WORLD MAP</h1>
+            <h1>OER World Map</h1>
           </Link>
-          <a
-            href="/contribute"
-            title={this.props.translate('Header.contribute')}
-          >
-            {this.props.translate('Header.contribute')}
-          </a>
-          <a
-            href="/about"
-            title={this.props.translate('Header.about')}
-          >
-            {this.props.translate('Header.about')}
-          </a>
-          <a
-            href="/FAQ"
-            title={this.props.translate('Header.faq')}
-          >
-            {this.props.translate('Header.faq')}
-          </a>
-          <a
-            href="https://oerworldmap.wordpress.com/"
-            title={this.props.translate('Header.blog')}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {this.props.translate('Header.blog')}
-          </a>
-          <a
-            href="https://www.facebook.com/oerworldmap"
-            title="Facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fa fa-facebook-official" />
-          </a>
-          <a
-            href="https://twitter.com/oerworldmap"
-            title="Twitter"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fa fa-twitter" />
-          </a>
         </nav>
 
-        <nav className="userNav">
-          <a href="/contribute">
-            <h2>{this.props.translate('Header.joinUs')}</h2>
-          </a>
-          {this.props.user ? (
+        {this.props.user ? (
+
+          <nav>
+
             <div
               className="menuBtn"
               href="#nothing"
@@ -122,15 +80,50 @@ class Header extends React.Component {
                 </ul>
               }
             </div>
-          ) : (
+
+          </nav>
+
+        ) : (
+
+          <nav>
+
+            <a
+              href="/contribute"
+              title={this.props.translate('Header.contribute')}
+            >
+              {this.props.translate('Header.contribute')}
+            </a>
+            <a
+              href="/about"
+              title={this.props.translate('Header.about')}
+            >
+              {this.props.translate('Header.about')}
+            </a>
+            <a
+              href="/FAQ"
+              title={this.props.translate('Header.faq')}
+            >
+              {this.props.translate('Header.faq')}
+            </a>
+            <a
+              href="https://oerworldmap.wordpress.com/"
+              title={this.props.translate('Header.blog')}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {this.props.translate('Header.blog')}
+            </a>
+
             <Link
               title={this.props.translate('Header.logIn')}
               href="/user/register"
             >
               {this.props.translate('Header.logIn')}
             </Link>
-          )}
-        </nav>
+
+          </nav>
+
+        )}
 
       </header>
     )
