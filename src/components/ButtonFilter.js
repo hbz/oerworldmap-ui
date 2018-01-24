@@ -15,6 +15,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
           key={bucket.key}
           overlay={translate(bucket.key)}
           placement="top"
+          overlayClassName="tooltipDisableEvents"
         >
           <div className={`filterBox value-${bucket.key}`}>
             <input
