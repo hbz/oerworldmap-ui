@@ -10,6 +10,7 @@ import translate from './translate'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
+import { triggerClick } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -151,11 +152,7 @@ class Filters extends React.Component {
                   tabIndex="0"
                   role="button"
                   onClick={() => {this.props.emitter.emit('toggleColumns')}}
-                  onKeyDown={e => {
-                    if (e.keyCode === 32) {
-                      e.target.click()
-                    }
-                  }}
+                  onKeyDown={triggerClick}
                 />
               </Tooltip>
 

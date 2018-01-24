@@ -5,12 +5,7 @@ import Tooltip from 'rc-tooltip'
 import Icon from './Icon'
 import translate from './translate'
 import withEmitter from './withEmitter'
-
-const triggerClick = (e) => {
-  if (e.keyCode === 32) {
-    e.target.click()
-  }
-}
+import { triggerClick } from '../common'
 
 const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
   <div className="ButtonFilter">

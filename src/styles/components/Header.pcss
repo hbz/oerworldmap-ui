@@ -1,18 +1,21 @@
-@import '../colors.pcss';
+/* begin-of-project-styles --- this is needed as seperator, to auto-dump styles for oerworldmap-static */
+
 @import '../variables.pcss';
 
 .Header {
   display: flex;
-  font-family: 'Economica', sans-serif;
-  font-size: 1.3rem;
-
-  /* flex-wrap: wrap; */
   justify-content: space-between;
   background-color: var(--blue-dark);
+  letter-spacing: 0.15em;
+  font-weight: 300;
+
+  & nav {
+    padding: 0 10px;
+  }
 
   & a,
   & .menuBtn {
-    color: var(--blue-lightest);
+    color: var(--white);
     padding: 10px;
     display: inline-block;
     position: relative;
@@ -23,11 +26,19 @@
 
     &:focus,
     &:hover {
-      color: var(--blue-light);
+      color: var(--blue-lightest);
     }
   }
 
-  & .userNav .menuBtn ul {
+  & h1 {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size);
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  & .menuBtn ul {
     position: absolute;
     list-style-type: none;
     margin: 0;
@@ -59,44 +70,17 @@
     }
   }
 
-  & .mainNav h1,
-  & .userNav h2 {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 1.3rem;
-  }
-
-  & .mainNav h1 {
-    padding: 0 20px;
-  }
-
-  & .userNav {
-    & a:last-child {
-      color: var(--white);
-    }
-
-    & a:hover {
-      color: var(--orange);
-    }
-  }
-
   @media print {
     display: block;
     text-align: center;
 
-    & .mainNav a {
+    & nav {
       display: none;
-    }
 
-    & .mainNav a:first-child {
-      display: block;
-      width: 100%;
-    }
-
-    & .userNav {
-      display: none;
+      &:first-child {
+        display: block;
+        width: 100%;
+      }
     }
   }
 }
