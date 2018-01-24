@@ -19,7 +19,7 @@
     transform: translate3d(100%, 0, 0);
 
     & .FiltersControls {
-      transform: translate3d(-109.6%, 0, 0);
+      transform: translate3d(calc(-100% - 40px), 0, 0);
       transition: transform 1s;
     }
 
@@ -140,22 +140,15 @@
 
   @media screen and (--mobile-breakpoint) {
     top: 35px;
-    left: 0;
     height: calc(100% - 35px);
+    width: 100%;
 
     & .column {
       width: 100%;
+      max-width: auto;
 
       & .toggleColumn {
         display: none;
-      }
-
-      & .columnContent {
-        overflow: auto;
-
-        & .ColumnList {
-          overflow-y: visible;
-        }
       }
     }
   }
