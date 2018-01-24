@@ -6,7 +6,7 @@
   top: 0;
   height: 100%;
   display: flex;
-  transition: all 1s;
+  transition: transform 1s;
   pointer-events: none;
   z-index: 3;
 
@@ -20,7 +20,7 @@
 
     & .FiltersControls {
       transform: translate3d(-109.6%, 0, 0);
-      transition: all 1s;
+      transition: transform 1s;
     }
 
     & .secondary,
@@ -130,6 +130,28 @@
 
       & .columnContent {
         display: block;
+      }
+    }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    top: 35px;
+    left: 0;
+    height: calc(100% - 35px);
+
+    & .column {
+      width: 100%;
+
+      & .toggleColumn {
+        display: none;
+      }
+
+      & .columnContent {
+        overflow: auto;
+
+        & .ColumnList {
+          overflow-y: visible;
+        }
       }
     }
   }

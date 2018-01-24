@@ -7,7 +7,7 @@
   background-color: color(var(--black) a(15%));
   width: 100%;
   height: 100%;
-  z-index: 8;
+  z-index: 4;
   overflow: auto;
 
   & .modalDialog {
@@ -55,6 +55,20 @@
 
     & .closeModal {
       display: none;
+    }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    position: absolute;
+
+    & .modalDialog {
+      height: 100%;
+      overflow: auto;
+      box-shadow: none;
+      border: none;
+      max-width: 100%;
+      margin: 0;
+      border-radius: 0;
     }
   }
 }
