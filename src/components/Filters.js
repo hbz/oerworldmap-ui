@@ -145,6 +145,7 @@ class Filters extends React.Component {
                 overlay="Show List"
                 placement="top"
                 mouseEnterDelay={0.2}
+                overlayClassName="tooltipDisableEvents"
               >
                 <i
                   className="fa fa-th-list"
