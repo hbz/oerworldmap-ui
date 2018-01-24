@@ -226,8 +226,9 @@ export default (api) => {
     {
       path: '/log/:id',
       get: async (params, context, state) => {
-        const versions = { compare: params.compare, to: params.to }
-        const url = getURL({ path: `/log/${params.id}`, params: versions })
+        const url = params.compare && params.to
+          ? getURL({ path: `/log/${params.id}`, params: { compare: params.compare, to: params.to } })
+          : getURL({ path: `/log/${params.id}`})
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <Diffs {...data} />
