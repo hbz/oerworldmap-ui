@@ -43,6 +43,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
+    padding-top: 10px;
 
     &:hover span {
       text-decoration: underline;
@@ -159,6 +160,83 @@
 
     & a {
       color: var(--blue-dark);
+    }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    top: 0;
+    left: 0;
+    border: none;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+    padding: 0;
+    flex-wrap: wrap;
+
+    & .countryHeader {
+      display: inline-block;
+      border-bottom: 0;
+      padding: 0;
+      padding-top: 10px;
+
+      & .countryFlag {
+        display: flex;
+      }
+
+      & h2 {
+        display: none;
+      }
+    }
+
+    & .countryReports {
+      display: none;
+    }
+
+    & .countryChampion {
+      display: inline-block;
+      border-bottom: 0;
+      padding: 0 10px;
+      padding-top: 10px;
+
+      & h3 {
+        padding-top: 0;
+        margin: 0;
+      }
+
+      & .countryChampionContainer {
+        padding-top: 10px;
+
+        & .collapsed {
+          visibility: hidden;
+        }
+      }
+    }
+
+    & .statistics {
+      display: inline-block;
+      border-bottom: 0;
+      padding: 0;
+
+      & h3 {
+        display: none;
+      }
+
+      & .statisticsContainer {
+        display: block;
+        max-height: 100%;
+      }
+
+      & tbody tr {
+        display: inline-block;
+      }
+
+      & tbody a {
+        display: none;
+      }
     }
   }
 }
