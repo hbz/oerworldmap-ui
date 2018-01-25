@@ -42,10 +42,36 @@ class Header extends React.Component {
           </Link>
         </nav>
 
-        {this.props.user ? (
+        <nav>
 
-          <nav>
+          <a
+            href="/contribute"
+            title={this.props.translate('Header.contribute')}
+          >
+            {this.props.translate('Header.contribute')}
+          </a>
+          <a
+            href="/about"
+            title={this.props.translate('Header.about')}
+          >
+            {this.props.translate('Header.about')}
+          </a>
+          <a
+            href="/FAQ"
+            title={this.props.translate('Header.faq')}
+          >
+            {this.props.translate('Header.faq')}
+          </a>
+          <a
+            href="https://oerworldmap.wordpress.com/"
+            title={this.props.translate('Header.blog')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {this.props.translate('Header.blog')}
+          </a>
 
+          {this.props.user ? (
             <div
               className="menuBtn"
               href="#nothing"
@@ -81,49 +107,16 @@ class Header extends React.Component {
               }
             </div>
 
-          </nav>
-
-        ) : (
-
-          <nav>
-
-            <a
-              href="/contribute"
-              title={this.props.translate('Header.contribute')}
-            >
-              {this.props.translate('Header.contribute')}
-            </a>
-            <a
-              href="/about"
-              title={this.props.translate('Header.about')}
-            >
-              {this.props.translate('Header.about')}
-            </a>
-            <a
-              href="/FAQ"
-              title={this.props.translate('Header.faq')}
-            >
-              {this.props.translate('Header.faq')}
-            </a>
-            <a
-              href="https://oerworldmap.wordpress.com/"
-              title={this.props.translate('Header.blog')}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {this.props.translate('Header.blog')}
-            </a>
-
+          ) : (
             <Link
               title={this.props.translate('Header.logIn')}
               href="/user/register"
             >
               {this.props.translate('Header.logIn')}
             </Link>
+          )}
 
-          </nav>
-
-        )}
+        </nav>
 
       </header>
     )
