@@ -42,88 +42,105 @@ class Header extends React.Component {
           </Link>
         </nav>
 
+        <nav
+          className="menuToggle mobile"
+          tabIndex="0"
+          role="button"
+          onClick={() => {this.setState({showMobileMenu:!this.state.showMobileMenu})}}
+          onKeyDown={triggerClick}
+          ref={el => this.menuToggle = el}
+        >
+          <i className="fa fa-bars" />
+        </nav>
+
+        <nav className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}>
+
+          <Link href="/resource/" className="mobile">
+            {translate('Map')}
+          </Link>
+
+          <a
+            href="/contribute"
+            title={this.props.translate('Header.contribute')}
+          >
+            {this.props.translate('Header.contribute')}
+          </a>
+          <a
+            href="/about"
+            title={this.props.translate('Header.about')}
+          >
+            {this.props.translate('Header.about')}
+          </a>
+          <a
+            href="/FAQ"
+            title={this.props.translate('Header.faq')}
+          >
+            {this.props.translate('Header.faq')}
+          </a>
+          <a
+            href="https://oerworldmap.wordpress.com/"
+            title={this.props.translate('Header.blog')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {this.props.translate('Header.blog')}
+          </a>
+          <a
+            href="/imprint"
+            target="_blank"
+            className="mobile"
+            title={this.props.translate('Imprint & Privacy')}
+          >
+            {this.props.translate('Imprint & Privacy')}
+          </a>
+
+        </nav>
+
         {this.props.user ? (
+          <div
+            className="menuBtn"
+            href="#nothing"
+            title={this.props.user.username}
+            tabIndex="0"
+            role="button"
+            onClick={() => {this.setState({showUserMenu:!this.state.showUserMenu})}}
+            onKeyDown={triggerClick}
+            ref={el => this.menuBtn = el}
+          >
+            <i className="fa fa-user" />
 
-          <nav>
-
-            <div
-              className="menuBtn"
-              href="#nothing"
-              title={this.props.user.username}
-              tabIndex="0"
-              role="button"
-              onClick={() => {this.setState({showUserMenu:!this.state.showUserMenu})}}
-              onKeyDown={triggerClick}
-              ref={el => this.menuBtn = el}
-            >
-              <i className="fa fa-user" />
-
-              {this.state.showUserMenu &&
-                <ul>
-                  <li>
-                    <Link href={`/resource/${this.props.user.id}`} >My Profile <i className="fa fa-user" /></Link>
-                  </li>
-                  <li>
-                    <Link href="/user/password">Change Password <i className="fa fa-lock" /></Link>
-                  </li>
-                  <li>
-                    <a
-                      href="/.logout"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        this.props.emitter.emit('logout')
-                      }}
-                    >
-                      {this.props.translate('Header.logOut')} <i className="fa fa-sign-out" />
-                    </a>
-                  </li>
-                </ul>
-              }
-            </div>
-
-          </nav>
+          </div>
 
         ) : (
-
-          <nav>
-
-            <a
-              href="/contribute"
-              title={this.props.translate('Header.contribute')}
-            >
-              {this.props.translate('Header.contribute')}
-            </a>
-            <a
-              href="/about"
-              title={this.props.translate('Header.about')}
-            >
-              {this.props.translate('Header.about')}
-            </a>
-            <a
-              href="/FAQ"
-              title={this.props.translate('Header.faq')}
-            >
-              {this.props.translate('Header.faq')}
-            </a>
-            <a
-              href="https://oerworldmap.wordpress.com/"
-              title={this.props.translate('Header.blog')}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {this.props.translate('Header.blog')}
-            </a>
-
-            <Link
-              title={this.props.translate('Header.logIn')}
-              href="/user/register"
-            >
-              {this.props.translate('Header.logIn')}
-            </Link>
-
-          </nav>
-
+          <Link
+            title={this.props.translate('Header.logIn')}
+            href="/user/register"
+          >
+            {this.props.translate('Header.logIn')}
+          </Link>
         )}
+
+        {this.state.showUserMenu &&
+          <ul className="userMenu">
+            <li>
+              <Link href={`/resource/${this.props.user.id}`} >My Profile <i className="fa fa-user" /></Link>
+            </li>
+            <li>
+              <Link href="/user/password">Change Password <i className="fa fa-lock" /></Link>
+            </li>
+            <li>
+              <a
+                href="/.logout"
+                onClick={(e) => {
+                  e.preventDefault()
+                  this.props.emitter.emit('logout')
+                }}
+              >
+                {this.props.translate('Header.logOut')} <i className="fa fa-sign-out" />
+              </a>
+            </li>
+          </ul>
+        }
 
       </header>
     )

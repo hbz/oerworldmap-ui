@@ -25,4 +25,13 @@
     padding: 20px;
     text-align: center;
   }
+
+  @media screen and (--mobile-breakpoint) {
+    background-color: white;
+    padding: 0;
+
+    & > .ErrorPageContainer {
+      border: none;
+    }
+  }
 }

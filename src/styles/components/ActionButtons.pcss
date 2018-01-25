@@ -89,4 +89,22 @@
   @media print {
     display: none;
   }
+
+  @media screen and (--mobile-breakpoint) {
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: var(--orange);
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    & > a,
+    & > div {
+      width: 100%;
+      flex: 1;
+      border-radius: 0;
+      margin: 0;
+      height: 35px;
+    }
+  }
 }

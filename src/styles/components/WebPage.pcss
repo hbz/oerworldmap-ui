@@ -93,11 +93,12 @@
       padding: 40px;
       position: relative;
       height: 200px;
-      background-size: 100% calc(100% + 25px);
       background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background-size: cover;
+      background-position: right;
 
       & img {
         object-fit: contain;
@@ -265,6 +266,20 @@
 
       & .webPageHeader {
         display: none;
+      }
+    }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    padding: 0;
+
+    & .webPageContainer {
+      border: 0;
+      margin: 0;
+      max-width: 100%;
+
+      & .webPageContent {
+        padding: 10px;
       }
     }
   }

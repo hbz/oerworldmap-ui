@@ -168,7 +168,7 @@ const WebPage = ({
                 JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
                 ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
                 : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
-              },7/800x225@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
+              },7/800x245@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
               : ''
           }}
         >
