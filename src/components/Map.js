@@ -57,15 +57,9 @@ class Map extends React.Component {
       maxBounds: bounds
     })
 
-    this.map.on('load', () => {
+    this.map.once('load', () => {
 
-      this.map.on('zoom', function(e) {
-        if (e.target.getZoom() >= 7) {
-          e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
-        } else {
-          e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
-        }
-      })
+      this.map.on('zoom', this.zoom)
       this.setState({center})
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -346,6 +340,10 @@ class Map extends React.Component {
     this.updatePoints(nextProps.features)
   }
 
+  componentWillUnmount() {
+    this.map.off('zoom', this.zoom)
+  }
+
   getBucket(country) {
     if (this.props.features === null)  return
     return this.props.aggregations["about.location.address.addressCountry"].buckets.find(e => {
@@ -364,6 +362,14 @@ class Map extends React.Component {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
     const d = R * c // Distance in km
     return d
+  }
+
+  zoom(e) {
+    if (e.target.getZoom() >= 7) {
+      e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
+    } else {
+      e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+    }
   }
 
   deg2rad(deg) {
