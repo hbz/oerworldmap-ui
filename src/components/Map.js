@@ -33,6 +33,7 @@ class Map extends React.Component {
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
     this.mouseMovePoints = this.mouseMovePoints.bind(this)
     this.mouseMove = this.mouseMove.bind(this)
+    this.moveEnd = this.moveEnd.bind(this)
   }
 
   componentDidMount() {
@@ -99,21 +100,7 @@ class Map extends React.Component {
       this.updateActiveCountry(this.props.iso3166)
 
       // Update URL values
-      this.map.on("moveend", (e) => {
-        if (!this.props.iso3166) {
-          const center = e.target.getCenter()
-          center.zoom = e.target.getZoom()
-          const params = getParams(window.location.search)
-          params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
-          const route = {
-            params,
-            path: window.location.pathname,
-            hash: window.location.hash.replace('#', '')
-          }
-          window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
-          this.setState({center})
-        }
-      })
+      this.map.on("moveend", this.moveEnd)
 
       // Get features currently under the mouse
       this.map.on("mousemove", this.mouseMove)
@@ -245,6 +232,7 @@ class Map extends React.Component {
     this.map.off('zoom', this.zoom)
     this.map.off('mousemove', 'points', this.mouseMovePoints)
     this.map.off('mousemove', this.mouseMove)
+    this.map.off('moveend', this.moveEnd)
   }
 
   getBucket(country) {
@@ -377,6 +365,22 @@ class Map extends React.Component {
       this.hoverPopup._content.classList.add('noEvents')
     } else {
       this.hoverPopup.remove()
+    }
+  }
+
+  moveEnd(e) {
+    if (!this.props.iso3166) {
+      const center = e.target.getCenter()
+      center.zoom = e.target.getZoom()
+      const params = getParams(window.location.search)
+      params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
+      const route = {
+        params,
+        path: window.location.pathname,
+        hash: window.location.hash.replace('#', '')
+      }
+      window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
+      this.setState({center})
     }
   }
 
