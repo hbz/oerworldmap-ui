@@ -8,6 +8,7 @@
   background-color: var(--blue-dark);
   letter-spacing: 0.15em;
   font-weight: 300;
+  position: relative;
 
   & nav {
     padding: 0 10px;
@@ -38,18 +39,24 @@
     text-transform: uppercase;
   }
 
-  & .menuBtn ul {
+  & .secondaryNav {
+    flex: 1;
+    text-align: right;
+  }
+
+  & .userMenu {
     position: absolute;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    top: 44px;
-    right: 0;
+    top: 100%;
+    right: 1px;
     width: 170px;
     background-color: var(--blue-lightest);
     border: 1px solid var(--blue-dark);
     z-index: 5;
-    border-radius: 2px;
+    border-radius: 0 0 2px 2px;
+    border-top: none;
 
     & li a {
       padding: 10px;
@@ -70,6 +77,19 @@
     }
   }
 
+  & .menuToggle {
+    color: var(--blue-lightest);
+    padding: 10px;
+
+    & i {
+      pointer-events: none;
+    }
+  }
+
+  & .mobile {
+    display: none;
+  }
+
   @media print {
     display: block;
     text-align: center;
@@ -81,6 +101,48 @@
         display: block;
         width: 100%;
       }
+    }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    & .userMenu {
+      width: 100%;
+      border-left: none;
+      border-right: none;
+    }
+
+    & .mainNav {
+      display: none;
+    }
+
+    & .secondaryNav {
+      position: absolute;
+      display: none;
+      left: 0;
+      top: 100%;
+      z-index: 6;
+      background-color: var(--blue-dark);
+      width: 100%;
+      text-align: left;
+      padding: 0 10px;
+      border-top: 1px solid var(--blue-light);
+
+      &.show {
+        display: block;
+      }
+
+      & a {
+        display: block;
+        border-bottom: 1px solid var(--white);
+      }
+
+      & a:last-child {
+        border-bottom: none;
+      }
+    }
+
+    & .mobile {
+      display: unset;
     }
   }
 }
