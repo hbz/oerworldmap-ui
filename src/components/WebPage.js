@@ -92,9 +92,7 @@ const WebPage = ({
   }
 
   const closeResource = () => {
-    window.history.length
-      ? window.history.back()
-      : emitter.emit('navigate', '/resource/')
+    emitter.emit('navigate', '__back__')
   }
 
   return (
