@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Icon from './Icon'
-import translate from './translate'
+import withi18n from './withi18n'
 
 const Label = (translate, value) => {
   console.log(typeof value === 'object')
@@ -15,4 +15,4 @@ const Label = (translate, value) => {
   )
 }
 
-export default translate(Label)
+export default withi18n(Label)

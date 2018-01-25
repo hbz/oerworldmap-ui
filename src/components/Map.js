@@ -9,7 +9,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import Icon from './Icon'
 import Link from './Link'
-import translate from './translate'
+import withi18n from './withi18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
 import { getParams, getURL } from '../common'
@@ -616,4 +616,4 @@ Map.defaultProps = {
   map: null,
 }
 
-export default withEmitter(translate(Map))
+export default withEmitter(withi18n(Map))

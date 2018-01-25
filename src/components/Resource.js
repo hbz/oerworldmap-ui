@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import translate from './translate'
+import withi18n from './withi18n'
 import Icon from './Icon'
 
 const Resource = ({ resource, translate }) => (
@@ -49,4 +49,4 @@ Resource.propTypes = {
   translate: PropTypes.func.isRequired,
 }
 
-export default translate(Resource)
+export default withi18n(Resource)

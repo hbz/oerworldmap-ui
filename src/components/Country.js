@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import translate from './translate'
+import withi18n from './withi18n'
 import Link from './Link'
 import Icon from './Icon'
 import { triggerClick } from '../common'
@@ -185,4 +185,4 @@ Country.defaultProps = {
   countryData: null,
 }
 
-export default translate(Country)
+export default withi18n(Country)

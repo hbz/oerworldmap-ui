@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import FullModal from './FullModal'
-import translate from './translate'
+import withi18n from './withi18n'
 
 import '../styles/components/Share.pcss'
 
@@ -35,4 +35,4 @@ Share.propTypes = {
   translate: PropTypes.func.isRequired
 }
 
-export default translate(Share)
+export default withi18n(Share)

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import pointer from 'json-pointer'
 import Link from './Link'
 
-import translate from './translate'
+import withi18n from './withi18n'
 
 class ResourceTable extends React.Component {
 
@@ -123,4 +123,4 @@ ResourceTable.propTypes = {
   translate: PropTypes.func.isRequired
 }
 
-export default translate(ResourceTable)
+export default withi18n(ResourceTable)

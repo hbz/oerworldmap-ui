@@ -6,7 +6,7 @@ import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
-import translate from './translate'
+import withi18n from './withi18n'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
@@ -308,4 +308,4 @@ Filters.propTypes = {
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(translate(Filters))
+export default withEmitter(withi18n(Filters))

@@ -1,7 +1,7 @@
 /* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
-import translate from './translate'
+import withi18n from './withi18n'
 
 import '../styles/components/DropdownMenu.pcss'
 
@@ -24,4 +24,4 @@ DropdownMenu.propTypes = {
   translate: PropTypes.func.isRequired
 }
 
-export default translate(DropdownMenu)
+export default withi18n(DropdownMenu)

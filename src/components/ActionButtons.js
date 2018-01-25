@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import translate from './translate'
+import withi18n from './withi18n'
 import Link from './Link'
 import { triggerClick } from '../common'
 
@@ -137,4 +137,4 @@ ActionButtons.defaultProps = {
   user: null,
 }
 
-export default translate(ActionButtons)
+export default withi18n(ActionButtons)

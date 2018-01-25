@@ -6,7 +6,7 @@ import Link from './Link'
 
 import '../styles/components/ItemList.pcss'
 
-import translate from './translate'
+import withi18n from './withi18n'
 import withEmitter from './withEmitter'
 
 const ItemList = ({ translate, moment, emitter, listItems }) => (
@@ -102,4 +102,4 @@ ItemList.propTypes = {
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(translate(ItemList))
+export default withEmitter(withi18n(ItemList))

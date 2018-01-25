@@ -10,7 +10,7 @@ import ItemList from './ItemList'
 import Pagination from './Pagination'
 import FullModal from './FullModal'
 import schema from '../json/schema.json'
-import translate from './translate'
+import withi18n from './withi18n'
 import Icon from './Icon'
 import Export from './Export'
 import Share from './Share'
@@ -239,4 +239,4 @@ ResourceIndex.defaultProps = {
 
 
 
-export default withEmitter(translate(ResourceIndex))
+export default withEmitter(withi18n(ResourceIndex))
