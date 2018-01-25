@@ -56,7 +56,7 @@ class Header extends React.Component {
         <nav className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}>
 
           <Link href="/resource/" className="mobile">
-            {translate('Map')}
+            {this.props.translate('Map')}
           </Link>
 
           <a
