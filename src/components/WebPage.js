@@ -310,7 +310,14 @@ WebPage.propTypes = {
   geo: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
-  _links: PropTypes.objectOf(PropTypes.any)
+  _links: PropTypes.objectOf(PropTypes.any),
+  mapboxConfig: PropTypes.shape(
+    {
+      token: PropTypes.string,
+      style: PropTypes.string,
+      miniMapStyle: PropTypes.string,
+    }
+  ).isRequired,
 }
 
 WebPage.defaultProps = {
