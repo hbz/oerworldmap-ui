@@ -42,6 +42,10 @@ class Api {
     this.port = apiConfig.port
   }
 
+  fetch (url, options) {
+    return fetch(url, options).then(checkStatus).then(toJson)
+  }
+
   post (url, data, authorization) {
     const headers = new Headers({
       'Content-Type': 'application/json',

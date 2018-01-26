@@ -14,6 +14,7 @@ import translate from './translate'
 import Icon from './Icon'
 import Export from './Export'
 import Share from './Share'
+import PlaceWidget from './PlaceWidget'
 
 import withEmitter from './withEmitter'
 
@@ -97,6 +98,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'Organization'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
@@ -111,6 +113,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'Service'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
@@ -125,6 +128,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'Action'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
@@ -139,6 +143,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'Article'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
@@ -153,6 +158,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'Event'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
@@ -167,6 +173,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'WebPage'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
@@ -181,6 +188,7 @@ const ResourceIndex = ({
         <Composer
           value={{'@type': 'Product'}}
           schema={schema}
+          widgets={{PlaceWidget}}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}

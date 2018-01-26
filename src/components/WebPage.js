@@ -16,6 +16,7 @@ import Export from './Export'
 import Share from './Share'
 import DropdownButton from './DropdownButton'
 import Comments from './Comments'
+import PlaceWidget from './PlaceWidget'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -194,6 +195,7 @@ const WebPage = ({
             <Composer
               value={about}
               schema={schema}
+              widgets={{PlaceWidget}}
               submit={data => emitter.emit('submit', {url: `/resource/${about['@id']}`, data})}
               getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
               getLabel={value => getLabel(translate, value)}
