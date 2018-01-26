@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import * as d3 from 'd3'
 import ReactFauxDOM from 'react-faux-dom'
 import Link from './Link'
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import '../styles/components/Statistics.pcss'
@@ -105,4 +105,4 @@ Statistics.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(withi18n(Statistics))
+export default withEmitter(withI18n(Statistics))

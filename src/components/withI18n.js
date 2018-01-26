@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const withi18n = (BaseComponent) => {
+const withI18n = (BaseComponent) => {
   const LocalizedComponent = (props, context) => (
     <BaseComponent
       translate={context.translate}
@@ -20,4 +20,4 @@ const withi18n = (BaseComponent) => {
   return LocalizedComponent
 }
 
-export default withi18n
+export default withI18n

@@ -5,7 +5,7 @@ import { Composer } from 'json-pointer-form'
 
 import Icon from './Icon'
 import Link from './Link'
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
@@ -79,4 +79,4 @@ Comments.defaultProps = {
   comments: []
 }
 
-export default withi18n(withEmitter(Comments))
+export default withI18n(withEmitter(Comments))

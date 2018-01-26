@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 import Link from './Link'
 import FullModal from './FullModal'
 import withEmitter from './withEmitter'
@@ -89,4 +89,4 @@ Groups.defaultProps = {
   _status: null,
 }
 
-export default withEmitter(withi18n(Groups))
+export default withEmitter(withI18n(Groups))

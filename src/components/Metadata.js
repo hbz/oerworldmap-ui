@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 
 import Icon from './Icon'
 import '../styles/components/Metadata.pcss'
@@ -23,4 +23,4 @@ Metadata.propTypes = {
   dateModified: PropTypes.string.isRequired
 }
 
-export default withi18n(Metadata)
+export default withI18n(Metadata)

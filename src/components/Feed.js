@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from './Link'
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 import FullModal from './FullModal'
 import '../styles/components/Feed.pcss'
 import Icon from './Icon'
@@ -34,4 +34,4 @@ Feed.propTypes = {
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
-export default withi18n(Feed)
+export default withI18n(Feed)

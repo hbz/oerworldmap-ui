@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import '../styles/components/Password.pcss'
@@ -31,4 +31,4 @@ Password.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(withi18n(Password))
+export default withEmitter(withI18n(Password))

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import withi18n from './withi18n'
+import withI18n from './withI18n'
 import Link from './Link'
 
 import '../styles/components/ErrorPage.pcss'
@@ -23,4 +23,4 @@ ErrorPage.propTypes = {
   translate: PropTypes.func.isRequired
 }
 
-export default withi18n(ErrorPage)
+export default withI18n(ErrorPage)
