@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import '../styles/components/Register.pcss'
@@ -48,4 +48,4 @@ Register.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(translate(Register))
+export default withEmitter(withI18n(Register))

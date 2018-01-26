@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { Composer } from 'json-pointer-form'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import Metadata from './Metadata'
 import { formatURL } from '../common'
 import Link from './Link'
@@ -318,4 +318,4 @@ WebPage.defaultProps = {
   _links: { refs: [] }
 }
 
-export default withEmitter(translate(WebPage))
+export default withEmitter(withI18n(WebPage))

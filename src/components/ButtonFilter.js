@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 
 import Icon from './Icon'
-import translate from './translate'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
@@ -59,4 +59,4 @@ ButtonFilter.propTypes = {
   submit: PropTypes.func.isRequired,
 }
 
-export default withEmitter(translate(ButtonFilter))
+export default withEmitter(withI18n(ButtonFilter))

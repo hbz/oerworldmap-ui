@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import translate from './translate'
+import withI18n from './withI18n'
 import Link from './Link'
 
 import '../styles/components/Pagination.pcss'
@@ -50,4 +50,4 @@ Pagiantion.defaultProps = {
   previousPage: null
 }
 
-export default translate(Pagiantion)
+export default withI18n(Pagiantion)

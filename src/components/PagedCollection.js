@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import DropdownButton from './DropdownButton'
 
 import '../styles/components/PagedCollection.pcss'
@@ -25,4 +25,4 @@ PagedCollection.propTypes = {
   member: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
-export default translate(PagedCollection)
+export default withI18n(PagedCollection)

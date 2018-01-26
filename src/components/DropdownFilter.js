@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import translate from './translate'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
@@ -137,4 +137,4 @@ DropdownFilter.defaultProps = {
   icon: null,
 }
 
-export default withEmitter(translate(DropdownFilter))
+export default withEmitter(withI18n(DropdownFilter))
