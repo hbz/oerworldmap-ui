@@ -44,4 +44,40 @@ $ npm test
 $ npm run server:dev
 ```
 
-Visit http://localhost:3000/
+Apache configuration
+
+Enable modules
+```
+mod_rewrite
+mod_proxy
+mod_proxy_http
+```
+
+Add new VirtualHost config and enable it
+```
+<VirtualHost *:80>
+
+  ServerName oerworldmap.local
+
+  AllowEncodedSlashes NoDecode
+
+  RewriteEngine On
+
+  RewriteCond %{HTTP:Accept} application/json
+
+  RewriteRule (.*) http://oerworldmap.graphthinking.com$1 [P,L]
+
+  RewriteRule "(/.login|/.logout)" http://oerworldmap.graphthinking.com$1 [P,L]
+
+  RewriteRule (.*) http://localhost:3000$1 [P,L]
+
+</VirtualHost>
+```
+
+Add url to `/etc/hosts`
+
+```
+127.0.0.1 oerworldmap.local
+```
+
+Visit http://oerworldmap.local
