@@ -14,6 +14,12 @@ $ git clone https://github.com/hbz/oerworldmap-ui.git
 $ cd oerworldmap-ui
 ```
 
+Install submodule
+```
+$ git submodule update --init --recursive
+$ npm install local_modules/json-pointer-form
+```
+
 Install node packages:
 ```
 $ npm install
