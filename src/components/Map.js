@@ -59,6 +59,8 @@ class Map extends React.Component {
 
     this.map.on('load', () => {
 
+      console.dir(this.map)
+
       this.map.on('zoom', function(e) {
         if (e.target.getZoom() >= 7) {
           e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
@@ -449,9 +451,8 @@ class Map extends React.Component {
       .map(l => { return l.id }).length
 
     const max = buckets.length && buckets[0].doc_count || 0
-
-    // Divide into steps rounded to the next 10
-    const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
+    const stopsCountries = []
+    const countriesSteps = Math.ceil(max / choroplethLayersCount / 10) * 10
 
     // Initialize array of arrays to hold bucket keys
     const choroplethLayerGroups = []
@@ -459,20 +460,20 @@ class Map extends React.Component {
       choroplethLayerGroups.push([])
     }
 
-    // Add keys to layer groups
-    buckets.forEach(bucket => {
-      choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
-    })
-
-    // Set filters of actual choropleth layers
-    choroplethLayerGroups.forEach((group, i) => {
-      this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
-    })
-
-    // Get mapbox colors for choropleth
     const colors = []
     choroplethLayerGroups.forEach((group, i) => {
       colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
+    })
+
+    buckets.forEach(function(bucket) {
+      stopsCountries.push([bucket['key'], colors[Math.floor(bucket.doc_count / countriesSteps)]])
+    })
+
+    this.map.setPaintProperty('countries', 'fill-color', {
+      "property": 'iso_a2',
+      "type": "categorical",
+      "default": 'rgba(255, 255, 255, 1)',
+      "stops": stopsCountries
     })
 
     this.setState({colors})
