@@ -444,26 +444,22 @@ class Map extends React.Component {
       ? aggregations["about.location.address.addressCountry"].buckets
       : []
 
-    // Dynamically get layers to be used for choropleth country overlays
-    // and divide aggregation data into corresponding groups
-    const choroplethLayersCount = this.map.getStyle().layers
-      .filter(l => { return l.id.startsWith("choropleth")})
-      .map(l => { return l.id }).length
+    const colors = [
+      "hsl(90, 55%, 92%)",
+      "hsl(90, 55%, 88%)",
+      "hsl(90, 55%, 84%)",
+      "hsl(90, 55%, 80%)",
+      "hsl(90, 55%, 76%)",
+      "hsl(90, 55%, 72%)",
+      "hsl(90, 55%, 68%)",
+      "hsl(90, 55%, 64%)",
+      "hsl(90, 55%, 60%)"
+    ]
 
     const max = buckets.length && buckets[0].doc_count || 0
     const stopsCountries = []
-    const countriesSteps = Math.ceil(max / choroplethLayersCount / 10) * 10
+    const countriesSteps = Math.ceil(max / colors.length / 10) * 10
 
-    // Initialize array of arrays to hold bucket keys
-    const choroplethLayerGroups = []
-    for (let i = 0; i < choroplethLayersCount; i++) {
-      choroplethLayerGroups.push([])
-    }
-
-    const colors = []
-    choroplethLayerGroups.forEach((group, i) => {
-      colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
-    })
 
     buckets.forEach(function(bucket) {
       stopsCountries.push([bucket['key'], colors[Math.floor(bucket.doc_count / countriesSteps)]])
@@ -490,7 +486,7 @@ class Map extends React.Component {
         return acc < val.doc_count ? val.doc_count : acc
       }, 0)
 
-      const regionSteps = Math.ceil(regionMax / choroplethLayersCount / 10) * 10
+      const regionSteps = Math.ceil(regionMax /  colors.length / 10) * 10
 
       regionBuckets.forEach(function(bucket) {
         stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / regionSteps)]])
