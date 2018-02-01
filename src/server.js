@@ -4,10 +4,13 @@ import express from 'express'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import fs from 'fs'
+
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import router from './router'
 import Api from './api'
+import { parseProperties } from './common'
 
 import Config, { mapboxConfig, apiConfig } from '../config'
 
@@ -79,13 +82,15 @@ server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
-  const context = { locales, authorization, user, mapboxConfig }
+  //TODO: cache i18n files in memory
+  const phrases = parseProperties(fs.readFileSync('./src/locale/ui.properties', 'utf8'))
+  const context = { locales, authorization, user, mapboxConfig, phrases }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err})
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title
     }))

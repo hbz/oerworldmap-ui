@@ -72,6 +72,16 @@ export const triggerClick = (e) => {
   }
 }
 
+export const parseProperties = (properties) => properties.split(/\r?\n/)
+  .map(s => s.trim()).filter(s => !!s).reduce((acc, cur, i) => {
+    const [key, value] = cur.split(/=(.+)/).map(s => s.trim())
+    if (key && value) {
+      acc[key] = value
+    }
+    return acc
+  }, {})
+
 export default {
-  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick
+  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
+  parseProperties
 }

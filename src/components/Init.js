@@ -4,8 +4,8 @@ import I18nProvider from './I18nProvider'
 import EmittProvider from './EmittProvider'
 import App from './App'
 
-const Init = ({locales, emitter, user, children}) => (
-  <I18nProvider locales={locales}>
+const Init = ({locales, phrases, emitter, user, children}) => (
+  <I18nProvider locales={locales} phrases={phrases}>
     <EmittProvider emitter={emitter}>
       <App user={user}>
         {children}
