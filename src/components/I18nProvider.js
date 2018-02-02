@@ -43,6 +43,7 @@ I18nProvider.childContextTypes = {
 I18nProvider.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default I18nProvider

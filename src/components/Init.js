@@ -18,7 +18,8 @@ Init.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  phrases: PropTypes.objectOf(PropTypes.any)
 }
 
 Init.defaultProps = {
@@ -27,7 +28,8 @@ Init.defaultProps = {
     on: (event, handler) => console.log("Registered", event, handler),
     off: (event, handler) => console.log("Unregistered", event, handler),
     emit: (event, payload) => console.log("Triggered", event, payload)
-  }
+  },
+  phrases: {}
 }
 
 export default Init
