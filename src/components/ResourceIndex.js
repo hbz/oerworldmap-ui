@@ -100,7 +100,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -114,7 +114,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -128,7 +128,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -142,7 +142,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -156,7 +156,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -170,7 +170,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -184,7 +184,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }

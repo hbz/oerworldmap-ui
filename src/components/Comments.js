@@ -62,7 +62,7 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
       submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
       getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
       getLabel={value => getLabel(translate, value)}
-      submitLabel={translate('properties.submitLabel')}
+      submitLabel={translate('publish')}
     />
   </div>
 )
