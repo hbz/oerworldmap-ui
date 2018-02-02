@@ -46,31 +46,39 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "UserIndex.register.placeholderName"
         },
         "location": {
+          "title": "UserIndex.register.placeholderCountry",
           "$ref": "#/definitions/Country"
         },
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "title": "UserIndex.register.placeholderEmail"
         },
         "password": {
           "type": "string",
+          "title": "UserIndex.register.choosePassword",
           "_display": {
             "type": "password"
           }
         },
         "privacyAccepted": {
+          "title": "UserIndex.register.agreePolicy",
           "type": "boolean"
         },
         "termsAccepted": {
+          "title": "UserIndex.register.agreeService",
           "type": "boolean"
         },
         "publishEmail": {
+          "title": "UserIndex.register.agreeEmail",
           "type": "boolean"
         },
         "subscribeNewsletter": {
+          "title": "UserIndex.register.subscribe",
           "type": "boolean"
         }
       },
@@ -83,7 +91,8 @@
       "properties": {
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "title": "UserIndex.register.placeholderEmail"
         }
       },
       "required": ["email"]

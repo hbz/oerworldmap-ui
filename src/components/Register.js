@@ -13,13 +13,13 @@ const Register = ({translate, emitter}) => (
     <FullModal>
       <div>
         <h2>{translate('login')}</h2>
-        <p>{translate('UserIndex.register.loginMessage')}.</p>
+        <p>{translate('UserIndex.register.loginMessage')}</p>
         <a className="btn" href="/.login">{translate('login')}</a>
       </div>
 
       <div className="block forgotPassword">
         <h2>{translate('UserIndex.register.forgotPassword')}</h2>
-        <p>{translate('UserIndex.register.forgotPasswordMessage')}.</p>
+        <p>{translate('UserIndex.register.forgotPasswordMessage')}</p>
         <Composer
           value={{'@type': 'ResetPasswordAction'}}
           schema={schema}
@@ -35,7 +35,7 @@ const Register = ({translate, emitter}) => (
           value={{'@type': 'RegisterAction'}}
           schema={schema}
           submit={data => emitter.emit('submit', {url: '/user/register', data})}
-          getLabel={value => translate(`Register.${value}`)}
+          getLabel={value => translate(value)}
           submitLabel={translate('UserIndex.register.register')}
         />
       </div>
