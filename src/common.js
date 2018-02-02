@@ -73,7 +73,7 @@ export const triggerClick = (e) => {
 }
 
 export const parseProperties = (properties) => properties.split(/\r?\n/)
-  .map(s => s.trim()).filter(s => !!s).reduce((acc, cur, i) => {
+  .map(s => s.trim()).filter(s => !!s).reduce((acc, cur) => {
     const [key, value] = cur.split(/=(.+)/).map(s => s.trim())
     if (key && value) {
       acc[key] = value
