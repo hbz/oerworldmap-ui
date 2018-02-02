@@ -84,6 +84,7 @@ server.get(/^(.*)$/, (req, res) => {
   const locales = req.locales
   //TODO: cache i18n files in memory
   const phrases = parseProperties(fs.readFileSync('./src/locale/ui.properties', 'utf8'))
+  Object.assign(phrases, parseProperties(fs.readFileSync('./src/locale/iso3166-1-alpha-2.properties', 'utf8')))
   const context = { locales, authorization, user, mapboxConfig, phrases }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
