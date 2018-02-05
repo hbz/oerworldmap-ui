@@ -62,10 +62,22 @@ server.use(function (req, res, next) {
   }
 })
 
+// I18n configuration
+const supportedLanguages = [ 'en', 'de' ]
+const defaultLanguage = 'en'
+const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels']
+const i18ns = {}
+supportedLanguages.map(language => {
+  const bundle = {}
+  bundles.map(i18n => {
+    const basename = language === defaultLanguage ? i18n : `${i18n}_${language}`
+    Object.assign(bundle, parseProperties(fs.readFileSync(`./src/locale/${basename}.properties`, 'utf8')))
+  })
+  i18ns[language] = bundle
+})
+
 // Middleware to extract locales
 server.use(function (req, res, next) {
-  const defaultLanguage = 'en'
-  const supportedLanguages = [ 'en', 'de', 'es' ]
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
     : [defaultLanguage]
@@ -77,18 +89,12 @@ server.use(function (req, res, next) {
   next()
 })
 
-// i18n phrases
-const i18ns = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels']
-const phrases = {}
-i18ns.map((i18n) => {
-  Object.assign(phrases, parseProperties(fs.readFileSync(`./src/locale/${i18n}.properties`, 'utf8')))
-})
-
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
+  const phrases = i18ns[locales[0]]
   const context = { locales, authorization, user, mapboxConfig, phrases }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
