@@ -17,4 +17,10 @@ const ResourceList = ({ translate, title, list }) => (
   </div>
 )
 
+ResourceList.propTypes = {
+  translate: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  list: PropTypes.objectOf(PropTypes.any).isRequired
+}
+
 export default withI18n(ResourceList)

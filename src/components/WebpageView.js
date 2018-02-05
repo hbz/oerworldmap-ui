@@ -534,4 +534,10 @@ const WebpageView = ({translate, about, lighthouses}) => (
   </div>
 )
 
+WebpageView.propTypes = {
+  translate: PropTypes.func.isRequired,
+  about: PropTypes.objectOf(PropTypes.any).isRequired,
+  lighthouses: PropTypes.objectOf(PropTypes.any).isRequired
+}
+
 export default withI18n(WebpageView)
