@@ -6,7 +6,8 @@ dotenv.config()
 
 export const mapboxConfig = getenv.multi({
   token: 'MAPBOX_ACCESS_TOKEN',
-  style: 'MAPBOX_STYLE'
+  style: 'MAPBOX_STYLE',
+  miniMapStyle: 'MAPBOX_MINIMAP_STYLE'
 })
 
 export const apiConfig = getenv.multi({
