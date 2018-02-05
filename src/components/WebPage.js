@@ -160,18 +160,20 @@ const WebPage = ({
         <div
           className="webPageCover"
         >
-          <MiniMap
-            mapboxConfig={mapboxConfig}
-            features={geo && geo.geometry}
-            zoom={7}
-            center={(geo &&
-              geo.geometry &&
-              geo.geometry.coordinates) &&
-              Array.isArray(geo.geometry.coordinates[0])
-              ? [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
-              : [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
-            }
-          />
+          {geo &&
+            <MiniMap
+              mapboxConfig={mapboxConfig}
+              features={geo && geo.geometry}
+              zoom={7}
+              center={(geo &&
+                geo.geometry &&
+                geo.geometry.coordinates) &&
+                Array.isArray(geo.geometry.coordinates[0])
+                ? [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
+                : [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
+              }
+            />
+          }
 
           {about.image &&
             <img
