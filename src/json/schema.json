@@ -173,22 +173,27 @@
           }
         },
         "name": {
+          "title": "WebPage.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "WebPage.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "url": {
+          "title": "WebPage.url",
           "type": "string",
           "format": "uri"
         },
         "keywords": {
+          "title": "WebPage.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "publisher": {
+          "title": "WebPage.publisher",
           "description": "The publisher of the bookmark",
           "type": "array",
           "items": {
@@ -199,6 +204,7 @@
           }
         },
         "comment": {
+          "title": "WebPage.comment",
           "description": "A comment about the bookmark",
           "type": "array",
           "items": {
@@ -209,6 +215,7 @@
           }
         },
         "award": {
+          "title": "WebPage.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -365,6 +372,7 @@
           }
         },
         "creator": {
+          "title": "Article.creator",
           "description": "The author of the article",
           "type": "array",
           "items": {
@@ -375,25 +383,31 @@
           }
         },
         "name": {
+          "title": "Article.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Article.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "keywords": {
+          "title": "Article.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "articleBody": {
+          "title": "Article.articleBody",
           "$ref": "#/definitions/LocalizedString"
         },
         "image": {
+          "title": "Article.image",
           "type": "string",
           "format": "uri"
         },
         "mentions": {
+          "title": "Article.mentions",
           "description": "Something mentioned in the article",
           "type": "array",
           "items": {
@@ -404,10 +418,12 @@
           }
         },
         "dateCreated": {
+          "title": "Article.dateCreated",
           "$ref": "#/definitions/iso-8601-date"
         },
         "comment": {
-          "description": "A comment about the Organization",
+          "title": "Article.comment",
+          "description": "A comment about the Article",
           "type": "array",
           "items": {
             "allOf": [
@@ -420,13 +436,16 @@
           "$ref": "#/definitions/Place"
         },
         "exampleOfWork": {
+          "title": "Article.exampleOfWork",
           "type": "string",
           "format": "uri"
         },
         "citation": {
+          "title": "Article.citation",
           "type": "string"
         },
         "license": {
+          "title": "Article.license",
           "type": "array",
           "items": {
             "allOf": [
@@ -445,6 +464,7 @@
           }
         },
         "primarySector": {
+          "title": "Article.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -463,6 +483,7 @@
           }
         },
         "secondarySector": {
+          "title": "Article.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -529,6 +550,7 @@
           }
         },
         "author": {
+          "title": "Comment.creator",
           "description": "The author of the comment",
           "type": "array",
           "items": {
@@ -542,9 +564,11 @@
           }
         },
         "text": {
+          "title": "Comment.text",
           "$ref": "#/definitions/LocalizedText"
         },
         "dateCreated": {
+          "title": "Comment.dateCreated",
           "$ref": "#/definitions/iso-8601-date",
           "_display": {
             "className": "hidden"
@@ -584,6 +608,7 @@
           }
         },
         "additionalType": {
+          "title": "Action.additionalType",
           "description": "An additonal type for the Action",
           "type": "array",
           "items": {
@@ -591,10 +616,12 @@
           }
         },
         "email": {
+          "title": "Action.email",
           "type": "string",
           "format": "email"
         },
         "funder": {
+          "title": "Action.funder",
           "description": "The funder of the action",
           "type": "array",
           "items": {
@@ -605,6 +632,7 @@
           }
         },
         "isFundedBy": {
+          "title": "Action.isFundedBy",
           "description": "The grant funding the action",
           "type": "array",
           "items": {
@@ -612,9 +640,11 @@
           }
         },
         "duration": {
+          "title": "Action.duration",
           "type": "string"
         },
         "agent": {
+          "title": "Action.agent",
           "description": "The direct performer or driver of the action (i.e. also primary contact)",
           "type": "array",
           "items": {
@@ -625,6 +655,7 @@
           }
         },
         "objectIn": {
+          "title": "Action.objectIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -634,6 +665,7 @@
           }
         },
         "participant": {
+          "title": "Action.participant",
           "description": "Other co-agents that participated in the action",
           "type": "array",
           "items": {
@@ -644,6 +676,7 @@
           }
         },
         "memberOf": {
+          "title": "Action.memberOf",
           "description": "An organization the project is member of.",
           "type": "array",
           "items": {
@@ -654,26 +687,33 @@
           }
         },
         "name": {
+          "title": "Action.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Action.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "displayName": {
+          "title": "Action.displayName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Action.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "image": {
+          "title": "Action.image",
           "type": "string",
           "format": "uri"
         },
         "url": {
+          "title": "Action.url",
           "type": "string",
           "format": "uri"
         },
         "sameAs": {
+          "title": "Action.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -681,15 +721,18 @@
           }
         },
         "startTime": {
+          "title": "Action.startTime",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endTime": {
+          "title": "Action.endTime",
           "$ref": "#/definitions/iso-8601-date"
         },
         "location": {
           "$ref": "#/definitions/Place"
         },
         "instrument": {
+          "title": "Action.instrument",
           "type": "array",
           "items": {
             "allOf": [
@@ -699,6 +742,7 @@
           }
         },
         "result": {
+          "title": "Action.result",
           "type": "array",
           "items": {
             "allOf": [
@@ -708,12 +752,14 @@
           }
         },
         "keywords": {
+          "title": "Action.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "mentionedIn": {
+          "title": "Action.mentionedIn",
           "description": "An article that mentions the project.",
           "type": "array",
           "items": {
@@ -724,6 +770,7 @@
           }
         },
         "comment": {
+          "title": "Action.comment",
           "description": "A comment about the project",
           "type": "array",
           "items": {
@@ -734,6 +781,7 @@
           }
         },
         "isPartOf": {
+          "title": "Action.isPartOf",
           "description": "A project that this project is part of",
           "allOf": [
             { "$ref": "#/definitions/Link" },
@@ -741,6 +789,7 @@
           ]
         },
         "hasPart": {
+          "title": "Action.hasPart",
           "description": "A subproject of this project",
           "type": "array",
           "items": {
@@ -751,6 +800,7 @@
           }
         },
         "affiliate": {
+          "title": "Action.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -760,6 +810,7 @@
           }
         },
         "organizerFor": {
+          "title": "Action.organizerFor",
           "description": "An event the project is organizer for.",
           "type": "array",
           "items": {
@@ -770,6 +821,7 @@
           }
         },
         "publication": {
+          "title": "Action.publication",
           "description": "A publication of the Project",
           "type": "array",
           "items": {
@@ -780,6 +832,7 @@
           }
         },
         "primarySector": {
+          "title": "Action.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -798,6 +851,7 @@
           }
         },
         "secondarySector": {
+          "title": "Action.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -816,6 +870,7 @@
           }
         },
         "award": {
+          "title": "Action.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -871,25 +926,31 @@
           }
         },
         "name": {
+          "title": "Service.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Service.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "serviceType": {
+          "title": "Service.serviceType",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "description": {
+          "title": "Service.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "image": {
+          "title": "Service.image",
           "type": "string",
           "format": "uri"
         },
         "provider": {
+          "title": "Service.provider",
           "description": "The person or organization responsible for provision of the service.",
           "type": "array",
           "items": {
@@ -900,6 +961,7 @@
           }
         },
         "availableChannel": {
+          "title": "Service.availableChannel",
           "type": "array",
           "items": {
             "type": "object",
@@ -931,6 +993,7 @@
           }
         },
         "sameAs": {
+          "title": "Service.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -938,12 +1001,15 @@
           }
         },
         "startDate": {
+          "title": "Service.startDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endDate": {
+          "title": "Service.endDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "email": {
+          "title": "Service.email",
           "type": "string",
           "format": "email"
         },
@@ -951,6 +1017,7 @@
           "$ref": "#/definitions/Place"
         },
         "about": {
+          "title": "Service.about",
           "type": "array",
           "items": {
             "allOf": [
@@ -969,6 +1036,7 @@
           }
         },
         "license": {
+          "title": "Service.license",
           "type": "array",
           "items": {
             "allOf": [
@@ -987,6 +1055,7 @@
           }
         },
         "audience": {
+          "title": "Service.audience",
           "type": "array",
           "items": {
             "allOf": [
@@ -1005,12 +1074,14 @@
           }
         },
         "keywords": {
+          "title": "Service.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "mentionedIn": {
+          "title": "Service.mentionedIn",
           "description": "An article that mentions the service.",
           "type": "array",
           "items": {
@@ -1021,6 +1092,7 @@
           }
         },
         "instrumentIn": {
+          "title": "Service.instrumentIn",
           "description": "A project that has the service as an instrument.",
           "type": "array",
           "items": {
@@ -1031,6 +1103,7 @@
           }
         },
         "resultOf": {
+          "title": "Service.resultOf",
           "description": "A project that has the service as its result.",
           "type": "array",
           "items": {
@@ -1041,6 +1114,7 @@
           }
         },
         "member": {
+          "title": "Service.member",
           "type": "array",
           "items": {
             "allOf": [
@@ -1050,6 +1124,7 @@
           }
         },
         "affiliate": {
+          "title": "Service.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -1059,6 +1134,7 @@
           }
         },
         "memberOf": {
+          "title": "Service.memberOf",
           "description": "An organization the service is member of.",
           "type": "array",
           "items": {
@@ -1069,6 +1145,7 @@
           }
         },
         "comment": {
+          "title": "Service.comment",
           "description": "A comment about the Service",
           "type": "array",
           "items": {
@@ -1079,6 +1156,7 @@
           }
         },
         "publication": {
+          "title": "Service.publication",
           "description": "A publication of the Service",
           "type": "array",
           "items": {
@@ -1089,6 +1167,7 @@
           }
         },
         "primarySector": {
+          "title": "Service.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1107,6 +1186,7 @@
           }
         },
         "secondarySector": {
+          "title": "Service.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1125,6 +1205,7 @@
           }
         },
         "isRelatedTo": {
+          "title": "Service.isRelatedTo",
           "description": "Tools used to implement this service",
           "type": "array",
           "items": {
@@ -1135,6 +1216,7 @@
           }
         },
         "award": {
+          "title": "Service.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1142,6 +1224,7 @@
           }
         },
         "objectIn": {
+          "title": "Service.objectIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1199,12 +1282,15 @@
           }
         },
         "name": {
+          "title": "Person.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Person.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "affiliation": {
+          "title": "Person.affiliation",
           "description": "An organization or service the person is affiliated with.",
           "type": "array",
           "items": {
@@ -1215,6 +1301,7 @@
           }
         },
         "performerIn": {
+          "title": "Person.performerIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1224,27 +1311,33 @@
           }
         },
         "image": {
+          "title": "Person.image",
           "type": "string",
           "format": "uri"
         },
         "mbox_sha1sum": {
+          "title": "Person.mbox_sha1sum",
           "type": "string"
         },
         "email": {
+          "title": "Person.email",
           "type": "string",
           "format": "email"
         },
         "telephone": {
+          "title": "Person.telephone",
           "type": "string"
         },
         "location": {
           "$ref": "#/definitions/Place"
         },
         "url": {
+          "title": "Person.url",
           "type": "string",
           "format": "uri"
         },
         "sameAs": {
+          "title": "Person.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -1252,12 +1345,14 @@
           }
         },
         "countryChampionFor": {
+          "title": "Person.countryChampionFor",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Country"
           }
         },
         "agentIn": {
+          "title": "Person.agentIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1267,6 +1362,7 @@
           }
         },
         "participantIn": {
+          "title": "Person.participantIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1276,6 +1372,7 @@
           }
         },
         "funderOf": {
+          "title": "Person.funderOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1285,6 +1382,7 @@
           }
         },
         "created": {
+          "title": "Person.created",
           "type": "array",
           "items": {
             "allOf": [
@@ -1294,12 +1392,14 @@
           }
         },
         "keywords": {
+          "title": "Person.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "mentionedIn": {
+          "title": "Person.mentionedIn",
           "description": "An article that mentions the person.",
           "type": "array",
           "items": {
@@ -1310,6 +1410,7 @@
           }
         },
         "organizerFor": {
+          "title": "Person.organizerFor",
           "description": "An event the person is organizer for.",
           "type": "array",
           "items": {
@@ -1320,6 +1421,7 @@
           }
         },
         "authorOf": {
+          "title": "Person.authorOf",
           "description": "Comments by the Person",
           "type": "array",
           "items": {
@@ -1330,6 +1432,7 @@
           }
         },
         "attends": {
+          "title": "Person.attends",
           "type": "array",
           "items": {
             "allOf": [
@@ -1339,6 +1442,7 @@
           }
         },
         "provides": {
+          "title": "Person.provides",
           "description": "Services provided by this Person.",
           "type": "array",
           "items": {
@@ -1349,6 +1453,7 @@
           }
         },
         "publication": {
+          "title": "Person.publication",
           "description": "A publication of the Person",
           "type": "array",
           "items": {
@@ -1359,6 +1464,7 @@
           }
         },
         "primarySector": {
+          "title": "Person.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1377,6 +1483,7 @@
           }
         },
         "secondarySector": {
+          "title": "Person.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1395,6 +1502,7 @@
           }
         },
         "manufactured": {
+          "title": "Person.manufactured",
           "type": "array",
           "items": {
             "allOf": [
@@ -1440,15 +1548,18 @@
           }
         },
         "location": {
+          "title": "Location",
           "description": "The organization's address and geo data",
           "$ref": "#/definitions/Place"
         },
         "url": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "title": "Organization.url"
         },
         "sameAs": {
           "type": "array",
+          "title": "Organization.sameAs",
           "items": {
             "type": "string",
             "format": "uri"
@@ -1456,29 +1567,37 @@
         },
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "title": "Organization.email"
         },
         "telephone": {
-          "type": "string"
+          "type": "string",
+          "title": "Organization.telephone"
         },
         "description": {
+          "title": "Organization.description",
           "description": "The description of the organization",
           "$ref": "#/definitions/LocalizedText"
         },
         "name": {
+          "title": "Organization.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Organization.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "displayName": {
+          "title": "Organization.displayName",
           "$ref": "#/definitions/LocalizedString"
         },
         "image": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "title": "Organization.image"
         },
         "contactPoint": {
+          "title": "Organization.contactPoint",
           "description": "A contact person",
           "type": "array",
           "items": {
@@ -1489,6 +1608,7 @@
           }
         },
         "additionalType": {
+          "title": "Organization.additionalType",
           "description": "An additional type for the Organization",
           "type": "array",
           "items": {
@@ -1496,6 +1616,7 @@
           }
         },
         "provides": {
+          "title": "Organization.provides",
           "description": "Services provided by this Organization.",
           "type": "array",
           "items": {
@@ -1507,11 +1628,13 @@
         },
         "countryChampionFor": {
           "type": "array",
+          "title": "Organization.countryChampionFor",
           "items": {
             "$ref": "#/definitions/Country"
           }
         },
         "agentIn": {
+          "title": "Organization.agentIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1521,6 +1644,7 @@
           }
         },
         "objectIn": {
+          "title": "Organization.objectIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1530,6 +1654,7 @@
           }
         },
         "participantIn": {
+          "title": "Organization.participantIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1539,6 +1664,7 @@
           }
         },
         "funderOf": {
+          "title": "Organization.funderOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1548,6 +1674,7 @@
           }
         },
         "created": {
+          "title": "Organization.created",
           "type": "array",
           "items": {
             "allOf": [
@@ -1557,6 +1684,7 @@
           }
         },
         "member": {
+          "title": "Organization.member",
           "type": "array",
           "items": {
             "allOf": [
@@ -1566,6 +1694,7 @@
           }
         },
         "affiliate": {
+          "title": "Organization.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -1575,6 +1704,7 @@
           }
         },
         "memberOf": {
+          "title": "Organization.memberOf",
           "description": "An organization or service the organization is member of.",
           "type": "array",
           "items": {
@@ -1585,6 +1715,7 @@
           }
         },
         "mentionedIn": {
+          "title": "Organization.mentionedIn",
           "description": "An article that mentions the organization.",
           "type": "array",
           "items": {
@@ -1595,12 +1726,14 @@
           }
         },
         "keywords": {
+          "title": "Organization.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "organizerFor": {
+          "title": "Organization.organizerFor",
           "description": "An event the organization is organizer for.",
           "type": "array",
           "items": {
@@ -1611,6 +1744,7 @@
           }
         },
         "comment": {
+          "title": "Organization.comment",
           "description": "A comment about the Organization",
           "type": "array",
           "items": {
@@ -1621,6 +1755,7 @@
           }
         },
         "awards": {
+          "title": "Organization.awards",
           "description": "A grant the organization awards.",
           "type": "array",
           "items": {
@@ -1628,6 +1763,7 @@
           }
         },
         "publication": {
+          "title": "Organization.publication",
           "description": "A publication of the Organization",
           "type": "array",
           "items": {
@@ -1638,6 +1774,7 @@
           }
         },
         "primarySector": {
+          "title": "Organization.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1656,6 +1793,7 @@
           }
         },
         "secondarySector": {
+          "title": "Organization.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1674,6 +1812,7 @@
           }
         },
         "manufactured": {
+          "title": "Organization.manufactured",
           "type": "array",
           "items": {
             "allOf": [
@@ -1683,6 +1822,7 @@
           }
         },
         "award": {
+          "title": "Organization.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1724,10 +1864,12 @@
           }
         },
         "email": {
+          "title": "Event.email",
           "type": "string",
           "format": "email"
         },
         "organizer": {
+          "title": "Event.organizer",
           "description": "The event's organizer ",
           "type": "array",
           "items": {
@@ -1738,6 +1880,7 @@
           }
         },
         "performer": {
+          "title": "Event.performer",
           "description": "People presenting, leading a workshop etc. at the event",
           "type": "array",
           "items": {
@@ -1748,23 +1891,29 @@
           }
         },
         "name": {
+          "title": "Event.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Event.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Event.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "image": {
+          "title": "Event.image",
           "type": "string",
           "format": "uri"
         },
         "url": {
+          "title": "Event.url",
           "type": "string",
           "format": "uri"
         },
         "sameAs": {
+          "title": "Event.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -1772,6 +1921,7 @@
           }
         },
         "recordedIn": {
+          "title": "Event.recordedIn",
           "type": "array",
           "items": {
             "type": "string",
@@ -1779,6 +1929,7 @@
           }
         },
         "inLanguage": {
+          "title": "Event.inLanguage",
           "type": "array",
           "items": {
             "type": "string",
@@ -1786,15 +1937,18 @@
           }
         },
         "startDate": {
+          "title": "Event.startDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endDate": {
+          "title": "Event.endDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "location": {
           "$ref": "#/definitions/Place"
         },
         "mentionedIn": {
+          "title": "Event.mentionedIn",
           "description": "An article that mentions the event.",
           "type": "array",
           "items": {
@@ -1805,15 +1959,18 @@
           }
         },
         "hashtag": {
+          "title": "Event.hashtag",
           "type": "string"
         },
         "keywords": {
+          "title": "Event.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "about": {
+          "title": "Event.about",
           "type": "array",
           "items": {
             "allOf": [
@@ -1832,6 +1989,7 @@
           }
         },
         "comment": {
+          "title": "Event.comment",
           "description": "A comment about the Event",
           "type": "array",
           "items": {
@@ -1842,6 +2000,7 @@
           }
         },
         "attendee": {
+          "title": "Event.attendee",
           "description": "People attending the event",
           "type": "array",
           "items": {
@@ -1852,6 +2011,7 @@
           }
         },
         "publication": {
+          "title": "Event.publication",
           "description": "A publication of the Event",
           "type": "array",
           "items": {
@@ -1862,6 +2022,7 @@
           }
         },
         "primarySector": {
+          "title": "Event.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1880,6 +2041,7 @@
           }
         },
         "secondarySector": {
+          "title": "Event.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1898,6 +2060,7 @@
           }
         },
         "award": {
+          "title": "Event.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1941,24 +2104,30 @@
           }
         },
         "name": {
+          "title": "Product.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Product.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Product.description",
           "description": "The description of the tool",
           "$ref": "#/definitions/LocalizedText"
         },
         "url": {
+          "title": "Product.url",
           "type": "string",
           "format": "uri"
         },
         "image": {
+          "title": "Product.image",
           "type": "string",
           "format": "uri"
         },
         "isRelatedTo": {
+          "title": "Product.isRelatedTo",
           "description": "Services implemented using this Tool",
           "type": "array",
           "items": {
@@ -1969,6 +2138,7 @@
           }
         },
         "manufacturer": {
+          "title": "Product.manufacturer",
           "description": "The manufacturer of this tool",
           "type": "array",
           "items": {
@@ -1979,12 +2149,14 @@
           }
         },
         "keywords": {
+          "title": "Product.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "comment": {
+          "title": "Product.comment",
           "description": "A comment about the Tool",
           "type": "array",
           "items": {
@@ -1995,6 +2167,7 @@
           }
         },
         "primarySector": {
+          "title": "Product.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -2013,6 +2186,7 @@
           }
         },
         "secondarySector": {
+          "title": "Product.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -2057,22 +2231,28 @@
           }
         },
         "duration": {
+          "title": "Grant.duration",
           "type": "string"
         },
         "hasMonetaryValue": {
+          "title": "Grant.hasMonetaryValue",
           "type": "string"
         },
         "description": {
+          "title": "Grant.description",
           "description": "The description of the grant",
           "$ref": "#/definitions/LocalizedText"
         },
         "name": {
+          "title": "Grant.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Grant.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "isAwardedBy": {
+          "title": "Grant.isAwardedBy",
           "description": "An organization the grant is awarded by.",
           "type": "array",
           "items": {
@@ -2083,9 +2263,11 @@
           }
         },
         "hasAwardDate": {
+          "title": "Grant.hasAwardDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "mentionedIn": {
+          "title": "Grant.mentionedIn",
           "description": "An article that mentions the grant.",
           "type": "array",
           "items": {
@@ -2096,12 +2278,14 @@
           }
         },
         "keywords": {
+          "title": "Grant.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "funds": {
+          "title": "Grant.funds",
           "description": "The action being funded",
           "type": "array",
           "items": {
@@ -2144,13 +2328,12 @@
             "className": "hidden"
           }
         },
-        "name": {
-          "$ref": "#/definitions/LocalizedString"
-        },
         "geo": {
+          "title": "Place.geo",
           "$ref": "#/definitions/GeoCoordinates"
         },
         "address": {
+          "title": "Place.address",
           "$ref": "#/definitions/PostalAddress"
         }
       },
@@ -2159,7 +2342,7 @@
     },
     "GeoCoordinates": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "GeoCoordinates",
+      "title": "ResourceIndex.GeoCoordinates.edit.geoCoordinates",
       "description": "A geographical coordinate",
       "type": "object",
       "properties": {
@@ -2179,9 +2362,11 @@
           }
         },
         "lat": {
+          "title": "GeoCoordinates.latitude",
           "type": "number"
         },
         "lon": {
+          "title": "GeoCoordinates.longitude",
           "type": "number"
         }
       },
@@ -2222,22 +2407,28 @@
           }
         },
         "streetAddress": {
+          "title": "PostalAddress.streetAddress",
           "type": "string"
         },
         "postalCode": {
+          "title": "PostalAddress.postalCode",
           "type": "string"
         },
         "postOfficeBoxNumber": {
+          "title": "PostalAddress.postOfficeBoxNumber",
           "type": "string"
         },
         "addressLocality": {
+          "title": "PostalAddress.addressLocality",
           "type": "string"
         },
         "addressRegion": {
+          "title": "PostalAddress.addressRegion",
           "type": "string",
           "translate": true
         },
         "addressCountry": {
+          "title": "PostalAddress.addressCountry",
           "$ref": "#/definitions/Country"
         }
       },
@@ -2275,6 +2466,7 @@
           }
         },
         "agent": {
+          "title": "LikeAction.agent",
           "description": "The agent of the like action",
           "type": "array",
           "items": {
@@ -2288,6 +2480,7 @@
           }
         },
         "object": {
+          "title": "LikeAction.object",
           "description": "The object of the like action",
           "type": "object",
           "allOf": [
@@ -2299,6 +2492,7 @@
           }
         },
         "startTime": {
+          "title": "LikeAction.startTime",
           "$ref": "#/definitions/iso-8601-date",
           "_display": {
             "className": "hidden"
@@ -2339,6 +2533,7 @@
           }
         },
         "agent": {
+          "title": "LighthouseAction.agent",
           "description": "The agent of the like action",
           "type": "array",
           "items": {
@@ -2352,6 +2547,7 @@
           }
         },
         "object": {
+          "title": "LighthouseAction.object",
           "description": "The object of the like action",
           "type": "object",
           "allOf": [
@@ -2363,9 +2559,11 @@
           }
         },
         "description": {
+          "title": "LighthouseAction.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "startTime": {
+          "title": "LighthouseAction.startTime",
           "$ref": "#/definitions/iso-8601-date",
           "_display": {
             "className": "hidden"
@@ -2388,6 +2586,7 @@
             "type": "string"
           },
           "@language": {
+            "title": "LocalizedString.@language",
             "type": "string",
             "enum": ["de", "en"]
           }
@@ -2415,6 +2614,7 @@
             }
           },
           "@language": {
+            "title": "LocalizedText.@language",
             "type": "string",
             "enum": ["de", "en"]
           }
