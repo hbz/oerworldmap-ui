@@ -309,7 +309,10 @@ const WebpageView = ({translate, about, lighthouses}) => (
             <ul>
               {about.isFundedBy.map(item => (
                 <li>
-                  <Icon type={item.isAwardedBy[0]['@type']} /> <Link href={`/resource/${item.isAwardedBy[0]['@id']}`}>{translate(item.isAwardedBy[0].name)}</Link>
+                  {item.isAwardedBy && (
+                    [<Icon type={item.isAwardedBy[0]['@type']} />, <Link href={`/resource/${item.isAwardedBy[0]['@id']}`}>{translate(item.isAwardedBy[0].name)}</Link>]
+                  )
+                  }
                 </li>
               ))}
             </ul>
