@@ -14,6 +14,7 @@ import Share from './Share'
 import DropdownButton from './DropdownButton'
 import Comments from './Comments'
 import WebpageView from './WebpageView'
+import MiniMap from './MiniMap'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -155,20 +156,23 @@ const WebPage = ({
           </div>
         </div>
 
-        {/* {(about.image || geo) &&
+        {(about.image || geo) &&
         <div
           className="webPageCover"
-          style={{
-            backgroundImage:
-            geo && geo.geometry && geo.geometry.coordinates
-              ? `url("https://api.mapbox.com/styles/v1/mapbox/basic-v9/static/geojson(${encodeURIComponent(
-                JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
-                ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
-                : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
-              },7/800x245@2x?access_token=${mapboxConfig.token}")`
-              : ''
-          }}
         >
+          <MiniMap
+            mapboxConfig={mapboxConfig}
+            features={geo && geo.geometry}
+            zoom={7}
+            center={(geo &&
+              geo.geometry &&
+              geo.geometry.coordinates) &&
+              Array.isArray(geo.geometry.coordinates[0])
+              ? [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
+              : [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
+            }
+          />
+
           {about.image &&
             <img
               src={about.image}
@@ -183,7 +187,7 @@ const WebPage = ({
             />
           }
         </div>
-        } */}
+        }
 
         <div className="webPageContent">
 
