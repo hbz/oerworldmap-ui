@@ -59,6 +59,7 @@ export default (api) => {
         const component = (data) => (
           <WebPage
             {...data}
+            mapboxConfig={context.mapboxConfig}
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
