@@ -116,7 +116,9 @@ class MiniMap extends React.Component {
     if (region) {
       feature.properties.region =  region.properties
     }
-    this.props.onFeatureDrag(feature)
+    if (this.props.onFeatureDrag) {
+      this.props.onFeatureDrag(feature)
+    }
   }
 
   mouseDown(e) {
@@ -160,7 +162,7 @@ MiniMap.propTypes = {
   zoom: PropTypes.number,
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
-  onFeatureDrag: PropTypes.func.isRequired
+  onFeatureDrag: PropTypes.func
 }
 
 MiniMap.defaultProps = {
@@ -168,6 +170,7 @@ MiniMap.defaultProps = {
   zoom: 2,
   features: null,
   draggable: false,
+  onFeatureDrag: null,
 }
 
 export default MiniMap
