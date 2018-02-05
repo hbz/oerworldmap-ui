@@ -78,7 +78,7 @@ server.use(function (req, res, next) {
 })
 
 // i18n phrases
-const i18ns = ['ui', 'iso3166-1-alpha-2', 'iso639-1']
+const i18ns = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2']
 const phrases = {}
 i18ns.map((i18n) => {
   Object.assign(phrases, parseProperties(fs.readFileSync(`./src/locale/${i18n}.properties`, 'utf8')))
