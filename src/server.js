@@ -77,14 +77,18 @@ server.use(function (req, res, next) {
   next()
 })
 
+// i18n phrases
+const i18ns = ['ui', 'iso3166-1-alpha-2', 'iso639-1']
+const phrases = {}
+i18ns.map((i18n) => {
+  Object.assign(phrases, parseProperties(fs.readFileSync(`./src/locale/${i18n}.properties`, 'utf8')))
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
-  //TODO: cache i18n files in memory
-  const phrases = parseProperties(fs.readFileSync('./src/locale/ui.properties', 'utf8'))
-  Object.assign(phrases, parseProperties(fs.readFileSync('./src/locale/iso3166-1-alpha-2.properties', 'utf8')))
   const context = { locales, authorization, user, mapboxConfig, phrases }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
