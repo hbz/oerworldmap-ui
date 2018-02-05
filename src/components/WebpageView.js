@@ -169,6 +169,20 @@ const WebpageView = ({translate, about, lighthouses}) => (
           </div>
         }
 
+        {about.about &&
+          <div className="asideList">
+            <h3>{translate('Subject')}</h3>
+            <ul>
+              {about.about.map(item => (
+                <li key={item['@id']}>
+                  <i className="fa fa-tag" /> {translate(item.name)}
+                </li>
+              ))
+              }
+            </ul>
+          </div>
+        }
+
         {about.audience &&
           <ResourceList
             title="Grade level"
