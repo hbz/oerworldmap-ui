@@ -33,7 +33,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
           }
 
           return (
-            <a href={link} target="_blank">
+            <a key={link} href={link} target="_blank">
               <i className={`fa fa-${icon}`} />
             </a>
           )
@@ -45,7 +45,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
     {about.countryChampionFor &&
       <div className="subtitle">
         {about.countryChampionFor.map(country => (
-          <div>
+          <div key={country}>
             {translate('Country champion for')}
             &nbsp;<Link href={`/country/${country}`}>{translate(country)}</Link>
           </div>
@@ -92,7 +92,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
 
         {about.availableChannel &&
           about.availableChannel.map(link => (
-            <a href={link.serviceUrl} className="boxedLink">
+            <a key={link.serviceUrl} href={link.serviceUrl} className="boxedLink">
               {formatURL(link.serviceUrl)}
             </a>
           ))
@@ -193,7 +193,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
             <ul>
               <li>
                 {about.inLanguage.map(lang => (
-                  `${translate(lang)}, `
+                  <span key={lang}>`${translate(lang)}, `</span>
                 )).join('').slice(0, -2)}
               </li>
             </ul>
@@ -218,9 +218,9 @@ const WebpageView = ({translate, about, lighthouses}) => (
               <li>
                 {about.keywords.map((key, i) => (
                   about.keywords.length - 1 === i ? (
-                    <Link href={`/resource/?filter.about.keywords=${key}`}>{key}</Link>
+                    <Link key={key} href={`/resource/?filter.about.keywords=${key}`}>{key}</Link>
                   ) : (
-                    <span>
+                    <span key={key}>
                       <Link href={`/resource/?filter.about.keywords=${key}`}>{key}</Link> &amp;&nbsp;
                     </span>
                   )
@@ -235,7 +235,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
             <h3>{translate('Recordings')}</h3>
             <ul>
               {about.recordedIn.map(recording => (
-                <li>
+                <li key={recording}>
                   <a href={recording} target="_blank">
                     <i className="fa fa-external-link-square" /> {formatURL(recording)}
                   </a>
@@ -307,10 +307,10 @@ const WebpageView = ({translate, about, lighthouses}) => (
           <div className="asideList">
             <h3>{translate('Funded by')}</h3>
             <ul>
-              {about.isFundedBy.map(item => (
-                <li>
+              {about.isFundedBy.map((item, i) => (
+                <li key={i}>
                   {item.isAwardedBy && (
-                    [<Icon type={item.isAwardedBy[0]['@type']} />, <Link href={`/resource/${item.isAwardedBy[0]['@id']}`}>{translate(item.isAwardedBy[0].name)}</Link>]
+                    [<Icon key={`'icon${i}`} type={item.isAwardedBy[0]['@type']} />, <Link key={`'link${i}`} href={`/resource/${item.isAwardedBy[0]['@id']}`}>{translate(item.isAwardedBy[0].name)}</Link>]
                   )
                   }
                 </li>
@@ -326,7 +326,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
             <h3>{translate('Budget')}</h3>
             <ul>
               {about.isFundedBy.map(item => (
-                <li>
+                <li key={item.hasMonetaryValue}>
                   {item.hasMonetaryValue}
                 </li>
               ))}
@@ -356,9 +356,12 @@ const WebpageView = ({translate, about, lighthouses}) => (
           <div className="asideList">
             <h3>Funds</h3>
             <ul>
-              {about.awards.map(award => (
-                <li>
-                  <Icon type={award.funds[0]['@type']} /> <Link href={`/resource/${award.funds[0]['@id']}`}>{translate(award.funds[0].name)}</Link>
+              {about.awards.map((award, i) => (
+                <li key={i}>
+                  {award.funds && (
+                    [<Icon type={award.funds[0]['@type']} />, <Link href={`/resource/${award.funds[0]['@id']}`}>{translate(award.funds[0].name)}</Link>]
+                  )
+                  }
                 </li>
               ))}
             </ul>
@@ -537,7 +540,7 @@ const WebpageView = ({translate, about, lighthouses}) => (
 WebpageView.propTypes = {
   translate: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  lighthouses: PropTypes.objectOf(PropTypes.any).isRequired
+  lighthouses: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 export default withI18n(WebpageView)

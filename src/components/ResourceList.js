@@ -9,7 +9,7 @@ const ResourceList = ({ translate, title, list }) => (
     <h3>{translate(title)}</h3>
     <ul>
       {Array.isArray(list) && list.map(item => (
-        <li>
+        <li key={item['@id']}>
           <Icon type={item['@type']} /> <Link href={`/resource/${item['@id']}`}>{translate(item.name)}</Link>
         </li>
       ))}
@@ -20,7 +20,7 @@ const ResourceList = ({ translate, title, list }) => (
 ResourceList.propTypes = {
   translate: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  list: PropTypes.objectOf(PropTypes.any).isRequired
+  list: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 export default withI18n(ResourceList)
