@@ -8,15 +8,21 @@ import WebPage from '../src/components/WebPage'
 import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
+const fakeMapboxConfig = {
+  token: 'MAPBOX_ACCESS_TOKEN',
+  style: 'MAPBOX_STYLE',
+  miniMapStyle: 'MAPBOX_MINIMAP_STYLE'
+}
+
 describe('<WebPage />', () => {
   it('can be instantiated', () => {
     const wrapper = mount(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{}}>
-          <WebPage {...testdata} geo={{}} view='' />
+          <WebPage {...testdata} geo={null} mapboxConfig={fakeMapboxConfig} view='' />
         </EmittProvider>
       </I18nProvider>
     )
-    assert.equal(wrapper.find('h1').length, 1)
+    assert.equal(wrapper.find('h2').length, 1)
   })
 })
