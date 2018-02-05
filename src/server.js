@@ -65,15 +65,21 @@ server.use(function (req, res, next) {
 // I18n configuration
 const supportedLanguages = [ 'en', 'de' ]
 const defaultLanguage = 'en'
-const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels']
+const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels', 'descriptions']
 const i18ns = {}
 supportedLanguages.map(language => {
-  const bundle = {}
-  bundles.map(i18n => {
-    const basename = language === defaultLanguage ? i18n : `${i18n}_${language}`
-    Object.assign(bundle, parseProperties(fs.readFileSync(`./src/locale/${basename}.properties`, 'utf8')))
+  const i18n = {}
+  bundles.map(bundle => {
+    const basename = language === defaultLanguage ? bundle : `${bundle}_${language}`
+    const properties = parseProperties(fs.readFileSync(`./src/locale/${basename}.properties`, 'utf8'))
+    //FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
+    if (bundle === 'descriptions') {
+      i18n['descriptions'] = properties
+    } else {
+      Object.assign(i18n, properties)
+    }
   })
-  i18ns[language] = bundle
+  i18ns[language] = i18n
 })
 
 // Middleware to extract locales
