@@ -32,7 +32,7 @@ const getLabel = (translate, value) => {
       </span>
     )
   } else {
-    return translate(`properties.${value}`)
+    return translate(value)
   }
 }
 

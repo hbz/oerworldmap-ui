@@ -104,18 +104,21 @@
       "properties": {
         "password": {
           "type": "string",
+          "title": "UserIndex.password.currentPassword",
           "_display": {
             "type": "password"
           }
         },
         "password_new": {
           "type": "string",
+          "title": "UserIndex.password.newPassword",
           "_display": {
             "type": "password"
           }
         },
         "password_new_confirm": {
           "type": "string",
+          "title": "UserIndex.password.confirmPassword",
           "_display": {
             "type": "password"
           }
