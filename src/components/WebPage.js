@@ -1,21 +1,19 @@
 /* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
 import { Composer } from 'json-pointer-form'
 
 import withI18n from './withI18n'
 import Metadata from './Metadata'
-import { formatURL } from '../common'
 import Link from './Link'
 import Icon from './Icon'
-import ResourceTable from './ResourceTable'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import Export from './Export'
 import Share from './Share'
 import DropdownButton from './DropdownButton'
 import Comments from './Comments'
+import WebpageView from './WebpageView'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
@@ -156,7 +154,7 @@ const WebPage = ({
           </div>
         </div>
 
-        {(about.image || geo) &&
+        {/* {(about.image || geo) &&
         <div
           className="webPageCover"
           style={{
@@ -184,7 +182,7 @@ const WebPage = ({
             />
           }
         </div>
-        }
+        } */}
 
         <div className="webPageContent">
 
@@ -200,68 +198,12 @@ const WebPage = ({
           </div>
 
           <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
-            <h1>{translate(about.name)}</h1>
 
-            <div className="lighthouse">
-              <div className="lighthouseCounter">
-                {lighthouses.length}
-              </div>
-
-              <a href="#addLighthouse">
-                <img
-                  src="/assets/lighthouse.svg"
-                  alt="Lighthouse"
-                />
-              </a>
-            </div>
-
-            {about['@type'] === 'Action' &&
-              (about.agent &&
-              about.agent.map(agent => (
-                <div key={agent['@id']} className="operator">
-                  Operator: <Link href={agent['@id']}>{translate(agent.name)}</Link>
-                </div>
-              )))
-            }
-
-            {about.provider &&
-              about.provider.map(provider => (
-                <div key={provider['@id']} className="provider">
-                  Provider:&nbsp;
-                  <Link href={provider['@id']}>
-                    {formatURL(translate(provider.name))}
-                  </Link>
-                </div>
-              ))
-            }
-
-            {about.description &&
-              <ReactMarkdown source={translate(about.description)} />
-            }
-
-            {about.articleBody &&
-              <ReactMarkdown source={translate(about.articleBody)} />
-            }
-
-            {about.url &&
-              <a href={about.url} target="_blank" className="boxedLink">
-                {formatURL(about.url)}
-              </a>
-            }
-
-            {about.availableChannel &&
-              <a href={about.availableChannel[0].serviceUrl} className="boxedLink">
-                {formatURL(about.availableChannel[0].serviceUrl)}
-              </a>
-            }
-
-            {about.license &&
-              about.license.map(license => (
-                <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
-              ))
-            }
-
-            <ResourceTable value={about} schema={schema} />
+            <WebpageView
+              id="view"
+              about={about}
+              lighthouses={lighthouses}
+            />
 
             { user &&
             <Comments comments={about['comment']} id={about['@id']} />
