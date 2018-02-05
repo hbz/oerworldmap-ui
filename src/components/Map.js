@@ -31,6 +31,12 @@ class Map extends React.Component {
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
+    this.mouseMovePoints = this.mouseMovePoints.bind(this)
+    this.mouseMove = this.mouseMove.bind(this)
+    this.moveEnd = this.moveEnd.bind(this)
+    this.mouseLeave = this.mouseLeave.bind(this)
+    this.clickPoints = this.clickPoints.bind(this)
+    this.clickCountries = this.clickCountries.bind(this)
   }
 
   componentDidMount() {
@@ -57,15 +63,9 @@ class Map extends React.Component {
       maxBounds: bounds
     })
 
-    this.map.on('load', () => {
+    this.map.once('load', () => {
 
-      this.map.on('zoom', function(e) {
-        if (e.target.getZoom() >= 7) {
-          e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
-        } else {
-          e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
-        }
-      })
+      this.map.on('zoom', this.zoom)
       this.setState({center})
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -103,206 +103,21 @@ class Map extends React.Component {
       this.updateActiveCountry(this.props.iso3166)
 
       // Update URL values
-      this.map.on("moveend", (e) => {
-        if (!this.props.iso3166) {
-          const center = e.target.getCenter()
-          center.zoom = e.target.getZoom()
-          const params = getParams(window.location.search)
-          params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
-          const route = {
-            params,
-            path: window.location.pathname,
-            hash: window.location.hash.replace('#', '')
-          }
-          window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
-          this.setState({center})
-        }
-      })
+      this.map.on("moveend", this.moveEnd)
 
       // Get features currently under the mouse
-      this.map.on("mousemove", (e) => {
-        const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-
-        if (hoveredCountry
-          && hoveredCountry[0]
-          && (!this.state.bucket || this.state.bucket && this.state.bucket.key !== hoveredCountry[0].properties.iso_a)) {
-          const bucket = this.getBucket(hoveredCountry[0].properties.iso_a2)
-          this.setState({bucket})
-          this.map.getCanvas().style.cursor = 'pointer'
-        } else {
-          this.map.getCanvas().style.cursor = ''
-        }
-
-        const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
-        const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
-        this.setState({
-          hoveredFeatures,
-        })
-
-        let popupContent
-
-        if (this.state.hoveredFeatures && this.state.hoveredFeatures.length && !this.state.overlayList) {
-          if (this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries') {
-            popupContent = (
-              <ul>
-                {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
-                <li>
-                  <b>
-                    {this.state.hoveredFeatures[0].properties.iso_a2}
-                    <br />
-                    {this.state.bucket &&
-                      <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
-                    }
-                  </b>
-                </li>
-
-                {this.state.bucket && this.state.bucket.champions.doc_count > 0 &&
-                  <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
-                }
-              </ul>
-            )
-          } else {
-            popupContent = (
-              <ul className="list">
-                {this.state.hoveredFeatures.length <= 6 ? (
-                  this.state.hoveredFeatures.map(feature => (
-                    <li key={feature.properties['@id']}>
-                      <Icon type={feature.properties['@type']} />
-                      &nbsp;<b>{feature.properties['@type']}:</b>
-                      &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
-                    </li>
-                  ))
-                ) : (
-                  <li>
-                    {this.calculateTypes(this.state.hoveredFeatures)}
-                  </li>
-                )}
-              </ul>
-            )
-          }
-
-          let coords = hoveredPoints[0] && hoveredPoints[0].geometry.coordinates
-
-          // In case of multipoint choose the closest to the mouse position
-          if (coords && coords.length > 2) {
-            let current = coords[0]
-            coords.forEach((pos) => {
-              if (this.getDistanceFromLatLonInKm(pos[1], pos[0], e.lngLat.lat, e.lngLat.lng)
-                < this.getDistanceFromLatLonInKm(current[1], current[0], e.lngLat.lat, e.lngLat.lng)) {
-                current = pos
-              }
-              coords = current
-            })
-          }
-
-          const popupDOM = document.createElement('div')
-          this.hoverPopup
-            .setLngLat((coords && typeof coords[0] === 'number')
-              ? coords : e.lngLat)
-            .setDOMContent(ReactDOM.render(
-              <div
-                className="tooltip"
-                style={
-                  { zIndex: 9,
-                    pointerEvents:'none',
-                  }}
-              >
-                {popupContent}
-              </div>, popupDOM))
-            .addTo(this.map)
-
-          this.hoverPopup._content.classList.add('noEvents')
-        } else {
-          this.hoverPopup.remove()
-        }
-      })
+      this.map.on("mousemove", this.mouseMove)
 
       // When the user moves their mouse over the points layer, we'll update the filter in
       // the points hover layer to only show the matching point, thus making a hover effect.
-      this.map.on("mousemove", "points", (e) => {
-        const ids = e.features.map(function (feat) { return feat.properties['@id'] })
-        this.map.setFilter('points-hover', [ 'in', '@id' ].concat(ids))
-        if (ids.length) {
-          this.map.getCanvas().style.cursor = 'pointer'
-        }
-      })
+      this.map.on("mousemove", "points", this.mouseMovePoints)
 
       // Reset the point hover layer's filter when the mouse leaves the layer.
-      this.map.on("mouseleave", "points", () => {
-        this.map.setFilter('points-hover', ['==', "display", "hidden"])
-        this.map.getCanvas().style.cursor = ''
-      })
+      this.map.on("mouseleave", "points", this.mouseLeave)
 
-      this.map.on('click', 'points', function (e) {
-        if (e.features.length > 6) {
-          this.map.flyTo({
-            center: e.features[0].geometry.coordinates,
-            zoom: 10
-          })
+      this.map.on('click', 'points', this.clickPoints)
 
-        } else if (e.features.length > 1) {
-          const list = e.features.map(feature => {
-            return (
-              <li key={feature.properties['@id']}>
-                <Icon type={feature.properties['@type']} />
-                &nbsp;
-                <Link href={feature.properties['@id']}>
-                  <b>{feature.properties['@type']}:</b>
-                  &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
-                </Link>
-              </li>
-            )
-          })
-
-          // Show overlay
-          const popupDOM = document.createElement('div')
-          ReactDOM.render(
-            <EmittProvider emitter={this.props.emitter}>
-              <div className="tooltip">
-                <ul className="list">{list}</ul>
-              </div>
-            </EmittProvider>
-            , popupDOM)
-
-          if (this.popup && this.popup.isOpen()) {
-            this.popup.remove()
-          } else {
-            this.popup = new mapboxgl.Popup(
-              {
-                closeButton:false,
-                offset:this.popupOffsets
-              })
-              .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
-              .setDOMContent(popupDOM)
-              .addTo(this.map)
-
-            this.popup.on('close', () => {
-              this.setState({overlayList:false})
-            })
-
-            this.setState({
-              overlayList:true,
-              hoveredFeatures:null
-            })
-          }
-        }
-
-        else {
-          this.map.setFilter('points-select', [ 'in', '@id' ].concat(e.features[0].properties['@id']))
-          // Click on a single resource
-          const url = `/resource/${e.features[0].properties['@id']}`
-          this.props.emitter.emit('navigate', url)
-        }
-      }.bind(this))
-
-      this.map.on('click', 'countries', function (e) {
-        if (this.popup && this.popup.isOpen()) return
-        // Check if a point is clicked too and do nothing in that case
-        const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
-        if (!features.length) {
-          this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
-        }
-      }.bind(this))
+      this.map.on('click', 'countries', this.clickCountries)
 
       // Receive event from ItemList
       this.props.emitter.on('hoverPoint', (e) => {
@@ -346,6 +161,16 @@ class Map extends React.Component {
     this.updatePoints(nextProps.features)
   }
 
+  componentWillUnmount() {
+    this.map.off('zoom', this.zoom)
+    this.map.off('mousemove', 'points', this.mouseMovePoints)
+    this.map.off('mousemove', this.mouseMove)
+    this.map.off('moveend', this.moveEnd)
+    this.map.off('mouseleave', 'points', this.mouseLeave)
+    this.map.off('click', 'points', this.clickPoints)
+    this.map.off('click', 'countries', this.clickCountries)
+  }
+
   getBucket(country) {
     if (this.props.features === null)  return
     return this.props.aggregations["about.location.address.addressCountry"].buckets.find(e => {
@@ -364,6 +189,135 @@ class Map extends React.Component {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
     const d = R * c // Distance in km
     return d
+  }
+
+  zoom(e) {
+    if (e.target.getZoom() >= 7) {
+      e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
+    } else {
+      e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+    }
+  }
+
+  mouseMovePoints(e) {
+    const ids = e.features.map(function (feat) { return feat.properties['@id'] })
+    this.map.setFilter('points-hover', [ 'in', '@id' ].concat(ids))
+    if (ids.length) {
+      this.map.getCanvas().style.cursor = 'pointer'
+    }
+  }
+
+  mouseMove(e) {
+    const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
+
+    if (hoveredCountry
+      && hoveredCountry[0]
+      && (!this.state.bucket || this.state.bucket && this.state.bucket.key !== hoveredCountry[0].properties.iso_a)) {
+      const bucket = this.getBucket(hoveredCountry[0].properties.iso_a2)
+      this.setState({bucket})
+      this.map.getCanvas().style.cursor = 'pointer'
+    } else {
+      this.map.getCanvas().style.cursor = ''
+    }
+
+    const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+    const hoveredFeatures = hoveredPoints.length ? hoveredPoints : hoveredCountry
+    this.setState({
+      hoveredFeatures,
+    })
+
+    let popupContent
+
+    if (this.state.hoveredFeatures && this.state.hoveredFeatures.length && !this.state.overlayList) {
+      if (this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries') {
+        popupContent = (
+          <ul>
+            {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
+            <li>
+              <b>
+                {this.state.hoveredFeatures[0].properties.iso_a2}
+                <br />
+                {this.state.bucket &&
+                  <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
+                }
+              </b>
+            </li>
+
+            {this.state.bucket && this.state.bucket.champions.doc_count > 0 &&
+              <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
+            }
+          </ul>
+        )
+      } else {
+        popupContent = (
+          <ul className="list">
+            {this.state.hoveredFeatures.length <= 6 ? (
+              this.state.hoveredFeatures.map(feature => (
+                <li key={feature.properties['@id']}>
+                  <Icon type={feature.properties['@type']} />
+                  &nbsp;<b>{feature.properties['@type']}:</b>
+                  &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+                </li>
+              ))
+            ) : (
+              <li>
+                {this.calculateTypes(this.state.hoveredFeatures)}
+              </li>
+            )}
+          </ul>
+        )
+      }
+
+      let coords = hoveredPoints[0] && hoveredPoints[0].geometry.coordinates
+
+      // In case of multipoint choose the closest to the mouse position
+      if (coords && coords.length > 2) {
+        let current = coords[0]
+        coords.forEach((pos) => {
+          if (this.getDistanceFromLatLonInKm(pos[1], pos[0], e.lngLat.lat, e.lngLat.lng)
+            < this.getDistanceFromLatLonInKm(current[1], current[0], e.lngLat.lat, e.lngLat.lng)) {
+            current = pos
+          }
+          coords = current
+        })
+      }
+
+      const popupDOM = document.createElement('div')
+      this.hoverPopup
+        .setLngLat((coords && typeof coords[0] === 'number')
+          ? coords : e.lngLat)
+        .setDOMContent(ReactDOM.render(
+          <div
+            className="tooltip"
+            style={
+              { zIndex: 9,
+                pointerEvents:'none',
+              }}
+          >
+            {popupContent}
+          </div>, popupDOM))
+        .addTo(this.map)
+
+      this.hoverPopup._content.classList.add('noEvents')
+    } else {
+      this.hoverPopup.remove()
+    }
+  }
+
+  moveEnd(e) {
+    if (!this.props.iso3166) {
+      const center = e.target.getCenter()
+      center.zoom = e.target.getZoom()
+      const params = getParams(window.location.search)
+      params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
+      const route = {
+        params,
+        path: window.location.pathname,
+        hash: window.location.hash.replace('#', '')
+      }
+      window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
+      this.setState({center})
+    }
   }
 
   deg2rad(deg) {
@@ -505,6 +459,83 @@ class Map extends React.Component {
         "default": 'rgba(255, 255, 255, 1)',
         "stops": stops
       })
+    }
+  }
+
+  mouseLeave() {
+    this.map.setFilter('points-hover', ['==', "display", "hidden"])
+    this.map.getCanvas().style.cursor = ''
+  }
+
+  clickPoints(e) {
+    if (e.features.length > 6) {
+      this.map.flyTo({
+        center: e.features[0].geometry.coordinates,
+        zoom: 10
+      })
+
+    } else if (e.features.length > 1) {
+      const list = e.features.map(feature => {
+        return (
+          <li key={feature.properties['@id']}>
+            <Icon type={feature.properties['@type']} />
+            &nbsp;
+            <Link href={feature.properties['@id']}>
+              <b>{feature.properties['@type']}:</b>
+              &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+            </Link>
+          </li>
+        )
+      })
+
+      // Show overlay
+      const popupDOM = document.createElement('div')
+      ReactDOM.render(
+        <EmittProvider emitter={this.props.emitter}>
+          <div className="tooltip">
+            <ul className="list">{list}</ul>
+          </div>
+        </EmittProvider>
+        , popupDOM)
+
+      if (this.popup && this.popup.isOpen()) {
+        this.popup.remove()
+      } else {
+        const mapboxgl = require('mapbox-gl')
+        this.popup = new mapboxgl.Popup(
+          {
+            closeButton:false,
+            offset:this.popupOffsets
+          })
+          .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
+          .setDOMContent(popupDOM)
+          .addTo(this.map)
+
+        this.popup.on('close', () => {
+          this.setState({overlayList:false})
+        })
+
+        this.setState({
+          overlayList:true,
+          hoveredFeatures:null
+        })
+      }
+    }
+
+    else {
+      this.map.setFilter('points-select', [ 'in', '@id' ].concat(e.features[0].properties['@id']))
+      // Click on a single resource
+      const url = `/resource/${e.features[0].properties['@id']}`
+      this.props.emitter.emit('navigate', url)
+    }
+  }
+
+  clickCountries(e) {
+    if (this.popup && this.popup.isOpen()) return
+    // Check if a point is clicked too and do nothing in that case
+    const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+    if (!features.length) {
+      this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
     }
   }
 
