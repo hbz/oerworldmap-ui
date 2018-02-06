@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import withI18n from './withI18n'
-import { formatURL } from '../common'
+import { formatURL, obfuscate } from '../common'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
@@ -118,12 +118,10 @@ const WebpageView = ({translate, about, lighthouses}) => (
       <aside className="webpageColumn">
 
         {about.email &&
-          <Block className="asideList" title={translate(`${about['@type']}.email`)}>
-            <ul>
-              <li>
-                <a href={`mailto:${about.email}`}>{about.email}</a>
-              </li>
-            </ul>
+          <Block title={translate(`${about['@type']}.email`)}>
+            {/* FIXME: Find a way to set raw attribute value */}
+            {/* <a href={`mailto:${obfuscate(about.email)}`}>{obfuscate(about.email)}</a> */}
+            <a href={`mailto:${about.email}`}>{about.email}</a>
           </Block>
         }
 
