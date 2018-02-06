@@ -49,7 +49,7 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
             <i className="fa fa-fw fa-trash" />
           </button>
         </form>
-        <ReactMarkdown source={translate(comment.text)} />
+        <ReactMarkdown escapeHtml={false} source={translate(comment.text)} />
       </div>
     ))}
     <h2>Comment</h2>

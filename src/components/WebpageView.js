@@ -76,11 +76,11 @@ const WebpageView = ({translate, about, lighthouses}) => (
             <h3>{translate('Description')}</h3>
 
             {about.description &&
-              <ReactMarkdown source={translate(about.description)} />
+              <ReactMarkdown escapeHtml={false} source={translate(about.description)} />
             }
 
             {about.articleBody &&
-              <ReactMarkdown source={translate(about.articleBody)} />
+              <ReactMarkdown escapeHtml={false} source={translate(about.articleBody)} />
             }
           </div>
         }
