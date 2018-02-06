@@ -8,15 +8,15 @@ import I18nProvider from '../src/components/I18nProvider'
 describe('<I18nProvider />', () => {
   it('localizes correctly', () => {
     const expected = {
-      de: '1 Eintrag',
-      es: '1 Entrada',
-      en: '1 entry'
+      de: 'bar',
+      es: 'bar',
+      en: 'bar'
     }
     for (const language in expected) {
       const wrapper = mount(
-        <I18nProvider locales={[language]}><div /></I18nProvider>
+        <I18nProvider locales={[language]} phrases={{'foo': 'bar'}}><div /></I18nProvider>
       ).instance()
-      assert.equal(wrapper.t('PagedCollection.totalItems', {smart_count: 1}), expected[language])
+      assert.equal(wrapper.t('foo'), expected[language])
     }
   })
 })

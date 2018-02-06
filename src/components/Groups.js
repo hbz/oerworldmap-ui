@@ -12,7 +12,7 @@ const Groups = ({translate, emitter, groups, users, _status}) => (
   <div className="Groups">
     <FullModal>
       <div>
-        <h2>{translate('Groups.editGroups')}</h2>
+        <h2>{translate('UserIndex.groups.title')}</h2>
         <p>{_status}</p>
         <form
           onSubmit={(e) => {

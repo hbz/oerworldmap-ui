@@ -10,7 +10,7 @@ const Feed = ({translate, member}) => (
   <div className="Feed">
     <FullModal>
       <h2 className="title">
-        {translate('Feed.title')}
+        {translate('ResourceIndex.feed.recentAdditions')}
       </h2>
       <ul className="list">
         {member.map(item => (
@@ -23,7 +23,7 @@ const Feed = ({translate, member}) => (
         ))}
       </ul>
       <div className="more">
-        <Link href="/resource/?size=20&sort=dateCreated:desc" >{translate('Feed.more')}</Link>
+        <Link href="/resource/?size=20&sort=dateCreated:desc" >{translate('ResourceIndex.feed.more')}</Link>
       </div>
     </FullModal>
   </div>

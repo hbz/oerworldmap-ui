@@ -56,42 +56,42 @@ class Header extends React.Component {
         <nav className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}>
 
           <Link href="/resource/" className="mobile">
-            {this.props.translate('Map')}
+            {this.props.translate('main.map')}
           </Link>
 
           <a
             href="/contribute"
-            title={this.props.translate('Header.contribute')}
+            title={this.props.translate('contribute')}
           >
-            {this.props.translate('Header.contribute')}
+            {this.props.translate('contribute')}
           </a>
           <a
             href="/about"
-            title={this.props.translate('Header.about')}
+            title={this.props.translate('main.about')}
           >
-            {this.props.translate('Header.about')}
+            {this.props.translate('main.about')}
           </a>
           <a
             href="/FAQ"
-            title={this.props.translate('Header.faq')}
+            title={this.props.translate('main.faq')}
           >
-            {this.props.translate('Header.faq')}
+            {this.props.translate('main.faq')}
           </a>
           <a
             href="https://oerworldmap.wordpress.com/"
-            title={this.props.translate('Header.blog')}
+            title={this.props.translate('main.blog')}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {this.props.translate('Header.blog')}
+            {this.props.translate('main.blog')}
           </a>
           <a
             href="/imprint"
             target="_blank"
             className="mobile"
-            title={this.props.translate('Imprint & Privacy')}
+            title={this.props.translate('main.imprintPrivacy')}
           >
-            {this.props.translate('Imprint & Privacy')}
+            {this.props.translate('main.imprintPrivacy')}
           </a>
 
         </nav>
@@ -113,10 +113,10 @@ class Header extends React.Component {
 
         ) : (
           <Link
-            title={this.props.translate('Header.logIn')}
+            title={this.props.translate('login')}
             href="/user/register"
           >
-            {this.props.translate('Header.logIn')}
+            {this.props.translate('login')}
           </Link>
         )}
 
@@ -136,7 +136,7 @@ class Header extends React.Component {
                   this.props.emitter.emit('logout')
                 }}
               >
-                {this.props.translate('Header.logOut')} <i className="fa fa-sign-out" />
+                {this.props.translate('main.logout')} <i className="fa fa-sign-out" />
               </a>
             </li>
           </ul>

@@ -9,7 +9,7 @@ import '../styles/components/Export.pcss'
 
 const Export = ({_links, translate}) => (
   <FullModal className="Export">
-    <h2>{translate('Export this Resource')}</h2>
+    <h2>{translate('export.export')}</h2>
     <div className="exportContent">
       {_links.refs.map(link => (
         <Link key={link.uri} className="btn" href={link.uri}>{translate(link.type)}</Link>

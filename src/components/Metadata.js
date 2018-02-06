@@ -9,7 +9,7 @@ const Metadata = ({type, dateModified, moment, translate} ) => (
   <div className="Metadata">
     <div title={moment(dateModified).fromNow()} >
       <Icon type={type} />
-      {translate(type)}&nbsp;{translate('Metadata.lastModified', {
+      {translate(type)}&nbsp;{translate('ResourceIndex.read.lastModified', {
         dateModified : moment(dateModified).format('YYYY-MM-DD')
       })}
     </div>
