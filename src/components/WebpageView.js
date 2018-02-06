@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import withI18n from './withI18n'
 import { formatURL } from '../common'
-import ResourceList from './ResourceList'
+import Block from './Block'
+import ItemList from './ItemList'
 import Link from './Link'
 import Icon from './Icon'
 
@@ -117,20 +118,17 @@ const WebpageView = ({translate, about, lighthouses}) => (
       <aside className="webpageColumn">
 
         {about.email &&
-          <div className="asideList">
-            <h3>{translate('Email')}</h3>
+          <Block className="asideList" title={translate(`${about['@type']}.email`)}>
             <ul>
               <li>
                 <a href={`mailto:${about.email}`}>{about.email}</a>
               </li>
             </ul>
-          </div>
+          </Block>
         }
 
-        {about.location &&
-        about.location.address &&
-          <div className="asideList">
-            <h3>{translate('Location')}</h3>
+        {about.location && about.location.address &&
+          <Block className="asideList" title={translate(`${about['@type']}.location`)}>
             <ul>
               {about.location.address.streetAddress &&
               <li>
@@ -142,111 +140,87 @@ const WebpageView = ({translate, about, lighthouses}) => (
                 {about.location.address.postalCode} {about.location.address.addressLocality}
               </li>
               }
-
-              {about.location.address.postalCode &&
+              {about.location.address.addressCountry &&
               <li>
                 {translate(about.location.address.addressCountry)}
               </li>
               }
-
             </ul>
-          </div>
+          </Block>
         }
 
         {about.contactPoint &&
-          <ResourceList
-            title="Contact Person"
-            list={about.contactPoint}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.contactPoint`)}>
+            <ItemList listItems={about.contactPoint} />
+          </Block>
         }
 
         {about.alternateName &&
-          <div className="asideList">
-            <h3>{translate('Abbreviation')}</h3>
+          <Block className="asideList" title={translate(`${about['@type']}.alternateName`)}>
             <ul>
               <li>{translate(about.alternateName)}</li>
             </ul>
-          </div>
+          </Block>
         }
 
         {about.about &&
-          <div className="asideList">
-            <h3>{translate('Subject')}</h3>
-            <ul>
-              {about.about.map(item => (
-                <li key={item['@id']}>
-                  <i className="fa fa-tag" /> {translate(item.name)}
-                </li>
-              ))
-              }
-            </ul>
-          </div>
+          <Block className="asideList" title={translate(`${about['@type']}.about`)}>
+            <ItemList listItems={about.about} />
+          </Block>
         }
 
         {about.audience &&
-          <ResourceList
-            title="Grade level"
-            list={about.audience}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
+            <ItemList listItems={about.audience} />
+          </Block>
         }
 
-        {about.startTime && about.endTime &&
-          <div className="asideList">
-            <h3>{translate('Start - End')}</h3>
+        {about.startTime &&
+          <Block className="asideList" title={translate(`${about['@type']}.startTime`)}>
             <ul>
               <li>
-                {`${about.startTime} - ${about.endTime}`}
+                {about.startTime} {about.endTime && ` - ${about.endTime}`}
               </li>
             </ul>
-          </div>
+          </Block>
         }
 
         {about.inLanguage &&
-          <div className="asideList">
-            <h3>{translate('Event language')}</h3>
-            <ul>
-              <li>
-                {about.inLanguage.map(lang => (
-                  <span key={lang}>`${translate(lang)}, `</span>
-                )).join('').slice(0, -2)}
-              </li>
+          <Block className="asideList" title={translate(`${about['@type']}.inLanguage`)}>
+            <ul className="commaSeparatedList">
+              {about.inLanguage.map(lang => {
+                <li key={lang}>{translate(lang)}</li>
+              })}
             </ul>
-          </div>
+          </Block>
         }
 
         {about.hashtag &&
-          <div className="asideList">
-            <h3>{translate('Hashtag')}</h3>
+          <Block className="asideList" title={translate(`${about['@type']}.hashtag`)}>
             <ul>
               <li>
                 {about.hashtag}
               </li>
             </ul>
-          </div>
+          </Block>
         }
 
         {about.keywords &&
-          <div className="asideList">
-            <h3>{translate('Tags')}</h3>
-            <ul>
-              <li>
-                {about.keywords.map((key, i) => (
-                  about.keywords.length - 1 === i ? (
-                    <Link key={key} href={`/resource/?filter.about.keywords=${key}`}>{key}</Link>
-                  ) : (
-                    <span key={key}>
-                      <Link href={`/resource/?filter.about.keywords=${key}`}>{key}</Link> &amp;&nbsp;
-                    </span>
-                  )
-                ))}
-              </li>
+          <Block className="asideList" title={translate(`${about['@type']}.keywords`)}>
+            <ul className="commaSeparatedList">
+              {about.keywords.map(keyword => {
+                <li key={keyword}>
+                  <Link href={`/resource/?filter.about.keywords=${keyword}`}>
+                    {keyword}
+                  </Link>
+                </li>
+              })}
             </ul>
-          </div>
+          </Block>
         }
 
         {about.recordedIn &&
-          <div className="asideList">
-            <h3>{translate('Recordings')}</h3>
+          <Block className="asideList" title={translate(`${about['@type']}.recordedIn`)}>
             <ul>
               {about.recordedIn.map(recording => (
                 <li key={recording}>
@@ -256,88 +230,78 @@ const WebpageView = ({translate, about, lighthouses}) => (
                 </li>
               ))}
             </ul>
-          </div>
+          </Block>
         }
 
         {about.result &&
-          <ResourceList
-            title="Resulting service"
-            list={about.result}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.result`)}>
+            {/* <ItemList listItems={about.result} /> */}
+          </Block>
         }
 
         {about.resultOf &&
-          <ResourceList
-            title="Result Of"
-            list={about.resultOf}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.resultOf`)}>
+            <ItemList listItems={about.resultOf} />
+          </Block>
         }
 
         {about.provides &&
-          <ResourceList
-            title="Provides"
-            list={about.provides}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.provides`)}>
+            <ItemList listItems={about.provides} />
+          </Block>
         }
 
         {about.provider &&
-          <ResourceList
-            title="Provider"
-            list={about.provider}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.provider`)}>
+            <ItemList listItems={about.provider} />
+          </Block>
         }
 
         {about.agent &&
-          <ResourceList
-            title="Operator"
-            list={about.agent}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.agent`)}>
+            <ItemList listItems={about.agent} />
+          </Block>
         }
 
         {/* FIXME: Add API response name */}
 
         {about.agentIn &&
-          <ResourceList
-            title="Project lead in"
-            list={about.agentIn}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.agentIn`)}>
+            <ItemList listItems={about.agentIn} />
+          </Block>
         }
 
         {about.participant &&
-          <ResourceList
-            title="Partner"
-            list={about.participant}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.participant`)}>
+            <ItemList listItems={about.participant} />
+          </Block>
         }
 
         {about.participantIn &&
-          <ResourceList
-            title="Partner in"
-            list={about.participantIn}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.participantIn`)}>
+            <ItemList listItems={about.participantIn} />
+          </Block>
         }
 
         {about.isFundedBy &&
-          <div className="asideList">
-            <h3>{translate('Funded by')}</h3>
+          <Block className="asideList" title={translate(`${about['@type']}.isFundedBy`)}>
             <ul>
               {about.isFundedBy.map((item, i) => (
                 <li key={i}>
-                  {item.isAwardedBy && (
-                    [<Icon key={`'icon${i}`} type={item.isAwardedBy[0]['@type']} />, <Link key={`'link${i}`} href={`/resource/${item.isAwardedBy[0]['@id']}`}>{translate(item.isAwardedBy[0].name)}</Link>]
-                  )
+                  {item.isAwardedBy &&
+                    ([
+                      <Icon key={`'icon${i}`} type={item.isAwardedBy[0]['@type']} />,
+                      <Link key={`'link${i}`} href={`/resource/${item.isAwardedBy[0]['@id']}`}>{translate(item.isAwardedBy[0].name)}</Link>
+                    ])
                   }
                 </li>
               ))}
             </ul>
-          </div>
+          </Block>
         }
 
-        {about.isFundedBy &&
-        about.isFundedBy[0] &&
-        about.isFundedBy[0].hasMonetaryValue &&
-          <div className="asideList">
-            <h3>{translate('Budget')}</h3>
+        {about.isFundedBy && about.isFundedBy[0] && about.isFundedBy[0].hasMonetaryValue &&
+          <Block className="asideList" title={translate(`${about['@type']}.isFundedBy`)}>
             <ul>
               {about.isFundedBy.map(item => (
                 <li key={item.hasMonetaryValue}>
@@ -345,204 +309,165 @@ const WebpageView = ({translate, about, lighthouses}) => (
                 </li>
               ))}
             </ul>
-          </div>
+          </Block>
         }
 
         {about.hasPart &&
-          <ResourceList
-            title="Sub Project"
-            list={about.hasPart}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.hasPart`)}>
+            <ItemList listItems={about.hasPart} />
+          </Block>
         }
 
         {about.isPartOf &&
-          <div className="asideList">
-            <h3>{translate('Part of')}</h3>
-            <ul>
-              <li>
-                <Icon type={about.isPartOf['@type']} /> <Link href={`/resource/${about.isPartOf['@id']}`}>{translate(about.isPartOf.name)}</Link>
-              </li>
-            </ul>
-          </div>
+          <Block className="asideList" title={translate(`${about['@type']}.isPartOf`)}>
+            <ItemList listItems={[about.isPartOf]} />
+          </Block>
         }
 
         {about.awards &&
-          <div className="asideList">
-            <h3>Funds</h3>
-            <ul>
-              {about.awards.map((award, i) => (
-                <li key={i}>
-                  {award.funds && (
-                    [<Icon type={award.funds[0]['@type']} />, <Link href={`/resource/${award.funds[0]['@id']}`}>{translate(award.funds[0].name)}</Link>]
-                  )
-                  }
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Block className="asideList" title={translate(`${about['@type']}.awards`)}>
+            <ItemList listItems={[about.awards]} />
+          </Block>
         }
 
         {about.member &&
-          <ResourceList
-            title="Members"
-            list={about.member}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.member`)}>
+            <ItemList listItems={about.member} />
+          </Block>
         }
 
         {about.memberOf &&
-          <ResourceList
-            title="Member of"
-            list={about.memberOf}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.memberOf`)}>
+            <ItemList listItems={about.memberOf} />
+          </Block>
         }
 
         {about.affiliation &&
-          <ResourceList
-            title="Affiliation"
-            list={about.affiliation}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.affiliation`)}>
+            <ItemList listItems={about.affiliation} />
+          </Block>
         }
 
         {about.affiliate &&
-          <ResourceList
-            title="Affiliated Persons"
-            list={about.affiliate}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.affiliate`)}>
+            <ItemList listItems={about.affiliate} />
+          </Block>
         }
 
         {about.organizer &&
-          <ResourceList
-            title="Organizer"
-            list={about.organizer}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.organizer`)}>
+            <ItemList listItems={about.organizer} />
+          </Block>
         }
 
         {about.organizerFor &&
-          <ResourceList
-            title="Organizer of"
-            list={about.organizerFor}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.organizerFor`)}>
+            <ItemList listItems={about.organizerFor} />
+          </Block>
         }
 
         {about.performer &&
-          <ResourceList
-            title="Presenter"
-            list={about.performer}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.performer`)}>
+            <ItemList listItems={about.performer} />
+          </Block>
         }
 
         {about.performerIn &&
-          <ResourceList
-            title="Presenter At"
-            list={about.performerIn}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.performerIn`)}>
+            <ItemList listItems={about.contactPoint} />
+          </Block>
         }
 
         {about.attendee &&
-          <ResourceList
-            title="People attending"
-            list={about.attendee}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.attendee`)}>
+            <ItemList listItems={about.attendee} />
+          </Block>
         }
 
         {about.attends &&
-          <ResourceList
-            title="Attending"
-            list={about.attends}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.attends`)}>
+            <ItemList listItems={about.attends} />
+          </Block>
         }
 
         {about.created &&
-          <ResourceList
-            title="Contributions"
-            list={about.created}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.created`)}>
+            <ItemList listItems={about.created} />
+          </Block>
         }
 
         {about.creator &&
-          <ResourceList
-            title="Creator"
-            list={about.creator}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.creator`)}>
+            <ItemList listItems={about.creator} />
+          </Block>
         }
 
         {about.publication &&
-          <ResourceList
-            title="Publications"
-            list={about.publication}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.publication`)}>
+            <ItemList listItems={about.publication} />
+          </Block>
         }
 
         {about.publisher &&
-          <ResourceList
-            title="Published by"
-            list={about.publisher}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.publisher`)}>
+            <ItemList listItems={about.publisher} />
+          </Block>
         }
 
         {about.manufacturer &&
-          <ResourceList
-            title="Manufacturer"
-            list={about.manufacturer}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.manufacturer`)}>
+            <ItemList listItems={about.manufacturer} />
+          </Block>
         }
 
         {about.manufactured &&
-          <ResourceList
-            title="Develops"
-            list={about.manufactured}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.manufactured`)}>
+            <ItemList listItems={about.manufactured} />
+          </Block>
         }
 
         {about.mentions &&
-          <ResourceList
-            title="Entries mentioned"
-            list={about.mentions}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.mentions`)}>
+            <ItemList listItems={about.mentions} />
+          </Block>
         }
 
         {about.mentionedIn &&
-          <ResourceList
-            title="Mentioned in"
-            list={about.mentionedIn}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.mentionedIn`)}>
+            <ItemList listItems={about.mentionedIn} />
+          </Block>
         }
 
         {about.instrument &&
-          <ResourceList
-            title="Instrument"
-            list={about.instrument}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.instrument`)}>
+            <ItemList listItems={about.instrument} />
+          </Block>
         }
 
         {about.instrumentIn &&
-          <ResourceList
-            title="instrument in"
-            list={about.instrumentIn}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.instrumentIn`)}>
+            <ItemList listItems={about.instrumentIn} />
+          </Block>
         }
 
         {/* Object */}
 
         {about.isRelatedTo &&
-          <ResourceList
-            title="Is used by"
-            list={about.isRelatedTo}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.isRelatedTo`)}>
+            <ItemList listItems={about.isRelatedTo} />
+          </Block>
         }
 
         {about.primarySector &&
-          <ResourceList
-            title="Primary educational sector"
-            list={about.primarySector}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.primarySector`)}>
+            <ItemList listItems={about.primarySector} />
+          </Block>
         }
 
         {about.secondarySector &&
-          <ResourceList
-            title="Secondary educational sector"
-            list={about.secondarySector}
-          />
+          <Block className="asideList" title={translate(`${about['@type']}.secondarySector`)}>
+            <ItemList listItems={about.secondarySector} />
+          </Block>
         }
 
       </aside>
