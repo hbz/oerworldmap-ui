@@ -29,8 +29,11 @@ const deleteComment = (id, emitter, e) => {
   emitter.emit('delete', {url: `/resource/${id}`})
 }
 
-const Comments = ({moment, translate, emitter, id, comments}) => (
+const Comments = ({moment, translate, emitter, id, comments, user}) => (
   <div className="Comments">
+
+    {user &&
+      <div>
     {comments.length > 0 && <h2>Comments</h2>}
     {comments.map(comment => (
       <div className="Comment" key={comment['@id']}>
@@ -52,6 +55,8 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
         <ReactMarkdown source={translate(comment.text)} />
       </div>
     ))}
+      </div>
+    }
     <h2>Comment</h2>
     <Composer
       value={{
@@ -72,11 +77,13 @@ Comments.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   id: PropTypes.string.isRequired,
-  comments: PropTypes.arrayOf(PropTypes.any)
+  comments: PropTypes.arrayOf(PropTypes.any),
+  user: PropTypes.objectOf(PropTypes.any),
 }
 
 Comments.defaultProps = {
-  comments: []
+  comments: [],
+  user: null,
 }
 
 export default withI18n(withEmitter(Comments))
