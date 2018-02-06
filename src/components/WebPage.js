@@ -48,7 +48,8 @@ const WebPage = ({
   view,
   geo,
   _links,
-  _self
+  _self,
+  mapboxConfig
 }) => {
 
   const lighthouses = (about.objectIn || []).filter(action =>
@@ -166,7 +167,7 @@ const WebPage = ({
                 JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
                 ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
                 : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
-              },7/800x245@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
+              },7/800x245@2x?access_token=${mapboxConfig.token}")`
               : ''
           }}
         >
@@ -311,7 +312,14 @@ WebPage.propTypes = {
   geo: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
-  _links: PropTypes.objectOf(PropTypes.any)
+  _links: PropTypes.objectOf(PropTypes.any),
+  mapboxConfig: PropTypes.shape(
+    {
+      token: PropTypes.string,
+      style: PropTypes.string,
+      miniMapStyle: PropTypes.string,
+    }
+  ).isRequired,
 }
 
 WebPage.defaultProps = {
