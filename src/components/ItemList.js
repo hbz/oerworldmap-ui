@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
+import ReactMarkdown from 'react-markdown'
 import Icon from './Icon'
 import Link from './Link'
 
@@ -28,10 +29,13 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
               <b>{translate(listItem.name) || listItem['@id']}</b>
               {listItem.description ?
                 (
-                  <p>{translate(listItem.description).length > 140
-                    ? translate(listItem.description).substring(0,140)
-                    : translate(listItem.description)}
-                  </p>
+                  <ReactMarkdown
+                    escapeHtml={false}
+                    source={translate(listItem.description).length
+                      ? translate(listItem.description)
+                      : translate(listItem.description)
+                    }
+                  />
                 )
                 : (<p>No description available</p>)
               }
