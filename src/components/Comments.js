@@ -34,27 +34,27 @@ const Comments = ({moment, translate, emitter, id, comments, user}) => (
 
     {user &&
       <div>
-    {comments.length > 0 && <h2>Comments</h2>}
-    {comments.map(comment => (
-      <div className="Comment" key={comment['@id']}>
-        <p>
-          <small>
-            {comment.author.map(author => (
-              <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                {translate(author.name)}
-              </Link>)
-            )}
-            &nbsp; {moment(comment.dateCreated).fromNow()}
-          </small>
-        </p>
-        <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
-          <button type="submit" title="Delete">
-            <i className="fa fa-fw fa-trash" />
-          </button>
-        </form>
-        <ReactMarkdown source={translate(comment.text)} />
-      </div>
-    ))}
+        {comments.length > 0 && <h2>Comments</h2>}
+        {comments.map(comment => (
+          <div className="Comment" key={comment['@id']}>
+            <p>
+              <small>
+                {comment.author.map(author => (
+                  <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
+                    {translate(author.name)}
+                  </Link>)
+                )}
+                &nbsp; {moment(comment.dateCreated).fromNow()}
+              </small>
+            </p>
+            <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
+              <button className="btn" type="submit" title="Delete">
+                <i className="fa fa-fw fa-trash" />
+              </button>
+            </form>
+            <ReactMarkdown source={translate(comment.text)} />
+          </div>
+        ))}
       </div>
     }
     <h2>Comment</h2>
