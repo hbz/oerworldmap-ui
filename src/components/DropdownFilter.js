@@ -92,7 +92,7 @@ class DropdownFilter extends React.Component {
           <div className="searchContainer">
             <input
               type="submit"
-              value={this.props.translate('Apply Filter')}
+              value={this.props.translate('ClientTemplates.filter-dropdown.applyFilter')}
               onClick={evt => {
                 evt.preventDefault()
                 this.setState({search: ''})
@@ -112,7 +112,7 @@ class DropdownFilter extends React.Component {
               : (
                 <li>
                   <label>
-                    {this.props.translate('Nothing Found')}
+                    {this.props.translate('ClientTemplates.filter-dropdown.noResults')}
                   </label>
                 </li>
               )}

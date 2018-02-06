@@ -72,6 +72,17 @@ export const triggerClick = (e) => {
   }
 }
 
+const unicodeEscapes = /\\u([\d\w]{4})/gi
+export const parseProperties = (properties) => properties.split(/\r?\n/)
+  .map(s => s.trim()).filter(s => !!s).reduce((acc, cur) => {
+    const [key, value] = cur.split(/=(.+)/).map(s => s.trim())
+    if (key && value) {
+      acc[key] = value.replace(unicodeEscapes, (match, grp) => String.fromCharCode(parseInt(grp, 16)))
+    }
+    return acc
+  }, {})
+
 export default {
-  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick
+  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
+  parseProperties
 }

@@ -46,31 +46,39 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "UserIndex.register.placeholderName"
         },
         "location": {
+          "title": "UserIndex.register.placeholderCountry",
           "$ref": "#/definitions/Country"
         },
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "title": "UserIndex.register.placeholderEmail"
         },
         "password": {
           "type": "string",
+          "title": "UserIndex.register.choosePassword",
           "_display": {
             "type": "password"
           }
         },
         "privacyAccepted": {
+          "title": "UserIndex.register.agreePolicy",
           "type": "boolean"
         },
         "termsAccepted": {
+          "title": "UserIndex.register.agreeService",
           "type": "boolean"
         },
         "publishEmail": {
+          "title": "UserIndex.register.agreeEmail",
           "type": "boolean"
         },
         "subscribeNewsletter": {
+          "title": "UserIndex.register.subscribe",
           "type": "boolean"
         }
       },
@@ -83,7 +91,8 @@
       "properties": {
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "title": "UserIndex.register.placeholderEmail"
         }
       },
       "required": ["email"]
@@ -95,18 +104,21 @@
       "properties": {
         "password": {
           "type": "string",
+          "title": "UserIndex.password.currentPassword",
           "_display": {
             "type": "password"
           }
         },
         "password_new": {
           "type": "string",
+          "title": "UserIndex.password.newPassword",
           "_display": {
             "type": "password"
           }
         },
         "password_new_confirm": {
           "type": "string",
+          "title": "UserIndex.password.confirmPassword",
           "_display": {
             "type": "password"
           }
@@ -161,23 +173,32 @@
           }
         },
         "name": {
+          "title": "WebPage.name",
+          "description": "descriptions.WebPage.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "WebPage.description",
+          "description": "descriptions.WebPage.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "url": {
+          "title": "WebPage.url",
+          "description": "descriptions.WebPage.url",
           "type": "string",
           "format": "uri"
         },
         "keywords": {
+          "title": "WebPage.keywords",
+          "description": "descriptions.WebPage.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "publisher": {
-          "description": "The publisher of the bookmark",
+          "title": "WebPage.publisher",
+          "description": "descriptions.WebPage.publisher",
           "type": "array",
           "items": {
             "allOf": [
@@ -187,7 +208,8 @@
           }
         },
         "comment": {
-          "description": "A comment about the bookmark",
+          "title": "WebPage.comment",
+          "description": "descriptions.WebPage.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -197,6 +219,8 @@
           }
         },
         "award": {
+          "title": "WebPage.award",
+          "description": "descriptions.WebPage.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -353,7 +377,8 @@
           }
         },
         "creator": {
-          "description": "The author of the article",
+          "title": "Article.creator",
+          "description": "descriptions.Article.creator",
           "type": "array",
           "items": {
             "allOf": [
@@ -363,26 +388,37 @@
           }
         },
         "name": {
+          "title": "Article.name",
+          "description": "descriptions.Article.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Article.description",
+          "description": "descriptions.Article.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "keywords": {
+          "title": "Article.keywords",
+          "description": "descriptions.Article.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "articleBody": {
+          "title": "Article.articleBody",
+          "description": "descriptions.Article.articleBody",
           "$ref": "#/definitions/LocalizedString"
         },
         "image": {
+          "title": "Article.image",
+          "description": "descriptions.Article.image",
           "type": "string",
           "format": "uri"
         },
         "mentions": {
-          "description": "Something mentioned in the article",
+          "title": "Article.mentions",
+          "description": "descriptions.Article.mentions",
           "type": "array",
           "items": {
             "allOf": [
@@ -392,10 +428,13 @@
           }
         },
         "dateCreated": {
+          "title": "Article.dateCreated",
+          "description": "descriptions.Article.dateCreated",
           "$ref": "#/definitions/iso-8601-date"
         },
         "comment": {
-          "description": "A comment about the Organization",
+          "title": "Article.comment",
+          "description": "descriptions.Article.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -408,13 +447,19 @@
           "$ref": "#/definitions/Place"
         },
         "exampleOfWork": {
+          "title": "Article.exampleOfWork",
+          "description": "descriptions.Article.exampleOfWork",
           "type": "string",
           "format": "uri"
         },
         "citation": {
+          "title": "Article.citation",
+          "description": "descriptions.Article.citation",
           "type": "string"
         },
         "license": {
+          "title": "Article.license",
+          "description": "descriptions.Article.license",
           "type": "array",
           "items": {
             "allOf": [
@@ -433,6 +478,8 @@
           }
         },
         "primarySector": {
+          "title": "Article.primarySector",
+          "description": "descriptions.Article.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -451,6 +498,8 @@
           }
         },
         "secondarySector": {
+          "title": "Article.secondarySector",
+          "description": "descriptions.Article.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -517,7 +566,8 @@
           }
         },
         "author": {
-          "description": "The author of the comment",
+          "title": "Comment.creator",
+          "description": "descriptions.Comment.author",
           "type": "array",
           "items": {
             "allOf": [
@@ -530,9 +580,13 @@
           }
         },
         "text": {
+          "title": "Comment.text",
+          "description": "descriptions.Comment.text",
           "$ref": "#/definitions/LocalizedText"
         },
         "dateCreated": {
+          "title": "Comment.dateCreated",
+          "description": "descriptions.Comment.dateCreated",
           "$ref": "#/definitions/iso-8601-date",
           "_display": {
             "className": "hidden"
@@ -572,18 +626,22 @@
           }
         },
         "additionalType": {
-          "description": "An additonal type for the Action",
+          "title": "Action.additionalType",
+          "description": "descriptions.Action.additionalType",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "email": {
+          "title": "Action.email",
+          "description": "descriptions.Action.email",
           "type": "string",
           "format": "email"
         },
         "funder": {
-          "description": "The funder of the action",
+          "title": "Action.funder",
+          "description": "descriptions.Action.funder",
           "type": "array",
           "items": {
             "allOf": [
@@ -593,17 +651,21 @@
           }
         },
         "isFundedBy": {
-          "description": "The grant funding the action",
+          "title": "Action.isFundedBy",
+          "description": "descriptions.Action.isFundedBy",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Grant"
           }
         },
         "duration": {
+          "title": "Action.duration",
+          "description": "descriptions.Action.duration",
           "type": "string"
         },
         "agent": {
-          "description": "The direct performer or driver of the action (i.e. also primary contact)",
+          "title": "Action.agent",
+          "description": "descriptions.Action.agent",
           "type": "array",
           "items": {
             "allOf": [
@@ -613,6 +675,8 @@
           }
         },
         "objectIn": {
+          "title": "Action.objectIn",
+          "description": "descriptions.Action.objectIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -622,7 +686,8 @@
           }
         },
         "participant": {
-          "description": "Other co-agents that participated in the action",
+          "title": "Action.participant",
+          "description": "descriptions.Action.participant",
           "type": "array",
           "items": {
             "allOf": [
@@ -632,7 +697,8 @@
           }
         },
         "memberOf": {
-          "description": "An organization the project is member of.",
+          "title": "Action.memberOf",
+          "description": "descriptions.Action.memberOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -642,26 +708,40 @@
           }
         },
         "name": {
+          "title": "Action.name",
+          "description": "descriptions.Action.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Action.alternateName",
+          "description": "descriptions.Action.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "displayName": {
+          "title": "Action.displayName",
+          "description": "descriptions.Action.displayName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Action.description",
+          "description": "descriptions.Action.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "image": {
+          "title": "Action.image",
+          "description": "descriptions.Action.image",
           "type": "string",
           "format": "uri"
         },
         "url": {
+          "title": "Action.url",
+          "description": "descriptions.Action.url",
           "type": "string",
           "format": "uri"
         },
         "sameAs": {
+          "title": "Action.sameAs",
+          "description": "descriptions.Action.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -669,15 +749,21 @@
           }
         },
         "startTime": {
+          "title": "Action.startTime",
+          "description": "descriptions.Action.startTime",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endTime": {
+          "title": "Action.endTime",
+          "description": "descriptions.Action.endTime",
           "$ref": "#/definitions/iso-8601-date"
         },
         "location": {
           "$ref": "#/definitions/Place"
         },
         "instrument": {
+          "title": "Action.instrument",
+          "description": "descriptions.Action.instrument",
           "type": "array",
           "items": {
             "allOf": [
@@ -687,6 +773,8 @@
           }
         },
         "result": {
+          "title": "Action.result",
+          "description": "descriptions.Action.result",
           "type": "array",
           "items": {
             "allOf": [
@@ -696,13 +784,16 @@
           }
         },
         "keywords": {
+          "title": "Action.keywords",
+          "description": "descriptions.Action.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "mentionedIn": {
-          "description": "An article that mentions the project.",
+          "title": "Action.mentionedIn",
+          "description": "descriptions.Action.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -712,7 +803,8 @@
           }
         },
         "comment": {
-          "description": "A comment about the project",
+          "title": "Action.comment",
+          "description": "descriptions.Action.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -722,14 +814,16 @@
           }
         },
         "isPartOf": {
-          "description": "A project that this project is part of",
+          "title": "Action.isPartOf",
+          "description": "descriptions.Action.isPartOf",
           "allOf": [
             { "$ref": "#/definitions/Link" },
             { "properties": { "@type": { "enum": [ "Action" ] } } }
           ]
         },
         "hasPart": {
-          "description": "A subproject of this project",
+          "title": "Action.hasPart",
+          "description": "descriptions.Action.hasPart",
           "type": "array",
           "items": {
             "allOf": [
@@ -739,6 +833,8 @@
           }
         },
         "affiliate": {
+          "title": "Action.affiliate",
+          "description": "descriptions.Action.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -748,7 +844,8 @@
           }
         },
         "organizerFor": {
-          "description": "An event the project is organizer for.",
+          "title": "Action.organizerFor",
+          "description": "descriptions.Action.organizerFor",
           "type": "array",
           "items": {
             "allOf": [
@@ -758,7 +855,8 @@
           }
         },
         "publication": {
-          "description": "A publication of the Project",
+          "title": "Action.publication",
+          "description": "descriptions.Action.publication",
           "type": "array",
           "items": {
             "allOf": [
@@ -768,6 +866,8 @@
           }
         },
         "primarySector": {
+          "title": "Action.primarySector",
+          "description": "descriptions.Action.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -786,6 +886,8 @@
           }
         },
         "secondarySector": {
+          "title": "Action.secondarySector",
+          "description": "descriptions.Action.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -804,6 +906,8 @@
           }
         },
         "award": {
+          "title": "Action.award",
+          "description": "descriptions.Action.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -859,26 +963,37 @@
           }
         },
         "name": {
+          "title": "Service.name",
+          "description": "descriptions.Service.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Service.alternateName",
+          "description": "descriptions.Service.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "serviceType": {
+          "title": "Service.serviceType",
+          "description": "descriptions.Service.serviceType",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "description": {
+          "title": "Service.description",
+          "description": "descriptions.Service.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "image": {
+          "title": "Service.image",
+          "description": "descriptions.Service.image",
           "type": "string",
           "format": "uri"
         },
         "provider": {
-          "description": "The person or organization responsible for provision of the service.",
+          "title": "Service.provider",
+          "description": "descriptions.Service.provider",
           "type": "array",
           "items": {
             "allOf": [
@@ -888,6 +1003,8 @@
           }
         },
         "availableChannel": {
+          "title": "Service.availableChannel",
+          "description": "descriptions.Service.availableChannel",
           "type": "array",
           "items": {
             "type": "object",
@@ -919,6 +1036,8 @@
           }
         },
         "sameAs": {
+          "title": "Service.sameAs",
+          "description": "descriptions.Service.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -926,12 +1045,18 @@
           }
         },
         "startDate": {
+          "title": "Service.startDate",
+          "description": "descriptions.Service.startDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endDate": {
+          "title": "Service.endDate",
+          "description": "descriptions.Service.endDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "email": {
+          "title": "Service.email",
+          "description": "descriptions.Service.email",
           "type": "string",
           "format": "email"
         },
@@ -939,6 +1064,8 @@
           "$ref": "#/definitions/Place"
         },
         "about": {
+          "title": "Service.about",
+          "description": "descriptions.Service.about",
           "type": "array",
           "items": {
             "allOf": [
@@ -957,6 +1084,8 @@
           }
         },
         "license": {
+          "title": "Service.license",
+          "description": "descriptions.Service.license",
           "type": "array",
           "items": {
             "allOf": [
@@ -975,6 +1104,8 @@
           }
         },
         "audience": {
+          "title": "Service.audience",
+          "description": "descriptions.Service.audience",
           "type": "array",
           "items": {
             "allOf": [
@@ -993,13 +1124,16 @@
           }
         },
         "keywords": {
+          "title": "Service.keywords",
+          "description": "descriptions.Service.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "mentionedIn": {
-          "description": "An article that mentions the service.",
+          "title": "Service.mentionedIn",
+          "description": "descriptions.Service.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1009,7 +1143,8 @@
           }
         },
         "instrumentIn": {
-          "description": "A project that has the service as an instrument.",
+          "title": "Service.instrumentIn",
+          "description": "descriptions.Service.instrumentIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1019,7 +1154,8 @@
           }
         },
         "resultOf": {
-          "description": "A project that has the service as its result.",
+          "title": "Service.resultOf",
+          "description": "descriptions.Service.resultOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1029,6 +1165,8 @@
           }
         },
         "member": {
+          "title": "Service.member",
+          "description": "descriptions.Service.member",
           "type": "array",
           "items": {
             "allOf": [
@@ -1038,6 +1176,8 @@
           }
         },
         "affiliate": {
+          "title": "Service.affiliate",
+          "description": "descriptions.Service.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -1047,7 +1187,8 @@
           }
         },
         "memberOf": {
-          "description": "An organization the service is member of.",
+          "title": "Service.memberOf",
+          "description": "descriptions.Service.memberOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1057,7 +1198,8 @@
           }
         },
         "comment": {
-          "description": "A comment about the Service",
+          "title": "Service.comment",
+          "description": "descriptions.Service.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -1067,7 +1209,8 @@
           }
         },
         "publication": {
-          "description": "A publication of the Service",
+          "title": "Service.publication",
+          "description": "descriptions.Service.publication",
           "type": "array",
           "items": {
             "allOf": [
@@ -1077,6 +1220,8 @@
           }
         },
         "primarySector": {
+          "title": "Service.primarySector",
+          "description": "descriptions.Service.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1095,6 +1240,8 @@
           }
         },
         "secondarySector": {
+          "title": "Service.secondarySector",
+          "description": "descriptions.Service.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1113,7 +1260,8 @@
           }
         },
         "isRelatedTo": {
-          "description": "Tools used to implement this service",
+          "title": "Service.isRelatedTo",
+          "description": "descriptions.Service.isRelatedTo",
           "type": "array",
           "items": {
             "allOf": [
@@ -1123,6 +1271,8 @@
           }
         },
         "award": {
+          "title": "Service.award",
+          "description": "descriptions.Service.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1130,6 +1280,8 @@
           }
         },
         "objectIn": {
+          "title": "Service.objectIn",
+          "description": "descriptions.Service.objectIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1187,13 +1339,18 @@
           }
         },
         "name": {
+          "title": "Person.name",
+          "description": "descriptions.Person.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Person.description",
+          "description": "descriptions.Person.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "affiliation": {
-          "description": "An organization or service the person is affiliated with.",
+          "title": "Person.affiliation",
+          "description": "descriptions.Person.affiliation",
           "type": "array",
           "items": {
             "allOf": [
@@ -1203,6 +1360,8 @@
           }
         },
         "performerIn": {
+          "title": "Person.performerIn",
+          "description": "descriptions.Person.performerIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1212,27 +1371,38 @@
           }
         },
         "image": {
+          "title": "Person.image",
+          "description": "descriptions.Person.image",
           "type": "string",
           "format": "uri"
         },
         "mbox_sha1sum": {
+          "title": "Person.mbox_sha1sum",
           "type": "string"
         },
         "email": {
+          "title": "Person.email",
+          "description": "descriptions.Person.email",
           "type": "string",
           "format": "email"
         },
         "telephone": {
+          "title": "Person.telephone",
+          "description": "descriptions.Person.telephone",
           "type": "string"
         },
         "location": {
           "$ref": "#/definitions/Place"
         },
         "url": {
+          "title": "Person.url",
+          "description": "descriptions.Person.url",
           "type": "string",
           "format": "uri"
         },
         "sameAs": {
+          "title": "Person.sameAs",
+          "description": "descriptions.Person.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -1240,12 +1410,16 @@
           }
         },
         "countryChampionFor": {
+          "title": "Person.countryChampionFor",
+          "description": "descriptions.Person.countryChampionFor",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Country"
           }
         },
         "agentIn": {
+          "title": "Person.agentIn",
+          "description": "descriptions.Person.agentIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1255,6 +1429,8 @@
           }
         },
         "participantIn": {
+          "title": "Person.participantIn",
+          "description": "descriptions.Person.participantIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1264,6 +1440,8 @@
           }
         },
         "funderOf": {
+          "title": "Person.funderOf",
+          "description": "descriptions.Person.funderOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1273,6 +1451,8 @@
           }
         },
         "created": {
+          "title": "Person.created",
+          "description": "descriptions.Person.created",
           "type": "array",
           "items": {
             "allOf": [
@@ -1282,13 +1462,16 @@
           }
         },
         "keywords": {
+          "title": "Person.keywords",
+          "description": "descriptions.Person.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "mentionedIn": {
-          "description": "An article that mentions the person.",
+          "title": "Person.mentionedIn",
+          "description": "descriptions.Person.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1298,7 +1481,8 @@
           }
         },
         "organizerFor": {
-          "description": "An event the person is organizer for.",
+          "title": "Person.organizerFor",
+          "description": "descriptions.Person.organizerFor",
           "type": "array",
           "items": {
             "allOf": [
@@ -1308,7 +1492,8 @@
           }
         },
         "authorOf": {
-          "description": "Comments by the Person",
+          "title": "Person.authorOf",
+          "description": "descriptions.Person.authorOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1318,6 +1503,8 @@
           }
         },
         "attends": {
+          "title": "Person.attends",
+          "description": "descriptions.Person.attends",
           "type": "array",
           "items": {
             "allOf": [
@@ -1327,7 +1514,8 @@
           }
         },
         "provides": {
-          "description": "Services provided by this Person.",
+          "title": "Person.provides",
+          "description": "descriptions.Person.provides",
           "type": "array",
           "items": {
             "allOf": [
@@ -1337,7 +1525,8 @@
           }
         },
         "publication": {
-          "description": "A publication of the Person",
+          "title": "Person.publication",
+          "description": "descriptions.Person.publication",
           "type": "array",
           "items": {
             "allOf": [
@@ -1347,6 +1536,8 @@
           }
         },
         "primarySector": {
+          "title": "Person.primarySector",
+          "description": "descriptions.Person.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1365,6 +1556,8 @@
           }
         },
         "secondarySector": {
+          "title": "Person.secondarySector",
+          "description": "descriptions.Person.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1383,6 +1576,8 @@
           }
         },
         "manufactured": {
+          "title": "Person.manufactured",
+          "description": "descriptions.Person.manufactured",
           "type": "array",
           "items": {
             "allOf": [
@@ -1428,46 +1623,63 @@
           }
         },
         "location": {
-          "description": "The organization's address and geo data",
           "$ref": "#/definitions/Place"
         },
         "url": {
           "type": "string",
-          "format": "uri"
+          "description": "descriptions.Organization.url",
+          "format": "uri",
+          "title": "Organization.url"
         },
         "sameAs": {
           "type": "array",
+          "title": "Organization.sameAs",
+          "description": "descriptions.Organization.description",
           "items": {
             "type": "string",
             "format": "uri"
           }
         },
         "email": {
+          "description": "descriptions.Organization.email",
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "title": "Organization.email"
         },
         "telephone": {
-          "type": "string"
+          "description": "descriptions.Organization.telephone",
+          "type": "string",
+          "title": "Organization.telephone"
         },
         "description": {
-          "description": "The description of the organization",
+          "title": "Organization.description",
+          "description": "descriptions.Organization.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "name": {
+          "title": "Organization.name",
+          "description": "descriptions.Organization.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Organization.alternateName",
+          "description": "descriptions.Organization.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "displayName": {
+          "title": "Organization.displayName",
+          "description": "descriptions.Organization.displayName",
           "$ref": "#/definitions/LocalizedString"
         },
         "image": {
+          "description": "descriptions.Organization.image",
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "title": "Organization.image"
         },
         "contactPoint": {
-          "description": "A contact person",
+          "title": "Organization.contactPoint",
+          "description": "descriptions.Organization.contactPoint",
           "type": "array",
           "items": {
             "allOf": [
@@ -1477,14 +1689,16 @@
           }
         },
         "additionalType": {
-          "description": "An additional type for the Organization",
+          "title": "Organization.additionalType",
+          "description": "descriptions.Organization.additionalType",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "provides": {
-          "description": "Services provided by this Organization.",
+          "title": "Organization.provides",
+          "description": "descriptions.Organization.provides",
           "type": "array",
           "items": {
             "allOf": [
@@ -1495,11 +1709,15 @@
         },
         "countryChampionFor": {
           "type": "array",
+          "title": "Organization.countryChampionFor",
+          "description": "descriptions.Organization.countryChampionFor",
           "items": {
             "$ref": "#/definitions/Country"
           }
         },
         "agentIn": {
+          "title": "Organization.agentIn",
+          "description": "descriptions.Organization.agentIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1509,6 +1727,8 @@
           }
         },
         "objectIn": {
+          "title": "Organization.objectIn",
+          "description": "descriptions.Organization.objectIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1518,6 +1738,8 @@
           }
         },
         "participantIn": {
+          "title": "Organization.participantIn",
+          "description": "descriptions.Organization.participantIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1527,6 +1749,8 @@
           }
         },
         "funderOf": {
+          "title": "Organization.funderOf",
+          "description": "descriptions.Organization.funderOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1536,6 +1760,8 @@
           }
         },
         "created": {
+          "title": "Organization.created",
+          "description": "descriptions.Organization.created",
           "type": "array",
           "items": {
             "allOf": [
@@ -1545,6 +1771,8 @@
           }
         },
         "member": {
+          "title": "Organization.member",
+          "description": "descriptions.Organization.member",
           "type": "array",
           "items": {
             "allOf": [
@@ -1554,6 +1782,8 @@
           }
         },
         "affiliate": {
+          "title": "Organization.affiliate",
+          "description": "descriptions.Organization.affiliate",
           "type": "array",
           "items": {
             "allOf": [
@@ -1563,7 +1793,8 @@
           }
         },
         "memberOf": {
-          "description": "An organization or service the organization is member of.",
+          "title": "Organization.memberOf",
+          "description": "descriptions.Organization.memberOf",
           "type": "array",
           "items": {
             "allOf": [
@@ -1573,7 +1804,8 @@
           }
         },
         "mentionedIn": {
-          "description": "An article that mentions the organization.",
+          "title": "Organization.mentionedIn",
+          "description": "descriptions.Organization.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1583,13 +1815,16 @@
           }
         },
         "keywords": {
+          "title": "Organization.keywords",
+          "description": "descriptions.Organization.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "organizerFor": {
-          "description": "An event the organization is organizer for.",
+          "title": "Organization.organizerFor",
+          "description": "descriptions.Organization.organizerFor",
           "type": "array",
           "items": {
             "allOf": [
@@ -1599,7 +1834,8 @@
           }
         },
         "comment": {
-          "description": "A comment about the Organization",
+          "title": "Organization.comment",
+          "description": "descriptions.Organization.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -1609,14 +1845,16 @@
           }
         },
         "awards": {
-          "description": "A grant the organization awards.",
+          "title": "Organization.awards",
+          "description": "descriptions.Organization.awards",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Grant"
           }
         },
         "publication": {
-          "description": "A publication of the Organization",
+          "title": "Organization.publication",
+          "description": "descriptions.Organization.publication",
           "type": "array",
           "items": {
             "allOf": [
@@ -1626,6 +1864,8 @@
           }
         },
         "primarySector": {
+          "title": "Organization.primarySector",
+          "description": "descriptions.Organization.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1644,6 +1884,8 @@
           }
         },
         "secondarySector": {
+          "title": "Organization.secondarySector",
+          "description": "descriptions.Organization.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1662,6 +1904,8 @@
           }
         },
         "manufactured": {
+          "title": "Organization.manufactured",
+          "description": "descriptions.Organization.manufactured",
           "type": "array",
           "items": {
             "allOf": [
@@ -1671,6 +1915,8 @@
           }
         },
         "award": {
+          "title": "Organization.award",
+          "description": "descriptions.Organization.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1712,11 +1958,14 @@
           }
         },
         "email": {
+          "title": "Event.email",
+          "description": "descriptions.Event.email",
           "type": "string",
           "format": "email"
         },
         "organizer": {
-          "description": "The event's organizer ",
+          "title": "Event.organizer",
+          "description": "descriptions.Event.organizer",
           "type": "array",
           "items": {
             "allOf": [
@@ -1726,7 +1975,8 @@
           }
         },
         "performer": {
-          "description": "People presenting, leading a workshop etc. at the event",
+          "title": "Event.performer",
+          "description": "descriptions.Event.performer",
           "type": "array",
           "items": {
             "allOf": [
@@ -1736,23 +1986,35 @@
           }
         },
         "name": {
+          "title": "Event.name",
+          "description": "descriptions.Event.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Event.alternateName",
+          "description": "descriptions.Event.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
+          "title": "Event.description",
+          "description": "descriptions.Event.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "image": {
+          "title": "Event.image",
+          "description": "descriptions.Event.image",
           "type": "string",
           "format": "uri"
         },
         "url": {
+          "title": "Event.url",
+          "description": "descriptions.Event.url",
           "type": "string",
           "format": "uri"
         },
         "sameAs": {
+          "title": "Event.sameAs",
+          "description": "descriptions.Event.sameAs",
           "type": "array",
           "items": {
             "type": "string",
@@ -1760,6 +2022,8 @@
           }
         },
         "recordedIn": {
+          "title": "Event.recordedIn",
+          "description": "descriptions.Event.recordedIn",
           "type": "array",
           "items": {
             "type": "string",
@@ -1767,6 +2031,8 @@
           }
         },
         "inLanguage": {
+          "title": "Event.inLanguage",
+          "description": "descriptions.Event.inLanguage",
           "type": "array",
           "items": {
             "type": "string",
@@ -1774,16 +2040,20 @@
           }
         },
         "startDate": {
+          "title": "Event.startDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "endDate": {
+          "title": "Event.endDate",
+          "description": "descriptions.Event.endDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "location": {
           "$ref": "#/definitions/Place"
         },
         "mentionedIn": {
-          "description": "An article that mentions the event.",
+          "title": "Event.mentionedIn",
+          "description": "descriptions.Event.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -1793,15 +2063,21 @@
           }
         },
         "hashtag": {
+          "title": "Event.hashtag",
+          "description": "descriptions.Event.hashtag",
           "type": "string"
         },
         "keywords": {
+          "title": "Event.keywords",
+          "description": "descriptions.Event.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "about": {
+          "title": "Event.about",
+          "description": "descriptions.Event.about",
           "type": "array",
           "items": {
             "allOf": [
@@ -1820,7 +2096,8 @@
           }
         },
         "comment": {
-          "description": "A comment about the Event",
+          "title": "Event.comment",
+          "description": "descriptions.Event.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -1830,7 +2107,8 @@
           }
         },
         "attendee": {
-          "description": "People attending the event",
+          "title": "Event.attendee",
+          "description": "descriptions.Event.attendee",
           "type": "array",
           "items": {
             "allOf": [
@@ -1840,7 +2118,8 @@
           }
         },
         "publication": {
-          "description": "A publication of the Event",
+          "title": "Event.publication",
+          "description": "descriptions.Event.publication",
           "type": "array",
           "items": {
             "allOf": [
@@ -1850,6 +2129,8 @@
           }
         },
         "primarySector": {
+          "title": "Event.primarySector",
+          "description": "descriptions.Event.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1868,6 +2149,8 @@
           }
         },
         "secondarySector": {
+          "title": "Event.secondarySector",
+          "description": "descriptions.Event.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -1886,6 +2169,8 @@
           }
         },
         "award": {
+          "title": "Event.award",
+          "description": "descriptions.Event.award",
           "type": "array",
           "items": {
             "type": "string",
@@ -1929,25 +2214,35 @@
           }
         },
         "name": {
+          "title": "Product.name",
+          "description": "descriptions.Product.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Product.alternateName",
+          "description": "descriptions.Product.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "description": {
-          "description": "The description of the tool",
+          "title": "Product.description",
+          "description": "descriptions.Product.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "url": {
+          "title": "Product.url",
+          "description": "descriptions.Product.url",
           "type": "string",
           "format": "uri"
         },
         "image": {
+          "title": "Product.image",
+          "description": "descriptions.Product.image",
           "type": "string",
           "format": "uri"
         },
         "isRelatedTo": {
-          "description": "Services implemented using this Tool",
+          "title": "Product.isRelatedTo",
+          "description": "descriptions.Product.isRelatedTo",
           "type": "array",
           "items": {
             "allOf": [
@@ -1957,7 +2252,8 @@
           }
         },
         "manufacturer": {
-          "description": "The manufacturer of this tool",
+          "title": "Product.manufacturer",
+          "description": "descriptions.Product.manufacturer",
           "type": "array",
           "items": {
             "allOf": [
@@ -1967,13 +2263,16 @@
           }
         },
         "keywords": {
+          "title": "Product.keywords",
+          "description": "descriptions.Product.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "comment": {
-          "description": "A comment about the Tool",
+          "title": "Product.comment",
+          "description": "descriptions.Product.comment",
           "type": "array",
           "items": {
             "allOf": [
@@ -1983,6 +2282,8 @@
           }
         },
         "primarySector": {
+          "title": "Product.primarySector",
+          "description": "descriptions.Product.primarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -2001,6 +2302,8 @@
           }
         },
         "secondarySector": {
+          "title": "Product.secondarySector",
+          "description": "descriptions.Product.secondarySector",
           "type": "array",
           "items": {
             "allOf": [
@@ -2045,23 +2348,33 @@
           }
         },
         "duration": {
+          "title": "Grant.duration",
+          "description": "descriptions.Grant.duration",
           "type": "string"
         },
         "hasMonetaryValue": {
+          "title": "Grant.hasMonetaryValue",
+          "description": "descriptions.Grant.hasMonetaryValue",
           "type": "string"
         },
         "description": {
-          "description": "The description of the grant",
+          "title": "Grant.description",
+          "description": "descriptions.Grant.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "name": {
+          "title": "Grant.name",
+          "description": "descriptions.Grant.name",
           "$ref": "#/definitions/LocalizedString"
         },
         "alternateName": {
+          "title": "Grant.alternateName",
+          "description": "descriptions.Grant.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "isAwardedBy": {
-          "description": "An organization the grant is awarded by.",
+          "title": "Grant.isAwardedBy",
+          "description": "descriptions.Grant.isAwardedBy",
           "type": "array",
           "items": {
             "allOf": [
@@ -2071,10 +2384,13 @@
           }
         },
         "hasAwardDate": {
+          "title": "Grant.hasAwardDate",
+          "description": "descriptions.Grant.hasAwardDate",
           "$ref": "#/definitions/iso-8601-date"
         },
         "mentionedIn": {
-          "description": "An article that mentions the grant.",
+          "title": "Grant.mentionedIn",
+          "description": "descriptions.Grant.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
@@ -2084,13 +2400,16 @@
           }
         },
         "keywords": {
+          "title": "Grant.keywords",
+          "description": "descriptions.Grant.keywords",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "funds": {
-          "description": "The action being funded",
+          "title": "Grant.funds",
+          "description": "descriptions.Grant.funds",
           "type": "array",
           "items": {
             "allOf": [
@@ -2132,13 +2451,12 @@
             "className": "hidden"
           }
         },
-        "name": {
-          "$ref": "#/definitions/LocalizedString"
-        },
         "geo": {
+          "title": "Place.geo",
           "$ref": "#/definitions/GeoCoordinates"
         },
         "address": {
+          "title": "Place.address",
           "$ref": "#/definitions/PostalAddress"
         }
       },
@@ -2147,7 +2465,7 @@
     },
     "GeoCoordinates": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "GeoCoordinates",
+      "title": "ResourceIndex.GeoCoordinates.edit.geoCoordinates",
       "description": "A geographical coordinate",
       "type": "object",
       "properties": {
@@ -2167,9 +2485,11 @@
           }
         },
         "lat": {
+          "title": "GeoCoordinates.latitude",
           "type": "number"
         },
         "lon": {
+          "title": "GeoCoordinates.longitude",
           "type": "number"
         }
       },
@@ -2210,22 +2530,28 @@
           }
         },
         "streetAddress": {
+          "title": "PostalAddress.streetAddress",
           "type": "string"
         },
         "postalCode": {
+          "title": "PostalAddress.postalCode",
           "type": "string"
         },
         "postOfficeBoxNumber": {
+          "title": "PostalAddress.postOfficeBoxNumber",
           "type": "string"
         },
         "addressLocality": {
+          "title": "PostalAddress.addressLocality",
           "type": "string"
         },
         "addressRegion": {
+          "title": "PostalAddress.addressRegion",
           "type": "string",
           "translate": true
         },
         "addressCountry": {
+          "title": "PostalAddress.addressCountry",
           "$ref": "#/definitions/Country"
         }
       },
@@ -2263,6 +2589,7 @@
           }
         },
         "agent": {
+          "title": "LikeAction.agent",
           "description": "The agent of the like action",
           "type": "array",
           "items": {
@@ -2276,6 +2603,7 @@
           }
         },
         "object": {
+          "title": "LikeAction.object",
           "description": "The object of the like action",
           "type": "object",
           "allOf": [
@@ -2287,6 +2615,7 @@
           }
         },
         "startTime": {
+          "title": "LikeAction.startTime",
           "$ref": "#/definitions/iso-8601-date",
           "_display": {
             "className": "hidden"
@@ -2327,6 +2656,7 @@
           }
         },
         "agent": {
+          "title": "LighthouseAction.agent",
           "description": "The agent of the like action",
           "type": "array",
           "items": {
@@ -2340,6 +2670,7 @@
           }
         },
         "object": {
+          "title": "LighthouseAction.object",
           "description": "The object of the like action",
           "type": "object",
           "allOf": [
@@ -2351,9 +2682,12 @@
           }
         },
         "description": {
+          "title": "LighthouseAction.description",
+          "description": "descriptions.LighthouseAction.description",
           "$ref": "#/definitions/LocalizedText"
         },
         "startTime": {
+          "title": "LighthouseAction.startTime",
           "$ref": "#/definitions/iso-8601-date",
           "_display": {
             "className": "hidden"
@@ -2376,6 +2710,7 @@
             "type": "string"
           },
           "@language": {
+            "title": "LocalizedString.@language",
             "type": "string",
             "enum": ["de", "en"]
           }
@@ -2403,6 +2738,7 @@
             }
           },
           "@language": {
+            "title": "LocalizedText.@language",
             "type": "string",
             "enum": ["de", "en"]
           }

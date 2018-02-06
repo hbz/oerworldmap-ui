@@ -7,10 +7,10 @@ import withI18n from './withI18n'
 import '../styles/components/Share.pcss'
 
 const Share = ({_self, translate}) => (
-  <FullModal  className="Share">
-    <h2>{translate('Share this Resource')}</h2>
+  <FullModal className="Share">
+    <h2>{translate('share.shareResourc')}</h2>
     <div className="shareContent">
-      <span className="title">{translate('Permalink:')}</span>
+      <span className="title">{translate('share.permalink')}</span>
       <div className="content">{_self}</div>
     </div>
     <div>

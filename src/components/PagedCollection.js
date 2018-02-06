@@ -11,8 +11,8 @@ const PagedCollection = ({ translate, member, children }) => (
   <section className="PagedCollection pages">
     <div className="PagedCollectionHeader">
       <div className="counter">
-        {translate('PagedCollection.totalItems', { smart_count: member.length })},&nbsp;
-        {translate('PagedCollection.orderBy')}
+        {translate('ResourceIndex.index.results', { smart_count: member.length })},&nbsp;
+        {translate('ResourceIndex.index.orderedBy')}
         {children}
       </div>
       <DropdownButton />

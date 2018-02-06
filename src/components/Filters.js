@@ -138,7 +138,7 @@ class Filters extends React.Component {
                 type="search"
                 name="q"
                 defaultValue={this.props.query}
-                placeholder={`${this.props.translate('Filters.searchTheMap')}...`}
+                placeholder={`${this.props.translate('ResourceIndex.index.searchMap')}...`}
               />
 
               <Tooltip
@@ -249,14 +249,14 @@ class Filters extends React.Component {
                   }}
                 >
                   {this.state.extended
-                    ? this.props.translate("Filters.hideExtended")
-                    : this.props.translate("Filters.showMore")
+                    ? this.props.translate('ClientTemplates.filter.hide')
+                    : this.props.translate('ClientTemplates.filter.show')
                   }
                 </button>
               }
               <div className="clearFilter">
                 <button type="reset">
-                  {this.props.translate('Filters.clearFilters')}
+                  {this.props.translate('ClientTemplates.filter.clear')}
                 </button>
               </div>
 
@@ -271,14 +271,14 @@ class Filters extends React.Component {
               <select
                 name="sort"
                 className="styledSelect"
-                style={{width: (this.props.translate('Filters.relevance').length * 8)+15}}
+                style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
                 onChange={(evt) => {
                   evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
                   onSubmit(evt, this.props.emitter)
                 }}
               >
-                <option value="">{this.props.translate('Filters.relevance')}</option>
-                <option value="dateCreated:ASC">{this.props.translate('Filters.dateCreated')}</option>
+                <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
               </select>
 
               <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
