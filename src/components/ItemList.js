@@ -10,7 +10,7 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, moment, emitter, listItems }) => (
+const ItemList = ({ translate, emitter, listItems }) => (
   <ul className="linedList ItemList" >
     {listItems.map(listItem => (
       <li
@@ -60,7 +60,6 @@ const ItemList = ({ translate, moment, emitter, listItems }) => (
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
-  moment: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
 }

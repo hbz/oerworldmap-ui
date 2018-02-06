@@ -2,11 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import withI18n from './withI18n'
-import { formatURL, obfuscate } from '../common'
+import { formatURL/*, obfuscate*/ } from '../common'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
-import Icon from './Icon'
 
 import '../styles/components/WebpageView.pcss'
 
@@ -229,9 +228,11 @@ const WebpageView = ({translate, about, lighthouses}) => (
 
         {about.isFundedBy &&
           <Block className="asideList" title={translate(`${about['@type']}.isFundedBy`)}>
-            <ItemList listItems={
-              [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
-            } />
+            <ItemList
+              listItems={
+                [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
+              }
+            />
           </Block>
         }
 
@@ -249,24 +250,23 @@ const WebpageView = ({translate, about, lighthouses}) => (
 
         {about.awards &&
           <Block className="asideList" title={translate(`${about['@type']}.funds`)}>
-            <ItemList listItems={
-              [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
-            } />
+            <ItemList
+              listItems={
+                [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+              }
+            />
           </Block>
         }
 
-        {
-          ['hasPart', 'isPartOf', 'member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
+        {['hasPart', 'isPartOf', 'member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
           'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
           'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
-          'isRelatedTo', 'primarySector', 'secondarySector'
-          ].map(prop => (
-            about[prop] &&
-            <Block className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-              <ItemList listItems={about[prop] || []} />
-            </Block>
-          ))
-        }
+          'isRelatedTo', 'primarySector', 'secondarySector'].map(prop => (
+          about[prop] &&
+          <Block className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <ItemList listItems={about[prop] || []} />
+          </Block>
+        ))}
 
       </aside>
     </div>
