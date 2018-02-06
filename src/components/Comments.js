@@ -32,7 +32,7 @@ const deleteComment = (id, emitter, e) => {
 const Comments = ({moment, translate, emitter, id, comments}) => (
   <div className="Comments">
     {comments.length > 0 && <h2>Comments</h2>}
-    {comments.map(comment => (
+    {comments.filter(comment => comment.author && comment.text).map(comment => (
       <div className="Comment" key={comment['@id']}>
         <p>
           <small>
