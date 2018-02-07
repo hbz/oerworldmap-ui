@@ -264,7 +264,11 @@ const WebPage = ({
 
             <ResourceTable value={about} schema={schema} />
 
-            <Comments comments={about['comment']} id={about['@id']} />
+            <Comments
+              comments={about['comment']}
+              id={about['@id']}
+              user={user}
+            />
 
             { user &&
             view === 'addLighthouse' &&
