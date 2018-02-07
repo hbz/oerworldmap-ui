@@ -120,7 +120,9 @@ const WebpageView = ({translate, about, lighthouses}) => (
           <Block title={translate(`${about['@type']}.email`)}>
             {/* FIXME: Find a way to set raw attribute value */}
             {/* <a href={`mailto:${obfuscate(about.email)}`}>{obfuscate(about.email)}</a> */}
-            <a href={`mailto:${about.email}`}>{about.email}</a>
+            <p>
+              <a href={`mailto:${about.email}`}>{about.email}</a>
+            </p>
           </Block>
         }
 

@@ -18,37 +18,55 @@
   & .webpageColumn {
     max-width: 30%;
     margin-left: 20px;
+    flex-basis: 400px;
 
     & .asideList {
-      & > h3 {
-        border-bottom: 1px solid var(--grey-light);
-        padding: 10px 0;
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-      }
 
-      & > ul {
+      & ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         padding-left: 5px;
 
-        & li {
-          margin-bottom: 10px;
+        &.commaSeparatedList {
+          display: inline;
+	        padding: 0;
 
-          a {
-            color: var(--blue-dark);
+          & li {
+            display: inline;
+            padding: 0;
+
+            &::before {
+              content: " & ";
+            }
+
+            &:first-child::before {
+              content: "";
+            }
+          }
+        }
+
+        &.linedList li {
+          padding-bottom: 10px;
+
+          & a {
+            display: flex;
+            align-items: center;
           }
 
-          & > i {
+          & i {
             border: 1px solid var(--blue);
             padding: 12px;
             border-radius: 50%;
             font-size: 1.1rem;
             margin-right: 5px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
         }
-
       }
     }
   }

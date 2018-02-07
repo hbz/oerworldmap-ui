@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import '../styles/components/Block.pcss'
+
 class Block extends React.Component {
 
   constructor(props) {
@@ -14,7 +16,7 @@ class Block extends React.Component {
     return (
       <div className={`Block ${this.props.className}`}>
         <h3>
-          {this.props.title}
+          <span>{this.props.title}</span>
           {this.props.collapsible &&
             <button
               className="btn"
