@@ -140,10 +140,18 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         {about.location && about.location.address &&
           <Block title={translate(`${about['@type']}.location`)}>
             <p>
-              {about.location.address.streetAddress} <br />
-              {about.location.address.postalCode} {about.location.address.addressLocality} <br />
-              {translate(about.location.address.addressRegion)} <br />
-              {translate(about.location.address.addressCountry)}
+              {about.location.address.streetAddress &&
+                [about.location.address.streetAddress, <br />]
+              }
+              {(about.location.address.postalCode || about.location.address.addressLocality) &&
+                [about.location.address.postalCode, about.location.address.addressLocality, <br />]
+              }
+              {about.location.address.addressRegion &&
+                [translate(about.location.address.addressRegion), <br />]
+              }
+              {about.location.address.addressCountry &&
+                translate(about.location.address.addressCountry)
+              }
             </p>
           </Block>
         }
