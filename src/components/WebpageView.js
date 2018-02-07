@@ -126,6 +126,17 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
+        {about.availableChannel &&
+          <Block title={translate('Available languages')}>
+            {about.availableChannel.map(item => (
+              item.availableLanguage &&
+              <p>
+                {translate(item.availableLanguage[0])}
+              </p>
+            ))}
+          </Block>
+        }
+
         {about.location && about.location.address &&
           <Block title={translate(`${about['@type']}.location`)}>
             <p>
