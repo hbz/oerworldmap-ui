@@ -52,7 +52,7 @@ class DropdownFilter extends React.Component {
           tabIndex="0"
           role="button"
         >
-          {`${this.props.translate(bucket.key)} (${bucket.doc_count})`}
+          {`${this.props.translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
         </label>
       </li>
     ))
@@ -80,7 +80,7 @@ class DropdownFilter extends React.Component {
               <i className={`fa fa-${this.props.icon}`} />
             ) : (
               this.props.filters.join(', ')
-              || this.props.translate(`Dropdown${this.props.filterName}`)
+              || this.props.translate(this.props.filterName)
             )}
           </span>
         </span>
