@@ -144,7 +144,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
                 [about.location.address.streetAddress, <br />]
               }
               {(about.location.address.postalCode || about.location.address.addressLocality) &&
-                [about.location.address.postalCode, about.location.address.addressLocality, <br />]
+                [about.location.address.postalCode, <span>&nbsp;</span>, about.location.address.addressLocality, <br />]
               }
               {about.location.address.addressRegion &&
                 [translate(about.location.address.addressRegion), <br />]
