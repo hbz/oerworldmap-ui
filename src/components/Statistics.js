@@ -83,7 +83,7 @@ const Statistics = ({translate, aggregations, emitter}) => (
             <ul>
               {aggregations[aggregation].buckets.map(bucket => (
                 <li key={bucket.key}>
-                  <Link href={`/resource/?${aggregation}=${bucket.key}`}>
+                  <Link href={`/resource/?filter.${aggregation}=${encodeURIComponent(bucket.key)}`}>
                     <span
                       className="color"
                       style={{backgroundColor: color(bucket.doc_count)}}

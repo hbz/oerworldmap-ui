@@ -50,11 +50,11 @@ export const getURL = (route) => {
   let url = route.path
   let params = []
   for (const param in route.params) {
-    const value = encodeURIComponent(route.params[param])
+    const value = route.params[param]
     if (Array.isArray(value)) {
-      value && (params = params.concat(value.map(value => `${param}=${value}`)))
+      value && (params = params.concat(value.map(value => `${param}=${encodeURIComponent(value)}`)))
     } else {
-      value && params.push(`${param}=${value}`)
+      value && params.push(`${param}=${encodeURIComponent(value)}`)
     }
   }
   if (params) {
