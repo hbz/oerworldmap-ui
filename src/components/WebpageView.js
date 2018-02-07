@@ -9,7 +9,7 @@ import Link from './Link'
 
 import '../styles/components/WebpageView.pcss'
 
-const WebpageView = ({translate, about, lighthouses}) => (
+const WebpageView = ({translate, moment, about, lighthouses}) => (
   <div className="WebpageView">
 
     {about.sameAs &&
@@ -165,7 +165,19 @@ const WebpageView = ({translate, about, lighthouses}) => (
 
         {about.startTime &&
           <Block className="asideList" title={translate(`${about['@type']}.startTime`)}>
-            {about.startTime} {about.endTime && ` - ${about.endTime}`}
+            {about.startTime.includes('T00:00:00')
+              ? moment(about.startTime).format('LL')
+              : moment(about.startTime).format('LLL')}
+            {about.endTime && ` - ${about.endTime.includes('T00:00:00')
+              ? moment(about.endTime).format('LL')
+              : moment(about.endTime).format('LLL')}`}
+          </Block>
+        }
+
+        {about.startDate &&
+          <Block className="asideList" title={translate(`${about['@type']}.startDate`)}>
+            {moment(about.startDate).format('LL')}
+            {about.endDate && ` - ${moment(about.startDate).format('LL')}`}
           </Block>
         }
 
