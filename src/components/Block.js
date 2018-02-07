@@ -22,7 +22,7 @@ class Block extends React.Component {
               className="btn"
               onClick={() => this.setState({collapsed: !this.state.collapsed})}
             >
-              {this.state.collapsed ? '+' : '-'}
+              <i className={`fa fa-${this.state.collapsed ? 'plus' : 'minus'}`} />
             </button>
           }
         </h3>
