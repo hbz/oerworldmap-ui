@@ -65,14 +65,14 @@ const Statistics = ({translate, aggregations, emitter}) => (
       <div className="links">
         {charts.map(aggregation => (
           <Link key={aggregation} href={`#${aggregation}`}>
-            {translate(`Statistics.${aggregation}`)}
+            {translate(aggregation)}
           </Link>
         ))}
       </div>
       {charts.map(aggregation => (
         aggregations[aggregation] &&
           <div className="chartContainer" key={aggregation} id={aggregation}>
-            <h2>{translate(`Statistics.${aggregation}`)}</h2>
+            <h2>{translate(aggregation)}</h2>
             <div className="graph">
               <PieChart
                 emitter={emitter}
