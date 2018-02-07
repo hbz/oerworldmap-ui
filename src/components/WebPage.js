@@ -56,14 +56,11 @@ const WebPage = ({
   ) || []
   const lighthouse = lighthouses.find(action =>
     action.agent.some(agent => user && agent['@id'] === user.id)
-  ) || user ? {
+  ) || ( user ? {
       '@type': 'LighthouseAction',
       'object': about,
-      'agent': [{
-        '@id': user.id,
-        '@type': 'Person'
-      }]
-    } : null
+      'agent': [{ '@id': user.id, '@type': 'Person' }]
+    } : null )
 
   const likes = (about.objectIn || []).filter(action =>
     action['@type'] === 'LikeAction'
