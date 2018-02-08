@@ -5,7 +5,7 @@ import { Composer } from 'json-pointer-form'
 
 import Icon from './Icon'
 import Link from './Link'
-import translate from './translate'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
@@ -20,7 +20,7 @@ const getLabel = (translate, value) => {
       </span>
     )
   } else {
-    return translate(`properties.${value}`)
+    return translate(value)
   }
 }
 
@@ -62,7 +62,7 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
       submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
       getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
       getLabel={value => getLabel(translate, value)}
-      submitLabel={translate('properties.submitLabel')}
+      submitLabel={translate('publish')}
     />
   </div>
 )
@@ -79,4 +79,4 @@ Comments.defaultProps = {
   comments: []
 }
 
-export default translate(withEmitter(Comments))
+export default withI18n(withEmitter(Comments))

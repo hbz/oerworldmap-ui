@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import '../styles/components/Password.pcss'
@@ -12,14 +12,14 @@ const Password = ({translate, emitter}) => (
   <div className="Password">
     <FullModal>
       <div>
-        <h2>{translate('Password.changePassword')}</h2>
-        <p>{translate('Password.info')}.</p>
+        <h2>{translate('UserIndex.password.changePassword')}</h2>
+        <p>{translate('UserIndex.password.message')}</p>
         <Composer
           value={{'@type': 'ChangePasswordAction'}}
           schema={schema}
           submit={data => emitter.emit('submit', {url: '/user/password/change', data})}
-          getLabel={value => translate(`Password.${value}`)}
-          submitLabel={translate('Password.setPassword')}
+          getLabel={value => translate(value)}
+          submitLabel={translate('UserIndex.password.setPassword')}
         />
       </div>
     </FullModal>
@@ -31,4 +31,4 @@ Password.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(translate(Password))
+export default withEmitter(withI18n(Password))

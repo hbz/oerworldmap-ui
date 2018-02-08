@@ -2,15 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import FullModal from './FullModal'
-import translate from './translate'
+import withI18n from './withI18n'
 
 import '../styles/components/Share.pcss'
 
 const Share = ({_self, translate}) => (
-  <FullModal  className="Share">
-    <h2>{translate('Share this Resource')}</h2>
+  <FullModal className="Share">
+    <h2>{translate('share.shareResourc')}</h2>
     <div className="shareContent">
-      <span className="title">{translate('Permalink:')}</span>
+      <span className="title">{translate('share.permalink')}</span>
       <div className="content">{_self}</div>
     </div>
     <div>
@@ -35,4 +35,4 @@ Share.propTypes = {
   translate: PropTypes.func.isRequired
 }
 
-export default translate(Share)
+export default withI18n(Share)

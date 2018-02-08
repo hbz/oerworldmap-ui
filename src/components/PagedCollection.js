@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import DropdownButton from './DropdownButton'
 
 import '../styles/components/PagedCollection.pcss'
@@ -11,8 +11,8 @@ const PagedCollection = ({ translate, member, children }) => (
   <section className="PagedCollection pages">
     <div className="PagedCollectionHeader">
       <div className="counter">
-        {translate('PagedCollection.totalItems', { smart_count: member.length })},&nbsp;
-        {translate('PagedCollection.orderBy')}
+        {translate('ResourceIndex.index.results', { smart_count: member.length })},&nbsp;
+        {translate('ResourceIndex.index.orderedBy')}
         {children}
       </div>
       <DropdownButton />
@@ -25,4 +25,4 @@ PagedCollection.propTypes = {
   member: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
-export default translate(PagedCollection)
+export default withI18n(PagedCollection)

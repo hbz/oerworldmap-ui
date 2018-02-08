@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import translate from './translate'
+import withI18n from './withI18n'
 import Link from './Link'
 import { triggerClick } from '../common'
 
@@ -37,14 +37,14 @@ class ActionButtons extends React.Component {
 
       <div className="ActionButtons">
         {this.props.user &&
-          <Link href="/user/groups" title={this.props.translate('ActionButtons.groups')}>
+          <Link href="/user/groups" title={this.props.translate('ClientTemplates.app.groups')}>
             <i className="fa fa-gear" />
           </Link>
         }
 
         {this.props.user &&
           <div
-            title={this.props.translate('ActionButtons.addEntry')}
+            title={this.props.translate('ClientTemplates.app.add')}
             tabIndex="0"
             role="button"
             onClick={() => this.setState({showAddMenu:!this.state.showAddMenu})}
@@ -68,13 +68,13 @@ class ActionButtons extends React.Component {
 
               <li>
                 <Link href="#addProject">
-                  + {this.props.translate('Project')} <i className="fa fa-gears" />
+                  + {this.props.translate('Action')} <i className="fa fa-gears" />
                 </Link>
               </li>
 
               <li>
                 <Link href="#addStory">
-                  + {this.props.translate('Story')} <i className="fa fa-comment" />
+                  + {this.props.translate('Article')} <i className="fa fa-comment" />
                 </Link>
               </li>
 
@@ -86,13 +86,13 @@ class ActionButtons extends React.Component {
 
               <li>
                 <Link href="#addPublication">
-                  + {this.props.translate('Publication')} <i className="fa fa-book" />
+                  + {this.props.translate('WebPage')} <i className="fa fa-book" />
                 </Link>
               </li>
 
               <li>
                 <Link href="#addTool">
-                  + {this.props.translate('Tool')} <i className="fa fa-folder" />
+                  + {this.props.translate('Product')} <i className="fa fa-folder" />
                 </Link>
               </li>
 
@@ -100,22 +100,22 @@ class ActionButtons extends React.Component {
           </div>
         }
 
-        <Link href="/aggregation/" title={this.props.translate('ActionButtons.statistics')}>
+        <Link href="/aggregation/" title={this.props.translate('ClientTemplates.app.statistics')}>
           <i className="fa fa-pie-chart" />
         </Link>
 
-        <Link href="/feed/" title={this.props.translate('ActionButtons.recentAdditions')}>
+        <Link href="/feed/" title={this.props.translate('ClientTemplates.app.recentAdditions')}>
           <i className="fa fa-rss" />
         </Link>
         <Link
           href="?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC"
-          title={this.props.translate('ActionButtons.liked')}
+          title={this.props.translate('ClientTemplates.app.likes')}
         >
           <i className="fa fa-thumbs-up" />
         </Link>
         <Link
           href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC"
-          title={this.props.translate('ActionButtons.lighthouse')}
+          title={this.props.translate('ClientTemplates.app.lighthouses')}
         >
           <img
             src='/assets/icon_lighthouse_static_transparent.svg'
@@ -137,4 +137,4 @@ ActionButtons.defaultProps = {
   user: null,
 }
 
-export default translate(ActionButtons)
+export default withI18n(ActionButtons)

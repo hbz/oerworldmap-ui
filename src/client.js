@@ -26,6 +26,7 @@ import Api from './api'
     const api = new Api(context.apiConfig)
 
     let referrer = window.location.href
+    let back = referrer
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
@@ -38,6 +39,7 @@ import Api from './api'
         && document.getElementById(window.location.hash.replace('#', ''))
         && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
       document.title = title
+      back = referrer
       referrer = window.location.href
     }
 
@@ -45,11 +47,17 @@ import Api from './api'
     emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
     emitter.on('navigate', url => {
-      const parser = document.createElement('a')
-      parser.href = url
-      if (parser.href !== window.location.href) {
-        window.history.pushState(null, null, url)
-        window.dispatchEvent(new window.PopStateEvent('popstate'))
+      if (url === '__back__' && referrer === back) {
+        emitter.emit('navigate', '/resource/')
+      } else if (url === '__back__') {
+        window.history.back()
+      } else {
+        const parser = document.createElement('a')
+        parser.href = url
+        if (parser.href !== window.location.href) {
+          window.history.pushState(null, null, url)
+          window.dispatchEvent(new window.PopStateEvent('popstate'))
+        }
       }
     })
     // Find data from the API

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from './Link'
-import translate from './translate'
+import withI18n from './withI18n'
 import FullModal from './FullModal'
 import '../styles/components/Feed.pcss'
 import Icon from './Icon'
@@ -10,7 +10,7 @@ const Feed = ({translate, member}) => (
   <div className="Feed">
     <FullModal>
       <h2 className="title">
-        {translate('Feed.title')}
+        {translate('ResourceIndex.feed.recentAdditions')}
       </h2>
       <ul className="list">
         {member.map(item => (
@@ -23,7 +23,7 @@ const Feed = ({translate, member}) => (
         ))}
       </ul>
       <div className="more">
-        <Link href="/resource/?size=20&sort=dateCreated:desc" >{translate('Feed.more')}</Link>
+        <Link href="/resource/?size=20&sort=dateCreated:desc" >{translate('ResourceIndex.feed.more')}</Link>
       </div>
     </FullModal>
   </div>
@@ -34,4 +34,4 @@ Feed.propTypes = {
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
-export default translate(Feed)
+export default withI18n(Feed)

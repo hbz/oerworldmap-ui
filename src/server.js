@@ -4,10 +4,13 @@ import express from 'express'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import fs from 'fs'
+
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import router from './router'
 import Api from './api'
+import { parseProperties } from './common'
 
 import Config, { mapboxConfig, apiConfig } from '../config'
 
@@ -59,10 +62,28 @@ server.use(function (req, res, next) {
   }
 })
 
+// I18n configuration
+const supportedLanguages = [ 'en', 'de' ]
+const defaultLanguage = 'en'
+const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels', 'descriptions']
+const i18ns = {}
+supportedLanguages.map(language => {
+  const i18n = {}
+  bundles.map(bundle => {
+    const basename = language === defaultLanguage ? bundle : `${bundle}_${language}`
+    const properties = parseProperties(fs.readFileSync(`./src/locale/${basename}.properties`, 'utf8'))
+    //FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
+    if (bundle === 'descriptions') {
+      i18n['descriptions'] = properties
+    } else {
+      Object.assign(i18n, properties)
+    }
+  })
+  i18ns[language] = i18n
+})
+
 // Middleware to extract locales
 server.use(function (req, res, next) {
-  const defaultLanguage = 'en'
-  const supportedLanguages = [ 'en', 'de', 'es' ]
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
     : [defaultLanguage]
@@ -79,13 +100,14 @@ server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
-  const context = { locales, authorization, user, mapboxConfig }
+  const phrases = i18ns[locales[0]]
+  const context = { locales, authorization, user, mapboxConfig, phrases }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err})
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title
     }))

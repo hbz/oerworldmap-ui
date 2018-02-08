@@ -11,7 +11,7 @@ class I18nProvider extends React.Component {
 
     this.polyglot = new Polyglot({
       locale: locales[0],
-      phrases: require(`../locale/${locales[0]}.json`),
+      phrases: this.props.phrases,
       warn: () => {}
     })
 
@@ -43,6 +43,7 @@ I18nProvider.childContextTypes = {
 I18nProvider.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default I18nProvider

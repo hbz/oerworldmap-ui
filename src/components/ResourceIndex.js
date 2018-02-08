@@ -10,7 +10,7 @@ import ItemList from './ItemList'
 import Pagination from './Pagination'
 import FullModal from './FullModal'
 import schema from '../json/schema.json'
-import translate from './translate'
+import withI18n from './withI18n'
 import Icon from './Icon'
 import Export from './Export'
 import Share from './Share'
@@ -28,7 +28,7 @@ const getLabel = (translate, value) => {
       </span>
     )
   } else {
-    return translate(`properties.${value}`)
+    return translate(value)
   }
 }
 
@@ -102,7 +102,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -117,7 +117,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -132,7 +132,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -147,7 +147,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -162,7 +162,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -177,7 +177,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -192,7 +192,7 @@ const ResourceIndex = ({
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('properties.submitLabel')}
+          submitLabel={translate('publish')}
         />
       </FullModal>
     }
@@ -247,4 +247,4 @@ ResourceIndex.defaultProps = {
 
 
 
-export default withEmitter(translate(ResourceIndex))
+export default withEmitter(withI18n(ResourceIndex))

@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import Link from './Link'
 import FullModal from './FullModal'
 import withEmitter from './withEmitter'
@@ -12,7 +12,7 @@ const Groups = ({translate, emitter, groups, users, _status}) => (
   <div className="Groups">
     <FullModal>
       <div>
-        <h2>{translate('Groups.editGroups')}</h2>
+        <h2>{translate('UserIndex.groups.title')}</h2>
         <p>{_status}</p>
         <form
           onSubmit={(e) => {
@@ -89,4 +89,4 @@ Groups.defaultProps = {
   _status: null,
 }
 
-export default withEmitter(translate(Groups))
+export default withEmitter(withI18n(Groups))

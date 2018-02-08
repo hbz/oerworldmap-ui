@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import translate from './translate'
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
@@ -92,7 +92,7 @@ class DropdownFilter extends React.Component {
           <div className="searchContainer">
             <input
               type="submit"
-              value={this.props.translate('Apply Filter')}
+              value={this.props.translate('ClientTemplates.filter-dropdown.applyFilter')}
               onClick={evt => {
                 evt.preventDefault()
                 this.setState({search: ''})
@@ -112,7 +112,7 @@ class DropdownFilter extends React.Component {
               : (
                 <li>
                   <label>
-                    {this.props.translate('Nothing Found')}
+                    {this.props.translate('ClientTemplates.filter-dropdown.noResults')}
                   </label>
                 </li>
               )}
@@ -137,4 +137,4 @@ DropdownFilter.defaultProps = {
   icon: null,
 }
 
-export default withEmitter(translate(DropdownFilter))
+export default withEmitter(withI18n(DropdownFilter))

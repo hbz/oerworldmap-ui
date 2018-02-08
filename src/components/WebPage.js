@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { Composer } from 'json-pointer-form'
 
-import translate from './translate'
+import withI18n from './withI18n'
 import Metadata from './Metadata'
 import { formatURL } from '../common'
 import Link from './Link'
@@ -33,7 +33,7 @@ const getLabel = (translate, value) => {
       </span>
     )
   } else {
-    return translate(`properties.${value}`)
+    return translate(value)
   }
 }
 
@@ -49,7 +49,8 @@ const WebPage = ({
   view,
   geo,
   _links,
-  _self
+  _self,
+  mapboxConfig
 }) => {
 
   const lighthouses = (about.objectIn || []).filter(action =>
@@ -93,9 +94,7 @@ const WebPage = ({
   }
 
   const closeResource = () => {
-    window.history.length
-      ? window.history.back()
-      : emitter.emit('navigate', '/resource/')
+    emitter.emit('navigate', '__back__')
   }
 
   return (
@@ -169,7 +168,7 @@ const WebPage = ({
                 JSON.stringify(geo))})/${(Array.isArray(geo.geometry.coordinates[0])
                 ? `${geo.geometry.coordinates[0][0]-1},${geo.geometry.coordinates[0][1]}`
                 : `${geo.geometry.coordinates[0]-1},${geo.geometry.coordinates[1]}`)
-              },7/800x245@2x?access_token=pk.eyJ1IjoiZG9ibGFkb3YiLCJhIjoiZjNhUDEzayJ9.1W8QaiWprorgwehETGK8bw")`
+              },7/800x245@2x?access_token=${mapboxConfig.token}")`
               : ''
           }}
         >
@@ -199,7 +198,7 @@ const WebPage = ({
               submit={data => emitter.emit('submit', {url: `/resource/${about['@id']}`, data})}
               getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
               getLabel={value => getLabel(translate, value)}
-              submitLabel={translate('properties.submitLabel')}
+              submitLabel={translate('publish')}
             />
           </div>
 
@@ -280,7 +279,7 @@ const WebPage = ({
                   submit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
                   getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
                   getLabel={value => getLabel(translate, value)}
-                  submitLabel={translate('properties.submitLabel')}
+                  submitLabel={translate('publish')}
                 />
               </FullModal>
             }
@@ -313,7 +312,14 @@ WebPage.propTypes = {
   geo: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
-  _links: PropTypes.objectOf(PropTypes.any)
+  _links: PropTypes.objectOf(PropTypes.any),
+  mapboxConfig: PropTypes.shape(
+    {
+      token: PropTypes.string,
+      style: PropTypes.string,
+      miniMapStyle: PropTypes.string,
+    }
+  ).isRequired,
 }
 
 WebPage.defaultProps = {
@@ -322,4 +328,4 @@ WebPage.defaultProps = {
   _links: { refs: [] }
 }
 
-export default withEmitter(translate(WebPage))
+export default withEmitter(withI18n(WebPage))
