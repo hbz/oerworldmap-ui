@@ -32,43 +32,43 @@ const deleteComment = (id, emitter, e) => {
 const Comments = ({moment, translate, emitter, id, comments, user}) => (
   <div className="Comments">
 
+    {comments.length > 0 && <h2>Comments</h2>}
+    {comments.filter(comment => comment.author && comment.text).map(comment => (
+      <div className="Comment" key={comment['@id']}>
+        <p>
+          <small>
+            {comment.author.map(author => (
+              <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
+                {translate(author.name)}
+              </Link>)
+            )}
+            &nbsp; {moment(comment.dateCreated).fromNow()}
+          </small>
+        </p>
+        <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
+          <button className="btn" type="submit" title="Delete">
+            <i className="fa fa-fw fa-trash" />
+          </button>
+        </form>
+        <ReactMarkdown source={translate(comment.text)} />
+      </div>
+    ))}
     {user &&
       <div>
-        {comments.length > 0 && <h2>Comments</h2>}
-        {comments.filter(comment => comment.author && comment.text).map(comment => (
-          <div className="Comment" key={comment['@id']}>
-            <p>
-              <small>
-                {comment.author.map(author => (
-                  <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                    {translate(author.name)}
-                  </Link>)
-                )}
-                &nbsp; {moment(comment.dateCreated).fromNow()}
-              </small>
-            </p>
-            <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
-              <button className="btn" type="submit" title="Delete">
-                <i className="fa fa-fw fa-trash" />
-              </button>
-            </form>
-            <ReactMarkdown source={translate(comment.text)} />
-          </div>
-        ))}
+        <h2>Comment</h2>
+        <Composer
+          value={{
+            '@type': 'Comment',
+            'text': [{ '@language': 'en' }]
+          }}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('publish')}
+        />
       </div>
     }
-    <h2>Comment</h2>
-    <Composer
-      value={{
-        '@type': 'Comment',
-        'text': [{ '@language': 'en' }]
-      }}
-      schema={schema}
-      submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
-      getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-      getLabel={value => getLabel(translate, value)}
-      submitLabel={translate('publish')}
-    />
   </div>
 )
 
