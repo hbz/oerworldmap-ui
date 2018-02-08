@@ -27,17 +27,9 @@ const ItemList = ({ translate, emitter, listItems }) => (
           overlay={
             <div>
               <b>{translate(listItem.name) || listItem['@id']}</b>
-              {listItem.description ?
-                (
-                  <ReactMarkdown
-                    escapeHtml={false}
-                    source={translate(listItem.description).length
-                      ? translate(listItem.description)
-                      : translate(listItem.description)
-                    }
-                  />
-                )
-                : (<p>No description available</p>)
+              {listItem.description
+                ? <ReactMarkdown escapeHtml={false} source={translate(listItem.description)} />
+                : <p>No description available</p>
               }
             </div>
           }
@@ -46,7 +38,7 @@ const ItemList = ({ translate, emitter, listItems }) => (
           overlayClassName="itemListTooltip"
         >
           <div>
-            <Link className="item" href={'/resource/' + listItem['@id']}>
+            <Link className="item" href={`/resource/${listItem['@id']}`}>
               <Icon type={listItem['@type']} />
               <span>{translate(listItem.name) || listItem['@id']}</span>
             </Link>
