@@ -41,8 +41,10 @@ class MiniMap extends React.Component {
         "type": "circle",
         "source": "points",
         "paint": {
-          "circle-radius": 10,
-          "circle-color": "#3887be"
+          "circle-radius": 7,
+          "circle-color": "#FF882F",
+          "circle-stroke-width": 1,
+          "circle-stroke-color": "white"
         }
       })
 
