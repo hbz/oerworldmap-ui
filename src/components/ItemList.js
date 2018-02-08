@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import ReactMarkdown from 'react-markdown'
+import urlTemplate from 'url-template'
+
 import Icon from './Icon'
 import Link from './Link'
-import urlTemplate from 'url-template'
 
 import '../styles/components/ItemList.pcss'
 

@@ -6,6 +6,7 @@ import { formatURL/*, obfuscate*/ } from '../common'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
+import ConceptTree from './ConceptTree'
 
 import '../styles/components/WebpageView.pcss'
 
@@ -168,17 +169,23 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {/* TODO: write component to show about.about and about.audience hierarchie */}
-
         {about.about &&
           <Block className="asideList" title={translate(`${about['@type']}.about`)}>
-            <ItemList listItems={about.about} />
+            <ConceptTree
+              concepts={require('../json/esc.json').hasTopConcept}
+              include={about.about.map(concept => concept['@id'])}
+              className="linedList ItemList"
+            />
           </Block>
         }
 
         {about.audience &&
           <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
-            <ItemList listItems={about.audience} />
+            <ConceptTree
+              concepts={require('../json/isced-1997.json').hasTopConcept}
+              include={about.audience.map(concept => concept['@id'])}
+              className="linedList ItemList"
+            />
           </Block>
         }
 
@@ -333,7 +340,11 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         {['primarySector', 'secondarySector'].map(prop => (
           about[prop] &&
           <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-            <ItemList listItems={about[prop]} linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`} />
+            <ConceptTree
+              concepts={require('../json/sectors.json').hasTopConcept}
+              include={about[prop].map(concept => concept['@id'])}
+              className="linedList ItemList"
+            />
           </Block>
         ))}
 
