@@ -13,7 +13,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
       return (
         <Tooltip
           key={bucket.key}
-          overlay={translate(bucket.key)}
+          overlay={translate(bucket.label || bucket.key)}
           placement="top"
           overlayClassName="tooltipDisableEvents"
         >
@@ -38,7 +38,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
               role="button"
               tabIndex="0"
               htmlFor={"type:" + bucket.key}
-              aria-label={translate(bucket.key)}
+              aria-label={translate(bucket.label || bucket.key)}
               className="btn"
             >
               <Icon type={bucket.key} />

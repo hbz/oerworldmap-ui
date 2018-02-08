@@ -29,29 +29,34 @@ const deleteComment = (id, emitter, e) => {
   emitter.emit('delete', {url: `/resource/${id}`})
 }
 
-const Comments = ({moment, translate, emitter, id, comments}) => (
+const Comments = ({moment, translate, emitter, id, comments, user}) => (
   <div className="Comments">
-    {comments.length > 0 && <h2>Comments</h2>}
-    {comments.filter(comment => comment.author && comment.text).map(comment => (
-      <div className="Comment" key={comment['@id']}>
-        <p>
-          <small>
-            {comment.author.map(author => (
-              <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                {translate(author.name)}
-              </Link>)
-            )}
-            &nbsp; {moment(comment.dateCreated).fromNow()}
-          </small>
-        </p>
-        <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
-          <button type="submit" title="Delete">
-            <i className="fa fa-fw fa-trash" />
-          </button>
-        </form>
-        <ReactMarkdown escapeHtml={false} source={translate(comment.text)} />
+
+    {user &&
+      <div>
+        {comments.length > 0 && <h2>Comments</h2>}
+        {comments.filter(comment => comment.author && comment.text).map(comment => (
+          <div className="Comment" key={comment['@id']}>
+            <p>
+              <small>
+                {comment.author.map(author => (
+                  <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
+                    {translate(author.name)}
+                  </Link>)
+                )}
+                &nbsp; {moment(comment.dateCreated).fromNow()}
+              </small>
+            </p>
+            <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
+              <button className="btn" type="submit" title="Delete">
+                <i className="fa fa-fw fa-trash" />
+              </button>
+            </form>
+            <ReactMarkdown source={translate(comment.text)} />
+          </div>
+        ))}
       </div>
-    ))}
+    }
     <h2>Comment</h2>
     <Composer
       value={{
@@ -72,11 +77,13 @@ Comments.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   id: PropTypes.string.isRequired,
-  comments: PropTypes.arrayOf(PropTypes.any)
+  comments: PropTypes.arrayOf(PropTypes.any),
+  user: PropTypes.objectOf(PropTypes.any),
 }
 
 Comments.defaultProps = {
-  comments: []
+  comments: [],
+  user: null,
 }
 
 export default withI18n(withEmitter(Comments))
