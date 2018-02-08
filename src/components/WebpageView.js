@@ -127,7 +127,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         }
 
         {about.availableChannel &&
-          <Block title={translate('Available languages')}>
+          <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
             {about.availableChannel.map(item => (
               item.availableLanguage &&
               <p key={item.availableLanguage[0]}>
@@ -141,13 +141,13 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           <Block title={translate(`${about['@type']}.location`)}>
             <p>
               {about.location.address.streetAddress &&
-                [about.location.address.streetAddress, <br />]
+                [about.location.address.streetAddress, <br key="br" />]
               }
               {(about.location.address.postalCode || about.location.address.addressLocality) &&
-                [about.location.address.postalCode, <span>&nbsp;</span>, about.location.address.addressLocality, <br />]
+                [about.location.address.postalCode, <span key="span">&nbsp;</span>, about.location.address.addressLocality, <br key="br" />]
               }
               {about.location.address.addressRegion &&
-                [translate(about.location.address.addressRegion), <br />]
+                [translate(about.location.address.addressRegion), <br key="br" />]
               }
               {about.location.address.addressCountry &&
                 translate(about.location.address.addressCountry)
@@ -252,7 +252,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           ['result', 'resultOf', 'provides', 'provider', 'agent', 'agentIn', 'participant', 'participantIn'].map(
             prop => (
               about[prop] &&
-              <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+              <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
                 <ItemList listItems={about[prop] || []} />
               </Block>
             )
@@ -296,7 +296,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
           'isRelatedTo', 'primarySector', 'secondarySector'].map(prop => (
           about[prop] &&
-          <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+          <Block  key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
             <ItemList listItems={about[prop] || []} />
           </Block>
         ))}
