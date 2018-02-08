@@ -1,0 +1,18 @@
+@import '../variables.pcss';
+
+.Block {
+  & > h3 {
+    border-bottom: 1px solid var(--grey-light);
+    padding: 10px 0;
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    & span {
+      flex: 1;
+      padding-right: 5px;
+    }
+  }
+}
