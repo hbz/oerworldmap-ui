@@ -174,7 +174,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
             <ConceptTree
               concepts={require('../json/esc.json').hasTopConcept}
               include={about.about.map(concept => concept['@id'])}
-              className="linedList ItemList"
+              className="recursiveList linedList ItemList"
             />
           </Block>
         }
