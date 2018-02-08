@@ -33,7 +33,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           }
 
           return (
-            <a key={link} href={link} target="_blank">
+            <a key={link} href={link} rel="noopener" target="_blank">
               <i className={`fa fa-${icon}`} />
             </a>
           )
@@ -85,14 +85,14 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         }
 
         {about.url &&
-          <a href={about.url} target="_blank" className="boxedLink">
+          <a href={about.url} target="_blank" rel="noopener" className="boxedLink">
             {formatURL(about.url)}
           </a>
         }
 
         {about.availableChannel &&
           about.availableChannel.map(link => (
-            <a key={link.serviceUrl} href={link.serviceUrl} className="boxedLink">
+            <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener" className="boxedLink">
               {formatURL(link.serviceUrl)}
             </a>
           ))
