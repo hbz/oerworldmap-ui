@@ -249,17 +249,34 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         }
 
         {
-          ['result', 'resultOf', 'provides', 'provider', 'agent', 'agentIn', 'participant', 'participantIn'].map(
+          ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
             prop => (
               about[prop] &&
               <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-                <ItemList listItems={about[prop] || []} />
+                <ItemList listItems={about[prop]} />
               </Block>
             )
           )
         }
 
-        {about.isFundedBy &&
+        {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
+          <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
+          </Block>
+        }
+
+        {
+          ['participant', 'participantIn'].map(
+            prop => (
+              about[prop] &&
+              <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <ItemList listItems={about[prop]} />
+              </Block>
+            )
+          )
+        }
+
+        {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) &&
           <Block className="asideList" title={translate(`${about['@type']}.isFundedBy`)}>
             <ItemList
               listItems={
@@ -269,11 +286,11 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {about.isFundedBy &&
+        {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) &&
           <Block className="asideList" title={translate(`${about['@type']}.budget`)}>
             <ul>
-              {about.isFundedBy.map(grant => (
-                <li key={grant.hasMonetaryValue}>
+              {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
+                <li key={i}>
                   {grant.hasMonetaryValue}
                 </li>
               ))}
@@ -297,7 +314,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           'isRelatedTo', 'primarySector', 'secondarySector'].map(prop => (
           about[prop] &&
           <Block  key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-            <ItemList listItems={about[prop] || []} />
+            <ItemList listItems={about[prop]} />
           </Block>
         ))}
 
