@@ -260,7 +260,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         }
 
         {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
-          <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+          <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.agentIn`)}>
             <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
           </Block>
         }
@@ -308,13 +308,32 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {['hasPart', 'isPartOf', 'member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
+        {about.hasPart &&
+          <Block collapsible className="asideList" title={translate(`${about['@type']}.hasPart`)}>
+            <ItemList listItems={about.hasPart} />
+          </Block>
+        }
+
+        {about.isPartOf &&
+          <Block className="asideList" title={translate(`${about['@type']}.isPartOf`)}>
+            <ItemList listItems={[about.isPartOf]} />
+          </Block>
+        }
+
+        {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
           'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
           'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
-          'isRelatedTo', 'primarySector', 'secondarySector'].map(prop => (
+          'isRelatedTo'].map(prop => (
           about[prop] &&
-          <Block  key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+          <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
             <ItemList listItems={about[prop]} />
+          </Block>
+        ))}
+
+        {['primarySector', 'secondarySector'].map(prop => (
+          about[prop] &&
+          <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <ItemList listItems={about[prop]} linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`} />
           </Block>
         ))}
 
