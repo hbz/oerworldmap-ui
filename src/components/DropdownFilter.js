@@ -99,6 +99,7 @@ class DropdownFilter extends React.Component {
                 evt.preventDefault()
                 this.setState({search: ''})
                 this.props.submit(evt, this.props.emitter)
+                this.setState({showContent: false})
               }}
             />
             <input

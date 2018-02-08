@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import DropdownMenu from './DropdownMenu'
 import { triggerClick } from '../common'
@@ -11,6 +12,20 @@ class DropdownButton extends React.Component {
     this.state = {
       showing : false
     }
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (e.target !== this.dropdownButton)
+      this.setState({showing:false})
   }
 
   render() {
@@ -22,6 +37,7 @@ class DropdownButton extends React.Component {
           className="fa fa-gear"
           onClick={() => {this.setState({showing:!this.state.showing})}}
           onKeyDown={triggerClick}
+          ref={el => this.dropdownButton = el}
         >
           { this.state.showing &&
             <DropdownMenu />
