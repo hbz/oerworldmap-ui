@@ -68,7 +68,7 @@ const ResourceIndex = ({
           size={Number.isInteger(+size) ? +size : 10}
         />
         <div className="wrapper-ItemList-Pagination">
-          <ItemList listItems={member} />
+          <ItemList listItems={member.map(member => member.about)} />
           <Pagination
             totalItems={totalItems}
             currentPage={currentPage}

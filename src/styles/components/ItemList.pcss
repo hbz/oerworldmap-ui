@@ -67,4 +67,21 @@
 
 .itemListTooltip {
   max-width: 400px;
+  opacity: 1;
+
+  & .rc-tooltip-inner {
+    max-height: 200px;
+    overflow: hidden;
+  }
+
+  &::after {
+    content: "";
+    width: 98%;
+    height: 14px;
+    background: linear-gradient(180deg, rgba(0,17,255,0) 0%, rgba(255,255,255,1) 100%);
+    position: absolute;
+    z-index: 99;
+    bottom: 2px;
+    left: 3px;
+  }
 }

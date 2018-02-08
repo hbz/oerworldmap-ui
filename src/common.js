@@ -82,7 +82,9 @@ export const parseProperties = (properties) => properties.split(/\r?\n/)
     return acc
   }, {})
 
+export const obfuscate = string => string.split('').map(c => `&#${c.charCodeAt()};`).join('')
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  parseProperties
+  parseProperties, obfuscate
 }
