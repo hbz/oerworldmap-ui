@@ -6,6 +6,7 @@ import { formatURL/*, obfuscate*/ } from '../common'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
+import ConceptTree from './ConceptTree'
 
 import '../styles/components/WebpageView.pcss'
 
@@ -168,17 +169,23 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {/* TODO: write component to show about.about and about.audience hierarchie */}
-
         {about.about &&
           <Block className="asideList" title={translate(`${about['@type']}.about`)}>
-            <ItemList listItems={about.about} />
+            <ConceptTree
+              concepts={require('../json/esc.json').hasTopConcept}
+              include={about.about.map(concept => concept['@id'])}
+              className="recursiveList linedList ItemList"
+            />
           </Block>
         }
 
         {about.audience &&
           <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
-            <ItemList listItems={about.audience} />
+            <ConceptTree
+              concepts={require('../json/isced-1997.json').hasTopConcept}
+              include={about.audience.map(concept => concept['@id'])}
+              className="linedList ItemList"
+            />
           </Block>
         }
 
@@ -249,17 +256,34 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
         }
 
         {
-          ['result', 'resultOf', 'provides', 'provider', 'agent', 'agentIn', 'participant', 'participantIn'].map(
+          ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
             prop => (
               about[prop] &&
               <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-                <ItemList listItems={about[prop] || []} />
+                <ItemList listItems={about[prop]} />
               </Block>
             )
           )
         }
 
-        {about.isFundedBy &&
+        {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
+          <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.agentIn`)}>
+            <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
+          </Block>
+        }
+
+        {
+          ['participant', 'participantIn'].map(
+            prop => (
+              about[prop] &&
+              <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <ItemList listItems={about[prop]} />
+              </Block>
+            )
+          )
+        }
+
+        {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) &&
           <Block className="asideList" title={translate(`${about['@type']}.isFundedBy`)}>
             <ItemList
               listItems={
@@ -269,11 +293,11 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {about.isFundedBy &&
+        {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) &&
           <Block className="asideList" title={translate(`${about['@type']}.budget`)}>
             <ul>
-              {about.isFundedBy.map(grant => (
-                <li key={grant.hasMonetaryValue}>
+              {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
+                <li key={i}>
                   {grant.hasMonetaryValue}
                 </li>
               ))}
@@ -291,13 +315,36 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {['hasPart', 'isPartOf', 'member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
+        {about.hasPart &&
+          <Block collapsible className="asideList" title={translate(`${about['@type']}.hasPart`)}>
+            <ItemList listItems={about.hasPart} />
+          </Block>
+        }
+
+        {about.isPartOf &&
+          <Block className="asideList" title={translate(`${about['@type']}.isPartOf`)}>
+            <ItemList listItems={[about.isPartOf]} />
+          </Block>
+        }
+
+        {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
           'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
           'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
-          'isRelatedTo', 'primarySector', 'secondarySector'].map(prop => (
+          'isRelatedTo'].map(prop => (
           about[prop] &&
-          <Block  key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-            <ItemList listItems={about[prop] || []} />
+          <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <ItemList listItems={about[prop]} />
+          </Block>
+        ))}
+
+        {['primarySector', 'secondarySector'].map(prop => (
+          about[prop] &&
+          <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <ConceptTree
+              concepts={require('../json/sectors.json').hasTopConcept}
+              include={about[prop].map(concept => concept['@id'])}
+              className="linedList ItemList"
+            />
           </Block>
         ))}
 
