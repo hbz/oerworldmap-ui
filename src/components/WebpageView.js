@@ -130,7 +130,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           <Block title={translate('Available languages')}>
             {about.availableChannel.map(item => (
               item.availableLanguage &&
-              <p>
+              <p key={item.availableLanguage[0]}>
                 {translate(item.availableLanguage[0])}
               </p>
             ))}
