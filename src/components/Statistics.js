@@ -65,14 +65,14 @@ const Statistics = ({translate, aggregations, emitter}) => (
       <div className="links">
         {charts.map(aggregation => (
           <Link key={aggregation} href={`#${aggregation}`}>
-            {translate(`Statistics.${aggregation}`)}
+            {translate(aggregation)}
           </Link>
         ))}
       </div>
       {charts.map(aggregation => (
         aggregations[aggregation] &&
           <div className="chartContainer" key={aggregation} id={aggregation}>
-            <h2>{translate(`Statistics.${aggregation}`)}</h2>
+            <h2>{translate(aggregation)}</h2>
             <div className="graph">
               <PieChart
                 emitter={emitter}
@@ -83,11 +83,11 @@ const Statistics = ({translate, aggregations, emitter}) => (
             <ul>
               {aggregations[aggregation].buckets.map(bucket => (
                 <li key={bucket.key}>
-                  <Link href={`/resource/?${aggregation}=${bucket.key}`}>
+                  <Link href={`/resource/?filter.${aggregation}=${encodeURIComponent(bucket.key)}`}>
                     <span
                       className="color"
                       style={{backgroundColor: color(bucket.doc_count)}}
-                    /> {`${translate(bucket.key)} (${bucket.doc_count})`}
+                    /> {`${translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
                   </Link>
                 </li>
               ))}
