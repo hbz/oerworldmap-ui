@@ -307,7 +307,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
           </Block>
         }
 
-        {about.awards &&
+        {about.awards && about.awards.filter(grant => grant.funds) &&
           <Block className="asideList" title={translate(`${about['@type']}.funds`)}>
             <ItemList
               listItems={

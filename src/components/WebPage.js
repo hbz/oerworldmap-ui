@@ -106,51 +106,81 @@ const WebPage = ({
             />
           </b>
 
-          <div className="webPageActions">
+          {about['@id'] ? (
+            <div className="webPageActions">
 
-            {user &&
-              <div className="like">
-                <form onSubmit={toggleLike}>
-                  <button type="submit" title="Like">
-                    <i className="fa fa-thumbs-up" /> <span>({likes.length})</span>
-                  </button>
-                </form>
-              </div>
-            }
+              {user &&
+                <div className="like">
+                  <form onSubmit={toggleLike}>
+                    <button type="submit" title="Like">
+                      <i className="fa fa-thumbs-up" /> <span>({likes.length})</span>
+                    </button>
+                  </form>
+                </div>
+              }
 
-            <DropdownButton />
+              <DropdownButton />
 
-            {user && (view === 'edit' ? (
-              <Link href="#view"><i className="fa fa-eye" /></Link>
-            ) : (
-              <Link href="#edit"><i className="fa fa-pencil" /></Link>
-            ))}
-            <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
-            {typeof window !== 'undefined' &&
-              window.history.length ?
-              (
-                <span
-                  onClick={closeResource}
-                  role="button"
-                  tabIndex="0"
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13) {
-                      e.target.click()
-                    }
-                  }}
-                >
-                  <i className="fa fa-close" />
-                </span>
+              {user && (view === 'edit' ? (
+                <Link href="#view"><i className="fa fa-eye" /></Link>
               ) : (
-                <Link
-                  href='/resource/'
-                  className="closeModal"
-                >
-                  <i className="fa fa-close" />
-                </Link>
-              )
-            }
-          </div>
+                <Link href="#edit"><i className="fa fa-pencil" /></Link>
+              ))}
+              <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
+              {typeof window !== 'undefined' &&
+                window.history.length ?
+                (
+                  <span
+                    onClick={closeResource}
+                    role="button"
+                    tabIndex="0"
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        e.target.click()
+                      }
+                    }}
+                  >
+                    <i className="fa fa-close" />
+                  </span>
+                ) : (
+                  <Link
+                    href='/resource/'
+                    className="closeModal"
+                  >
+                    <i className="fa fa-close" />
+                  </Link>
+                )
+              }
+            </div>
+          ) : (
+            <div className="webPageActions">
+              {typeof window !== 'undefined' &&
+                window.history.length ?
+                (
+                  <span
+                    onClick={closeResource}
+                    role="button"
+                    tabIndex="0"
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        e.target.click()
+                      }
+                    }}
+                  >
+                    <i className="fa fa-close" />
+                  </span>
+                ) : (
+                  <Link
+                    href='/resource/'
+                    className="closeModal"
+                  >
+                    <i className="fa fa-close" />
+                  </Link>
+                )
+              }
+            </div>
+          )}
+
         </div>
 
         {(about.image || geo) &&
@@ -209,17 +239,17 @@ const WebPage = ({
               lighthouses={lighthouses}
             />
 
-            <Comments
-              comments={about['comment']}
-              id={about['@id']}
-              user={user}
-            />
+            {about['@id'] &&
+              <Comments
+                comments={about['comment']}
+                id={about['@id']}
+                user={user}
+              />
+            }
 
-            { user &&
-            view === 'addLighthouse' &&
+            {about['@id'] && user && view === 'addLighthouse' &&
               <FullModal>
-                {console.log("about", about['@id'])}
-                <h2>Lighthouse Action</h2>
+                <h2>{translate('ResourceIndex.read.lightHouse')}</h2>
                 <Composer
                   value={lighthouse}
                   schema={schema}
@@ -231,11 +261,11 @@ const WebPage = ({
               </FullModal>
             }
 
-            {view === 'share' &&
+            {about['@id'] && view === 'share' &&
               <Share _self={_self} />
             }
 
-            {view === 'export' &&
+            {about['@id'] && view === 'export' &&
               <Export _links={_links} />
             }
 
@@ -251,10 +281,10 @@ WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  author: PropTypes.string.isRequired,
-  contributor: PropTypes.string.isRequired,
-  dateCreated: PropTypes.string.isRequired,
-  dateModified: PropTypes.string.isRequired,
+  author: PropTypes.string,
+  contributor: PropTypes.string,
+  dateCreated: PropTypes.string,
+  dateModified: PropTypes.string,
   view: PropTypes.string.isRequired,
   geo: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
@@ -272,6 +302,10 @@ WebPage.propTypes = {
 WebPage.defaultProps = {
   geo: null,
   user: null,
+  author: null,
+  contributor: null,
+  dateCreated: null,
+  dateModified: null,
   _links: { refs: [] }
 }
 
