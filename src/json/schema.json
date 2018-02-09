@@ -177,16 +177,16 @@
           "description": "descriptions.WebPage.name",
           "$ref": "#/definitions/LocalizedString"
         },
-        "description": {
-          "title": "WebPage.description",
-          "description": "descriptions.WebPage.description",
-          "$ref": "#/definitions/LocalizedText"
-        },
         "url": {
           "title": "WebPage.url",
           "description": "descriptions.WebPage.url",
           "type": "string",
           "format": "uri"
+        },
+        "description": {
+          "title": "WebPage.description",
+          "description": "descriptions.WebPage.description",
+          "$ref": "#/definitions/LocalizedText"
         },
         "keywords": {
           "title": "WebPage.keywords",
@@ -216,6 +216,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "award": {
@@ -225,6 +228,9 @@
           "items": {
             "type": "string",
             "format": "uri"
+          },
+          "_display": {
+            "className": "admin only"
           }
         }
       },
@@ -376,17 +382,6 @@
             "className": "hidden"
           }
         },
-        "creator": {
-          "title": "Article.creator",
-          "description": "descriptions.Article.creator",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
-            ]
-          }
-        },
         "name": {
           "title": "Article.name",
           "description": "descriptions.Article.name",
@@ -397,24 +392,32 @@
           "description": "descriptions.Article.description",
           "$ref": "#/definitions/LocalizedText"
         },
-        "keywords": {
-          "title": "Article.keywords",
-          "description": "descriptions.Article.keywords",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "articleBody": {
           "title": "Article.articleBody",
           "description": "descriptions.Article.articleBody",
-          "$ref": "#/definitions/LocalizedString"
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "dateCreated": {
+          "title": "Article.dateCreated",
+          "description": "descriptions.Article.dateCreated",
+          "$ref": "#/definitions/iso-8601-date"
         },
         "image": {
           "title": "Article.image",
           "description": "descriptions.Article.image",
           "type": "string",
           "format": "uri"
+        },
+        "creator": {
+          "title": "Article.creator",
+          "description": "descriptions.Article.creator",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
         },
         "mentions": {
           "title": "Article.mentions",
@@ -427,10 +430,13 @@
             ]
           }
         },
-        "dateCreated": {
-          "title": "Article.dateCreated",
-          "description": "descriptions.Article.dateCreated",
-          "$ref": "#/definitions/iso-8601-date"
+        "keywords": {
+          "title": "Article.keywords",
+          "description": "descriptions.Article.keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "comment": {
           "title": "Article.comment",
@@ -441,41 +447,13 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "location": {
           "$ref": "#/definitions/Place"
-        },
-        "exampleOfWork": {
-          "title": "Article.exampleOfWork",
-          "description": "descriptions.Article.exampleOfWork",
-          "type": "string",
-          "format": "uri"
-        },
-        "citation": {
-          "title": "Article.citation",
-          "description": "descriptions.Article.citation",
-          "type": "string"
-        },
-        "license": {
-          "title": "Article.license",
-          "description": "descriptions.Article.license",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "enum": [
-                      "https://github.com/hbz/oerworldmap/public/json/licenses.json"
-                    ]
-                  }
-                }
-              } } }
-            ]
-          }
         },
         "primarySector": {
           "title": "Article.primarySector",
@@ -515,6 +493,40 @@
                 }
               } } }
             ]
+          }
+        },
+        "license": {
+          "title": "Article.license",
+          "description": "descriptions.Article.license",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/licenses.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "exampleOfWork": {
+          "title": "Article.exampleOfWork",
+          "description": "descriptions.Article.exampleOfWork",
+          "type": "string",
+          "format": "uri"
+        },
+        "citation": {
+          "title": "Article.citation",
+          "description": "descriptions.Article.citation",
+          "type": "string",
+          "_display": {
+            "rows": 3
           }
         }
       },
@@ -625,12 +637,25 @@
             "className": "hidden"
           }
         },
+        "name": {
+          "title": "Action.name",
+          "description": "descriptions.Action.name",
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "displayName": {
+          "title": "Action.displayName",
+          "description": "descriptions.Action.displayName",
+          "$ref": "#/definitions/LocalizedString"
+        },
         "additionalType": {
           "title": "Action.additionalType",
           "description": "descriptions.Action.additionalType",
           "type": "array",
           "items": {
             "type": "string"
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "email": {
@@ -639,29 +664,68 @@
           "type": "string",
           "format": "email"
         },
-        "funder": {
-          "title": "Action.funder",
-          "description": "descriptions.Action.funder",
+        "alternateName": {
+          "title": "Action.alternateName",
+          "description": "descriptions.Action.alternateName",
+          "$ref": "#/definitions/LocalizedString"
+        },
+        "description": {
+          "title": "Action.description",
+          "description": "descriptions.Action.description",
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "image": {
+          "title": "Action.image",
+          "description": "descriptions.Action.image",
+          "type": "string",
+          "format": "uri"
+        },
+        "url": {
+          "title": "Action.url",
+          "description": "descriptions.Action.url",
+          "type": "string",
+          "format": "uri"
+        },
+        "startTime": {
+          "title": "Action.startTime",
+          "description": "descriptions.Action.startTime",
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "endTime": {
+          "title": "Action.endTime",
+          "description": "descriptions.Action.endTime",
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "instrument": {
+          "title": "Action.instrument",
+          "description": "descriptions.Action.instrument",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
-        "isFundedBy": {
-          "title": "Action.isFundedBy",
-          "description": "descriptions.Action.isFundedBy",
+        "result": {
+          "title": "Action.result",
+          "description": "descriptions.Action.result",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Grant"
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
-        },
-        "duration": {
-          "title": "Action.duration",
-          "description": "descriptions.Action.duration",
-          "type": "string"
         },
         "agent": {
           "title": "Action.agent",
@@ -671,17 +735,6 @@
             "allOf": [
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
-            ]
-          }
-        },
-        "objectIn": {
-          "title": "Action.objectIn",
-          "description": "descriptions.Action.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
             ]
           }
         },
@@ -707,88 +760,18 @@
             ]
           }
         },
-        "name": {
-          "title": "Action.name",
-          "description": "descriptions.Action.name",
-          "$ref": "#/definitions/LocalizedString"
-        },
-        "alternateName": {
-          "title": "Action.alternateName",
-          "description": "descriptions.Action.alternateName",
-          "$ref": "#/definitions/LocalizedString"
-        },
-        "displayName": {
-          "title": "Action.displayName",
-          "description": "descriptions.Action.displayName",
-          "$ref": "#/definitions/LocalizedString"
-        },
-        "description": {
-          "title": "Action.description",
-          "description": "descriptions.Action.description",
-          "$ref": "#/definitions/LocalizedText"
-        },
-        "image": {
-          "title": "Action.image",
-          "description": "descriptions.Action.image",
-          "type": "string",
-          "format": "uri"
-        },
-        "url": {
-          "title": "Action.url",
-          "description": "descriptions.Action.url",
-          "type": "string",
-          "format": "uri"
-        },
-        "sameAs": {
-          "title": "Action.sameAs",
-          "description": "descriptions.Action.sameAs",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "startTime": {
-          "title": "Action.startTime",
-          "description": "descriptions.Action.startTime",
-          "$ref": "#/definitions/iso-8601-date"
-        },
-        "endTime": {
-          "title": "Action.endTime",
-          "description": "descriptions.Action.endTime",
-          "$ref": "#/definitions/iso-8601-date"
-        },
-        "location": {
-          "$ref": "#/definitions/Place"
-        },
-        "instrument": {
-          "title": "Action.instrument",
-          "description": "descriptions.Action.instrument",
+        "affiliate": {
+          "title": "Action.affiliate",
+          "description": "descriptions.Action.affiliate",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Service" ] } } }
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
             ]
-          }
-        },
-        "result": {
-          "title": "Action.result",
-          "description": "descriptions.Action.result",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Service" ] } } }
-            ]
-          }
-        },
-        "keywords": {
-          "title": "Action.keywords",
-          "description": "descriptions.Action.keywords",
-          "type": "array",
-          "items": {
-            "type": "string"
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "mentionedIn": {
@@ -800,6 +783,26 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Article" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "sameAs": {
+          "title": "Action.sameAs",
+          "description": "descriptions.Action.sameAs",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "keywords": {
+          "title": "Action.keywords",
+          "description": "descriptions.Action.keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         },
         "comment": {
@@ -811,6 +814,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "isPartOf": {
@@ -832,17 +838,6 @@
             ]
           }
         },
-        "affiliate": {
-          "title": "Action.affiliate",
-          "description": "descriptions.Action.affiliate",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
-          }
-        },
         "organizerFor": {
           "title": "Action.organizerFor",
           "description": "descriptions.Action.organizerFor",
@@ -852,6 +847,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Event" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "publication": {
@@ -863,6 +861,14 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "WebPage" ] } } }
             ]
+          }
+        },
+        "isFundedBy": {
+          "title": "Action.isFundedBy",
+          "description": "descriptions.Action.isFundedBy",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grant"
           }
         },
         "primarySector": {
@@ -912,6 +918,23 @@
           "items": {
             "type": "string",
             "format": "uri"
+          },
+          "_display": {
+            "className": "admin only"
+          }
+        },
+        "objectIn": {
+          "title": "Action.objectIn",
+          "description": "descriptions.Action.objectIn",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         }
       },
@@ -978,71 +1001,15 @@
           "type": "array",
           "items": {
             "type": "string"
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "description": {
           "title": "Service.description",
           "description": "descriptions.Service.description",
           "$ref": "#/definitions/LocalizedText"
-        },
-        "image": {
-          "title": "Service.image",
-          "description": "descriptions.Service.image",
-          "type": "string",
-          "format": "uri"
-        },
-        "provider": {
-          "title": "Service.provider",
-          "description": "descriptions.Service.provider",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
-            ]
-          }
-        },
-        "availableChannel": {
-          "title": "Service.availableChannel",
-          "description": "descriptions.Service.availableChannel",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "@type": {
-                "type": "string",
-                "enum": [
-                  "ServiceChannel",
-                  "WebAPI"
-                ]
-              },
-              "availableLanguage": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": ["en", "de"]
-                }
-              },
-              "documentation": {
-                "type": "string",
-                "format": "uri"
-              },
-              "serviceUrl": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [ "serviceUrl" ]
-          }
-        },
-        "sameAs": {
-          "title": "Service.sameAs",
-          "description": "descriptions.Service.sameAs",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
         },
         "startDate": {
           "title": "Service.startDate",
@@ -1060,6 +1027,32 @@
           "type": "string",
           "format": "email"
         },
+        "license": {
+          "title": "Service.license",
+          "description": "descriptions.Service.license",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://github.com/hbz/oerworldmap/public/json/licenses.json"
+                    ]
+                  }
+                }
+              } } }
+            ]
+          }
+        },
+        "image": {
+          "title": "Service.image",
+          "description": "descriptions.Service.image",
+          "type": "string",
+          "format": "uri"
+        },
         "location": {
           "$ref": "#/definitions/Place"
         },
@@ -1076,26 +1069,6 @@
                   "@id": {
                     "enum": [
                       "https://w3id.org/class/esc/scheme"
-                    ]
-                  }
-                }
-              } } }
-            ]
-          }
-        },
-        "license": {
-          "title": "Service.license",
-          "description": "descriptions.Service.license",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Concept" ] }, "inScheme": {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "enum": [
-                      "https://github.com/hbz/oerworldmap/public/json/licenses.json"
                     ]
                   }
                 }
@@ -1123,12 +1096,69 @@
             ]
           }
         },
-        "keywords": {
-          "title": "Service.keywords",
-          "description": "descriptions.Service.keywords",
+        "provider": {
+          "title": "Service.provider",
+          "description": "descriptions.Service.provider",
           "type": "array",
           "items": {
-            "type": "string"
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person", "Organization" ] } } }
+            ]
+          }
+        },
+        "availableChannel": {
+          "title": "Service.availableChannel",
+          "description": "descriptions.Service.availableChannel",
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "type": "string",
+                    "enum": [ "ServiceChannel" ],
+                    "_display": {
+                      "className": "hidden"
+                    }
+                  },
+                  "availableLanguage": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["en", "de"]
+                    }
+                  },
+                  "serviceUrl": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [ "serviceUrl" ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "type": "string",
+                    "enum": [ "WebAPI" ]
+                  },
+                  "availableLanguage": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["en", "de"]
+                    }
+                  },
+                  "documentation": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [ "documentation" ]
+              }
+            ]
           }
         },
         "mentionedIn": {
@@ -1140,6 +1170,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Article" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "instrumentIn": {
@@ -1151,6 +1184,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Action" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "resultOf": {
@@ -1162,6 +1198,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Action" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "member": {
@@ -1175,6 +1214,20 @@
             ]
           }
         },
+        "memberOf": {
+          "title": "Service.memberOf",
+          "description": "descriptions.Service.memberOf",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
         "affiliate": {
           "title": "Service.affiliate",
           "description": "descriptions.Service.affiliate",
@@ -1184,16 +1237,36 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Person" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
-        "memberOf": {
-          "title": "Service.memberOf",
-          "description": "descriptions.Service.memberOf",
+        "sameAs": {
+          "title": "Service.sameAs",
+          "description": "descriptions.Service.sameAs",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "keywords": {
+          "title": "Service.keywords",
+          "description": "descriptions.Service.keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "publication": {
+          "title": "Service.publication",
+          "description": "descriptions.Service.publication",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Organization" ] } } }
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
             ]
           }
         },
@@ -1206,17 +1279,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
-          }
-        },
-        "publication": {
-          "title": "Service.publication",
-          "description": "descriptions.Service.publication",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
-            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "primarySector": {
@@ -1277,6 +1342,9 @@
           "items": {
             "type": "string",
             "format": "uri"
+          },
+          "_display": {
+            "className": "admin only"
           }
         },
         "objectIn": {
@@ -1288,6 +1356,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         }
       },
@@ -1343,10 +1414,109 @@
           "description": "descriptions.Person.name",
           "$ref": "#/definitions/LocalizedString"
         },
+        "url": {
+          "title": "Person.url",
+          "description": "descriptions.Person.url",
+          "type": "string",
+          "format": "uri"
+        },
+        "email": {
+          "title": "Person.email",
+          "description": "descriptions.Person.email",
+          "type": "string",
+          "format": "email"
+        },
         "description": {
           "title": "Person.description",
           "description": "descriptions.Person.description",
           "$ref": "#/definitions/LocalizedText"
+        },
+        "countryChampionFor": {
+          "title": "Person.countryChampionFor",
+          "description": "descriptions.Person.countryChampionFor",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Country"
+          },
+          "_display": {
+            "className": "admin only"
+          }
+        },
+        "image": {
+          "title": "Person.image",
+          "description": "descriptions.Person.image",
+          "type": "string",
+          "format": "uri"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "created": {
+          "title": "Person.created",
+          "description": "descriptions.Person.created",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "mentionedIn": {
+          "title": "Person.mentionedIn",
+          "description": "descriptions.Person.mentionedIn",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "participantIn": {
+          "title": "Person.participantIn",
+          "description": "descriptions.Person.participantIn",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "provides": {
+          "title": "Person.provides",
+          "description": "descriptions.Person.provides",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          }
+        },
+        "agentIn": {
+          "title": "Person.agentIn",
+          "description": "descriptions.Person.agentIn",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action", "LikeAction", "LighthouseAction" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
         },
         "affiliation": {
           "title": "Person.affiliation",
@@ -1356,6 +1526,62 @@
             "allOf": [
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Organization", "Service", "Action" ] } } }
+            ]
+          }
+        },
+        "sameAs": {
+          "title": "Person.sameAs",
+          "description": "descriptions.Person.sameAs",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "funderOf": {
+          "title": "Person.funderOf",
+          "description": "descriptions.Person.funderOf",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "keywords": {
+          "title": "Person.keywords",
+          "description": "descriptions.Person.keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorOf": {
+          "title": "Person.authorOf",
+          "description": "descriptions.Person.authorOf",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "organizerFor": {
+          "title": "Person.organizerFor",
+          "description": "descriptions.Person.organizerFor",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Event" ] } } }
             ]
           }
         },
@@ -1370,138 +1596,6 @@
             ]
           }
         },
-        "image": {
-          "title": "Person.image",
-          "description": "descriptions.Person.image",
-          "type": "string",
-          "format": "uri"
-        },
-        "mbox_sha1sum": {
-          "title": "Person.mbox_sha1sum",
-          "type": "string"
-        },
-        "email": {
-          "title": "Person.email",
-          "description": "descriptions.Person.email",
-          "type": "string",
-          "format": "email"
-        },
-        "telephone": {
-          "title": "Person.telephone",
-          "description": "descriptions.Person.telephone",
-          "type": "string"
-        },
-        "location": {
-          "$ref": "#/definitions/Place"
-        },
-        "url": {
-          "title": "Person.url",
-          "description": "descriptions.Person.url",
-          "type": "string",
-          "format": "uri"
-        },
-        "sameAs": {
-          "title": "Person.sameAs",
-          "description": "descriptions.Person.sameAs",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "countryChampionFor": {
-          "title": "Person.countryChampionFor",
-          "description": "descriptions.Person.countryChampionFor",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Country"
-          }
-        },
-        "agentIn": {
-          "title": "Person.agentIn",
-          "description": "descriptions.Person.agentIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action", "LikeAction", "LighthouseAction" ] } } }
-            ]
-          }
-        },
-        "participantIn": {
-          "title": "Person.participantIn",
-          "description": "descriptions.Person.participantIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
-            ]
-          }
-        },
-        "funderOf": {
-          "title": "Person.funderOf",
-          "description": "descriptions.Person.funderOf",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
-            ]
-          }
-        },
-        "created": {
-          "title": "Person.created",
-          "description": "descriptions.Person.created",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Article" ] } } }
-            ]
-          }
-        },
-        "keywords": {
-          "title": "Person.keywords",
-          "description": "descriptions.Person.keywords",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "mentionedIn": {
-          "title": "Person.mentionedIn",
-          "description": "descriptions.Person.mentionedIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Article" ] } } }
-            ]
-          }
-        },
-        "organizerFor": {
-          "title": "Person.organizerFor",
-          "description": "descriptions.Person.organizerFor",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Event" ] } } }
-            ]
-          }
-        },
-        "authorOf": {
-          "title": "Person.authorOf",
-          "description": "descriptions.Person.authorOf",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          }
-        },
         "attends": {
           "title": "Person.attends",
           "description": "descriptions.Person.attends",
@@ -1510,28 +1604,6 @@
             "allOf": [
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Event" ] } } }
-            ]
-          }
-        },
-        "provides": {
-          "title": "Person.provides",
-          "description": "descriptions.Person.provides",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Service" ] } } }
-            ]
-          }
-        },
-        "publication": {
-          "title": "Person.publication",
-          "description": "descriptions.Person.publication",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
             ]
           }
         },
@@ -1575,6 +1647,17 @@
             ]
           }
         },
+        "publication": {
+          "title": "Person.publication",
+          "description": "descriptions.Person.publication",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "WebPage" ] } } }
+            ]
+          }
+        },
         "manufactured": {
           "title": "Person.manufactured",
           "description": "descriptions.Person.manufactured",
@@ -1584,6 +1667,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Product" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         }
       },
@@ -1622,48 +1708,9 @@
             "className": "hidden"
           }
         },
-        "location": {
-          "$ref": "#/definitions/Place"
-        },
-        "url": {
-          "type": "string",
-          "description": "descriptions.Organization.url",
-          "format": "uri",
-          "title": "Organization.url"
-        },
-        "sameAs": {
-          "type": "array",
-          "title": "Organization.sameAs",
-          "description": "descriptions.Organization.description",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "email": {
-          "description": "descriptions.Organization.email",
-          "type": "string",
-          "format": "email",
-          "title": "Organization.email"
-        },
-        "telephone": {
-          "description": "descriptions.Organization.telephone",
-          "type": "string",
-          "title": "Organization.telephone"
-        },
-        "description": {
-          "title": "Organization.description",
-          "description": "descriptions.Organization.description",
-          "$ref": "#/definitions/LocalizedText"
-        },
         "name": {
           "title": "Organization.name",
           "description": "descriptions.Organization.name",
-          "$ref": "#/definitions/LocalizedString"
-        },
-        "alternateName": {
-          "title": "Organization.alternateName",
-          "description": "descriptions.Organization.alternateName",
           "$ref": "#/definitions/LocalizedString"
         },
         "displayName": {
@@ -1671,11 +1718,58 @@
           "description": "descriptions.Organization.displayName",
           "$ref": "#/definitions/LocalizedString"
         },
+        "url": {
+          "type": "string",
+          "description": "descriptions.Organization.url",
+          "format": "uri",
+          "title": "Organization.url"
+        },
+        "email": {
+          "description": "descriptions.Organization.email",
+          "type": "string",
+          "format": "email",
+          "title": "Organization.email"
+        },
+        "description": {
+          "title": "Organization.description",
+          "description": "descriptions.Organization.description",
+          "$ref": "#/definitions/LocalizedText"
+        },
+        "additionalType": {
+          "title": "Organization.additionalType",
+          "description": "descriptions.Organization.additionalType",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "countryChampionFor": {
+          "type": "array",
+          "title": "Organization.countryChampionFor",
+          "description": "descriptions.Organization.countryChampionFor",
+          "items": {
+            "$ref": "#/definitions/Country"
+          },
+          "_display": {
+            "className": "admin only"
+          }
+        },
+        "alternateName": {
+          "title": "Organization.alternateName",
+          "description": "descriptions.Organization.alternateName",
+          "$ref": "#/definitions/LocalizedString"
+        },
         "image": {
           "description": "descriptions.Organization.image",
           "type": "string",
           "format": "uri",
           "title": "Organization.image"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
         },
         "contactPoint": {
           "title": "Organization.contactPoint",
@@ -1688,53 +1782,32 @@
             ]
           }
         },
-        "additionalType": {
-          "title": "Organization.additionalType",
-          "description": "descriptions.Organization.additionalType",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "provides": {
-          "title": "Organization.provides",
-          "description": "descriptions.Organization.provides",
+        "created": {
+          "title": "Organization.created",
+          "description": "descriptions.Organization.created",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Service" ] } } }
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
-        "countryChampionFor": {
-          "type": "array",
-          "title": "Organization.countryChampionFor",
-          "description": "descriptions.Organization.countryChampionFor",
-          "items": {
-            "$ref": "#/definitions/Country"
-          }
-        },
-        "agentIn": {
-          "title": "Organization.agentIn",
-          "description": "descriptions.Organization.agentIn",
+        "mentionedIn": {
+          "title": "Organization.mentionedIn",
+          "description": "descriptions.Organization.mentionedIn",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
             ]
-          }
-        },
-        "objectIn": {
-          "title": "Organization.objectIn",
-          "description": "descriptions.Organization.objectIn",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
-            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "participantIn": {
@@ -1746,28 +1819,37 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Action" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
-        "funderOf": {
-          "title": "Organization.funderOf",
-          "description": "descriptions.Organization.funderOf",
+        "provides": {
+          "title": "Organization.provides",
+          "description": "descriptions.Organization.provides",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Service" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "agentIn": {
+          "title": "Organization.agentIn",
+          "description": "descriptions.Organization.agentIn",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Action" ] } } }
             ]
-          }
-        },
-        "created": {
-          "title": "Organization.created",
-          "description": "descriptions.Organization.created",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Article" ] } } }
-            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "member": {
@@ -1779,17 +1861,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Organization", "Service", "Action" ] } } }
             ]
-          }
-        },
-        "affiliate": {
-          "title": "Organization.affiliate",
-          "description": "descriptions.Organization.affiliate",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "memberOf": {
@@ -1803,23 +1877,27 @@
             ]
           }
         },
-        "mentionedIn": {
-          "title": "Organization.mentionedIn",
-          "description": "descriptions.Organization.mentionedIn",
+        "affiliate": {
+          "title": "Organization.affiliate",
+          "description": "descriptions.Organization.affiliate",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Article" ] } } }
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
-        "keywords": {
-          "title": "Organization.keywords",
-          "description": "descriptions.Organization.keywords",
+        "sameAs": {
           "type": "array",
+          "title": "Organization.sameAs",
+          "description": "descriptions.Organization.description",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "uri"
           }
         },
         "organizerFor": {
@@ -1833,23 +1911,12 @@
             ]
           }
         },
-        "comment": {
-          "title": "Organization.comment",
-          "description": "descriptions.Organization.comment",
+        "keywords": {
+          "title": "Organization.keywords",
+          "description": "descriptions.Organization.keywords",
           "type": "array",
           "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          }
-        },
-        "awards": {
-          "title": "Organization.awards",
-          "description": "descriptions.Organization.awards",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Grant"
+            "type": "string"
           }
         },
         "publication": {
@@ -1861,6 +1928,31 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "WebPage" ] } } }
             ]
+          }
+        },
+        "comment": {
+          "title": "Organization.comment",
+          "description": "descriptions.Organization.comment",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "awards": {
+          "title": "Organization.awards",
+          "description": "descriptions.Organization.awards",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grant"
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "primarySector": {
@@ -1912,6 +2004,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Product" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "award": {
@@ -1921,6 +2016,23 @@
           "items": {
             "type": "string",
             "format": "uri"
+          },
+          "_display": {
+            "className": "admin only"
+          }
+        },
+        "objectIn": {
+          "title": "Organization.objectIn",
+          "description": "descriptions.Organization.objectIn",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "LikeAction", "LighthouseAction" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         }
       },
@@ -1957,34 +2069,6 @@
             "className": "hidden"
           }
         },
-        "email": {
-          "title": "Event.email",
-          "description": "descriptions.Event.email",
-          "type": "string",
-          "format": "email"
-        },
-        "organizer": {
-          "title": "Event.organizer",
-          "description": "descriptions.Event.organizer",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person", "Organization", "Action" ] } } }
-            ]
-          }
-        },
-        "performer": {
-          "title": "Event.performer",
-          "description": "descriptions.Event.performer",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
-          }
-        },
         "name": {
           "title": "Event.name",
           "description": "descriptions.Event.name",
@@ -1994,6 +2078,18 @@
           "title": "Event.alternateName",
           "description": "descriptions.Event.alternateName",
           "$ref": "#/definitions/LocalizedString"
+        },
+        "url": {
+          "title": "Event.url",
+          "description": "descriptions.Event.url",
+          "type": "string",
+          "format": "uri"
+        },
+        "email": {
+          "title": "Event.email",
+          "description": "descriptions.Event.email",
+          "type": "string",
+          "format": "email"
         },
         "description": {
           "title": "Event.description",
@@ -2006,11 +2102,31 @@
           "type": "string",
           "format": "uri"
         },
-        "url": {
-          "title": "Event.url",
-          "description": "descriptions.Event.url",
-          "type": "string",
-          "format": "uri"
+        "startDate": {
+          "title": "Event.startDate",
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "endDate": {
+          "title": "Event.endDate",
+          "description": "descriptions.Event.endDate",
+          "$ref": "#/definitions/iso-8601-date"
+        },
+        "location": {
+          "$ref": "#/definitions/Place"
+        },
+        "mentionedIn": {
+          "title": "Event.mentionedIn",
+          "description": "descriptions.Event.mentionedIn",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Article" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
         },
         "sameAs": {
           "title": "Event.sameAs",
@@ -2039,40 +2155,40 @@
             "translate": true
           }
         },
-        "startDate": {
-          "title": "Event.startDate",
-          "$ref": "#/definitions/iso-8601-date"
-        },
-        "endDate": {
-          "title": "Event.endDate",
-          "description": "descriptions.Event.endDate",
-          "$ref": "#/definitions/iso-8601-date"
-        },
-        "location": {
-          "$ref": "#/definitions/Place"
-        },
-        "mentionedIn": {
-          "title": "Event.mentionedIn",
-          "description": "descriptions.Event.mentionedIn",
+        "organizer": {
+          "title": "Event.organizer",
+          "description": "descriptions.Event.organizer",
           "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Article" ] } } }
+              { "properties": { "@type": { "enum": [ "Person", "Organization", "Action" ] } } }
             ]
           }
         },
-        "hashtag": {
-          "title": "Event.hashtag",
-          "description": "descriptions.Event.hashtag",
-          "type": "string"
-        },
-        "keywords": {
-          "title": "Event.keywords",
-          "description": "descriptions.Event.keywords",
+        "performer": {
+          "title": "Event.performer",
+          "description": "descriptions.Event.performer",
           "type": "array",
           "items": {
-            "type": "string"
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          }
+        },
+        "attendee": {
+          "title": "Event.attendee",
+          "description": "descriptions.Event.attendee",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Person" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "about": {
@@ -2095,26 +2211,17 @@
             ]
           }
         },
-        "comment": {
-          "title": "Event.comment",
-          "description": "descriptions.Event.comment",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Comment" ] } } }
-            ]
-          }
+        "hashtag": {
+          "title": "Event.hashtag",
+          "description": "descriptions.Event.hashtag",
+          "type": "string"
         },
-        "attendee": {
-          "title": "Event.attendee",
-          "description": "descriptions.Event.attendee",
+        "keywords": {
+          "title": "Event.keywords",
+          "description": "descriptions.Event.keywords",
           "type": "array",
           "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
+            "type": "string"
           }
         },
         "publication": {
@@ -2126,6 +2233,20 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "WebPage" ] } } }
             ]
+          }
+        },
+        "comment": {
+          "title": "Event.comment",
+          "description": "descriptions.Event.comment",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "primarySector": {
@@ -2175,6 +2296,9 @@
           "items": {
             "type": "string",
             "format": "uri"
+          },
+          "_display": {
+            "className": "admin only"
           }
         }
       },
@@ -2279,6 +2403,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "primarySector": {
@@ -2340,37 +2467,20 @@
             "className": "hidden"
           }
         },
-        "sameAs": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "duration": {
-          "title": "Grant.duration",
-          "description": "descriptions.Grant.duration",
-          "type": "string"
-        },
         "hasMonetaryValue": {
           "title": "Grant.hasMonetaryValue",
           "description": "descriptions.Grant.hasMonetaryValue",
           "type": "string"
         },
-        "description": {
-          "title": "Grant.description",
-          "description": "descriptions.Grant.description",
-          "$ref": "#/definitions/LocalizedText"
-        },
-        "name": {
-          "title": "Grant.name",
-          "description": "descriptions.Grant.name",
-          "$ref": "#/definitions/LocalizedString"
-        },
-        "alternateName": {
-          "title": "Grant.alternateName",
-          "description": "descriptions.Grant.alternateName",
-          "$ref": "#/definitions/LocalizedString"
+        "sameAs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "_display": {
+            "className": "hidden"
+          }
         },
         "isAwardedBy": {
           "title": "Grant.isAwardedBy",
@@ -2383,10 +2493,59 @@
             ]
           }
         },
+        "funds": {
+          "title": "Grant.funds",
+          "description": "descriptions.Grant.funds",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Action" ] } } }
+            ]
+          },
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "duration": {
+          "title": "Grant.duration",
+          "description": "descriptions.Grant.duration",
+          "type": "string",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "description": {
+          "title": "Grant.description",
+          "description": "descriptions.Grant.description",
+          "$ref": "#/definitions/LocalizedText",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "name": {
+          "title": "Grant.name",
+          "description": "descriptions.Grant.name",
+          "$ref": "#/definitions/LocalizedString",
+          "_display": {
+            "className": "hidden"
+          }
+        },
+        "alternateName": {
+          "title": "Grant.alternateName",
+          "description": "descriptions.Grant.alternateName",
+          "$ref": "#/definitions/LocalizedString",
+          "_display": {
+            "className": "hidden"
+          }
+        },
         "hasAwardDate": {
           "title": "Grant.hasAwardDate",
           "description": "descriptions.Grant.hasAwardDate",
-          "$ref": "#/definitions/iso-8601-date"
+          "$ref": "#/definitions/iso-8601-date",
+          "_display": {
+            "className": "hidden"
+          }
         },
         "mentionedIn": {
           "title": "Grant.mentionedIn",
@@ -2397,6 +2556,9 @@
               { "$ref": "#/definitions/Link" },
               { "properties": { "@type": { "enum": [ "Article" ] } } }
             ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         },
         "keywords": {
@@ -2405,17 +2567,9 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
-        },
-        "funds": {
-          "title": "Grant.funds",
-          "description": "descriptions.Grant.funds",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Action" ] } } }
-            ]
+          },
+          "_display": {
+            "className": "hidden"
           }
         }
       },
