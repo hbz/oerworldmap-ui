@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from 'json-pointer-form'
 
 import Map from './Map'
 import Filters from './Filters'
@@ -8,33 +7,14 @@ import Columns from './Columns'
 import Column from './Column'
 import ItemList from './ItemList'
 import Pagination from './Pagination'
-import FullModal from './FullModal'
-import schema from '../json/schema.json'
-import withI18n from './withI18n'
-import Icon from './Icon'
 import Export from './Export'
 import Share from './Share'
 
 import withEmitter from './withEmitter'
 
-const getLabel = (translate, value) => {
-  if (!value) return ''
-  if (typeof value === "object") {
-    return (
-      <span>
-        <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
-      </span>
-    )
-  } else {
-    return translate(value)
-  }
-}
-
 const ResourceIndex = ({
   mapboxConfig,
   emitter,
-  translate,
   query,
   filters,
   aggregations,
@@ -53,8 +33,7 @@ const ResourceIndex = ({
   children,
   _self,
   _links,
-  className,
-  add
+  className
 }) => (
   <div className={`ResourceIndex ${className ? className:''}`}>
     {children}
@@ -122,7 +101,6 @@ ResourceIndex.propTypes = {
   map: PropTypes.string,
   view: PropTypes.string,
   children: PropTypes.node.isRequired,
-  translate: PropTypes.func.isRequired,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
@@ -141,4 +119,4 @@ ResourceIndex.defaultProps = {
 
 
 
-export default withEmitter(withI18n(ResourceIndex))
+export default withEmitter(ResourceIndex)

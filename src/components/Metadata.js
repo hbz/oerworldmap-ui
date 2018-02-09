@@ -7,9 +7,15 @@ import '../styles/components/Metadata.pcss'
 
 const Metadata = ({type, dateModified, moment, translate} ) => (
   <div className="Metadata">
-    <div title={moment(dateModified).fromNow()} >
+    <div
+      title={
+        translate(type) + ' ' + (dateModified ? translate('ResourceIndex.read.lastModified', {
+          dateModified : moment(dateModified).format('YYYY-MM-DD')
+        }) : '')
+      }
+    >
       <Icon type={type} />
-      {translate(type)}&nbsp;{translate('ResourceIndex.read.lastModified', {
+      {translate(type)}&nbsp;{dateModified && translate('ResourceIndex.read.lastModified', {
         dateModified : moment(dateModified).format('YYYY-MM-DD')
       })}
     </div>
@@ -20,7 +26,11 @@ Metadata.propTypes = {
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  dateModified: PropTypes.string.isRequired
+  dateModified: PropTypes.string
+}
+
+Metadata.defaultProps = {
+  dateModified: null
 }
 
 export default withI18n(Metadata)
