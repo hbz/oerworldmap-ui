@@ -175,6 +175,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
               concepts={require('../json/esc.json').hasTopConcept}
               include={about.about.map(concept => concept['@id'])}
               className="recursiveList linedList ItemList"
+              linkTemplate="/resource/?filter.about.about.@id={@id}"
             />
           </Block>
         }
@@ -185,6 +186,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
               concepts={require('../json/isced-1997.json').hasTopConcept}
               include={about.audience.map(concept => concept['@id'])}
               className="linedList ItemList"
+              linkTemplate="/resource/?filter.about.audience.@id={@id}"
             />
           </Block>
         }
@@ -344,6 +346,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
               concepts={require('../json/sectors.json').hasTopConcept}
               include={about[prop].map(concept => concept['@id'])}
               className="linedList ItemList"
+              linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
             />
           </Block>
         ))}

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import urlTemplate from 'url-template'
 
 import withI18n from './withI18n'
 import Icon from './Icon'
@@ -18,11 +19,11 @@ const filterTree = (tree, list) => {
   return res
 }
 
-const ConceptTree = ({concepts, translate, include, className}) => (
+const ConceptTree = ({concepts, translate, include, className, linkTemplate}) => (
   <ul className={className}>
     {(include ? filterTree(concepts, include) : concepts).map(concept => (
       <li key={concept['@id']}>
-        <Link className="item" href={`/resource/${concept['@id']}`}>
+        <Link className="item" href={urlTemplate.parse(linkTemplate).expand(concept)}>
           <Icon type={concept['@type']} />
           <span>{translate(concept.name)}</span>
         </Link>
@@ -38,12 +39,14 @@ ConceptTree.propTypes = {
   concepts: PropTypes.arrayOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   include: PropTypes.arrayOf(PropTypes.any),
-  className: PropTypes.string
+  className: PropTypes.string,
+  linkTemplate: PropTypes.string
 }
 
 ConceptTree.defaultProps = {
   include: null,
-  className: null
+  className: null,
+  linkTemplate: '/resource/{@id}'
 }
 
 export default withI18n(ConceptTree)
