@@ -59,7 +59,8 @@ const WebPage = ({
   ) || ( user ? {
       '@type': 'LighthouseAction',
       'object': about,
-      'agent': [{ '@id': user.id, '@type': 'Person' }]
+      'agent': [{ '@id': user.id, '@type': 'Person' }],
+      'description': [{'@language': 'en'}]
     } : null )
 
   const likes = (about.objectIn || []).filter(action =>
@@ -257,6 +258,7 @@ const WebPage = ({
                   getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
                   getLabel={value => getLabel(translate, value)}
                   submitLabel={translate('publish')}
+                  className="Forms Lighthouse"
                 />
               </FullModal>
             }
