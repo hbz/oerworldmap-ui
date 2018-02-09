@@ -229,6 +229,7 @@ const WebPage = ({
               getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
               getLabel={value => getLabel(translate, value)}
               submitLabel={translate('publish')}
+              submitNote={translate('ResourceIndex.index.agreeMessage')}
             />
           </div>
 
