@@ -55,7 +55,19 @@ const ResourceIndex = ({
   _links,
   className,
   add
-}) => (
+}) => add ? (
+  <FullModal>
+    <h2>{translate(add)}</h2>
+    <Composer
+      value={{'@type': add}}
+      schema={schema}
+      submit={data => emitter.emit('submit', {url: '/resource/', data})}
+      getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+      getLabel={value => getLabel(translate, value)}
+      submitLabel={translate('publish')}
+    />
+  </FullModal>
+) : (
   <div className={`ResourceIndex ${className ? className:''}`}>
     {children}
 
@@ -92,20 +104,6 @@ const ResourceIndex = ({
       map={map}
     />
 
-    {add &&
-      <FullModal>
-        <h2>{translate(add)}</h2>
-        <Composer
-          value={{'@type': add}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
     {view === 'share' &&
       <Share _self={_self} />
     }
@@ -115,7 +113,6 @@ const ResourceIndex = ({
     }
 
   </div>
-
 )
 
 ResourceIndex.propTypes = {
