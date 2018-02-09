@@ -27,8 +27,20 @@ export default (api) => {
       path: '/resource/',
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
-        const data = state || await api.get(url, context.authorization)
-        const component = (data) => (
+        const data = params.add ? {
+            about: {
+              '@type': params.add
+            },
+            _self: url
+          } : state || await api.get(url, context.authorization)
+        const component = (data) => params.add ? (
+          <WebPage
+            user={context.user}
+            mapboxConfig={context.mapboxConfig}
+            {...data}
+            view="edit"
+          />
+        ) : (
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}

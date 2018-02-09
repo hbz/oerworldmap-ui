@@ -209,14 +209,15 @@ const WebPage = ({
               lighthouses={lighthouses}
             />
 
-            <Comments
-              comments={about['comment']}
-              id={about['@id']}
-              user={user}
-            />
+            {about['@id'] &&
+              <Comments
+                comments={about['comment']}
+                id={about['@id']}
+                user={user}
+              />
+            }
 
-            { user &&
-            view === 'addLighthouse' &&
+            {user && view === 'addLighthouse' &&
               <FullModal>
                 {console.log("about", about['@id'])}
                 <h2>Lighthouse Action</h2>
@@ -251,10 +252,10 @@ WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  author: PropTypes.string.isRequired,
-  contributor: PropTypes.string.isRequired,
-  dateCreated: PropTypes.string.isRequired,
-  dateModified: PropTypes.string.isRequired,
+  author: PropTypes.string,
+  contributor: PropTypes.string,
+  dateCreated: PropTypes.string,
+  dateModified: PropTypes.string,
   view: PropTypes.string.isRequired,
   geo: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
@@ -272,6 +273,10 @@ WebPage.propTypes = {
 WebPage.defaultProps = {
   geo: null,
   user: null,
+  author: null,
+  contributor: null,
+  dateCreated: null,
+  dateModified: null,
   _links: { refs: [] }
 }
 
