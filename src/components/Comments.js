@@ -32,7 +32,7 @@ const deleteComment = (id, emitter, e) => {
 const Comments = ({moment, translate, emitter, id, comments, user}) => (
   <div className="Comments">
 
-    {comments.length > 0 && <h2>Comments</h2>}
+    {comments.length > 0 && <h2>{translate('ResourceIndex.read.comments')}</h2>}
     {comments.filter(comment => comment.author && comment.text).map(comment => (
       <div className="Comment" key={comment['@id']}>
         <p>
@@ -55,7 +55,7 @@ const Comments = ({moment, translate, emitter, id, comments, user}) => (
     ))}
     {user &&
       <div>
-        <h2>Comment</h2>
+        <h2>{translate('comment')}</h2>
         <Composer
           value={{
             '@type': 'Comment',
