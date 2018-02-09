@@ -53,7 +53,8 @@ const ResourceIndex = ({
   children,
   _self,
   _links,
-  className
+  className,
+  add
 }) => (
   <div className={`ResourceIndex ${className ? className:''}`}>
     {children}
@@ -91,95 +92,11 @@ const ResourceIndex = ({
       map={map}
     />
 
-    {view === 'addOrganization' &&
+    {add &&
       <FullModal>
-        <h2>Add Organization</h2>
+        <h2>{translate(add)}</h2>
         <Composer
-          value={{'@type': 'Organization'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
-    {view === 'addService' &&
-      <FullModal>
-        <h2>Add Service</h2>
-        <Composer
-          value={{'@type': 'Service'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
-    {view === 'addProject' &&
-      <FullModal>
-        <h2>Add Project</h2>
-        <Composer
-          value={{'@type': 'Action'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
-    {view === 'addStory' &&
-      <FullModal>
-        <h2>Add Story</h2>
-        <Composer
-          value={{'@type': 'Article'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
-    {view === 'addEvent' &&
-      <FullModal>
-        <h2>Add Event</h2>
-        <Composer
-          value={{'@type': 'Event'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
-    {view === 'addPublication' &&
-      <FullModal>
-        <h2>Add Publication</h2>
-        <Composer
-          value={{'@type': 'WebPage'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/resource/', data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
-      </FullModal>
-    }
-
-    {view === 'addTool' &&
-      <FullModal>
-        <h2>Add Tool</h2>
-        <Composer
-          value={{'@type': 'Product'}}
+          value={{'@type': add}}
           schema={schema}
           submit={data => emitter.emit('submit', {url: '/resource/', data})}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}

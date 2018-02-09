@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 import Link from './Link'
+import Icon from './Icon'
 import { triggerClick } from '../common'
 
 import '../styles/components/ActionButtons.pcss'
@@ -54,48 +55,13 @@ class ActionButtons extends React.Component {
             <i className="fa fa-plus" />
 
             <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
-              <li>
-                <Link href="#addOrganization">
-                  + {this.props.translate('Organization')} <i className="fa fa-users" />
-                </Link>
-              </li>
-
-              <li>
-                <Link href="#addService">
-                  + {this.props.translate('Service')} <i className="fa fa-desktop" />
-                </Link>
-              </li>
-
-              <li>
-                <Link href="#addProject">
-                  + {this.props.translate('Action')} <i className="fa fa-gears" />
-                </Link>
-              </li>
-
-              <li>
-                <Link href="#addStory">
-                  + {this.props.translate('Article')} <i className="fa fa-comment" />
-                </Link>
-              </li>
-
-              <li>
-                <Link href="#addEvent">
-                  + {this.props.translate('Event')} <i className="fa fa-calendar" />
-                </Link>
-              </li>
-
-              <li>
-                <Link href="#addPublication">
-                  + {this.props.translate('WebPage')} <i className="fa fa-book" />
-                </Link>
-              </li>
-
-              <li>
-                <Link href="#addTool">
-                  + {this.props.translate('Product')} <i className="fa fa-folder" />
-                </Link>
-              </li>
-
+              {['Organization', 'Service', 'Action', 'Article', 'Event', 'WebPage', 'Product'].map(type => (
+                <li key={type}>
+                  <Link href={`?add=${type}`}>
+                    + {this.props.translate(type)} <Icon type={type} />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         }
