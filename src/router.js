@@ -127,7 +127,7 @@ export default (api) => {
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
+              countryData={data.aggregations['country']['about.location.address.addressCountry'].buckets[0]}
             />
           </ResourceIndex>
         )

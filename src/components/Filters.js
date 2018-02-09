@@ -69,6 +69,11 @@ const primaryFilters = [
     icon: "globe"
   },
   {
+    name: "about.location.address.addressRegion",
+    type: "dropdown",
+    icon: "globe"
+  },
+  {
     name: "about.keywords",
     type: "dropdown",
     icon: "tag"

@@ -172,10 +172,12 @@ class Map extends React.Component {
   }
 
   getBucket(country) {
-    if (this.props.features === null)  return
-    return this.props.aggregations["about.location.address.addressCountry"].buckets.find(e => {
-      return e.key === country
-    })
+    const aggregation = this.props.aggregations.country
+      ? this.props.aggregations.country["about.location.address.addressCountry"]
+      : this.props.aggregations["about.location.address.addressCountry"]
+    return this.props.features
+      ? aggregation.buckets.find(e => e.key === country )
+      : null
   }
 
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
@@ -392,7 +394,7 @@ class Map extends React.Component {
 
     if (aggregations === null) return
     // The buckets holding the data for the choropleth layers
-    const buckets = aggregations
+    const buckets = aggregations && aggregations["about.location.address.addressCountry"]
       ? aggregations["about.location.address.addressCountry"].buckets
       : []
 
