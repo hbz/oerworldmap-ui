@@ -284,6 +284,7 @@ class Filters extends React.Component {
               >
                 <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
                 <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
               </select>
 
               <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
