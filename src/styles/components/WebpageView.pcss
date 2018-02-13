@@ -88,6 +88,30 @@
     }
   }
 
+  & .like {
+    display: inline-block;
+    font-size: 1.3rem;
+    margin-right: 15px;
+    color: var(--blue);
+
+    & button {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      color: var(--blue);
+
+      &:hover,
+      &:focus {
+        color: var(--orange);
+      }
+    }
+
+    &:hover,
+    &:focus {
+      color: var(--orange);
+    }
+  }
+
   & .lighthouse {
     display: inline-block;
     position: relative;

@@ -8,7 +8,6 @@ import Metadata from './Metadata'
 import Link from './Link'
 import Icon from './Icon'
 import withEmitter from './withEmitter'
-import FullModal from './FullModal'
 import Export from './Export'
 import Share from './Share'
 import DropdownButton from './DropdownButton'
@@ -51,44 +50,6 @@ const WebPage = ({
   mapboxConfig
 }) => {
 
-  const lighthouses = (about.objectIn || []).filter(action =>
-    action['@type'] === 'LighthouseAction'
-  ) || []
-  const lighthouse = lighthouses.find(action =>
-    action.agent.some(agent => user && agent['@id'] === user.id)
-  ) || ( user ? {
-      '@type': 'LighthouseAction',
-      'object': about,
-      'agent': [{ '@id': user.id, '@type': 'Person' }],
-      'description': [{'@language': 'en'}]
-    } : null )
-
-  const likes = (about.objectIn || []).filter(action =>
-    action['@type'] === 'LikeAction'
-  ) || []
-  const like = likes.find(action =>
-    action.agent.some(agent => user && agent['@id'] === user.id)
-  )
-
-  const toggleLike = (e) => {
-    e.preventDefault()
-    if (like) {
-      emitter.emit('delete', {url: `/resource/${like['@id']}`})
-    } else {
-      emitter.emit('submit', {
-        url: '/resource/',
-        data: {
-          '@type': 'LikeAction',
-          'object': about,
-          'agent': [{
-            '@id': user.id,
-            '@type': 'Person'
-          }]
-        }
-      })
-    }
-  }
-
   const closeResource = () => {
     emitter.emit('navigate', '__back__')
   }
@@ -109,16 +70,6 @@ const WebPage = ({
 
           {about['@id'] ? (
             <div className="webPageActions">
-
-              {user &&
-                <div className="like">
-                  <form onSubmit={toggleLike}>
-                    <button type="submit" title="Like">
-                      <i className="fa fa-thumbs-up" /> <span>({likes.length})</span>
-                    </button>
-                  </form>
-                </div>
-              }
 
               <DropdownButton />
 
@@ -238,7 +189,8 @@ const WebPage = ({
             <WebpageView
               id="view"
               about={about}
-              lighthouses={lighthouses}
+              user={user}
+              view={view}
             />
 
             {about['@id'] &&
@@ -247,21 +199,6 @@ const WebPage = ({
                 id={about['@id']}
                 user={user}
               />
-            }
-
-            {about['@id'] && user && view === 'addLighthouse' &&
-              <FullModal>
-                <h2>{translate('ResourceIndex.read.lightHouse')}</h2>
-                <Composer
-                  value={lighthouse}
-                  schema={schema}
-                  submit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
-                  getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-                  getLabel={value => getLabel(translate, value)}
-                  submitLabel={translate('publish')}
-                  className="Forms Lighthouse"
-                />
-              </FullModal>
             }
 
             {about['@id'] && view === 'share' &&
