@@ -1,74 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
-import { Composer } from 'json-pointer-form'
 
 import withI18n from './withI18n'
-import withEmitter from './withEmitter'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
 import ConceptTree from './ConceptTree'
-import FullModal from './FullModal'
-import Icon from './Icon'
+import WebPageUserActions from './WebPageUserActions'
 
 import { formatURL/*, obfuscate*/ } from '../common'
-import schema from '../json/schema.json'
 import '../styles/components/WebPageView.pcss'
 
-const getLabel = (translate, value) => {
-  if (!value) return ''
-  if (typeof value === "object") {
-    return (
-      <span>
-        <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
-      </span>
-    )
-  } else {
-    return translate(value)
-  }
-}
+const WebPageView = ({translate, moment, about, user, view}) => {
 
-const WebPageView = ({translate, moment, about, user, emitter, view}) => {
+  const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
 
-  const lighthouses = (about.objectIn || []).filter(action =>
-    action['@type'] === 'LighthouseAction'
-  ) || []
-  const lighthouse = lighthouses.find(action =>
-    action.agent.some(agent => user && agent['@id'] === user.id)
-  ) || ( user ? {
-      '@type': 'LighthouseAction',
-      'object': about,
-      'agent': [{ '@id': user.id, '@type': 'Person' }],
-      'description': [{'@language': 'en'}]
-    } : null )
-
-  const likes = (about.objectIn || []).filter(action =>
-    action['@type'] === 'LikeAction'
-  ) || []
-  const like = likes.find(action =>
-    action.agent.some(agent => user && agent['@id'] === user.id)
-  )
-
-  const toggleLike = (e) => {
-    e.preventDefault()
-    if (like) {
-      emitter.emit('delete', {url: `/resource/${like['@id']}`})
-    } else {
-      emitter.emit('submit', {
-        url: '/resource/',
-        data: {
-          '@type': 'LikeAction',
-          'object': about,
-          'agent': [{
-            '@id': user.id,
-            '@type': 'Person'
-          }]
-        }
-      })
-    }
-  }
+  const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
 
   return (
     <div className="WebPageView">
@@ -115,23 +63,7 @@ const WebPageView = ({translate, moment, about, user, emitter, view}) => {
       }
 
       {user &&
-        <div className="userActions">
-          <div className="like">
-            <form onSubmit={toggleLike}>
-              <button type="submit" title="Like">
-                <i className="fa fa-thumbs-up" />
-              </button>
-            </form>
-          </div>
-          <div className="lighthouse">
-            <a href="#addLighthouse">
-              <img
-                src="/assets/lighthouse.svg"
-                alt="Lighthouse"
-              />
-            </a>
-          </div>
-        </div>
+        <WebPageUserActions about={about} user={user} view={view} />
       }
 
       <h2>{translate(about.displayName) || translate(about.name)}</h2>
@@ -433,21 +365,6 @@ const WebPageView = ({translate, moment, about, user, emitter, view}) => {
         </aside>
       </div>
 
-      {about['@id'] && user && view === 'addLighthouse' &&
-        <FullModal>
-          <h2>{translate('ResourceIndex.read.lightHouse')}</h2>
-          <Composer
-            value={lighthouse}
-            schema={schema}
-            submit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
-            getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-            getLabel={value => getLabel(translate, value)}
-            submitLabel={translate('publish')}
-            className="Forms Lighthouse"
-          />
-        </FullModal>
-      }
-
     </div>
   )
 }
@@ -455,7 +372,13 @@ const WebPageView = ({translate, moment, about, user, emitter, view}) => {
 WebPageView.propTypes = {
   translate: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  moment: PropTypes.func.isRequired
+  moment: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.any),
+  view: PropTypes.string.isRequired
 }
 
-export default withEmitter(withI18n(WebPageView))
+WebPageView.defaultProps = {
+  user: null
+}
+
+export default withI18n(WebPageView)

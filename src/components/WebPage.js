@@ -1,48 +1,23 @@
-/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from 'json-pointer-form'
 
-import withI18n from './withI18n'
-import Metadata from './Metadata'
-import Link from './Link'
-import Icon from './Icon'
-import withEmitter from './withEmitter'
 import Export from './Export'
 import Share from './Share'
-import DropdownButton from './DropdownButton'
 import Comments from './Comments'
 import WebPageView from './WebPageView'
-import MiniMap from './MiniMap'
+import WebPageEdit from './WebPageEdit'
+import WebPageHeader from './WebPageHeader'
+import WebPageCover from './WebPageCover'
 
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
 
-import schema from '../json/schema.json'
-
-const getLabel = (translate, value) => {
-  if (!value) return ''
-  if (typeof value === "object") {
-    return (
-      <span>
-        <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
-      </span>
-    )
-  } else {
-    return translate(value)
-  }
-}
-
 const WebPage = ({
-  translate,
   user,
   about,
   contributor,
   dateModified,
-  author,
   dateCreated,
-  emitter,
   view,
   geo,
   _links,
@@ -50,155 +25,35 @@ const WebPage = ({
   mapboxConfig
 }) => {
 
-  const closeResource = () => {
-    emitter.emit('navigate', '__back__')
-  }
-
   return (
     <div className="WebPage">
       <div className="webPageContainer">
-        <div className="webPageHeader">
-          <b>
-            <Metadata
-              type={about['@type']}
-              author={author}
-              contributor={contributor}
-              dateModified={dateModified}
-              dateCreated={dateCreated}
-            />
-          </b>
 
-          {about['@id'] ? (
-            <div className="webPageActions">
-
-              <DropdownButton />
-
-              {user && (view === 'edit' ? (
-                <Link href="#view"><i className="fa fa-eye" /></Link>
-              ) : (
-                <Link href="#edit"><i className="fa fa-pencil" /></Link>
-              ))}
-              <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
-              {typeof window !== 'undefined' &&
-                window.history.length ?
-                (
-                  <span
-                    onClick={closeResource}
-                    role="button"
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        e.target.click()
-                      }
-                    }}
-                  >
-                    <i className="fa fa-close" />
-                  </span>
-                ) : (
-                  <Link
-                    href='/resource/'
-                    className="closeModal"
-                  >
-                    <i className="fa fa-close" />
-                  </Link>
-                )
-              }
-            </div>
-          ) : (
-            <div className="webPageActions">
-              {typeof window !== 'undefined' &&
-                window.history.length ?
-                (
-                  <span
-                    onClick={closeResource}
-                    role="button"
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        e.target.click()
-                      }
-                    }}
-                  >
-                    <i className="fa fa-close" />
-                  </span>
-                ) : (
-                  <Link
-                    href='/resource/'
-                    className="closeModal"
-                  >
-                    <i className="fa fa-close" />
-                  </Link>
-                )
-              }
-            </div>
-          )}
-
-        </div>
+        <WebPageHeader
+          user={user}
+          about={about}
+          contributor={contributor}
+          dateModified={dateModified}
+          dateCreated={dateCreated}
+          view={view}
+        />
 
         {(about.image || geo) &&
-        <div
-          className="webPageCover"
-        >
-          {geo &&
-            <MiniMap
-              mapboxConfig={mapboxConfig}
-              features={geo && geo.geometry}
-              zoom={7}
-              center={(geo &&
-                geo.geometry &&
-                geo.geometry.coordinates) &&
-                Array.isArray(geo.geometry.coordinates[0])
-                ? [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
-                : [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
-              }
-            />
-          }
-
-          {about.image &&
-            <img
-              src={about.image}
-              alt={translate(about.name)}
-              onError={e => {
-                if (Object.keys(geo.geometry).length <= 0) {
-                  e.target.parentElement.remove()
-                }
-                e.target.remove()
-              }}
-              aria-label={translate(about.name)}
-            />
-          }
-        </div>
+          <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} />
         }
 
         <div className="webPageContent">
 
           <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-            <Composer
-              value={about}
-              schema={schema}
-              submit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
-              getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-              getLabel={value => getLabel(translate, value)}
-              submitLabel={translate('publish')}
-              submitNote={translate('ResourceIndex.index.agreeMessage')}
-            />
+            <WebPageEdit about={about} />
           </div>
 
           <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
 
-            <WebPageView
-              id="view"
-              about={about}
-              user={user}
-              view={view}
-            />
+            <WebPageView id="view" about={about} user={user} view={view} />
 
             {about['@id'] &&
-              <Comments
-                comments={about['comment']}
-                id={about['@id']}
-                user={user}
-              />
+              <Comments comments={about['comment']} id={about['@id']} user={user} />
             }
 
             {about['@id'] && view === 'share' &&
@@ -218,10 +73,7 @@ const WebPage = ({
 }
 
 WebPage.propTypes = {
-  translate: PropTypes.func.isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  author: PropTypes.string,
   contributor: PropTypes.string,
   dateCreated: PropTypes.string,
   dateModified: PropTypes.string,
@@ -242,11 +94,10 @@ WebPage.propTypes = {
 WebPage.defaultProps = {
   geo: null,
   user: null,
-  author: null,
   contributor: null,
   dateCreated: null,
   dateModified: null,
   _links: { refs: [] }
 }
 
-export default withEmitter(withI18n(WebPage))
+export default WebPage
