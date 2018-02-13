@@ -12,7 +12,7 @@ import Export from './Export'
 import Share from './Share'
 import DropdownButton from './DropdownButton'
 import Comments from './Comments'
-import WebpageView from './WebpageView'
+import WebPageView from './WebPageView'
 import MiniMap from './MiniMap'
 
 import '../styles/components/WebPage.pcss'
@@ -186,7 +186,7 @@ const WebPage = ({
 
           <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
 
-            <WebpageView
+            <WebPageView
               id="view"
               about={about}
               user={user}

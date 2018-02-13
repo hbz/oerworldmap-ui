@@ -14,7 +14,7 @@ import Icon from './Icon'
 
 import { formatURL/*, obfuscate*/ } from '../common'
 import schema from '../json/schema.json'
-import '../styles/components/WebpageView.pcss'
+import '../styles/components/WebPageView.pcss'
 
 const getLabel = (translate, value) => {
   if (!value) return ''
@@ -30,7 +30,7 @@ const getLabel = (translate, value) => {
   }
 }
 
-const WebpageView = ({translate, moment, about, user, emitter, view}) => {
+const WebPageView = ({translate, moment, about, user, emitter, view}) => {
 
   const lighthouses = (about.objectIn || []).filter(action =>
     action['@type'] === 'LighthouseAction'
@@ -71,7 +71,7 @@ const WebpageView = ({translate, moment, about, user, emitter, view}) => {
   }
 
   return (
-    <div className="WebpageView">
+    <div className="WebPageView">
 
       {about.sameAs &&
         <div className="social">
@@ -452,10 +452,10 @@ const WebpageView = ({translate, moment, about, user, emitter, view}) => {
   )
 }
 
-WebpageView.propTypes = {
+WebPageView.propTypes = {
   translate: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired
 }
 
-export default withEmitter(withI18n(WebpageView))
+export default withEmitter(withI18n(WebPageView))
