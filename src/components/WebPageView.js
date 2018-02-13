@@ -90,20 +90,6 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ))
           }
 
-          {about.license &&
-            about.license.map(license => (
-              <img key={license['@id']} className="licenseImage" src={license.image} alt={translate(license.name)} />
-            ))
-          }
-
-          {about.award &&
-            <div>
-              {about.award.map(award => (
-                <img key={award} src={award} className="awardImage" alt={translate('Award')} />
-              ))
-              }
-            </div>
-          }
         </div>
 
         <aside className="webpageColumn">
@@ -127,17 +113,6 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               <p>
                 <a href={`mailto:${about.email}`}>{about.email}</a>
               </p>
-            </Block>
-          }
-
-          {about.availableChannel &&
-            <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
-              {about.availableChannel.map(item => (
-                item.availableLanguage &&
-                <p key={item.availableLanguage[0]}>
-                  {translate(item.availableLanguage[0])}
-                </p>
-              ))}
             </Block>
           }
 
@@ -202,13 +177,6 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               {about.endTime && ` - ${about.endTime.includes('T00:00:00')
                 ? moment(about.endTime).format('LL')
                 : moment(about.endTime).format('LLL')}`}
-            </Block>
-          }
-
-          {about.startDate &&
-            <Block className="asideList" title={translate(`${about['@type']}.startDate`)}>
-              {moment(about.startDate).format('LL')}
-              {about.endDate && ` - ${moment(about.startDate).format('LL')}`}
             </Block>
           }
 
@@ -327,6 +295,52 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               <ItemList listItems={about[prop]} />
             </Block>
           ))}
+
+          {about.award &&
+            <Block title={translate(`${about['@type']}.award`)}>
+              <ul>
+                {about.award.map(award => (
+                  <li>
+                    <img key={award} src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
+                    {translate(award)}
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
+          {about.license &&
+            <Block title={translate(`${about['@type']}.license`)}>
+              <ul className="commaSeparatedList">
+                {about.license.map(license => (
+                  <li key={license['@id']}>
+                    <img className="licenseImage" src={license.image} alt={translate(license.name)} />
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
+          {about.availableChannel &&
+            <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
+              <ul className="commaSeparatedList">
+                {[].concat.apply([], about.availableChannel.map(channel => channel.availableLanguage)).map(lang => (
+                  <li key={lang}>
+                    <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
+                      {translate(lang)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
+          {about.startDate &&
+            <Block className="asideList" title={translate(`${about['@type']}.startDate`)}>
+              {moment(about.startDate).format('LL')}
+              {about.endDate && ` - ${moment(about.startDate).format('LL')}`}
+            </Block>
+          }
 
           {['primarySector', 'secondarySector'].map(prop => (
             about[prop] &&
