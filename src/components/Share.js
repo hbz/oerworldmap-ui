@@ -8,7 +8,7 @@ import '../styles/components/Share.pcss'
 
 const Share = ({_self, translate}) => (
   <FullModal className="Share">
-    <h2>{translate('share.shareResourc')}</h2>
+    <h2>{translate('share.shareResource')}</h2>
     <div className="shareContent">
       <span className="title">{translate('share.permalink')}</span>
       <div className="content">{_self}</div>

@@ -3,12 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Link from './Link'
-import DropdownButton from './DropdownButton'
+import ShareExport from './ShareExport'
 import Metadata from './Metadata'
 import withEmitter from './withEmitter'
 
 
-const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, emitter}) => {
+const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, emitter, _self, _links}) => {
   const closeResource = () => {
     emitter.emit('navigate', '__back__')
   }
@@ -27,7 +27,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
       <div className="webPageActions">
         {about['@id'] &&
           <div>
-            <DropdownButton />
+            <ShareExport _self={_self} _links={_links} view={view} />
             {user && (view === 'edit' ? (
               <Link href="#view"><i className="fa fa-eye" /></Link>
             ) : (
@@ -74,6 +74,8 @@ WebPageHeader.propTypes = {
   view: PropTypes.string.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   author: PropTypes.string,
+  _self: PropTypes.string.isRequired,
+  _links: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 WebPageHeader.defaultProps = {

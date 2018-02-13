@@ -7,8 +7,6 @@ import Columns from './Columns'
 import Column from './Column'
 import ItemList from './ItemList'
 import Pagination from './Pagination'
-import Export from './Export'
-import Share from './Share'
 
 import withEmitter from './withEmitter'
 
@@ -46,6 +44,9 @@ const ResourceIndex = ({
           aggregations={aggregations}
           member={member}
           size={Number.isInteger(+size) ? +size : 10}
+          _self={_self}
+          _links={_links}
+          view={view}
         />
         <div className="wrapper-ItemList-Pagination">
           <ItemList listItems={member.map(member => member.about)} />
@@ -70,14 +71,6 @@ const ResourceIndex = ({
       iso3166={iso3166}
       map={map}
     />
-
-    {view === 'share' &&
-      <Share _self={_self} />
-    }
-
-    {view === 'export' &&
-      <Export _links={_links} />
-    }
 
   </div>
 )

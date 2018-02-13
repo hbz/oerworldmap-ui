@@ -272,7 +272,13 @@ class Filters extends React.Component {
           <hr />
 
           <div className="sortContainer">
-            <PagedCollection size={this.props.size} member={this.props.member}>
+            <PagedCollection
+              size={this.props.size}
+              member={this.props.member}
+              _self={this.props._self}
+              _links={this.props._links}
+              view={this.props.view}
+            >
               <select
                 name="sort"
                 className="styledSelect"
@@ -311,6 +317,13 @@ Filters.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   member: PropTypes.arrayOf(PropTypes.any).isRequired,
+  view: PropTypes.string,
+  _self: PropTypes.string.isRequired,
+  _links: PropTypes.objectOf(PropTypes.any).isRequired,
+}
+
+Filters.defaultProps = {
+  view: null
 }
 
 export default withEmitter(withI18n(Filters))

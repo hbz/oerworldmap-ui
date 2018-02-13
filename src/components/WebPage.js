@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Export from './Export'
-import Share from './Share'
 import Comments from './Comments'
 import WebPageView from './WebPageView'
 import WebPageEdit from './WebPageEdit'
@@ -36,6 +34,8 @@ const WebPage = ({
           dateModified={dateModified}
           dateCreated={dateCreated}
           view={view}
+          _self={_self}
+          _links={_links}
         />
 
         {(about.image || geo) &&
@@ -54,14 +54,6 @@ const WebPage = ({
 
             {about['@id'] &&
               <Comments comments={about['comment']} id={about['@id']} user={user} />
-            }
-
-            {about['@id'] && view === 'share' &&
-              <Share _self={_self} />
-            }
-
-            {about['@id'] && view === 'export' &&
-              <Export _links={_links} />
             }
 
           </div>
