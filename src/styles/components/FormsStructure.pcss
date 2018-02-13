@@ -1,10 +1,18 @@
 @import '../variables.pcss';
 
+.container[data-userroles*="admin"] .Forms .admin.only {
+  display: block;
+}
+
 .Forms {
   &::after {
     content: '';
     display: block;
     clear: both;
+  }
+
+  & .admin.only {
+    display: none;
   }
 
   & ::placeholder {
