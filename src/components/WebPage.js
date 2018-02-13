@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Comments from './Comments'
 import WebPageView from './WebPageView'
 import WebPageEdit from './WebPageEdit'
 import WebPageHeader from './WebPageHeader'
@@ -51,10 +50,6 @@ const WebPage = ({
           <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
 
             <WebPageView id="view" about={about} user={user} view={view} />
-
-            {about['@id'] &&
-              <Comments comments={about['comment']} id={about['@id']} user={user} />
-            }
 
           </div>
         </div>

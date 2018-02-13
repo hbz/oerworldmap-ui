@@ -9,6 +9,7 @@ import Link from './Link'
 import ConceptTree from './ConceptTree'
 import WebPageUserActions from './WebPageUserActions'
 import SocialLinks from './SocialLinks'
+import Comments from './Comments'
 
 import { formatURL/*, obfuscate*/ } from '../common'
 import '../styles/components/WebPageView.pcss'
@@ -68,6 +69,14 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             </a>
           }
 
+          {about.availableChannel &&
+            about.availableChannel.map(link => (
+              <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener" className="boxedLink">
+                {formatURL(link.serviceUrl)}
+              </a>
+            ))
+          }
+
           {about.keywords &&
             <Block title={translate(`${about['@type']}.keywords`)}>
               <ul className="commaSeparatedList">
@@ -82,12 +91,69 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             </Block>
           }
 
-          {about.availableChannel &&
-            about.availableChannel.map(link => (
-              <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener" className="boxedLink">
-                {formatURL(link.serviceUrl)}
-              </a>
-            ))
+          {about.about &&
+            <Block className="asideList" title={translate(`${about['@type']}.about`)}>
+              <ConceptTree
+                concepts={require('../json/esc.json').hasTopConcept}
+                include={about.about.map(concept => concept['@id'])}
+                className="recursiveList linedList ItemList"
+                linkTemplate="/resource/?filter.about.about.@id={@id}"
+              />
+            </Block>
+          }
+
+          {about.audience &&
+            <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
+              <ConceptTree
+                concepts={require('../json/isced-1997.json').hasTopConcept}
+                include={about.audience.map(concept => concept['@id'])}
+                className="linedList ItemList"
+                linkTemplate="/resource/?filter.about.audience.@id={@id}"
+              />
+            </Block>
+          }
+
+          {['primarySector', 'secondarySector'].map(prop => (
+            about[prop] &&
+            <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+              <ConceptTree
+                concepts={require('../json/sectors.json').hasTopConcept}
+                include={about[prop].map(concept => concept['@id'])}
+                className="linedList ItemList"
+                linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
+              />
+            </Block>
+          ))}
+
+          {lighthouses &&
+            <Block className="lighthouseComments" title={translate('ResourceIndex.read.lighthouses.title')}>
+              {lighthouses.map(lighthouse => (
+                <div className="Comment" key={lighthouse['@id']}>
+                  <p>
+                    <small>
+                      {lighthouse.agent.map(author => (
+                        <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
+                          {translate(author.name)}
+                        </Link>)
+                      )}
+                      &nbsp; {moment(lighthouse.dateCreated).fromNow()}
+                    </small>
+                  </p>
+                  <form onSubmit={(e) => console.warn("Delete lighthouse not implemented", e)}>
+                    <button className="btn" type="submit" title="Delete">
+                      <i className="fa fa-fw fa-trash" />
+                    </button>
+                  </form>
+                  <ReactMarkdown source={translate(lighthouse.description)} />
+                </div>
+              ))}
+            </Block>
+          }
+
+          {about['@id'] &&
+            <Block title={translate('ResourceIndex.read.comments')}>
+              <Comments comments={about['comment']} id={about['@id']} user={user} />
+            </Block>
           }
 
         </div>
@@ -147,28 +213,6 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             </Block>
           }
 
-          {about.about &&
-            <Block className="asideList" title={translate(`${about['@type']}.about`)}>
-              <ConceptTree
-                concepts={require('../json/esc.json').hasTopConcept}
-                include={about.about.map(concept => concept['@id'])}
-                className="recursiveList linedList ItemList"
-                linkTemplate="/resource/?filter.about.about.@id={@id}"
-              />
-            </Block>
-          }
-
-          {about.audience &&
-            <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
-              <ConceptTree
-                concepts={require('../json/isced-1997.json').hasTopConcept}
-                include={about.audience.map(concept => concept['@id'])}
-                className="linedList ItemList"
-                linkTemplate="/resource/?filter.about.audience.@id={@id}"
-              />
-            </Block>
-          }
-
           {about.startTime &&
             <Block className="asideList" title={translate(`${about['@type']}.startTime`)}>
               {about.startTime.includes('T00:00:00')
@@ -218,7 +262,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
               prop => (
                 about[prop] &&
-                <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
                   <ItemList listItems={about[prop]} />
                 </Block>
               )
@@ -226,7 +270,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
-            <Block collapsible collapsed className="asideList" title={translate(`${about['@type']}.agentIn`)}>
+            <Block className="asideList" title={translate(`${about['@type']}.agentIn`)}>
               <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
             </Block>
           }
@@ -235,7 +279,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ['participant', 'participantIn'].map(
               prop => (
                 about[prop] &&
-                <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
                   <ItemList listItems={about[prop]} />
                 </Block>
               )
@@ -264,7 +308,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             </Block>
           }
 
-          {about.awards && about.awards.filter(grant => grant.funds) &&
+          {about.awards && about.awards.some(grant => grant.funds) &&
             <Block className="asideList" title={translate(`${about['@type']}.funds`)}>
               <ItemList
                 listItems={
@@ -275,7 +319,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.hasPart &&
-            <Block collapsible className="asideList" title={translate(`${about['@type']}.hasPart`)}>
+            <Block className="asideList" title={translate(`${about['@type']}.hasPart`)}>
               <ItemList listItems={about.hasPart} />
             </Block>
           }
@@ -291,7 +335,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
             'isRelatedTo'].map(prop => (
             about[prop] &&
-            <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
               <ItemList listItems={about[prop]} />
             </Block>
           ))}
@@ -341,18 +385,6 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               {about.endDate && ` - ${moment(about.startDate).format('LL')}`}
             </Block>
           }
-
-          {['primarySector', 'secondarySector'].map(prop => (
-            about[prop] &&
-            <Block key={prop} collapsible collapsed className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-              <ConceptTree
-                concepts={require('../json/sectors.json').hasTopConcept}
-                include={about[prop].map(concept => concept['@id'])}
-                className="linedList ItemList"
-                linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
-              />
-            </Block>
-          ))}
 
         </aside>
       </div>

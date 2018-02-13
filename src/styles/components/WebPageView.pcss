@@ -5,6 +5,23 @@
     font-size: 1.6rem;
   }
 
+  &.recursiveList li {
+    border: none;
+    padding: 0;
+
+    & a {
+      align-items: start;
+
+      & i {
+        width: auto;
+        padding: 0;
+        margin: 0;
+        border: none;
+        height: auto;
+      }
+    }
+  }
+
   & .webpageColumn {
     max-width: 30%;
     margin-left: 20px;
@@ -40,22 +57,6 @@
           }
         }
 
-        &.recursiveList li {
-          border: none;
-          padding: 0;
-
-          & a {
-            align-items: start;
-
-            & i {
-              width: auto;
-              padding: 0;
-              margin: 0;
-              border: none;
-              height: auto;
-            }
-          }
-        }
       }
     }
   }
