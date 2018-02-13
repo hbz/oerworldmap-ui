@@ -18,24 +18,6 @@
         padding: 0;
         padding-left: 5px;
 
-        &.commaSeparatedList {
-          display: inline;
-	        padding: 0;
-
-          & li {
-            display: inline;
-            padding: 0;
-
-            &::before {
-              content: " & ";
-            }
-
-            &:first-child::before {
-              content: "";
-            }
-          }
-        }
-
         &.linedList li {
           padding-bottom: 10px;
 

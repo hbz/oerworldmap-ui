@@ -72,6 +72,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
         <form onSubmit={toggleLike}>
           <button type="submit" title="Like">
             <i className="fa fa-thumbs-up" />
+            {translate('Like')}
           </button>
         </form>
       </div>
@@ -81,11 +82,11 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
             src="/assets/lighthouse.svg"
             alt="Lighthouse"
           />
+          {translate('Lighthouse')}
         </a>
       </div>
       {about['@id'] && user && view === 'addLighthouse' &&
         <FullModal>
-          <h2>{translate('ResourceIndex.read.lightHouse')}</h2>
           <Composer
             value={lighthouse}
             schema={schema}

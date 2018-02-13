@@ -357,3 +357,21 @@ pre {
 .tooltipDisableEvents {
   pointer-events: none;
 }
+
+.commaSeparatedList {
+  display: inline;
+  padding: 0;
+
+  & li {
+    display: inline;
+    padding: 0;
+
+    &::before {
+      content: " & ";
+    }
+
+    &:first-child::before {
+      content: "";
+    }
+  }
+}

@@ -45,24 +45,41 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
       <div className="information">
         <div className="main">
-          {(about.description || about.articleBody) &&
-            <div className="description">
-              <h3>{translate('Description')}</h3>
 
+          {about.description &&
+            <Block className="description" title={translate(`${about['@type']}.description`)}>
               {about.description &&
                 <ReactMarkdown escapeHtml={false} source={translate(about.description)} />
               }
+            </Block>
+          }
 
+          {about.articleBody &&
+            <Block className="description" title={translate(`${about['@type']}.articleBody`)}>
               {about.articleBody &&
                 <ReactMarkdown escapeHtml={false} source={translate(about.articleBody)} />
               }
-            </div>
+            </Block>
           }
 
           {about.url &&
             <a href={about.url} target="_blank" rel="noopener" className="boxedLink">
               {formatURL(about.url)}
             </a>
+          }
+
+          {about.keywords &&
+            <Block title={translate(`${about['@type']}.keywords`)}>
+              <ul className="commaSeparatedList">
+                {about.keywords.map(keyword => (
+                  <li key={keyword}>
+                    <Link href={`/resource/?filter.about.keywords=${keyword}`}>
+                      {keyword}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Block>
           }
 
           {about.availableChannel &&
@@ -100,7 +117,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           </div>
 
           <div className="likes">
-            <i className="fa fa-thumbs-up" /> <span>({likes.length})</span>
+            <i className="fa fa-thumbs-up" /> {translate('Like')} ({likes.length})
           </div>
 
           {about.email &&
@@ -212,20 +229,6 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           {about.hashtag &&
             <Block className="asideList" title={translate(`${about['@type']}.hashtag`)}>
               {about.hashtag}
-            </Block>
-          }
-
-          {about.keywords &&
-            <Block className="asideList" title={translate(`${about['@type']}.keywords`)}>
-              <ul className="commaSeparatedList">
-                {about.keywords.map(keyword => (
-                  <li key={keyword}>
-                    <Link href={`/resource/?filter.about.keywords=${keyword}`}>
-                      {keyword}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </Block>
           }
 
