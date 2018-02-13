@@ -42,7 +42,7 @@
   "definitions": {
     "RegisterAction": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "User registration",
+      "title": "UserIndex.register.register",
       "type": "object",
       "properties": {
         "name": {
@@ -86,7 +86,8 @@
     },
     "ResetPasswordAction": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Reset password",
+      "title": "UserIndex.register.forgotPassword",
+      "description": "UserIndex.register.forgotPasswordMessage",
       "type": "object",
       "properties": {
         "email": {
@@ -99,7 +100,8 @@
     },
     "ChangePasswordAction": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Reset password",
+      "title": "UserIndex.password.changePassword",
+      "description": "UserIndex.password.message",
       "type": "object",
       "properties": {
         "password": {
@@ -145,8 +147,7 @@
     },
     "WebPage": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Bookmark",
-      "description": "A bookmark",
+      "title": "WebPage",
       "type": "object",
       "properties": {
         "@context": {
@@ -355,7 +356,6 @@
     "Article": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Article",
-      "description": "An article about activity that is being carried through in the realm of OER.",
       "type": "object",
       "properties": {
         "@context": {
@@ -550,7 +550,6 @@
     "Comment": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Comment",
-      "description": "A comment about an entry",
       "type": "object",
       "properties": {
         "@context": {
@@ -610,7 +609,6 @@
     "Action": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Action",
-      "description": "An action / project that is being carried through in the realm of OER.",
       "type": "object",
       "properties": {
         "@context": {
@@ -958,7 +956,6 @@
     "Service": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Service",
-      "description": "A service used in an Action.",
       "type": "object",
       "properties": {
         "@context": {
@@ -1382,7 +1379,7 @@
     "Person": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Person",
-      "description": "A person serving or working with Open Educational Resources.",
+      "description": "ResourceIndex.Person.edit.message",
       "type": "object",
       "properties": {
         "@context": {
@@ -1681,7 +1678,6 @@
     "Organization": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Organization",
-      "description": "An institution serving or working with Open Educational Resources.",
       "type": "object",
       "properties": {
         "@context": {
@@ -2309,8 +2305,7 @@
     },
     "Product": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Tool",
-      "description": "A tool used to implement OER services",
+      "title": "Product",
       "type": "object",
       "properties": {
         "@context": {
@@ -2455,7 +2450,6 @@
     "Grant": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Grant",
-      "description": "A grant awarded to a project",
       "type": "object",
       "properties": {
         "@type": {
@@ -2578,7 +2572,6 @@
     "Place": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Place",
-      "description": "An location description consisting of an address and/or geo data",
       "type": "object",
       "properties": {
         "@context": {
@@ -2620,7 +2613,6 @@
     "GeoCoordinates": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "ResourceIndex.GeoCoordinates.edit.geoCoordinates",
-      "description": "A geographical coordinate",
       "type": "object",
       "properties": {
         "@context": {
@@ -2656,7 +2648,6 @@
     "PostalAddress": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "PostalAddress",
-      "description": "An universal address description",
       "type": "object",
       "properties": {
         "@context": {
@@ -2714,8 +2705,7 @@
     },
     "LikeAction": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Like action",
-      "description": "An action indicating that an agent likes an object",
+      "title": "LikeAction",
       "type": "object",
       "properties": {
         "@context": {
@@ -2781,8 +2771,7 @@
     },
     "LighthouseAction": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Lighthouse action",
-      "description": "An action indicating that an object is considered a lighthouse by an agent",
+      "title": "ResourceIndex.read.lightHouse",
       "type": "object",
       "properties": {
         "@context": {

@@ -11,17 +11,13 @@ import schema from '../json/schema.json'
 const Password = ({translate, emitter}) => (
   <div className="Password">
     <FullModal>
-      <div>
-        <h2>{translate('UserIndex.password.changePassword')}</h2>
-        <p>{translate('UserIndex.password.message')}</p>
-        <Composer
-          value={{'@type': 'ChangePasswordAction'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/user/password/change', data})}
-          getLabel={value => translate(value)}
-          submitLabel={translate('UserIndex.password.setPassword')}
-        />
-      </div>
+      <Composer
+        value={{'@type': 'ChangePasswordAction'}}
+        schema={schema}
+        submit={data => emitter.emit('submit', {url: '/user/password/change', data})}
+        getLabel={value => translate(value)}
+        submitLabel={translate('UserIndex.password.setPassword')}
+      />
     </FullModal>
   </div>
 )

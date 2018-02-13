@@ -27,7 +27,7 @@ const getLabel = (translate, value) => {
     return (
       <span>
         <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
+        &nbsp;{value["name"] ? translate(value["name"]) : value["@type"] || value["@id"]}
       </span>
     )
   } else {
@@ -251,7 +251,6 @@ const WebPage = ({
 
             {about['@id'] && user && view === 'addLighthouse' &&
               <FullModal>
-                <h2>{translate('ResourceIndex.read.lightHouse')}</h2>
                 <Composer
                   value={lighthouse}
                   schema={schema}

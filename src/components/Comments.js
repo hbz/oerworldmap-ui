@@ -55,7 +55,6 @@ const Comments = ({moment, translate, emitter, id, comments, user}) => (
     ))}
     {user &&
       <div>
-        <h2>{translate('comment')}</h2>
         <Composer
           value={{
             '@type': 'Comment',
