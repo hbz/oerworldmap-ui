@@ -15,50 +15,59 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
 
   return (
     <div className="WebPageHeader">
-      <b>
-        <Metadata
-          type={about['@type']}
-          author={author}
-          contributor={contributor}
-          dateModified={dateModified}
-          dateCreated={dateCreated}
-        />
-      </b>
-      <div className="webPageActions">
+      <Metadata
+        type={about['@type']}
+        about={about}
+        author={author}
+        contributor={contributor}
+        dateModified={dateModified}
+        dateCreated={dateCreated}
+      />
+      <div className="webPageActions print-display-none">
         {about['@id'] &&
           <div>
-            <ShareExport _self={_self} _links={_links} view={view} />
-            {user && (view === 'edit' ? (
-              <Link href="#view"><i className="fa fa-eye" /></Link>
-            ) : (
-              <Link href="#edit"><i className="fa fa-pencil" /></Link>
-            ))}
-            <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
+
+            <div className="action">
+              <ShareExport _self={_self} _links={_links} view={view} />
+            </div>
+
+            <div className="action">
+              {user && (view === 'edit' ? (
+                <Link href="#view"><i className="fa fa-eye" /></Link>
+              ) : (
+                <Link href="#edit"><i className="fa fa-pencil" /></Link>
+              ))}
+            </div>
+
+            <div className="action">
+              {typeof window !== 'undefined' &&
+                window.history.length ?
+                (
+                  <span
+                    onClick={closeResource}
+                    role="button"
+                    tabIndex="0"
+                    className="btn-grey"
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        e.target.click()
+                      }
+                    }}
+                  >
+                    <i className="fa fa-close" />
+                  </span>
+                ) : (
+                  <Link
+                    href='/resource/'
+                    className="btn-grey"
+                  >
+                    <i className="fa fa-close" />
+                  </Link>
+                )
+              }
+            </div>
+
           </div>
-        }
-        {typeof window !== 'undefined' &&
-          window.history.length ?
-          (
-            <span
-              onClick={closeResource}
-              role="button"
-              tabIndex="0"
-              onKeyDown={(e) => {
-                if (e.keyCode === 13) {
-                  e.target.click()
-                }
-              }}
-            >
-              <i className="fa fa-close" />
-            </span>
-          ) : (
-            <Link
-              href='/resource/'
-              className="closeModal"
-            >
-              <i className="fa fa-close" />
-            </Link>
-          )
         }
       </div>
     </div>

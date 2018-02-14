@@ -9,8 +9,6 @@ import withI18n from './withI18n'
 
 import { triggerClick } from '../common'
 
-import '../styles/components/ShareExport.pcss'
-
 class ShareExport extends React.Component {
 
   constructor(props) {
@@ -36,7 +34,7 @@ class ShareExport extends React.Component {
 
   render() {
     return (
-      <div className="ShareExport">
+      <div className="ShareExport dropdownParent">
         <i
           role="button"
           tabIndex="0"
@@ -45,21 +43,21 @@ class ShareExport extends React.Component {
           onKeyDown={triggerClick}
           ref={el => this.dropdownButton = el}
         >
-          { this.state.showing &&
-            <ul className="dropdownMenu">
-              <li><a href="#share">{this.props.translate('share')} <i className="fa fa-share" /></a></li>
-              <li><a href="#export">{this.props.translate('export')} <i className="fa fa-arrow-circle-o-right" /></a></li>
-              <li>
-                <button onClick={() => {
-                  window.print()
-                }}
-                >
-                  {this.props.translate('print')} <i className="fa fa-file-text-o" />
-                </button>
-              </li>
-            </ul>
-          }
         </i>
+        { this.state.showing &&
+          <ul className="dropdownMenu">
+            <li><a href="#share">{this.props.translate('share')} <i className="fa fa-share-alt" /></a></li>
+            <li><a href="#export">{this.props.translate('export')} <i className="fa fa-share" /></a></li>
+            <li>
+              <button onClick={() => {
+                window.print()
+              }}
+              >
+                {this.props.translate('print')} <i className="fa fa-print" />
+              </button>
+            </li>
+          </ul>
+        }
         {this.props.view === 'share' &&
           <Share _self={this.props._self} />
         }

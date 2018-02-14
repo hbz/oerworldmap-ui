@@ -1,6 +1,6 @@
 @import '../variables.pcss';
 
-.WebPage {
+.webPageWrapper {
   background-color: var(--blue);
   position: absolute;
   width: 100%;
@@ -23,7 +23,7 @@
     }
   }
 
-  & > .webPageContainer {
+  & > .WebPage {
     background-color: var(--white);
     margin: 0 auto;
     border-radius: 2px;
@@ -35,53 +35,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 20px 20px 40px;
+
+      padding: 17px 40px;
+      font-size: var(--font-size-xs);
+
+      & i {
+        font-size: var(--font-size);
+      }
+
+      .Metadata i {
+        margin-right: .4em;
+      }
 
       & .webPageActions {
-        & > a,
-        & > i {
+
+        & .action {
           display: inline-block;
-          font-size: 1.3rem;
           margin-right: 15px;
-          color: var(--blue);
 
-          & button {
-            cursor: pointer;
-            border: none;
-            background-color: transparent;
-            color: var(--blue);
-
-            &:hover,
-            &:focus {
-              color: var(--orange);
-            }
-          }
-
-          &:hover,
-          &:focus {
-            color: var(--orange);
-          }
-        }
-
-        & > span:last-child {
-          font-size: 1.1rem;
-          color: #b4b4b4;
-          margin-right: 0;
-          position: relative;
-          top: -2px;
-
-          &:hover,
-          &:focus {
-            color: var(--orange);
-          }
-        }
-
-        & .DropdownButton {
-          margin-right: 15px;
-          color: var(--blue);
-
-          & > i {
-            font-size: 1.3rem;
+          &:last-child {
+            margin-right: 0;
           }
         }
       }

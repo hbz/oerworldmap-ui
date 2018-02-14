@@ -23,8 +23,8 @@ const WebPage = ({
 }) => {
 
   return (
-    <div className="WebPage">
-      <div className="webPageContainer">
+    <div className="webPageWrapper">
+      <div className="WebPage">
 
         <WebPageHeader
           user={user}
