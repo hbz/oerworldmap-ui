@@ -1,7 +1,7 @@
 /* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from '../../local_modules/json-pointer-form/lib'
+import { Composer } from 'json-pointer-form'
 
 import withI18n from './withI18n'
 import Metadata from './Metadata'
