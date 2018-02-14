@@ -6,6 +6,7 @@ import withI18n from './withI18n'
 
 const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
   <div className="WebPageCover">
+
     {geo &&
       <MiniMap
         mapboxConfig={mapboxConfig}
@@ -22,18 +23,21 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
     }
 
     {about.image &&
-      <img
-        src={about.image}
-        alt={translate(about.name)}
-        onError={e => {
-          if (Object.keys(geo.geometry).length <= 0) {
-            e.target.parentElement.remove()
-          }
-          e.target.remove()
-        }}
-        aria-label={translate(about.name)}
-      />
+      <div class="image">
+        <img
+          src={about.image}
+          alt={translate(about.name)}
+          onError={e => {
+            if (Object.keys(geo.geometry).length <= 0) {
+              e.target.parentElement.remove()
+            }
+            e.target.remove()
+          }}
+          aria-label={translate(about.name)}
+        />
+      </div>
     }
+
   </div>
 )
 
