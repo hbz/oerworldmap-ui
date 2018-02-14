@@ -2038,7 +2038,6 @@
     "Event": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Event",
-      "description": "An event that is being held for/by members of the OER community.",
       "type": "object",
       "properties": {
         "@context": {

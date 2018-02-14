@@ -1,7 +1,7 @@
 /* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from 'json-pointer-form'
+import { Composer } from '../../local_modules/json-pointer-form/lib'
 
 import withI18n from './withI18n'
 import Metadata from './Metadata'
@@ -230,6 +230,7 @@ const WebPage = ({
               getLabel={value => getLabel(translate, value)}
               submitLabel={translate('publish')}
               submitNote={translate('ResourceIndex.index.agreeMessage')}
+              error={() => alert(translate('Errors in Form'))}
             />
           </div>
 
