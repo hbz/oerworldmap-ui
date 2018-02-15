@@ -68,23 +68,32 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
 
   return (
     <div className="WebPageUserActions">
-      <div className="like">
+
+      <div className="action">
         <form onSubmit={toggleLike}>
-          <button type="submit" title="Like">
-            <i className="fa fa-thumbs-up" />
+          <button className="btn" type="submit" title="Like">
+            <i className="fa fa-star" />
             {translate('Like')}
           </button>
         </form>
       </div>
-      <div className="lighthouse">
-        <a href="#addLighthouse">
+
+      <div className="action">
+        <a href="#addLighthouse" className="btn">
           <img
-            src="/assets/lighthouse.svg"
+            className="i hidden-hover"
+            src="/assets/lighthouse_16px_blue.svg"
+            alt="Lighthouse"
+          />
+          <img
+            className="i visible-hover"
+            src="/assets/lighthouse_16px_white.svg"
             alt="Lighthouse"
           />
           {translate('Lighthouse')}
         </a>
       </div>
+
       {about['@id'] && user && view === 'addLighthouse' &&
         <FullModal>
           <Composer
@@ -98,9 +107,38 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
           />
         </FullModal>
       }
+
+      <div className="action">
+        <a href="#subscribe" className="btn">
+          <i className="fa fa-bell" />
+          {translate('Subscribe')}
+        </a>
+      </div>
+
+      <div className="action">
+        <a href="#attend" className="btn">
+          <i className="fa fa-flag" />
+          {translate('I\'m attending')}
+        </a>
+      </div>
+
     </div>
   )
 }
+
+/*
+
+TODO
+
+* Add class "active" to buttons, where action was taken
+* Make subscribe button working
+* Show "relational actions" only where they are appropriate:
+  - "I'm attending" and "I'm presenting" for events
+  - "I'm a member" for projects and organizations
+  - Use icon bullhorn for "I'm presenting"
+  - Use icon sitemap for "I'm a member"
+
+*/
 
 WebPageUserActions.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),

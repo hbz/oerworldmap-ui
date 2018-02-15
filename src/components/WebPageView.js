@@ -23,26 +23,35 @@ const WebPageView = ({translate, moment, about, user, view}) => {
   return (
     <div className="WebPageView">
 
-      {about.sameAs &&
-        <SocialLinks links={about.sameAs} />
-      }
+      <div className="row auto gutter-40 text-large">
+        <div className="col">
 
-      {about.countryChampionFor &&
-        <div className="subtitle">
-          {about.countryChampionFor.map(country => (
-            <div key={country}>
-              {translate(`${about['@type']}.countryChampionFor`)}
-              &nbsp;<Link href={`/country/${country}`}>{translate(country)}</Link>
-            </div>
-          ))}
+          {about.countryChampionFor &&
+            <span>
+              {about.countryChampionFor.map(country => (
+                <span>
+                  {translate(`${about['@type']}.countryChampionFor`)}{' '}
+                  <Link href={`/country/${country}`}>{translate(country)}</Link>
+                </span>
+              ))}
+            </span>
+          }
+
         </div>
-      }
+        <div className="col">
+
+          {about.sameAs &&
+            <SocialLinks links={about.sameAs} />
+          }
+
+        </div>
+      </div>
+
+      <h2>{translate(about.displayName) || translate(about.name)}</h2>
 
       {user &&
         <WebPageUserActions about={about} user={user} view={view} />
       }
-
-      <h2>{translate(about.displayName) || translate(about.name)}</h2>
 
       <div className="information">
         <div className="main">

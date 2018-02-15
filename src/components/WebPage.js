@@ -48,13 +48,11 @@ const WebPage = ({
           </div>
 
           <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
-
             <WebPageView id="view" about={about} user={user} view={view} />
-
           </div>
+
         </div>
       </div>
-
     </div>
   )
 }

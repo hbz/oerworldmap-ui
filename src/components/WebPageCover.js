@@ -23,7 +23,7 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
     }
 
     {about.image &&
-      <div class="image">
+      <div className="image">
         <img
           src={about.image}
           alt={translate(about.name)}
