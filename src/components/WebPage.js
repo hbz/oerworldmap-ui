@@ -1,4 +1,5 @@
 /* global window */
+/* global alert */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'

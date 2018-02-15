@@ -148,6 +148,7 @@ ConceptFilter.propTypes = {
   translate: PropTypes.func.isRequired,
   aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
   filter: PropTypes.arrayOf(PropTypes.any).isRequired,
+  concepts: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
