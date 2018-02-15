@@ -60,22 +60,20 @@
       }
     }
 
-    & ul {
-      list-style-type: none;
+    & > ul {
       margin: 0;
       padding: 0;
       overflow: auto;
       max-height: 300px;
+    }
+
+    & ul {
+      list-style-type: none;
 
       & li {
-        border-bottom: 1px solid var(--blue-dark);
-
-
-        &:last-child {
-          border: none;
-        }
 
         & label {
+          border-bottom: 1px solid var(--blue-dark);
           padding: 10px 20px;
           display: block;
           position: relative;
