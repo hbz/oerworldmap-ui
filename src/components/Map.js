@@ -252,7 +252,7 @@ class Map extends React.Component {
       } else {
         popupContent = (
           <ul className="list">
-            {this.state.hoveredFeatures.length <= 6 ? (
+            {this.state.hoveredFeatures.length <= 6 || this.map.getZoom() === this.map.getMaxZoom() ? (
               this.state.hoveredFeatures.map(feature => (
                 <li key={feature.properties['@id']}>
                   <Icon type={feature.properties['@type']} />
@@ -469,12 +469,11 @@ class Map extends React.Component {
   }
 
   clickPoints(e) {
-    if (e.features.length > 6) {
+    if (e.features.length > 6 && this.map.getZoom() !== this.map.getMaxZoom()) {
       this.map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 10
+        center: e.lngLat,
+        zoom: this.map.getZoom() + 5
       })
-
     } else if (e.features.length > 1) {
       const list = e.features.map(feature => {
         return (
