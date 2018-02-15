@@ -31,16 +31,16 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
-    const list = (this.props.aggregations.buckets.filter(
-      item => item.key.includes(this.state.search)
-    ) || this.props.aggregations.buckets).map((bucket, i) => (
+    const list = (this.props.aggregation.buckets.filter(
+      item => this.props.translate(item.label || item.key).toLowerCase().includes(this.state.search.toLowerCase())
+    ) || this.props.aggregation.buckets).map((bucket, i) => (
       <li key={bucket.key}>
         <input
           type="checkbox"
           value={bucket.key}
           name={this.props.filterName}
           id={this.props.filterName+i}
-          defaultChecked={this.props.filters.includes(bucket.key)}
+          defaultChecked={this.props.filter.includes(bucket.key)}
         />
         <label
           htmlFor={this.props.filterName+i}
@@ -73,14 +73,14 @@ class DropdownFilter extends React.Component {
           tabIndex="0"
           role="button"
           onKeyDown={triggerClick}
-          className={`btn expand${this.props.filters.length ? ' inUse' : ''}`}
+          className={`btn expand${this.props.filter.length ? ' inUse' : ''}`}
         >
           <span className="btnText">
             {this.props.icon ? (
               <i className={`fa fa-${this.props.icon}`} />
             ) : (
-              this.props.filters.map(
-                filter => this.props.aggregations.buckets.find(bucket => bucket.key === filter)
+              this.props.filter.map(
+                filter => this.props.aggregation.buckets.find(bucket => bucket.key === filter)
               ).map(bucket => this.props.translate(bucket.label || bucket.key)).join(', ')
               || this.props.translate(this.props.filterName)
             )}
@@ -128,8 +128,8 @@ class DropdownFilter extends React.Component {
 
 DropdownFilter.propTypes = {
   translate: PropTypes.func.isRequired,
-  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
-  filters: PropTypes.arrayOf(PropTypes.any).isRequired,
+  aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
+  filter: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,

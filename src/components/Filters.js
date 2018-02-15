@@ -215,8 +215,8 @@ class Filters extends React.Component {
                     <DropdownFilter
                       key={filterDef.name}
                       icon={filterDef.icon}
-                      aggregations={aggregation}
-                      filters={filter}
+                      aggregation={aggregation}
+                      filter={filter}
                       filterName={`filter.${filterDef.name}`}
                       submit={onSubmit}
                     />
@@ -264,8 +264,8 @@ class Filters extends React.Component {
                     <DropdownFilter
                       key={filterDef.name}
                       icon={filterDef.icon}
-                      aggregations={aggregation}
-                      filters={filter}
+                      aggregation={aggregation}
+                      filter={filter}
                       filterName={`filter.${filterDef.name}`}
                       submit={onSubmit}
                     />
