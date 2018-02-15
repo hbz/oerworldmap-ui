@@ -116,7 +116,7 @@ class Api {
           member: require('./json/licenses.json').hasTopConcept.map(entry => {return {about: entry}})
         }
       })
-    case 'https://github.com/hbz/oerworldmap/public/json/sectors.json':
+    case 'https://oerworldmap.org/assets/json/sectors.json':
       return Promise.resolve({
         data: {
           member: require('./json/sectors.json').hasTopConcept.map(entry => {return {about: entry}})

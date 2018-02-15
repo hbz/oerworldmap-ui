@@ -29,10 +29,11 @@ const deleteComment = (id, emitter, e) => {
   emitter.emit('delete', {url: `/resource/${id}`})
 }
 
-const Comments = ({moment, translate, emitter, id, comments}) => (
+const Comments = ({moment, translate, emitter, id, comments, user}) => (
   <div className="Comments">
-    {comments.length > 0 && <h2>Comments</h2>}
-    {comments.map(comment => (
+
+    {comments.length > 0 && <h2>{translate('ResourceIndex.read.comments')}</h2>}
+    {comments.filter(comment => comment.author && comment.text).map(comment => (
       <div className="Comment" key={comment['@id']}>
         <p>
           <small>
@@ -45,25 +46,28 @@ const Comments = ({moment, translate, emitter, id, comments}) => (
           </small>
         </p>
         <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
-          <button type="submit" title="Delete">
+          <button className="btn" type="submit" title="Delete">
             <i className="fa fa-fw fa-trash" />
           </button>
         </form>
         <ReactMarkdown source={translate(comment.text)} />
       </div>
     ))}
-    <h2>Comment</h2>
-    <Composer
-      value={{
-        '@type': 'Comment',
-        'text': [{ '@language': 'en' }]
-      }}
-      schema={schema}
-      submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
-      getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-      getLabel={value => getLabel(translate, value)}
-      submitLabel={translate('publish')}
-    />
+    {user &&
+      <div>
+        <Composer
+          value={{
+            '@type': 'Comment',
+            'text': [{ '@language': 'en' }]
+          }}
+          schema={schema}
+          submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
+          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
+          getLabel={value => getLabel(translate, value)}
+          submitLabel={translate('publish')}
+        />
+      </div>
+    }
   </div>
 )
 
@@ -72,11 +76,13 @@ Comments.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   id: PropTypes.string.isRequired,
-  comments: PropTypes.arrayOf(PropTypes.any)
+  comments: PropTypes.arrayOf(PropTypes.any),
+  user: PropTypes.objectOf(PropTypes.any),
 }
 
 Comments.defaultProps = {
-  comments: []
+  comments: [],
+  user: null,
 }
 
 export default withI18n(withEmitter(Comments))

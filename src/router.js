@@ -27,13 +27,26 @@ export default (api) => {
       path: '/resource/',
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
-        const data = state || await api.get(url, context.authorization)
-        const component = (data) => (
+        const data = params.add ? {
+          about: {
+            '@type': params.add
+          },
+          _self: url
+        } : state || await api.get(url, context.authorization)
+        const component = (data) => params.add ? (
+          <WebPage
+            user={context.user}
+            mapboxConfig={context.mapboxConfig}
+            {...data}
+            view="edit"
+          />
+        ) : (
           <ResourceIndex
             {...data}
             mapboxConfig={context.mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            add={params.add}
           >
             <ActionButtons user={context.user} />
           </ResourceIndex>
@@ -114,7 +127,7 @@ export default (api) => {
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['about.location.address.addressCountry'].buckets[0]}
+              countryData={data.aggregations['country']['about.location.address.addressCountry'].buckets[0]}
             />
           </ResourceIndex>
         )

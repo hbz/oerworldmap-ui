@@ -40,7 +40,7 @@ const Diffs = ({emitter, log, compare, to}) => {
       <div className="diffContent">
         <div className="diffList">
           <div className="scroll">
-            <h1>History for: <a href={`/Resource/${compare.about["@id"]}`}>{compare.about["@id"]}</a></h1>
+            <h1>History for: <a href={`/resource/${compare.about["@id"]}`}>{compare.about["@id"]}</a></h1>
 
             <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)} >
               {log.map(l => (

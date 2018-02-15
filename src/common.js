@@ -50,11 +50,11 @@ export const getURL = (route) => {
   let url = route.path
   let params = []
   for (const param in route.params) {
-    const value = encodeURIComponent(route.params[param])
+    const value = route.params[param]
     if (Array.isArray(value)) {
-      value && (params = params.concat(value.map(value => `${param}=${value}`)))
+      value && (params = params.concat(value.map(value => `${param}=${encodeURIComponent(value)}`)))
     } else {
-      value && params.push(`${param}=${value}`)
+      value && params.push(`${param}=${encodeURIComponent(value)}`)
     }
   }
   if (params) {
@@ -126,7 +126,9 @@ export const parseProperties = (properties) => properties.split(/\r?\n/)
     return acc
   }, {})
 
+export const obfuscate = string => string.split('').map(c => `&#${c.charCodeAt()};`).join('')
+
 export default {
-  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick, mapNominatimResult,
-  debounce, parseProperties
+  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
+  debounce, parseProperties, obfuscate
 }
