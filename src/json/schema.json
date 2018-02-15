@@ -695,7 +695,12 @@
           "$ref": "#/definitions/iso-8601-date"
         },
         "location": {
-          "$ref": "#/definitions/Place"
+          "title": "Action.location",
+          "description": "ResourceIndex.Action.edit.addressMessage",
+          "$ref": "#/definitions/Place",
+          "_display": {
+            "collapsed": true
+          }
         },
         "instrument": {
           "title": "Action.instrument",
@@ -1051,7 +1056,12 @@
           "format": "uri"
         },
         "location": {
-          "$ref": "#/definitions/Place"
+          "title": "Service.location",
+          "description": "ResourceIndex.Service.edit.info",
+          "$ref": "#/definitions/Place",
+          "_display": {
+            "collapsed": true
+          }
         },
         "about": {
           "title": "Service.about",
