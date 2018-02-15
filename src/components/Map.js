@@ -234,10 +234,9 @@ class Map extends React.Component {
       if (this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries') {
         popupContent = (
           <ul>
-            {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
             <li>
               <b>
-                {this.state.hoveredFeatures[0].properties.iso_a2}
+                {this.props.translate(this.state.hoveredFeatures[0].properties.iso_a2)}
                 <br />
                 {this.state.bucket &&
                   <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
