@@ -194,6 +194,8 @@ const WebPage = ({
               mapboxConfig={mapboxConfig}
               features={geo && geo.geometry}
               zoom={7}
+              draggable={view === 'edit'}
+              onFeatureDrag={point => emitter.emit('setPoint', point)}
               center={(geo &&
                 geo.geometry &&
                 geo.geometry.coordinates) &&

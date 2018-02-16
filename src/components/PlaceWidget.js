@@ -3,12 +3,15 @@ import React from 'react'
 import pointer from 'json-pointer'
 import { Fieldset, Checkbox } from 'json-pointer-form'
 
+import withEmitter from './withEmitter'
+
 class PlaceWidget extends Fieldset {
 
   constructor(props) {
     super(props)
     this.select = this.select.bind(this)
     this.state.collapsed = props.collapsed
+    props.emitter.on('setPoint', point => console.log("POINT", point))
   }
 
   select(suggestion) {
@@ -19,6 +22,10 @@ class PlaceWidget extends Fieldset {
         type: 'custom'
       }
     })
+  }
+
+  componentDidUpdate() {
+    this.props.emitter.emit('setPlace', this.props.value)
   }
 
   render() {
@@ -60,4 +67,4 @@ PlaceWidget.defaultProps = {
   collapsed: false
 }
 
-export default PlaceWidget
+export default withEmitter(PlaceWidget)
