@@ -29,7 +29,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           {about.countryChampionFor &&
             <span>
               {about.countryChampionFor.map(country => (
-                <span>
+                <span key={country}>
                   {translate(`${about['@type']}.countryChampionFor`)}{' '}
                   <Link href={`/country/${country}`}>{translate(country)}</Link>
                 </span>
@@ -53,123 +53,132 @@ const WebPageView = ({translate, moment, about, user, view}) => {
         <WebPageUserActions about={about} user={user} view={view} />
       }
 
-      <div className="information">
-        <div className="main">
+      <div className="row">
 
-          {about.description &&
-            <Block className="description" title={translate(`${about['@type']}.description`)}>
-              {about.description &&
-                <ReactMarkdown escapeHtml={false} source={translate(about.description)} />
-              }
-            </Block>
-          }
+        <div className="col grow-2">
 
-          {about.articleBody &&
-            <Block className="description" title={translate(`${about['@type']}.articleBody`)}>
-              {about.articleBody &&
-                <ReactMarkdown escapeHtml={false} source={translate(about.articleBody)} />
-              }
-            </Block>
-          }
+          <div className="border-top text-large" style={{paddingTop: '2em'}}>
 
-          {about.url &&
-            <a href={about.url} target="_blank" rel="noopener" className="boxedLink">
-              {formatURL(about.url)}
-            </a>
-          }
+            {about.description &&
+              <Block className="first description" title={translate(`${about['@type']}.description`)}>
+                {about.description &&
+                  <ReactMarkdown escapeHtml={false} source={translate(about.description)} />
+                }
+              </Block>
+            }
 
-          {about.availableChannel &&
-            about.availableChannel.map(link => (
-              <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener" className="boxedLink">
-                {formatURL(link.serviceUrl)}
-              </a>
-            ))
-          }
+            {about.articleBody &&
+              <Block className="first description" title={translate(`${about['@type']}.articleBody`)}>
+                {about.articleBody &&
+                  <ReactMarkdown escapeHtml={false} source={translate(about.articleBody)} />
+                }
+              </Block>
+            }
 
-          {about.keywords &&
-            <Block title={translate(`${about['@type']}.keywords`)}>
-              <ul className="commaSeparatedList">
-                {about.keywords.map(keyword => (
-                  <li key={keyword}>
-                    <Link href={`/resource/?filter.about.keywords=${keyword}`}>
-                      {keyword}
-                    </Link>
-                  </li>
+            {about.url &&
+              <p>
+                <a href={about.url} target="_blank" rel="noopener" className="boxedLink">
+                  {formatURL(about.url)}
+                </a>
+              </p>
+            }
+
+            <hr className="border-grey" />
+
+            {about.availableChannel &&
+              about.availableChannel.map(link => (
+                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener" className="boxedLink">
+                  {formatURL(link.serviceUrl)}
+                </a>
+              ))
+            }
+
+            {about.keywords &&
+              <Block title={translate(`${about['@type']}.keywords`)}>
+                <ul className="commaSeparatedList">
+                  {about.keywords.map(keyword => (
+                    <li key={keyword}>
+                      <Link href={`/resource/?filter.about.keywords=${keyword}`}>
+                        {keyword}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </Block>
+            }
+
+            {about.about &&
+              <Block className="asideList" title={translate(`${about['@type']}.about`)}>
+                <ConceptTree
+                  concepts={require('../json/esc.json').hasTopConcept}
+                  include={about.about.map(concept => concept['@id'])}
+                  className="recursiveList linedList ItemList"
+                  linkTemplate="/resource/?filter.about.about.@id={@id}"
+                />
+              </Block>
+            }
+
+            {about.audience &&
+              <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
+                <ConceptTree
+                  concepts={require('../json/isced-1997.json').hasTopConcept}
+                  include={about.audience.map(concept => concept['@id'])}
+                  className="linedList ItemList"
+                  linkTemplate="/resource/?filter.about.audience.@id={@id}"
+                />
+              </Block>
+            }
+
+            {['primarySector', 'secondarySector'].map(prop => (
+              about[prop] &&
+              <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <ConceptTree
+                  concepts={require('../json/sectors.json').hasTopConcept}
+                  include={about[prop].map(concept => concept['@id'])}
+                  className="linedList ItemList"
+                  linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
+                />
+              </Block>
+            ))}
+
+            {lighthouses &&
+              <Block className="lighthouseComments" title={translate('ResourceIndex.read.lighthouses.title')}>
+                {lighthouses.map(lighthouse => (
+                  <div className="Comment" key={lighthouse['@id']}>
+                    <p>
+                      <small>
+                        {lighthouse.agent.map(author => (
+                          <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
+                            {translate(author.name)}
+                          </Link>)
+                        )}
+                        &nbsp; {moment(lighthouse.dateCreated).fromNow()}
+                      </small>
+                    </p>
+                    <form onSubmit={(e) => console.warn("Delete lighthouse not implemented", e)}>
+                      <button className="btn" type="submit" title="Delete">
+                        <i className="fa fa-fw fa-trash" />
+                      </button>
+                    </form>
+                    <ReactMarkdown source={translate(lighthouse.description)} />
+                  </div>
                 ))}
-              </ul>
-            </Block>
-          }
+              </Block>
+            }
 
-          {about.about &&
-            <Block className="asideList" title={translate(`${about['@type']}.about`)}>
-              <ConceptTree
-                concepts={require('../json/esc.json').hasTopConcept}
-                include={about.about.map(concept => concept['@id'])}
-                className="recursiveList linedList ItemList"
-                linkTemplate="/resource/?filter.about.about.@id={@id}"
-              />
-            </Block>
-          }
+            {about['@id'] &&
+              <Block title={translate('ResourceIndex.read.comments')}>
+                <Comments comments={about['comment']} id={about['@id']} user={user} />
+              </Block>
+            }
 
-          {about.audience &&
-            <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
-              <ConceptTree
-                concepts={require('../json/isced-1997.json').hasTopConcept}
-                include={about.audience.map(concept => concept['@id'])}
-                className="linedList ItemList"
-                linkTemplate="/resource/?filter.about.audience.@id={@id}"
-              />
-            </Block>
-          }
-
-          {['primarySector', 'secondarySector'].map(prop => (
-            about[prop] &&
-            <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
-              <ConceptTree
-                concepts={require('../json/sectors.json').hasTopConcept}
-                include={about[prop].map(concept => concept['@id'])}
-                className="linedList ItemList"
-                linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
-              />
-            </Block>
-          ))}
-
-          {lighthouses &&
-            <Block className="lighthouseComments" title={translate('ResourceIndex.read.lighthouses.title')}>
-              {lighthouses.map(lighthouse => (
-                <div className="Comment" key={lighthouse['@id']}>
-                  <p>
-                    <small>
-                      {lighthouse.agent.map(author => (
-                        <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                          {translate(author.name)}
-                        </Link>)
-                      )}
-                      &nbsp; {moment(lighthouse.dateCreated).fromNow()}
-                    </small>
-                  </p>
-                  <form onSubmit={(e) => console.warn("Delete lighthouse not implemented", e)}>
-                    <button className="btn" type="submit" title="Delete">
-                      <i className="fa fa-fw fa-trash" />
-                    </button>
-                  </form>
-                  <ReactMarkdown source={translate(lighthouse.description)} />
-                </div>
-              ))}
-            </Block>
-          }
-
-          {about['@id'] &&
-            <Block title={translate('ResourceIndex.read.comments')}>
-              <Comments comments={about['comment']} id={about['@id']} user={user} />
-            </Block>
-          }
+          </div>
 
         </div>
 
-        <aside className="webpageColumn">
+        <aside className="col">
 
-          <div className="lighthouses">
+          <div className="border-top lighthouses">
             <img
               src="/assets/lighthouse.svg"
               alt="Lighthouse"

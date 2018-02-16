@@ -27,6 +27,7 @@ body {
 hr {
   border: none;
   border-top: 1px solid var(--grey-light);
+  margin: var(--p-margin) 0;
 }
 
 button,
@@ -210,6 +211,8 @@ pre {
   }
 }
 
+/* lined list */
+
 .linedList {
   margin: 0;
   padding: 0;
@@ -237,6 +240,8 @@ pre {
   pointer-events: none;
 }
 
+/* comma seperated list */
+
 .commaSeparatedList {
   display: inline;
   padding: 0;
@@ -246,14 +251,21 @@ pre {
     padding: 0;
 
     &::before {
-      content: " & ";
+      content: " ";
+      letter-spacing: .8em;
     }
 
     &:first-child::before {
       content: "";
     }
+
+    & a {
+      font-weight: 600;
+    }
   }
 }
+
+/* dropdown */
 
 .dropdownParent {
   position: relative;
@@ -304,4 +316,10 @@ pre {
       }
     }
   }
+}
+
+/* bordered sections */
+
+.border-top {
+  border-top: 1px solid var(--grey-light);
 }

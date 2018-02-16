@@ -1,11 +1,25 @@
 @import '../variables.pcss';
 
 .Block {
+  color: var(--grey-dark);
+  margin-top: var(--p-margin);
+
+  & p {
+    margin: 20px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
   & > h3 {
+    font-size: var(--font-size-large);
+    font-weight: 400;
+
     border-bottom: 1px solid var(--grey-light);
-    padding: 10px 0;
-    margin-bottom: 5px;
-    font-size: 1.3rem;
+    padding: .7em 0;
+    margin-bottom: .5em;
+
     display: flex;
     justify-content: start;
     align-items: center;
@@ -13,6 +27,19 @@
     & span {
       flex: 1;
       padding-right: 5px;
+    }
+  }
+
+  &.first {
+    margin-top: 0;
+
+    & > h3 {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      color: var(--blue-dark);
+      padding: 0;
+      border-bottom: none;
+      margin-bottom: .3em;
     }
   }
 }
