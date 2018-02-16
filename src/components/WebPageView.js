@@ -178,19 +178,35 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
         <aside className="col">
 
-          <hr/>
+          <hr style={{marginBottom: '0px'}} />
 
-          <div className="border-top lighthouses">
-            <img
-              src="/assets/lighthouse.svg"
-              alt="Lighthouse"
-            />
-            {translate('Lighthouse')} ({lighthouses.length})
-          </div>
-
-          <div className="likes">
-            <i className="fa fa-thumbs-up" /> {translate('Like')} ({likes.length})
-          </div>
+          {(lighthouses.length > 0 || likes.length > 0 ) &&
+            <div className="Block" style={{marginTop: '0px'}}>
+              <ul className="linedList ItemList">
+                {lighthouses.length &&
+                  <li>
+                    <div className="item">
+                      <i className="bg-highlight-color bg-important" style={{lineHeight: '33px'}}>
+                        <img
+                          src="/assets/lighthouse_16px_white.svg"
+                          alt="Lighthouse"
+                        />
+                      </i>
+                      <span>{translate('Lighthouses')} ({likes.length})</span>
+                    </div>
+                  </li>
+                }
+                {likes.length &&
+                  <li>
+                    <div className="item">
+                      <i className="fa fa-star bg-highlight-color bg-important"></i>
+                      <span>{translate('Likes')} ({likes.length})</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
 
           {about.email &&
             <Block title={translate(`${about['@type']}.email`)}>
