@@ -6,28 +6,6 @@
 
   & li {
 
-    /* calendar sheet */
-    & a:hover .sheet {
-      border-color: var(--orange);
-    }
-
-    /* unfolded preview within the list item, will be replaced by popover */
-    & .extract {
-      padding: 10px;
-      font-size: 0.9rem;
-
-      & .btn {
-
-        @media print {
-          display: none;
-        }
-      }
-
-      & p {
-        margin-top: 0;
-      }
-    }
-
     & .item {
       display: flex;
       align-items: start;
@@ -39,22 +17,6 @@
         width: 2.5em;
         margin-right: 0.1em;
         text-align: center;
-      }
-
-      & .sheet {
-        display: flex;
-        flex: 0.1;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 2px;
-        border: 1px solid var(--blue-dark);
-        padding: 5px;
-
-        & span:first-child {
-          font-size: 1.1rem;
-        }
       }
 
       & > span {
