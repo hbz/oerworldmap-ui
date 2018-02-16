@@ -91,7 +91,7 @@ const WebPage = ({
   }
 
   const closeResource = () => {
-    emitter.emit('navigate', '__back__')
+    emitter.emit('navigate', '__home__')
   }
 
   return (

@@ -8,7 +8,7 @@ const closeModal = (e, emitter) => {
   e.stopPropagation()
   if (e.target.classList.contains('FullModal') ||
     e.target.classList.contains('closeModal')) {
-    emitter.emit('navigate', '__back__')
+    emitter.emit('navigate', '__home__')
   }
 }
 

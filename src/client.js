@@ -24,9 +24,9 @@ import Api from './api'
     context.emitter = emitter
 
     const api = new Api(context.apiConfig)
+    const routes = router(api)
 
     let referrer = window.location.href
-    let back = referrer
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
@@ -39,7 +39,6 @@ import Api from './api'
         && document.getElementById(window.location.hash.replace('#', ''))
         && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
       document.title = title
-      back = referrer
       referrer = window.location.href
     }
 
@@ -47,10 +46,8 @@ import Api from './api'
     emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
     emitter.on('navigate', url => {
-      if (url === '__back__' && referrer === back) {
-        emitter.emit('navigate', '/resource/')
-      } else if (url === '__back__') {
-        window.history.back()
+      if (url === '__home__') {
+        emitter.emit('navigate', routes.home())
       } else {
         const parser = document.createElement('a')
         parser.href = url
@@ -72,7 +69,7 @@ import Api from './api'
           q: term,
           'filter.about.@type': schema.properties['@type'].enum
         }
-        router(api).route('/resource/', context).get(params).then(({data}) => callback(data))
+        routes.route('/resource/', context).get(params).then(({data}) => callback(data))
       }
     })
     // Log in
@@ -94,7 +91,7 @@ import Api from './api'
     })
     // Form submission
     emitter.on('submit', ({url, data}) => {
-      router(api).route(url, context).post(data)
+      routes.route(url, context).post(data)
         .then(({title, data, render}) => {
           state = data
           window.history.pushState(null, null, data._location || url)
@@ -103,7 +100,7 @@ import Api from './api'
     })
     // Deletion
     emitter.on('delete', ({url}) => {
-      router(api).route(url, context).delete()
+      routes.route(url, context).delete()
         .then(({title, data, render}) => {
           state = data
           window.history.pushState(null, null, url)
@@ -116,7 +113,7 @@ import Api from './api'
       const url = window.location.pathname
       const params = getParams(window.location.search)
       const load = referrer.split('#')[0] !== window.location.href.split('#')[0]
-      router(api).route(url, context, load ? null : state).get(params)
+      routes.route(url, context, load ? null : state).get(params)
         .then(({title, data, render}) => {
           state = data
           renderApp(title, render(data))
@@ -125,7 +122,7 @@ import Api from './api'
 
     const url = window.location.pathname
     const params = getParams(window.location.search)
-    router(api).route(url, context, state).get(params)
+    routes.route(url, context, state).get(params)
       .then(({title, data, render}) => {
         renderApp(title, render(data))
       })
