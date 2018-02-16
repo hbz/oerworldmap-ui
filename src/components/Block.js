@@ -14,21 +14,33 @@ class Block extends React.Component {
 
   render() {
     return (
-      <div className={`Block ${this.props.className}`}>
-        <h3>
-          <span>{this.props.title}</span>
-          {this.props.collapsible &&
-            <button
-              className="btn"
+      <div className={`Block ${this.props.className} ${this.props.collapsible ? 'collapsible' : ''} ${this.props.collapsibleType} ${this.state.collapsed ? 'collapsed' : ''}`}>
+        <div className="head">
+          <h3>
+            {this.props.title}
+          </h3>
+          {(this.props.collapsible && this.props.collapsibleType == 'plus') &&
+            <span
+              role="button"
+              className="plus"
               onClick={() => this.setState({collapsed: !this.state.collapsed})}
             >
               <i className={`fa fa-${this.state.collapsed ? 'plus' : 'minus'}`} />
-            </button>
+            </span>
           }
-        </h3>
-        <div className={this.state.collapsed ? 'hidden' : ''}>
+        </div>
+        <div className="main">
           {this.props.children}
         </div>
+        {(this.props.collapsible && this.props.collapsibleType == 'show-all') &&
+          <div
+            role="button"
+            className="show-all"
+            onClick={() => this.setState({collapsed: !this.state.collapsed})}
+          >
+            {this.state.collapsed ? 'Show all' : 'Show less'}
+          </div>
+        }
       </div>
     )
   }
@@ -40,6 +52,7 @@ Block.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   collapsible: PropTypes.bool,
+  collapsibleType: PropTypes.string,
   collapsed: PropTypes.bool
 }
 
@@ -47,7 +60,8 @@ Block.propTypes = {
 Block.defaultProps = {
   className: '',
   collapsible: false,
-  collapsed: false
+  collapsibleType: 'plus',
+  collapsed: true
 }
 
 export default Block

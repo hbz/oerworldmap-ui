@@ -23,11 +23,18 @@
       }
     }
   }
+}
 
-  @nest .Block & {
+.Block {
+
+  & .ItemList {
 
     & li {
       padding: 0.7em 0;
+
+      &:last-child {
+        border-bottom: 1px solid var(--grey-light);
+      }
 
       & .item {
         align-items: center;
@@ -50,6 +57,19 @@
 
         &:hover i {
           background-color: var(--highlight-color);
+        }
+      }
+    }
+  }
+
+  &.collapsible.show-all {
+
+    &.collapsed {
+      & li {
+        display: none;
+
+        &:nth-child(-n+3){
+          display: list-item;
         }
       }
     }

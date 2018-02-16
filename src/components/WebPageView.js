@@ -355,7 +355,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
             'isRelatedTo'].map(prop => (
             about[prop] &&
-            <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
+            <Block key={prop} collapsible={true} collapsibleType="show-all" className="list" title={translate(`${about['@type']}.${prop}`)}>
               <ItemList listItems={about[prop]} />
             </Block>
           ))}
