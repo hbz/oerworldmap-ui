@@ -108,7 +108,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             }
 
             {about.about &&
-              <Block className="asideList" title={translate(`${about['@type']}.about`)}>
+              <Block className="list" title={translate(`${about['@type']}.about`)}>
                 <ConceptTree
                   concepts={require('../json/esc.json').hasTopConcept}
                   include={about.about.map(concept => concept['@id'])}
@@ -119,7 +119,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             }
 
             {about.audience &&
-              <Block className="asideList" title={translate(`${about['@type']}.audience`)}>
+              <Block className="list" title={translate(`${about['@type']}.audience`)}>
                 <ConceptTree
                   concepts={require('../json/isced-1997.json').hasTopConcept}
                   include={about.audience.map(concept => concept['@id'])}
@@ -131,7 +131,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
             {['primarySector', 'secondarySector'].map(prop => (
               about[prop] &&
-              <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+              <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
                 <ConceptTree
                   concepts={require('../json/sectors.json').hasTopConcept}
                   include={about[prop].map(concept => concept['@id'])}
@@ -178,6 +178,8 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
         <aside className="col">
 
+          <hr/>
+
           <div className="border-top lighthouses">
             <img
               src="/assets/lighthouse.svg"
@@ -220,19 +222,19 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.contactPoint &&
-            <Block className="asideList" title={translate(`${about['@type']}.contactPoint`)}>
+            <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
               <ItemList listItems={about.contactPoint} />
             </Block>
           }
 
           {about.alternateName &&
-            <Block className="asideList" title={translate(`${about['@type']}.alternateName`)}>
+            <Block className="list" title={translate(`${about['@type']}.alternateName`)}>
               {translate(about.alternateName)}
             </Block>
           }
 
           {about.startTime &&
-            <Block className="asideList" title={translate(`${about['@type']}.startTime`)}>
+            <Block className="list" title={translate(`${about['@type']}.startTime`)}>
               {about.startTime.includes('T00:00:00')
                 ? moment(about.startTime).format('LL')
                 : moment(about.startTime).format('LLL')}
@@ -243,7 +245,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.inLanguage &&
-            <Block className="asideList" title={translate(`${about['@type']}.inLanguage`)}>
+            <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
               <ul className="commaSeparatedList">
                 {about.inLanguage.map(lang => {
                   <li key={lang}>
@@ -257,13 +259,13 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.hashtag &&
-            <Block className="asideList" title={translate(`${about['@type']}.hashtag`)}>
+            <Block className="list" title={translate(`${about['@type']}.hashtag`)}>
               {about.hashtag}
             </Block>
           }
 
           {about.recordedIn &&
-            <Block className="asideList" title={translate(`${about['@type']}.recordedIn`)}>
+            <Block className="list" title={translate(`${about['@type']}.recordedIn`)}>
               <ul>
                 {about.recordedIn.map(recording => (
                   <li key={recording}>
@@ -280,7 +282,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
               prop => (
                 about[prop] &&
-                <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
                   <ItemList listItems={about[prop]} />
                 </Block>
               )
@@ -288,7 +290,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
-            <Block className="asideList" title={translate(`${about['@type']}.agentIn`)}>
+            <Block className="list" title={translate(`${about['@type']}.agentIn`)}>
               <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
             </Block>
           }
@@ -297,7 +299,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ['participant', 'participantIn'].map(
               prop => (
                 about[prop] &&
-                <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+                <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
                   <ItemList listItems={about[prop]} />
                 </Block>
               )
@@ -305,7 +307,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) &&
-            <Block className="asideList" title={translate(`${about['@type']}.isFundedBy`)}>
+            <Block className="list" title={translate(`${about['@type']}.isFundedBy`)}>
               <ItemList
                 listItems={
                   [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
@@ -315,7 +317,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) &&
-            <Block className="asideList" title={translate(`${about['@type']}.budget`)}>
+            <Block className="list" title={translate(`${about['@type']}.budget`)}>
               <ul>
                 {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
                   <li key={i}>
@@ -327,7 +329,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.awards && about.awards.some(grant => grant.funds) &&
-            <Block className="asideList" title={translate(`${about['@type']}.funds`)}>
+            <Block className="list" title={translate(`${about['@type']}.funds`)}>
               <ItemList
                 listItems={
                   [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
@@ -337,13 +339,13 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.hasPart &&
-            <Block className="asideList" title={translate(`${about['@type']}.hasPart`)}>
+            <Block className="list" title={translate(`${about['@type']}.hasPart`)}>
               <ItemList listItems={about.hasPart} />
             </Block>
           }
 
           {about.isPartOf &&
-            <Block className="asideList" title={translate(`${about['@type']}.isPartOf`)}>
+            <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
               <ItemList listItems={[about.isPartOf]} />
             </Block>
           }
@@ -353,7 +355,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
             'isRelatedTo'].map(prop => (
             about[prop] &&
-            <Block key={prop} className="asideList" title={translate(`${about['@type']}.${prop}`)}>
+            <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
               <ItemList listItems={about[prop]} />
             </Block>
           ))}
@@ -398,7 +400,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.startDate &&
-            <Block className="asideList" title={translate(`${about['@type']}.startDate`)}>
+            <Block className="list" title={translate(`${about['@type']}.startDate`)}>
               {moment(about.startDate).format('LL')}
               {about.endDate && ` - ${moment(about.startDate).format('LL')}`}
             </Block>

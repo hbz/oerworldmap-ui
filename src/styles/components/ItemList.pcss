@@ -11,18 +11,42 @@
       align-items: start;
       justify-content: space-between;
 
-      & .fa {
+      & i {
         line-height: inherit;
         display: block;
         width: 2.5em;
-        margin-right: 0.1em;
         text-align: center;
       }
 
       & > span {
         flex: 1;
-        margin-left: 10px;
-        margin-right: 5px;
+      }
+    }
+  }
+
+  @nest .Block & {
+
+    & li {
+      padding: 0.7em 0;
+
+      & .item {
+        align-items: center;
+
+        & i {
+          margin: 0 10px;
+          border-radius: 100%;
+          width: 30px;
+          height: 30px;
+
+          line-height: 30px;
+          background-color: var(--blue-light);
+          color: white;
+        }
+
+        & > span {
+          flex: 1;
+          font-weight: 600;
+        }
       }
     }
   }

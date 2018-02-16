@@ -13,7 +13,7 @@
   }
 
   & > h3 {
-    font-size: var(--font-size-large);
+    font-size: inherit;
     font-weight: 400;
 
     border-bottom: 1px solid var(--grey-light);
@@ -41,5 +41,9 @@
       border-bottom: none;
       margin-bottom: .3em;
     }
+  }
+
+  &.list h3 {
+    margin-bottom: 0;
   }
 }
