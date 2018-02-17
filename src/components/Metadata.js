@@ -22,7 +22,8 @@ Metadata.propTypes = {
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  dateModified: PropTypes.string
+  about: PropTypes.objectOf(PropTypes.any).isRequired,
+  dateModified: PropTypes.string,
 }
 
 Metadata.defaultProps = {

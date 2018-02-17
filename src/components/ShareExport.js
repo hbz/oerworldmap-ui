@@ -42,8 +42,7 @@ class ShareExport extends React.Component {
           onClick={() => {this.setState({showing:!this.state.showing})}}
           onKeyDown={triggerClick}
           ref={el => this.dropdownButton = el}
-        >
-        </i>
+        />
         { this.state.showing &&
           <ul className="dropdownMenu">
             <li><a href="#share">{this.props.translate('share')} <i className="fa fa-share-alt" /></a></li>

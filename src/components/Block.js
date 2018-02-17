@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withI18n from './withI18n'
+import { triggerClick } from '../common'
 
 import '../styles/components/Block.pcss'
 
@@ -21,9 +22,11 @@ class Block extends React.Component {
           <h3>
             {this.props.title}
           </h3>
-          {(this.props.collapsible && this.props.collapsibleType == 'plus') &&
+          {(this.props.collapsible && this.props.collapsibleType === 'plus') &&
             <span
               role="button"
+              tabIndex="0"
+              onKeyDown={triggerClick}
               className="plus"
               onClick={() => this.setState({collapsed: !this.state.collapsed})}
             >
@@ -34,9 +37,11 @@ class Block extends React.Component {
         <div className="main">
           {this.props.children}
         </div>
-        {(this.props.collapsible && this.props.collapsibleType == 'show-all') &&
+        {(this.props.collapsible && this.props.collapsibleType === 'show-all') &&
           <div
             role="button"
+            tabIndex="0"
+            onKeyDown={triggerClick}
             className="show-all"
             onClick={() => this.setState({collapsed: !this.state.collapsed})}
           >
