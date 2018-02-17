@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import withI18n from './withI18n'
+
 import '../styles/components/Block.pcss'
 
 class Block extends React.Component {
@@ -38,7 +40,7 @@ class Block extends React.Component {
             className="show-all"
             onClick={() => this.setState({collapsed: !this.state.collapsed})}
           >
-            {this.state.collapsed ? 'Show all' : 'Show less'}
+            {this.props.translate(this.state.collapsed ? 'Show all' : 'Show less')}
           </div>
         }
       </div>
@@ -50,6 +52,7 @@ class Block extends React.Component {
 Block.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  translate: PropTypes.func.isRequired,
   className: PropTypes.string,
   collapsible: PropTypes.bool,
   collapsibleType: PropTypes.string,
@@ -64,4 +67,4 @@ Block.defaultProps = {
   collapsed: true
 }
 
-export default Block
+export default withI18n(Block)
