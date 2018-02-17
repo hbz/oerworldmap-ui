@@ -298,7 +298,13 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
               prop => (
                 about[prop] &&
-                <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
+                <Block
+                  key={prop}
+                  collapsible={about[prop].length > 3}
+                  collapsibleType="show-all"
+                  className="list"
+                  title={translate(`${about['@type']}.${prop}`)}
+                >
                   <ItemList listItems={about[prop]} />
                 </Block>
               )
@@ -306,7 +312,12 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
-            <Block className="list" title={translate(`${about['@type']}.agentIn`)}>
+            <Block
+              collapsible={about.agentIn.filter(item => item['@type'] === 'Action').length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`${about['@type']}.agentIn`)}
+            >
               <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
             </Block>
           }
@@ -315,7 +326,13 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             ['participant', 'participantIn'].map(
               prop => (
                 about[prop] &&
-                <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
+                <Block
+                  key={prop}
+                  collapsible={about[prop].length > 3}
+                  collapsibleType="show-all"
+                  className="list"
+                  title={translate(`${about['@type']}.${prop}`)}
+                >
                   <ItemList listItems={about[prop]} />
                 </Block>
               )
@@ -323,7 +340,12 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) &&
-            <Block className="list" title={translate(`${about['@type']}.isFundedBy`)}>
+            <Block
+              collapsible={[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`${about['@type']}.isFundedBy`)}
+            >
               <ItemList
                 listItems={
                   [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
@@ -345,7 +367,12 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.awards && about.awards.some(grant => grant.funds) &&
-            <Block className="list" title={translate(`${about['@type']}.funds`)}>
+            <Block
+              collapsible={[].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds)).length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`${about['@type']}.funds`)}
+            >
               <ItemList
                 listItems={
                   [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
@@ -355,7 +382,12 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           }
 
           {about.hasPart &&
-            <Block className="list" title={translate(`${about['@type']}.hasPart`)}>
+            <Block
+              collapsible={about.hasPart.length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`${about['@type']}.hasPart`)}
+            >
               <ItemList listItems={about.hasPart} />
             </Block>
           }
@@ -371,7 +403,13 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
             'isRelatedTo'].map(prop => (
             about[prop] &&
-            <Block key={prop} collapsible={true} collapsibleType="show-all" className="list" title={translate(`${about['@type']}.${prop}`)}>
+            <Block
+              key={prop}
+              collapsible={about[prop].length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`${about['@type']}.${prop}`)}
+            >
               <ItemList listItems={about[prop]} />
             </Block>
           ))}
