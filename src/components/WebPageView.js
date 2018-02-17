@@ -183,7 +183,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           {(lighthouses.length > 0 || likes.length > 0 ) &&
             <div className="Block" style={{marginTop: '0px'}}>
               <ul className="linedList ItemList">
-                {lighthouses.length &&
+                {lighthouses.length > 0 &&
                   <li>
                     <div className="item">
                       <i className="bg-highlight-color bg-important" style={{lineHeight: '33px'}}>
@@ -192,11 +192,11 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                           alt="Lighthouse"
                         />
                       </i>
-                      <span>{translate('Lighthouses')} ({likes.length})</span>
+                      <span>{translate('Lighthouses')} ({lighthouses.length})</span>
                     </div>
                   </li>
                 }
-                {likes.length &&
+                {likes.length > 0 &&
                   <li>
                     <div className="item">
                       <i className="fa fa-star bg-highlight-color bg-important"></i>
