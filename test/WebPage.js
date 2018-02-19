@@ -18,7 +18,7 @@ describe('<WebPage />', () => {
   it('can be instantiated', () => {
     const wrapper = mount(
       <I18nProvider locales={['en']}>
-        <EmittProvider emitter={{emit: () => null}}>
+        <EmittProvider emitter={{emit: () => null, on: () => null}}>
           <WebPage {...testdata} geo={null} mapboxConfig={fakeMapboxConfig} view='' />
         </EmittProvider>
       </I18nProvider>
