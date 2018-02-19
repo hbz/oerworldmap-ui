@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
 import Icon from './Icon'
+import PlaceWidget from './PlaceWidget'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import schema from '../json/schema.json'
@@ -25,6 +26,7 @@ const WebPageEdit = ({about, emitter, translate}) => (
   <Composer
     value={about}
     schema={schema}
+    widgets={{PlaceWidget}}
     submit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
     getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
     getLabel={value => getLabel(translate, value)}
