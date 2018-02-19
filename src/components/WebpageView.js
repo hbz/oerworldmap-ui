@@ -234,7 +234,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
             <ul className="commaSeparatedList">
               {about.keywords.map(keyword => (
                 <li key={keyword}>
-                  <Link href={`/resource/?filter.about.keywords=${keyword}`}>
+                  <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
                     {keyword}
                   </Link>
                 </li>
