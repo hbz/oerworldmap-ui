@@ -112,7 +112,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 <ConceptTree
                   concepts={require('../json/esc.json').hasTopConcept}
                   include={about.about.map(concept => concept['@id'])}
-                  className="recursiveList linedList ItemList"
+                  className="ItemList recursive"
                   linkTemplate="/resource/?filter.about.about.@id={@id}"
                 />
               </Block>
@@ -123,7 +123,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 <ConceptTree
                   concepts={require('../json/isced-1997.json').hasTopConcept}
                   include={about.audience.map(concept => concept['@id'])}
-                  className="linedList ItemList"
+                  className="ItemList"
                   linkTemplate="/resource/?filter.about.audience.@id={@id}"
                 />
               </Block>
@@ -135,7 +135,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 <ConceptTree
                   concepts={require('../json/sectors.json').hasTopConcept}
                   include={about[prop].map(concept => concept['@id'])}
-                  className="linedList ItemList"
+                  className="ItemList"
                   linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
                 />
               </Block>
@@ -182,7 +182,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
           {(lighthouses.length > 0 || likes.length > 0 ) &&
             <div className="Block" style={{marginTop: '0px'}}>
-              <ul className="linedList ItemList prominent">
+              <ul className="ItemList prominent">
                 {lighthouses.length > 0 &&
                   <li>
                     <div className="item">
