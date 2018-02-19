@@ -155,7 +155,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                         &nbsp; {moment(lighthouse.dateCreated).fromNow()}
                       </small>
                     </p>
-                    <form onSubmit={(e) => console.warn("Delete lighthouse not implemented", e)}>
+                    <form onSubmit={(e) => e.preventDefault() || console.warn("Delete lighthouse not implemented", e)}>
                       <button className="btn" type="submit" title="Delete">
                         <i className="fa fa-fw fa-trash" />
                       </button>

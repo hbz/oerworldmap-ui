@@ -71,7 +71,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
 
       <div className="action">
         <form onSubmit={toggleLike}>
-          <button className="btn" type="submit" title="Like">
+          <button className={`btn ${like ? 'active': ''}`} type="submit" title="Like">
             <i className="fa fa-star" />
             {translate('Like')}
           </button>
