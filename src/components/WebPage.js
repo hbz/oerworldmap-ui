@@ -1,5 +1,5 @@
 /* global window */
-/* global alert */
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
@@ -231,7 +231,7 @@ const WebPage = ({
               getLabel={value => getLabel(translate, value)}
               submitLabel={translate('publish')}
               submitNote={translate('ResourceIndex.index.agreeMessage')}
-              error={() => alert(translate('Errors in Form'))}
+              error={() => document.querySelector('.WebPage').scrollTop = 0}
             />
           </div>
 
