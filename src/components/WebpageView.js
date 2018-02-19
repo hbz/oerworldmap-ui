@@ -248,7 +248,7 @@ const WebpageView = ({translate, moment, about, lighthouses}) => (
             <ul>
               {about.recordedIn.map(recording => (
                 <li key={recording}>
-                  <a href={recording} target="_blank">
+                  <a href={recording} target="_blank" rel="noopener">
                     <i className="fa fa-external-link-square" /> {formatURL(recording)}
                   </a>
                 </li>
