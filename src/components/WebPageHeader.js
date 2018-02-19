@@ -31,13 +31,15 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
               <ShareExport _self={_self} _links={_links} view={view} />
             </div>
 
-            <div className="action">
-              {user && (view === 'edit' ? (
-                <Link href="#view"><i className="fa fa-eye" /></Link>
-              ) : (
-                <Link href="#edit"><i className="fa fa-pencil" /></Link>
-              ))}
-            </div>
+            {user &&
+              <div className="action">
+                {view === 'edit' ? (
+                  <Link href="#view"><i className="fa fa-eye" /></Link>
+                ) : (
+                  <Link href="#edit"><i className="fa fa-pencil" /></Link>
+                )}
+              </div>
+            }
 
             <div className="action">
               {typeof window !== 'undefined' &&

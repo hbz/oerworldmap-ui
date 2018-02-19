@@ -55,7 +55,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
       <div className="row">
 
-        <div className="col grow-2">
+        <div className="col two-third">
 
           <div className="border-top text-large" style={{paddingTop: '2em'}}>
 
@@ -176,7 +176,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
         </div>
 
-        <aside className="col">
+        <aside className="col one-third">
 
           <hr style={{marginBottom: '0px'}} />
 
