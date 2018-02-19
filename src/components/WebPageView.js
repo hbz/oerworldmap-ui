@@ -10,6 +10,7 @@ import ConceptTree from './ConceptTree'
 import WebPageUserActions from './WebPageUserActions'
 import SocialLinks from './SocialLinks'
 import Comments from './Comments'
+import Topline from './Topline'
 
 import { formatURL/*, obfuscate*/ } from '../common'
 import '../styles/components/WebPageView.pcss'
@@ -26,16 +27,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
       <div className="row auto gutter-40 text-large">
         <div className="col">
 
-          {about.countryChampionFor &&
-            <span>
-              {about.countryChampionFor.map(country => (
-                <span key={country}>
-                  {translate(`${about['@type']}.countryChampionFor`)}{' '}
-                  <Link href={`/country/${country}`}>{translate(country)}</Link>
-                </span>
-              ))}
-            </span>
-          }
+          <Topline about={about} />
 
         </div>
         <div className="col">

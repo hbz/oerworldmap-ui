@@ -61,7 +61,8 @@ ItemList.propTypes = {
 }
 
 ItemList.defaultProps = {
-  linkTemplate: '/resource/{@id}'
+  linkTemplate: '/resource/{@id}',
+  className: ''
 }
 
 export default withEmitter(withI18n(ItemList))
