@@ -182,7 +182,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
           {(lighthouses.length > 0 || likes.length > 0 ) &&
             <div className="Block" style={{marginTop: '0px'}}>
-              <ul className="linedList ItemList">
+              <ul className="linedList ItemList prominent">
                 {lighthouses.length > 0 &&
                   <li>
                     <div className="item">
@@ -305,7 +305,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} />
+                  <ItemList listItems={about[prop]} className="prominent" />
                 </Block>
               )
             )
@@ -318,7 +318,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               className="list"
               title={translate(`${about['@type']}.agentIn`)}
             >
-              <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} />
+              <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} className="prominent" />
             </Block>
           }
 
@@ -333,7 +333,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} />
+                  <ItemList listItems={about[prop]} className="prominent" />
                 </Block>
               )
             )
@@ -350,6 +350,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 listItems={
                   [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
                 }
+                className="prominent"
               />
             </Block>
           }
@@ -377,6 +378,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 listItems={
                   [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
                 }
+                className="prominent"
               />
             </Block>
           }
@@ -388,13 +390,13 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
             >
-              <ItemList listItems={about.hasPart} />
+              <ItemList listItems={about.hasPart}  className="prominent" />
             </Block>
           }
 
           {about.isPartOf &&
             <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
-              <ItemList listItems={[about.isPartOf]} />
+              <ItemList listItems={[about.isPartOf]} className="prominent" />
             </Block>
           }
 
@@ -410,7 +412,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               className="list"
               title={translate(`${about['@type']}.${prop}`)}
             >
-              <ItemList listItems={about[prop]} />
+              <ItemList listItems={about[prop]} className="prominent" />
             </Block>
           ))}
 
