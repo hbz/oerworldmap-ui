@@ -23,11 +23,17 @@ const Topline = ({translate, moment, about}) => {
       {about['@type'] === 'Service' &&
       about.provider &&
       about.provider.map(provider => (
-        <span key={provider['@id']}>{translate('Service.provider')}: <Link href={`/resource/${provider['@id']}`}>{translate(provider.name)}</Link></span>
+        <span key={provider['@id']}>
+          {translate('Service.provider')}:&nbsp;
+          <Link href={`/resource/${provider['@id']}`}>
+            {translate(provider.name)}
+          </Link>
+        </span>
       ))
       }
 
       {about['@type'] === 'Event' &&
+      about.startDate &&
         <span>
           {about.startDate &&
           about.startDate.includes('T00:00:00')
@@ -41,29 +47,51 @@ const Topline = ({translate, moment, about}) => {
         </span>
       }
 
-      {about.location &&
+      {about['@type'] === 'Event' &&
+      about.location &&
       about.location.address &&
-        <span>{about.location.address.addressLocality && about.location.address.addressLocality}, {about.location.address.addressCountry && translate(about.location.address.addressCountry)}</span>
+        <span>
+          {about.location.address.addressLocality
+            && about.location.address.addressLocality},&nbsp;
+          {about.location.address.addressCountry
+            && translate(about.location.address.addressCountry)}
+        </span>
       }
 
       {about.creator &&
       about['@type'] === 'Article' &&
       about.creator.map(creator => (
-        <span key={creator['@id']}>{translate('ResourceIndex.Article.subtitle.contributedBy')} <Link href={`/resource/${creator['@id']}`}>{translate(creator.name)}</Link></span>
+        <span key={creator['@id']}>
+          {translate('ResourceIndex.Article.subtitle.contributedBy')}&nbsp;
+          <Link href={`/resource/${creator['@id']}`}>
+            {translate(creator.name)}
+          </Link>
+        </span>
       ))
       }
 
       {about.agent &&
       about.agent.map(agent => (
-        <span>{translate('Action.agent')}: <Link  href={`/resource/${agent['@id']}`}>{translate(agent.name)}</Link></span>
+        <span>
+          {translate('Action.agent')}:&nbsp;
+          <Link  href={`/resource/${agent['@id']}`}>
+            {translate(agent.name)}
+          </Link>
+        </span>
       ))
       }
 
       {about['@type'] === 'Action' &&
       about.isFundedBy &&
       about.isFundedBy.some(grant => grant.isAwardedBy) &&
-      [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-        <span>{translate('Action.isFundedBy')}: <Link  href={`/resource/${awarded['@id']}`}>{translate(awarded.name)}</Link></span>
+      [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy)
+        .map(grant => grant.isAwardedBy)).map(awarded => (
+          <span>
+            {translate('Action.isFundedBy')}:&nbsp;
+            <Link  href={`/resource/${awarded['@id']}`}>
+              {translate(awarded.name)}
+            </Link>
+          </span>
       ))
       }
 
