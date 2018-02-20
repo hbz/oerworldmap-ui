@@ -27,10 +27,23 @@ const Topline = ({translate, moment, about}) => {
       ))
       }
 
+      {about['@type'] === 'Event' &&
+        <span>
+          {about.startDate &&
+          about.startDate.includes('T00:00:00')
+            ? moment(about.startDate).format('LLL')
+            : moment(about.startDate).format('LL')}
+          {about.endDate && ` - ${
+            about.endDate.includes('T00:00:00')
+              ? moment(about.endDate).format('LLL')
+              : moment(about.endDate).format('LL')
+          }`}
+        </span>
+      }
+
       {about.location &&
       about.location.address &&
-      about['@type'] === 'Event' &&
-        <span>{about.startDate && moment(about.startDate).format('D')}{about.endDate && `.-${moment(about.endDate).format('D. MMM YYYY')}`} - {about.location.address.addressLocality && about.location.address.addressLocality}, {about.location.address.addressCountry && translate(about.location.address.addressCountry)}</span>
+        <span>{about.location.address.addressLocality && about.location.address.addressLocality}, {about.location.address.addressCountry && translate(about.location.address.addressCountry)}</span>
       }
 
       {about.creator &&
@@ -40,11 +53,17 @@ const Topline = ({translate, moment, about}) => {
       ))
       }
 
+      {about.agent &&
+      about.agent.map(agent => (
+        <span>{translate('Action.agent')}: <Link  href={`/resource/${agent['@id']}`}>{translate(agent.name)}</Link></span>
+      ))
+      }
+
       {about['@type'] === 'Action' &&
       about.isFundedBy &&
       about.isFundedBy.some(grant => grant.isAwardedBy) &&
       [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-        <span>{translate('Action.agent')}: <Link  href={`/resource/${awarded['@id']}`}>{translate(awarded.name)}</Link></span>
+        <span>{translate('Action.isFundedBy')}: <Link  href={`/resource/${awarded['@id']}`}>{translate(awarded.name)}</Link></span>
       ))
       }
 
