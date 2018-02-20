@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 import Link from './Link'
 
-const Topline = ({translate, about}) => {
+const Topline = ({translate, moment, about}) => {
 
   return (
     <div className="Topline">
@@ -20,22 +20,41 @@ const Topline = ({translate, about}) => {
         </span>
       }
 
+      {about['@type'] === 'Service' &&
+      about.provider &&
+      about.provider.map(provider => (
+        <span key={provider['@id']}>{translate('Service.provider')}: <Link href={`/resource/${provider['@id']}`}>{translate(provider.name)}</Link></span>
+      ))
+      }
+
+      {about.location &&
+      about.location.address &&
+      about['@type'] === 'Event' &&
+        <span>{about.startDate && moment(about.startDate).format('D')}{about.endDate && `.-${moment(about.endDate).format('D. MMM YYYY')}`} - {about.location.address.addressLocality && about.location.address.addressLocality}, {about.location.address.addressCountry && translate(about.location.address.addressCountry)}</span>
+      }
+
+      {about.creator &&
+      about['@type'] === 'Article' &&
+      about.creator.map(creator => (
+        <span key={creator['@id']}>{translate('ResourceIndex.Article.subtitle.contributedBy')} <Link href={`/resource/${creator['@id']}`}>{translate(creator.name)}</Link></span>
+      ))
+      }
+
+      {about['@type'] === 'Action' &&
+      about.isFundedBy &&
+      about.isFundedBy.some(grant => grant.isAwardedBy) &&
+      [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
+        <span>{translate('Action.agent')}: <Link  href={`/resource/${awarded['@id']}`}>{translate(awarded.name)}</Link></span>
+      ))
+      }
+
     </div>
   )
 }
 
-/*
-
-TODO
-* show provider
-* show date and location for events (format: 23.-24. Jun 2018 – Hamburg, Germany)
-* show author of articles
-* show operator and funded by for projects
-
-*/
-
 Topline.propTypes = {
   translate: PropTypes.func.isRequired,
+  moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
