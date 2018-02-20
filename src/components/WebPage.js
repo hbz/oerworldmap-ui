@@ -1,4 +1,3 @@
-/* global window */
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -90,10 +89,6 @@ const WebPage = ({
     }
   }
 
-  const closeResource = () => {
-    emitter.emit('navigate', '__home__')
-  }
-
   return (
     <div className="WebPage">
       <div className="webPageContainer">
@@ -129,57 +124,15 @@ const WebPage = ({
                 <Link href="#edit"><i className="fa fa-pencil" /></Link>
               ))}
               <Link href={`/log/${about["@id"]}`}><i className="fa fa-list-alt" /></Link>
-              {typeof window !== 'undefined' &&
-                window.history.length ?
-                (
-                  <span
-                    onClick={closeResource}
-                    role="button"
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        e.target.click()
-                      }
-                    }}
-                  >
-                    <i className="fa fa-close" />
-                  </span>
-                ) : (
-                  <Link
-                    href='/resource/'
-                    className="closeModal"
-                  >
-                    <i className="fa fa-close" />
-                  </Link>
-                )
-              }
+              <Link href={Link.home} className="closeModal">
+                <i className="fa fa-close" />
+              </Link>
             </div>
           ) : (
             <div className="webPageActions">
-              {typeof window !== 'undefined' &&
-                window.history.length ?
-                (
-                  <span
-                    onClick={closeResource}
-                    role="button"
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        e.target.click()
-                      }
-                    }}
-                  >
-                    <i className="fa fa-close" />
-                  </span>
-                ) : (
-                  <Link
-                    href='/resource/'
-                    className="closeModal"
-                  >
-                    <i className="fa fa-close" />
-                  </Link>
-                )
-              }
+              <Link href={Link.home} className="closeModal">
+                <i className="fa fa-close" />
+              </Link>
             </div>
           )}
 

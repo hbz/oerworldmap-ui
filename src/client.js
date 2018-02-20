@@ -46,15 +46,11 @@ import Api from './api'
     emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
     emitter.on('navigate', url => {
-      if (url === '__home__') {
-        emitter.emit('navigate', routes.home())
-      } else {
-        const parser = document.createElement('a')
-        parser.href = url
-        if (parser.href !== window.location.href) {
-          window.history.pushState(null, null, url)
-          window.dispatchEvent(new window.PopStateEvent('popstate'))
-        }
+      const parser = document.createElement('a')
+      parser.href = url
+      if (parser.href !== window.location.href) {
+        window.history.pushState(null, null, url)
+        window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
     // Find data from the API

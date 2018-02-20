@@ -17,12 +17,13 @@ import Feedback from './components/Feedback'
 import ErrorPage from './components/ErrorPage'
 import Log from './components/Log'
 import Diffs from './components/Diffs'
+import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
 
 export default (api) => {
 
-  let home = '/resource/'
+  Link.home = '/resource/'
 
   const routes = [
     {
@@ -30,7 +31,7 @@ export default (api) => {
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
         if (!params.add) {
-          home = url
+          Link.home = url
         }
         const data = params.add ? {
           about: {
@@ -123,7 +124,7 @@ export default (api) => {
       path: '/country/:id',
       get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })
-        home = url
+        Link.home = url
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <ResourceIndex
@@ -319,8 +320,7 @@ export default (api) => {
           handle("delete", uri, context, state, params, body)
         )
       }
-    ),
-    home: () => home
+    )
   }
 
 }
