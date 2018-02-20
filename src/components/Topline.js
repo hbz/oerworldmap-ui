@@ -84,14 +84,13 @@ const Topline = ({translate, moment, about}) => {
       {about['@type'] === 'Action' &&
       about.isFundedBy &&
       about.isFundedBy.some(grant => grant.isAwardedBy) &&
-      [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy)
-        .map(grant => grant.isAwardedBy)).map(awarded => (
-          <span>
-            {translate('Action.isFundedBy')}:&nbsp;
-            <Link  href={`/resource/${awarded['@id']}`}>
-              {translate(awarded.name)}
-            </Link>
-          </span>
+      [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
+        <span>
+          {translate('Action.isFundedBy')}:&nbsp;
+          <Link  href={`/resource/${awarded['@id']}`}>
+            {translate(awarded.name)}
+          </Link>
+        </span>
       ))
       }
 
