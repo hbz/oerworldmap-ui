@@ -9,12 +9,14 @@ const Metadata = ({type, about, dateModified, moment, translate} ) => (
   <div className="Metadata">
     <Icon type={type} />
     {translate(type)}{' '}
-    <Link href={`/log/${about["@id"]}`}>
-      {dateModified && translate(
-        'ResourceIndex.read.lastModified',
-        {dateModified : moment(dateModified).format('YYYY-MM-DD')}
-      )}
-    </Link>
+    {dateModified &&
+      <Link href={`/log/${about["@id"]}`}>
+        {translate(
+          'ResourceIndex.read.lastModified',
+          {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+        )}
+      </Link>
+    }
   </div>
 )
 
