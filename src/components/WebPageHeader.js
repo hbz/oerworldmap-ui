@@ -1,18 +1,11 @@
-/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
-import withEmitter from './withEmitter'
 
-
-const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, emitter, _self, _links}) => {
-  const closeResource = () => {
-    emitter.emit('navigate', '__back__')
-  }
-
+const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, _self, _links}) => {
   return (
     <div className="WebPageHeader">
       <Metadata
@@ -41,36 +34,13 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
               </div>
             }
 
-            <div className="action">
-              {typeof window !== 'undefined' &&
-                window.history.length ?
-                (
-                  <span
-                    onClick={closeResource}
-                    role="button"
-                    tabIndex="0"
-                    className="btn-grey"
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        e.target.click()
-                      }
-                    }}
-                  >
-                    <i className="fa fa-close" />
-                  </span>
-                ) : (
-                  <Link
-                    href='/resource/'
-                    className="btn-grey"
-                  >
-                    <i className="fa fa-close" />
-                  </Link>
-                )
-              }
-            </div>
-
           </div>
         }
+        <div className="action">
+          <Link href={Link.home} className="closeModal">
+            <i className="fa fa-close" />
+          </Link>
+        </div>
       </div>
     </div>
   )
@@ -78,7 +48,6 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
 
 WebPageHeader.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   contributor: PropTypes.string,
   dateCreated: PropTypes.string,
   dateModified: PropTypes.string,
@@ -97,4 +66,4 @@ WebPageHeader.defaultProps = {
   author: null
 }
 
-export default withEmitter(WebPageHeader)
+export default WebPageHeader

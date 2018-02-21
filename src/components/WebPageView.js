@@ -90,7 +90,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                 <ul className="commaSeparatedList">
                   {about.keywords.map(keyword => (
                     <li key={keyword}>
-                      <Link href={`/resource/?filter.about.keywords=${keyword}`}>
+                      <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
                         {keyword}
                       </Link>
                     </li>
@@ -279,7 +279,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               <ul>
                 {about.recordedIn.map(recording => (
                   <li key={recording}>
-                    <a href={recording} target="_blank">
+                    <a href={recording} target="_blank" rel="noopener">
                       <i className="fa fa-external-link-square" /> {formatURL(recording)}
                     </a>
                   </li>

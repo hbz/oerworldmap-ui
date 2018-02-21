@@ -7,7 +7,20 @@ import { triggerClick } from '../common'
 
 import '../styles/components/DropdownFilter.pcss'
 
-class DropdownFilter extends React.Component {
+const filterTree = (tree, list) => {
+  const res = []
+  tree.forEach(node => {
+    if (list.indexOf(node['@id']) !== -1) {
+      if (node['narrower']) {
+        node['narrower'] = filterTree(node['narrower'], list)
+      }
+      res.push(node)
+    }
+  })
+  return res
+}
+
+class ConceptFilter extends React.Component {
 
   constructor(props) {
     super(props)
@@ -18,10 +31,11 @@ class DropdownFilter extends React.Component {
     }
 
     this.handleClick = this.handleClick.bind(this)
+    this.buildTree = this.buildTree.bind(this)
   }
 
   handleClick(e) {
-    if (e.target !== this.DropdownFilter && !this.DropdownFilter.contains(e.target)) {
+    if (e.target !== this.ConceptFilter && !this.ConceptFilter.contains(e.target)) {
       this.setState({showContent: false})
     } else {
       if (!this.dropdownContent.contains(e.target)) {
@@ -30,42 +44,56 @@ class DropdownFilter extends React.Component {
     }
   }
 
-  render() {
-    const list = (this.props.aggregation.buckets.filter(
-      item => this.props.translate(item.label || item.key).toLowerCase().includes(this.state.search.toLowerCase())
-    ) || this.props.aggregation.buckets).map((bucket, i) => (
-      <li key={bucket.key}>
-        <input
-          type="checkbox"
-          value={bucket.key}
-          name={this.props.filterName}
-          id={this.props.filterName+i}
-          defaultChecked={this.props.filter.includes(bucket.key)}
-        />
-        <label
-          htmlFor={this.props.filterName+i}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              e.target.click()
-            }
-          }}
-          tabIndex="0"
-          role="button"
-        >
-          {`${this.props.translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
-        </label>
-      </li>
-    ))
+  show(concept) {
+    return (!this.state.search) || concept.name.some(name =>
+      name['@value'].toLowerCase().search(this.state.search.trim().toLowerCase()) !== -1
+    )
+  }
 
+  buildTree(concepts) {
+    return (
+      <ul>
+        {concepts.map(concept => (
+          <li key={concept['@id']}>
+            <input
+              type="checkbox"
+              value={concept['@id']}
+              name={this.props.filterName}
+              id={this.props.filterName + concept['@id']}
+              defaultChecked={this.props.filter.includes(concept['@id'])}
+            />
+            <label
+              htmlFor={this.props.filterName + concept['@id']}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  e.target.click()
+                }
+              }}
+              tabIndex="0"
+              role="button"
+              className={this.show(concept) ? null: 'hidden'}
+            >
+              {`${this.props.translate(concept.name)} (${this.props.aggregation.buckets.find(
+                bucket => bucket.key === concept['@id']).doc_count})`
+              }
+            </label>
+            {concept.narrower && this.buildTree(concept.narrower)}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  render() {
     return (
       <div
-        ref={DropdownFilter => {
-          if (DropdownFilter) {
+        ref={ConceptFilter => {
+          if (ConceptFilter) {
             document.addEventListener("click", this.handleClick)
           } else {
             document.removeEventListener("click", this.handleClick)
           }
-          this.DropdownFilter = DropdownFilter
+          this.ConceptFilter = ConceptFilter
         }}
         className="DropdownFilter"
       >
@@ -109,35 +137,26 @@ class DropdownFilter extends React.Component {
               onChange={e => this.setState({search: e.target.value})}
             />
           </div>
-          <ul>
-            {list.length
-              ? list
-              : (
-                <li>
-                  <label>
-                    {this.props.translate('ClientTemplates.filter-dropdown.noResults')}
-                  </label>
-                </li>
-              )}
-          </ul>
+          {this.buildTree(filterTree(this.props.concepts, this.props.aggregation.buckets.map(bucket => bucket.key)))}
         </div>
       </div>
     )
   }
 }
 
-DropdownFilter.propTypes = {
+ConceptFilter.propTypes = {
   translate: PropTypes.func.isRequired,
   aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
   filter: PropTypes.arrayOf(PropTypes.any).isRequired,
+  concepts: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-DropdownFilter.defaultProps = {
+ConceptFilter.defaultProps = {
   icon: null,
 }
 
-export default withEmitter(withI18n(DropdownFilter))
+export default withEmitter(withI18n(ConceptFilter))

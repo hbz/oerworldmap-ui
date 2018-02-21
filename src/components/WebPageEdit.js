@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
@@ -32,6 +33,7 @@ const WebPageEdit = ({about, emitter, translate}) => (
     getLabel={value => getLabel(translate, value)}
     submitLabel={translate('publish')}
     submitNote={translate('ResourceIndex.index.agreeMessage')}
+    error={() => document.querySelector('.WebPage').scrollTop = 0}
   />
 )
 

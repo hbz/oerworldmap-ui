@@ -17,16 +17,22 @@ import Feedback from './components/Feedback'
 import ErrorPage from './components/ErrorPage'
 import Log from './components/Log'
 import Diffs from './components/Diffs'
+import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
 
 export default (api) => {
+
+  Link.home = '/resource/'
 
   const routes = [
     {
       path: '/resource/',
       get: async (params, context, state) => {
         const url = getURL({ path: '/resource/', params })
+        if (!params.add) {
+          Link.home = url
+        }
         const data = params.add ? {
           about: {
             '@type': params.add
@@ -118,6 +124,7 @@ export default (api) => {
       path: '/country/:id',
       get: async (params, context, state) => {
         const url = getURL({ path: `/country/${params.id}`, params })
+        Link.home = url
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <ResourceIndex

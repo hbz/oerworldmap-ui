@@ -5,7 +5,6 @@ import { renderToString } from 'react-dom/server'
 import htmldiff from '../../vendor/htmldiff'
 
 import WebPageView from './WebPageView'
-import schema from '../json/schema.json'
 import I18nProvider from './I18nProvider'
 import withEmitter from './withEmitter'
 
