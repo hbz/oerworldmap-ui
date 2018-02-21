@@ -39,7 +39,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
         </div>
       </div>
 
-      <h2>{translate(about.displayName) || translate(about.name)}</h2>
+      <h2>
+        {translate(about.displayName) || translate(about.name)}
+        {about.alternateName &&
+          <span className="alternate">
+            {' '}({translate(about.alternateName)})
+          </span>
+        }
+      </h2>
 
       {user &&
         <WebPageUserActions about={about} user={user} view={view} />
