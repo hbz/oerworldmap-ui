@@ -33,7 +33,7 @@ const WebPageEdit = ({about, emitter, translate}) => (
     getLabel={value => getLabel(translate, value)}
     submitLabel={translate('publish')}
     submitNote={translate('ResourceIndex.index.agreeMessage')}
-    error={() => document.querySelector('.WebPage').scrollTop = 0}
+    error={() => document.querySelector('.webPageWrapper').scrollTop = 0}
   />
 )
 
