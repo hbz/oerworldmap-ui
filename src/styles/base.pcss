@@ -103,7 +103,8 @@ select,
 
   &.active {
     color: var(--white);
-    background-color: var(--action-color);
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
   }
 
   &.clear {
@@ -111,6 +112,18 @@ select,
     background-color: var(--white);
     color: var(--blue-dark);
     padding: 6px 15px;
+  }
+
+  &.icon {
+    border: none;
+    padding: 0;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: var(--highlight-color);
+      background-color: transparent;
+    }
   }
 }
 

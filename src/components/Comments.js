@@ -32,7 +32,6 @@ const deleteComment = (id, emitter, e) => {
 const Comments = ({moment, translate, emitter, id, comments, user}) => (
   <div className="Comments">
 
-    {comments.length > 0 && <h2>{translate('ResourceIndex.read.comments')}</h2>}
     {comments.filter(comment => comment.author && comment.text).map(comment => (
       <div className="Comment" key={comment['@id']}>
         <p>
