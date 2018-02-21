@@ -84,14 +84,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
             <hr className="border-grey" />
 
-            {about.availableChannel &&
-              about.availableChannel.map(link => (
-                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener" className="boxedLink">
-                  {formatURL(link.serviceUrl)}
-                </a>
-              ))
-            }
-
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
                 <ul className="commaSeparatedList">
@@ -275,6 +267,20 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
             </Block>
           }
 
+          {about.availableChannel &&
+            <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
+              <ul className="commaSeparatedList">
+                {[].concat.apply([], about.availableChannel.map(channel => channel.availableLanguage)).map(lang => (
+                  <li key={lang}>
+                    <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
+                      {translate(lang)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
           {about.hashtag &&
             <Block title={translate(`${about['@type']}.hashtag`)}>
               {about.hashtag}
@@ -436,20 +442,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                 {about.license.map(license => (
                   <li key={license['@id']}>
                     <img className="licenseImage" src={license.image} alt={translate(license.name)} />
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          }
-
-          {about.availableChannel &&
-            <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
-              <ul className="commaSeparatedList">
-                {[].concat.apply([], about.availableChannel.map(channel => channel.availableLanguage)).map(lang => (
-                  <li key={lang}>
-                    <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
-                      {translate(lang)}
-                    </Link>
                   </li>
                 ))}
               </ul>
