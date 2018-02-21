@@ -52,7 +52,7 @@ class MiniMap extends React.Component {
       })
 
       this.props.emitter.on('setPlace', location =>
-        this.MiniMap.getSource('points').setData({
+        location && this.MiniMap.getSource('points').setData({
           type: 'Point',
           coordinates: [location.geo.lon, location.geo.lat]
         })
