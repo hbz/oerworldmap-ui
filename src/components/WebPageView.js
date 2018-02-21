@@ -82,6 +82,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               </p>
             }
 
+            {about.availableChannel &&
+              about.availableChannel.map(link => (
+                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener">
+                  {formatURL(link.serviceUrl)}
+                </a>
+              ))
+            }
+
             <hr className="border-grey" />
 
             {about.keywords &&
