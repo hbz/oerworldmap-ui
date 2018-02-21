@@ -109,12 +109,12 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
         <div className="action">
           <a href="#addLighthouse" className={`btn ${lighthouse['@id'] ? 'active': ''}`}>
             <img
-              className="i hidden-hover"
+              className="i hidden-hover hidden-active"
               src="/assets/lighthouse_16px_blue.svg"
               alt="Lighthouse"
             />
             <img
-              className="i visible-hover"
+              className="i visible-hover visible-active"
               src="/assets/lighthouse_16px_white.svg"
               alt="Lighthouse"
             />

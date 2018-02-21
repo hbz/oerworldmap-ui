@@ -65,6 +65,24 @@ button {
   }
 }
 
+/* --- active --- */
+
+.visible-active {
+  display: none;
+}
+
+a,
+button {
+  &.active {
+    & .visible-active {
+      display: initial;
+    }
+    & .hidden-active {
+      display: none;
+    }
+  }
+}
+
 /* --- responsive --- */
 
 @media screen and (max-width: 1024px) {
