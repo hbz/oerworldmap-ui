@@ -1,3 +1,5 @@
+/* global window */
+/* global Event */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -58,6 +60,7 @@ class MiniMap extends React.Component {
         })
       )
       this.updateMap()
+      window.dispatchEvent(new Event('resize'))
     })
   }
 
