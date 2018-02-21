@@ -38,6 +38,7 @@ class ActionButtons extends React.Component {
 
       <div className="ActionButtons">
         {this.props.user &&
+        this.props.user.groups.includes('admin') &&
           <Link href="/user/groups" title={this.props.translate('ClientTemplates.app.groups')}>
             <i className="fa fa-gear" />
           </Link>
