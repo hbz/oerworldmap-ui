@@ -261,6 +261,17 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
             </Block>
           }
 
+          {about.startDate &&
+            <Block className="list" title={translate(`${about['@type']}.startDate`)}>
+              {about.startDate.includes('T00:00:00')
+                ? moment(about.startDate).format('LL')
+                : moment(about.startDate).format('LLL')}
+              {about.endDate && ` - ${about.endDate.includes('T00:00:00')
+                ? moment(about.endDate).format('LL')
+                : moment(about.endDate).format('LLL')}`}
+            </Block>
+          }
+
           {about.inLanguage &&
             <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
               <ul className="commaSeparatedList">
@@ -453,13 +464,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                   </li>
                 ))}
               </ul>
-            </Block>
-          }
-
-          {about.startDate &&
-            <Block title={translate(`${about['@type']}.startDate`)}>
-              {moment(about.startDate).format('LL')}
-              {about.endDate && ` - ${moment(about.endDate).format('LL')}`}
             </Block>
           }
 
