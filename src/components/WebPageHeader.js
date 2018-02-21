@@ -17,30 +17,30 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
         dateCreated={dateCreated}
       />
       <div className="webPageActions print-display-none">
-          <div>
+        <div>
 
-            {about['@id'] && [
-              <div className="action" key="share">
-                <ShareExport _self={_self} _links={_links} view={view} />
-              </div>,
-              user &&
-                <div className="action" key="view">
-                  {view === 'edit' ? (
-                    <Link href="#view"><i className="fa fa-eye" /></Link>
-                  ) : (
-                    <Link href="#edit"><i className="fa fa-pencil" /></Link>
-                  )}
-                </div>
+          {about['@id'] && [
+            <div className="action" key="share">
+              <ShareExport _self={_self} _links={_links} view={view} />
+            </div>,
+            user &&
+              <div className="action" key="view">
+                {view === 'edit' ? (
+                  <Link href="#view"><i className="fa fa-eye" /></Link>
+                ) : (
+                  <Link href="#edit"><i className="fa fa-pencil" /></Link>
+                )}
+              </div>
 
-            ]}
+          ]}
 
-            <div className="action">
-              <Link href={Link.home} className="closeModal">
-                <i className="fa fa-close" />
-              </Link>
-            </div>
-
+          <div className="action">
+            <Link href={Link.home} className="closeModal">
+              <i className="fa fa-close" />
+            </Link>
           </div>
+
+        </div>
       </div>
     </div>
   )
