@@ -77,4 +77,32 @@
       margin-bottom: 1em;
     }
   }
+
+  /* styling of comments form, mostly as interim solution before json-pointer-form style is revised in general */
+
+  & .Comments {
+    & .Forms {
+      font-size: var(--font-size);
+
+      & h1 {
+        display: none;
+      }
+
+      & input[type=submit] {
+        margin-top: 0;
+        border-color: var(--action-color);
+        background-color: var(--action-color);
+        font-weight: normal;
+
+        &:hover {
+          background: white;
+          color: var(--action-color);
+        }
+      }
+
+      & fieldset > legend {
+        font-weight: normal;
+      }
+    }
+  }
 }
