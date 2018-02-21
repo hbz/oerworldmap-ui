@@ -5,18 +5,27 @@ import withI18n from './withI18n'
 import Icon from './Icon'
 import Link from './Link'
 
-const Metadata = ({type, about, dateModified, moment, translate} ) => (
+const Metadata = ({type, about, dateModified, moment, translate, user}) => (
   <div className="Metadata">
     <Icon type={type} />
     {translate(type)}{' '}
-    {dateModified &&
-      <Link href={`/log/${about["@id"]}`}>
-        {translate(
-          'ResourceIndex.read.lastModified',
-          {dateModified : moment(dateModified).format('YYYY-MM-DD')}
-        )}
-      </Link>
-    }
+    {dateModified && (
+      user ? (
+        <Link href={`/log/${about["@id"]}`}>
+          {translate(
+            'ResourceIndex.read.lastModified',
+            {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+          )}
+        </Link>
+      ) : (
+        <span>
+          {translate(
+            'ResourceIndex.read.lastModified',
+            {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+          )}
+        </span>
+      )
+    )}
   </div>
 )
 
@@ -26,10 +35,12 @@ Metadata.propTypes = {
   type: PropTypes.string.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   dateModified: PropTypes.string,
+  user: PropTypes.objectOf(PropTypes.any)
 }
 
 Metadata.defaultProps = {
-  dateModified: null
+  dateModified: null,
+  user: null
 }
 
 export default withI18n(Metadata)

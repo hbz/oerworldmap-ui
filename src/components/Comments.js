@@ -44,11 +44,14 @@ const Comments = ({moment, translate, emitter, id, comments, user}) => (
             &nbsp; {moment(comment.dateCreated).fromNow()}
           </small>
         </p>
+        {user &&
+        user.groups.includes('admin') &&
         <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
           <button className="btn" type="submit" title="Delete">
             <i className="fa fa-fw fa-trash" />
           </button>
         </form>
+        }
         <ReactMarkdown source={translate(comment.text)} />
       </div>
     ))}

@@ -15,6 +15,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
         contributor={contributor}
         dateModified={dateModified}
         dateCreated={dateCreated}
+        user={user}
       />
       <div className="webPageActions print-display-none">
         <div>
