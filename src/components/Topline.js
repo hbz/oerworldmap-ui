@@ -72,7 +72,7 @@ const Topline = ({translate, moment, about}) => {
 
       {about.agent &&
       about.agent.map(agent => (
-        <span>
+        <span key={agent['@id']}>
           {translate('Action.agent')}:&nbsp;
           <Link  href={`/resource/${agent['@id']}`}>
             {translate(agent.name)}
@@ -85,7 +85,7 @@ const Topline = ({translate, moment, about}) => {
       about.isFundedBy &&
       about.isFundedBy.some(grant => grant.isAwardedBy) &&
       [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-        <span>
+        <span key={awarded['@id']}>
           {translate('Action.isFundedBy')}:&nbsp;
           <Link  href={`/resource/${awarded['@id']}`}>
             {translate(awarded.name)}
