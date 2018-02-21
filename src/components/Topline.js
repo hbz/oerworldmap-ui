@@ -10,31 +10,37 @@ const Topline = ({translate, moment, about}) => {
     <div className="Topline">
 
       {about.countryChampionFor &&
-        <span>
-          {about.countryChampionFor.map(country => (
-            <span key={country}>
-              {translate(`${about['@type']}.countryChampionFor`)}{' '}
-              <Link href={`/country/${country}`}>{translate(country)}</Link>
-            </span>
-          ))}
-        </span>
+        <div className="toplineEntry">
+          <span>{translate(`${about['@type']}.countryChampionFor`)}:&nbsp;</span>
+          <ul className="commaSeparatedList">
+            {about.countryChampionFor.map(country => (
+              <li key={country}>
+                <Link href={`/country/${country}`}>{translate(country)}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       }
 
       {about['@type'] === 'Service' &&
       about.provider &&
-      about.provider.map(provider => (
-        <span key={provider['@id']}>
-          {translate('Service.provider')}:&nbsp;
-          <Link href={`/resource/${provider['@id']}`}>
-            {translate(provider.name)}
-          </Link>
-        </span>
-      ))
+        <div className="toplineEntry">
+          <span>{translate('Service.provider')}:&nbsp;</span>
+          <ul className="commaSeparatedList">
+            {about.provider.map(provider => (
+              <li key={provider['@id']}>
+                <Link href={`/resource/${provider['@id']}`}>
+                  {translate(provider.name)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       }
 
       {about['@type'] === 'Event' &&
       about.startDate &&
-        <span>
+        <div className="toplineEntry">
           {about.startDate &&
           about.startDate.includes('T00:00:00')
             ? moment(about.startDate).format('LLL')
@@ -44,54 +50,68 @@ const Topline = ({translate, moment, about}) => {
               ? moment(about.endDate).format('LLL')
               : moment(about.endDate).format('LL')
           }`}
-        </span>
+        </div>
       }
 
       {about['@type'] === 'Event' &&
       about.location &&
       about.location.address &&
-        <span>
+        <div className="toplineEntry">
           {about.location.address.addressLocality
             && about.location.address.addressLocality},&nbsp;
           {about.location.address.addressCountry
             && translate(about.location.address.addressCountry)}
-        </span>
+        </div>
       }
 
       {about.creator &&
       about['@type'] === 'Article' &&
-      about.creator.map(creator => (
-        <span key={creator['@id']}>
-          {translate('ResourceIndex.Article.subtitle.contributedBy')}&nbsp;
-          <Link href={`/resource/${creator['@id']}`}>
-            {translate(creator.name)}
-          </Link>
-        </span>
-      ))
+      <div className="toplineEntry">
+        <span>{translate('ResourceIndex.Article.subtitle.contributedBy')}:&nbsp;</span>
+        <ul className="commaSeparatedList">
+          {about.creator.map(creator => (
+            <li key={creator['@id']}>
+              <Link href={`/resource/${creator['@id']}`}>
+                {translate(creator.name)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
       }
 
       {about.agent &&
-      about.agent.map(agent => (
-        <span key={agent['@id']}>
-          {translate('Action.agent')}:&nbsp;
-          <Link  href={`/resource/${agent['@id']}`}>
-            {translate(agent.name)}
-          </Link>
-        </span>
-      ))
+      about['@type'] === 'Action' &&
+      <div className="toplineEntry">
+        <span>{translate('Action.agent')}:&nbsp;</span>
+        <ul className="commaSeparatedList">
+          {about.agent.map(agent => (
+            <span key={agent['@id']}>
+              <Link  href={`/resource/${agent['@id']}`}>
+                {translate(agent.name)}
+              </Link>
+            </span>
+          ))}
+        </ul>
+      </div>
       }
 
       {about['@type'] === 'Action' &&
       about.isFundedBy &&
       about.isFundedBy.some(grant => grant.isAwardedBy) &&
-      [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-        <span key={awarded['@id']}>
-          {translate('Action.isFundedBy')}:&nbsp;
-          <Link  href={`/resource/${awarded['@id']}`}>
-            {translate(awarded.name)}
-          </Link>
-        </span>
-      ))
+      <div className="toplineEntry">
+        <span>{translate('Action.isFundedBy')}:&nbsp;</span>
+        <ul className="commaSeparatedList">
+          {[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
+            <span key={awarded['@id']}>
+
+              <Link  href={`/resource/${awarded['@id']}`}>
+                {translate(awarded.name)}
+              </Link>
+            </span>
+          ))}
+        </ul>
+      </div>
       }
 
     </div>
