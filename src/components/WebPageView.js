@@ -450,7 +450,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
           {about.startDate &&
             <Block className="list" title={translate(`${about['@type']}.startDate`)}>
               {moment(about.startDate).format('LL')}
-              {about.endDate && ` - ${moment(about.startDate).format('LL')}`}
+              {about.endDate && ` - ${moment(about.endDate).format('LL')}`}
             </Block>
           }
 
