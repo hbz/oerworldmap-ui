@@ -112,6 +112,18 @@ select,
     color: var(--blue-dark);
     padding: 6px 15px;
   }
+
+  &.icon {
+    border: none;
+    padding: 0;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: var(--highlight-color);
+      background-color: transparent;
+    }
+  }
 }
 
 input,

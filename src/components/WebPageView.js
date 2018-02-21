@@ -137,21 +137,23 @@ const WebPageView = ({translate, moment, about, user, view}) => {
               <Block className="lighthouseComments" title={translate('ResourceIndex.read.lighthouses.title')}>
                 {lighthouses.map(lighthouse => (
                   <div className="Comment" key={lighthouse['@id']}>
-                    <p>
-                      <small>
+                    <div className="head row auto">
+                      <div className="col">
                         {lighthouse.agent.map(author => (
                           <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
                             {translate(author.name)}
                           </Link>)
-                        )}
-                        &nbsp; {moment(lighthouse.dateCreated).fromNow()}
-                      </small>
-                    </p>
-                    <form onSubmit={(e) => e.preventDefault() || console.warn("Delete lighthouse not implemented", e)}>
-                      <button className="btn" type="submit" title="Delete">
-                        <i className="fa fa-fw fa-trash" />
-                      </button>
-                    </form>
+                        )}{' '}
+                        {moment(lighthouse.dateCreated).fromNow()}
+                      </div>
+                      <div className="col">
+                        <form onSubmit={(e) => e.preventDefault() || console.warn("Delete lighthouse not implemented", e)}>
+                          <button className="btn icon" type="submit" title="Delete">
+                            <i className="fa fa-fw fa-trash" />
+                          </button>
+                        </form>
+                      </div>
+                    </div>
                     <ReactMarkdown source={translate(lighthouse.description)} />
                   </div>
                 ))}
