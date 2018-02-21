@@ -21,7 +21,6 @@ class MiniMap extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component minimao mount')
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = this.props.mapboxConfig.token
 
@@ -31,9 +30,6 @@ class MiniMap extends React.Component {
       center: this.props.center,
       zoom: this.props.zoom
     })
-
-    console.log(this.MiniMap)
-    console.log(this.props.center, 'center')
 
     this.canvas = this.MiniMap.getCanvasContainer()
     this.isDragging = false
