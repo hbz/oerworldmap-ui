@@ -159,13 +159,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                         )}{' '}
                         {moment(lighthouse.dateCreated).fromNow()}
                       </div>
-                      <div className="col">
-                        <form onSubmit={(e) => e.preventDefault() || console.warn("Delete lighthouse not implemented", e)}>
-                          <button className="btn icon" type="submit" title="Delete">
-                            <i className="fa fa-fw fa-trash" />
-                          </button>
-                        </form>
-                      </div>
+                      {user &&
+                      user.groups.includes('admin') &&
+                        <div className="col">
+                          <form onSubmit={(e) => e.preventDefault() || console.warn("Delete lighthouse not implemented", e)}>
+                            <button className="btn icon" type="submit" title="Delete">
+                              <i className="fa fa-fw fa-trash" />
+                            </button>
+                          </form>
+                        </div>
+                      }
                     </div>
                     <ReactMarkdown source={translate(lighthouse.description)} />
                   </div>
