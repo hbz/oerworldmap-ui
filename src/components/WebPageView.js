@@ -140,6 +140,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               </Block>
             ))}
 
+            {about.alternateName &&
+              <Block title={translate(`${about['@type']}.alternateName`)}>
+                {translate(about.alternateName)}
+              </Block>
+            }
+
             {lighthouses &&
               <Block className="lighthouseComments" title={translate('ResourceIndex.read.lighthouses.title')}>
                 {lighthouses.map(lighthouse => (
@@ -244,12 +250,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
             </Block>
           }
 
-          {about.alternateName &&
-            <Block className="list" title={translate(`${about['@type']}.alternateName`)}>
-              {translate(about.alternateName)}
-            </Block>
-          }
-
           {about.startTime &&
             <Block className="list" title={translate(`${about['@type']}.startTime`)}>
               {about.startTime.includes('T00:00:00')
@@ -276,7 +276,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.hashtag &&
-            <Block className="list" title={translate(`${about['@type']}.hashtag`)}>
+            <Block title={translate(`${about['@type']}.hashtag`)}>
               {about.hashtag}
             </Block>
           }
@@ -457,7 +457,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.startDate &&
-            <Block className="list" title={translate(`${about['@type']}.startDate`)}>
+            <Block title={translate(`${about['@type']}.startDate`)}>
               {moment(about.startDate).format('LL')}
               {about.endDate && ` - ${moment(about.endDate).format('LL')}`}
             </Block>
