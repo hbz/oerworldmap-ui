@@ -52,7 +52,7 @@ class MiniMap extends React.Component {
       })
 
       this.props.emitter.on('setPlace', location =>
-        this.MiniMap.getSource('points').setData({
+        location && this.MiniMap.getSource('points').setData({
           type: 'Point',
           coordinates: [location.geo.lon, location.geo.lat]
         })
@@ -188,7 +188,7 @@ MiniMap.propTypes = {
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
   onFeatureDrag: PropTypes.func,
-  emitter: PropTypes.func.isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 MiniMap.defaultProps = {

@@ -93,6 +93,7 @@ import Api from './api'
     })
     // Form submission
     emitter.on('submit', ({url, data}) => {
+      emitter.emit('setLoading', true)
       routes.route(url, context).post(data)
         .then(({title, data, render}) => {
           state = data

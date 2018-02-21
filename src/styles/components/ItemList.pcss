@@ -1,30 +1,20 @@
 @import '../variables.pcss';
 
 .ItemList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
   overflow: auto;
   flex: 1;
 
   & li {
 
-    /* calendar sheet */
-    & a:hover .sheet {
-      border-color: var(--orange);
-    }
+    & a {
+      color: var(--primary-color);
 
-    /* unfolded preview within the list item, will be replaced by popover */
-    & .extract {
-      padding: 10px;
-      font-size: 0.9rem;
-
-      & .btn {
-
-        @media print {
-          display: none;
-        }
-      }
-
-      & p {
-        margin-top: 0;
+      &:hover {
+        color: var(--highlight-color);
       }
     }
 
@@ -33,38 +23,96 @@
       align-items: start;
       justify-content: space-between;
 
-      & .fa {
+      border-bottom: 1px solid var(--grey-light);
+      padding: 0.35em 0;
+
+      & i {
         line-height: inherit;
         display: block;
         width: 2.5em;
-        margin-right: 0.1em;
         text-align: center;
-      }
-
-      & .sheet {
-        display: flex;
-        flex: 0.1;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 2px;
-        border: 1px solid var(--blue-dark);
-        padding: 5px;
-
-        & span:first-child {
-          font-size: 1.1rem;
-        }
       }
 
       & > span {
         flex: 1;
-        margin-left: 10px;
-        margin-right: 5px;
       }
     }
   }
+
+  &.prominent {
+
+    & li {
+
+      & .item {
+        padding: 0.7em 0;
+        align-items: center;
+
+        & i {
+          margin: 0 10px;
+          border-radius: 100%;
+          width: 30px;
+          height: 30px;
+
+          font-size: var(--font-size);
+          line-height: 30px;
+          background-color: var(--blue-light);
+          color: white;
+
+          & img {
+            height: var(--font-size);
+          }
+        }
+
+        & > span {
+          flex: 1;
+          font-weight: 600;
+        }
+
+        &:hover i {
+          background-color: var(--highlight-color);
+        }
+      }
+    }
+  }
+
+  &.recursive {
+
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    & ul .item {
+      padding-left: calc(1 * 2em);
+    }
+
+    & ul ul .item {
+      padding-left: calc(2 * 2em);
+    }
+
+    & ul ul ul .item {
+      padding-left: calc(3 * 2em);
+    }
+
+    & ul ul ul ul .item {
+      padding-left: calc(4 * 2em);
+    }
+
+    & ul ul ul ul ul .item {
+      padding-left: calc(5 * 2em);
+    }
+  }
 }
+
+.Block.collapsible.show-all.collapsed .ItemList li {
+  display: none;
+
+  &:nth-child(-n+3){
+    display: list-item;
+  }
+}
+
 
 .itemListTooltip {
   max-width: 400px;

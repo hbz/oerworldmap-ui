@@ -12,8 +12,8 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, emitter, listItems, linkTemplate }) => (
-  <ul className="linedList ItemList" >
+const ItemList = ({ translate, emitter, listItems, linkTemplate, className }) => (
+  <ul className={`ItemList ${className}`} >
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
@@ -56,11 +56,13 @@ ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
-  linkTemplate: PropTypes.string
+  linkTemplate: PropTypes.string,
+  className: PropTypes.string
 }
 
 ItemList.defaultProps = {
-  linkTemplate: '/resource/{@id}'
+  linkTemplate: '/resource/{@id}',
+  className: ''
 }
 
 export default withEmitter(withI18n(ItemList))

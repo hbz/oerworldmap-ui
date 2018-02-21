@@ -3,22 +3,20 @@ import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 
 import Icon from './Icon'
-import '../styles/components/Metadata.pcss'
+import Link from './Link'
 
-const Metadata = ({type, dateModified, moment, translate} ) => (
+const Metadata = ({type, about, dateModified, moment, translate} ) => (
   <div className="Metadata">
-    <div
-      title={
-        translate(type) + ' ' + (dateModified ? translate('ResourceIndex.read.lastModified', {
-          dateModified : moment(dateModified).format('YYYY-MM-DD')
-        }) : '')
-      }
-    >
-      <Icon type={type} />
-      {translate(type)}&nbsp;{dateModified && translate('ResourceIndex.read.lastModified', {
-        dateModified : moment(dateModified).format('YYYY-MM-DD')
-      })}
-    </div>
+    <Icon type={type} />
+    {translate(type)}{' '}
+    {dateModified &&
+      <Link href={`/log/${about["@id"]}`}>
+        {translate(
+          'ResourceIndex.read.lastModified',
+          {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+        )}
+      </Link>
+    }
   </div>
 )
 
@@ -26,7 +24,8 @@ Metadata.propTypes = {
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  dateModified: PropTypes.string
+  about: PropTypes.objectOf(PropTypes.any).isRequired,
+  dateModified: PropTypes.string,
 }
 
 Metadata.defaultProps = {

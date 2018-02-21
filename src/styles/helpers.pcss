@@ -65,10 +65,36 @@ button {
   }
 }
 
+/* --- active --- */
+
+.visible-active {
+  display: none;
+}
+
+a,
+button {
+  &.active {
+    & .visible-active {
+      display: initial;
+    }
+    & .hidden-active {
+      display: none;
+    }
+  }
+}
+
 /* --- responsive --- */
 
 @media screen and (max-width: 1024px) {
   .max-1024-top-margin-0 {
     margin-top: 0;
+  }
+}
+
+/* --- print --- */
+
+@media print {
+  .print-display-none {
+    display: none;
   }
 }

@@ -1,18 +1,108 @@
 @import '../variables.pcss';
 
 .Block {
-  & > h3 {
-    border-bottom: 1px solid var(--grey-light);
-    padding: 10px 0;
-    margin-bottom: 5px;
-    font-size: 1.3rem;
+  color: var(--grey-dark);
+  margin-top: var(--p-margin);
+
+  & p {
+    margin: 20px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  & > .head {
     display: flex;
     justify-content: start;
     align-items: center;
 
-    & span {
-      flex: 1;
-      padding-right: 5px;
+    border-bottom: 1px solid var(--grey-light);
+    padding: .7em 0;
+    margin-bottom: .5em;
+
+    & > h3 {
+      flex-grow: 1;
+      margin-bottom: 0;
+
+      font-size: inherit;
+      font-weight: 400;
+    }
+
+    & .plus {
+      color: inherit;
+
+      &:hover {
+        color: var(--highlight-color);
+      }
+    }
+  }
+
+  &.first {
+    margin-top: 0;
+
+    & .head {
+      padding: 0;
+      border-bottom: none;
+      margin-bottom: 1.3em;
+
+      & h3 {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--blue-dark);
+      }
+    }
+  }
+
+  &.list .head {
+    margin-bottom: 0;
+  }
+
+  & .show-all {
+    margin-top: .6em;
+    font-size: var(--font-size-small);
+  }
+
+  &.collapsible.plus.collapsed .main {
+    display: none;
+  }
+
+  & .Comment {
+    border-bottom: 1px solid var(--grey-light);
+    margin-bottom: .5em;
+
+    & .head {
+      font-size: var(--font-size-small);
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
+
+  /* styling of comments form, mostly as interim solution before json-pointer-form style is revised in general */
+
+  & .Comments {
+    & .Forms {
+      font-size: var(--font-size);
+
+      & h1 {
+        display: none;
+      }
+
+      & input[type=submit] {
+        margin-top: 0;
+        border-color: var(--action-color);
+        background-color: var(--action-color);
+        font-weight: normal;
+
+        &:hover {
+          background: white;
+          color: var(--action-color);
+        }
+      }
+
+      & fieldset > legend {
+        font-weight: normal;
+      }
     }
   }
 }

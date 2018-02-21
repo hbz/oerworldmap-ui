@@ -14,7 +14,8 @@ class Link extends React.Component {
     if (!this.props.target
       && !event.shiftKey
       && !(event.which === 2)
-      && !event.ctrlKey) {
+      && !event.ctrlKey
+      && !event.metaKey) {
       event.preventDefault()
       this.props.emitter.emit('navigate', this.getRef())
     }

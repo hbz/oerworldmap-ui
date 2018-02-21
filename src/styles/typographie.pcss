@@ -41,7 +41,13 @@ h3 {
 a {
   text-decoration: none;
   color: var(--action-color);
+  &:hover {
+    color: var(--highlight-color);
+  }
+}
 
+[role="button"] {
+  color: var(--action-color);
   &:hover {
     color: var(--highlight-color);
   }
@@ -54,4 +60,16 @@ a {
       color: var(--highlight-color);
     }
   }
+}
+
+.text-large {
+  font-size: var(--font-size-large);
+}
+
+.text-base {
+  font-size: var(--font-size);
+}
+
+.text-small {
+  font-size: var(--font-size-small);
 }
