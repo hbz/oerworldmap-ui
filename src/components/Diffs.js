@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { renderToString } from 'react-dom/server'
 import htmldiff from '../../vendor/htmldiff'
 
-import ResourceTable from './ResourceTable'
+import WebPageView from './WebPageView'
 import schema from '../json/schema.json'
 import I18nProvider from './I18nProvider'
 import withEmitter from './withEmitter'
@@ -14,13 +14,21 @@ import '../styles/components/Diff.pcss'
 const Diffs = ({emitter, log, compare, to}) => {
   const v1 = renderToString(
     <I18nProvider locales={['en']}>
-      <ResourceTable value={compare.about} schema={schema} />
+      <WebPageView
+        id="view"
+        about={compare.about}
+        expandAll
+      />
     </I18nProvider>
   )
 
   const v2 = renderToString(
     <I18nProvider locales={['en']}>
-      <ResourceTable value={to.about} schema={schema} />
+      <WebPageView
+        id="view"
+        about={to.about}
+        expandAll
+      />
     </I18nProvider>
   )
   const diff = htmldiff(v1, v2)

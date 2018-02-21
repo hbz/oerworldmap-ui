@@ -15,7 +15,7 @@ import Topline from './Topline'
 import { formatURL/*, obfuscate*/ } from '../common'
 import '../styles/components/WebPageView.pcss'
 
-const WebPageView = ({translate, moment, about, user, view}) => {
+const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
 
@@ -292,7 +292,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 about[prop] &&
                 <Block
                   key={prop}
-                  collapsible={about[prop].length > 3}
+                  collapsible={!expandAll && about[prop].length > 3}
                   collapsibleType="show-all"
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
@@ -305,7 +305,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
           {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
             <Block
-              collapsible={about.agentIn.filter(item => item['@type'] === 'Action').length > 3}
+              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'Action').length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.agentIn`)}
@@ -320,7 +320,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
                 about[prop] &&
                 <Block
                   key={prop}
-                  collapsible={about[prop].length > 3}
+                  collapsible={!expandAll && about[prop].length > 3}
                   collapsibleType="show-all"
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
@@ -333,7 +333,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) &&
             <Block
-              collapsible={[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).length > 3}
+              collapsible={!expandAll && [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.isFundedBy`)}
@@ -361,7 +361,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
           {about.awards && about.awards.some(grant => grant.funds) &&
             <Block
-              collapsible={[].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds)).length > 3}
+              collapsible={!expandAll && [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds)).length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.funds`)}
@@ -377,7 +377,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
 
           {about.hasPart &&
             <Block
-              collapsible={about.hasPart.length > 3}
+              collapsible={!expandAll && about.hasPart.length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
@@ -399,7 +399,7 @@ const WebPageView = ({translate, moment, about, user, view}) => {
             about[prop] &&
             <Block
               key={prop}
-              collapsible={about[prop].length > 3}
+              collapsible={!expandAll && about[prop].length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.${prop}`)}
@@ -466,11 +466,13 @@ WebPageView.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
-  view: PropTypes.string.isRequired
+  view: PropTypes.string.isRequired,
+  expandAll: PropTypes.bool
 }
 
 WebPageView.defaultProps = {
-  user: null
+  user: null,
+  expandAll: false
 }
 
 export default withI18n(WebPageView)
