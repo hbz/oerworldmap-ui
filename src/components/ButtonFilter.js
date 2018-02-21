@@ -7,9 +7,7 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
-const order = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article']
-
-const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
+const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) => (
   <div className="ButtonFilter">
     {aggregation.buckets.sort((a, b) => order.indexOf(a.key) > order.indexOf(b.key))
       .map((bucket) => {
@@ -60,6 +58,11 @@ ButtonFilter.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
+  order: PropTypes.arrayOf(PropTypes.string)
+}
+
+ButtonFilter.defaultProps = {
+  order: []
 }
 
 export default withEmitter(withI18n(ButtonFilter))

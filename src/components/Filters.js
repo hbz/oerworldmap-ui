@@ -62,7 +62,8 @@ const onReset = (e, emitter) => {
 const primaryFilters = [
   {
     name: "about.@type",
-    type: "button"
+    type: "button",
+    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article']
   },
   {
     name: "about.location.address.addressCountry",
@@ -197,6 +198,7 @@ class Filters extends React.Component {
                       aggregation={aggregation}
                       filter={filter}
                       submit={onSubmit}
+                      order={filterDef.order}
                     />
                   )
                 case 'concepts':
@@ -245,6 +247,7 @@ class Filters extends React.Component {
                       aggregation={aggregation}
                       filter={filter}
                       submit={onSubmit}
+                      order={filterDef.order}
                     />
                   )
                 case 'concepts':
