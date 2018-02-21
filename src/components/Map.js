@@ -535,7 +535,9 @@ class Map extends React.Component {
     // Check if a point is clicked too and do nothing in that case
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
-      this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+      if (e.features[0].properties.iso_a2 !== '-99') {
+        this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+      }
     }
   }
 
