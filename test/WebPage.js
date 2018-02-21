@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
-import { mount } from 'enzyme'
+import { render } from 'enzyme'
 import testdata from './resources/WebPage.json'
 
 import WebPage from '../src/components/WebPage'
@@ -16,7 +16,7 @@ const fakeMapboxConfig = {
 
 describe('<WebPage />', () => {
   it('can be instantiated', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{emit: () => null, on: () => null}}>
           <WebPage {...testdata} geo={null} mapboxConfig={fakeMapboxConfig} view='' />
