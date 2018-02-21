@@ -1,3 +1,5 @@
+/* global window */
+/* global Event */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -52,12 +54,13 @@ class MiniMap extends React.Component {
       })
 
       this.props.emitter.on('setPlace', location =>
-        this.MiniMap.getSource('points').setData({
+        location && this.MiniMap.getSource('points').setData({
           type: 'Point',
           coordinates: [location.geo.lon, location.geo.lat]
         })
       )
       this.updateMap()
+      window.dispatchEvent(new Event('resize'))
     })
   }
 
@@ -188,7 +191,7 @@ MiniMap.propTypes = {
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
   onFeatureDrag: PropTypes.func,
-  emitter: PropTypes.func.isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 MiniMap.defaultProps = {

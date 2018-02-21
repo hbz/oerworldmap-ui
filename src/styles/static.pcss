@@ -60,6 +60,18 @@
       font-weight: 700;
     }
 
+    p {
+      margin: var(--static-p-margin) 0;
+
+      &.top-double {
+        margin-top: calc(2 * var(--static-p-margin));
+      }
+
+      &.bottom-double {
+        margin-bottom: calc(2 * var(--static-p-margin));
+      }
+    }
+
     /* page section */
 
     & .pageSection {

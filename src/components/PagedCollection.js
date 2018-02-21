@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withI18n from './withI18n'
-import DropdownButton from './DropdownButton'
+import ShareExport from './ShareExport'
 
 import '../styles/components/PagedCollection.pcss'
 
-const PagedCollection = ({ translate, member, children }) => (
+const PagedCollection = ({ translate, member, children, _self, _links, view }) => (
   member &&
   <section className="PagedCollection pages">
     <div className="PagedCollectionHeader">
@@ -15,7 +15,7 @@ const PagedCollection = ({ translate, member, children }) => (
         {translate('ResourceIndex.index.orderedBy')}
         {children}
       </div>
-      <DropdownButton />
+      <ShareExport _self={_self} _links={_links} view={view} />
     </div>
   </section>
 )
