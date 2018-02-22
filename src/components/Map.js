@@ -12,7 +12,7 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getParams, getURL } from '../common'
+import { getParams, getURL, getProp } from '../common'
 import bounds from  '../json/bounds.json'
 
 import '../styles/components/Map.pcss'
@@ -535,7 +535,9 @@ class Map extends React.Component {
     // Check if a point is clicked too and do nothing in that case
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
-      this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+      if (e.features[0].properties.iso_a2 !== '-99') {
+        this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+      }
     }
   }
 
@@ -592,15 +594,12 @@ class Map extends React.Component {
               </span>
 
               <span className="max">
-                {this.props.aggregations['about.location.address.addressRegion'] &&
-                  this.props.aggregations['about.location.address.addressRegion'].buckets.length
-                  ? (this.props.aggregations['about.location.address.addressRegion'].buckets.length
-                    ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
-                    : '')
-                  : (this.props.aggregations['about.location.address.addressCountry'].buckets[0]
-                    ? this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count
-                    : ''
-                  )}
+                {
+                  getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  0
+                }
               </span>
             </div>
 
