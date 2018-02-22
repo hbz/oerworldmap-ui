@@ -62,11 +62,13 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
   const toggleLike = () => {
     if (like) {
       emitter.emit('delete', {
-        url: `/resource/${like['@id']}`
+        url: `/resource/${like['@id']}`,
+        redirect: { url: `/resource/${about['@id']}` }
       })
     } else {
       emitter.emit('submit', {
         url: '/resource/',
+        redirect: { url: `/resource/${about['@id']}` },
         data: {
           '@type': 'LikeAction',
           'object': about,
@@ -128,7 +130,11 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
           <Composer
             value={lighthouse}
             schema={schema}
-            submit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
+            submit={data => emitter.emit('submit', {
+              url: `/resource/${lighthouse['@id'] || ''}`,
+              redirect: { url: `/resource/${about['@id']}` },
+              data
+            })}
             getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
             getLabel={value => getLabel(translate, value)}
             submitLabel={translate('publish')}
