@@ -69,18 +69,23 @@
       & ul {
         margin: 0;
         padding: 0;
-      }
 
-      & li > label {
-        padding-left: 10px;
-      }
+        & > li {
+          & label {
+            padding-left: 30px;
+          }
 
-      & li > ul > li > label {
-        padding-left: 20px;
-      }
+          & ul > li {
 
-      & li > ul > li > ul > li > label {
-        padding-left: 30px;
+            & label {
+              padding-left: 40px;
+            }
+
+            & ul > li label {
+              padding-left: 50px;
+            }
+          }
+        }
       }
     }
 
