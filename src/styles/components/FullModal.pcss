@@ -62,13 +62,15 @@
     position: absolute;
 
     & .modalDialog {
-      height: 100%;
       overflow: auto;
       box-shadow: none;
       border: none;
       max-width: 100%;
       margin: 0;
       border-radius: 0;
+      position: fixed;
+      width: 100%;
+      height: calc(100% - 40px);
     }
   }
 }
