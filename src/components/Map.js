@@ -583,6 +583,11 @@ class Map extends React.Component {
         }
 
         {this.state.colors &&
+        (
+          (getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) > 1) ||
+          (getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 1) ||
+          (getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 1)
+        ) &&
           <div className="mapLeyend">
             <div className="infoContainer">
               <span className="min">0</span>
@@ -597,8 +602,7 @@ class Map extends React.Component {
                 {
                   getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
                   getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
-                  getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
-                  0
+                  getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations)
                 }
               </span>
             </div>
