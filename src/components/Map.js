@@ -434,6 +434,8 @@ class Map extends React.Component {
 
     if (aggregations["about.location.address.addressRegion"]) {
 
+      const regionColors = []
+
       const regionBuckets = aggregations
         ? aggregations["about.location.address.addressRegion"].buckets
         : []
@@ -447,12 +449,20 @@ class Map extends React.Component {
       const regionSteps = Math.ceil(regionMax / choroplethLayersCount / 10) * 10
 
       regionBuckets.forEach(function(bucket) {
-        stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / regionSteps)]])
+        const currentColor = colors[Math.floor(bucket.doc_count / regionSteps)]
+        regionColors.indexOf(currentColor) === -1 ? regionColors.push(currentColor) : ''
+        stops.push([bucket['key'], currentColor])
       })
+
+      regionColors.push('rgba(255, 255, 255, 1)')
 
       // In case of not having any stops, set an empty
       if (stops.length === 0)
         stops.push(['none', 'rgba(255, 255, 255, 1)'])
+
+      this.setState({
+        colors: regionColors.reverse()
+      })
 
       this.map.setPaintProperty('Regions', 'fill-color', {
         "property": 'code_hasc',
@@ -584,9 +594,9 @@ class Map extends React.Component {
 
         {this.state.colors &&
         (
-          (getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) > 1) ||
-          (getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 1) ||
-          (getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 1)
+          (getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
+          (getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
+          (getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0)
         ) &&
           <div className="mapLeyend">
             <div className="infoContainer">
