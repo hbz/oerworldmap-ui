@@ -254,7 +254,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.startTime &&
-            <Block className="list" title={translate(`${about['@type']}.startTime`)}>
+            <Block title={translate(`${about['@type']}.startTime`)}>
               {about.startTime.includes('T00:00:00')
                 ? moment(about.startTime).format('LL')
                 : moment(about.startTime).format('LLL')}
@@ -265,7 +265,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.startDate &&
-            <Block className="list" title={translate(`${about['@type']}.startDate`)}>
+            <Block title={translate(`${about['@type']}.startDate`)}>
               {about.startDate.includes('T00:00:00')
                 ? moment(about.startDate).format('LL')
                 : moment(about.startDate).format('LLL')}
