@@ -11,6 +11,7 @@ import WebPageUserActions from './WebPageUserActions'
 import SocialLinks from './SocialLinks'
 import Comments from './Comments'
 import Topline from './Topline'
+import Lighthouses from './Lighthouses'
 
 import { formatURL/*, obfuscate*/ } from '../common'
 import '../styles/components/WebPageView.pcss'
@@ -146,39 +147,15 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               </Block>
             }
 
-            {lighthouses &&
-              <Block className="lighthouseComments" title={translate('ResourceIndex.read.lighthouses.title')}>
-                {lighthouses.map(lighthouse => (
-                  <div className="Comment" key={lighthouse['@id']}>
-                    <div className="head row auto">
-                      <div className="col">
-                        {lighthouse.agent.map(author => (
-                          <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                            {translate(author.name)}
-                          </Link>)
-                        )}{' '}
-                        {moment(lighthouse.dateCreated).fromNow()}
-                      </div>
-                      {user &&
-                      user.groups.includes('admin') &&
-                        <div className="col">
-                          <form onSubmit={(e) => e.preventDefault() || console.warn("Delete lighthouse not implemented", e)}>
-                            <button className="btn icon" type="submit" title="Delete">
-                              <i className="fa fa-fw fa-trash" />
-                            </button>
-                          </form>
-                        </div>
-                      }
-                    </div>
-                    <ReactMarkdown source={translate(lighthouse.description)} />
-                  </div>
-                ))}
+            {lighthouses.length > 0 && about['@id'] &&
+              <Block title={translate('ResourceIndex.read.lighthouses.title')}>
+                <Lighthouses lighthouses={lighthouses} about={about} user={user} />
               </Block>
             }
 
             {about['@id'] &&
               <Block title={translate('ResourceIndex.read.comments')}>
-                <Comments comments={about['comment']} id={about['@id']} user={user} />
+                <Comments comments={about['comment']} about={about} user={user} />
               </Block>
             }
 

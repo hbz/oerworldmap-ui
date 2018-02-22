@@ -24,38 +24,41 @@ const getLabel = (translate, value) => {
   }
 }
 
-const deleteComment = (id, emitter, e) => {
-  e.preventDefault()
-  emitter.emit('delete', {url: `/resource/${id}`})
-}
-
-const Comments = ({moment, translate, emitter, id, comments, user}) => (
+const Comments = ({moment, translate, emitter, about, comments, user}) => (
   <div className="Comments">
 
     {comments.filter(comment => comment.author && comment.text).map(comment => (
       <div className="Comment" key={comment['@id']}>
-        <p>
-          <small>
+        <div className="head row auto">
+          <div className="col">
             {comment.author.map(author => (
               <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
                 {translate(author.name)}
               </Link>)
-            )}
-            &nbsp; {moment(comment.dateCreated).fromNow()}
-          </small>
-        </p>
-        {user &&
-        user.groups.includes('admin') &&
-        <form onSubmit={(e) => deleteComment(comment["@id"], emitter, e)}>
-          <button className="btn" type="submit" title="Delete">
-            <i className="fa fa-fw fa-trash" />
-          </button>
-        </form>
-        }
+            )}{' '}
+            {moment(comment.dateCreated).fromNow()}
+          </div>
+          {user &&
+          user.groups.includes('admin') &&
+            <div className="col">
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                emitter.emit('delete', {
+                  url: `/resource/${comment['@id']}`,
+                  redirect: {url: `/resource/${about['@id']}`}
+                })}}
+              >
+                <button className="btn icon" type="submit" title="Delete">
+                  <i className="fa fa-fw fa-trash" />
+                </button>
+              </form>
+            </div>
+          }
+        </div>
         <ReactMarkdown source={translate(comment.text)} />
       </div>
     ))}
-    {user &&
+    {user ? (
       <div>
         <Composer
           value={{
@@ -63,13 +66,25 @@ const Comments = ({moment, translate, emitter, id, comments, user}) => (
             'text': [{ '@language': 'en' }]
           }}
           schema={schema}
-          submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
+          submit={data => emitter.emit('submit', {
+            url: `/resource/${about['@id']}/comment`,
+            redirect: {url: `/resource/${about['@id']}`},
+            data
+          })}
           getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
           getLabel={value => getLabel(translate, value)}
           submitLabel={translate('publish')}
         />
       </div>
-    }
+    ) : (
+      <div>
+        <em>
+          <Link href="/user/register">
+            {translate('Join us to comment!')}
+          </Link>
+        </em>
+      </div>
+    )}
   </div>
 )
 
@@ -77,9 +92,9 @@ Comments.propTypes = {
   moment: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  id: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
+  about: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 Comments.defaultProps = {
