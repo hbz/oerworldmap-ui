@@ -92,22 +92,40 @@ import Api from './api'
       window.location.reload()
     })
     // Form submission
-    emitter.on('submit', ({url, data}) => {
+    emitter.on('submit', ({url, data, redirect}) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).post(data)
         .then(({title, data, render}) => {
-          state = data
-          window.history.pushState(null, null, data._location || url)
-          renderApp(title, render(data))
+          if (redirect) {
+            routes.route(redirect.url, context).get(redirect.params)
+              .then(({title, data, render}) => {
+                window.history.replaceState(null, null, redirect.url)
+                state = data
+                renderApp(title, render(data))
+              })
+          } else {
+            state = data
+            window.history.pushState(null, null, data._location || url)
+            renderApp(title, render(data))
+          }
         })
     })
     // Deletion
-    emitter.on('delete', ({url}) => {
+    emitter.on('delete', ({url, redirect}) => {
       routes.route(url, context).delete()
         .then(({title, data, render}) => {
-          state = data
-          window.history.pushState(null, null, url)
-          renderApp(title, render(data))
+          if (redirect) {
+            routes.route(redirect.url, context).get(redirect.params)
+              .then(({title, data, render}) => {
+                window.history.replaceState(null, null, redirect.url)
+                state = data
+                renderApp(title, render(data))
+              })
+          } else {
+            state = data
+            window.history.pushState(null, null, url)
+            renderApp(title, render(data))
+          }
         })
     })
 
