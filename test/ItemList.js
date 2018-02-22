@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
-import { mount } from 'enzyme'
+import { render } from 'enzyme'
 import testdata from './resources/ItemList.json'
 
 import ItemList from '../src/components/ItemList'
@@ -10,7 +10,7 @@ import EmittProvider from '../src/components/EmittProvider'
 
 describe('<ItemList />', () => {
   it('creates list entry for each item', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{}}>
           <ItemList listItems={testdata} selected='none' />
