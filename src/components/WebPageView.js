@@ -385,8 +385,8 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) &&
-            <Block className="list" title={translate(`${about['@type']}.budget`)}>
-              <ul>
+            <Block title={translate(`${about['@type']}.budget`)}>
+              <ul className="commaSeparatedList">
                 {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
                   <li key={i}>
                     {grant.hasMonetaryValue}
