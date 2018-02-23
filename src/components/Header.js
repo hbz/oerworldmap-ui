@@ -30,6 +30,8 @@ class Header extends React.Component {
   handleClick(e) {
     if (e.target !== this.menuBtn)
       this.setState({showUserMenu:false})
+    if (e.target !== this.menuToggle)
+      this.setState({showMobileMenu:false})
   }
 
   render() {
