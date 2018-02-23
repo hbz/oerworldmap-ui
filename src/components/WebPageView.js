@@ -310,12 +310,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.recordedIn &&
-            <Block className="list" title={translate(`${about['@type']}.recordedIn`)}>
-              <ul>
+            <Block title={translate(`${about['@type']}.recordedIn`)}>
+              <ul className="unstyledList">
                 {about.recordedIn.map(recording => (
                   <li key={recording}>
                     <a href={recording} target="_blank" rel="noopener">
-                      <i className="fa fa-external-link-square" /> {formatURL(recording)}
+                      {formatURL(recording)}
                     </a>
                   </li>
                 ))}
