@@ -54,7 +54,7 @@ class Api {
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    return fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`//${this.host}:${this.port}${url}`, {
       headers,
       method: 'POST',
       mode: 'cors',
@@ -71,7 +71,7 @@ class Api {
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    return fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`//${this.host}:${this.port}${url}`, {
       headers,
       method: 'GET',
       mode: 'cors',
@@ -87,7 +87,7 @@ class Api {
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    return fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`//${this.host}:${this.port}${url}`, {
       headers,
       method: 'DELETE',
       mode: 'cors',
