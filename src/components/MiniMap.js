@@ -31,6 +31,10 @@ class MiniMap extends React.Component {
       zoom: this.props.zoom
     })
 
+    this.props.zoomable
+      ? this.MiniMap.scrollZoom.enable()
+      : this.MiniMap.scrollZoom.disable()
+
     this.canvas = this.MiniMap.getCanvasContainer()
     this.isDragging = false
     this.isCursorOverPoint = false
@@ -62,6 +66,15 @@ class MiniMap extends React.Component {
       this.updateMap()
       window.dispatchEvent(new Event('resize'))
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.zoomable) {
+      this.MiniMap.scrollZoom.enable()
+    } else {
+      this.MiniMap.scrollZoom.disable()
+      this.MiniMap.flyTo({zoom:3})
+    }
   }
 
   componentDidUpdate() {
@@ -190,6 +203,7 @@ MiniMap.propTypes = {
   zoom: PropTypes.number,
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
+  zoomable: PropTypes.bool,
   onFeatureDrag: PropTypes.func,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
@@ -199,6 +213,7 @@ MiniMap.defaultProps = {
   zoom: 2,
   features: null,
   draggable: false,
+  zoomable: false,
   onFeatureDrag: null,
 }
 
