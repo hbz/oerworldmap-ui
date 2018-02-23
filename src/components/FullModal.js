@@ -5,11 +5,11 @@ import Link from './Link'
 
 import '../styles/components/FullModal.pcss'
 
-const FullModal = ({className, children, href}) => (
+const FullModal = ({className, children, closeLink}) => (
   <div className={`FullModal ${className || ''}`}>
     <div className="modalDialog">
       {children}
-      <Link href={href || Link.home} className="closeModal">
+      <Link href={closeLink || Link.home} className="closeModal">
         <i className="fa fa-close" />
       </Link>
     </div>
@@ -19,12 +19,12 @@ const FullModal = ({className, children, href}) => (
 FullModal.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  href: PropTypes.string
+  closeLink: PropTypes.string
 }
 
 FullModal.defaultProps = {
   className: null,
-  href: null
+  closeLink: null
 }
 
 export default FullModal
