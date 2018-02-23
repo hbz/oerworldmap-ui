@@ -267,6 +267,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.availableChannel &&
+          about.availableChannel.some(grant => grant.availableLanguage) &&
             <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
               <ul className="commaSeparatedList">
                 {[].concat.apply([], about.availableChannel.map(channel => channel.availableLanguage)).map(lang => (
