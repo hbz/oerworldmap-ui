@@ -12,7 +12,8 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
       <MiniMap
         mapboxConfig={mapboxConfig}
         features={geo && geo.geometry}
-        zoom={7}
+        zoom={3}
+        zoomable={view === 'edit'}
         draggable={view === 'edit'}
         onFeatureDrag={point => emitter.emit('setPoint', point)}
         center={(geo &&
