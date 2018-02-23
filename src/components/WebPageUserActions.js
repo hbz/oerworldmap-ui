@@ -126,7 +126,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
       }
 
       {about['@id'] && user && view === 'addLighthouse' &&
-        <FullModal>
+        <FullModal closeLink={`/resource/${about['@id']}`}>
           <Composer
             value={lighthouse}
             schema={schema}
