@@ -53,7 +53,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
         <WebPageUserActions about={about} user={user} view={view} />
       }
 
-      <div className="row">
+      <div className="row stack-700 stack-gutter-2em">
 
         <div className="col two-third">
 
@@ -231,7 +231,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.startTime &&
-            <Block className="list" title={translate(`${about['@type']}.startTime`)}>
+            <Block title={translate(`${about['@type']}.startTime`)}>
               {about.startTime.includes('T00:00:00')
                 ? moment(about.startTime).format('LL')
                 : moment(about.startTime).format('LLL')}
@@ -242,7 +242,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.startDate &&
-            <Block className="list" title={translate(`${about['@type']}.startDate`)}>
+            <Block title={translate(`${about['@type']}.startDate`)}>
               {about.startDate.includes('T00:00:00')
                 ? moment(about.startDate).format('LL')
                 : moment(about.startDate).format('LLL')}
@@ -287,12 +287,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.recordedIn &&
-            <Block className="list" title={translate(`${about['@type']}.recordedIn`)}>
-              <ul>
+            <Block title={translate(`${about['@type']}.recordedIn`)}>
+              <ul className="unstyledList">
                 {about.recordedIn.map(recording => (
                   <li key={recording}>
                     <a href={recording} target="_blank" rel="noopener">
-                      <i className="fa fa-external-link-square" /> {formatURL(recording)}
+                      {formatURL(recording)}
                     </a>
                   </li>
                 ))}
@@ -362,8 +362,8 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           }
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) &&
-            <Block className="list" title={translate(`${about['@type']}.budget`)}>
-              <ul>
+            <Block title={translate(`${about['@type']}.budget`)}>
+              <ul className="commaSeparatedList">
                 {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
                   <li key={i}>
                     {grant.hasMonetaryValue}

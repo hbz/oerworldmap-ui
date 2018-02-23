@@ -180,14 +180,21 @@
   @media screen and (--mobile-breakpoint) {
     padding: 0;
 
-    & .webPageContainer {
-      border: 0;
-      margin: 0;
-      max-width: 100%;
+    & > .WebPage {
+      margin-bottom: 0;
+      border: none;
+      border-radius: 0;
+
+      & .webPageContainer {
+        border: 0;
+        margin: 0;
+        max-width: 100%;
+      }
 
       & .webPageContent {
-        padding: 10px;
+        padding: 20px 20px;
       }
     }
+
   }
 }
