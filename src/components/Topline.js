@@ -58,7 +58,11 @@ const Topline = ({translate, moment, about}) => {
       about.location.address &&
         <div className="toplineEntry">
           {about.location.address.addressLocality
-            && about.location.address.addressLocality},&nbsp;
+            && about.location.address.addressLocality}
+          {about.location.address.addressLocality &&
+          about.location.address.addressCountry &&
+            <span>,&nbsp;</span>
+          }
           {about.location.address.addressCountry
             && translate(about.location.address.addressCountry)}
         </div>
