@@ -141,7 +141,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('attendee', isAttendee)}>
             <button className={`btn ${isAttendee ? 'active': ''}`} type="submit" title={translate('I\'m attending')}>
-              <i className="fa fa-star" />
+              <i className="fa fa-flag" />
               {translate('I\'m attending')}
             </button>
           </form>
@@ -163,7 +163,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('affiliate', isAffiliate)}>
             <button className={`btn ${isAffiliate ? 'active': ''}`} type="submit" title={translate('I\'m a member')}>
-              <i className="fa fa-flag" />
+              <i className="fa fa-sitemap" />
               {translate('I\'m a member')}
             </button>
           </form>
