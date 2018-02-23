@@ -52,7 +52,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
         <WebPageUserActions about={about} user={user} view={view} />
       }
 
-      <div className="row stack-700">
+      <div className="row stack-700 stack-gutter-2em">
 
         <div className="col two-third">
 
