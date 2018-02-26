@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import FullModal from './FullModal'
 import withI18n from './withI18n'
-import Link from './Link'
 
 import '../styles/components/Export.pcss'
 
