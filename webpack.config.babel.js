@@ -73,7 +73,6 @@ if (TARGET === 'server:prod') {
       })
     ],
     module: {
-      noParse: /(mapbox-gl)\.js$/,
       rules: [
         {
           test: /\.(css|pcss)$/,
