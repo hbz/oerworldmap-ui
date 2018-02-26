@@ -7,6 +7,12 @@
         "ignore": ["blockless-after-same-name-blockless"]
       }
     ],
+    "rule-empty-line-before": [
+      "always",
+      {
+        "ignore": ["inside-block"]
+      }
+    ],
     "comment-empty-line-before": [
       "always",
       {
@@ -14,6 +20,7 @@
         "ignore": ["after-comment", "stylelint-commands"]
       }
     ],
+    "custom-property-empty-line-before": null,
     "no-descending-specificity" : null,
     "font-family-no-missing-generic-family-keyword": null
   }
