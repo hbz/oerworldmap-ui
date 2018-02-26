@@ -423,12 +423,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           ))}
 
           {about.award &&
-            <Block title={translate(`${about['@type']}.award`)}>
-              <ul>
+            <Block className="list" title={translate(`${about['@type']}.award`)}>
+              <ul className="ItemList award">
                 {about.award.map(award => (
                   <li>
-                    <img key={award} src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
-                    {translate(award)}
+                    <a className="item" href={award} target="_blank">
+                      <img key={award} src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
+                    </a>
                   </li>
                 ))}
               </ul>
