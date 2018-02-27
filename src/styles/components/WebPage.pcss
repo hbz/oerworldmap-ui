@@ -162,7 +162,16 @@
     background-color: var(--white);
     padding: 0;
 
-    & .Comments form {
+    & > .WebPage {
+      margin-bottom: 0;
+      min-width: 100%;
+      border: none;
+      border-radius: 0;
+    }
+
+    & .Comments form,
+    & .SocialLinks,
+    & .WebPageUserActions {
       display: none;
     }
   }
