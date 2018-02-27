@@ -40,6 +40,7 @@ class Api {
   constructor (apiConfig) {
     this.host = apiConfig.host
     this.port = apiConfig.port
+    this.scheme = apiConfig.scheme
   }
 
   fetch (url, options) {
@@ -54,7 +55,7 @@ class Api {
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    return fetch(`//${this.host}:${this.port}${url}`, {
+    return fetch(`${this.scheme}://${this.host}:${this.port}${url}`, {
       headers,
       method: 'POST',
       mode: 'cors',
@@ -71,7 +72,7 @@ class Api {
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    return fetch(`//${this.host}:${this.port}${url}`, {
+    return fetch(`${this.scheme}://${this.host}:${this.port}${url}`, {
       headers,
       method: 'GET',
       mode: 'cors',
@@ -87,7 +88,7 @@ class Api {
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    return fetch(`//${this.host}:${this.port}${url}`, {
+    return fetch(`${this.scheme}://${this.host}:${this.port}${url}`, {
       headers,
       method: 'DELETE',
       mode: 'cors',
