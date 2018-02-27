@@ -427,7 +427,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               <ul className="ItemList award">
                 {about.award.map(award => (
                   <li key={award}>
-                    <a className="item" href={award} target="_blank">
+                    <a className="item" href={award} target="_blank" rel="noopener">
                       <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
                     </a>
                   </li>

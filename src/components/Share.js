@@ -14,13 +14,13 @@ const Share = ({_self, translate}) => (
       <div className="content">{_self}</div>
     </div>
     <div>
-      <a target="_blank" href={`https://twitter.com/intent/tweet?url=${_self}`}>
+      <a target="_blank" rel="noopener" href={`https://twitter.com/intent/tweet?url=${_self}`}>
         <i className="fa fa-twitter" />
       </a>
-      <a target="_blank" href={`https://www.facebook.com/sharer.php?u=${_self}`}>
+      <a target="_blank" rel="noopener" href={`https://www.facebook.com/sharer.php?u=${_self}`}>
         <i className="fa fa-facebook" />
       </a>
-      <a target="_blank" href={`https://reddit.com/submit?url=${_self}`}>
+      <a target="_blank" rel="noopener" href={`https://reddit.com/submit?url=${_self}`}>
         <i className="fa fa-reddit-alien" />
       </a>
       <a target="_blank" href={`mailto:?subject=&body=${_self}`}>
