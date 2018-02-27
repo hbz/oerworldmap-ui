@@ -25,6 +25,16 @@ let Config = {
     exprContextCritical: false,
     rules: [
       {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: [/node_modules/, /vendor/],
+        loader: "eslint-loader",
+        options: {
+          cache: true,
+          quiet: true
+        }
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
@@ -107,7 +117,7 @@ if (TARGET === 'server:prod') {
 }
 
 if (TARGET === 'server:dev') {
-  Config.module.rules[0].use.query = {
+  Config.module.rules[1].use.query = {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
@@ -157,7 +167,7 @@ if (TARGET === 'server:dev') {
 }
 
 if (TARGET === 'server:static') {
-  Config.module.rules[0].use.query = {
+  Config.module.rules[1].use.query = {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
