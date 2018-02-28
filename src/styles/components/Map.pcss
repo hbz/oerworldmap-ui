@@ -348,6 +348,15 @@
     }
   }
 
+  & .imprintLink {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    color: var(--white);
+    z-index: 1;
+    text-shadow: 0 0 1px rgb(95, 95, 95);
+  }
+
   @media print {
     position: relative !important;
     max-height: 700px;
@@ -374,6 +383,10 @@
       & i {
         font-size: 2rem;
       }
+    }
+
+    & .imprintLink {
+      display: none;
     }
   }
 }

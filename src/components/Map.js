@@ -633,6 +633,8 @@ class Map extends React.Component {
           </div>
         }
 
+        <a className="imprintLink" href="/imprint">{this.props.translate('main.imprintPrivacy')}</a>
+
       </div>
     )
   }
