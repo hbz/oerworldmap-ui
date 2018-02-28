@@ -8,7 +8,7 @@ import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
 describe('<Block />', () => {
-  it('creates four items', () => {
+  it('creates three items', () => {
     const wrapper = render(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{}}>
