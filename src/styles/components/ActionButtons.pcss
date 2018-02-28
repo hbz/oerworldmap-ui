@@ -44,7 +44,6 @@
     list-style-type: none;
     position: absolute;
     margin: 0;
-    padding: 0;
     background-color: var(--white);
     left: 25px;
     top: 30px;
@@ -52,6 +51,7 @@
     z-index: 2;
     border: 1px solid var(--blue-dark);
     border-radius: 2px;
+    padding: 0 10px;
 
     &.noDisplay {
       display: none;
@@ -59,24 +59,27 @@
 
     & li {
       width: 100%;
-      border-bottom: 1px solid var(--blue-dark);
-      font-size: 0.7rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #ccc;
 
       & i {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
 
       & a {
-        padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex: 1;
         cursor: pointer;
+        width: calc(100% + 20px);
+        padding: 10px;
+        margin: -1px -10px;
 
         &:hover,
         &:focus {
-          background-color: var(--blue-light);
+          color: var(--white);
+          background-color: var(--blue-dark);
         }
       }
 
