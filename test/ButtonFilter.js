@@ -47,7 +47,7 @@ const aggregation = {
 }
 
 describe('<ButtonFilter />', () => {
-  it('creates four items', () => {
+  it('creates eight items', () => {
     const wrapper = render(
       <I18nProvider locales={['en']}>
         <EmittProvider emitter={{}}>
@@ -55,9 +55,7 @@ describe('<ButtonFilter />', () => {
             filter={[]}
             aggregation={aggregation}
             submit={e => e}
-          >
-            <div className="tesDiv">Test</div>
-          </ButtonFilter>
+          />
         </EmittProvider>
       </I18nProvider>
     )
