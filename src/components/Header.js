@@ -117,6 +117,7 @@ class Header extends React.Component {
           <Link
             title={this.props.translate('login')}
             href="/user/register"
+            className="loginLink"
           >
             {this.props.translate('login')}
           </Link>
