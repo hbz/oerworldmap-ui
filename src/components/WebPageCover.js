@@ -32,10 +32,7 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
           src={about.image}
           alt={translate(about.name)}
           onError={e => {
-            if (Object.keys(geo.geometry).length <= 0) {
-              e.target.parentElement.remove()
-            }
-            e.target.remove()
+            e.target.parentElement.remove()
           }}
           aria-label={translate(about.name)}
         />
