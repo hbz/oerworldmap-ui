@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import '../styles/components/Log.pcss'
+
 const Log = ({entries}) => (
-  <pre>{JSON.stringify(entries, null, 2)}</pre>
+  <div className="Log">
+    <pre>{JSON.stringify(entries, null, 2)}</pre>
+  </div>
 )
 
 Log.propTypes = {
