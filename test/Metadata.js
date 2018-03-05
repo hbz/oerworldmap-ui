@@ -11,7 +11,6 @@ import user from './resources/user.json'
 
 const author = 'Test Author'
 const contributor = 'Test Contributor'
-const dateCreated = "2016-11-23T11:46:21.909+01:00"
 const dateModified = "2018-02-22T16:26:27.753+01:00"
 
 describe('<Metadata />', () => {
@@ -27,7 +26,6 @@ describe('<Metadata />', () => {
           author={author}
           contributor={contributor}
           dateModified={dateModified}
-          dateCreated={dateCreated}
           user={user}
         />
       </EmittProvider>
