@@ -4,7 +4,7 @@
     "at-rule-empty-line-before": [
       "always",
       {
-        "ignore": ["blockless-after-same-name-blockless", "all-nested"]
+        "ignore": ["blockless-after-same-name-blockless", "inside-block"]
       }
     ],
     "rule-empty-line-before": [
