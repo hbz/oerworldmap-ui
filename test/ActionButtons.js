@@ -7,22 +7,7 @@ import ActionButtons from '../src/components/ActionButtons'
 import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
-const user = {
-  "username": "user@localhost",
-  "groups": [
-    "editor",
-    "admin"
-  ],
-  "id": "FAKE-ID",
-  "name": [
-    {
-      "@value": "Fake User",
-      "@language": "en"
-    }
-  ],
-  "_self": "http://oerworldmap.local:80/user/profile",
-  "_status": "OK"
-}
+import user from './resources/user.json'
 
 describe('<ActionButtons />', () => {
   it('creates four items', () => {
