@@ -55,10 +55,7 @@ let Config = {
     ]
   },
 
-  devtool: 'source-map',
-
   plugins: [
-    new ExtractTextPlugin("styles.css"),
     new CopyWebpackPlugin([
       { from: 'assets', to: 'assets' },
     ])
@@ -72,12 +69,10 @@ if (TARGET === 'server:prod') {
       new ExtractTextPlugin("assets/styles.css"),
       new UglifyJSPlugin({
         parallel: true,
-        sourceMap: true,
         cache: true,
       })
     ],
     module: {
-      noParse: /(mapbox-gl)\.js$/,
       rules: [
         {
           test: /\.(css|pcss)$/,
@@ -88,14 +83,11 @@ if (TARGET === 'server:prod') {
                 loader: 'css-loader',
                 options: {
                   importLoaders: 1,
-                  sourceMap: true,
-                  minimize: true,
                 },
               },
               {
                 loader: 'postcss-loader',
                 options: {
-                  sourceMap: true,
                 },
               },
             ],
@@ -111,6 +103,8 @@ if (TARGET === 'server:dev') {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
+    devtool: 'source-map',
+
     entry: [
       'webpack-hot-middleware/client?reload=true',
       'react-hot-loader/patch'
@@ -161,6 +155,8 @@ if (TARGET === 'server:static') {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
+    devtool: 'source-map',
+
     entry: [
       'webpack-hot-middleware/client?reload=true',
       'react-hot-loader/patch'
@@ -170,14 +166,6 @@ if (TARGET === 'server:static') {
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
       new ExtractTextPlugin("assets/styles.css"),
-      new StyleLintPlugin(
-        {
-          emitErrors: false,
-          configFile: '.stylelintrc',
-          context: 'src',
-          files: '**/*.pcss',
-        },
-      ),
     ],
     module: {
       rules: [
