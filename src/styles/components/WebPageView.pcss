@@ -24,7 +24,7 @@
         & i,
         & .i {
           font-size: 14px;
-          margin-right: .5em;
+          margin-right: 0.5em;
           vertical-align: text-bottom;
         }
 
@@ -43,7 +43,10 @@
     display: block;
   }
 
-
+  & iframe,
+  & img {
+    max-width: 100%;
+  }
 
   & .information {
     display: flex;
@@ -57,8 +60,6 @@
       padding: 5px;
       font-weight: bold;
     }
-
-
 
     & .awardImage {
       height: 50px;

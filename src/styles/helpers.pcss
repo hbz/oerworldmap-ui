@@ -1,13 +1,13 @@
 /* --- clearfix --- */
 
-.cf:before,
-.cf:after {
-    content: " ";
-    display: table;
+.cf::before,
+.cf::after {
+  content: " ";
+  display: table;
 }
 
-.cf:after {
-    clear: both;
+.cf::after {
+  clear: both;
 }
 
 /* --- text align --- */
@@ -63,16 +63,8 @@ button {
       display: none;
     }
   }
-}
 
-/* --- active --- */
-
-.visible-active {
-  display: none;
-}
-
-a,
-button {
+  /* --- active --- */
   &.active {
     & .visible-active {
       display: initial;
@@ -81,6 +73,10 @@ button {
       display: none;
     }
   }
+}
+
+.visible-active {
+  display: none;
 }
 
 /* --- responsive --- */
