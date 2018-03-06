@@ -211,9 +211,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                 {about.location.address.streetAddress &&
                   [about.location.address.streetAddress, <br key="br" />]
                 }
-                {about.location.postalCode}
-                {about.location.postalCode && about.location.address.addressLocality &&
-                  <span>&nbsp;,</span>
+                {about.location.address.postalCode}
+                {about.location.address.postalCode && about.location.address.addressLocality &&
+                  <span>,&nbsp;</span>
                 }
                 {about.location.address.addressLocality}
                 <br />
