@@ -4,13 +4,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
+import '../styles/components/PagedCollection.pcss'
 
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
-import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
+import ShareExport from './ShareExport'
+
 import { triggerClick } from '../common'
 
 const onSubmit = (e, emitter) => {
@@ -307,35 +309,45 @@ class Filters extends React.Component {
           <hr />
 
           <div className="sortContainer">
-            <PagedCollection
-              size={this.props.size}
-              member={this.props.member}
-              _self={this.props._self}
-              _links={this.props._links}
-              view={this.props.view}
-            >
-              <select
-                name="sort"
-                className="styledSelect"
-                style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
-                onChange={(evt) => {
-                  evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
-                  onSubmit(evt, this.props.emitter)
-                }}
-              >
-                <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
-                <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
-                <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
-              </select>
+            <section className="PagedCollection pages">
+              <div className="PagedCollectionHeader">
+                <div className="counter">
+                  <span>{this.props.member.length}</span>
+                  {this.props.translate('ResourceIndex.index.results')}
+                </div>
+                {!(this.props.filters['about.@type'] && this.props.filters['about.@type'].includes('Event')) &&
+                  <div>
+                    ,&nbsp;{this.props.translate('ResourceIndex.index.orderedBy')}
+                    <select
+                      name="sort"
+                      className="styledSelect"
+                      style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
+                      onChange={(evt) => {
+                        evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                        onSubmit(evt, this.props.emitter)
+                      }}
+                    >
+                      <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                      <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                      <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
+                    </select>
 
-              <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
-                {this.sizes.map(number => (
-                  number >= 0 &&
-                    <option key={number} value={number}>{number}</option>
-                ))}
-                <option value="-1">All</option>
-              </select>
-            </PagedCollection>
+                    <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
+                      {this.sizes.map(number => (
+                        number >= 0 &&
+                          <option key={number} value={number}>{number}</option>
+                      ))}
+                      <option value="-1">All</option>
+                    </select>
+                  </div>
+                }
+                <ShareExport
+                  _self={this.props._self}
+                  _links={this.props._links}
+                  view={this.props.view}
+                />
+              </div>
+            </section>
           </div>
 
         </form>

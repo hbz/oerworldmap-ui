@@ -7,6 +7,7 @@ import Columns from './Columns'
 import Column from './Column'
 import ItemList from './ItemList'
 import Pagination from './Pagination'
+import Calendar from './Calendar'
 
 import withEmitter from './withEmitter'
 
@@ -48,18 +49,24 @@ const ResourceIndex = ({
           _links={_links}
           view={view}
         />
-        <div className="wrapper-ItemList-Pagination">
-          <ItemList listItems={member.map(member => member.about)} />
-          <Pagination
-            totalItems={totalItems}
-            currentPage={currentPage}
-            pages={pages}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            from={from}
-            size={size}
-          />
-        </div>
+        {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
+          <div className="wrapper-Calendar">
+            <Calendar entries={aggregations['about.startDate.GTE'].buckets} />
+          </div>
+        ) : (
+          <div className="wrapper-ItemList-Pagination">
+            <ItemList listItems={member.map(member => member.about)} />
+            <Pagination
+              totalItems={totalItems}
+              currentPage={currentPage}
+              pages={pages}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              from={from}
+              size={size}
+            />
+          </div>
+        )}
       </Column>
     </Columns>
 
