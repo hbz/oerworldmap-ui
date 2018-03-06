@@ -11,9 +11,9 @@ import withI18n from './withI18n'
 
 import '../styles/components/Diff.pcss'
 
-const Diffs = ({translate, moment, emitter, log, compare, to}) => {
+const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to}) => {
   const v1 = renderToString(
-    <I18nProvider locales={['en']}>
+    <I18nProvider locales={locales} phrases={phrases}>
       <WebPageView
         id="view"
         about={compare.about}
@@ -23,7 +23,7 @@ const Diffs = ({translate, moment, emitter, log, compare, to}) => {
   )
 
   const v2 = renderToString(
-    <I18nProvider locales={['en']}>
+    <I18nProvider locales={locales} phrases={phrases}>
       <WebPageView
         id="view"
         about={to.about}
@@ -107,7 +107,9 @@ Diffs.propTypes = {
   log: PropTypes.arrayOf(PropTypes.any).isRequired,
   compare: PropTypes.objectOf(PropTypes.any).isRequired,
   to: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(withI18n(Diffs))

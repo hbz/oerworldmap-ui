@@ -253,7 +253,7 @@ export default (api) => {
           : getURL({ path: `/log/${params.id}`})
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
-          <Diffs {...data} />
+          <Diffs {...data} phrases={context.phrases} />
         )
         return { title: 'Edit Groups', data, component }
       }
