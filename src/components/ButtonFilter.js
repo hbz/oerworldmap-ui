@@ -14,8 +14,9 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
         return (
           <Tooltip
             key={bucket.key}
-            overlay={translate(bucket.label || bucket.key)}
+            overlay={<b>{translate(bucket.label || bucket.key)}</b>}
             placement="top"
+            mouseEnterDelay={0.2}
             overlayClassName="tooltipDisableEvents"
           >
             <div className={`filterBox value-${bucket.key}`}>

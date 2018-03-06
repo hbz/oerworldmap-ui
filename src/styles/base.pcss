@@ -255,6 +255,16 @@ pre {
 
 .tooltipDisableEvents {
   pointer-events: none;
+
+  & .rc-tooltip-inner {
+    background-color: var(--grey-dark);
+    color: var(--white);
+    border: none;
+  }
+
+  & .rc-tooltip-arrow {
+    border-top-color: var(--grey-dark);
+  }
 }
 
 /* comma seperated list */
