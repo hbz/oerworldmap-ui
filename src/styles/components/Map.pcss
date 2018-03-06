@@ -68,7 +68,6 @@
 
       & a {
         color: var(--white);
-        text-shadow: 0 0 1px rgb(95, 95, 95);
       }
     }
   }
@@ -83,7 +82,9 @@
       top: 39px;
       border-top: 1px solid var(--white);
       width: 100%;
-      z-index: -1;
+      height: 100%;
+      z-index: 0;
+      background-color: color(var(--blue-light) a(70%));
     }
   }
 
@@ -353,8 +354,7 @@
     right: 20px;
     bottom: 5px;
     color: var(--white);
-    z-index: 1;
-    text-shadow: 0 0 1px rgb(95, 95, 95);
+    z-index: 3;
   }
 
   @media print {
