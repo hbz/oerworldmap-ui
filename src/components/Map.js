@@ -256,7 +256,6 @@ class Map extends React.Component {
               this.state.hoveredFeatures.map(feature => (
                 <li key={feature.properties['@id']}>
                   <Icon type={feature.properties['@type']} />
-                  &nbsp;<b>{feature.properties['@type']}:</b>
                   &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
                 </li>
               ))
@@ -491,8 +490,7 @@ class Map extends React.Component {
             <Icon type={feature.properties['@type']} />
             &nbsp;
             <Link href={feature.properties['@id']}>
-              <b>{feature.properties['@type']}:</b>
-              &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+              {this.props.translate(JSON.parse(feature.properties.name))}
             </Link>
           </li>
         )
