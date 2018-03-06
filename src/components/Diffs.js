@@ -94,7 +94,7 @@ const Diffs = ({translate, moment, emitter, log, compare, to}) => {
 
       </div>
       <div className="footer">
-        <a href="https://beta.oerworldmap.org/imprint">{translate('Terms of Use &amp; Privacy Policy')}</a>
+        <a href="https://beta.oerworldmap.org/imprint">{translate('Terms of Use & Privacy Policy')}</a>
       </div>
     </div>
   )
