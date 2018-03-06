@@ -221,7 +221,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                   [translate(about.location.address.addressRegion), <br key="br" />]
                 }
                 {about.location.address.addressCountry &&
-                  translate(about.location.address.addressCountry)
+                  <Link href={`/country/${about.location.address.addressCountry}`} >
+                    {translate(about.location.address.addressCountry)}
+                  </Link>
                 }
               </p>
             </Block>
