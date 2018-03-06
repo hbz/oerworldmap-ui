@@ -10,7 +10,7 @@ const FullModal = ({className, children, closeLink}) => (
     <div className="modalDialog">
       {children}
       <Link href={closeLink || Link.home} className="closeModal">
-        <i className="fa fa-close" />
+        &times;
       </Link>
     </div>
   </div>
