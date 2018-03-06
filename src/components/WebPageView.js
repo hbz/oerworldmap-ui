@@ -62,7 +62,17 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
             {about.description &&
               <Block className="first description" title={translate(`${about['@type']}.description`)}>
                 {about.description &&
-                  <ReactMarkdown escapeHtml={false} source={translate(about.description)} />
+                  <ReactMarkdown
+                    escapeHtml={false}
+                    source={translate(about.description)}
+                    renderers={
+                      {link: link => (
+                        <a href={link.href} target="_blank" rel="noopener">
+                          {link.children}
+                        </a>
+                      )}
+                    }
+                  />
                 }
               </Block>
             }
@@ -70,7 +80,17 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
             {about.articleBody &&
               <Block className="first description" title={translate(`${about['@type']}.articleBody`)}>
                 {about.articleBody &&
-                  <ReactMarkdown escapeHtml={false} source={translate(about.articleBody)} />
+                  <ReactMarkdown
+                    escapeHtml={false}
+                    source={translate(about.articleBody)}
+                    renderers={
+                      {link: link => (
+                        <a href={link.href} target="_blank" rel="noopener">
+                          {link.children}
+                        </a>
+                      )}
+                    }
+                  />
                 }
               </Block>
             }
