@@ -258,13 +258,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           {about.inLanguage &&
             <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
               <ul className="commaSeparatedList">
-                {about.inLanguage.map(lang => {
+                {about.inLanguage.map(lang => (
                   <li key={lang}>
                     <Link href={`/resource/?filter.about.inLanguage=${lang}`}>
                       {translate(lang)}
                     </Link>
                   </li>
-                })}
+                ))}
               </ul>
             </Block>
           }
