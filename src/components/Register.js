@@ -27,7 +27,7 @@ const Register = ({translate, emitter}) => (
         />
       </div>
 
-      <div className="block">
+      <div className="block newRegister">
         <Composer
           value={{'@type': 'RegisterAction'}}
           schema={schema}

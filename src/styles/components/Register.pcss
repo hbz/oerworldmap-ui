@@ -1,45 +1,62 @@
 @import '../variables.pcss';
 
 .Register {
-  text-align: center;
-  color: var(--blue-dark);
+  color: var(--grey-dark);
+  font-size: var(--font-size);
 
-  & .btn {
-    border: 1px solid var(--blue-dark);
-    background-color: var(--white);
-
-    &:hover {
-      border: 1px solid var(--blue-dark);
-    }
-  }
-
-  & h2 {
+  & h1 {
     color: var(--blue-dark);
-    font-size: 1.3rem;
-  }
-
-  & div.block {
-    margin-top: 20px;
-    border-top: 1px solid var(--blue-lightest);
+    font-size: var(--font-size-xl);
+    text-align: left;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--blue-dark);
+    font-weight: 700;
   }
 
   & .forgotPassword {
-    & .input.email {
-      display: inline-block;
-      width: 65%;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--grey-light);
+    padding-bottom: 30px;
 
+    & h1  {
+      padding: 0;
+      border-bottom: none;
+      color: var(--grey-dark);
+      font-size: var(--font-size);
+      font-weight: initial;
+      margin: 0;
+    }
+
+    & .input.email {
       & input[type="text"] {
-        border-radius: 2px 0 0 2px;
+        border-radius: 2px;
       }
     }
 
     & input[type="submit"] {
-      display: inline-block;
-      padding: 11px;
-      border-left: none;
-      margin-top: 0;
+      margin-top: 10px;
       border-radius: 0 2px 2px 0;
     }
+  }
+
+  & .newRegister {
+
+    & .input.name {
+      margin-top: 40px;
+    }
+
+    & .input.password {
+      margin-bottom: 70px;
+    }
+
+    & button.toggleDropdown {
+      text-align: left;
+
+      & > i {
+        display: none;
+      }
+    }
+
   }
 
   & div > label {
@@ -70,13 +87,14 @@
 
     & > .title {
       background-color: transparent;
-      color: var(--blue-dark);
+      color: var(--grey-dark);
       border: none;
       display: inline-block;
       text-align: left;
       padding: 0;
       padding-left: 10px;
       flex: 1;
+      font-weight: initial;
 
       &:hover {
         border: none;
