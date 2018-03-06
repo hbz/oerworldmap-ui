@@ -286,7 +286,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.hashtag &&
             <Block title={translate(`${about['@type']}.hashtag`)}>
-              {about.hashtag}
+              <a
+                href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
+                rel="noopener"
+                target="_blank"
+              >
+                {about.hashtag}
+              </a>
             </Block>
           }
 
