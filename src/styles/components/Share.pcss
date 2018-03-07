@@ -1,11 +1,17 @@
 @import '../variables.pcss';
 
 .Share {
+
+  & h2 {
+    font-size: var(--font-size-xl);
+  }
+
   & .shareContent {
     border-radius: 2px;
     border: 1px solid var(--blue-dark);
     display: flex;
     align-items: stretch;
+    font-size: var(--font-size);
 
     & .title {
       padding: 5px 20px;
@@ -21,18 +27,22 @@
       flex: 1;
       background: var(--white);
     }
+  }
 
-    & + div {
-      padding-top: 20px;
-      text-align: center;
-      font-size: 1.3rem;
+  & .shareIcons {
+    padding-top: 20px;
+    text-align: center;
 
-      & > a {
-        margin: 0 10px;
+    & > a {
+      margin: 0 10px;
 
-        &:hover {
-          color: var(--orange);
-        }
+      & > i {
+        font-size: var(--font-size-xl);
+      }
+
+      &:hover,
+      &:focus {
+        color: var(--orange);
       }
     }
   }
