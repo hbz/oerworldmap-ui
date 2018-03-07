@@ -10,6 +10,8 @@ import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
 
+import '../styles/components/Comments.pcss'
+
 const getLabel = (translate, value) => {
   if (!value) return ''
   if (typeof value === "object") {
