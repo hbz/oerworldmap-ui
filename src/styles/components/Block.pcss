@@ -34,6 +34,37 @@
         color: var(--highlight-color);
       }
     }
+
+    &.Article {
+      display: none;
+    }
+  }
+
+  & .main {
+    &.Article {
+      font-weight: 600;
+    }
+
+    & .markdown {
+      & blockquote {
+        position: relative;
+        margin-left: 22px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          height: 100%;
+          width: 1px;
+          background-color: var(--grey);
+          left: -20px;
+        }
+      }
+
+      & ul,
+      & ol {
+        padding-left: 22px;
+      }
+    }
   }
 
   &.first {

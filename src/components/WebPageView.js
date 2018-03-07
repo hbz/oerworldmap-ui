@@ -59,28 +59,51 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           <div className="border-top text-large" style={{paddingTop: '2em'}}>
 
-            {about.description &&
-              <Block className="first description" title={translate(`${about['@type']}.description`)}>
-                {about.description &&
-                  <ReactMarkdown
-                    escapeHtml={false}
-                    source={translate(about.description)}
-                    renderers={
-                      {link: link => (
-                        <a href={link.href} target="_blank" rel="noopener">
-                          {link.children}
-                        </a>
-                      )}
-                    }
-                  />
-                }
-              </Block>
-            }
+            <Block
+              className="first description"
+              title={translate(`${about['@type']}.description`)}
+              type={about['@type']}
+            >
+              {about.description ? (
+                <ReactMarkdown
+                  className='markdown'
+                  escapeHtml={false}
+                  source={translate(about.description)}
+                  renderers={
+                    {link: link => (
+                      <a href={link.href} target="_blank" rel="noopener">
+                        {link.children}
+                      </a>
+                    )}
+                  }
+                />
+              ) : (
+                <p>
+                  <i>
+                    {translate('A description for this entry is missing, help us by')}&nbsp;
+                    {user ? (
+                      <Link href={`/resource/${about['@id']}/#edit`}>
+                        {translate('adding some information!')}
+                      </Link>
+                    ) : (
+                      <Link href="/user/register">
+                        {translate('adding some information!')}
+                      </Link>
+                    )}
+                  </i>
+                </p>
+              )
+              }
+            </Block>
 
             {about.articleBody &&
-              <Block className="first description" title={translate(`${about['@type']}.articleBody`)}>
+              <Block
+                className="first description"
+                title=''
+              >
                 {about.articleBody &&
                   <ReactMarkdown
+                    className='markdown'
                     escapeHtml={false}
                     source={translate(about.articleBody)}
                     renderers={
@@ -236,7 +259,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                   <span>,&nbsp;</span>
                 }
                 {about.location.address.addressLocality}
-                <br />
+                {(about.location.address.postalCode || about.location.address.addressLocality) &&
+                  <br />
+                }
                 {about.location.address.addressRegion &&
                   [translate(about.location.address.addressRegion), <br key="br" />]
                 }
