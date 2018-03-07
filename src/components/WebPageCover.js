@@ -4,6 +4,7 @@ import MiniMap from './MiniMap'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import Icon from './Icon'
 
 const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
   <div className="WebPageCover">
@@ -26,8 +27,8 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
       />
     }
 
-    {about.image &&
-      <div className="image">
+    <div className="image">
+      {about.image ? (
         <img
           src={about.image}
           alt={translate(about.name)}
@@ -36,8 +37,13 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
           }}
           aria-label={translate(about.name)}
         />
-      </div>
-    }
+      ) : (
+        <div className="missingImg">
+          <Icon type={about['@type']} />
+        </div>
+      )
+      }
+    </div>
 
   </div>
 )
