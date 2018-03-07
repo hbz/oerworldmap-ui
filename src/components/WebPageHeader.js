@@ -21,25 +21,28 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
         <div>
 
           {about['@id'] && [
-            <div className="action" key="share">
-              <ShareExport _self={_self} _links={_links} view={view} />
-            </div>,
+            view !== 'edit' && (
+              <div className="action" key="share">
+                <ShareExport _self={_self} _links={_links} view={view} />
+              </div>
+            ),
             user &&
               <div className="action" key="view">
                 {view === 'edit' ? (
-                  <Link href="#view"><i className="fa fa-eye" /></Link>
+                  <Link href="#view"><i className="fa fa-close" /></Link>
                 ) : (
                   <Link href="#edit"><i className="fa fa-pencil" /></Link>
                 )}
               </div>
-
           ]}
 
+          {(view !== 'edit' || !about['@id']) &&
           <div className="action">
             <Link href={Link.home} className="closeModal">
-              <i className="fa fa-close" />
+              &times;
             </Link>
           </div>
+          }
 
         </div>
       </div>
