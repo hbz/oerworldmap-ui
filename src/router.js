@@ -74,7 +74,8 @@ export default (api) => {
     {
       path: '/resource/:id',
       get: async (params, context, state) => {
-        const data = state || await api.get(`/resource/${params.id}`, context.authorization)
+        const url = getURL({ path: `/resource/${params.id}`, params })
+        const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}

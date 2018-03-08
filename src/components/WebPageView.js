@@ -211,9 +211,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                 {about.location.address.streetAddress &&
                   [about.location.address.streetAddress, <br key="br" />]
                 }
-                {(about.location.address.postalCode || about.location.address.addressLocality) &&
-                  [about.location.address.postalCode, <span key="span">&nbsp;</span>, about.location.address.addressLocality, <br key="br" />]
+                {about.location.address.postalCode}
+                {about.location.address.postalCode && about.location.address.addressLocality &&
+                  <span>,&nbsp;</span>
                 }
+                {about.location.address.addressLocality}
+                <br />
                 {about.location.address.addressRegion &&
                   [translate(about.location.address.addressRegion), <br key="br" />]
                 }
@@ -255,13 +258,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
           {about.inLanguage &&
             <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
               <ul className="commaSeparatedList">
-                {about.inLanguage.map(lang => {
+                {about.inLanguage.map(lang => (
                   <li key={lang}>
                     <Link href={`/resource/?filter.about.inLanguage=${lang}`}>
                       {translate(lang)}
                     </Link>
                   </li>
-                })}
+                ))}
               </ul>
             </Block>
           }
@@ -283,7 +286,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.hashtag &&
             <Block title={translate(`${about['@type']}.hashtag`)}>
-              {about.hashtag}
+              <a
+                href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
+                rel="noopener"
+                target="_blank"
+              >
+                {about.hashtag}
+              </a>
             </Block>
           }
 
