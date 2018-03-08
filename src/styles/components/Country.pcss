@@ -115,7 +115,12 @@
         white-space: nowrap;
         overflow: hidden;
         visibility: hidden;
-        background-color: var(--blue-dark);
+        background-color: var(--white);
+        object-fit: contain;
+
+        &.Person {
+          object-fit: cover;
+        }
 
         &.visible {
           visibility: visible;
