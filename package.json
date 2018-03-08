@@ -71,7 +71,6 @@
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
     "json-pointer": "^0.6.0",
-    "json-pointer-form": "file:local_modules/json-pointer-form",
     "lodash": "^4.17.5",
     "mapbox-gl": "^0.44.0",
     "mitt": "^1.1.3",
