@@ -1,3 +1,4 @@
+/* global btoa*/
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
@@ -240,10 +241,15 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.email &&
             <Block title={translate(`${about['@type']}.email`)}>
-              {/* FIXME: Find a way to set raw attribute value */}
-              {/* <a href={`mailto:${obfuscate(about.email)}`}>{obfuscate(about.email)}</a> */}
               <p>
-                <a href={`mailto:${about.email}`}>{about.email}</a>
+                <a
+                  href={`mailto:${Buffer ? Buffer.from(about.email).toString('base64') : btoa(about.email)}`}
+                  onClick={e => {
+                    e.target.href = "mailto:" + about.email
+                  }}
+                >
+                  {about.email}
+                </a>
               </p>
             </Block>
           }
