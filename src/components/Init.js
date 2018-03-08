@@ -2,14 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import I18nProvider from './I18nProvider'
 import EmittProvider from './EmittProvider'
+import ApiProvider from './ApiProvider'
 import App from './App'
 
-const Init = ({locales, phrases, emitter, user, children}) => (
+const Init = ({locales, phrases, emitter, user, children, apiConfig}) => (
   <I18nProvider locales={locales} phrases={phrases}>
     <EmittProvider emitter={emitter}>
-      <App user={user}>
-        {children}
-      </App>
+      <ApiProvider config={apiConfig}>
+        <App user={user}>
+          {children}
+        </App>
+      </ApiProvider>
     </EmittProvider>
   </I18nProvider>
 )
@@ -19,6 +22,7 @@ Init.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   children: PropTypes.node.isRequired,
+  apiConfig: PropTypes.objectOf(PropTypes.any).isRequired,
   phrases: PropTypes.objectOf(PropTypes.any)
 }
 

@@ -327,3 +327,36 @@ pre {
 .border-top {
   border-top: 1px solid var(--grey-light);
 }
+
+/* JSONPointerForm */
+
+.Form {
+
+  & input {
+    width: 100%;
+  }
+
+  & .label,
+  & label {
+    display: block;
+  }
+
+  & .List {
+    & ul {
+      padding-left: 0;
+      list-style: none;
+    }
+  }
+
+  & .newItem,
+  & input[type=checkbox].formControl:checked + label,
+  & input[type=checkbox].formControl {
+    display: none;
+  }
+
+  & input[type=checkbox].formControl:not(:checked) + label,
+  & input[type=checkbox].formControl:checked ~ .newItem {
+    display: block;
+  }
+
+}

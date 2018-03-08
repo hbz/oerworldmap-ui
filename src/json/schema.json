@@ -1770,12 +1770,23 @@
         "contactPoint": {
           "title": "Organization.contactPoint",
           "description": "descriptions.Organization.contactPoint",
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Person" ] } } }
-            ]
+          "type": "object",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "enum": [
+                "urn:uuid:c1a6dff4-0306-4c5a-be11-fa1729ee2979",
+                "urn:uuid:ed504287-e4ef-4ef3-994f-d0b914ac8ce8",
+                "urn:uuid:751c2006-4601-4c43-935b-4f7380784dd3",
+                "urn:uuid:36cce075-e7dd-4d6b-be25-86cf67f2d26e",
+                "urn:uuid:4b428014-0a04-4d54-b39a-9caefd685858",
+                "urn:uuid:6eadceb1-ee44-4cbd-a524-7d492961ec8e",
+                "urn:uuid:eda9215e-046e-455a-a566-160b9f84dee5",
+                "urn:uuid:dc1aca2d-d9f2-419b-9a32-70dc7822b797",
+                "urn:uuid:0e7d7ee8-0439-41e9-99fb-e70604991e45",
+                "urn:uuid:77977101-95ea-44b0-ba71-d970b1335594"
+              ]
+            }
           }
         },
         "created": {
@@ -1797,10 +1808,24 @@
           "description": "descriptions.Organization.mentionedIn",
           "type": "array",
           "items": {
-            "allOf": [
-              { "$ref": "#/definitions/Link" },
-              { "properties": { "@type": { "enum": [ "Article" ] } } }
-            ]
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string",
+                "enum": [
+                  "urn:uuid:c1a6dff4-0306-4c5a-be11-fa1729ee2979",
+                  "urn:uuid:ed504287-e4ef-4ef3-994f-d0b914ac8ce8",
+                  "urn:uuid:751c2006-4601-4c43-935b-4f7380784dd3",
+                  "urn:uuid:36cce075-e7dd-4d6b-be25-86cf67f2d26e",
+                  "urn:uuid:4b428014-0a04-4d54-b39a-9caefd685858",
+                  "urn:uuid:6eadceb1-ee44-4cbd-a524-7d492961ec8e",
+                  "urn:uuid:eda9215e-046e-455a-a566-160b9f84dee5",
+                  "urn:uuid:dc1aca2d-d9f2-419b-9a32-70dc7822b797",
+                  "urn:uuid:0e7d7ee8-0439-41e9-99fb-e70604991e45",
+                  "urn:uuid:77977101-95ea-44b0-ba71-d970b1335594"
+                ]
+              }
+            }
           },
           "_display": {
             "className": "hidden"

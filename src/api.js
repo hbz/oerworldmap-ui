@@ -96,33 +96,23 @@ class Api {
     switch(url) {
     case 'https://w3id.org/class/esc/scheme':
       return Promise.resolve({
-        data: {
-          member: require('./json/esc.json').hasTopConcept.map(entry => {return {about: entry}})
-        }
+        member: require('./json/esc.json').hasTopConcept.map(entry => {return {about: entry}})
       })
     case 'https://w3id.org/isced/1997/scheme':
       return Promise.resolve({
-        data: {
-          member: require('./json/isced-1997.json').hasTopConcept.map(entry => {return {about: entry}})
-        }
+        member: require('./json/isced-1997.json').hasTopConcept.map(entry => {return {about: entry}})
       })
     case 'https://github.com/hbz/oerworldmap/public/json/licenses.json':
       return Promise.resolve({
-        data: {
-          member: require('./json/licenses.json').hasTopConcept.map(entry => {return {about: entry}})
-        }
+        member: require('./json/licenses.json').hasTopConcept.map(entry => {return {about: entry}})
       })
     case 'https://oerworldmap.org/assets/json/sectors.json':
       return Promise.resolve({
-        data: {
-          member: require('./json/sectors.json').hasTopConcept.map(entry => {return {about: entry}})
-        }
+        member: require('./json/sectors.json').hasTopConcept.map(entry => {return {about: entry}})
       })
     default:
       return Promise.resolve({
-        data: {
-          member: []
-        }
+        member: []
       })
     }
   }

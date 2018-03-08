@@ -60,21 +60,6 @@ import Api from './api'
         }
       }
     })
-    // Find data from the API
-    emitter.on('getOptions', ({term, schema, callback}) => {
-      console.log(schema)
-      if (schema.properties.inScheme) {
-        api.vocab(schema.properties.inScheme.properties['@id'].enum[0]).then(response => {
-          callback(response.data)
-        })
-      } else {
-        const params = {
-          q: term,
-          'filter.about.@type': schema.properties['@type'].enum
-        }
-        router(api).route('/resource/', context).get(params).then(({data}) => callback(data))
-      }
-    })
     // Log in
     emitter.on('login', () => {
       const request = new XMLHttpRequest()

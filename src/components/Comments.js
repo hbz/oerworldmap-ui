@@ -1,28 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
-import { Composer } from 'json-pointer-form'
 
-import Icon from './Icon'
+import JsonSchema from './JSONPointerForm/JsonSchema'
+import Form from './JSONPointerForm/Form'
+import Builder from './JSONPointerForm/Builder'
+import validate from './JSONPointerForm/validate'
+
 import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
-
-const getLabel = (translate, value) => {
-  if (!value) return ''
-  if (typeof value === "object") {
-    return (
-      <span>
-        <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
-      </span>
-    )
-  } else {
-    return translate(value)
-  }
-}
 
 const deleteComment = (id, emitter, e) => {
   e.preventDefault()
@@ -55,17 +44,17 @@ const Comments = ({moment, translate, emitter, id, comments, user}) => (
     ))}
     {user &&
       <div>
-        <Composer
-          value={{
+        <Form
+          data={{
             '@type': 'Comment',
             'text': [{ '@language': 'en' }]
           }}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
-          getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-          getLabel={value => getLabel(translate, value)}
-          submitLabel={translate('publish')}
-        />
+          validate={validate(JsonSchema(schema).get('#/definitions/Comment'))}
+          onSubmit={data => emitter.emit('submit', {url: `/resource/${id}/comment`, data})}
+        >
+          <Builder schema={JsonSchema(schema).get('#/definitions/Comment')} />
+          <button type="submit">{translate('publish')}</button>
+        </Form>
       </div>
     }
   </div>

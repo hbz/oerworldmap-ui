@@ -1,28 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Composer } from 'json-pointer-form'
+import JsonSchema from './JSONPointerForm/JsonSchema'
+import Form from './JSONPointerForm/Form'
+import Builder from './JSONPointerForm/Builder'
+import validate from './JSONPointerForm/validate'
 
 import FullModal from './FullModal'
-import Icon from './Icon'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 
 import schema from '../json/schema.json'
-
-const getLabel = (translate, value) => {
-  if (!value) return ''
-  if (typeof value === "object") {
-    return (
-      <span>
-        <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
-      </span>
-    )
-  } else {
-    return translate(value)
-  }
-}
 
 const WebPageUserActions = ({user, about, emitter, view, translate}) => {
 
@@ -96,15 +84,14 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
 
       {about['@id'] && user && view === 'addLighthouse' &&
         <FullModal>
-          <Composer
-            value={lighthouse}
-            schema={schema}
-            submit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
-            getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-            getLabel={value => getLabel(translate, value)}
-            submitLabel={translate('publish')}
-            className="Forms Lighthouse"
-          />
+          <Form
+            data={lighthouse}
+            validate={validate(JsonSchema(schema).get('#/definitions/LighthouseAction'))}
+            onSubmit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
+          >
+            <Builder schema={JsonSchema(schema).get('#/definitions/LighthouseAction')} />
+            <button type="submit">{translate('publish')}</button>
+          </Form>
         </FullModal>
       }
 
