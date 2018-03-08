@@ -11,17 +11,22 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
     {translate(type)}{' '}
     {dateModified && (
       user ? (
-        <Link href={`/log/${about["@id"]}`}>
+        <Link
+          href={`/log/${about["@id"]}`}
+          title={moment(dateModified).format('YYYY-MM-DD')}
+        >
           {translate(
             'ResourceIndex.read.lastModified',
-            {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+            {dateModified : moment(dateModified).fromNow()}
           )}
         </Link>
       ) : (
-        <span>
+        <span
+          title={moment(dateModified).format('YYYY-MM-DD')}
+        >
           {translate(
             'ResourceIndex.read.lastModified',
-            {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+            {dateModified : moment(dateModified).fromNow()}
           )}
         </span>
       )
