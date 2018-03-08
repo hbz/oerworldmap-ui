@@ -215,8 +215,8 @@ MiniMap.propTypes = {
 }
 
 MiniMap.defaultProps = {
-  center: [0, 0],
-  zoom: 2,
+  center: [-81.00637440726905, 43.32529936429404],
+  zoom: 10,
   features: null,
   draggable: false,
   zoomable: false,
