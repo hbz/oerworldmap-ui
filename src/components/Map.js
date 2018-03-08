@@ -563,7 +563,7 @@ class Map extends React.Component {
       }
     })
     return Object.keys(types).map((key) => {
-      return <span key={key}>{types[key]} <Icon type={key} /> </span>
+      return <span className="item" key={key}><Icon type={key} /> {types[key]}</span>
     })
   }
 
