@@ -49,4 +49,10 @@ const Calendar = ({entries, moment, translate}) => (
   </ul>
 )
 
+Calendar.propTypes = {
+  translate: PropTypes.func.isRequired,
+  moment: PropTypes.func.isRequired,
+  entries: PropTypes.arrayOf(PropTypes.any).isRequired
+}
+
 export default withI18n(Calendar)
