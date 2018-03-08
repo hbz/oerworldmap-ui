@@ -309,14 +309,14 @@ class Filters extends React.Component {
           <hr />
 
           <div className="sortContainer">
-            <section className="PagedCollection pages">
-              <div className="PagedCollectionHeader">
-                <div className="counter">
+            <section className="listOptions">
+              <div>
+                <span className="counter">
                   <span>{this.props.member.length}</span>
-                  {this.props.translate('ResourceIndex.index.results')}
-                </div>
+                  &nbsp;{this.props.translate('ResourceIndex.index.results')}
+                </span>
                 {!(this.props.filters['about.@type'] && this.props.filters['about.@type'].includes('Event')) &&
-                  <div>
+                  <span>
                     ,&nbsp;{this.props.translate('ResourceIndex.index.orderedBy')}
                     <select
                       name="sort"
@@ -339,14 +339,14 @@ class Filters extends React.Component {
                       ))}
                       <option value="-1">All</option>
                     </select>
-                  </div>
+                  </span>
                 }
-                <ShareExport
-                  _self={this.props._self}
-                  _links={this.props._links}
-                  view={this.props.view}
-                />
               </div>
+              <ShareExport
+                _self={this.props._self}
+                _links={this.props._links}
+                view={this.props.view}
+              />
             </section>
           </div>
 

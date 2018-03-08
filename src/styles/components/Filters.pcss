@@ -219,4 +219,25 @@
       }
     }
   }
+
+  & .listOptions {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+
+    & .styledSelect {
+      border: none;
+      background-color: transparent;
+      color: var(--blue);
+      text-transform: lowercase;
+    }
+
+    & select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: 0 5px;
+      position: relative;
+      text-align-last: center;
+    }
+  }
 }
