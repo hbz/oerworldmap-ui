@@ -31,20 +31,18 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
     />
 
     <div className="image">
-      {about.image ? (
+      <div className="missingImg">
+        <Icon type={about['@type']} />
+      </div>
+      {about.image &&
         <img
           src={about.image}
           alt={translate(about.name)}
           onError={e => {
-            e.target.parentElement.remove()
+            e.target.remove()
           }}
           aria-label={translate(about.name)}
         />
-      ) : (
-        <div className="missingImg">
-          <Icon type={about['@type']} />
-        </div>
-      )
       }
     </div>
 

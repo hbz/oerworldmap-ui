@@ -85,23 +85,31 @@
         float: left;
         width: 200px;
         height: 200px;
-        padding: 10px;
         background: white;
         border-radius: var(--border-radius);
 
         & img {
+          padding: 10px;
+          object-fit: contain;
+          background-color: var(--white);
+          position: absolute;
           width: 100%;
           height: 100%;
-          object-fit: contain;
+          top: 0;
+          left: 0;
         }
 
         & .missingImg {
-          height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
           color: var(--grey-light);
           font-size: 110px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
         }
       }
     }
