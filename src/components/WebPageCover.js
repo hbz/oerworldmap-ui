@@ -6,26 +6,29 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import Icon from './Icon'
 
+const getCenter = (geo) => {
+  if (geo && geo.geometry) {
+    if (geo.geometry.type ==='MultiPoint') {
+      return [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
+    }
+    else {
+      return [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
+    }
+  }
+}
+
 const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
   <div className="WebPageCover">
 
-    {geo &&
-      <MiniMap
-        mapboxConfig={mapboxConfig}
-        features={geo && geo.geometry}
-        zoom={3}
-        zoomable={view === 'edit'}
-        draggable={view === 'edit'}
-        onFeatureDrag={point => emitter.emit('setPoint', point)}
-        center={(geo &&
-          geo.geometry &&
-          geo.geometry.coordinates) &&
-          Array.isArray(geo.geometry.coordinates[0])
-          ? [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
-          : [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
-        }
-      />
-    }
+    <MiniMap
+      mapboxConfig={mapboxConfig}
+      features={geo && geo.geometry}
+      zoom={geo && 3}
+      zoomable={view === 'edit'}
+      draggable={view === 'edit'}
+      onFeatureDrag={point => emitter.emit('setPoint', point)}
+      center={getCenter(geo)}
+    />
 
     <div className="image">
       {about.image ? (
