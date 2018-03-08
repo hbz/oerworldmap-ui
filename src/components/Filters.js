@@ -4,7 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
-import '../styles/components/PagedCollection.pcss'
 
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
