@@ -15,7 +15,12 @@
     & ul {
       list-style-type: none;
       margin: 0;
-      padding: 0;
+      padding: 5px 10px;
+
+      &.list li {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+      }
 
       & li {
         padding: 5px 10px;
@@ -25,7 +30,11 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: 0 10px;
+          padding-right: 20px;
+        }
+
+        & span.item:last-child {
+          padding-right: 0;
         }
 
         &:last-child {
