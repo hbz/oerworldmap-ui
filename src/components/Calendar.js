@@ -5,11 +5,13 @@ import Link from './Link'
 
 import withI18n from './withI18n'
 
+import '../styles/components/Calendar.pcss'
+
 const Calendar = ({entries, moment, translate}) => (
   <ul className="Calendar">
     {entries.map(month => (
-      <li key={month.key}>
-        <h1>{moment(month.key_as_string).format('MMMM YYYY')}</h1>
+      <li key={month.key} className="monthBlock">
+        <h4>{moment(month.key_as_string).format('MMMM YYYY')}</h4>
         <ul>
           {month['about.@id'].hits.hits.map(hit => hit._source.about).map(event => (
             <li key={event['@id']}>
@@ -18,7 +20,7 @@ const Calendar = ({entries, moment, translate}) => (
                   <div>
                     {moment(event.startDate).format('D')}
                   </div>
-                  <div>
+                  <div className="month">
                     {moment(event.startDate).format('MMM')}
                   </div>
                 </div>
@@ -29,7 +31,7 @@ const Calendar = ({entries, moment, translate}) => (
                     : moment(event.endDate).format('D MMM')
                   } - {moment(event.endDate).format('D MMM')}
                   {event.location && event.location.address &&
-                    <span>
+                    <span className="subtitle">
                       &nbsp;&mdash;&nbsp;
                       {event.location.address.addressLocality &&
                         event.location.address.addressLocality.concat(',')

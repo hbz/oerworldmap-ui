@@ -1,0 +1,69 @@
+@import '../variables.pcss';
+
+.Calendar {
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin-bottom: 10px;
+
+  & .monthBlock {
+
+    & h4 {
+      font-size: var(--font-size);
+      margin-bottom: 10px;
+    }
+
+    & > ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      border-bottom: 1px solid var(--grey-light);
+
+      & li {
+
+        & a {
+          border-top: 2px solid var(--grey-light);
+          display: flex;
+          padding: 10px 0;
+          color: var(--blue-dark);
+          align-items: start;
+
+          & .sheet {
+            border: 1px solid var(--blue-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 2px;
+            margin-right: 10px;
+
+            & .month {
+              font-size: var(--font-size-xs);
+            }
+          }
+
+          & span {
+            flex: 1;
+
+            & .subtitle {
+              font-size: var(--font-size-xs);
+            }
+          }
+
+          &:hover,
+          &:focus {
+            color: var(--orange);
+
+            & .sheet {
+              border-color: var(--orange);
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
