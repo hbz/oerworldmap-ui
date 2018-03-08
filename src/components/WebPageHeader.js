@@ -5,7 +5,7 @@ import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
 
-const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, _self, _links}) => {
+const WebPageHeader = ({user, about, author, contributor, dateModified, view, _self, _links}) => {
   return (
     <div className="WebPageHeader">
       <Metadata
@@ -14,7 +14,6 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
         author={author}
         contributor={contributor}
         dateModified={dateModified}
-        dateCreated={dateCreated}
         user={user}
       />
       <div className="webPageActions print-display-none">
@@ -50,7 +49,6 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
 WebPageHeader.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   contributor: PropTypes.string,
-  dateCreated: PropTypes.string,
   dateModified: PropTypes.string,
   view: PropTypes.string.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
@@ -62,7 +60,6 @@ WebPageHeader.propTypes = {
 WebPageHeader.defaultProps = {
   user: null,
   contributor: null,
-  dateCreated: null,
   dateModified: null,
   author: null
 }

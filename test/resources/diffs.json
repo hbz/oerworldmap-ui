@@ -1,0 +1,159 @@
+{
+  "compare": {
+      "geo": {
+          "properties": {
+              "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
+              "@type": "Organization",
+              "name": [
+                  {
+                      "@value": "University of Northern British Columbia",
+                      "@language": "en"
+                  }
+              ]
+          },
+          "type": "Feature",
+          "id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  -122.813699,
+                  53.892381
+              ]
+          }
+      },
+      "contributor": "gpotter@unbc.ca",
+      "dateCreated": "2016-11-08T22:02:46.971+01:00",
+      "@type": "WebPage",
+      "author": "gpotter@unbc.ca",
+      "about": {
+          "@type": "Organization",
+          "name": [
+              {
+                  "@value": "University of Northern British Columbia",
+                  "@language": "en"
+              }
+          ],
+          "description": [
+              {
+                  "@value": "###Objectives of the Grant Program\r\n\r\nTo increase opportunities for students to engage in project-based research with a faculty member. \r\n\r\nThe project aims to:\r\n\r\n* supported faculty members in the review, revision, and adoption of opentextbooks and other OER materials.\r\n\r\n* increase use of opentextbooks and OER at UNBC resulting in enhanced access for student and reduced textbook and class material costs.\r\n\r\n###Evaluation Criteria\r\n\r\nProposals will be evaluated based on the following criteria:\r\n\r\n* Curation and customization of OER that will be freely and openly shared throughout and beyond UNBC\r\n\r\n* Impact on student experience, including high-quality materials, maximum access, open and innovative pedagogy, and cost savings to students\r\n\r\n* Plans to re-use open resources in designated and related courses in subsequent semesters",
+                  "@language": "en"
+              }
+          ],
+          "location": {
+              "geo": {
+                  "lon": -122.813699,
+                  "lat": 53.892381
+              },
+              "address": {
+                  "addressCountry": "CA",
+                  "streetAddress": "3333 University Way",
+                  "postalCode": "V2N 4Z9",
+                  "addressLocality": "Prince George",
+                  "addressRegion": "CA.BC"
+              }
+          },
+          "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
+          "@context": "https://oerworldmap.org/assets/json/context.json",
+          "email": "gpotter@unbc.ca",
+          "url": "http://www.unbc.ca/centre-teaching-and-learning/oer-development-grant",
+          "sameAs": [
+              "http://twitter.com/unbc_ctlt"
+          ]
+      },
+      "dateModified": "2016-11-08T22:05:37.875+01:00",
+      "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e.about",
+      "version": "15bd5bb6c2224c31492a8e22021f9f10f87fcb7b"
+  },
+  "to": {
+      "geo": {
+          "properties": {
+              "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
+              "@type": "Organization",
+              "name": [
+                  {
+                      "@value": "University of Northern British Columbia",
+                      "@language": "en"
+                  }
+              ]
+          },
+          "type": "Feature",
+          "id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  -122.813699,
+                  53.892381
+              ]
+          }
+      },
+      "contributor": "gpotter@unbc.ca",
+      "dateCreated": "2016-11-08T22:02:46.971+01:00",
+      "@type": "WebPage",
+      "author": "gpotter@unbc.ca",
+      "about": {
+          "@type": "Organization",
+          "name": [
+              {
+                  "@value": "University of Northern British Columbia",
+                  "@language": "en"
+              }
+          ],
+          "description": [
+              {
+                  "@value": "###Objectives of the Grant Program\r\n\r\nTo increase opportunities for students to engage in project-based research with a faculty member. \r\n\r\nThe project aims to:\r\n\r\n* supported faculty members in the review, revision, and adoption of opentextbooks and other OER materials.\r\n\r\n* increase use of opentextbooks and OER at UNBC resulting in enhanced access for student and reduced textbook and class material costs.\r\n\r\n###Evaluation Criteria\r\n\r\nProposals will be evaluated based on the following criteria:\r\n\r\n* Curation and customization of OER that will be freely and openly shared throughout and beyond UNBC\r\n\r\n* Impact on student experience, including high-quality materials, maximum access, open and innovative pedagogy, and cost savings to students\r\n\r\n* Plans to re-use open resources in this or related courses in subsequent semesters",
+                  "@language": "en"
+              }
+          ],
+          "location": {
+              "geo": {
+                  "lon": -122.813699,
+                  "lat": 53.892381
+              },
+              "address": {
+                  "addressCountry": "CA",
+                  "streetAddress": "3333 University Way",
+                  "postalCode": "V2N 4Z9",
+                  "addressLocality": "Prince George",
+                  "addressRegion": "CA.BC"
+              }
+          },
+          "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
+          "@context": "https://oerworldmap.org/assets/json/context.json",
+          "email": "gpotter@unbc.ca",
+          "url": "http://www.unbc.ca/centre-teaching-and-learning/oer-development-grant",
+          "sameAs": [
+              "http://twitter.com/unbc_ctlt"
+          ]
+      },
+      "dateModified": "2016-11-08T22:05:37.875+01:00",
+      "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e.about",
+      "version": "83885854b9a87cab2abda77b0f488edbe8cc9170"
+  },
+  "log": [
+      {
+          "commit": "15bd5bb6c2224c31492a8e22021f9f10f87fcb7b",
+          "author": "gpotter@unbc.ca",
+          "date": "2016-11-08T22:05:37.875+01:00"
+      },
+      {
+          "commit": "83885854b9a87cab2abda77b0f488edbe8cc9170",
+          "author": "gpotter@unbc.ca",
+          "date": "2016-11-08T22:04:43.205+01:00"
+      },
+      {
+          "commit": "01bf04ac35ddf162202574a5f249eccea9be9ecc",
+          "author": "gpotter@unbc.ca",
+          "date": "2016-11-08T22:03:26.505+01:00"
+      },
+      {
+          "commit": "7b910b0b98a5b992b349719f2586b217ce8af704",
+          "author": "gpotter@unbc.ca",
+          "date": "2016-11-08T22:03:12.998+01:00"
+      },
+      {
+          "commit": "5149058cd5185830ca3f268379c511aa26da08b9",
+          "author": "gpotter@unbc.ca",
+          "date": "2016-11-08T22:02:46.971+01:00"
+      }
+  ]
+}
