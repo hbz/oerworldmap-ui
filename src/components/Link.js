@@ -14,7 +14,8 @@ class Link extends React.Component {
     if (!this.props.target
       && !event.shiftKey
       && !(event.which === 2)
-      && !event.ctrlKey) {
+      && !event.ctrlKey
+      && !event.metaKey) {
       event.preventDefault()
       this.props.emitter.emit('navigate', this.getRef())
     }
@@ -47,7 +48,7 @@ Link.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   className: PropTypes.string,
   dataShow: PropTypes.string,
   title: PropTypes.string,
@@ -58,7 +59,8 @@ Link.defaultProps = {
   className: null,
   title: null,
   dataShow: null,
-  target: null
+  target: null,
+  href: ''
 }
 
 export default withEmitter(Link)

@@ -10,6 +10,7 @@ import withI18n from './withI18n'
 import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
+import ConceptFilter from './ConceptFilter'
 import { triggerClick } from '../common'
 
 const onSubmit = (e, emitter) => {
@@ -61,7 +62,8 @@ const onReset = (e, emitter) => {
 const primaryFilters = [
   {
     name: "about.@type",
-    type: "button"
+    type: "button",
+    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article']
   },
   {
     name: "about.location.address.addressCountry",
@@ -86,21 +88,31 @@ const secondaryFilters = [
   },
   {
     name: "about.primarySector.@id",
+    type: "concepts",
+    scheme: require('../json/sectors.json')
   },
   {
     name: "about.secondarySector.@id",
+    type: "concepts",
+    scheme: require('../json/sectors.json')
   },
   {
     name: "about.audience.@id",
+    type: "concepts",
+    scheme: require('../json/isced-1997.json')
   },
   {
     name: "about.about.@id",
+    type: "concepts",
+    scheme: require('../json/esc.json')
   },
   {
     name: "about.award",
   },
   {
     name: "about.license.@id",
+    type: "concepts",
+    scheme: require('../json/licenses.json')
   },
 ]
 
@@ -186,6 +198,17 @@ class Filters extends React.Component {
                       aggregation={aggregation}
                       filter={filter}
                       submit={onSubmit}
+                      order={filterDef.order}
+                    />
+                  )
+                case 'concepts':
+                  return (
+                    <ConceptFilter
+                      key={filterDef.name}
+                      concepts={filterDef.scheme.hasTopConcept}
+                      aggregation={aggregation}
+                      filter={filter}
+                      submit={onSubmit}
                     />
                   )
                 case 'dropdown':
@@ -194,8 +217,8 @@ class Filters extends React.Component {
                     <DropdownFilter
                       key={filterDef.name}
                       icon={filterDef.icon}
-                      aggregations={aggregation}
-                      filters={filter}
+                      aggregation={aggregation}
+                      filter={filter}
                       filterName={`filter.${filterDef.name}`}
                       submit={onSubmit}
                     />
@@ -224,6 +247,18 @@ class Filters extends React.Component {
                       aggregation={aggregation}
                       filter={filter}
                       submit={onSubmit}
+                      order={filterDef.order}
+                    />
+                  )
+                case 'concepts':
+                  return (
+                    <ConceptFilter
+                      key={filterDef.name}
+                      concepts={filterDef.scheme.hasTopConcept}
+                      aggregation={aggregation}
+                      filter={filter}
+                      filterName={`filter.${filterDef.name}`}
+                      submit={onSubmit}
                     />
                   )
                 case 'dropdown':
@@ -232,8 +267,8 @@ class Filters extends React.Component {
                     <DropdownFilter
                       key={filterDef.name}
                       icon={filterDef.icon}
-                      aggregations={aggregation}
-                      filters={filter}
+                      aggregation={aggregation}
+                      filter={filter}
                       filterName={`filter.${filterDef.name}`}
                       submit={onSubmit}
                     />

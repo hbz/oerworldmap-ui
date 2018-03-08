@@ -30,6 +30,8 @@ class Header extends React.Component {
   handleClick(e) {
     if (e.target !== this.menuBtn)
       this.setState({showUserMenu:false})
+    if (e.target !== this.menuToggle)
+      this.setState({showMobileMenu:false})
   }
 
   render() {
@@ -115,6 +117,7 @@ class Header extends React.Component {
           <Link
             title={this.props.translate('login')}
             href="/user/register"
+            className="loginLink"
           >
             {this.props.translate('login')}
           </Link>

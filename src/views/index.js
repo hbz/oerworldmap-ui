@@ -7,7 +7,6 @@ export default ({ body, title, initialState, env }) => {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Economica" rel="stylesheet">
         <script src="/assets/bundle.js" ></script>
         <title>${title}</title>
         <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>

@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
+import compression from 'compression'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
@@ -22,6 +23,8 @@ server.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   next()
 })
+
+server.use(compression())
 
 if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)

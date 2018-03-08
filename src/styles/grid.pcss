@@ -11,6 +11,21 @@
     &.grow-2 {
       flex-grow: 2;
     }
+
+    &.half {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+
+    &.one-third {
+      flex-basis: 33.333333%;
+      max-width: 33.333333%;
+    }
+
+    &.two-third {
+      flex-basis: 66.666666%;
+      max-width: 66.666666%;
+    }
   }
 
   &.auto {
@@ -40,9 +55,11 @@
   }
 
   &.stack-700 {
+
     @media screen and (max-width: 700px) {
       & .col {
         flex-basis: 100%;
+        max-width: 100%;
       }
 
       &.stack-gutter-2em .col {
@@ -53,12 +70,21 @@
         }
       }
     }
+
+    @media print {
+      & .col {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+    }
   }
 
   &.stack-560 {
+
     @media screen and (max-width: 560px) {
       & .col {
         flex-basis: 100%;
+        max-width: 100%;
       }
 
       &.stack-gutter-2em .col {
@@ -72,6 +98,7 @@
   }
 
   &.wrap-1024-basis-130px {
+
     @media screen and (max-width: 1024px) {
       & .col {
         flex-basis: 130px;
@@ -92,14 +119,15 @@
         margin-bottom: -1.5em;
 
         & .col {
-          padding-top: .75em;
-          padding-bottom: .75em;
+          padding-top: 0.75em;
+          padding-bottom: 0.75em;
         }
       }
     }
   }
 
   &.wrap-1024-basis-25 {
+
     @media screen and (max-width: 1024px) {
       & .col {
         flex-basis: 25%;
@@ -116,6 +144,7 @@
   }
 
   &.wrap-560-basis-33 {
+
     @media screen and (max-width: 560px) {
       & .col {
         flex-basis: 33.3333%;

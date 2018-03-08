@@ -60,22 +60,42 @@
       }
     }
 
-    & ul {
-      list-style-type: none;
+    & > ul {
       margin: 0;
       padding: 0;
       overflow: auto;
       max-height: 300px;
 
-      & li {
-        border-bottom: 1px solid var(--blue-dark);
+      & ul {
+        margin: 0;
+        padding: 0;
 
+        & > li {
+          & label {
+            padding-left: 30px;
+          }
 
-        &:last-child {
-          border: none;
+          & ul > li {
+
+            & label {
+              padding-left: 40px;
+            }
+
+            & ul > li label {
+              padding-left: 50px;
+            }
+          }
         }
+      }
+    }
+
+    & ul {
+      list-style-type: none;
+
+      & li {
 
         & label {
+          border-bottom: 1px solid var(--blue-dark);
           padding: 10px 20px;
           display: block;
           position: relative;

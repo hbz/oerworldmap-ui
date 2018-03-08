@@ -1,15 +1,28 @@
 @import '../variables.pcss';
 
 .ItemList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   overflow: auto;
   flex: 1;
 
   & li {
 
+    & a {
+      color: var(--primary-color);
+
+      &:hover {
+        color: var(--highlight-color);
+      }
+    }
+
     & .item {
       display: flex;
       align-items: start;
       justify-content: space-between;
+      border-bottom: 1px solid var(--grey-light);
+      padding: 0.35em 0;
 
       & i {
         line-height: inherit;
@@ -20,23 +33,17 @@
 
       & > span {
         flex: 1;
+        min-width: 0;
       }
     }
   }
-}
 
-.Block {
-
-  & .ItemList {
+  &.prominent {
 
     & li {
-      padding: 0.7em 0;
-
-      &:last-child {
-        border-bottom: 1px solid var(--grey-light);
-      }
 
       & .item {
+        padding: 0.7em 0;
         align-items: center;
 
         & i {
@@ -44,7 +51,6 @@
           border-radius: 100%;
           width: 30px;
           height: 30px;
-
           font-size: var(--font-size);
           line-height: 30px;
           background-color: var(--blue-light);
@@ -67,17 +73,54 @@
     }
   }
 
-  &.collapsible.show-all {
+  &.recursive {
 
-    &.collapsed {
-      & li {
-        display: none;
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
 
-        &:nth-child(-n+3){
-          display: list-item;
-        }
+    & ul .item {
+      padding-left: calc(1 * 2em);
+    }
+
+    & ul ul .item {
+      padding-left: calc(2 * 2em);
+    }
+
+    & ul ul ul .item {
+      padding-left: calc(3 * 2em);
+    }
+
+    & ul ul ul ul .item {
+      padding-left: calc(4 * 2em);
+    }
+
+    & ul ul ul ul ul .item {
+      padding-left: calc(5 * 2em);
+    }
+  }
+
+  &.award {
+
+    & .item {
+      height: 80px;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
     }
+  }
+}
+
+.Block.collapsible.show-all.collapsed .ItemList li {
+  display: none;
+
+  &:nth-child(-n+3) {
+    display: list-item;
   }
 }
 
@@ -94,10 +137,14 @@
     content: "";
     width: 98%;
     height: 14px;
-    background: linear-gradient(180deg, rgba(0,17,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(180deg, rgba(0, 17, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
     position: absolute;
     z-index: 99;
     bottom: 2px;
     left: 3px;
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    display: none;
   }
 }

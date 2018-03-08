@@ -35,13 +35,28 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
     action.agent.some(agent => user && agent['@id'] === user.id)
   )
 
-  const toggleLike = (e) => {
-    e.preventDefault()
+  const isAttendee = (about.attendee || []).some(attendee =>
+    user && attendee['@id'] === user.id
+  )
+
+  const isPerformer = (about.performer || []).some(performer =>
+    user && performer['@id'] === user.id
+  )
+
+  const isAffiliate = (about.affiliate || []).some(affiliate =>
+    user && affiliate['@id'] === user.id
+  )
+
+  const toggleLike = () => {
     if (like) {
-      emitter.emit('delete', {url: `/resource/${like['@id']}`})
+      emitter.emit('delete', {
+        url: `/resource/${like['@id']}`,
+        redirect: { url: `/resource/${about['@id']}` }
+      })
     } else {
       emitter.emit('submit', {
         url: '/resource/',
+        redirect: { url: `/resource/${about['@id']}` },
         data: {
           '@type': 'LikeAction',
           'object': about,
@@ -54,40 +69,60 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
     }
   }
 
+  const toggle = (property, active) => {
+    const data = JSON.parse(JSON.stringify(about))
+    if (active) {
+      data[property] = data[property].filter(entry => entry['@id'] !== user.id)
+    } else {
+      data[property]
+        ? data[property].push({'@id': user.id})
+        : data[property] = [{'@id': user.id}]
+    }
+    emitter.emit('submit', {url: `/resource/${about['@id']}`, data})
+  }
+
   return (
     <div className="WebPageUserActions">
 
-      <div className="action">
-        <form onSubmit={toggleLike}>
-          <button className="btn" type="submit" title="Like">
-            <i className="fa fa-star" />
-            {translate('Like')}
-          </button>
-        </form>
-      </div>
+      {['Organization', 'Action', 'Service', 'Product'].indexOf(about['@type']) !== -1 &&
+        <div className="action">
+          <form onSubmit={(e) => e.preventDefault() || toggleLike()}>
+            <button className={`btn ${like ? 'active': ''}`} type="submit" title={translate('Like')}>
+              <i className="fa fa-star" />
+              {translate('Like')}
+            </button>
+          </form>
+        </div>
+      }
 
-      <div className="action">
-        <a href="#addLighthouse" className="btn">
-          <img
-            className="i hidden-hover"
-            src="/assets/lighthouse_16px_blue.svg"
-            alt="Lighthouse"
-          />
-          <img
-            className="i visible-hover"
-            src="/assets/lighthouse_16px_white.svg"
-            alt="Lighthouse"
-          />
-          {translate('Lighthouse')}
-        </a>
-      </div>
+      {['Organization', 'Action', 'Service'].indexOf(about['@type']) !== -1 &&
+        <div className="action">
+          <a href="#addLighthouse" className={`btn ${lighthouse['@id'] ? 'active': ''}`}>
+            <img
+              className="i hidden-hover hidden-active"
+              src="/assets/lighthouse_16px_blue.svg"
+              alt="Lighthouse"
+            />
+            <img
+              className="i visible-hover visible-active"
+              src="/assets/lighthouse_16px_white.svg"
+              alt="Lighthouse"
+            />
+            {translate('Lighthouse')}
+          </a>
+        </div>
+      }
 
       {about['@id'] && user && view === 'addLighthouse' &&
         <FullModal>
           <Form
             data={lighthouse}
             validate={validate(JsonSchema(schema).get('#/definitions/LighthouseAction'))}
-            onSubmit={data => emitter.emit('submit', {url: `/resource/${lighthouse['@id'] || ''}`, data} )}
+            onSubmit={data => emitter.emit('submit', {
+              url: `/resource/${lighthouse['@id'] || ''}`,
+              redirect: { url: `/resource/${about['@id']}` },
+              data
+            })}
           >
             <Builder schema={JsonSchema(schema).get('#/definitions/LighthouseAction')} />
             <button type="submit">{translate('publish')}</button>
@@ -95,37 +130,42 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
         </FullModal>
       }
 
-      <div className="action">
-        <a href="#subscribe" className="btn">
-          <i className="fa fa-bell" />
-          {translate('Subscribe')}
-        </a>
-      </div>
+      {about['@type'] === 'Event' &&
+        <div className="action">
+          <form onSubmit={(e) => e.preventDefault() || toggle('attendee', isAttendee)}>
+            <button className={`btn ${isAttendee ? 'active': ''}`} type="submit" title={translate('I\'m attending')}>
+              <i className="fa fa-flag" />
+              {translate('I\'m attending')}
+            </button>
+          </form>
+        </div>
+      }
 
-      <div className="action">
-        <a href="#attend" className="btn">
-          <i className="fa fa-flag" />
-          {translate('I\'m attending')}
-        </a>
-      </div>
+      {about['@type'] === 'Event' &&
+        <div className="action">
+          <form onSubmit={(e) => e.preventDefault() || toggle('performer', isPerformer)}>
+            <button className={`btn ${isPerformer ? 'active': ''}`} type="submit" title={translate('I\'m presenting')}>
+              <i className="fa fa-bullhorn" />
+              {translate('I\'m presenting')}
+            </button>
+          </form>
+        </div>
+      }
+
+      {(about['@type'] === 'Organization' || about['@type'] === 'Action') &&
+        <div className="action">
+          <form onSubmit={(e) => e.preventDefault() || toggle('affiliate', isAffiliate)}>
+            <button className={`btn ${isAffiliate ? 'active': ''}`} type="submit" title={translate('I\'m a member')}>
+              <i className="fa fa-sitemap" />
+              {translate('I\'m a member')}
+            </button>
+          </form>
+        </div>
+      }
 
     </div>
   )
 }
-
-/*
-
-TODO
-
-* Add class "active" to buttons, where action was taken
-* Make subscribe button working
-* Show "relational actions" only where they are appropriate:
-  - "I'm attending" and "I'm presenting" for events
-  - "I'm a member" for projects and organizations
-  - Use icon bullhorn for "I'm presenting"
-  - Use icon sitemap for "I'm a member"
-
-*/
 
 WebPageUserActions.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),

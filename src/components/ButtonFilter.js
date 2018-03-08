@@ -7,46 +7,47 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
-const ButtonFilter = ({aggregation, filter, submit, emitter, translate}) => (
+const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) => (
   <div className="ButtonFilter">
-    {aggregation.buckets.map((bucket) => {
-      return (
-        <Tooltip
-          key={bucket.key}
-          overlay={translate(bucket.label || bucket.key)}
-          placement="top"
-          overlayClassName="tooltipDisableEvents"
-        >
-          <div className={`filterBox value-${bucket.key}`}>
-            <input
-              type="radio"
-              value={bucket.key}
-              checked={filter.includes(bucket.key)}
-              name="filter.about.@type"
-              id={"type:" + bucket.key}
-              onChange={(evt) => submit(evt, emitter)}
-            />
+    {aggregation.buckets.sort((a, b) => order.indexOf(a.key) > order.indexOf(b.key))
+      .map((bucket) => {
+        return (
+          <Tooltip
+            key={bucket.key}
+            overlay={translate(bucket.label || bucket.key)}
+            placement="top"
+            overlayClassName="tooltipDisableEvents"
+          >
+            <div className={`filterBox value-${bucket.key}`}>
+              <input
+                type="radio"
+                value={bucket.key}
+                checked={filter.includes(bucket.key)}
+                name="filter.about.@type"
+                id={"type:" + bucket.key}
+                onChange={(evt) => submit(evt, emitter)}
+              />
 
-            <label
-              onClick={(evt) => {
-                // Trigger submit only if onChange is not triggered
-                if (filter.includes(bucket.key)) {
-                  submit(evt, emitter)
-                }
-              }}
-              onKeyDown={triggerClick}
-              role="button"
-              tabIndex="0"
-              htmlFor={"type:" + bucket.key}
-              aria-label={translate(bucket.label || bucket.key)}
-              className="btn"
-            >
-              <Icon type={bucket.key} />
-            </label>
-          </div>
-        </Tooltip>
-      )
-    })}
+              <label
+                onClick={(evt) => {
+                  // Trigger submit only if onChange is not triggered
+                  if (filter.includes(bucket.key)) {
+                    submit(evt, emitter)
+                  }
+                }}
+                onKeyDown={triggerClick}
+                role="button"
+                tabIndex="0"
+                htmlFor={"type:" + bucket.key}
+                aria-label={translate(bucket.label || bucket.key)}
+                className="btn"
+              >
+                <Icon type={bucket.key} />
+              </label>
+            </div>
+          </Tooltip>
+        )
+      })}
   </div>
 
 )
@@ -57,6 +58,11 @@ ButtonFilter.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
+  order: PropTypes.arrayOf(PropTypes.string)
+}
+
+ButtonFilter.defaultProps = {
+  order: []
 }
 
 export default withEmitter(withI18n(ButtonFilter))

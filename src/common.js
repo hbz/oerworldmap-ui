@@ -72,6 +72,50 @@ export const triggerClick = (e) => {
   }
 }
 
+export const mapNominatimResult = (result) => {
+  return {
+    about: {
+      '@id': `info:${result.place_id}`,
+      '@type': 'Place',
+      name: [
+        {
+          '@language': 'en',
+          '@value': result.display_name
+        }
+      ],
+      geo: {
+        lat: result.lat,
+        lon: result.lon
+      },
+      address: {
+        streetAddress: result.address.road ? (result.address.road + (
+          result.address.house_number ? ` ${result.address.house_number}` : ''
+        )) : '',
+        postalCode: result.address.postcode,
+        addressLocality: result.address.city || result.address.state,
+        addressCountry: (result.address.country_code || '').toUpperCase()
+      }
+    }
+  }
+}
+
+export const debounce = (func, wait, immediate) => {
+  let timeout
+  return function executedFunction() {
+    const context = this
+    const args = arguments
+    const later = function() {
+      timeout = null
+      if (!immediate) func.apply(context, args)
+    }
+    const callNow = immediate && !timeout
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    if (callNow) func.apply(context, args)
+  }
+}
+
+
 const unicodeEscapes = /\\u([\d\w]{4})/gi
 export const parseProperties = (properties) => properties.split(/\r?\n/)
   .map(s => s.trim()).filter(s => !!s).reduce((acc, cur) => {
@@ -84,7 +128,9 @@ export const parseProperties = (properties) => properties.split(/\r?\n/)
 
 export const obfuscate = string => string.split('').map(c => `&#${c.charCodeAt()};`).join('')
 
+export const getProp = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  parseProperties, obfuscate
+  debounce, parseProperties, obfuscate, getProp
 }

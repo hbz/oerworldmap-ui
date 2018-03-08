@@ -38,7 +38,7 @@ const WebPage = ({
         />
 
         {(about.image || geo) &&
-          <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} />
+          <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} view={view} />
         }
 
         <div className="webPageContent">

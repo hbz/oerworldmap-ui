@@ -12,7 +12,7 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getParams, getURL } from '../common'
+import { getParams, getURL, getProp } from '../common'
 import bounds from  '../json/bounds.json'
 
 import '../styles/components/Map.pcss'
@@ -234,10 +234,9 @@ class Map extends React.Component {
       if (this.state.hoveredFeatures[0] && this.state.hoveredFeatures[0].layer.id  === 'countries') {
         popupContent = (
           <ul>
-            {/* ADD TRANSLATION FOR COUNTRY AND SERVICE */}
             <li>
               <b>
-                {this.state.hoveredFeatures[0].properties.iso_a2}
+                {this.props.translate(this.state.hoveredFeatures[0].properties.iso_a2)}
                 <br />
                 {this.state.bucket &&
                   <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
@@ -253,7 +252,7 @@ class Map extends React.Component {
       } else {
         popupContent = (
           <ul className="list">
-            {this.state.hoveredFeatures.length <= 6 ? (
+            {this.state.hoveredFeatures.length <= 6 || this.map.getZoom() === this.map.getMaxZoom() ? (
               this.state.hoveredFeatures.map(feature => (
                 <li key={feature.properties['@id']}>
                   <Icon type={feature.properties['@type']} />
@@ -435,6 +434,8 @@ class Map extends React.Component {
 
     if (aggregations["about.location.address.addressRegion"]) {
 
+      const regionColors = []
+
       const regionBuckets = aggregations
         ? aggregations["about.location.address.addressRegion"].buckets
         : []
@@ -448,12 +449,20 @@ class Map extends React.Component {
       const regionSteps = Math.ceil(regionMax / choroplethLayersCount / 10) * 10
 
       regionBuckets.forEach(function(bucket) {
-        stops.push([bucket['key'], colors[Math.floor(bucket.doc_count / regionSteps)]])
+        const currentColor = colors[Math.floor(bucket.doc_count / regionSteps)]
+        regionColors.indexOf(currentColor) === -1 ? regionColors.push(currentColor) : ''
+        stops.push([bucket['key'], currentColor])
       })
+
+      regionColors.push('rgba(255, 255, 255, 1)')
 
       // In case of not having any stops, set an empty
       if (stops.length === 0)
         stops.push(['none', 'rgba(255, 255, 255, 1)'])
+
+      this.setState({
+        colors: regionColors.reverse()
+      })
 
       this.map.setPaintProperty('Regions', 'fill-color', {
         "property": 'code_hasc',
@@ -470,12 +479,11 @@ class Map extends React.Component {
   }
 
   clickPoints(e) {
-    if (e.features.length > 6) {
+    if (e.features.length > 6 && this.map.getZoom() !== this.map.getMaxZoom()) {
       this.map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 10
+        center: e.lngLat,
+        zoom: this.map.getZoom() + 5
       })
-
     } else if (e.features.length > 1) {
       const list = e.features.map(feature => {
         return (
@@ -537,7 +545,9 @@ class Map extends React.Component {
     // Check if a point is clicked too and do nothing in that case
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
-      this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+      if (e.features[0].properties.iso_a2 !== '-99') {
+        this.props.emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+      }
     }
   }
 
@@ -583,6 +593,11 @@ class Map extends React.Component {
         }
 
         {this.state.colors &&
+        (
+          (getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
+          (getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
+          (getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0)
+        ) &&
           <div className="mapLeyend">
             <div className="infoContainer">
               <span className="min">0</span>
@@ -594,15 +609,11 @@ class Map extends React.Component {
               </span>
 
               <span className="max">
-                {this.props.aggregations['about.location.address.addressRegion'] &&
-                  this.props.aggregations['about.location.address.addressRegion'].buckets.length
-                  ? (this.props.aggregations['about.location.address.addressRegion'].buckets.length
-                    ? this.props.aggregations['about.location.address.addressRegion'].buckets[0].doc_count
-                    : '')
-                  : (this.props.aggregations['about.location.address.addressCountry'].buckets[0]
-                    ? this.props.aggregations['about.location.address.addressCountry'].buckets[0].doc_count
-                    : ''
-                  )}
+                {
+                  getProp(['about.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  getProp(['about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  getProp(['country', 'about.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations)
+                }
               </span>
             </div>
 
@@ -621,6 +632,8 @@ class Map extends React.Component {
             </Link>
           </div>
         }
+
+        <a className="imprintLink" href="/imprint">{this.props.translate('main.imprintPrivacy')}</a>
 
       </div>
     )

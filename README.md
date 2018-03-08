@@ -36,6 +36,7 @@ MAPBOX_ACCESS_TOKEN=your.mapbox.access.token
 MAPBOX_STYLE=username/style_id
 API_HOST=https://oerworldmap.org
 API_PORT=443
+API_SCHEME=http
 ```
 
 Check if all is well and run:

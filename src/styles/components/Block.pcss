@@ -16,15 +16,13 @@
     display: flex;
     justify-content: start;
     align-items: center;
-
     border-bottom: 1px solid var(--grey-light);
-    padding: .7em 0;
-    margin-bottom: .5em;
+    padding: 0.7em 0;
+    margin-bottom: 0.5em;
 
     & > h3 {
       flex-grow: 1;
       margin-bottom: 0;
-
       font-size: inherit;
       font-weight: 400;
     }
@@ -59,11 +57,50 @@
   }
 
   & .show-all {
-    margin-top: .6em;
+    margin-top: 0.6em;
     font-size: var(--font-size-small);
   }
 
   &.collapsible.plus.collapsed .main {
     display: none;
+  }
+
+  & .Comment {
+    border-bottom: 1px solid var(--grey-light);
+    margin-bottom: 0.5em;
+
+    & .head {
+      font-size: var(--font-size-small);
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
+
+  /* styling of comments form, mostly as interim solution before json-pointer-form style is revised in general */
+
+  & .Comments {
+    & .Forms {
+      font-size: var(--font-size);
+
+      & h1 {
+        display: none;
+      }
+
+      & input[type=submit] {
+        margin-top: 0;
+        border-color: var(--action-color);
+        background-color: var(--action-color);
+        font-weight: normal;
+
+        &:hover {
+          background: white;
+          color: var(--action-color);
+        }
+      }
+
+      & fieldset > legend {
+        font-weight: normal;
+      }
+    }
   }
 }

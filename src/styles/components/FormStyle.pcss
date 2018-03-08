@@ -90,6 +90,28 @@
       }
     }
 
+    & ul {
+      margin: 0;
+      padding: 0;
+
+      & > li {
+        & label {
+          padding-left: 30px;
+        }
+
+        & ul > li {
+
+          & label {
+            padding-left: 40px;
+          }
+
+          & ul > li label {
+            padding-left: 50px;
+          }
+        }
+      }
+    }
+
     & li {
       transition: all 0.2s;
 
@@ -101,10 +123,6 @@
           background-color: var(--orange);
           color: var(--white);
         }
-      }
-
-      &:last-child label {
-        border-bottom: none;
       }
 
       &:hover::after {
@@ -164,5 +182,25 @@
     & + input {
       border-color: var(--orange);
     }
+  }
+
+  & .textarea.citation {
+    border: none;
+
+    & label {
+      font-weight: bold;
+    }
+
+    & textarea {
+      border: 1px solid var(--blue-dark);
+    }
+  }
+
+  & .alert.alert-info {
+    margin-top: 15px;
+  }
+
+  & .fa.fa-question-circle {
+    padding-left: 5px;
   }
 }

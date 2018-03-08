@@ -28,7 +28,11 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate}) =>
           <span>{translate(concept.name)}</span>
         </Link>
         {concept.narrower &&
-          <ConceptTree concepts={concept.narrower} translate={translate} />
+          <ConceptTree
+            concepts={concept.narrower}
+            linkTemplate={linkTemplate}
+            translate={translate}
+          />
         }
       </li>
     ))}

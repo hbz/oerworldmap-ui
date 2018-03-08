@@ -1,18 +1,11 @@
-/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
-import withEmitter from './withEmitter'
 
-
-const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, emitter, _self, _links}) => {
-  const closeResource = () => {
-    emitter.emit('navigate', '__back__')
-  }
-
+const WebPageHeader = ({user, about, author, contributor, dateModified, dateCreated, view, _self, _links}) => {
   return (
     <div className="WebPageHeader">
       <Metadata
@@ -22,53 +15,33 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
         contributor={contributor}
         dateModified={dateModified}
         dateCreated={dateCreated}
+        user={user}
       />
       <div className="webPageActions print-display-none">
-        {about['@id'] &&
-          <div>
+        <div>
 
-            <div className="action">
+          {about['@id'] && [
+            <div className="action" key="share">
               <ShareExport _self={_self} _links={_links} view={view} />
-            </div>
-
-            <div className="action">
-              {user && (view === 'edit' ? (
-                <Link href="#view"><i className="fa fa-eye" /></Link>
-              ) : (
-                <Link href="#edit"><i className="fa fa-pencil" /></Link>
-              ))}
-            </div>
-
-            <div className="action">
-              {typeof window !== 'undefined' &&
-                window.history.length ?
-                (
-                  <span
-                    onClick={closeResource}
-                    role="button"
-                    tabIndex="0"
-                    className="btn-grey"
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) {
-                        e.target.click()
-                      }
-                    }}
-                  >
-                    <i className="fa fa-close" />
-                  </span>
+            </div>,
+            user &&
+              <div className="action" key="view">
+                {view === 'edit' ? (
+                  <Link href="#view"><i className="fa fa-eye" /></Link>
                 ) : (
-                  <Link
-                    href='/resource/'
-                    className="btn-grey"
-                  >
-                    <i className="fa fa-close" />
-                  </Link>
-                )
-              }
-            </div>
+                  <Link href="#edit"><i className="fa fa-pencil" /></Link>
+                )}
+              </div>
 
+          ]}
+
+          <div className="action">
+            <Link href={Link.home} className="closeModal">
+              <i className="fa fa-close" />
+            </Link>
           </div>
-        }
+
+        </div>
       </div>
     </div>
   )
@@ -76,7 +49,6 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, dateCrea
 
 WebPageHeader.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   contributor: PropTypes.string,
   dateCreated: PropTypes.string,
   dateModified: PropTypes.string,
@@ -95,4 +67,4 @@ WebPageHeader.defaultProps = {
   author: null
 }
 
-export default withEmitter(WebPageHeader)
+export default WebPageHeader

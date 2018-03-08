@@ -35,7 +35,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       padding: 17px var(--webpage-padding);
       font-size: var(--font-size-xs);
 
@@ -44,14 +43,14 @@
       }
 
       & .Metadata i {
-        margin-right: .4em;
+        margin-right: 0.4em;
       }
 
       & .webPageActions {
 
         & .action {
           display: inline-block;
-          margin-right: 15px;
+          margin-right: 10px;
 
           &:last-child {
             margin-right: 0;
@@ -133,14 +132,6 @@
         }
       }
     }
-
-    & .Comments .Forms > form > fieldset > fieldset {
-      display: none;
-    }
-
-    & .Comments .Forms > form > fieldset > fieldset:first-of-type {
-      display: block;
-    }
   }
 
   & #view,
@@ -157,11 +148,11 @@
     }
   }
 
-  & .Forms.Lighthouse > form > fieldset.description > fieldset.multiple-container  {
+  & .Forms.Lighthouse > form > fieldset.description > fieldset.multiple-container {
     display: none;
   }
 
-  & .Forms.Lighthouse > form > fieldset.description > fieldset.multiple-container:first-of-type  {
+  & .Forms.Lighthouse > form > fieldset.description > fieldset.multiple-container:first-of-type {
     display: block;
   }
 
@@ -170,31 +161,30 @@
     background-color: var(--white);
     padding: 0;
 
-    & .webPageContainer {
-      max-width: 100%;
-      border: none;
+    & > .WebPage {
       margin-bottom: 0;
+      min-width: 100%;
+      border: none;
+      border-radius: 0;
+    }
 
-      & .Comments form {
-        display: none;
-      }
-
-      & .WebPageHeader {
-        display: none;
-      }
+    & .Comments form,
+    & .SocialLinks,
+    & .WebPageUserActions {
+      display: none;
     }
   }
 
   @media screen and (--mobile-breakpoint) {
     padding: 0;
 
-    & .webPageContainer {
-      border: 0;
-      margin: 0;
-      max-width: 100%;
+    & > .WebPage {
+      margin-bottom: 0;
+      border: none;
+      border-radius: 0;
 
       & .webPageContent {
-        padding: 10px;
+        padding: 20px 20px;
       }
     }
   }

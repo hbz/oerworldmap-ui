@@ -1,7 +1,11 @@
+/* global window */
+/* global Event */
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+import withEmitter from './withEmitter'
 
 class MiniMap extends React.Component {
 
@@ -11,26 +15,35 @@ class MiniMap extends React.Component {
     this.mouseDown = this.mouseDown.bind(this)
     this.onMove = this.onMove.bind(this)
     this.onUp = this.onUp.bind(this)
+    this.mouseEnter = this.mouseEnter.bind(this)
+    this.mouseLeave = this.mouseLeave.bind(this)
+    this.updateMap = this.updateMap.bind(this)
   }
 
   componentDidMount() {
-
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = this.props.mapboxConfig.token
 
     this.MiniMap = new mapboxgl.Map({
-      container: this.MiniMap,
+      container: this.MiniMapContainer,
       style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`,
       center: this.props.center,
       zoom: this.props.zoom
     })
+
+    if (this.props.zoomable) {
+      this.MiniMap.scrollZoom.enable()
+      this.MiniMap.doubleClickZoom.enable()
+    } else {
+      this.MiniMap.scrollZoom.disable()
+      this.MiniMap.doubleClickZoom.disable()
+    }
 
     this.canvas = this.MiniMap.getCanvasContainer()
     this.isDragging = false
     this.isCursorOverPoint = false
 
     this.MiniMap.on('load', () => {
-
       this.MiniMap.addSource('points', {
         "type": "geojson",
         "data": this.props.features
@@ -48,24 +61,30 @@ class MiniMap extends React.Component {
         }
       })
 
-      if (this.props.draggable) {
-        this.MiniMap.on('mouseenter', 'points', () => {
-          this.MiniMap.setPaintProperty('points', 'circle-color', '#3bb2d0')
-          this.canvas.style.cursor = 'move'
-          this.isCursorOverPoint = true
-          this.MiniMap.dragPan.disable()
+      this.props.emitter.on('setPlace', location =>
+        location && location.geo && this.MiniMap.getSource('points').setData({
+          type: 'Point',
+          coordinates: [location.geo.lon, location.geo.lat]
         })
-
-        this.MiniMap.on('mouseleave', 'points', () => {
-          this.MiniMap.setPaintProperty('points', 'circle-color', '#3887be')
-          this.canvas.style.cursor = ''
-          this.isCursorOverPoint = false
-          this.MiniMap.dragPan.enable()
-        })
-
-        this.MiniMap.on('mousedown', this.mouseDown)
-      }
+      )
+      this.updateMap()
+      window.dispatchEvent(new Event('resize'))
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.zoomable) {
+      this.MiniMap.scrollZoom.enable()
+      this.MiniMap.doubleClickZoom.enable()
+    } else {
+      this.MiniMap.scrollZoom.disable()
+      this.MiniMap.doubleClickZoom.disable()
+      this.MiniMap.flyTo({zoom:3})
+    }
+  }
+
+  componentDidUpdate() {
+    this.updateMap()
   }
 
   onMove(e) {
@@ -85,8 +104,8 @@ class MiniMap extends React.Component {
           }
           return feature
         })
-      } else {
-        data.geometry.coordinates = [coords.lng, coords.lat]
+      } else if (data.type === 'Point') {
+        data.coordinates = [coords.lng, coords.lat]
       }
 
       this.MiniMap.getSource('points').setData(data)
@@ -105,7 +124,6 @@ class MiniMap extends React.Component {
     this.MiniMap.off('mousemove', this.onMove)
 
     const region = this.MiniMap.queryRenderedFeatures(e.point, { layers: ['Regions'] }).pop()
-    // console.log(region)
 
     const feature = {
       "type": "Feature",
@@ -135,10 +153,37 @@ class MiniMap extends React.Component {
     this.MiniMap.once('mouseup', this.onUp)
   }
 
+  mouseEnter() {
+    this.MiniMap.setPaintProperty('points', 'circle-color', '#3bb2d0')
+    this.canvas.style.cursor = 'move'
+    this.isCursorOverPoint = true
+    this.MiniMap.dragPan.disable()
+  }
+
+  mouseLeave() {
+    this.MiniMap.setPaintProperty('points', 'circle-color', '#3887be')
+    this.canvas.style.cursor = ''
+    this.isCursorOverPoint = false
+    this.MiniMap.dragPan.enable()
+  }
+
+  updateMap() {
+    this.MiniMap.getSource('points').setData(this.props.features)
+    if (this.props.draggable) {
+      this.MiniMap.on('mouseenter', 'points', this.mouseEnter)
+      this.MiniMap.on('mouseleave', 'points', this.mouseLeave)
+      this.MiniMap.on('mousedown', this.mouseDown)
+    } else {
+      this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
+      this.MiniMap.off('mouseleave', 'points', this.mouseLeave)
+      this.MiniMap.off('mousedown', this.mouseDown)
+    }
+  }
+
   render() {
     return (
       <div
-        ref={(map) => { this.MiniMap = map }}
+        ref={(map) => { this.MiniMapContainer = map }}
         id='MiniMap'
         style={
           {position:'absolute',
@@ -164,7 +209,9 @@ MiniMap.propTypes = {
   zoom: PropTypes.number,
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
-  onFeatureDrag: PropTypes.func
+  zoomable: PropTypes.bool,
+  onFeatureDrag: PropTypes.func,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 MiniMap.defaultProps = {
@@ -172,7 +219,8 @@ MiniMap.defaultProps = {
   zoom: 2,
   features: null,
   draggable: false,
+  zoomable: false,
   onFeatureDrag: null,
 }
 
-export default MiniMap
+export default withEmitter(MiniMap)

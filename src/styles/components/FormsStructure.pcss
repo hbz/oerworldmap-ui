@@ -1,10 +1,18 @@
 @import '../variables.pcss';
 
+.container[data-userroles*="admin"] .Forms .admin.only {
+  display: block;
+}
+
 .Forms {
   &::after {
     content: '';
     display: block;
     clear: both;
+  }
+
+  & .admin.only {
+    display: none;
   }
 
   & ::placeholder {
@@ -120,7 +128,6 @@
     }
 
     & li {
-      border-bottom: 1px solid lightgrey;
       background-color: white;
 
       & input[type=checkbox] {
@@ -128,6 +135,7 @@
       }
 
       & label {
+        border-bottom: 1px solid lightgrey;
         padding: 10px;
         display: block;
       }
@@ -210,9 +218,9 @@
     }
 
     & li {
-      border-bottom: 1px solid lightgray;
 
       & label {
+        border-bottom: 1px solid lightgray;
         display: block;
         width: 100%;
         padding: 10px;
@@ -270,5 +278,4 @@
   & fieldset.availableChannel > .multiple-container:first-of-type {
     display: block;
   }
-
 }

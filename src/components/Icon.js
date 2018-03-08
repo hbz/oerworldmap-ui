@@ -11,7 +11,8 @@ const icons = {
   Concept: 'tag',
   ConceptScheme: 'sitemap',
   Event: 'calendar',
-  WebPage: 'book'
+  WebPage: 'book',
+  Product: 'wrench'
 }
 
 const Icon = ({ type }) => (
