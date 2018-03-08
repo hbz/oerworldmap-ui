@@ -36,6 +36,7 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
       </div>
       {about.image &&
         <img
+          className={about['@type']}
           src={about.image}
           alt={translate(about.name)}
           onError={e => {
