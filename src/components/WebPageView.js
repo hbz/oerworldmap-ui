@@ -139,7 +139,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
-                <ul className="commaSeparatedList">
+                <ul className="spaceSeparatedList">
                   {about.keywords.map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
