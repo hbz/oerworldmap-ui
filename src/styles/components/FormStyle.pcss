@@ -2,178 +2,163 @@
 @import '../variables.pcss';
 @import 'FormsStructure.pcss';
 
-.Forms {
-  & fieldset > legend,
-  & .input > label {
-    font-weight: bold;
-  }
+.Form {
 
-  & input[type=text],
-  & .textarea {
-    border-radius: 2px;
-    border: 1px solid var(--blue-dark);
-  }
+  & .List.name,
+  & .List.displayName,
+  & .List.alternateName {
+    & .Input.text input {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      border-right: 0;
+      height: 100%;
+    }
 
-  & .textarea {
-    border-radius: 2px 2px 0 0;
-    border-bottom: 0;
-  }
-
-  & input[type=submit] {
-    border: 1px solid var(--orange);
-    background-color: var(--orange);
-    font-weight: bold;
-    color: var(--white);
-    font-size: 0.9rem;
-    border-radius: 2px;
-    transition: all 0.3s;
-
-    &:focus,
-    &:hover {
-      border: 1px solid var(--blue-dark);
-      background-color: var(--white);
-      color: var(--blue-dark);
+    & .toggleDropdown,
+    & .selectedContainer {
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
     }
   }
 
-  & .input.\@value input[type="text"] {
-    border-right: 0;
-    border-radius: 2px 0 0 2px;
+  & .toggleDropdown,
+  & .selectedContainer {
+    border-radius: var(--border-radius);
   }
 
-  & .toggleDropdown {
-    border-radius: 2px;
-    padding: 10px;
-    background-color: var(--blue-dark);
-    border: 1px solid var(--blue-dark);
-    color: var(--white);
-    padding-right: 40px;
+  & .DropdownSelect {
 
-    &::after {
-      font-family: FontAwesome;
-      content: "\f078";
-      position: absolute;
-      right: 17px;
-      top: 50%;
-      transform: translateY(-51%);
-    }
-
-    &:hover,
-    &:focus {
-      border: 1px solid var(--orange);
-      background-color: var(--orange);
-    }
-  }
-
-  & .dropdownList {
-    border-radius: 2px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    border: 1px solid var(--blue-dark);
-    transform: translateY(10px);
-
-    & .filterContainer {
+    & .toggleDropdown {
+      border: none;
+      background-color: var(--blue-dark);
+      color: var(--blue-lightest);
+      padding: 10px;
       position: relative;
-
-      & input[type="text"] {
-        padding-right: 40px;
-        border-radius: 0;
-        border-bottom: 1px solid var(--blue-dark);
-      }
+      padding-right: 30px;
 
       &::after {
         font-family: FontAwesome;
-        content: "\f002";
+        content: "\F078";
         position: absolute;
-        right: 17px;
+        right: 10px;
         top: 50%;
+        -webkit-transform: translateY(-51%);
         transform: translateY(-51%);
       }
     }
 
-    & ul {
-      margin: 0;
-      padding: 0;
+    & .dropdownList {
+      width: 400px;
+      top: calc(100% + 5px);
+      margin-bottom: 20px;
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--blue-dark);
 
-      & > li {
+      & > .filterContainer {
+        position: relative;
+
+        & input[type=text] {
+          border: none;
+          padding-right: 30px;
+          border-bottom: 1px solid #0f578a;
+          border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        &::after {
+          font-family: FontAwesome;
+          content: "\f002";
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-51%);
+        }
+      }
+
+      & li {
+        border-bottom: 1px solid #0f578a;
+
         & label {
-          padding-left: 30px;
-        }
-
-        & ul > li {
-
-          & label {
-            padding-left: 40px;
-          }
-
-          & ul > li label {
-            padding-left: 50px;
-          }
-        }
-      }
-    }
-
-    & li {
-      transition: all 0.2s;
-
-      & label {
-        border-bottom: 1px solid var(--blue-dark);
-
-        &:hover,
-        &:focus {
-          background-color: var(--orange);
-          color: var(--white);
+          display: blocK;
+          padding: 10px;
         }
       }
 
-      &:hover::after {
-        color: var(--orange);
+      & li:last-child {
+        border-bottom: none;
       }
     }
   }
 
-  & .input.dropdown label {
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &:hover,
-    &:focus {
-      background-color: var(--orange);
-      color: var(--white);
-    }
-  }
-
-  & .optionlistContainer .optionlist label,
-  & .checkbox label {
+  & .selectedContainer {
     background-color: var(--blue-dark);
-    border: 1px solid var(--blue-dark);
-    color: var(--white);
-    border-radius: 2px;
-    transition: all 0.2s;
+    color: var(--blue-lightest);
+    position: relative;
 
-    &:hover,
-    &:focus {
-      border: 1px solid var(--orange);
-      background-color: var(--orange);
+    & label {
+      padding: 10px;
+      display: block;
+      padding-right: 30px;
     }
 
     &::after {
       font-family: FontAwesome;
-      content: "\f00d";
+      content: "\F00D";
       position: absolute;
-      right: 17px;
+      right: 10px;
       top: 50%;
+      -webkit-transform: translateY(-51%);
       transform: translateY(-51%);
+      color: var(--blue-lightest);
     }
   }
 
-  & .textarea + .optionlistContainer .optionlist label,
-  & .textarea + .optionlistContainer .toggleDropdown {
-    border-radius: 0 0 2px 2px;
+  & .selectContainer {
+    position: relative;
+
+    & .optionsContainer {
+      position: absolute;
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--blue-dark);
+      top: calc(100% + 5px);
+      z-index: 1;
+      width: 100%;
+
+      & li {
+        border-bottom: 1px solid #0f578a;
+
+        & label {
+          display: blocK;
+          padding: 10px;
+        }
+      }
+
+      & li:last-child {
+        border-bottom: none;
+      }
+    }
   }
 
-  & .input.\@value + .optionlistContainer label,
-  & .input.\@value + .optionlistContainer .toggleDropdown {
-    border-radius: 0 2px 2px 0;
+  & .Textarea {
+
+    & > label {
+      display: none;
+    }
+
+    & > textarea {
+      width: 100%;
+      max-width: 100%;
+      resize: vertical;
+      min-height: 100px;
+      vertical-align: top;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    & + .DropdownSelect {
+      & .toggleDropdown,
+      & .selectedContainer {
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+      }
+    }
   }
 
   & .error {
@@ -184,23 +169,13 @@
     }
   }
 
-  & .textarea.citation {
-    border: none;
-
-    & label {
-      font-weight: bold;
-    }
-
-    & textarea {
-      border: 1px solid var(--blue-dark);
-    }
+  & .buttons {
+    margin-top: 20px;
   }
 
-  & .alert.alert-info {
-    margin-top: 15px;
-  }
-
-  & .fa.fa-question-circle {
-    padding-left: 5px;
+  & .List.sameAs {
+    & li {
+      margin-top: 10px;
+    }
   }
 }
