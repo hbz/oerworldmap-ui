@@ -3,8 +3,12 @@ import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
 
-const Fieldset = ({name, children, errors, property, title}) => (
-  <div className={`Fieldset ${property || ''}`.trim()} role="group" aria-labelledby={`${name}-label`}>
+const Fieldset = ({name, children, errors, property, title, className}) => (
+  <div
+    className={`Fieldset ${property || ''} ${className}`.trim()}
+    role="group"
+    aria-labelledby={`${name}-label`}
+  >
     <div className="label" id={`${name}-label`}>{title}</div>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
@@ -18,13 +22,15 @@ Fieldset.propTypes = {
   children: PropTypes.node.isRequired,
   errors: PropTypes.arrayOf(PropTypes.object),
   property: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  className: PropTypes.string
 }
 
 Fieldset.defaultProps = {
   errors: [],
   property: undefined,
-  title: ''
+  title: '',
+  className: ''
 }
 
 export default withFormData(Fieldset)

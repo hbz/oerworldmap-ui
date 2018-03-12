@@ -16,8 +16,8 @@ const onFocus = (e) => {
   e.target.value = tmp
 }
 
-const Textarea = ({name, value, setValue, errors, property, title}) => (
-  <div className={`Textarea ${property || ''}`.trim()}>
+const Textarea = ({name, value, setValue, errors, property, title, className}) => (
+  <div className={`Textarea ${property || ''} ${className}`.trim()}>
     <label htmlFor={name}>{title}</label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
@@ -40,14 +40,16 @@ Textarea.propTypes = {
   setValue: PropTypes.func.isRequired,
   errors: PropTypes.arrayOf(PropTypes.object),
   property: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  className: PropTypes.string
 }
 
 Textarea.defaultProps = {
   value: '',
   errors: [],
   property: undefined,
-  title: ''
+  title: '',
+  className: ''
 }
 
 export default withFormData(Textarea)

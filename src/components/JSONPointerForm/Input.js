@@ -26,8 +26,8 @@ const castValue = (target) => {
   }
 }
 
-const Input = ({type, name, value, setValue, errors, property, title}) => (
-  <div className={`Input ${type} ${property || ''}`.trim()}>
+const Input = ({type, name, value, setValue, errors, property, title, className}) => (
+  <div className={`Input ${type} ${property || ''} ${className}`.trim()}>
     <label htmlFor={name}>{title}</label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
@@ -56,7 +56,8 @@ Input.propTypes = {
   setValue: PropTypes.func.isRequired,
   errors: PropTypes.arrayOf(PropTypes.object),
   property: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  className: PropTypes.string
 }
 
 Input.defaultProps = {
@@ -64,7 +65,8 @@ Input.defaultProps = {
   value: '',
   errors: [],
   property: undefined,
-  title: ''
+  title: '',
+  className: ''
 }
 
 export default withFormData(Input)

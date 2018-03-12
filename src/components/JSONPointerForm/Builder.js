@@ -24,31 +24,71 @@ class Builder extends React.Component {
       }
     }
 
+    const className = schema._display ? schema._display.className : undefined
+
     switch (schema.type) {
     case 'string':
       return schema.enum
-        ? (<DropdownSelect
-          options={schema.enum}
-          title={schema.title}
-          description={schema.description}
-        />)
-        : (schema._display && schema._display.rows > 1
-          ? <Textarea title={schema.title} description={schema.description} />
-          : <Input type="text" title={schema.title} description={schema.description} />)
+        ? (
+          <DropdownSelect
+            options={schema.enum}
+            title={schema.title}
+            description={schema.description}
+            className={className}
+          />
+        )
+        : schema._display && schema._display.rows > 1
+          ? (
+            <Textarea
+              title={schema.title}
+              description={schema.description}
+              className={className}
+            />
+          )
+          : (
+            <Input
+              type="text"
+              title={schema.title}
+              description={schema.description}
+              className={className}
+            />
+          )
     case 'integer':
     case 'number':
-      return <Input type="number" title={schema.title} description={schema.description} />
+      return (
+        <Input
+          type="number"
+          title={schema.title}
+          description={schema.description}
+          className={className}
+        />
+      )
     case 'boolean':
-      return <Input type="checkbox" title={schema.title} description={schema.description} />
+      return (
+        <Input
+          type="checkbox"
+          title={schema.title}
+          description={schema.description}
+          className={className}
+        />
+      )
     case 'array':
       return (
-        <List title={schema.title} description={schema.description}>
+        <List
+          title={schema.title}
+          description={schema.description}
+          className={className}
+        >
           {this.getComponent(schema.items)}
         </List>
       )
     case 'object':
       return (
-        <Fieldset title={schema.title} description={schema.description}>
+        <Fieldset
+          title={schema.title}
+          description={schema.description}
+          className={className}
+        >
           {Object.keys(schema.properties).map((property) => React.cloneElement(
             this.getComponent(schema.properties[property]), {
               property, key: property
@@ -59,7 +99,14 @@ class Builder extends React.Component {
     case 'null':
     default:
       console.warn('Could not determine form component for', schema)
-      return <Input type="text" title={schema.title} description={schema.description} />
+      return (
+        <Input
+          type="text"
+          title={schema.title}
+          description={schema.description}
+          className={className}
+        />
+      )
     }
   }
 

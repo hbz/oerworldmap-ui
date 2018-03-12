@@ -4,8 +4,12 @@ import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 import withFormData from './withFormData'
 
-const List = ({name, value, children, errors, property, title}) => (
-  <div className={`List ${property || ''}`.trim()} role="group" aria-labelledby={`${name}-label`}>
+const List = ({name, value, children, errors, property, title, className}) => (
+  <div
+    className={`List ${property || ''} ${className}`.trim()}
+    role="group"
+    aria-labelledby={`${name}-label`}
+  >
     <div className="label" id={`${name}-label`}>{title}</div>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
@@ -42,14 +46,16 @@ List.propTypes = {
   children: PropTypes.element.isRequired,
   errors: PropTypes.arrayOf(PropTypes.object),
   property: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  className: PropTypes.string
 }
 
 List.defaultProps = {
   value: [],
   errors: [],
   property: undefined,
-  title: ''
+  title: '',
+  className: ''
 }
 
 export default withFormData(List)

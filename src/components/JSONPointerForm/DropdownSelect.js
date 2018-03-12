@@ -19,9 +19,12 @@ class DropdownSelect extends React.Component {
   }
 
   render() {
-    const {name, value, options, setValue, errors, title, translate} = this.props
+    const {name, property, value, options, setValue, errors, title, translate, className} = this.props
     return (
-      <div className="DropdownSelect" aria-labelledby={`${name}-label`}>
+      <div
+        className={`DropdownSelect ${property || ''} ${className}`.trim()}
+        aria-labelledby={`${name}-label`}
+      >
         <div className="label" id={`${name}-label`}>{title}</div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
@@ -93,17 +96,21 @@ class DropdownSelect extends React.Component {
 DropdownSelect.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
+  property: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   setValue: PropTypes.func.isRequired,
   errors: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
   translate: PropTypes.func.isRequired,
+  className: PropTypes.string
 }
 
 DropdownSelect.defaultProps = {
   value: '',
+  property: undefined,
   errors: [],
-  title: ''
+  title: '',
+  className: ''
 }
 
 export default withI18n(withFormData(DropdownSelect))
