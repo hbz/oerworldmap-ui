@@ -6,6 +6,7 @@ import Input from './Input'
 import List from './List'
 import DropdownSelect from './DropdownSelect'
 import RemoteSelect from './RemoteSelect'
+import Textarea from './Textarea'
 
 class Builder extends React.Component {
 
@@ -31,7 +32,9 @@ class Builder extends React.Component {
           title={schema.title}
           description={schema.description}
         />)
-        : <Input type="text" title={schema.title} description={schema.description} />
+        : (schema._display && schema._display.rows > 1
+          ? <Textarea title={schema.title} description={schema.description} />
+          : <Input type="text" title={schema.title} description={schema.description} />)
     case 'integer':
     case 'number':
       return <Input type="number" title={schema.title} description={schema.description} />

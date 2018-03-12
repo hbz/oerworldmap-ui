@@ -29,7 +29,7 @@ const Textarea = ({name, value, setValue, errors, property, title}) => (
       placeholder={title}
       autoFocus={autoFocus(name)}
       onFocus={onFocus}
-      onChange={(e) => (changed = name) && setValue(e.target)}
+      onChange={(e) => (changed = name) && setValue(e.target.value)}
     />
   </div>
 )
