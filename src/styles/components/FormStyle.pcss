@@ -4,6 +4,16 @@
 
 .Form {
 
+  & .List ul {
+    & li {
+      margin-bottom: 10px;
+    }
+
+    & li:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   & .List.name,
   & .List.displayName,
   & .List.alternateName {
@@ -171,11 +181,5 @@
 
   & .buttons {
     margin-top: 20px;
-  }
-
-  & .List.sameAs {
-    & li {
-      margin-top: 10px;
-    }
   }
 }
