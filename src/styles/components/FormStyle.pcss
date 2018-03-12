@@ -34,12 +34,19 @@
     border-radius: var(--border-radius);
   }
 
+  & .toggleDropdown {
+    &:hover,
+    &:focus {
+      background-color: var(--orange);
+    }
+  }
+
   & .DropdownSelect {
 
     & .toggleDropdown {
       border: none;
       background-color: var(--blue-dark);
-      color: var(--blue-lightest);
+      color: var(--white);
       padding: 10px;
       position: relative;
       padding-right: 30px;
@@ -87,8 +94,14 @@
         border-bottom: 1px solid #0f578a;
 
         & label {
-          display: blocK;
+          display: block;
           padding: 10px;
+
+          &:hover,
+          &:focus {
+            background-color: var(--blue-dark);
+            color: var(--white);
+          }
         }
       }
 
@@ -100,13 +113,19 @@
 
   & .selectedContainer {
     background-color: var(--blue-dark);
-    color: var(--blue-lightest);
+    color: var(--white);
     position: relative;
 
     & label {
       padding: 10px;
       display: block;
       padding-right: 30px;
+      color: var(--white);
+
+      &:hover,
+      &:focus {
+        background-color: var(--orange);
+      }
     }
 
     &::after {
@@ -117,7 +136,7 @@
       top: 50%;
       -webkit-transform: translateY(-51%);
       transform: translateY(-51%);
-      color: var(--blue-lightest);
+      color: var(--white);
     }
   }
 
@@ -139,6 +158,12 @@
         & label {
           display: blocK;
           padding: 10px;
+
+          &:hover,
+          &:focus {
+            background-color: var(--blue-dark);
+            color: var(--white);
+          }
         }
       }
 
