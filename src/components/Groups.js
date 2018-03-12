@@ -8,12 +8,14 @@ import FullModal from './FullModal'
 import withEmitter from './withEmitter'
 import '../styles/components/Groups.pcss'
 
-const Groups = ({translate, emitter, groups, users, _status}) => (
+const Groups = ({translate, emitter, groups, users, _status, confirm}) => (
   <div className="Groups">
     <FullModal>
       <div>
         <h2>{translate('UserIndex.groups.title')}</h2>
-        <p>{_status}</p>
+        {confirm &&
+          <p>{_status}</p>
+        }
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -82,10 +84,12 @@ Groups.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   groups: PropTypes.arrayOf(PropTypes.any).isRequired,
   users: PropTypes.arrayOf(PropTypes.any).isRequired,
+  confirm: PropTypes.bool,
   _status: PropTypes.string
 }
 
 Groups.defaultProps = {
+  confirm: false,
   _status: null,
 }
 

@@ -219,7 +219,7 @@ export default (api) => {
       post: async (params, context, state, body) => {
         const data = await api.post('/user/groups', body, context.authorization)
         const component = (data) => (
-          <Groups {...data} />
+          <Groups {...data} confirm />
         )
         return { title: 'Update Groups', data, component }
       }
