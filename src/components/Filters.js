@@ -11,7 +11,7 @@ import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
-import { triggerClick } from '../common'
+import { triggerClick, clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -26,37 +26,8 @@ const onSubmit = (e, emitter) => {
 
 const onReset = (e, emitter) => {
   e.preventDefault()
-  const form = e.target.parentElement.form || e.target.form || e.target
-
-  // clearing inputs
-  const inputs = form.getElementsByTagName('input')
-  for (let i = 0; i<inputs.length; i++) {
-    switch (inputs[i].type) {
-    case 'radio':
-    case 'checkbox':
-      inputs[i].checked = false
-      break
-    default:
-      inputs[i].value = ''
-      break
-    }
-  }
-
-  // clearing selects
-  const selects = form.getElementsByTagName('select')
-  for (let i = 0; i<selects.length; i++) {
-    selects[i].selectedIndex = 0
-  }
-
-  // clearing textarea
-  const text= form.getElementsByTagName('textarea')
-  for (let i = 0; i<text.length; i++) {
-    text[i].innerHTML= ''
-  }
-
-  // navigate
+  clearForm(e.target.parentElement.form || e.target.form || e.target)
   emitter.emit('navigate', '/resource/')
-
 }
 
 const primaryFilters = [
