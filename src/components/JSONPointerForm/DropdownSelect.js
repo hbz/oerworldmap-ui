@@ -3,17 +3,24 @@ import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
 
-const optionFilter = filter => option =>
-  !filter || option.toLowerCase().search(filter.trim().toLowerCase()) !== -1
-
 class DropdownSelect extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
       filter: "",
-      dropdown: false
+      dropdown: false,
+      labels: props.options.reduce((acc, curr) => {
+        return Object.assign(acc, {[curr]: props.translate(curr).toLowerCase()})
+      }, {})
     }
+    this.optionFilter = this.optionFilter.bind(this)
+  }
+
+  optionFilter() {
+    return option => !this.state.filter
+      || option.toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
+      || this.state.labels[option].search(this.state.filter.trim().toLowerCase()) !== -1
   }
 
   render() {
@@ -53,7 +60,7 @@ class DropdownSelect extends React.Component {
                 this.setState({dropdown: !this.state.dropdown})
               }}
             >
-              {translate(title)}
+              {translate('select', {name: translate(title)})}
             </button>
             <div className={this.state.dropdown ? 'dropdownList' : 'hidden'}>
               <div className="filterContainer">
@@ -66,7 +73,7 @@ class DropdownSelect extends React.Component {
                 />
               </div>
               <ul className="optionsContainer">
-                {options.filter(optionFilter(this.state.filter)).map(option => (
+                {options.filter(this.optionFilter()).map(option => (
                   <li key={option}>
                     <input
                       type="checkbox"
