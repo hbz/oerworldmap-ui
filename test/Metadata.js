@@ -32,10 +32,11 @@ describe('<Metadata />', () => {
     </I18nProvider>
   )
 
+  console.dir(wrapper)
+
   it("Generates the correct elements in metadata", () => {
     assert.equal(wrapper.find('i')[0].attribs.class.includes('fa fa-book'), true)
     assert.equal(wrapper.children()[0].next.data.trim(), about['@type'])
-    //FIXME
-    //assert.equal(wrapper.text().split(' ').slice(-1), "2018-02-22")
+    assert.equal(wrapper.find('a')[0].attribs.title, "2018-02-22")
   })
 })
