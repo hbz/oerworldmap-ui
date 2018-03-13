@@ -66,8 +66,8 @@ export const getURL = (route) => {
   return url
 }
 
-export const triggerClick = (e) => {
-  if (e.keyCode === 32) {
+export const triggerClick = (e, code) => {
+  if (e.keyCode === (code || 32)) {
     e.target.click()
   }
 }
