@@ -18,6 +18,7 @@ class RemoteSelect extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.updateOptions = _.debounce(this.updateOptions.bind(this), 500)
     this.optionList = this.optionList.bind(this)
+    this.showOption = this.showOption.bind(this)
   }
 
   handleChange(e) {
@@ -33,7 +34,7 @@ class RemoteSelect extends React.Component {
       apiCall = api.vocab(schema.properties.inScheme.properties['@id'].enum[0])
     } else {
       const params = {
-        q: this.state.filter,
+        q: `${this.state.filter}*`,
         'filter.about.@type': schema.properties['@type'].enum
       }
       const url = getURL({
@@ -45,8 +46,17 @@ class RemoteSelect extends React.Component {
     apiCall.then(result => this.setState({options: result.member.map(member => member.about)}))
   }
 
+  showOption(option) {
+    return !this.props.schema.properties.inScheme
+      || option['@type'] !== 'Concept'
+      || option.name.some(name =>
+        name['@value'].toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
+      )
+  }
+
   optionList(options) {
     const {name, translate, setValue} = this.props
+
     return (
       <ul>
         {options.map(option => (
@@ -58,7 +68,12 @@ class RemoteSelect extends React.Component {
               id={`${name}-${option['@id']}`}
               onChange={e => setValue(e.target.checked ? option : undefined)}
             />
-            <label htmlFor={`${name}-${option['@id']}`} tabIndex="0" role="button">
+            <label
+              htmlFor={`${name}-${option['@id']}`}
+              tabIndex="0"
+              role="button"
+              className={this.showOption(option) ? null : 'hidden'}
+            >
               <Icon type={option["@type"]} />
               &nbsp;{translate(option.name)}
             </label>
