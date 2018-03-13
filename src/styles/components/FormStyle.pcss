@@ -4,12 +4,23 @@
 
 .Form {
 
-  & .List ul {
-    & li {
-      margin-bottom: 10px;
+  & .List {
+
+    & ul {
+      & li {
+        margin-bottom: 10px;
+      }
+
+      &.optionsContainer li {
+        margin-bottom: 0;
+      }
+
+      & li:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    & li:last-child {
+    & div.optionsContainer ul li {
       margin-bottom: 0;
     }
   }
