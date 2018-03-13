@@ -1,0 +1,16 @@
+{
+  "username": "user@localhost",
+  "groups": [
+    "editor",
+    "admin"
+  ],
+  "id": "FAKE-ID",
+  "name": [
+    {
+      "@value": "Fake User",
+      "@language": "en"
+    }
+  ],
+  "_self": "http://oerworldmap.local:80/user/profile",
+  "_status": "OK"
+}

@@ -2,178 +2,228 @@
 @import '../variables.pcss';
 @import 'FormsStructure.pcss';
 
-.Forms {
-  & fieldset > legend,
-  & .input > label {
-    font-weight: bold;
-  }
+.Form {
 
-  & input[type=text],
-  & .textarea {
-    border-radius: 2px;
-    border: 1px solid var(--blue-dark);
-  }
+  & .List {
 
-  & .textarea {
-    border-radius: 2px 2px 0 0;
-    border-bottom: 0;
-  }
+    & ul {
+      & li {
+        margin-bottom: 10px;
+      }
 
-  & input[type=submit] {
-    border: 1px solid var(--orange);
-    background-color: var(--orange);
-    font-weight: bold;
-    color: var(--white);
-    font-size: 0.9rem;
-    border-radius: 2px;
-    transition: all 0.3s;
+      &.optionsContainer li {
+        margin-bottom: 0;
+      }
 
-    &:focus,
-    &:hover {
-      border: 1px solid var(--blue-dark);
-      background-color: var(--white);
-      color: var(--blue-dark);
+      & li:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    & div.optionsContainer ul li {
+      margin-bottom: 0;
+
+      & label {
+        border-bottom: 1px solid #0f578a;
+
+        & > i {
+          padding-right: 5px;
+        }
+      }
+
+      & label:last-child {
+        border-bottom: none;
+      }
     }
   }
 
-  & .input.\@value input[type="text"] {
-    border-right: 0;
-    border-radius: 2px 0 0 2px;
+  & .List.name,
+  & .List.displayName,
+  & .List.alternateName {
+    & .Input.text input {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      border-right: 0;
+      height: 100%;
+    }
+
+    & .toggleDropdown,
+    & .selectedContainer {
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+  }
+
+  & .toggleDropdown,
+  & .selectedContainer {
+    border-radius: var(--border-radius);
   }
 
   & .toggleDropdown {
-    border-radius: 2px;
-    padding: 10px;
-    background-color: var(--blue-dark);
-    border: 1px solid var(--blue-dark);
-    color: var(--white);
-    padding-right: 40px;
-
-    &::after {
-      font-family: FontAwesome;
-      content: "\f078";
-      position: absolute;
-      right: 17px;
-      top: 50%;
-      transform: translateY(-51%);
-    }
-
     &:hover,
     &:focus {
-      border: 1px solid var(--orange);
       background-color: var(--orange);
     }
   }
 
-  & .dropdownList {
-    border-radius: 2px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    border: 1px solid var(--blue-dark);
-    transform: translateY(10px);
+  & .DropdownSelect {
 
-    & .filterContainer {
+    & .toggleDropdown {
+      border: none;
+      background-color: var(--blue-dark);
+      color: var(--white);
+      padding: 10px;
       position: relative;
-
-      & input[type="text"] {
-        padding-right: 40px;
-        border-radius: 0;
-        border-bottom: 1px solid var(--blue-dark);
-      }
+      padding-right: 30px;
 
       &::after {
         font-family: FontAwesome;
-        content: "\f002";
+        content: "\F078";
         position: absolute;
-        right: 17px;
+        right: 10px;
         top: 50%;
+        -webkit-transform: translateY(-51%);
         transform: translateY(-51%);
+        pointer-events: none;
       }
     }
 
-    & ul {
-      margin: 0;
-      padding: 0;
+    & .dropdownList {
+      width: 400px;
+      top: calc(100% + 5px);
+      margin-bottom: 20px;
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--blue-dark);
 
-      & > li {
+      & > .filterContainer {
+        position: relative;
+
+        & input[type=text] {
+          border: none;
+          padding-right: 30px;
+          border-bottom: 1px solid #0f578a;
+          border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        &::after {
+          font-family: FontAwesome;
+          content: "\f002";
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-51%);
+          pointer-events: none;
+        }
+      }
+
+      & li {
+        border-bottom: 1px solid #0f578a;
+
         & label {
-          padding-left: 30px;
-        }
+          display: block;
+          padding: 10px;
 
-        & ul > li {
-
-          & label {
-            padding-left: 40px;
-          }
-
-          & ul > li label {
-            padding-left: 50px;
+          &:hover,
+          &:focus {
+            background-color: var(--blue-dark);
+            color: var(--white);
           }
         }
       }
-    }
 
-    & li {
-      transition: all 0.2s;
-
-      & label {
-        border-bottom: 1px solid var(--blue-dark);
-
-        &:hover,
-        &:focus {
-          background-color: var(--orange);
-          color: var(--white);
-        }
-      }
-
-      &:hover::after {
-        color: var(--orange);
+      & li:last-child {
+        border-bottom: none;
       }
     }
   }
 
-  & .input.dropdown label {
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &:hover,
-    &:focus {
-      background-color: var(--orange);
-      color: var(--white);
-    }
-  }
-
-  & .optionlistContainer .optionlist label,
-  & .checkbox label {
+  & .selectedContainer {
     background-color: var(--blue-dark);
-    border: 1px solid var(--blue-dark);
     color: var(--white);
-    border-radius: 2px;
-    transition: all 0.2s;
+    position: relative;
 
-    &:hover,
-    &:focus {
-      border: 1px solid var(--orange);
-      background-color: var(--orange);
+    & label {
+      padding: 10px;
+      display: block;
+      padding-right: 30px;
+      color: var(--white);
+      text-align: center;
+
+      &:hover,
+      &:focus {
+        background-color: var(--orange);
+      }
+
+      & > i {
+        padding-right: 5px;
+      }
     }
 
     &::after {
       font-family: FontAwesome;
-      content: "\f00d";
+      content: "\F00D";
       position: absolute;
-      right: 17px;
+      right: 10px;
       top: 50%;
+      -webkit-transform: translateY(-51%);
       transform: translateY(-51%);
+      color: var(--white);
+      pointer-events: none;
     }
   }
 
-  & .textarea + .optionlistContainer .optionlist label,
-  & .textarea + .optionlistContainer .toggleDropdown {
-    border-radius: 0 0 2px 2px;
+  & .selectContainer {
+    position: relative;
+
+    & .optionsContainer {
+      position: absolute;
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--blue-dark);
+      top: calc(100% + 5px);
+      z-index: 1;
+      width: 100%;
+
+      & li {
+        border-bottom: 1px solid #0f578a;
+
+        & label {
+          display: blocK;
+
+          &:hover,
+          &:focus {
+            background-color: var(--blue-dark);
+            color: var(--white);
+          }
+        }
+      }
+
+      & li:last-child {
+        border-bottom: none;
+      }
+    }
   }
 
-  & .input.\@value + .optionlistContainer label,
-  & .input.\@value + .optionlistContainer .toggleDropdown {
-    border-radius: 0 2px 2px 0;
+  & .Textarea {
+
+    & > label {
+      display: none;
+    }
+
+    & > textarea {
+      width: 100%;
+      max-width: 100%;
+      resize: vertical;
+      min-height: 100px;
+      vertical-align: top;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    & + .DropdownSelect {
+      & .toggleDropdown,
+      & .selectedContainer {
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+      }
+    }
   }
 
   & .error {
@@ -184,25 +234,51 @@
     }
   }
 
-  & .textarea.citation {
-    border: none;
+  & .agree {
+    color: var(--grey-dark);
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
+  & .buttons {
+    margin-top: 20px;
+  }
+
+  /* Custom Elements */
+  & .DropdownSelect.addressCountry .label {
+    display: block;
+  }
+
+  & .admin.only {
+    display: none;
+  }
+
+  & .Input.checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+    align-items: start;
 
     & label {
-      font-weight: bold;
+      flex: 1;
     }
 
-    & textarea {
-      border: 1px solid var(--blue-dark);
+    & input[type=checkbox] {
+      max-width: 25px;
+      position: relative;
+      top: 2px;
     }
   }
+}
 
-  & .alert.alert-info {
-    margin-top: 60px;
-    margin-bottom: 26px;
-    color: var(--grey-dark);
-  }
+.registerForm .Fieldset .Input.text {
+  margin-bottom: 10px;
 
-  & .fa.fa-question-circle {
-    padding-left: 5px;
+  & label {
+    display: none;
   }
+}
+
+.registerForm .DropdownSelect.location {
+  margin-bottom: 10px;
 }

@@ -104,7 +104,7 @@ server.get(/^(.*)$/, (req, res) => {
   const user = req.user
   const locales = req.locales
   const phrases = i18ns[locales[0]]
-  const context = { locales, authorization, user, mapboxConfig, phrases }
+  const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
     res.send(template({

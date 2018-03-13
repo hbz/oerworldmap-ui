@@ -9,7 +9,7 @@ import mitt from 'mitt'
 import { AppContainer } from 'react-hot-loader'
 
 import router from './router'
-import { getParams, mapNominatimResult } from './common'
+import { getParams } from './common'
 import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
@@ -54,27 +54,6 @@ import Link from './components/Link'
         Link.back = referrer
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
-      }
-    })
-    // Find data from the API
-    emitter.on('getOptions', ({term, schema, callback}) => {
-      if (schema.properties.mapzen) {
-        const nominatimUrl = "https://nominatim.openstreetmap.org/search/"
-        api.fetch(`${nominatimUrl}/${term}?format=json&addressdetails=1&limit=10`).then(
-          response => {
-            callback({ member: response.map(result => mapNominatimResult(result)) })
-          }
-        )
-      } else if (schema.properties.inScheme) {
-        api.vocab(schema.properties.inScheme.properties['@id'].enum[0]).then(response => {
-          callback(response.data)
-        })
-      } else {
-        const params = {
-          q: term,
-          'filter.about.@type': schema.properties['@type'].enum
-        }
-        routes.route('/resource/', context).get(params).then(({data}) => callback(data))
       }
     })
     // Log in
