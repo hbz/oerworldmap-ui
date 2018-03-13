@@ -5,7 +5,6 @@ import _ from 'lodash'
 import withFormData from './withFormData'
 import Icon from '../Icon'
 import withApi from '../withApi'
-import withI18n from '../withI18n'
 import { getURL } from '../../common'
 
 class RemoteSelect extends React.Component {
@@ -142,4 +141,4 @@ RemoteSelect.defaultProps = {
   className: ''
 }
 
-export default withI18n(withApi(withFormData(RemoteSelect)))
+export default withApi(withFormData(RemoteSelect))

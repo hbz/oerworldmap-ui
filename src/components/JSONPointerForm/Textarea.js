@@ -16,9 +16,9 @@ const onFocus = (e) => {
   e.target.value = tmp
 }
 
-const Textarea = ({name, value, setValue, errors, property, title, className}) => (
+const Textarea = ({name, value, setValue, errors, property, title, className, translate}) => (
   <div className={`Textarea ${property || ''} ${className}`.trim()}>
-    <label htmlFor={name}>{title}</label>
+    <label htmlFor={name}>{translate(title)}</label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
@@ -26,7 +26,7 @@ const Textarea = ({name, value, setValue, errors, property, title, className}) =
       name={name}
       value={value}
       id={name}
-      placeholder={title}
+      placeholder={translate(title)}
       autoFocus={autoFocus(name)}
       onFocus={onFocus}
       onChange={(e) => (changed = name) && setValue(e.target.value)}
@@ -41,7 +41,8 @@ Textarea.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.object),
   property: PropTypes.string,
   title: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  translate: PropTypes.func.isRequired
 }
 
 Textarea.defaultProps = {

@@ -26,9 +26,9 @@ const castValue = (target) => {
   }
 }
 
-const Input = ({type, name, value, setValue, errors, property, title, className}) => (
+const Input = ({type, name, value, setValue, errors, property, title, className, translate}) => (
   <div className={`Input ${type} ${property || ''} ${className}`.trim()}>
-    <label htmlFor={name}>{title}</label>
+    <label htmlFor={name} dangerouslySetInnerHTML={{__html: translate(title)}} />
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
@@ -37,7 +37,7 @@ const Input = ({type, name, value, setValue, errors, property, title, className}
       name={name}
       value={value}
       id={name}
-      placeholder={title}
+      placeholder={translate(title)}
       autoFocus={autoFocus(name)}
       onFocus={onFocus}
       onChange={(e) => (changed = name) && setValue(castValue(e.target))}
@@ -57,7 +57,8 @@ Input.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.object),
   property: PropTypes.string,
   title: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  translate: PropTypes.func.isRequired
 }
 
 Input.defaultProps = {

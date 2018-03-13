@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
 
-import withI18n from '../withI18n'
-
 const optionFilter = filter => option =>
   !filter || option.toLowerCase().search(filter.trim().toLowerCase()) !== -1
 
@@ -19,13 +17,16 @@ class DropdownSelect extends React.Component {
   }
 
   render() {
-    const {name, property, value, options, setValue, errors, title, translate, className} = this.props
+    const {
+      name, property, value, options, setValue, errors, title, translate, className
+    } = this.props
+
     return (
       <div
         className={`DropdownSelect ${property || ''} ${className}`.trim()}
         aria-labelledby={`${name}-label`}
       >
-        <div className="label" id={`${name}-label`}>{title}</div>
+        <div className="label" id={`${name}-label`}>{translate(title)}</div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
@@ -52,7 +53,7 @@ class DropdownSelect extends React.Component {
                 this.setState({dropdown: !this.state.dropdown})
               }}
             >
-              {title}
+              {translate(title)}
             </button>
             <div className={this.state.dropdown ? 'dropdownList' : 'hidden'}>
               <div className="filterContainer">
@@ -113,4 +114,4 @@ DropdownSelect.defaultProps = {
   className: ''
 }
 
-export default withI18n(withFormData(DropdownSelect))
+export default withFormData(DropdownSelect)

@@ -8,6 +8,8 @@ import DropdownSelect from './DropdownSelect'
 import RemoteSelect from './RemoteSelect'
 import Textarea from './Textarea'
 
+import withI18n from '../withI18n'
+
 class Builder extends React.Component {
 
   constructor(props) {
@@ -18,9 +20,11 @@ class Builder extends React.Component {
 
   getComponent(schema) {
 
+    const {translate} = this.props
+
     if (schema.remote) {
       if ('properties' in schema) {
-        return <RemoteSelect schema={schema} />
+        return <RemoteSelect schema={schema} translate={translate} />
       }
     }
 
@@ -35,6 +39,7 @@ class Builder extends React.Component {
             title={schema.title}
             description={schema.description}
             className={className}
+            translate={translate}
           />
         )
         : schema._display && schema._display.rows > 1
@@ -43,6 +48,7 @@ class Builder extends React.Component {
               title={schema.title}
               description={schema.description}
               className={className}
+              translate={translate}
             />
           )
           : (
@@ -51,6 +57,7 @@ class Builder extends React.Component {
               title={schema.title}
               description={schema.description}
               className={className}
+              translate={translate}
             />
           )
     case 'integer':
@@ -61,6 +68,7 @@ class Builder extends React.Component {
           title={schema.title}
           description={schema.description}
           className={className}
+          translate={translate}
         />
       )
     case 'boolean':
@@ -70,6 +78,7 @@ class Builder extends React.Component {
           title={schema.title}
           description={schema.description}
           className={className}
+          translate={translate}
         />
       )
     case 'array':
@@ -78,6 +87,7 @@ class Builder extends React.Component {
           title={schema.title}
           description={schema.description}
           className={className}
+          translate={translate}
         >
           {this.getComponent(schema.items)}
         </List>
@@ -88,6 +98,7 @@ class Builder extends React.Component {
           title={schema.title}
           description={schema.description}
           className={className}
+          translate={translate}
         >
           {Object.keys(schema.properties).map((property) => React.cloneElement(
             this.getComponent(schema.properties[property]), {
@@ -105,6 +116,7 @@ class Builder extends React.Component {
           title={schema.title}
           description={schema.description}
           className={className}
+          translate={translate}
         />
       )
     }
@@ -121,7 +133,8 @@ class Builder extends React.Component {
 }
 
 Builder.propTypes = {
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired
 }
 
-export default Builder
+export default withI18n(Builder)
