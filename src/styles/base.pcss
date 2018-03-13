@@ -22,6 +22,10 @@ body {
     background-size: cover;
     background-position: center center;
   }
+
+  &[data-userroles*="admin"] .Form .admin.only {
+    display: block;
+  }
 }
 
 hr {
@@ -267,9 +271,33 @@ pre {
   }
 }
 
-/* comma seperated list */
+/* comma separated list */
 
 .commaSeparatedList {
+  display: inline;
+  padding: 0;
+
+  & li {
+    display: inline;
+    padding: 0;
+
+    &::before {
+      content: ", ";
+    }
+
+    &:first-child::before {
+      content: "";
+    }
+
+    & a {
+      font-weight: 600;
+    }
+  }
+}
+
+/* space separated list */
+
+.spaceSeparatedList {
   display: inline;
   padding: 0;
 

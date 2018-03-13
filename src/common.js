@@ -66,8 +66,8 @@ export const getURL = (route) => {
   return url
 }
 
-export const triggerClick = (e) => {
-  if (e.keyCode === 32) {
+export const triggerClick = (e, code) => {
+  if (e.keyCode === (code || 32)) {
     e.target.click()
   }
 }
@@ -129,6 +129,34 @@ export const parseProperties = (properties) => properties.split(/\r?\n/)
 export const obfuscate = string => string.split('').map(c => `&#${c.charCodeAt()};`).join('')
 
 export const getProp = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+
+export const clearForm = form => {
+  // clearing inputs
+  const inputs = form.getElementsByTagName('input')
+  for (let i = 0; i<inputs.length; i++) {
+    switch (inputs[i].type) {
+    case 'radio':
+    case 'checkbox':
+      inputs[i].checked = false
+      break
+    default:
+      inputs[i].value = ''
+      break
+    }
+  }
+
+  // clearing selects
+  const selects = form.getElementsByTagName('select')
+  for (let i = 0; i<selects.length; i++) {
+    selects[i].selectedIndex = 0
+  }
+
+  // clearing textarea
+  const text= form.getElementsByTagName('textarea')
+  for (let i = 0; i<text.length; i++) {
+    text[i].innerHTML= ''
+  }
+}
 
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,

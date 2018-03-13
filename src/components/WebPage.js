@@ -14,7 +14,6 @@ const WebPage = ({
   about,
   contributor,
   dateModified,
-  dateCreated,
   view,
   geo,
   _links,
@@ -31,7 +30,6 @@ const WebPage = ({
           about={about}
           contributor={contributor}
           dateModified={dateModified}
-          dateCreated={dateCreated}
           view={view}
           _self={_self}
           _links={_links}
@@ -41,11 +39,13 @@ const WebPage = ({
 
         <div className="webPageContent">
 
-          <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-            <WebPageEdit about={about} />
-          </div>
+          {user &&
+            <div id="edit" className={view === 'edit' ? 'visible' : ''}>
+              <WebPageEdit about={about} />
+            </div>
+          }
 
-          <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
+          <div id="view" className={!user || view !== 'edit' ? 'visible' : ''}>
             <WebPageView id="view" about={about} user={user} view={view} />
           </div>
 
@@ -58,7 +58,6 @@ const WebPage = ({
 WebPage.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   contributor: PropTypes.string,
-  dateCreated: PropTypes.string,
   dateModified: PropTypes.string,
   view: PropTypes.string.isRequired,
   geo: PropTypes.objectOf(PropTypes.any),
@@ -78,7 +77,6 @@ WebPage.defaultProps = {
   geo: null,
   user: null,
   contributor: null,
-  dateCreated: null,
   dateModified: null,
   _links: { refs: [] }
 }

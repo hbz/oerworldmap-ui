@@ -139,7 +139,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
-                <ul className="commaSeparatedList">
+                <ul className="spaceSeparatedList">
                   {about.keywords.map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
@@ -282,7 +282,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.contactPoint &&
             <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
-              <ItemList listItems={about.contactPoint} />
+              <ItemList listItems={about.contactPoint} className="prominent" />
             </Block>
           }
 
@@ -459,7 +459,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
             >
-              <ItemList listItems={about.hasPart}  className="prominent" />
+              <ItemList listItems={about.hasPart} className="prominent" />
             </Block>
           }
 

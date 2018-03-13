@@ -7,11 +7,12 @@ import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
-import PagedCollection from './PagedCollection'
 import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
-import { triggerClick } from '../common'
+import ShareExport from './ShareExport'
+
+import { triggerClick, clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -26,37 +27,8 @@ const onSubmit = (e, emitter) => {
 
 const onReset = (e, emitter) => {
   e.preventDefault()
-  const form = e.target.parentElement.form || e.target.form || e.target
-
-  // clearing inputs
-  const inputs = form.getElementsByTagName('input')
-  for (let i = 0; i<inputs.length; i++) {
-    switch (inputs[i].type) {
-    case 'radio':
-    case 'checkbox':
-      inputs[i].checked = false
-      break
-    default:
-      inputs[i].value = ''
-      break
-    }
-  }
-
-  // clearing selects
-  const selects = form.getElementsByTagName('select')
-  for (let i = 0; i<selects.length; i++) {
-    selects[i].selectedIndex = 0
-  }
-
-  // clearing textarea
-  const text= form.getElementsByTagName('textarea')
-  for (let i = 0; i<text.length; i++) {
-    text[i].innerHTML= ''
-  }
-
-  // navigate
+  clearForm(e.target.parentElement.form || e.target.form || e.target)
   emitter.emit('navigate', '/resource/')
-
 }
 
 const primaryFilters = [
@@ -307,35 +279,45 @@ class Filters extends React.Component {
           <hr />
 
           <div className="sortContainer">
-            <PagedCollection
-              size={this.props.size}
-              member={this.props.member}
-              _self={this.props._self}
-              _links={this.props._links}
-              view={this.props.view}
-            >
-              <select
-                name="sort"
-                className="styledSelect"
-                style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
-                onChange={(evt) => {
-                  evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
-                  onSubmit(evt, this.props.emitter)
-                }}
-              >
-                <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
-                <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
-                <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
-              </select>
+            <section className="listOptions">
+              <div>
+                <span className="counter">
+                  <span>{this.props.member.length}</span>
+                  &nbsp;{this.props.translate('ResourceIndex.index.results')}
+                </span>
+                {!(this.props.filters['about.@type'] && this.props.filters['about.@type'].includes('Event')) &&
+                  <span>
+                    ,&nbsp;{this.props.translate('ResourceIndex.index.orderedBy')}
+                    <select
+                      name="sort"
+                      className="styledSelect"
+                      style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
+                      onChange={(evt) => {
+                        evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                        onSubmit(evt, this.props.emitter)
+                      }}
+                    >
+                      <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                      <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                      <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
+                    </select>
 
-              <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
-                {this.sizes.map(number => (
-                  number >= 0 &&
-                    <option key={number} value={number}>{number}</option>
-                ))}
-                <option value="-1">All</option>
-              </select>
-            </PagedCollection>
+                    <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
+                      {this.sizes.map(number => (
+                        number >= 0 &&
+                          <option key={number} value={number}>{number}</option>
+                      ))}
+                      <option value="-1">All</option>
+                    </select>
+                  </span>
+                }
+              </div>
+              <ShareExport
+                _self={this.props._self}
+                _links={this.props._links}
+                view={this.props.view}
+              />
+            </section>
           </div>
 
         </form>

@@ -1,3 +1,0 @@
-[submodule "local_modules/json-pointer-form"]
-	path = local_modules/json-pointer-form
-	url = https://github.com/literarymachine/json-pointer-form.git

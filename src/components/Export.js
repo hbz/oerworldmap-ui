@@ -6,8 +6,8 @@ import withI18n from './withI18n'
 
 import '../styles/components/Export.pcss'
 
-const Export = ({_links, translate}) => (
-  <FullModal className="Export">
+const Export = ({_self, _links, translate}) => (
+  <FullModal className="Export" closeLink={_self}>
     <h2>{translate('export.export')}</h2>
     <div className="exportContent">
       {_links.refs.map(link => (
@@ -18,6 +18,7 @@ const Export = ({_links, translate}) => (
 )
 
 Export.propTypes = {
+  _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired
 }
