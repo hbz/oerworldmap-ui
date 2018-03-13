@@ -39,6 +39,12 @@ const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
           className={about['@type']}
           src={about.image}
           alt={translate(about.name)}
+          style={{
+            visibility: 'hidden'
+          }}
+          onLoad={e => {
+            e.target.style.visibility = 'visible'
+          }}
           onError={e => {
             e.target.remove()
           }}
