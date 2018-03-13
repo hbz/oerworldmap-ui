@@ -18,7 +18,7 @@ const WebPageEdit = ({about, emitter, translate}) => (
     onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
   >
     <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} />
-    <p dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
+    <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
     <button className="btn" type="submit">{translate('publish')}</button>
   </Form>
 )
