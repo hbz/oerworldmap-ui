@@ -76,8 +76,8 @@ export default (api) => {
     },
     {
       path: '/resource/:id',
-      get: async (params, context, state) => {
-        const url = getURL({ path: `/resource/${params.id}`, params })
+      get: async (id, params, context, state) => {
+        const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <WebPage
@@ -89,8 +89,8 @@ export default (api) => {
         )
         return { title: 'WebPage', data, component }
       },
-      post: async (params, context, state, body) => {
-        const data = await api.post(`/resource/${params.id}`, body, context.authorization)
+      post: async (id, params, context, state, body) => {
+        const data = await api.post(`/resource/${id}`, body, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}
@@ -100,8 +100,8 @@ export default (api) => {
         )
         return { title: 'Updated WebPage', data, component }
       },
-      delete: async (params, context) => {
-        const data = await api.delete(`/resource/${params.id}`, context.authorization)
+      delete: async (id, params, context) => {
+        const data = await api.delete(`/resource/${id}`, context.authorization)
         const component = (data) => (
           <Feedback>
             {data.message}
@@ -112,8 +112,8 @@ export default (api) => {
     },
     {
       path: '/resource/:id/comment',
-      post: async (params, context, state, body) => {
-        const data = await api.post(`/resource/${params.id}/comment`, body, context.authorization)
+      post: async (id, params, context, state, body) => {
+        const data = await api.post(`/resource/${id}/comment`, body, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}
@@ -126,9 +126,9 @@ export default (api) => {
     },
     {
       path: '/country/:id',
-      get: async (params, context, state) => {
+      get: async (id, params, context, state) => {
         const url = getURL({
-          path: `/country/${params.id}`,
+          path: `/country/${id}`,
           params: Object.assign(params, {features: true})
         })
         Link.home = url
@@ -253,10 +253,10 @@ export default (api) => {
     },
     {
       path: '/log/:id',
-      get: async (params, context, state) => {
+      get: async (id, params, context, state) => {
         const url = params.compare && params.to
-          ? getURL({ path: `/log/${params.id}`, params: { compare: params.compare, to: params.to } })
-          : getURL({ path: `/log/${params.id}`})
+          ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
+          : getURL({ path: `/log/${id}`})
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <Diffs {...data} phrases={context.phrases} />
@@ -267,16 +267,8 @@ export default (api) => {
   ]
 
   const matchURI = (path, uri) => {
-    const keys = []
-    const pattern = toRegExp(path, keys)
-    const match = pattern.exec(uri)
-    if (!match) return null
-    const params = Object.create(null)
-    for (let i = 1; i < match.length; i++) {
-      params[keys[i - 1].name] =
-        match[i] !== undefined ? match[i] : undefined
-    }
-    return params
+    const match = toRegExp(path).exec(uri)
+    return match ? match.slice(1) : null
   }
 
   const handle = async (method, uri, context, state, params, body) => {
@@ -288,12 +280,13 @@ export default (api) => {
       }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
-        if (uriParams === null) continue
+        if (uriParams === null) {
+          continue
+        }
         if (typeof route[method] !== 'function') {
           throw "Method not implemented"
         }
-        Object.assign(params, uriParams)
-        const result = await route[method](params, context, state, body)
+        const result = await route[method](...uriParams, params, context, state, body)
         if (result) {
           result.render = (data) => <Init {...context}>{result.component(data)}</Init>
           return result
