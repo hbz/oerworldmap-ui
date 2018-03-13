@@ -28,7 +28,7 @@ import Link from './components/Link'
     const routes = router(api)
 
     let referrer = window.location.href
-    Link.back = referrer
+    Link.back = '/resource/'
     const renderApp = (title, component) => {
       ReactDOM.render(
         <AppContainer>
