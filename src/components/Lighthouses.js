@@ -17,8 +17,10 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
               <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
                 {translate(author.name)}
               </Link>)
-            )}{' '}
-            {moment(lighthouse.dateCreated).fromNow()}
+            )}
+            {lighthouse.startTime &&
+              <span>&nbsp;{moment(lighthouse.startTime).fromNow()}</span>
+            }
           </div>
           {user &&
           user.groups.includes('admin') &&
