@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -15,6 +16,21 @@ class DropdownSelect extends React.Component {
       }, {})
     }
     this.optionFilter = this.optionFilter.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (!this.wrapper.contains(e.target)) {
+      this.setState({dropdown:false})
+    }
   }
 
   optionFilter() {
@@ -30,6 +46,7 @@ class DropdownSelect extends React.Component {
 
     return (
       <div
+        ref={el => this.wrapper = el}
         className={`DropdownSelect ${property || ''} ${className}`.trim()}
         aria-labelledby={`${name}-label`}
       >

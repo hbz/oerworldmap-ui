@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -16,9 +17,24 @@ class RemoteSelect extends React.Component {
       options: []
     }
     this.handleChange = this.handleChange.bind(this)
-    this.updateOptions = _.debounce(this.updateOptions.bind(this), 500)
+    this.updateOptions = _.debounce(this.updateOptions.bind(this), 200)
     this.optionList = this.optionList.bind(this)
     this.showOption = this.showOption.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener("click", this.handleClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
+
+  handleClick(e) {
+    if (!this.wrapper.contains(e.target)) {
+      this.setState({options: []})
+    }
   }
 
   handleChange(e) {
@@ -88,6 +104,7 @@ class RemoteSelect extends React.Component {
     const {name, property, value, setValue, errors, title, translate, className} = this.props
     return (
       <div
+        ref={el => this.wrapper = el}
         className={`RemoteSelect ${property || ''} ${className}`.trim()}
         aria-labelledby={`${name}-label`}
       >
