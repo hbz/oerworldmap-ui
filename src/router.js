@@ -24,6 +24,7 @@ import { APIError } from './api'
 export default (api) => {
 
   Link.home = '/resource/'
+  Link.back = '/resource/'
 
   const routes = [
     {

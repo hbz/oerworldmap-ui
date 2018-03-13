@@ -5,12 +5,13 @@ import { Composer } from 'json-pointer-form'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
+import Link from './Link'
 import '../styles/components/Register.pcss'
 import schema from '../json/schema.json'
 
 const Register = ({translate, emitter}) => (
   <div className="Register">
-    <FullModal>
+    <FullModal closeLink={Link.back}>
       <div>
         <h1>{translate('login')}</h1>
         <p>{translate('UserIndex.register.loginMessage')}</p>

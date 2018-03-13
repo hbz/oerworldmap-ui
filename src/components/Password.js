@@ -5,12 +5,13 @@ import { Composer } from 'json-pointer-form'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
+import Link from './Link'
 import '../styles/components/Password.pcss'
 import schema from '../json/schema.json'
 
 const Password = ({translate, emitter}) => (
   <div className="Password">
-    <FullModal>
+    <FullModal closeLink={Link.back}>
       <Composer
         value={{'@type': 'ChangePasswordAction'}}
         schema={schema}
