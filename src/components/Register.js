@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from 'json-pointer-form'
+
+import JsonSchema from './JSONPointerForm/JsonSchema'
+import Form from './JSONPointerForm/Form'
+import Builder from './JSONPointerForm/Builder'
+import validate from './JSONPointerForm/validate'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
@@ -9,7 +13,7 @@ import '../styles/components/Register.pcss'
 import schema from '../json/schema.json'
 
 const Register = ({translate, emitter}) => (
-  <div className="Register">
+  <div className="">
     <FullModal>
       <div>
         <h1>{translate('login')}</h1>
@@ -18,24 +22,29 @@ const Register = ({translate, emitter}) => (
       </div>
 
       <div className="block forgotPassword">
-        <Composer
-          value={{'@type': 'ResetPasswordAction'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
-          getLabel={value => translate(value)}
-          submitLabel={translate('UserIndex.register.resetPassword')}
-        />
+        <Form
+          validate={validate(JsonSchema(schema).get('#/definitions/ResetPasswordAction'))}
+          onSubmit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
+        >
+          <Builder schema={JsonSchema(schema).get('#/definitions/ResetPasswordAction')} />
+          <div className="buttons">
+            <button className="btn" type="submit">{translate('UserIndex.register.resetPassword')}</button>
+          </div>
+        </Form>
       </div>
 
-      <div className="block">
-        <Composer
-          value={{'@type': 'RegisterAction'}}
-          schema={schema}
-          submit={data => emitter.emit('submit', {url: '/user/register', data})}
-          getLabel={value => translate(value)}
-          submitLabel={translate('UserIndex.register.register')}
-        />
+      <div className="block registerForm">
+        <Form
+          validate={validate(JsonSchema(schema).get('#/definitions/RegisterAction'))}
+          onSubmit={data => emitter.emit('submit', {url: '/user/register', data})}
+        >
+          <Builder schema={JsonSchema(schema).get('#/definitions/RegisterAction')} />
+          <div className="buttons">
+            <button className="btn" type="submit">{translate('UserIndex.register.register')}</button>
+          </div>
+        </Form>
       </div>
+
     </FullModal>
   </div>
 )

@@ -12,7 +12,8 @@
     "indent": ["error", 2],
     "semi": ["error", "never"],
     "import/no-dynamic-require": "off",
-    "no-console": "warn"
+    "no-console": "warn",
+    "jsx-a11y/no-autofocus": "off"
   },
   "parser": "babel-eslint",
   "extends": ["airbnb", "stylelint"]

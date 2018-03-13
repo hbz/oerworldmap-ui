@@ -1,40 +1,26 @@
-/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Composer } from 'json-pointer-form'
 
-import Icon from './Icon'
-import PlaceWidget from './PlaceWidget'
+import JsonSchema from './JSONPointerForm/JsonSchema'
+import Form from './JSONPointerForm/Form'
+import Builder from './JSONPointerForm/Builder'
+import validate from './JSONPointerForm/validate'
+
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+
 import schema from '../json/schema.json'
 
-const getLabel = (translate, value) => {
-  if (!value) return ''
-  if (typeof value === "object") {
-    return (
-      <span>
-        <Icon type={value["@type"]} />
-        &nbsp;{value["name"] ? translate(value["name"]) : value["@id"]}
-      </span>
-    )
-  } else {
-    return translate(value)
-  }
-}
-
 const WebPageEdit = ({about, emitter, translate}) => (
-  <Composer
-    value={about}
-    schema={schema}
-    widgets={{PlaceWidget}}
-    submit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
-    getOptions={(term, schema, callback) => emitter.emit('getOptions', {term, schema, callback})}
-    getLabel={value => getLabel(translate, value)}
-    submitLabel={translate('publish')}
-    submitNote={translate('ResourceIndex.index.agreeMessage')}
-    error={() => document.querySelector('.webPageWrapper').scrollTop = 0}
-  />
+  <Form
+    data={about}
+    validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
+    onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
+  >
+    <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} />
+    <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
+    <button className="btn" type="submit">{translate('publish')}</button>
+  </Form>
 )
 
 WebPageEdit.propTypes = {
