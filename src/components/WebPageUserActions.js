@@ -28,7 +28,8 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
       '@type': 'LighthouseAction',
       'object': about,
       'agent': [{ '@id': user.id, '@type': 'Person' }],
-      'description': [{'@language': 'en'}]
+      'description': [{'@language': 'en'}],
+      'startTime': new Date().toISOString()
     } : null )
 
   const like = likes.find(action =>
@@ -63,7 +64,8 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
           'agent': [{
             '@id': user.id,
             '@type': 'Person'
-          }]
+          }],
+          'startTime': new Date().toISOString()
         }
       })
     }
@@ -114,7 +116,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
       }
 
       {about['@id'] && user && view === 'addLighthouse' &&
-        <FullModal>
+        <FullModal className="Lighthouse">
           <Form
             data={lighthouse}
             validate={validate(JsonSchema(schema).get('#/definitions/LighthouseAction'))}
