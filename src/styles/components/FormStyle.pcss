@@ -252,4 +252,32 @@
   & .admin.only {
     display: none;
   }
+
+  & .Input.checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+
+    & label {
+      flex: 1;
+    }
+
+    & input[type=checkbox] {
+      max-width: 25px;
+      position: relative;
+      top: 4px;
+    }
+  }
+}
+
+.registerForm .Fieldset .Input.text {
+  margin-bottom: 10px;
+
+  & label {
+    display: none;
+  }
+}
+
+.registerForm .DropdownSelect.location {
+  margin-bottom: 10px;
 }

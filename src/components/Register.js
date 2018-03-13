@@ -27,17 +27,21 @@ const Register = ({translate, emitter}) => (
           onSubmit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/ResetPasswordAction')} />
-          <button className="btn" type="submit">{translate('UserIndex.register.resetPassword')}</button>
+          <div className="buttons">
+            <button className="btn" type="submit">{translate('UserIndex.register.resetPassword')}</button>
+          </div>
         </Form>
       </div>
 
-      <div className="block">
+      <div className="block registerForm">
         <Form
           validate={validate(JsonSchema(schema).get('#/definitions/RegisterAction'))}
           onSubmit={data => emitter.emit('submit', {url: '/user/register', data})}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/RegisterAction')} />
-          <button type="submit">{translate('UserIndex.register.register')}</button>
+          <div className="buttons">
+            <button className="btn" type="submit">{translate('UserIndex.register.register')}</button>
+          </div>
         </Form>
       </div>
 
