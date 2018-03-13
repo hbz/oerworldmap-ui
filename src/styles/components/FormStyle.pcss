@@ -22,6 +22,18 @@
 
     & div.optionsContainer ul li {
       margin-bottom: 0;
+
+      & label {
+        border-bottom: 1px solid #0f578a;
+
+        & > i {
+          padding-right: 5px;
+        }
+      }
+
+      & label:last-child {
+        border-bottom: none;
+      }
     }
   }
 
@@ -140,6 +152,10 @@
       &:focus {
         background-color: var(--orange);
       }
+
+      & > i {
+        padding-right: 5px;
+      }
     }
 
     &::after {
@@ -172,7 +188,6 @@
 
         & label {
           display: blocK;
-          padding: 10px;
 
           &:hover,
           &:focus {
