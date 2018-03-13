@@ -27,7 +27,7 @@ const Register = ({translate, emitter}) => (
           onSubmit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/ResetPasswordAction')} />
-          <button type="submit">{translate('UserIndex.register.resetPassword')}</button>
+          <button className="btn" type="submit">{translate('UserIndex.register.resetPassword')}</button>
         </Form>
       </div>
 

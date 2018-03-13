@@ -19,7 +19,7 @@ const WebPageEdit = ({about, emitter, translate}) => (
   >
     <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} />
     <p dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
-    <button type="submit">{translate('publish')}</button>
+    <button className="btn" type="submit">{translate('publish')}</button>
   </Form>
 )
 
