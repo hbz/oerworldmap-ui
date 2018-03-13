@@ -39,11 +39,13 @@ const WebPage = ({
 
         <div className="webPageContent">
 
-          <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-            <WebPageEdit about={about} />
-          </div>
+          {user &&
+            <div id="edit" className={view === 'edit' ? 'visible' : ''}>
+              <WebPageEdit about={about} />
+            </div>
+          }
 
-          <div id="view" className={(view !== 'edit' || view === '') ? 'visible' : ''}>
+          <div id="view" className={!user || view !== 'edit' ? 'visible' : ''}>
             <WebPageView id="view" about={about} user={user} view={view} />
           </div>
 
