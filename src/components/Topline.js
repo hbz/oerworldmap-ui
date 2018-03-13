@@ -88,11 +88,11 @@ const Topline = ({translate, moment, about}) => {
         <span>{translate('Action.agent')}:&nbsp;</span>
         <ul className="commaSeparatedList">
           {about.agent.map(agent => (
-            <span key={agent['@id']}>
+            <li key={agent['@id']}>
               <Link  href={`/resource/${agent['@id']}`}>
                 {translate(agent.name)}
               </Link>
-            </span>
+            </li>
           ))}
         </ul>
       </div>
@@ -105,12 +105,11 @@ const Topline = ({translate, moment, about}) => {
         <span>{translate('Action.isFundedBy')}:&nbsp;</span>
         <ul className="commaSeparatedList">
           {[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-            <span key={awarded['@id']}>
-
+            <li key={awarded['@id']}>
               <Link  href={`/resource/${awarded['@id']}`}>
                 {translate(awarded.name)}
               </Link>
-            </span>
+            </li>
           ))}
         </ul>
       </div>
