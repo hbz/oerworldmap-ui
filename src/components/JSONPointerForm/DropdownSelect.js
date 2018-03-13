@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
+import { triggerClick } from '../../common'
 
 class DropdownSelect extends React.Component {
 
@@ -64,7 +65,12 @@ class DropdownSelect extends React.Component {
               checked
               onChange={e => setValue(e.target.checked ? e.target.value : undefined)}
             />
-            <label htmlFor={`${name}-${value}`} tabIndex="0" role="button">
+            <label
+              htmlFor={`${name}-${value}`}
+              tabIndex="0"
+              role="button"
+              onKeyDown={e => triggerClick(e, 13)}
+            >
               {translate(value)}
             </label>
           </div>
@@ -103,7 +109,12 @@ class DropdownSelect extends React.Component {
                         this.setState({filter: "", dropdown: false})
                       }}
                     />
-                    <label htmlFor={`${name}-${option}`} tabIndex="0" role="button">
+                    <label
+                      htmlFor={`${name}-${option}`}
+                      tabIndex="0"
+                      role="button"
+                      onKeyDown={e => triggerClick(e, 13)}
+                    >
                       {translate(option)}
                     </label>
                   </li>

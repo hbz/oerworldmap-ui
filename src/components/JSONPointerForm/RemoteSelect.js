@@ -6,7 +6,7 @@ import _ from 'lodash'
 import withFormData from './withFormData'
 import Icon from '../Icon'
 import withApi from '../withApi'
-import { getURL } from '../../common'
+import { getURL, triggerClick } from '../../common'
 
 class RemoteSelect extends React.Component {
 
@@ -89,6 +89,7 @@ class RemoteSelect extends React.Component {
               tabIndex="0"
               role="button"
               className={this.showOption(option) ? null : 'hidden'}
+              onKeyDown={e => triggerClick(e, 13)}
             >
               <Icon type={option["@type"]} />
               &nbsp;{translate(option.name)}
