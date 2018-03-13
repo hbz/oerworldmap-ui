@@ -8,7 +8,13 @@ import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import '../styles/components/Statistics.pcss'
 
-const color = d3.scaleOrdinal(["#ff8c00", "#ffb900", "#ffe600", "#d0d723", "#a0c846"])
+const getColor = (totalItems, value) => {
+  const color = d3.scaleLinear()
+    .domain([0, (totalItems-1)/2,totalItems-1])
+    .range(['#a0c846', '#ffe600', '#ff8c00'])
+
+  return color(value)
+}
 
 const PieChart = ({name, buckets, emitter}) => {
 
@@ -22,7 +28,7 @@ const PieChart = ({name, buckets, emitter}) => {
   const g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
   const pie = d3.pie()
-    .sort(null)
+    .sort((a,b) => a.doc_count < b.doc_count)
     .value(d => d.doc_count)
 
   const path = d3.arc()
@@ -34,12 +40,15 @@ const PieChart = ({name, buckets, emitter}) => {
     .enter().append("g")
     .attr("class", "arc")
     .append("a")
-    .attr("xlink:href", function(d) { return `/resource/?filter.${name}=${d.data.key}`})
-    .on('click', (d) => {d3.event.preventDefault(); emitter.emit('navigate', `/resource/?filter.${name}=${d.data.key}`)})
+    .attr("xlink:href", d => `/resource/?filter.${name}=${d.data.key}`)
+    .on('click', d => {
+      d3.event.preventDefault()
+      emitter.emit('navigate', `/resource/?filter.${name}=${d.data.key}`)
+    })
 
   arc.append("path")
     .attr("d", path)
-    .attr("fill", d => color(d.data.key))
+    .attr("fill", (d, i) => getColor(buckets.length, i))
 
   return el.toReact()
 }
@@ -77,16 +86,16 @@ const Statistics = ({translate, aggregations, emitter}) => (
               <PieChart
                 emitter={emitter}
                 name={aggregation}
-                buckets={aggregations[aggregation].buckets}
+                buckets={aggregations[aggregation].buckets.sort((a,b) => a.doc_count < b.doc_count)}
               />
             </div>
             <ul>
-              {aggregations[aggregation].buckets.map(bucket => (
+              {aggregations[aggregation].buckets.map((bucket, i) => (
                 <li key={bucket.key}>
                   <Link href={`/resource/?filter.${aggregation}=${encodeURIComponent(bucket.key)}`}>
                     <span
                       className="color"
-                      style={{backgroundColor: color(bucket.doc_count)}}
+                      style={{backgroundColor: getColor(aggregations[aggregation].buckets.length, i)}}
                     /> {`${translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
                   </Link>
                 </li>
