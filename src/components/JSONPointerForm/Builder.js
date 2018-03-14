@@ -36,76 +36,30 @@ class Builder extends React.Component {
       }
     }
 
+    const props = {
+      title: schema.title,
+      description: schema.description,
+      className,
+      translate
+    }
+
     switch (schema.type) {
     case 'string':
       return schema.enum
-        ? (
-          <DropdownSelect
-            options={schema.enum}
-            title={schema.title}
-            description={schema.description}
-            className={className}
-            translate={translate}
-          />
-        )
+        ? <DropdownSelect {...props} options={schema.enum} />
         : schema._display && schema._display.rows > 1
-          ? (
-            <Textarea
-              title={schema.title}
-              description={schema.description}
-              className={className}
-              translate={translate}
-            />
-          )
-          : (
-            <Input
-              type="text"
-              title={schema.title}
-              description={schema.description}
-              className={className}
-              translate={translate}
-            />
-          )
+          ? <Textarea {...props} />
+          : <Input {...props} type="text" />
     case 'integer':
     case 'number':
-      return (
-        <Input
-          type="number"
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        />
-      )
+      return <Input {...props} type="number" />
     case 'boolean':
-      return (
-        <Input
-          type="checkbox"
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        />
-      )
+      return <Input {...props} type="checkbox" />
     case 'array':
-      return (
-        <List
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        >
-          {this.getComponent(schema.items)}
-        </List>
-      )
+      return <List {...props}>{this.getComponent(schema.items)}</List>
     case 'object':
       return (
-        <Fieldset
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        >
+        <Fieldset {...props}>
           {Object.keys(schema.properties).map((property) => React.cloneElement(
             this.getComponent(schema.properties[property]), {
               property, key: property
@@ -116,15 +70,7 @@ class Builder extends React.Component {
     case 'null':
     default:
       console.warn('Could not determine form component for', schema)
-      return (
-        <Input
-          type="text"
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        />
-      )
+      return <Input {...props} type="text" />
     }
   }
 
