@@ -41,7 +41,7 @@ class Form extends React.Component {
   setValue(name, value) {
     this.setState(prevState => {
       jsonPointer.set(prevState.formData, name, value)
-      this.lastUpdate = name
+      this.lastUpdate = value ? name : null
       return {
         formData: prune(prevState.formData)
       }
@@ -64,7 +64,7 @@ class Form extends React.Component {
   shouldFormComponentUpdate(name) {
     return !name
       || !this.lastUpdate
-      || jsonPointer.parse(this.lastUpdate)[0] === jsonPointer.parse(name)[0]
+      || this.lastUpdate.startsWith(name)
       || this.state.formErrors.some(error => error.dataPath.startsWith(name))
   }
 
