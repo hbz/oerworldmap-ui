@@ -3,20 +3,11 @@ import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
 
-let changed = null
-const autoFocus = (name) => {
-  const focus = changed === name
-  changed = focus ? null : changed
-  return focus
-}
+import { appendOnFocus } from '../../common'
 
-const onFocus = (e) => {
-  const tmp = e.target.value
-  e.target.value = ''
-  e.target.value = tmp
-}
-
-const Textarea = ({name, value, setValue, errors, property, title, className, translate}) => (
+const Textarea = ({
+  name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus
+}) => (
   <div className={`Textarea ${property || ''} ${className}`.trim()}>
     <label htmlFor={name}>{translate(title)}</label>
     {errors.map((error, index) => (
@@ -27,9 +18,9 @@ const Textarea = ({name, value, setValue, errors, property, title, className, tr
       value={value}
       id={name}
       placeholder={translate(title)}
-      autoFocus={autoFocus(name)}
-      onFocus={onFocus}
-      onChange={(e) => (changed = name) && setValue(e.target.value)}
+      autoFocus={shouldFormComponentFocus}
+      onFocus={appendOnFocus}
+      onChange={e => setValue(e.target.value)}
     />
   </div>
 )
@@ -42,7 +33,8 @@ Textarea.propTypes = {
   property: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  shouldFormComponentFocus: PropTypes.bool
 }
 
 Textarea.defaultProps = {
@@ -50,7 +42,8 @@ Textarea.defaultProps = {
   errors: [],
   property: undefined,
   title: '',
-  className: ''
+  className: '',
+  shouldFormComponentFocus: false
 }
 
 export default withFormData(Textarea)

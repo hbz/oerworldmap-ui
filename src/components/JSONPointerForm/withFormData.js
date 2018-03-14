@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import jsonPointer from 'json-pointer'
 
-let lastUpdate
-
 const withFormData = (BaseComponent) => {
 
   const formComponent = class FormComponent extends React.Component {
@@ -24,8 +22,7 @@ const withFormData = (BaseComponent) => {
     }
 
     shouldComponentUpdate() {
-      return !!this.context.getValidationErrors(this.name).length
-        || !this.path[0] || this.path[0] === lastUpdate
+      return this.context.shouldFormComponentUpdate(this.name)
     }
 
     render() {
@@ -34,10 +31,9 @@ const withFormData = (BaseComponent) => {
           {...this.props}
           name={this.name}
           value={this.context.getValue(this.name)}
-          setValue={value => (lastUpdate = this.path[0])
-            && this.context.setValue(this.name, value)
-          }
+          setValue={value => this.context.setValue(this.name, value)}
           errors={this.context.getValidationErrors(this.name)}
+          shouldFormComponentFocus={this.context.shouldFormComponentFocus(this.name)}
         />
       )
     }
@@ -60,7 +56,9 @@ const withFormData = (BaseComponent) => {
     path: PropTypes.array,
     setValue: PropTypes.func,
     getValue: PropTypes.func,
-    getValidationErrors: PropTypes.func
+    getValidationErrors: PropTypes.func,
+    shouldFormComponentUpdate: PropTypes.func,
+    shouldFormComponentFocus: PropTypes.func
   }
 
   return formComponent

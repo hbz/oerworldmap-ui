@@ -30,7 +30,7 @@ const List = ({name, value, children, errors, property, title, className, transl
               id={`${name}-toggle`}
             />
             <label htmlFor={`${name}-toggle`}>
-              {translate('add', {property: translate(title)})}
+              {translate('add', {type: translate(title)})}
             </label>
             <div className="newItem">
               {React.cloneElement(children)}
