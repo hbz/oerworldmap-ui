@@ -64,7 +64,7 @@ const Comments = ({moment, translate, emitter, about, comments, user}) => (
           })}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/Comment')} />
-          <button type="submit">{translate('publish')}</button>
+          <button className="btn" type="submit">{translate('publish')}</button>
         </Form>
       </div>
     ) : (
