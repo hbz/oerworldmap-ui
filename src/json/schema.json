@@ -132,7 +132,7 @@
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "A link to another entity",
       "type": "object",
-      "remote": true,
+      "_widget": "RemoteSelect",
       "properties": {
         "@id": {
           "description": "The referenced entities unique identifier",

@@ -7,6 +7,7 @@ import List from './List'
 import DropdownSelect from './DropdownSelect'
 import RemoteSelect from './RemoteSelect'
 import Textarea from './Textarea'
+import PlaceWidget from './PlaceWidget'
 
 import withI18n from '../withI18n'
 
@@ -20,7 +21,11 @@ class Builder extends React.Component {
 
   getComponent(schema) {
 
-    const {translate} = this.props
+    const translate = this.props.translate
+    const widgets = Object.assign(
+      {Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget},
+      this.props.widgets
+    )
     const className = schema._display ? schema._display.className : undefined
 
     // FIXME: not rendering form components for hidden fields due to performance issues
@@ -30,17 +35,16 @@ class Builder extends React.Component {
       return <div className="hidden" />
     }
 
-    if (schema.remote) {
-      if ('properties' in schema) {
-        return <RemoteSelect schema={schema} translate={translate} />
-      }
-    }
-
     const props = {
       title: schema.title,
       description: schema.description,
       className,
       translate
+    }
+
+    if (schema._widget && widgets[schema._widget]) {
+      const Widget = widgets[schema._widget]
+      return <Widget {...props} schema={schema} />
     }
 
     switch (schema.type) {
@@ -86,7 +90,12 @@ class Builder extends React.Component {
 
 Builder.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  widgets: PropTypes.objectOf(PropTypes.any)
+}
+
+Builder.defaultProps = {
+  widgets: {}
 }
 
 export default withI18n(Builder)
