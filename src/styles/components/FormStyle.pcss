@@ -4,6 +4,16 @@
 
 .Form {
 
+  & input[type=text],
+  & input[type=number],
+  & textarea {
+    border-color: var(--blue-dark);
+  }
+
+  & .Builder > .Fieldset > .label {
+    display: none;
+  }
+
   & .List {
 
     & ul {
@@ -71,7 +81,7 @@
       border: none;
       background-color: var(--blue-dark);
       color: var(--white);
-      padding: 10px;
+      padding: 8px 10px;
       position: relative;
       padding-right: 30px;
 
@@ -113,6 +123,7 @@
           top: 50%;
           transform: translateY(-51%);
           pointer-events: none;
+          color: var(--blue);
         }
       }
 
@@ -121,7 +132,7 @@
 
         & label {
           display: block;
-          padding: 10px;
+          padding: 8px 10px;
 
           &:hover,
           &:focus {
@@ -143,7 +154,7 @@
     position: relative;
 
     & label {
-      padding: 10px;
+      padding: 8px 10px;
       display: block;
       padding-right: 30px;
       color: var(--white);
@@ -223,6 +234,32 @@
       & .selectedContainer {
         border-radius: 0 0 var(--border-radius) var(--border-radius);
       }
+    }
+  }
+
+  & .newItemWrapper {
+    & label {
+      color: var(--grey-dark);
+    }
+  }
+
+  & .RemoteSelect .filterContainer {
+    position: relative;
+
+    & .filter {
+      padding-left: 30px;
+    }
+
+    &::after {
+      font-family: FontAwesome;
+      content: "\f002";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      -webkit-transform: translateY(-51%);
+      transform: translateY(-51%);
+      pointer-events: none;
+      color: var(--blue);
     }
   }
 
