@@ -35,7 +35,7 @@ class PlaceWidget extends React.Component {
   }
 
   handleClick(e) {
-    if (!this.wrapper.contains(e.target)) {
+    if (this.state.options.length && !this.wrapper.contains(e.target)) {
       this.setState({options: []})
     }
   }
@@ -75,6 +75,7 @@ class PlaceWidget extends React.Component {
         className={`PlaceWidget ${property || ''} ${className}`.trim()}
         role="group"
         aria-labelledby={`${name}-label`}
+        ref={el => this.wrapper = el}
       >
         <div className="label" id={`${name}-label`}>{translate(title)}</div>
         {errors.map((error, index) => (
@@ -105,7 +106,7 @@ class PlaceWidget extends React.Component {
           />
           {getProp(['address', 'addressCountry'], value) &&
             <div>
-              <div ref={el => this.wrapper = el} className="selectContainer">
+              <div className="selectContainer">
                 <div className="filterContainer">
                   <input
                     type="text"
