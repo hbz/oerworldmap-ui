@@ -158,7 +158,13 @@ export const clearForm = form => {
   }
 }
 
+export const appendOnFocus = e => {
+  const tmp = e.target.value
+  e.target.value = ''
+  e.target.value = tmp
+}
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, parseProperties, obfuscate, getProp
+  debounce, parseProperties, obfuscate, getProp, appendOnFocus
 }

@@ -32,13 +32,16 @@ class Form extends React.Component {
     return {
       setValue: this.setValue.bind(this),
       getValue: this.getValue.bind(this),
-      getValidationErrors: this.getValidationErrors.bind(this)
+      getValidationErrors: this.getValidationErrors.bind(this),
+      shouldFormComponentUpdate: this.shouldFormComponentUpdate.bind(this),
+      shouldFormComponentFocus: this.shouldFormComponentFocus.bind(this)
     }
   }
 
   setValue(name, value) {
     this.setState(prevState => {
       jsonPointer.set(prevState.formData, name, value)
+      this.lastUpdate = name
       return {
         formData: prune(prevState.formData)
       }
@@ -56,6 +59,17 @@ class Form extends React.Component {
       ? `${error.dataPath}/${error.params.missingProperty}` === name
       : error.dataPath === name
     )
+  }
+
+  shouldFormComponentUpdate(name) {
+    return !name
+      || !this.lastUpdate
+      || jsonPointer.parse(this.lastUpdate)[0] === jsonPointer.parse(name)[0]
+      || this.state.formErrors.some(error => error.dataPath.startsWith(name))
+  }
+
+  shouldFormComponentFocus(name) {
+    return this.lastUpdate === name
   }
 
   render() {
@@ -98,7 +112,9 @@ Form.defaultProps = {
 Form.childContextTypes = {
   setValue: PropTypes.func,
   getValue: PropTypes.func,
-  getValidationErrors: PropTypes.func
+  getValidationErrors: PropTypes.func,
+  shouldFormComponentUpdate: PropTypes.func,
+  shouldFormComponentFocus: PropTypes.func
 }
 
 export default Form

@@ -3,18 +3,7 @@ import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
 
-let changed = null
-const autoFocus = (name) => {
-  const focus = changed === name
-  changed = focus ? null : changed
-  return focus
-}
-
-const onFocus = (e) => {
-  const tmp = e.target.value
-  e.target.value = ''
-  e.target.value = tmp
-}
+import { appendOnFocus } from '../../common'
 
 const castValue = (target) => {
   switch (target.type) {
@@ -26,7 +15,10 @@ const castValue = (target) => {
   }
 }
 
-const Input = ({type, name, value, setValue, errors, property, title, className, translate}) => (
+const Input = ({
+  type, name, value, setValue, errors, property, title, className, translate,
+  shouldFormComponentFocus
+}) => (
   <div className={`Input ${type} ${property || ''} ${className}`.trim()}>
     <label htmlFor={name} dangerouslySetInnerHTML={{__html: translate(title)}} />
     {errors.map((error, index) => (
@@ -38,9 +30,9 @@ const Input = ({type, name, value, setValue, errors, property, title, className,
       value={value}
       id={name}
       placeholder={translate(title)}
-      autoFocus={autoFocus(name)}
-      onFocus={onFocus}
-      onChange={(e) => (changed = name) && setValue(castValue(e.target))}
+      autoFocus={shouldFormComponentFocus}
+      onFocus={appendOnFocus}
+      onChange={e => setValue(castValue(e.target))}
     />
   </div>
 )
@@ -58,7 +50,8 @@ Input.propTypes = {
   property: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  shouldFormComponentFocus: PropTypes.bool
 }
 
 Input.defaultProps = {
@@ -67,7 +60,8 @@ Input.defaultProps = {
   errors: [],
   property: undefined,
   title: '',
-  className: ''
+  className: '',
+  shouldFormComponentFocus: false
 }
 
 export default withFormData(Input)
