@@ -12,7 +12,7 @@ import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
 
-const WebPageEdit = ({about, emitter, translate, action}) => (
+const WebPageEdit = ({about, emitter, translate, action, mapboxConfig}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
@@ -27,7 +27,7 @@ const WebPageEdit = ({about, emitter, translate, action}) => (
     >
       {translate('needHelp')}
     </a>
-    <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} />
+    <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} config={{mapboxConfig}} />
     <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
     <button className="btn" type="submit">{translate('publish')}</button>
   </Form>

@@ -6,6 +6,8 @@ import Fieldset from './Fieldset'
 import Input from './Input'
 import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
+
+import MiniMap from '../MiniMap'
 import Icon from '../Icon'
 import withApi from '../withApi'
 
@@ -59,8 +61,14 @@ class PlaceWidget extends React.Component {
 
   render() {
     const {
-      name, value, errors, property, title, className, translate, schema, api, setValue
+      name, value, errors, property, title, className, translate, schema, api, setValue, config
     } = this.props
+
+    const geometry = value.geo && value.geo.lon && value.geo.lat
+      ? {
+        "type": "Point",
+        "coordinates": [value.geo.lon, value.geo.lat]
+      } : null
 
     return (
       <div
@@ -72,6 +80,22 @@ class PlaceWidget extends React.Component {
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
+        <MiniMap
+          mapboxConfig={config.mapboxConfig}
+          features={geometry}
+          zoom={geometry && 5}
+          zoomable
+          draggable
+          onFeatureDrag={point => {
+            const update = JSON.parse(JSON.stringify(value))
+            update.geo = {
+              lat: point.geometry.coordinates.lat,
+              lon: point.geometry.coordinates.lng,
+            }
+            setValue(update)
+          }}
+          center={geometry.coordinates}
+        />
         <Fieldset property="address" translate={translate}>
           <DropdownSelect
             property="addressCountry"
@@ -119,6 +143,7 @@ class PlaceWidget extends React.Component {
                   </div>
                 }
               </div>
+              <p>{translate('ClientTemplates.place_widget.searchExplanation')}</p>
               <Input
                 property="streetAddress"
                 type="text"
@@ -151,6 +176,20 @@ class PlaceWidget extends React.Component {
               />
             </div>
           }
+        </Fieldset>
+        <Fieldset property="geo" translate={translate}>
+          <Input
+            property="lat"
+            type="number"
+            translate={translate}
+            title={schema.properties.geo.properties.lat.title}
+          />
+          <Input
+            property="lon"
+            type="number"
+            translate={translate}
+            title={schema.properties.geo.properties.lon.title}
+          />
         </Fieldset>
       </div>
     )

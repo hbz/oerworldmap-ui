@@ -21,7 +21,7 @@ class Builder extends React.Component {
 
   getComponent(schema) {
 
-    const translate = this.props.translate
+    const {translate, config} = this.props
     const widgets = Object.assign(
       {Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget},
       this.props.widgets
@@ -38,6 +38,7 @@ class Builder extends React.Component {
     const props = {
       title: schema.title,
       description: schema.description,
+      config,
       className,
       translate
     }
@@ -91,11 +92,13 @@ class Builder extends React.Component {
 Builder.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  widgets: PropTypes.objectOf(PropTypes.any)
+  widgets: PropTypes.objectOf(PropTypes.any),
+  config: PropTypes.objectOf(PropTypes.any)
 }
 
 Builder.defaultProps = {
-  widgets: {}
+  widgets: {},
+  config: null
 }
 
 export default withI18n(Builder)
