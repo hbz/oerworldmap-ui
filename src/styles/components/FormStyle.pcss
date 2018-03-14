@@ -44,10 +44,6 @@
           padding-right: 5px;
         }
       }
-
-      & label:last-child {
-        border-bottom: none;
-      }
     }
   }
 
@@ -147,7 +143,10 @@
       }
 
       & li:last-child {
-        border-bottom: none;
+
+        & label {
+          border-bottom: none;
+        }
       }
     }
   }
@@ -199,9 +198,9 @@
       width: 100%;
 
       & li {
-        border-bottom: 1px solid #0f578a;
 
         & label {
+          border-bottom: 1px solid #0f578a;
           display: blocK;
 
           &:hover,
@@ -210,10 +209,6 @@
             color: var(--white);
           }
         }
-      }
-
-      & li:last-child {
-        border-bottom: none;
       }
     }
   }
