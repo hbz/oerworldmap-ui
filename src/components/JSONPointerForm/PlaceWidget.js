@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -124,7 +125,7 @@ class PlaceWidget extends React.Component {
                             type="checkbox"
                             value={option['@id']}
                             id={`${name}-${option['@id']}`}
-                            onChange={e => {
+                            onChange={() => {
                               api.fetch('http://localhost:9200/geojson/_search', {
                                 method: 'POST',
                                 body: JSON.stringify({
@@ -143,8 +144,7 @@ class PlaceWidget extends React.Component {
                                     }
                                   }
                                 })
-                              })
-                              .then(data => {
+                              }).then(data => {
                                 option.address.addressRegion = data.hits.hits[0]._source.properties.code_hasc
                                 setValue(option)
                                 this.setState({options: [], filter: ""})
@@ -225,14 +225,20 @@ PlaceWidget.propTypes = {
   property: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  value: PropTypes.objectOf(PropTypes.any),
+  api: PropTypes.objectOf(PropTypes.any).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  setValue: PropTypes.func.isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 PlaceWidget.defaultProps = {
   errors: [],
   property: undefined,
   title: '',
-  className: ''
+  className: '',
+  value: {}
 }
 
 export default withApi(withFormData(PlaceWidget))

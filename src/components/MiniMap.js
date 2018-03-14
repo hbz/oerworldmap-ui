@@ -5,8 +5,6 @@ import PropTypes from 'prop-types'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import withEmitter from './withEmitter'
-
 class MiniMap extends React.Component {
 
   constructor(props) {
@@ -204,8 +202,7 @@ MiniMap.propTypes = {
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
   zoomable: PropTypes.bool,
-  onFeatureDrag: PropTypes.func,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  onFeatureDrag: PropTypes.func
 }
 
 MiniMap.defaultProps = {
@@ -217,4 +214,4 @@ MiniMap.defaultProps = {
   onFeatureDrag: null,
 }
 
-export default withEmitter(MiniMap)
+export default MiniMap

@@ -37,7 +37,14 @@ WebPageEdit.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  action: PropTypes.string
+  action: PropTypes.string,
+  mapboxConfig: PropTypes.shape(
+    {
+      token: PropTypes.string,
+      style: PropTypes.string,
+      miniMapStyle: PropTypes.string,
+    }
+  ).isRequired
 }
 
 WebPageEdit.defaultProps = {

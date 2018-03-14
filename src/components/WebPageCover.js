@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import MiniMap from './MiniMap'
 
 import withI18n from './withI18n'
-import withEmitter from './withEmitter'
 import Icon from './Icon'
 
 const getCenter = (geo) => {
@@ -17,16 +16,13 @@ const getCenter = (geo) => {
   }
 }
 
-const WebPageCover = ({geo, about, translate, mapboxConfig, view, emitter}) => (
+const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
   <div className="WebPageCover">
 
     <MiniMap
       mapboxConfig={mapboxConfig}
       features={geo && geo.geometry}
       zoom={geo && 3}
-      zoomable={view === 'edit'}
-      draggable={view === 'edit'}
-      onFeatureDrag={point => emitter.emit('setPoint', point)}
       center={getCenter(geo)}
     />
 
@@ -60,19 +56,17 @@ WebPageCover.propTypes = {
   geo: PropTypes.objectOf(PropTypes.any),
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   mapboxConfig: PropTypes.shape(
     {
       token: PropTypes.string,
       style: PropTypes.string,
       miniMapStyle: PropTypes.string,
     }
-  ).isRequired,
-  view: PropTypes.string.isRequired
+  ).isRequired
 }
 
 WebPageCover.defaultProps = {
   geo: null
 }
 
-export default withEmitter(withI18n(WebPageCover))
+export default withI18n(WebPageCover)

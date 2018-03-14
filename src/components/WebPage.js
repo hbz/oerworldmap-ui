@@ -35,7 +35,7 @@ const WebPage = ({
           _links={_links}
         />
 
-        <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} view={view} />
+        <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} />
 
         <div className="webPageContent">
 
