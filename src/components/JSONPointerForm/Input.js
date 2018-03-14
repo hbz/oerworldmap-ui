@@ -1,3 +1,5 @@
+/* global parseFloat */
+/* global parseInt */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,9 +10,12 @@ import { appendOnFocus } from '../../common'
 const castValue = (target) => {
   switch (target.type) {
   case 'checkbox':
-    return target.checked ? "true" : null
+    return target.checked ? true : null
+  case 'number':
+    return parseFloat(target.value)
+  case 'integer':
+    return parseInt(target.value)
   default:
-    // TODO: properly cast number to int or float
     return target.value
   }
 }
