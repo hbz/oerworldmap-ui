@@ -37,7 +37,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, view, _s
 
           {(view !== 'edit' || !about['@id']) &&
           <div className="action">
-            <Link href={Link.home} className="closeModal">
+            <Link href={Link.home} className="closePage">
               &times;
             </Link>
           </div>
