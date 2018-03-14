@@ -10,7 +10,6 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import Link from './Link'
-//import '../styles/components/Register.pcss'
 import schema from '../json/schema.json'
 
 const Register = ({translate, emitter}) => (
