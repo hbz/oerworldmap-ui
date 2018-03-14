@@ -125,8 +125,30 @@ class PlaceWidget extends React.Component {
                             value={option['@id']}
                             id={`${name}-${option['@id']}`}
                             onChange={e => {
-                              setValue(e.target.checked ? option : undefined)
-                              this.setState({options: [], filter: ""})
+                              api.fetch('http://localhost:9200/geojson/_search', {
+                                method: 'POST',
+                                body: JSON.stringify({
+                                  "_source": "properties.*",
+                                  "query": {
+                                    "geo_shape": {
+                                      "geometry": {
+                                        "shape": {
+                                          "type":   "point",
+                                          "coordinates": [
+                                            option.geo.lon,
+                                            option.geo.lat
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                })
+                              })
+                              .then(data => {
+                                option.address.addressRegion = data.hits.hits[0]._source.properties.code_hasc
+                                setValue(option)
+                                this.setState({options: [], filter: ""})
+                              })
                             }}
                           />
                           <label
