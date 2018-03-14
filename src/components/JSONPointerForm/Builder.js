@@ -21,14 +21,20 @@ class Builder extends React.Component {
   getComponent(schema) {
 
     const {translate} = this.props
+    const className = schema._display ? schema._display.className : undefined
+
+    // FIXME: not rendering form components for hidden fields due to performance issues
+    // when handling long lists. This works because the corresponding data is still present
+    // in the underlying formdata; non-js clients will send incomplete data, though.
+    if (className === 'hidden') {
+      return <div className="hidden" />
+    }
 
     if (schema.remote) {
       if ('properties' in schema) {
         return <RemoteSelect schema={schema} translate={translate} />
       }
     }
-
-    const className = schema._display ? schema._display.className : undefined
 
     switch (schema.type) {
     case 'string':
