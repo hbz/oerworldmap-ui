@@ -41,7 +41,7 @@ const WebPage = ({
 
           {user &&
             <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-              <WebPageEdit about={about} />
+              <WebPageEdit about={about} action={about['@id'] ? 'edit' : 'add'} />
             </div>
           }
 

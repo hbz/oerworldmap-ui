@@ -49,7 +49,6 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             {...data}
             view="edit"
-            action="add"
           />
         ) : (
           <ResourceIndex
