@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -16,6 +17,7 @@ const WebPageEdit = ({about, emitter, translate, action}) => (
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
     onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
+    onError={() => document.querySelector('.webPageWrapper').scrollTop = document.querySelector('.error').offsetTop}
   >
     <h2>{translate(action, {type: translate(about['@type'])})}</h2>
     <a

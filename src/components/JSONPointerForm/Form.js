@@ -82,7 +82,10 @@ class Form extends React.Component {
           e.preventDefault()
           this.props.validate(this.state.formData)
             ? this.props.onSubmit(this.state.formData)
-            : this.setState({formErrors: this.props.validate.errors})
+            : this.setState(
+              {formErrors: this.props.validate.errors},
+              () => this.props.onError(this.props.validate.errors)
+            )
         }}
       >
         {this.props.children}
@@ -97,6 +100,7 @@ Form.propTypes = {
   action: PropTypes.string,
   method: PropTypes.string,
   onSubmit: PropTypes.func,
+  onError: PropTypes.func,
   validate: PropTypes.func,
   children: PropTypes.node.isRequired
 }
@@ -106,6 +110,7 @@ Form.defaultProps = {
   action: '',
   method: 'get',
   onSubmit: formData => console.log(formData),
+  onError: formErrors => console.error(formErrors),
   validate: () => true
 }
 
