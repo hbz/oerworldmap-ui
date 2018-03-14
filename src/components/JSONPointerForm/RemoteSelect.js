@@ -136,7 +136,13 @@ class RemoteSelect extends React.Component {
                 name={`${name}/@id`}
                 value={this.state.filter}
                 className="filter"
-                placeholder="..."
+                placeholder={
+                  translate('ClientTemplates.resource_typehead.search')
+                    .concat(' ')
+                    .concat(this.props.schema.properties['@type'].enum
+                      .map(type => translate(type)).join(' or ')
+                    )
+                }
                 onChange={this.handleChange}
               />
             </div>
