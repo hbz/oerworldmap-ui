@@ -127,7 +127,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
             })}
           >
             <Builder schema={JsonSchema(schema).get('#/definitions/LighthouseAction')} />
-            <button type="submit">{translate('publish')}</button>
+            <div className="buttons">
+              <button className="btn" type="submit">{translate('publish')}</button>
+            </div>
           </Form>
         </FullModal>
       }
