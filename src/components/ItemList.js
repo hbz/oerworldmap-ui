@@ -30,7 +30,17 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className }) =>
             <div>
               <b>{translate(listItem.name) || listItem['@id']}</b>
               {listItem.description
-                ? <ReactMarkdown escapeHtml={false} source={translate(listItem.description)} />
+                ? <ReactMarkdown
+                  escapeHtml={false}
+                  source={translate(listItem.description)}
+                  renderers={
+                    {link: link => (
+                      <a href={link.href} target="_blank" rel="noopener">
+                        {link.children}
+                      </a>
+                    )}
+                  }
+                />
                 : <p>No description available</p>
               }
             </div>
