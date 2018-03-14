@@ -24,6 +24,7 @@ const WebPageEdit = ({about, emitter, translate, action}) => (
       href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
       target="_blank"
       rel="noopener noreferrer"
+      className="needHelp"
     >
       {translate('needHelp')}
     </a>
