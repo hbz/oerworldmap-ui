@@ -65,6 +65,7 @@ class Form extends React.Component {
     return !name
       || !this.lastUpdate
       || this.lastUpdate.startsWith(name)
+      || name.startsWith(this.lastUpdate)
       || this.state.formErrors.some(error => error.dataPath.startsWith(name))
   }
 

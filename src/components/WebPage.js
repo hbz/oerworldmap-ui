@@ -35,13 +35,17 @@ const WebPage = ({
           _links={_links}
         />
 
-        <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} view={view} />
+        <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} />
 
         <div className="webPageContent">
 
           {user &&
             <div id="edit" className={view === 'edit' ? 'visible' : ''}>
-              <WebPageEdit about={about} action={about['@id'] ? 'edit' : 'add'} />
+              <WebPageEdit
+                about={about}
+                action={about['@id'] ? 'edit' : 'add'}
+                mapboxConfig={mapboxConfig}
+              />
             </div>
           }
 

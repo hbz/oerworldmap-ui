@@ -72,32 +72,28 @@ export const triggerClick = (e, code) => {
   }
 }
 
-export const mapNominatimResult = (result) => {
-  return {
-    about: {
-      '@id': `info:${result.place_id}`,
-      '@type': 'Place',
-      name: [
-        {
-          '@language': 'en',
-          '@value': result.display_name
-        }
-      ],
-      geo: {
-        lat: result.lat,
-        lon: result.lon
-      },
-      address: {
-        streetAddress: result.address.road ? (result.address.road + (
-          result.address.house_number ? ` ${result.address.house_number}` : ''
-        )) : '',
-        postalCode: result.address.postcode,
-        addressLocality: result.address.city || result.address.state,
-        addressCountry: (result.address.country_code || '').toUpperCase()
-      }
+export const mapNominatimResult = (result) => ({
+  '@id': `info:${result.place_id}`,
+  '@type': 'Place',
+  name: [
+    {
+      '@language': 'en',
+      '@value': result.display_name
     }
+  ],
+  geo: {
+    lat: result.lat,
+    lon: result.lon
+  },
+  address: {
+    streetAddress: result.address.road ? (result.address.road + (
+      result.address.house_number ? ` ${result.address.house_number}` : ''
+    )) : '',
+    postalCode: result.address.postcode,
+    addressLocality: result.address.city || result.address.state,
+    addressCountry: (result.address.country_code || '').toUpperCase()
   }
-}
+})
 
 export const debounce = (func, wait, immediate) => {
   let timeout
