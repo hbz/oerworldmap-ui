@@ -242,7 +242,8 @@
     }
   }
 
-  & .RemoteSelect {
+  & .RemoteSelect,
+  & .locationForm {
     & > .label {
       display: none;
     }
@@ -289,6 +290,42 @@
   /* Custom Elements */
   & .DropdownSelect.addressCountry .label {
     display: block;
+  }
+
+  & .location {
+
+    & .locationForm {
+      & > .selectContainer {
+        padding-top: 10px;
+
+        & label {
+          padding: 10px;
+        }
+      }
+
+      & .divided {
+        display: flex;
+
+        & div:last-child {
+          margin-left: 15px;
+          flex: 2;
+        }
+      }
+
+      & .Input {
+        padding-bottom: 10px;
+
+        & > label,
+        &.postOfficeBoxNumber,
+        &.addressRegion {
+          display: none;
+        }
+      }
+    }
+
+    & .geo {
+      display: none;
+    }
   }
 
   & .admin.only {
