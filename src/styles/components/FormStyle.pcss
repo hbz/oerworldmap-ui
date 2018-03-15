@@ -242,23 +242,29 @@
     }
   }
 
-  & .RemoteSelect .filterContainer {
-    position: relative;
-
-    & .filter {
-      padding-left: 30px;
+  & .RemoteSelect {
+    & > .label {
+      display: none;
     }
 
-    &::after {
-      font-family: FontAwesome;
-      content: "\f002";
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      -webkit-transform: translateY(-51%);
-      transform: translateY(-51%);
-      pointer-events: none;
-      color: var(--blue);
+    & .filterContainer {
+      position: relative;
+
+      & .filter {
+        padding-left: 30px;
+      }
+
+      &::after {
+        font-family: FontAwesome;
+        content: "\f002";
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        -webkit-transform: translateY(-51%);
+        transform: translateY(-51%);
+        pointer-events: none;
+        color: var(--blue);
+      }
     }
   }
 
