@@ -114,7 +114,7 @@ class PlaceWidget extends React.Component {
             title={schema.properties.address.properties.addressCountry.title}
           />
           {getProp(['address', 'addressCountry'], value) &&
-            <div>
+            <div className="locationForm">
               <div className="selectContainer">
                 <div className="filterContainer">
                   <input
@@ -122,6 +122,7 @@ class PlaceWidget extends React.Component {
                     value={this.state.filter}
                     className="filter"
                     onChange={this.handleChange}
+                    placeholder={translate('ClientTemplates.place_widget.searchLocation')}
                   />
                 </div>
                 {this.state.options.length > 0 &&
@@ -165,7 +166,6 @@ class PlaceWidget extends React.Component {
                             role="button"
                             onKeyDown={e => triggerClick(e, 13)}
                           >
-                            <Icon type={option["@type"]} />
                             &nbsp;{translate(option.name)}
                           </label>
                         </li>
@@ -181,24 +181,26 @@ class PlaceWidget extends React.Component {
                 translate={translate}
                 title={schema.properties.address.properties.streetAddress.title}
               />
-              <Input
-                property="postalCode"
-                type="text"
-                translate={translate}
-                title={schema.properties.address.properties.postalCode.title}
-              />
-              <Input
-                property="postOfficeBoxNumber"
-                type="text"
-                translate={translate}
-                title={schema.properties.address.properties.postOfficeBoxNumber.title}
-              />
-              <Input
-                property="addressLocality"
-                type="text"
-                translate={translate}
-                title={schema.properties.address.properties.addressLocality.title}
-              />
+              <div className="divided">
+                <Input
+                  property="postalCode"
+                  type="text"
+                  translate={translate}
+                  title={schema.properties.address.properties.postalCode.title}
+                />
+                <Input
+                  property="postOfficeBoxNumber"
+                  type="text"
+                  translate={translate}
+                  title={schema.properties.address.properties.postOfficeBoxNumber.title}
+                />
+                <Input
+                  property="addressLocality"
+                  type="text"
+                  translate={translate}
+                  title={schema.properties.address.properties.addressLocality.title}
+                />
+              </div>
               <Input
                 property="addressRegion"
                 type="text"
