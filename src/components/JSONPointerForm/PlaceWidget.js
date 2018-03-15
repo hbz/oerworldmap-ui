@@ -92,7 +92,7 @@ class PlaceWidget extends React.Component {
           <MiniMap
             mapboxConfig={config.mapboxConfig}
             features={geometry}
-            zoom={geometry ? 12 : null}
+            zoom={geometry ? 12 : undefined}
             zoomable
             draggable
             onFeatureDrag={point => {
@@ -103,7 +103,7 @@ class PlaceWidget extends React.Component {
               }
               setValue(update)
             }}
-            center={geometry.coordinates}
+            center={geometry ? geometry.coordinates : undefined}
           />
         </div>
         <Fieldset property="address" translate={translate}>
