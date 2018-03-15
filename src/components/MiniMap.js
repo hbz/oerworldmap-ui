@@ -67,7 +67,8 @@ class MiniMap extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateMap(nextProps.features, nextProps.draggable, nextProps.zoomable)
+    this.updateMap(nextProps.features, nextProps.draggable,
+      nextProps.zoomable, nextProps.center, nextProps.zoom)
   }
 
   shouldComponentUpdate() {
@@ -145,7 +146,7 @@ class MiniMap extends React.Component {
     this.MiniMap.dragPan.enable()
   }
 
-  updateMap(features, draggable, zoomable) {
+  updateMap(features, draggable, zoomable, center, zoom) {
     this.MiniMap.getSource('points').setData(features)
     this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
     this.MiniMap.off('mouseleave', 'points', this.mouseLeave)
@@ -165,7 +166,9 @@ class MiniMap extends React.Component {
     } else {
       this.MiniMap.scrollZoom.disable()
       this.MiniMap.doubleClickZoom.disable()
-      this.MiniMap.flyTo({zoom:3})
+    }
+    if (center && zoom) {
+      this.MiniMap.flyTo({center, zoom})
     }
   }
 
