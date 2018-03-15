@@ -34,6 +34,11 @@ class MiniMap extends React.Component {
 
     this.MiniMap.on('load', () => {
 
+      if (this.props.draggable) {
+        const nav = new mapboxgl.NavigationControl({showCompass:false})
+        this.MiniMap.addControl(nav, 'bottom-left')
+      }
+
       this.MiniMapContainer.addEventListener('mouseleave', () => {
         this.selected = null
         this.canvas.style.cursor = ''
