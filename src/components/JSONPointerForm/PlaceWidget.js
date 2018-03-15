@@ -82,6 +82,13 @@ class PlaceWidget extends React.Component {
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
+        <div
+          className="mapContainer"
+          style={{
+            position:'relative',
+            height: '300px'
+          }}
+        >
         <MiniMap
           mapboxConfig={config.mapboxConfig}
           features={geometry}
@@ -98,6 +105,7 @@ class PlaceWidget extends React.Component {
           }}
           center={geometry.coordinates}
         />
+        </div>
         <Fieldset property="address" translate={translate}>
           <DropdownSelect
             property="addressCountry"
