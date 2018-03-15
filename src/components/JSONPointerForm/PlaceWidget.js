@@ -9,7 +9,6 @@ import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
 
 import MiniMap from '../MiniMap'
-import Icon from '../Icon'
 import withApi from '../withApi'
 
 import { triggerClick, getProp, mapNominatimResult } from '../../common'
@@ -92,7 +91,7 @@ class PlaceWidget extends React.Component {
           <MiniMap
             mapboxConfig={config.mapboxConfig}
             features={geometry}
-            zoom={geometry ? 12 : undefined}
+            zoom={geometry ? 12 : 1}
             zoomable
             draggable
             onFeatureDrag={point => {
