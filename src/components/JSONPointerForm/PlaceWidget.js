@@ -92,7 +92,7 @@ class PlaceWidget extends React.Component {
           <MiniMap
             mapboxConfig={config.mapboxConfig}
             features={geometry}
-            zoom={geometry && 5}
+            zoom={geometry ? 12 : null}
             zoomable
             draggable
             onFeatureDrag={point => {
