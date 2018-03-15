@@ -176,7 +176,7 @@ class MiniMap extends React.Component {
     return (
       <div
         ref={(map) => { this.MiniMapContainer = map }}
-        id='MiniMap'
+        className='MiniMap'
         style={
           {position:'absolute',
             width:'100%',
