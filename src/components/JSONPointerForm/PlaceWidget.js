@@ -89,22 +89,22 @@ class PlaceWidget extends React.Component {
             height: '300px'
           }}
         >
-        <MiniMap
-          mapboxConfig={config.mapboxConfig}
-          features={geometry}
-          zoom={geometry && 5}
-          zoomable
-          draggable
-          onFeatureDrag={point => {
-            const update = JSON.parse(JSON.stringify(value))
-            update.geo = {
-              lat: point.geometry.coordinates.lat,
-              lon: point.geometry.coordinates.lng,
-            }
-            setValue(update)
-          }}
-          center={geometry.coordinates}
-        />
+          <MiniMap
+            mapboxConfig={config.mapboxConfig}
+            features={geometry}
+            zoom={geometry && 5}
+            zoomable
+            draggable
+            onFeatureDrag={point => {
+              const update = JSON.parse(JSON.stringify(value))
+              update.geo = {
+                lat: point.geometry.coordinates.lat,
+                lon: point.geometry.coordinates.lng,
+              }
+              setValue(update)
+            }}
+            center={geometry.coordinates}
+          />
         </div>
         <Fieldset property="address" translate={translate}>
           <DropdownSelect
@@ -134,7 +134,7 @@ class PlaceWidget extends React.Component {
                             value={option['@id']}
                             id={`${name}-${option['@id']}`}
                             onChange={() => {
-                              api.fetch('http://localhost:9200/geojson/_search', {
+                              api.fetch('http://192.168.178.39:9200/geojson/_search', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                   "_source": "properties.*",

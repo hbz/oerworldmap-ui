@@ -33,6 +33,14 @@ class MiniMap extends React.Component {
     this.isDragging = false
 
     this.MiniMap.on('load', () => {
+
+      this.MiniMapContainer.addEventListener('mouseleave', () => {
+        this.selected = null
+        this.canvas.style.cursor = ''
+        this.isDragging = false
+        this.MiniMap.dragPan.enable()
+      })
+
       this.MiniMap.addSource('points', {
         "type": "geojson",
         "data": this.props.features
@@ -48,13 +56,17 @@ class MiniMap extends React.Component {
           "circle-stroke-color": "white"
         }
       })
-      this.updateMap(this.props)
+      this.updateMap(this.props.features, this.props.draggable, this.props.zoomable)
       window.dispatchEvent(new Event('resize'))
     })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateMap(nextProps)
+    this.updateMap(nextProps.features, nextProps.draggable, nextProps.zoomable)
+  }
+
+  shouldComponentUpdate() {
+    return false
   }
 
   mouseMove(e) {
@@ -80,7 +92,6 @@ class MiniMap extends React.Component {
 
       this.MiniMap.getSource('points').setData(data)
     }
-
   }
 
   mouseUp(e) {
@@ -90,6 +101,7 @@ class MiniMap extends React.Component {
 
     this.canvas.style.cursor = ''
     this.isDragging = false
+    this.MiniMap.dragPan.enable()
 
     const region = this.MiniMap.queryRenderedFeatures(e.point, { layers: ['Regions'] }).pop()
 
@@ -112,6 +124,7 @@ class MiniMap extends React.Component {
   mouseDown(e) {
     this.selected = this.MiniMap.queryRenderedFeatures(e.point, {layers: ['points']}).pop()
     this.isDragging = true
+    this.MiniMap.dragPan.disable()
     this.canvas.style.cursor = 'grab'
   }
 
@@ -127,21 +140,21 @@ class MiniMap extends React.Component {
     this.MiniMap.dragPan.enable()
   }
 
-  updateMap(props) {
-    this.MiniMap.getSource('points').setData(props.features)
+  updateMap(features, draggable, zoomable) {
+    this.MiniMap.getSource('points').setData(features)
     this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
     this.MiniMap.off('mouseleave', 'points', this.mouseLeave)
     this.MiniMap.off('mousedown', 'points', this.mouseDown)
     this.MiniMap.off('mousemove', this.mouseMove)
     this.MiniMap.off('mouseup', this.mouseUp)
-    if (props.draggable) {
+    if (draggable) {
       this.MiniMap.on('mouseenter', 'points', this.mouseEnter)
       this.MiniMap.on('mouseleave', 'points', this.mouseLeave)
       this.MiniMap.on('mousedown', 'points', this.mouseDown)
       this.MiniMap.on('mousemove', this.mouseMove)
       this.MiniMap.on('mouseup', this.mouseUp)
     }
-    if (props.zoomable) {
+    if (zoomable) {
       this.MiniMap.scrollZoom.enable()
       this.MiniMap.doubleClickZoom.enable()
     } else {
@@ -149,10 +162,6 @@ class MiniMap extends React.Component {
       this.MiniMap.doubleClickZoom.disable()
       this.MiniMap.flyTo({zoom:3})
     }
-  }
-
-  shouldComponentUpdate() {
-    return false
   }
 
   render() {
