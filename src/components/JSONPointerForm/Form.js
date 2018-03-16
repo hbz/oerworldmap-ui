@@ -25,7 +25,7 @@ class Form extends React.Component {
       formData: props.data,
       formErrors: []
     }
-    this.lastUpdate = null
+    this.lastUpdate = ""
   }
 
   getChildContext() {
@@ -41,7 +41,7 @@ class Form extends React.Component {
   setValue(name, value) {
     this.setState(prevState => {
       jsonPointer.set(prevState.formData, name, value)
-      this.lastUpdate = value ? name : null
+      this.lastUpdate = name
       return {
         formData: prune(prevState.formData)
       }
@@ -63,10 +63,9 @@ class Form extends React.Component {
 
   shouldFormComponentUpdate(name) {
     return !name
-      || !this.lastUpdate
       || this.lastUpdate.startsWith(name)
       || name.startsWith(this.lastUpdate)
-      || this.state.formErrors.some(error => error.dataPath.startsWith(name))
+      || this.getValidationErrors(name).length
   }
 
   shouldFormComponentFocus(name) {
@@ -81,6 +80,7 @@ class Form extends React.Component {
         method={this.props.method}
         onSubmit={e => {
           e.preventDefault()
+          this.lastUpdate = ""
           this.props.validate(this.state.formData)
             ? this.props.onSubmit(this.state.formData)
             : this.setState(

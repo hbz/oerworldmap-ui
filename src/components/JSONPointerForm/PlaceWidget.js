@@ -112,9 +112,12 @@ class PlaceWidget extends React.Component {
             options={schema.properties.address.properties.addressCountry.enum}
             title={schema.properties.address.properties.addressCountry.title}
             setValue={country => {
-              const update = JSON.parse(JSON.stringify(value ? value : {}))
-              update.address = country ? {addressCountry: country} : undefined
-              setValue(update)
+              setValue(country
+                ? Object.assign(
+                    value ? JSON.parse(JSON.stringify(value)) : {},
+                    {address: {addressCountry: country}}
+                ) : undefined
+              )
             }}
           />
           {getProp(['address', 'addressCountry'], value) &&
