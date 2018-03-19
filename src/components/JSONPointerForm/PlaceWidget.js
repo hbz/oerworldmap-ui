@@ -64,7 +64,7 @@ class PlaceWidget extends React.Component {
 
   render() {
     const {
-      name, value, errors, property, title, className, translate, schema, api,
+      name, value, errors, property, title, className, translate, schema,
       setValue, config, description
     } = this.props
 
@@ -243,7 +243,8 @@ PlaceWidget.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
-  config: PropTypes.objectOf(PropTypes.any).isRequired
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
+  description: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 PlaceWidget.defaultProps = {
