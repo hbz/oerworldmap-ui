@@ -114,10 +114,34 @@
       }
     }
   }
+
+  & li.expandable {
+    position: relative;
+
+    & .toggle {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      color: var(--blue-dark);
+
+      &:hover,
+      &:focus {
+        color: var(--orange);
+      }
+    }
+
+    & .toggle.fa-plus + ul {
+      display: none;
+    }
+  }
 }
 
 .Block.collapsible.show-all.collapsed .ItemList li {
   display: none;
+
+  & > a {
+    margin-right: 30px;
+  }
 
   &:nth-child(-n+3) {
     display: list-item;
