@@ -9,6 +9,8 @@ import I18nProvider from './I18nProvider'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 
+import { formatDate } from '../common'
+
 import '../styles/components/Diff.pcss'
 
 const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to}) => {
@@ -58,7 +60,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to})
                     <br />
                     <span><b>{translate('Author')}:</b> {l.author}</span>
                     <br />
-                    <span><b>{translate('Date')}:</b> {moment(l.date).format('LLL')}</span>
+                    <span><b>{translate('Date')}:</b> {formatDate(l.date, moment)}</span>
                   </div>
                   <div>
                     <input

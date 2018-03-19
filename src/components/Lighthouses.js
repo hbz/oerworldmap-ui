@@ -6,6 +6,8 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
+import { formatDate } from '../common'
+
 const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => (
   <div className="Lighthouses">
 
@@ -19,7 +21,11 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
               </Link>)
             )}
             {lighthouse.startTime &&
-              <span>&nbsp;{moment(lighthouse.startTime).fromNow()}</span>
+              <span
+                title={formatDate(lighthouse.startTime, moment)}
+              >
+                &nbsp;{moment(lighthouse.startTime).fromNow()}
+              </span>
             }
           </div>
           {user &&

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import withI18n from './withI18n'
 import Link from './Link'
+import { formatDate } from '../common'
 
 const Topline = ({translate, moment, about}) => {
 
@@ -40,17 +41,12 @@ const Topline = ({translate, moment, about}) => {
 
       {about['@type'] === 'Event' &&
       about.startDate &&
-        <div className="toplineEntry">
-          {about.startDate &&
-          about.startDate.includes('T00:00:00')
-            ? moment(about.startDate).format('LLL')
-            : moment(about.startDate).format('LL')}
-          {about.endDate && ` - ${
-            about.endDate.includes('T00:00:00')
-              ? moment(about.endDate).format('LLL')
-              : moment(about.endDate).format('LL')
-          }`}
-        </div>
+      <div className="toplineEntry">
+        {formatDate(about.startDate, moment)}
+        {about.endDate &&
+          <span> - {formatDate(about.endDate, moment)}</span>
+        }
+      </div>
       }
 
       {about['@type'] === 'Event' &&

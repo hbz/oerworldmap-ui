@@ -13,6 +13,8 @@ import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
 
+import { formatDate } from '../common'
+
 import '../styles/components/Comments.pcss'
 
 const Comments = ({moment, translate, emitter, about, comments, user}) => (
@@ -27,7 +29,11 @@ const Comments = ({moment, translate, emitter, about, comments, user}) => (
                 {translate(author.name)}
               </Link>)
             )}{' '}
-            {moment(comment.dateCreated).fromNow()}
+            <span
+              title={formatDate(comment.dateCreated, moment)}
+            >
+              {moment(comment.dateCreated).fromNow()}
+            </span>
           </div>
           {user &&
           user.groups.includes('admin') &&
