@@ -34,7 +34,6 @@ const Input = ({
       name={name}
       value={value}
       id={name}
-      placeholder={translate(title)}
       autoFocus={shouldFormComponentFocus}
       onFocus={appendOnFocus}
       onChange={e => setValue(castValue(e.target))}

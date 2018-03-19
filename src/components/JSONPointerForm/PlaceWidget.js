@@ -98,39 +98,13 @@ class PlaceWidget extends React.Component {
           </p>
         ) : (
           <div>
-            <div
-              className="mapContainer"
-              style={{
-                position:'relative',
-                height: '300px'
-              }}
-            >
-              <MiniMap
-                mapboxConfig={config.mapboxConfig}
-                features={geometry}
-                zoom={geometry ? 12 : 1}
-                zoomable
-                draggable
-                onFeatureDrag={point => setValue(Object.assign(
-                  value ? JSON.parse(JSON.stringify(value)) : {},
-                  {geo: {
-                    lat: point.geometry.coordinates.lat,
-                    lon: point.geometry.coordinates.lng,
-                  }}
-                ))}
-                center={geometry ? geometry.coordinates : undefined}
-              />
-            </div>
             <Fieldset property="address" translate={translate}>
               <DropdownSelect
                 property="addressCountry"
                 translate={translate}
                 options={schema.properties.address.properties.addressCountry.enum}
                 title={schema.properties.address.properties.addressCountry.title}
-                setValue={country => setValue(Object.assign(
-                  value ? JSON.parse(JSON.stringify(value)) : {},
-                  {address: {addressCountry: country}}
-                ))}
+                setValue={country => setValue({address: {addressCountry: country}})}
               />
               {getProp(['address', 'addressCountry'], value) &&
                 <div>
@@ -139,16 +113,18 @@ class PlaceWidget extends React.Component {
                     translate={translate}
                     options={regions.filter(region => region.startsWith(value.address.addressCountry))}
                     title={schema.properties.address.properties.addressRegion.title}
-                    setValue={region => setValue(Object.assign(
-                      value ? JSON.parse(JSON.stringify(value)) : {},
-                      {address: {
+                    setValue={region => setValue({
+                      address: {
                         addressCountry: value.address.addressCountry,
                         addressRegion: region
-                      }}
-                    ))}
+                      }
+                    })}
                   />
                   {getProp(['address', 'addressRegion'], value) &&
-                    <div className="locationForm">
+                    <div className="locationForm" aria-labelledby={`${name}/address-label`}>
+                      <div className="label" id={`${name}/address-label`}>
+                        {translate('ResourceIndex.PostalAddress.edit.address')}
+                      </div>
                       <div className="selectContainer">
                         <div className="filterContainer">
                           <input
@@ -220,6 +196,31 @@ class PlaceWidget extends React.Component {
                           title={schema.properties.address.properties.addressLocality.title}
                         />
                       </div>
+                      {geometry &&
+                        <div
+                          className="mapContainer"
+                          style={{
+                            position:'relative',
+                            height: '300px'
+                          }}
+                        >
+                          <MiniMap
+                            mapboxConfig={config.mapboxConfig}
+                            features={geometry}
+                            zoom={geometry ? 12 : 1}
+                            zoomable
+                            draggable
+                            onFeatureDrag={point => setValue(Object.assign(
+                              value ? JSON.parse(JSON.stringify(value)) : {},
+                              {geo: {
+                                lat: point.geometry.coordinates.lat,
+                                lon: point.geometry.coordinates.lng,
+                              }}
+                            ))}
+                            center={geometry ? geometry.coordinates : undefined}
+                          />
+                        </div>
+                      }
                     </div>
                   }
                 </div>
