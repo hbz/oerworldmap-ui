@@ -376,11 +376,17 @@
   }
 }
 
-.registerForm .Fieldset .Input.text {
-  margin-bottom: 10px;
+.registerForm {
+  & .Builder > .Fieldset > .label {
+    display: block;
+  }
 
-  & label {
-    display: none;
+  & .Fieldset .Input.text {
+    margin-bottom: 10px;
+
+    & label {
+      display: none;
+    }
   }
 }
 
