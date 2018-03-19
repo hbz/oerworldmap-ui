@@ -86,9 +86,7 @@ export const mapNominatimResult = (result) => ({
     lon: result.lon
   },
   address: {
-    streetAddress: result.address.road ? (result.address.road + (
-      result.address.house_number ? ` ${result.address.house_number}` : ''
-    )) : '',
+    streetAddress: `${result.address.road || ''} ${result.address.house_number || ''}`.trim(),
     postalCode: result.address.postcode,
     addressLocality: result.address.city || result.address.state,
     addressCountry: (result.address.country_code || '').toUpperCase()
