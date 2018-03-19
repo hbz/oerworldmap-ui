@@ -14,7 +14,7 @@ import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 
-import { formatURL/*, obfuscate*/ } from '../common'
+import { formatURL, formatDate } from '../common'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
@@ -288,23 +288,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.startTime &&
             <Block title={translate(`${about['@type']}.startTime`)}>
-              {about.startTime.includes('T00:00:00')
-                ? moment(about.startTime).format('LL')
-                : moment(about.startTime).format('LLL')}
-              {about.endTime && ` - ${about.endTime.includes('T00:00:00')
-                ? moment(about.endTime).format('LL')
-                : moment(about.endTime).format('LLL')}`}
+              {formatDate(about.startTime, moment)}
+              {about.endTime &&
+                <span> - {formatDate(about.endTime, moment)}</span>
+              }
             </Block>
           }
 
           {about.startDate &&
             <Block title={translate(`${about['@type']}.startDate`)}>
-              {about.startDate.includes('T00:00:00')
-                ? moment(about.startDate).format('LL')
-                : moment(about.startDate).format('LLL')}
-              {about.endDate && ` - ${about.endDate.includes('T00:00:00')
-                ? moment(about.endDate).format('LL')
-                : moment(about.endDate).format('LLL')}`}
+              {formatDate(about.startDate, moment)}
+              {about.endDate &&
+                <span> - {formatDate(about.endDate, moment)}</span>
+              }
             </Block>
           }
 

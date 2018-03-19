@@ -160,7 +160,25 @@ export const appendOnFocus = e => {
   e.target.value = tmp
 }
 
+export const formatDate = (date, moment) => {
+  let currentDate = date.replace('T00:00:00', '')
+
+  if (moment(currentDate, 'YYYY', true).isValid()) {
+    currentDate = moment(currentDate).format('YYYY')
+  } else if (moment(currentDate, 'YYYYMM', true).isValid()
+    || moment(currentDate, 'YYYY-MM', true).isValid()) {
+    currentDate = moment(currentDate).format('MM YYYY')
+  } else if (moment(currentDate, 'YYYY-MM-D', true).isValid()
+    || moment(currentDate, 'YYYYMMD', true).isValid()) {
+    currentDate = moment(currentDate).format('LL')
+  } else {
+    currentDate = moment(currentDate).format('LLL')
+  }
+
+  return currentDate
+}
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, parseProperties, obfuscate, getProp, appendOnFocus
+  debounce, parseProperties, obfuscate, getProp, appendOnFocus, formatDate
 }
