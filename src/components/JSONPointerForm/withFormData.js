@@ -28,12 +28,12 @@ const withFormData = (BaseComponent) => {
     render() {
       return (
         <BaseComponent
-          {...this.props}
           name={this.name}
           value={this.context.getValue(this.name)}
           setValue={value => this.context.setValue(this.name, value)}
           errors={this.context.getValidationErrors(this.name)}
           shouldFormComponentFocus={this.context.shouldFormComponentFocus(this.name)}
+          {...this.props}
         />
       )
     }
