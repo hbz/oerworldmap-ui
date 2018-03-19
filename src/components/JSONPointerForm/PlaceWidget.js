@@ -21,7 +21,8 @@ class PlaceWidget extends React.Component {
     super(props)
     this.state = {
       filter: "",
-      options: []
+      options: [],
+      collapsed: props.schema._display && props.schema._display.collapsed
     }
     this.handleChange = this.handleChange.bind(this)
     this.updateOptions = _.debounce(this.updateOptions.bind(this), 200)
@@ -63,7 +64,8 @@ class PlaceWidget extends React.Component {
 
   render() {
     const {
-      name, value, errors, property, title, className, translate, schema, api, setValue, config
+      name, value, errors, property, title, className, translate, schema, api,
+      setValue, config, description
     } = this.props
 
     const geometry = value.geo && value.geo.lon && value.geo.lat
@@ -83,133 +85,148 @@ class PlaceWidget extends React.Component {
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
-        <div
-          className="mapContainer"
-          style={{
-            position:'relative',
-            height: '300px'
-          }}
-        >
-          <MiniMap
-            mapboxConfig={config.mapboxConfig}
-            features={geometry}
-            zoom={geometry ? 12 : 1}
-            zoomable
-            draggable
-            onFeatureDrag={point => setValue(Object.assign(
-              value ? JSON.parse(JSON.stringify(value)) : {},
-              {geo: {
-                lat: point.geometry.coordinates.lat,
-                lon: point.geometry.coordinates.lng,
+        {this.state.collapsed ? (
+          <p>
+            <em>{translate(description)}</em>
+            <button
+              className="btn btn-default"
+              type="button"
+              onClick={() => this.setState({collapsed: false})}
+            >
+              {translate('show')}
+            </button>
+          </p>
+        ) : (
+          <div>
+            <div
+              className="mapContainer"
+              style={{
+                position:'relative',
+                height: '300px'
               }}
-            ))}
-            center={geometry ? geometry.coordinates : undefined}
-          />
-        </div>
-        <Fieldset property="address" translate={translate}>
-          <DropdownSelect
-            property="addressCountry"
-            translate={translate}
-            options={schema.properties.address.properties.addressCountry.enum}
-            title={schema.properties.address.properties.addressCountry.title}
-            setValue={country => setValue(Object.assign(
-              value ? JSON.parse(JSON.stringify(value)) : {},
-              {address: {addressCountry: country}}
-            ))}
-          />
-          {getProp(['address', 'addressCountry'], value) &&
-            <div>
-              <DropdownSelect
-                property="addressRegion"
-                translate={translate}
-                options={regions.filter(region => region.startsWith(value.address.addressCountry))}
-                title={schema.properties.address.properties.addressRegion.title}
-                setValue={region => setValue(Object.assign(
+            >
+              <MiniMap
+                mapboxConfig={config.mapboxConfig}
+                features={geometry}
+                zoom={geometry ? 12 : 1}
+                zoomable
+                draggable
+                onFeatureDrag={point => setValue(Object.assign(
                   value ? JSON.parse(JSON.stringify(value)) : {},
-                  {address: {
-                    addressCountry: value.address.addressCountry,
-                    addressRegion: region
+                  {geo: {
+                    lat: point.geometry.coordinates.lat,
+                    lon: point.geometry.coordinates.lng,
                   }}
                 ))}
+                center={geometry ? geometry.coordinates : undefined}
               />
-              {getProp(['address', 'addressRegion'], value) &&
-                <div className="locationForm">
-                  <div className="selectContainer">
-                    <div className="filterContainer">
-                      <input
-                        type="text"
-                        value={this.state.filter}
-                        className="filter"
-                        onChange={this.handleChange}
-                        placeholder={translate('ClientTemplates.place_widget.searchLocation')}
-                      />
-                    </div>
-                    {this.state.options.length > 0 &&
-                      <div className="optionsContainer">
-                        <ul>
-                          {this.state.options.map(option => (
-                            <li key={option['@id']}>
-                              <input
-                                type="checkbox"
-                                value={option['@id']}
-                                id={`${name}-${option['@id']}`}
-                                onChange={() => {
-                                  const address = value.address || {}
-                                  Object.assign(address, {
-                                    streetAddress: option.address.streetAddress,
-                                    postalCode: option.address.postalCode,
-                                    addressLocality: option.address.addressLocality
-                                  })
-                                  setValue(Object.assign(
-                                    value ? JSON.parse(JSON.stringify(value)) : {},
-                                    {address, geo: {
-                                      lat: option.geo.lat,
-                                      lon: option.geo.lon
-                                    }}
-                                  ))
-                                  this.setState({options: [], filter: ""})
-                                }}
-                              />
-                              <label
-                                htmlFor={`${name}-${option['@id']}`}
-                                tabIndex="0"
-                                role="button"
-                                onKeyDown={e => triggerClick(e, 13)}
-                              >
-                                &nbsp;{translate(option.name)}
-                              </label>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    }
-                  </div>
-                  <p>{translate('ClientTemplates.place_widget.searchExplanation')}</p>
-                  <Input
-                    property="streetAddress"
-                    type="text"
+            </div>
+            <Fieldset property="address" translate={translate}>
+              <DropdownSelect
+                property="addressCountry"
+                translate={translate}
+                options={schema.properties.address.properties.addressCountry.enum}
+                title={schema.properties.address.properties.addressCountry.title}
+                setValue={country => setValue(Object.assign(
+                  value ? JSON.parse(JSON.stringify(value)) : {},
+                  {address: {addressCountry: country}}
+                ))}
+              />
+              {getProp(['address', 'addressCountry'], value) &&
+                <div>
+                  <DropdownSelect
+                    property="addressRegion"
                     translate={translate}
-                    title={schema.properties.address.properties.streetAddress.title}
+                    options={regions.filter(region => region.startsWith(value.address.addressCountry))}
+                    title={schema.properties.address.properties.addressRegion.title}
+                    setValue={region => setValue(Object.assign(
+                      value ? JSON.parse(JSON.stringify(value)) : {},
+                      {address: {
+                        addressCountry: value.address.addressCountry,
+                        addressRegion: region
+                      }}
+                    ))}
                   />
-                  <div className="divided">
-                    <Input
-                      property="postalCode"
-                      type="text"
-                      translate={translate}
-                      title={schema.properties.address.properties.postalCode.title}
-                    />
-                    <Input
-                      property="addressLocality"
-                      type="text"
-                      translate={translate}
-                      title={schema.properties.address.properties.addressLocality.title}
-                    />
-                  </div>
+                  {getProp(['address', 'addressRegion'], value) &&
+                    <div className="locationForm">
+                      <div className="selectContainer">
+                        <div className="filterContainer">
+                          <input
+                            type="text"
+                            value={this.state.filter}
+                            className="filter"
+                            onChange={this.handleChange}
+                            placeholder={translate('ClientTemplates.place_widget.searchLocation')}
+                          />
+                        </div>
+                        {this.state.options.length > 0 &&
+                          <div className="optionsContainer">
+                            <ul>
+                              {this.state.options.map(option => (
+                                <li key={option['@id']}>
+                                  <input
+                                    type="checkbox"
+                                    value={option['@id']}
+                                    id={`${name}-${option['@id']}`}
+                                    onChange={() => {
+                                      const address = value.address || {}
+                                      Object.assign(address, {
+                                        streetAddress: option.address.streetAddress,
+                                        postalCode: option.address.postalCode,
+                                        addressLocality: option.address.addressLocality
+                                      })
+                                      setValue(Object.assign(
+                                        value ? JSON.parse(JSON.stringify(value)) : {},
+                                        {address, geo: {
+                                          lat: option.geo.lat,
+                                          lon: option.geo.lon
+                                        }}
+                                      ))
+                                      this.setState({options: [], filter: ""})
+                                    }}
+                                  />
+                                  <label
+                                    htmlFor={`${name}-${option['@id']}`}
+                                    tabIndex="0"
+                                    role="button"
+                                    onKeyDown={e => triggerClick(e, 13)}
+                                  >
+                                    &nbsp;{translate(option.name)}
+                                  </label>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        }
+                      </div>
+                      <p>{translate('ClientTemplates.place_widget.searchExplanation')}</p>
+                      <Input
+                        property="streetAddress"
+                        type="text"
+                        translate={translate}
+                        title={schema.properties.address.properties.streetAddress.title}
+                      />
+                      <div className="divided">
+                        <Input
+                          property="postalCode"
+                          type="text"
+                          translate={translate}
+                          title={schema.properties.address.properties.postalCode.title}
+                        />
+                        <Input
+                          property="addressLocality"
+                          type="text"
+                          translate={translate}
+                          title={schema.properties.address.properties.addressLocality.title}
+                        />
+                      </div>
+                    </div>
+                  }
                 </div>
               }
-            </div>
-          }
-        </Fieldset>
+            </Fieldset>
+          </div>
+        )}
       </div>
     )
   }
