@@ -1,3 +1,4 @@
+/* global btoa*/
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
@@ -13,7 +14,7 @@ import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 
-import { formatURL/*, obfuscate*/ } from '../common'
+import { formatURL, formatDate } from '../common'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
@@ -59,18 +60,61 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           <div className="border-top text-large" style={{paddingTop: '2em'}}>
 
-            {about.description &&
-              <Block className="first description" title={translate(`${about['@type']}.description`)}>
-                {about.description &&
-                  <ReactMarkdown escapeHtml={false} source={translate(about.description)} />
-                }
-              </Block>
-            }
+            <Block
+              className="first description"
+              title={translate(`${about['@type']}.description`)}
+              type={about['@type']}
+            >
+              {about.description ? (
+                <ReactMarkdown
+                  className='markdown'
+                  escapeHtml={false}
+                  source={translate(about.description)}
+                  renderers={
+                    {link: link => (
+                      <a href={link.href} target="_blank" rel="noopener">
+                        {link.children}
+                      </a>
+                    )}
+                  }
+                />
+              ) : (
+                <p>
+                  <i>
+                    {translate('A description for this entry is missing, help us by')}&nbsp;
+                    {user ? (
+                      <Link href={`/resource/${about['@id']}/#edit`}>
+                        {translate('adding some information!')}
+                      </Link>
+                    ) : (
+                      <Link href="/user/register">
+                        {translate('adding some information!')}
+                      </Link>
+                    )}
+                  </i>
+                </p>
+              )
+              }
+            </Block>
 
             {about.articleBody &&
-              <Block className="first description" title={translate(`${about['@type']}.articleBody`)}>
+              <Block
+                className="first description"
+                title=''
+              >
                 {about.articleBody &&
-                  <ReactMarkdown escapeHtml={false} source={translate(about.articleBody)} />
+                  <ReactMarkdown
+                    className='markdown'
+                    escapeHtml={false}
+                    source={translate(about.articleBody)}
+                    renderers={
+                      {link: link => (
+                        <a href={link.href} target="_blank" rel="noopener">
+                          {link.children}
+                        </a>
+                      )}
+                    }
+                  />
                 }
               </Block>
             }
@@ -95,7 +139,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
-                <ul className="commaSeparatedList">
+                <ul className="spaceSeparatedList">
                   {about.keywords.map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
@@ -197,10 +241,15 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.email &&
             <Block title={translate(`${about['@type']}.email`)}>
-              {/* FIXME: Find a way to set raw attribute value */}
-              {/* <a href={`mailto:${obfuscate(about.email)}`}>{obfuscate(about.email)}</a> */}
               <p>
-                <a href={`mailto:${about.email}`}>{about.email}</a>
+                <a
+                  href={`mailto:${Buffer ? Buffer.from(about.email).toString('base64') : btoa(about.email)}`}
+                  onClick={e => {
+                    e.target.href = "mailto:" + about.email
+                  }}
+                >
+                  {about.email}
+                </a>
               </p>
             </Block>
           }
@@ -216,12 +265,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                   <span>,&nbsp;</span>
                 }
                 {about.location.address.addressLocality}
-                <br />
+                {(about.location.address.postalCode || about.location.address.addressLocality) &&
+                  <br />
+                }
                 {about.location.address.addressRegion &&
                   [translate(about.location.address.addressRegion), <br key="br" />]
                 }
                 {about.location.address.addressCountry &&
-                  translate(about.location.address.addressCountry)
+                  <Link href={`/country/${about.location.address.addressCountry}`} >
+                    {translate(about.location.address.addressCountry)}
+                  </Link>
                 }
               </p>
             </Block>
@@ -229,29 +282,25 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.contactPoint &&
             <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
-              <ItemList listItems={about.contactPoint} />
+              <ItemList listItems={about.contactPoint} className="prominent" />
             </Block>
           }
 
           {about.startTime &&
             <Block title={translate(`${about['@type']}.startTime`)}>
-              {about.startTime.includes('T00:00:00')
-                ? moment(about.startTime).format('LL')
-                : moment(about.startTime).format('LLL')}
-              {about.endTime && ` - ${about.endTime.includes('T00:00:00')
-                ? moment(about.endTime).format('LL')
-                : moment(about.endTime).format('LLL')}`}
+              {formatDate(about.startTime, moment)}
+              {about.endTime &&
+                <span> - {formatDate(about.endTime, moment)}</span>
+              }
             </Block>
           }
 
           {about.startDate &&
             <Block title={translate(`${about['@type']}.startDate`)}>
-              {about.startDate.includes('T00:00:00')
-                ? moment(about.startDate).format('LL')
-                : moment(about.startDate).format('LLL')}
-              {about.endDate && ` - ${about.endDate.includes('T00:00:00')
-                ? moment(about.endDate).format('LL')
-                : moment(about.endDate).format('LLL')}`}
+              {formatDate(about.startDate, moment)}
+              {about.endDate &&
+                <span> - {formatDate(about.endDate, moment)}</span>
+              }
             </Block>
           }
 
@@ -406,7 +455,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
             >
-              <ItemList listItems={about.hasPart}  className="prominent" />
+              <ItemList listItems={about.hasPart} className="prominent" />
             </Block>
           }
 

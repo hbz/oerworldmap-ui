@@ -25,20 +25,23 @@ class Form extends React.Component {
       formData: props.data,
       formErrors: []
     }
-    this.lastUpdate = null
+    this.lastUpdate = ""
   }
 
   getChildContext() {
     return {
       setValue: this.setValue.bind(this),
       getValue: this.getValue.bind(this),
-      getValidationErrors: this.getValidationErrors.bind(this)
+      getValidationErrors: this.getValidationErrors.bind(this),
+      shouldFormComponentUpdate: this.shouldFormComponentUpdate.bind(this),
+      shouldFormComponentFocus: this.shouldFormComponentFocus.bind(this)
     }
   }
 
   setValue(name, value) {
     this.setState(prevState => {
       jsonPointer.set(prevState.formData, name, value)
+      this.lastUpdate = name
       return {
         formData: prune(prevState.formData)
       }
@@ -58,6 +61,17 @@ class Form extends React.Component {
     )
   }
 
+  shouldFormComponentUpdate(name) {
+    return !name
+      || this.lastUpdate.startsWith(name)
+      || name.startsWith(this.lastUpdate)
+      || this.getValidationErrors(name).length
+  }
+
+  shouldFormComponentFocus(name) {
+    return this.lastUpdate === name
+  }
+
   render() {
     return (
       <form
@@ -66,9 +80,13 @@ class Form extends React.Component {
         method={this.props.method}
         onSubmit={e => {
           e.preventDefault()
+          this.lastUpdate = ""
           this.props.validate(this.state.formData)
             ? this.props.onSubmit(this.state.formData)
-            : this.setState({formErrors: this.props.validate.errors})
+            : this.setState(
+              {formErrors: this.props.validate.errors},
+              () => this.props.onError(this.props.validate.errors)
+            )
         }}
       >
         {this.props.children}
@@ -83,6 +101,7 @@ Form.propTypes = {
   action: PropTypes.string,
   method: PropTypes.string,
   onSubmit: PropTypes.func,
+  onError: PropTypes.func,
   validate: PropTypes.func,
   children: PropTypes.node.isRequired
 }
@@ -92,13 +111,16 @@ Form.defaultProps = {
   action: '',
   method: 'get',
   onSubmit: formData => console.log(formData),
+  onError: formErrors => console.error(formErrors),
   validate: () => true
 }
 
 Form.childContextTypes = {
   setValue: PropTypes.func,
   getValue: PropTypes.func,
-  getValidationErrors: PropTypes.func
+  getValidationErrors: PropTypes.func,
+  shouldFormComponentUpdate: PropTypes.func,
+  shouldFormComponentFocus: PropTypes.func
 }
 
 export default Form

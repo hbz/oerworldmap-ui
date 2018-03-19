@@ -5,23 +5,30 @@ import withI18n from './withI18n'
 import Icon from './Icon'
 import Link from './Link'
 
+import { formatDate } from '../common'
+
 const Metadata = ({type, about, dateModified, moment, translate, user}) => (
   <div className="Metadata">
     <Icon type={type} />
     {translate(type)}{' '}
     {dateModified && (
       user ? (
-        <Link href={`/log/${about["@id"]}`}>
+        <Link
+          href={`/log/${about["@id"]}`}
+          title={formatDate(dateModified, moment)}
+        >
           {translate(
             'ResourceIndex.read.lastModified',
-            {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+            {dateModified : moment(dateModified).fromNow()}
           )}
         </Link>
       ) : (
-        <span>
+        <span
+          title={formatDate(dateModified, moment)}
+        >
           {translate(
             'ResourceIndex.read.lastModified',
-            {dateModified : moment(dateModified).format('YYYY-MM-DD')}
+            {dateModified : moment(dateModified).fromNow()}
           )}
         </span>
       )

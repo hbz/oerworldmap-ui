@@ -72,32 +72,26 @@ export const triggerClick = (e, code) => {
   }
 }
 
-export const mapNominatimResult = (result) => {
-  return {
-    about: {
-      '@id': `info:${result.place_id}`,
-      '@type': 'Place',
-      name: [
-        {
-          '@language': 'en',
-          '@value': result.display_name
-        }
-      ],
-      geo: {
-        lat: result.lat,
-        lon: result.lon
-      },
-      address: {
-        streetAddress: result.address.road ? (result.address.road + (
-          result.address.house_number ? ` ${result.address.house_number}` : ''
-        )) : '',
-        postalCode: result.address.postcode,
-        addressLocality: result.address.city || result.address.state,
-        addressCountry: (result.address.country_code || '').toUpperCase()
-      }
+export const mapNominatimResult = (result) => ({
+  '@id': `info:${result.place_id}`,
+  '@type': 'Place',
+  name: [
+    {
+      '@language': 'en',
+      '@value': result.display_name
     }
+  ],
+  geo: {
+    lat: result.lat,
+    lon: result.lon
+  },
+  address: {
+    streetAddress: `${result.address.road || ''} ${result.address.house_number || ''}`.trim(),
+    postalCode: result.address.postcode,
+    addressLocality: result.address.city || result.address.state,
+    addressCountry: (result.address.country_code || '').toUpperCase()
   }
-}
+})
 
 export const debounce = (func, wait, immediate) => {
   let timeout
@@ -130,7 +124,59 @@ export const obfuscate = string => string.split('').map(c => `&#${c.charCodeAt()
 
 export const getProp = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
 
+export const clearForm = form => {
+  // clearing inputs
+  const inputs = form.getElementsByTagName('input')
+  for (let i = 0; i<inputs.length; i++) {
+    switch (inputs[i].type) {
+    case 'radio':
+    case 'checkbox':
+      inputs[i].checked = false
+      break
+    default:
+      inputs[i].value = ''
+      break
+    }
+  }
+
+  // clearing selects
+  const selects = form.getElementsByTagName('select')
+  for (let i = 0; i<selects.length; i++) {
+    selects[i].selectedIndex = 0
+  }
+
+  // clearing textarea
+  const text= form.getElementsByTagName('textarea')
+  for (let i = 0; i<text.length; i++) {
+    text[i].innerHTML= ''
+  }
+}
+
+export const appendOnFocus = e => {
+  const tmp = e.target.value
+  e.target.value = ''
+  e.target.value = tmp
+}
+
+export const formatDate = (date, moment) => {
+  let currentDate = date.replace('T00:00:00', '')
+
+  if (moment(currentDate, 'YYYY', true).isValid()) {
+    currentDate = moment(currentDate).format('YYYY')
+  } else if (moment(currentDate, 'YYYYMM', true).isValid()
+    || moment(currentDate, 'YYYY-MM', true).isValid()) {
+    currentDate = moment(currentDate).format('MM YYYY')
+  } else if (moment(currentDate, 'YYYY-MM-D', true).isValid()
+    || moment(currentDate, 'YYYYMMD', true).isValid()) {
+    currentDate = moment(currentDate).format('LL')
+  } else {
+    currentDate = moment(currentDate).format('LLL')
+  }
+
+  return currentDate
+}
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, parseProperties, obfuscate, getProp
+  debounce, parseProperties, obfuscate, getProp, appendOnFocus, formatDate
 }

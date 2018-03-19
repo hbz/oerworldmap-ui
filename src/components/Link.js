@@ -13,7 +13,7 @@ class Link extends React.Component {
   onClick(event) {
     if (!this.props.target
       && !event.shiftKey
-      && !(event.which === 2)
+      && !(event.button === 1)
       && !event.ctrlKey
       && !event.metaKey) {
       event.preventDefault()

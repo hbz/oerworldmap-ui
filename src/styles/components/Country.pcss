@@ -34,6 +34,7 @@
     color: var(--white);
 
     &:hover {
+      color: var(--white);
       text-decoration: underline;
     }
   }
@@ -44,9 +45,15 @@
     align-items: center;
     font-size: 0.9rem;
     padding-top: 10px;
+    color: var(--white);
 
     &:hover span {
+      color: var(--white);
       text-decoration: underline;
+    }
+
+    &:hover i {
+      color: var(--white);
     }
 
     & i {
@@ -108,7 +115,12 @@
         white-space: nowrap;
         overflow: hidden;
         visibility: hidden;
-        background-color: var(--blue-dark);
+        background-color: var(--white);
+        object-fit: contain;
+
+        &.Person {
+          object-fit: cover;
+        }
 
         &.visible {
           visibility: visible;

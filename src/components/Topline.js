@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import withI18n from './withI18n'
 import Link from './Link'
+import { formatDate } from '../common'
 
 const Topline = ({translate, moment, about}) => {
 
@@ -40,17 +41,12 @@ const Topline = ({translate, moment, about}) => {
 
       {about['@type'] === 'Event' &&
       about.startDate &&
-        <div className="toplineEntry">
-          {about.startDate &&
-          about.startDate.includes('T00:00:00')
-            ? moment(about.startDate).format('LLL')
-            : moment(about.startDate).format('LL')}
-          {about.endDate && ` - ${
-            about.endDate.includes('T00:00:00')
-              ? moment(about.endDate).format('LLL')
-              : moment(about.endDate).format('LL')
-          }`}
-        </div>
+      <div className="toplineEntry">
+        {formatDate(about.startDate, moment)}
+        {about.endDate &&
+          <span> - {formatDate(about.endDate, moment)}</span>
+        }
+      </div>
       }
 
       {about['@type'] === 'Event' &&
@@ -88,11 +84,11 @@ const Topline = ({translate, moment, about}) => {
         <span>{translate('Action.agent')}:&nbsp;</span>
         <ul className="commaSeparatedList">
           {about.agent.map(agent => (
-            <span key={agent['@id']}>
+            <li key={agent['@id']}>
               <Link  href={`/resource/${agent['@id']}`}>
                 {translate(agent.name)}
               </Link>
-            </span>
+            </li>
           ))}
         </ul>
       </div>
@@ -105,12 +101,11 @@ const Topline = ({translate, moment, about}) => {
         <span>{translate('Action.isFundedBy')}:&nbsp;</span>
         <ul className="commaSeparatedList">
           {[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-            <span key={awarded['@id']}>
-
+            <li key={awarded['@id']}>
               <Link  href={`/resource/${awarded['@id']}`}>
                 {translate(awarded.name)}
               </Link>
-            </span>
+            </li>
           ))}
         </ul>
       </div>

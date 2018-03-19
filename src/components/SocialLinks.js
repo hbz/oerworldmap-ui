@@ -21,6 +21,28 @@ const SocialLinks = ({links}) => (
         icon = 'plus'
       } else if (link.includes('youtube')) {
         icon = 'youtube'
+      } else if (link.includes('github')) {
+        icon = 'github'
+      } else if (link.includes('xing')) {
+        icon = 'xing'
+      } else if (link.includes('linkedin')) {
+        icon = 'linkedin-in'
+      } else if (link.includes('reddit')) {
+        icon = 'reddit-alien'
+      } else if (link.includes('slack')) {
+        icon = 'slack-hash'
+      } else if (link.includes('soundcloud')) {
+        icon = 'soundcloud'
+      } else if (link.includes('stack-overflow')) {
+        icon = 'stack-overflow'
+      } else if (link.includes('vimeo')) {
+        icon = 'vimeo-v'
+      } else if (link.includes('wikipedia')) {
+        icon = 'wikipedia-w'
+      } else if (link.includes('wordpress')) {
+        icon = 'wordpress-simple'
+      } else if (link.includes('slideshare')) {
+        icon = 'slideshare'
       }
 
       return (

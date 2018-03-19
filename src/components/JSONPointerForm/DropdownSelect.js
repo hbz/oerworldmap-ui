@@ -52,9 +52,6 @@ class DropdownSelect extends React.Component {
         aria-labelledby={`${name}-label`}
       >
         <div className="label" id={`${name}-label`}>{translate(title)}</div>
-        {errors.map((error, index) => (
-          <div className="error" key={index}>{error.message}</div>
-        ))}
         {value ? (
           <div className="selectedContainer">
             <input
@@ -77,13 +74,16 @@ class DropdownSelect extends React.Component {
         ) : (
           <div className="dropdownContainer">
             <button
-              className="toggleDropdown"
+              className={`toggleDropdown ${errors.length ? 'error' : ''}`.trim()}
               onClick={e => {
                 e.preventDefault()
                 this.setState({dropdown: !this.state.dropdown})
               }}
             >
-              {translate('select', {name: translate(title)})}
+              {!errors.length
+                ? translate('select', {name: translate(title)})
+                : errors.map(error => error.message).join(', ')
+              }
             </button>
             <div className={this.state.dropdown ? 'dropdownList' : 'hidden'}>
               <div className="filterContainer">

@@ -5,7 +5,7 @@ import Tooltip from 'rc-tooltip'
 import Icon from './Icon'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
-import { triggerClick } from '../common'
+import { triggerClick, clearForm } from '../common'
 
 const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) => (
   <div className="ButtonFilter">
@@ -14,8 +14,9 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
         return (
           <Tooltip
             key={bucket.key}
-            overlay={translate(bucket.label || bucket.key)}
+            overlay={<b>{translate(bucket.label || bucket.key)}</b>}
             placement="top"
+            mouseEnterDelay={0.2}
             overlayClassName="tooltipDisableEvents"
           >
             <div className={`filterBox value-${bucket.key}`}>
@@ -25,16 +26,14 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
                 checked={filter.includes(bucket.key)}
                 name="filter.about.@type"
                 id={"type:" + bucket.key}
-                onChange={(evt) => submit(evt, emitter)}
+                onChange={(e) => {
+                  clearForm(e.target.parentElement.form || e.target.form || e.target)
+                  e.target.checked = true
+                  submit(e, emitter)
+                }}
               />
 
               <label
-                onClick={(evt) => {
-                  // Trigger submit only if onChange is not triggered
-                  if (filter.includes(bucket.key)) {
-                    submit(evt, emitter)
-                  }
-                }}
                 onKeyDown={triggerClick}
                 role="button"
                 tabIndex="0"

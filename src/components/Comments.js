@@ -13,6 +13,10 @@ import withEmitter from './withEmitter'
 
 import schema from '../json/schema.json'
 
+import { formatDate } from '../common'
+
+import '../styles/components/Comments.pcss'
+
 const Comments = ({moment, translate, emitter, about, comments, user}) => (
   <div className="Comments">
 
@@ -25,7 +29,11 @@ const Comments = ({moment, translate, emitter, about, comments, user}) => (
                 {translate(author.name)}
               </Link>)
             )}{' '}
-            {moment(comment.dateCreated).fromNow()}
+            <span
+              title={formatDate(comment.dateCreated, moment)}
+            >
+              {moment(comment.dateCreated).fromNow()}
+            </span>
           </div>
           {user &&
           user.groups.includes('admin') &&
@@ -62,7 +70,9 @@ const Comments = ({moment, translate, emitter, about, comments, user}) => (
           })}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/Comment')} />
-          <button type="submit">{translate('publish')}</button>
+          <div className="buttons">
+            <button className="btn" type="submit">{translate('publish')}</button>
+          </div>
         </Form>
       </div>
     ) : (

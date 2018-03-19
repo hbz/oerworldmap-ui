@@ -54,6 +54,7 @@ class Country  extends React.Component {
                       <Link href={`/resource/${champion._source.about['@id']}`}>
                         <div className="frame">
                           <img
+                            className={champion._source.about['@type']}
                             src={champion._source.about.image}
                             alt={this.props.translate(champion._source.about.name)}
                             onLoad={e => {

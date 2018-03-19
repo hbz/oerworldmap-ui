@@ -9,12 +9,12 @@ import validate from './JSONPointerForm/validate'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
-import '../styles/components/Register.pcss'
+import Link from './Link'
 import schema from '../json/schema.json'
 
 const Register = ({translate, emitter}) => (
-  <div className="">
-    <FullModal>
+  <div className="Register">
+    <FullModal closeLink={Link.back}>
       <div>
         <h1>{translate('login')}</h1>
         <p>{translate('UserIndex.register.loginMessage')}</p>
@@ -33,7 +33,7 @@ const Register = ({translate, emitter}) => (
         </Form>
       </div>
 
-      <div className="block registerForm">
+      <div className="block registerForm newRegister">
         <Form
           validate={validate(JsonSchema(schema).get('#/definitions/RegisterAction'))}
           onSubmit={data => emitter.emit('submit', {url: '/user/register', data})}

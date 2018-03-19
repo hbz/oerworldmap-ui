@@ -141,7 +141,7 @@ textarea {
   line-height: var(--line-height-forms);
 
   &::placeholder {
-    color: var(--grey-light);
+    color: var(--grey);
   }
 
   &:focus {
@@ -259,11 +259,45 @@ pre {
 
 .tooltipDisableEvents {
   pointer-events: none;
+
+  & .rc-tooltip-inner {
+    background-color: var(--grey-dark);
+    color: var(--white);
+    border: none;
+  }
+
+  & .rc-tooltip-arrow {
+    border-top-color: var(--grey-dark);
+  }
 }
 
-/* comma seperated list */
+/* comma separated list */
 
 .commaSeparatedList {
+  display: inline;
+  padding: 0;
+
+  & li {
+    display: inline;
+    padding: 0;
+
+    &::before {
+      content: ", ";
+    }
+
+    &:first-child::before {
+      content: "";
+    }
+
+    & a {
+      font-weight: 600;
+    }
+  }
+}
+
+/* space separated list */
+
+.spaceSeparatedList {
   display: inline;
   padding: 0;
 
@@ -344,6 +378,10 @@ pre {
         }
       }
     }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    position: unset;
   }
 }
 

@@ -61,7 +61,7 @@ class ShareExport extends React.Component {
           <Share _self={this.props._self} />
         }
         {this.props.view === 'export' &&
-          <Export _links={this.props._links} />
+          <Export _self={this.props._self} _links={this.props._links} />
         }
       </div>
     )

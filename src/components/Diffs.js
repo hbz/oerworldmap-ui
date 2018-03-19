@@ -7,12 +7,15 @@ import htmldiff from '../../vendor/htmldiff'
 import WebPageView from './WebPageView'
 import I18nProvider from './I18nProvider'
 import withEmitter from './withEmitter'
+import withI18n from './withI18n'
+
+import { formatDate } from '../common'
 
 import '../styles/components/Diff.pcss'
 
-const Diffs = ({emitter, log, compare, to}) => {
+const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to}) => {
   const v1 = renderToString(
-    <I18nProvider locales={['en']}>
+    <I18nProvider locales={locales} phrases={phrases}>
       <WebPageView
         id="view"
         about={compare.about}
@@ -22,7 +25,7 @@ const Diffs = ({emitter, log, compare, to}) => {
   )
 
   const v2 = renderToString(
-    <I18nProvider locales={['en']}>
+    <I18nProvider locales={locales} phrases={phrases}>
       <WebPageView
         id="view"
         about={to.about}
@@ -47,7 +50,7 @@ const Diffs = ({emitter, log, compare, to}) => {
       <div className="diffContent">
         <div className="diffList">
           <div className="scroll">
-            <h1>History for: <a href={`/resource/${compare.about["@id"]}`}>{compare.about["@id"]}</a></h1>
+            <h1>{translate('History for')}: <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a></h1>
 
             <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)} >
               {log.map(l => (
@@ -55,9 +58,9 @@ const Diffs = ({emitter, log, compare, to}) => {
                   <div>
                     <a href={`/log/${l.commit}`}>{l.commit}</a>
                     <br />
-                    <span><b>Author:</b> {l.author}</span>
+                    <span><b>{translate('Author')}:</b> {l.author}</span>
                     <br />
-                    <span><b>Date:</b> {l.date}</span>
+                    <span><b>{translate('Date')}:</b> {formatDate(l.date, moment)}</span>
                   </div>
                   <div>
                     <input
@@ -93,7 +96,7 @@ const Diffs = ({emitter, log, compare, to}) => {
 
       </div>
       <div className="footer">
-        <a href="https://beta.oerworldmap.org/imprint">Terms of Use &amp; Privacy Policy</a>
+        <a href="https://beta.oerworldmap.org/imprint">{translate('Terms of Use & Privacy Policy')}</a>
       </div>
     </div>
   )
@@ -101,10 +104,14 @@ const Diffs = ({emitter, log, compare, to}) => {
 
 
 Diffs.propTypes = {
+  moment: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   log: PropTypes.arrayOf(PropTypes.any).isRequired,
   compare: PropTypes.objectOf(PropTypes.any).isRequired,
   to: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default withEmitter(Diffs)
+export default withEmitter(withI18n(Diffs))

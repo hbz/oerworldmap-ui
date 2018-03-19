@@ -7,6 +7,7 @@ import List from './List'
 import DropdownSelect from './DropdownSelect'
 import RemoteSelect from './RemoteSelect'
 import Textarea from './Textarea'
+import PlaceWidget from './PlaceWidget'
 
 import withI18n from '../withI18n'
 
@@ -20,86 +21,50 @@ class Builder extends React.Component {
 
   getComponent(schema) {
 
-    const {translate} = this.props
+    const {translate, config} = this.props
+    const widgets = Object.assign(
+      {Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget},
+      this.props.widgets
+    )
+    const className = schema._display ? schema._display.className : undefined
 
-    if (schema.remote) {
-      if ('properties' in schema) {
-        return <RemoteSelect schema={schema} translate={translate} />
-      }
+    // FIXME: not rendering form components for hidden fields due to performance issues
+    // when handling long lists. This works because the corresponding data is still present
+    // in the underlying formdata; non-js clients will send incomplete data, though.
+    if (className === 'hidden') {
+      return <div className="hidden" />
     }
 
-    const className = schema._display ? schema._display.className : undefined
+    const props = {
+      title: schema.title,
+      description: schema.description,
+      config,
+      className,
+      translate
+    }
+
+    if (schema._widget && widgets[schema._widget]) {
+      const Widget = widgets[schema._widget]
+      return <Widget {...props} schema={schema} />
+    }
 
     switch (schema.type) {
     case 'string':
       return schema.enum
-        ? (
-          <DropdownSelect
-            options={schema.enum}
-            title={schema.title}
-            description={schema.description}
-            className={className}
-            translate={translate}
-          />
-        )
+        ? <DropdownSelect {...props} options={schema.enum} />
         : schema._display && schema._display.rows > 1
-          ? (
-            <Textarea
-              title={schema.title}
-              description={schema.description}
-              className={className}
-              translate={translate}
-            />
-          )
-          : (
-            <Input
-              type="text"
-              title={schema.title}
-              description={schema.description}
-              className={className}
-              translate={translate}
-            />
-          )
+          ? <Textarea {...props} />
+          : <Input {...props} type="text" />
     case 'integer':
     case 'number':
-      return (
-        <Input
-          type="number"
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        />
-      )
+      return <Input {...props} type="number" />
     case 'boolean':
-      return (
-        <Input
-          type="checkbox"
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        />
-      )
+      return <Input {...props} type="checkbox" />
     case 'array':
-      return (
-        <List
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        >
-          {this.getComponent(schema.items)}
-        </List>
-      )
+      return <List {...props}>{this.getComponent(schema.items)}</List>
     case 'object':
       return (
-        <Fieldset
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        >
+        <Fieldset {...props}>
           {Object.keys(schema.properties).map((property) => React.cloneElement(
             this.getComponent(schema.properties[property]), {
               property, key: property
@@ -110,15 +75,7 @@ class Builder extends React.Component {
     case 'null':
     default:
       console.warn('Could not determine form component for', schema)
-      return (
-        <Input
-          type="text"
-          title={schema.title}
-          description={schema.description}
-          className={className}
-          translate={translate}
-        />
-      )
+      return <Input {...props} type="text" />
     }
   }
 
@@ -134,7 +91,14 @@ class Builder extends React.Component {
 
 Builder.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  widgets: PropTypes.objectOf(PropTypes.any),
+  config: PropTypes.objectOf(PropTypes.any)
+}
+
+Builder.defaultProps = {
+  widgets: {},
+  config: null
 }
 
 export default withI18n(Builder)

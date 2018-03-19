@@ -487,10 +487,9 @@ class Map extends React.Component {
       const list = e.features.map(feature => {
         return (
           <li key={feature.properties['@id']}>
-            <Icon type={feature.properties['@type']} />
-            &nbsp;
             <Link href={feature.properties['@id']}>
-              {this.props.translate(JSON.parse(feature.properties.name))}
+              <Icon type={feature.properties['@type']} />
+              &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
             </Link>
           </li>
         )
@@ -563,7 +562,7 @@ class Map extends React.Component {
       }
     })
     return Object.keys(types).map((key) => {
-      return <span key={key}>{types[key]} <Icon type={key} /> </span>
+      return <span className="item" key={key}><Icon type={key} /> {types[key]}</span>
     })
   }
 

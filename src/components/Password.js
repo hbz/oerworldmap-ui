@@ -9,12 +9,13 @@ import validate from './JSONPointerForm/validate'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
+import Link from './Link'
 import '../styles/components/Password.pcss'
 import schema from '../json/schema.json'
 
 const Password = ({translate, emitter}) => (
   <div className="Password">
-    <FullModal>
+    <FullModal closeLink={Link.back}>
       <Form
         validate={validate(JsonSchema(schema).get('#/definitions/ChangePasswordAction'))}
         onSubmit={data => emitter.emit('submit', {url: '/user/password/change', data})}

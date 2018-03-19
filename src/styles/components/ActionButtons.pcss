@@ -4,7 +4,7 @@
   position: absolute;
   top: 15px;
   left: 15px;
-  z-index: 4;
+  z-index: 5;
   display: flex;
   justify-content: space-between;
 
@@ -52,6 +52,7 @@
     border: 1px solid var(--blue-dark);
     border-radius: 2px;
     padding: 0 10px;
+    font-size: var(--font-size);
 
     &.noDisplay {
       display: none;
@@ -59,12 +60,7 @@
 
     & li {
       width: 100%;
-      font-size: 0.9rem;
       border-bottom: 1px solid #ccc;
-
-      & i {
-        font-size: 1.1rem;
-      }
 
       & a {
         display: flex;
@@ -73,8 +69,9 @@
         flex: 1;
         cursor: pointer;
         width: calc(100% + 20px);
-        padding: 10px;
+        padding: 6px 10px;
         margin: -1px -10px;
+        color: var(--blue-dark);
 
         &:hover,
         &:focus {

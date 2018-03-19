@@ -11,7 +11,7 @@ import user from './resources/user.json'
 
 const author = 'Test Author'
 const contributor = 'Test Contributor'
-const dateModified = "2018-02-22T16:26:27.753+01:00"
+const dateModified = "2018-02-22T16:26:27.753"
 
 describe('<Metadata />', () => {
   const wrapper = render(
@@ -35,6 +35,6 @@ describe('<Metadata />', () => {
   it("Generates the correct elements in metadata", () => {
     assert.equal(wrapper.find('i')[0].attribs.class.includes('fa fa-book'), true)
     assert.equal(wrapper.children()[0].next.data.trim(), about['@type'])
-    assert.equal(wrapper.text().split(' ').slice(-1), "2018-02-22")
+    assert.equal(wrapper.find('a')[0].attribs.title, "February 22, 2018 4:26 PM")
   })
 })

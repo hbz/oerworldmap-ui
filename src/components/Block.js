@@ -18,7 +18,7 @@ class Block extends React.Component {
   render() {
     return (
       <div className={`Block ${this.props.className} ${this.props.collapsible ? 'collapsible' : ''} ${this.props.collapsibleType} ${this.state.collapsed ? 'collapsed' : ''}`}>
-        <div className="head">
+        <div className={`head ${this.props.type}`}>
           <h3>
             {this.props.title}
           </h3>
@@ -34,7 +34,7 @@ class Block extends React.Component {
             </span>
           }
         </div>
-        <div className="main">
+        <div className={`main ${this.props.type}`}>
           {this.props.children}
         </div>
         {(this.props.collapsible && this.props.collapsibleType === 'show-all') &&
@@ -61,7 +61,8 @@ Block.propTypes = {
   className: PropTypes.string,
   collapsible: PropTypes.bool,
   collapsibleType: PropTypes.string,
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
+  type: PropTypes.string
 }
 
 
@@ -69,7 +70,8 @@ Block.defaultProps = {
   className: '',
   collapsible: false,
   collapsibleType: 'plus',
-  collapsed: true
+  collapsed: true,
+  type: ''
 }
 
 export default withI18n(Block)

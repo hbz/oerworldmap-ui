@@ -24,13 +24,14 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
 
   const lighthouse = lighthouses.find(action =>
     action.agent.some(agent => user && agent['@id'] === user.id)
-  ) || ( user ? {
-      '@type': 'LighthouseAction',
-      'object': about,
-      'agent': [{ '@id': user.id, '@type': 'Person' }],
-      'description': [{'@language': 'en'}],
-      'startTime': new Date().toISOString()
-    } : null )
+  ) ||
+  ( user ? {
+    '@type': 'LighthouseAction',
+    'object': about,
+    'agent': [{ '@id': user.id, '@type': 'Person' }],
+    'description': [{'@language': 'en'}],
+    'startTime': new Date().toISOString()
+  } : null )
 
   const like = likes.find(action =>
     action.agent.some(agent => user && agent['@id'] === user.id)
@@ -127,7 +128,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
             })}
           >
             <Builder schema={JsonSchema(schema).get('#/definitions/LighthouseAction')} />
-            <button type="submit">{translate('publish')}</button>
+            <div className="buttons">
+              <button className="btn" type="submit">{translate('publish')}</button>
+            </div>
           </Form>
         </FullModal>
       }

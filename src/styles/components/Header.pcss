@@ -42,38 +42,52 @@
   & .secondaryNav {
     flex: 1;
     text-align: right;
+
+    & a {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
   }
 
   & .userMenu {
     position: absolute;
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 0 10px;
     top: 100%;
-    right: 1px;
+    right: 0;
     width: 170px;
-    background-color: var(--blue-lightest);
+    background-color: var(--white);
     border: 1px solid var(--blue-dark);
     z-index: 5;
     border-radius: 0 0 2px 2px;
     border-top: none;
+    font-size: var(--font-size);
+    letter-spacing: 0;
 
-    & li a {
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--blue-dark);
-      border-bottom: 1px solid var(--blue-dark);
+    & li {
+      width: 100%;
+      border-bottom: 1px solid #ccc;
 
-      &:hover,
-      &:focus {
-        background-color: var(--blue-light);
+      & a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--blue-dark);
+        width: calc(100% + 20px);
+        padding: 6px 10px;
+        margin: -1px -10px;
+
+        &:hover,
+        &:focus {
+          color: var(--white);
+          background-color: var(--blue-dark);
+        }
       }
-    }
 
-    &:last-child {
-      border-bottom: none;
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 
