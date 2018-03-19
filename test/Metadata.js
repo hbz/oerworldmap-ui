@@ -11,7 +11,7 @@ import user from './resources/user.json'
 
 const author = 'Test Author'
 const contributor = 'Test Contributor'
-const dateModified = "2018-02-22T16:26:27.753+01:00"
+const dateModified = "2018-02-22T16:26:27.753"
 
 describe('<Metadata />', () => {
   const wrapper = render(
