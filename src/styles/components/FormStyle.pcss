@@ -85,6 +85,14 @@
       position: relative;
       padding-right: 30px;
 
+      &.error {
+        color: var(--orange);
+
+        &::after {
+          color: var(--white);
+        }
+      }
+
       &::after {
         font-family: FontAwesome;
         content: "\F078";
