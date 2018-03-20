@@ -20,6 +20,11 @@ const filterTree = (tree, list) => {
   return res
 }
 
+const findConcept = (tree, id) => {
+  return tree.find(concept => concept['@id'] === id)
+    || tree.reduce((acc, curr) => curr.narrower ? findConcept(curr, id) : acc)
+}
+
 class ConceptFilter extends React.Component {
 
   constructor(props) {
@@ -109,7 +114,7 @@ class ConceptFilter extends React.Component {
             ) : (
               this.props.filter.map(
                 filter => this.props.aggregation.buckets.find(bucket => bucket.key === filter)
-              ).map(bucket => this.props.translate(bucket.label || bucket.key)).join(', ')
+              ).map(bucket => this.props.translate(findConcept(this.props.concepts, bucket.key).name)).join(', ')
               || this.props.translate(this.props.filterName)
             )}
           </span>
