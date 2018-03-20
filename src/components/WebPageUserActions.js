@@ -117,7 +117,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
       }
 
       {about['@id'] && user && view === 'addLighthouse' &&
-        <FullModal className="Lighthouse">
+        <FullModal className="Lighthouse" closeLink={`/resource/${about['@id']}`}>
           <Form
             data={lighthouse}
             validate={validate(JsonSchema(schema).get('#/definitions/LighthouseAction'))}

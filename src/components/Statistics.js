@@ -69,7 +69,7 @@ const charts = [
 
 const Statistics = ({translate, aggregations, emitter}) => (
   <div className="Statistics">
-    <FullModal>
+    <FullModal closeLink={Link.back}>
       <h1 className="title">Global Statistics</h1>
       <div className="links">
         {charts.map(aggregation => (
