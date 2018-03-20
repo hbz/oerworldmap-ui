@@ -127,6 +127,20 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
               data
             })}
           >
+            <h2>{translate('ResourceIndex.read.lightHouse')} {translate(about['@type'])}</h2>
+            <p>
+              <em>{translate('descriptions.LighthouseAction.description')}.
+              &nbsp;
+              <a
+                href="https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {translate('needHelp')}
+              </a>
+              </em>
+            </p>
+            <hr />
             <Builder schema={JsonSchema(schema).get('#/definitions/LighthouseAction')} />
             <div className="buttons">
               <button className="btn" type="submit">{translate('publish')}</button>
