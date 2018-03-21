@@ -23,6 +23,7 @@ const Register = ({translate, emitter}) => (
 
       <div className="block forgotPassword">
         <Form
+          data={{'@type': 'ResetPasswordAction'}}
           validate={validate(JsonSchema(schema).get('#/definitions/ResetPasswordAction'))}
           onSubmit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
         >
@@ -35,6 +36,7 @@ const Register = ({translate, emitter}) => (
 
       <div className="block registerForm newRegister">
         <Form
+          data={{'@type': 'RegisterAction'}}
           validate={validate(JsonSchema(schema).get('#/definitions/RegisterAction'))}
           onSubmit={data => emitter.emit('submit', {url: '/user/register', data})}
         >
