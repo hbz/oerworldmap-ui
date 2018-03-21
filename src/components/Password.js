@@ -21,7 +21,9 @@ const Password = ({translate, emitter}) => (
         onSubmit={data => emitter.emit('submit', {url: '/user/password/change', data})}
       >
         <Builder schema={JsonSchema(schema).get('#/definitions/ChangePasswordAction')} />
-        <button type="submit">{translate('UserIndex.password.setPassword')}</button>
+        <div className="buttons">
+          <button type="submit" className="btn">{translate('UserIndex.password.setPassword')}</button>
+        </div>
       </Form>
     </FullModal>
   </div>
