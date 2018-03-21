@@ -21,8 +21,12 @@ const filterTree = (tree, list) => {
 }
 
 const findConcept = (tree, id) => {
-  return tree.find(concept => concept['@id'] === id)
-    || tree.reduce((acc, curr) => curr.narrower ? findConcept(curr, id) : acc)
+  if (typeof tree === 'object') {
+    return tree
+  } else {
+    return tree.find(concept => concept['@id'] === id)
+      || tree.reduce((acc, curr) => curr.narrower ? findConcept(curr, id) : acc)
+  }
 }
 
 class ConceptFilter extends React.Component {
