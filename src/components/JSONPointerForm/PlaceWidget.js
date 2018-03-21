@@ -245,13 +245,14 @@ PlaceWidget.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
   config: PropTypes.objectOf(PropTypes.any).isRequired,
-  description: PropTypes.arrayOf(PropTypes.object).isRequired
+  description: PropTypes.string
 }
 
 PlaceWidget.defaultProps = {
   errors: [],
   property: undefined,
   title: '',
+  description: '',
   className: '',
   value: {}
 }
