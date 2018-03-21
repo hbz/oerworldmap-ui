@@ -28,13 +28,6 @@ class Form extends React.Component {
     this.lastUpdate = ""
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      formData: nextProps.data,
-      formErrors: []
-    })
-  }
-
   getChildContext() {
     return {
       setValue: this.setValue.bind(this),
@@ -43,6 +36,13 @@ class Form extends React.Component {
       shouldFormComponentUpdate: this.shouldFormComponentUpdate.bind(this),
       shouldFormComponentFocus: this.shouldFormComponentFocus.bind(this)
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      formData: nextProps.data,
+      formErrors: []
+    })
   }
 
   setValue(name, value) {

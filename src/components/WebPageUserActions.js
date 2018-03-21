@@ -129,15 +129,15 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
           >
             <h2>{translate('ResourceIndex.read.lightHouse')} {translate(about['@type'])}</h2>
             <p>
-              <em>{translate('descriptions.LighthouseAction.description')}.
-              &nbsp;
-              <a
-                href="https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {translate('needHelp')}
-              </a>
+              <em>{translate('descriptions.LighthouseAction.description')}
+                &nbsp;
+                <a
+                  href="https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {translate('needHelp')}
+                </a>
               </em>
             </p>
             <hr />
