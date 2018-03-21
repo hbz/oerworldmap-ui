@@ -378,6 +378,22 @@
     display: block;
   }
 
+  & .Input.checkbox.hasError {
+    position: relative;
+
+    & > label {
+      position: relative;
+      top: 20px;
+      margin-bottom: 20px;
+    }
+
+    & .error {
+      position: absolute;
+      top: 0;
+      left: 26px;
+    }
+  }
+
   & .Fieldset .Input.text {
     margin-bottom: 10px;
 
