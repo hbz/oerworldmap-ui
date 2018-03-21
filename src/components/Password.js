@@ -17,6 +17,7 @@ const Password = ({translate, emitter}) => (
   <div className="Password">
     <FullModal closeLink={Link.back}>
       <Form
+        data={{'@type': 'ChangePasswordAction'}}
         validate={validate(JsonSchema(schema).get('#/definitions/ChangePasswordAction'))}
         onSubmit={data => emitter.emit('submit', {url: '/user/password/change', data})}
       >
