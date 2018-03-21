@@ -123,10 +123,14 @@ class ConceptFilter extends React.Component {
             {this.props.icon ? (
               <i className={`fa fa-${this.props.icon}`} />
             ) : (
-              this.props.filter.map(
+              //FIXME: why do we sometimes have no bucket for a given filter?
+              this.props.filter.filter(
+                filter => this.props.aggregation.buckets.some(bucket => bucket.key === filter)
+              ).map(
                 filter => this.props.aggregation.buckets.find(bucket => bucket.key === filter)
-              ).map(bucket => this.props.translate(findConcept(this.props.concepts, bucket.key).name)).join(', ')
-              || this.props.translate(this.props.filterName)
+              ).map(
+                bucket => this.props.translate(findConcept(this.props.concepts, bucket.key).name)
+              ).join(', ') || this.props.translate(this.props.filterName)
             )}
           </span>
         </span>
