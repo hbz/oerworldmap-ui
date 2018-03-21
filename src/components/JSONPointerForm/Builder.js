@@ -54,7 +54,7 @@ class Builder extends React.Component {
         ? <DropdownSelect {...props} options={schema.enum} />
         : schema._display && schema._display.rows > 1
           ? <Textarea {...props} />
-          : <Input {...props} type="text" />
+          : <Input {...props} type={schema._display && schema._display.type ? schema._display.type: "text"} />
     case 'integer':
     case 'number':
       return <Input {...props} type="number" />
