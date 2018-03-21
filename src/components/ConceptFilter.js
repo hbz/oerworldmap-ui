@@ -21,11 +21,18 @@ const filterTree = (tree, list) => {
 }
 
 const findConcept = (tree, id) => {
-  if (typeof tree === 'object') {
-    return tree
-  } else {
-    return tree.find(concept => concept['@id'] === id)
-      || tree.reduce((acc, curr) => curr.narrower ? findConcept(curr, id) : acc)
+  const concept = tree.find(concept => concept['@id'] === id)
+  if (concept) {
+    return concept
+  }
+
+  for (let i = 0; i < tree.length; i++) {
+    if (tree[i].narrower) {
+      const concept = findConcept(tree[i].narrower, id)
+      if (concept) {
+        return concept
+      }
+    }
   }
 }
 
