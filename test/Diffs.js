@@ -8,10 +8,12 @@ import data from './resources/diffs.json'
 import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
+import mock from './helpers/mock'
+
 describe('<Diffs />', () => {
   const wrapper = render(
-    <I18nProvider locales={['en']}>
-      <EmittProvider emitter={{}}>
+    <I18nProvider i18n={mock.i18n}>
+      <EmittProvider emitter={mock.emitter}>
         <Diffs {...data} />
       </EmittProvider>
     </I18nProvider>

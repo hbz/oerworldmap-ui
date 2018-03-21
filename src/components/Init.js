@@ -5,8 +5,8 @@ import EmittProvider from './EmittProvider'
 import ApiProvider from './ApiProvider'
 import App from './App'
 
-const Init = ({locales, phrases, emitter, user, children, apiConfig}) => (
-  <I18nProvider locales={locales} phrases={phrases}>
+const Init = ({i18n, emitter, user, children, apiConfig}) => (
+  <I18nProvider i18n={i18n}>
     <EmittProvider emitter={emitter}>
       <ApiProvider config={apiConfig}>
         <App user={user}>
@@ -18,12 +18,11 @@ const Init = ({locales, phrases, emitter, user, children, apiConfig}) => (
 )
 
 Init.propTypes = {
-  locales: PropTypes.arrayOf(PropTypes.string).isRequired,
+  i18n: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   children: PropTypes.node.isRequired,
-  apiConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  phrases: PropTypes.objectOf(PropTypes.any)
+  apiConfig: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 Init.defaultProps = {
@@ -32,8 +31,7 @@ Init.defaultProps = {
     on: (event, handler) => console.log("Registered", event, handler),
     off: (event, handler) => console.log("Unregistered", event, handler),
     emit: (event, payload) => console.log("Triggered", event, payload)
-  },
-  phrases: {}
+  }
 }
 
 export default Init

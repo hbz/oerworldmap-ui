@@ -20,6 +20,7 @@ import Diffs from './components/Diffs'
 import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
+import i18nizer from './i18n'
 
 export default (api) => {
 
@@ -61,7 +62,8 @@ export default (api) => {
             <ActionButtons user={context.user} />
           </ResourceIndex>
         )
-        return { title: 'ResourceIndex', data, component }
+        const title = context.i18n.translate('Index')
+        return { title, data, component }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/resource/', body, context.authorization)
@@ -72,7 +74,11 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
-        return { title: 'Created WebPage', data, component }
+
+        const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
+          name: context.i18n.translate(data.about.name)
+        })
+        return { title, data, component }
       }
     },
     {
@@ -88,7 +94,8 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
-        return { title: 'WebPage', data, component }
+        const title = context.i18n.translate(data.about.name)
+        return { title, data, component }
       },
       post: async (id, params, context, state, body) => {
         const data = await api.post(`/resource/${id}`, body, context.authorization)
@@ -99,7 +106,10 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
-        return { title: 'Updated WebPage', data, component }
+        const title = context.i18n.translate('updated.updated', {
+          name: context.i18n.translate(data.about.name)
+        })
+        return { title, data, component }
       },
       delete: async (id, params, context) => {
         const data = await api.delete(`/resource/${id}`, context.authorization)
@@ -108,7 +118,8 @@ export default (api) => {
             {data.message}
           </Feedback>
         )
-        return { title: 'Deleted WebPage', data, component }
+        const title = context.i18n.translate('deleted.deleted', {id})
+        return { title, data, component }
       }
     },
     {
@@ -122,7 +133,10 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           />
         )
-        return { title: 'Updated Comment', data, component }
+        const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
+          name: context.i18n.translate('Comment')
+        })
+        return { title, data, component }
       }
     },
     {
@@ -146,7 +160,8 @@ export default (api) => {
             />
           </ResourceIndex>
         )
-        return { title: 'Country', data, component }
+        const title = context.i18n.translate(id)
+        return { title, data, component }
       }
     },
     {
@@ -154,7 +169,8 @@ export default (api) => {
       get: async (params, context, state) => {
         const data = state || await api.get('/aggregation/', context.authorization)
         const component = (data) => <Statistics aggregations={data} />
-        return { title: 'Aggregation', data, component }
+        const title = context.i18n.translate('ClientTemplates.app.statistics')
+        return { title, data, component }
       }
     },
     {
@@ -162,7 +178,8 @@ export default (api) => {
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
         const component = (data) => <Feed {...data} />
-        return { title: 'Feed', data, component }
+        const title = context.i18n.translate('ClientTemplates.app.recentAdditions')
+        return { title, data, component }
       }
     },
     {
@@ -170,16 +187,31 @@ export default (api) => {
       get: async (params, context, state) => {
         const data = state
         const component = () => <Register />
-        return { title: 'Registration', data, component }
+        const title = context.i18n.translate('UserIndex.register.register')
+        return { title, data, component }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/user/register', body, context.authorization)
         const component = (data) => (
           <Feedback>
-            {data.username} registered{data.newsletter && " and signed up for newsletter"}.
+            <p>
+              {context.i18n.translate('UserIndex.registered.successfullyRegistere', {
+                username: data.username
+              })}
+            </p>
+            {data.newsletter &&
+              <p>
+                {context.i18n.translate('UserIndex.registered.signedUpForNewsletter'), {
+                  username: data.username
+                }}
+              </p>
+            }
           </Feedback>
         )
-        return { title: 'Registered user', data, component }
+        const title = context.i18n.translate('UserIndex.registered.successfullyRegistere', {
+          username: data.username
+        })
+        return { title, data, component }
       }
     },
     {
@@ -187,7 +219,8 @@ export default (api) => {
       get: async (params, context, state) => {
         const data = state
         const component = () => <Password />
-        return { title: 'Reset Password', data, component }
+        const title = context.i18n.translate('UserIndex.register.resetPassword')
+        return { title, data, component }
       }
     },
     {
@@ -196,10 +229,11 @@ export default (api) => {
         const data = await api.post('/user/password/reset', body, context.authorization)
         const component = () => (
           <Feedback>
-            Your password was reset
+            {context.i18n.translate('UserIndex.passwordReset.message')}
           </Feedback>
         )
-        return { title: 'Reset Password', data, component }
+        const title = context.i18n.translate('UserIndex.register.resetPassword')
+        return { title, data, component }
       }
     },
     {
@@ -208,10 +242,11 @@ export default (api) => {
         const data = await api.post('/user/password/change', body, context.authorization)
         const component = () => (
           <Feedback>
-            Your password was changed
+            {context.i18n.translate('UserIndex.passwordChanged.message')}
           </Feedback>
         )
-        return { title: 'Change Password', data, component }
+        const title = context.i18n.translate('UserIndex.passwordChanged.message')
+        return { title, data, component }
       }
     },
     {
@@ -221,14 +256,16 @@ export default (api) => {
         const component = (data) => (
           <Groups {...data} />
         )
-        return { title: 'Edit Groups', data, component }
+        const title = context.i18n.translate('UserIndex.groups.title')
+        return { title, data, component }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/user/groups', body, context.authorization)
         const component = (data) => (
           <Groups {...data} confirm />
         )
-        return { title: 'Update Groups', data, component }
+        const title = context.i18n.translate('UserIndex.groupsChanged.groupsUpdated')
+        return { title, data, component }
       }
     },
     {
@@ -239,7 +276,8 @@ export default (api) => {
         const component = (data) => (
           <pre>{JSON.stringify(data, null, 2)}</pre>
         )
-        return { title: 'Current User', data, component }
+        const title = context.i18n.translate('UserIndex.groups.user')
+        return { title, data, component }
       }
     },
     {
@@ -249,7 +287,8 @@ export default (api) => {
         const component = (data) => (
           <Log entries={data} />
         )
-        return { title: 'Edit Groups', data, component }
+        const title = context.i18n.translate('ResourceIndex.log.log')
+        return { title, data, component }
       },
     },
     {
@@ -262,7 +301,8 @@ export default (api) => {
         const component = (data) => (
           <Diffs {...data} phrases={context.phrases} />
         )
-        return { title: 'Edit Groups', data, component }
+        const title = context.i18n.translate('ResourceIndex.log.logFor', {id})
+        return { title, data, component }
       }
     }
   ]
@@ -273,6 +313,7 @@ export default (api) => {
   }
 
   const handle = async (method, uri, context, state, params, body) => {
+    context.i18n = i18nizer(context.locales, context.phrases)
     try {
       if (context.err) {
         const message = context.err
@@ -309,19 +350,17 @@ export default (api) => {
   }
 
   return {
-    route: (uri, context, state) => (
-      {
-        get: async (params = {}) => (
-          handle("get", uri, context, state, params, null)
-        ),
-        post: async (body, params = {}) => (
-          handle("post", uri, context, state, params, body)
-        ),
-        delete: async (body, params = {}) => (
-          handle("delete", uri, context, state, params, body)
-        )
-      }
-    )
+    route: (uri, context, state) => ({
+      get: async (params = {}) => (
+        handle("get", uri, context, state, params, null)
+      ),
+      post: async (body, params = {}) => (
+        handle("post", uri, context, state, params, body)
+      ),
+      delete: async (body, params = {}) => (
+        handle("delete", uri, context, state, params, body)
+      )
+    })
   }
 
 }

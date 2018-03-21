@@ -9,6 +9,9 @@ import EmittProvider from '../src/components/EmittProvider'
 import about from './resources/WebPage.json'
 import user from './resources/user.json'
 
+import mock from './helpers/mock'
+import i18n from '../src/i18n'
+
 const author = 'Test Author'
 const contributor = 'Test Contributor'
 const dateModified = "2018-02-22T16:26:27.753"
@@ -16,10 +19,9 @@ const dateModified = "2018-02-22T16:26:27.753"
 describe('<Metadata />', () => {
   const wrapper = render(
     <I18nProvider
-      locales={['en']}
-      phrases={{'ResourceIndex.read.lastModified': 'last modified %{dateModified}'}}
+      i18n={i18n(['en'], {'ResourceIndex.read.lastModified': 'last modified %{dateModified}'})}
     >
-      <EmittProvider emitter={{}}>
+      <EmittProvider emitter={mock.emitter}>
         <Metadata
           type={about['@type']}
           about={about}
