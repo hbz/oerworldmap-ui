@@ -28,7 +28,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, view, _s
             user &&
               <div className="action" key="view">
                 {view === 'edit' ? (
-                  <Link href={Link.home} className="closePage">
+                  <Link href="#view" className="closePage">
                     &times;
                   </Link>
                 ) : (
