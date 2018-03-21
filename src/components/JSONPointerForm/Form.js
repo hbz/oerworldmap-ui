@@ -38,6 +38,13 @@ class Form extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      formData: nextProps.data,
+      formErrors: []
+    })
+  }
+
   setValue(name, value) {
     this.setState(prevState => {
       jsonPointer.set(prevState.formData, name, value)

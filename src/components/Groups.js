@@ -10,7 +10,7 @@ import '../styles/components/Groups.pcss'
 
 const Groups = ({translate, emitter, groups, users, _status, confirm}) => (
   <div className="Groups">
-    <FullModal>
+    <FullModal closeLink={Link.back}>
       <div>
         <h2>{translate('UserIndex.groups.title')}</h2>
         {confirm &&
