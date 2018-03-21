@@ -24,7 +24,7 @@ const Input = ({
   type, name, value, setValue, errors, property, title, className, translate,
   shouldFormComponentFocus
 }) => (
-  <div className={`Input ${type} ${property || ''} ${className}`.trim()}>
+  <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label htmlFor={name} dangerouslySetInnerHTML={{__html: translate(title)}} />
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
