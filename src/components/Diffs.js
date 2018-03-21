@@ -6,6 +6,7 @@ import htmldiff from '../../vendor/htmldiff'
 
 import WebPageView from './WebPageView'
 import I18nProvider from './I18nProvider'
+import EmittProvider from './EmittProvider'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 
@@ -16,21 +17,27 @@ import '../styles/components/Diff.pcss'
 const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to}) => {
   const v1 = renderToString(
     <I18nProvider locales={locales} phrases={phrases}>
-      <WebPageView
-        id="view"
-        about={compare.about}
-        expandAll
-      />
+      <EmittProvider emitter={emitter}>
+        <WebPageView
+          view="view"
+          id="view"
+          about={compare.about}
+          expandAll
+        />
+      </EmittProvider>
     </I18nProvider>
   )
 
   const v2 = renderToString(
     <I18nProvider locales={locales} phrases={phrases}>
-      <WebPageView
-        id="view"
-        about={to.about}
-        expandAll
-      />
+      <EmittProvider emitter={emitter}>
+        <WebPageView
+          view="view"
+          id="view"
+          about={to.about}
+          expandAll
+        />
+      </EmittProvider>
     </I18nProvider>
   )
   const diff = htmldiff(v1, v2)
