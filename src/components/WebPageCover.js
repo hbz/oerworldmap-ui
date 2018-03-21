@@ -21,8 +21,8 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
 
     <MiniMap
       mapboxConfig={mapboxConfig}
-      features={geo && geo.geometry}
-      zoom={geo && 3}
+      features={(geo && geo.geometry) ? geo.geometry : undefined}
+      zoom={geo ? 3 : 1}
       center={getCenter(geo)}
     />
 
