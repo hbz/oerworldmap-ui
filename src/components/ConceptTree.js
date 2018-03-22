@@ -8,12 +8,12 @@ import Link from './Link'
 
 import { triggerClick } from '../common'
 
-const filterTree = (tree, list) => {
+const filterConcepts = (concepts, include) => {
   const res = []
-  tree.forEach(node => {
-    if (list.indexOf(node['@id']) !== -1) {
+  concepts.forEach(node => {
+    if (include.indexOf(node['@id']) !== -1) {
       if (node['narrower']) {
-        node['narrower'] = filterTree(node['narrower'], list)
+        node['narrower'] = filterConcepts(node['narrower'], include)
       }
       res.push(node)
     }
@@ -23,7 +23,7 @@ const filterTree = (tree, list) => {
 
 const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested}) => (
   <ul className={className}>
-    {(include ? filterTree(concepts, include) : concepts).map(concept => (
+    {(include ? filterConcepts(concepts, include) : concepts).map(concept => (
       <li
         key={concept['@id']}
         className={!nested && (concept.narrower && concept.narrower.length > 0) ? 'expandable': ''}

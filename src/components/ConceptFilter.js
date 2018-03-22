@@ -7,12 +7,12 @@ import { triggerClick } from '../common'
 
 import '../styles/components/DropdownFilter.pcss'
 
-const filterTree = (tree, list) => {
+const filterConcepts = (concepts, include) => {
   const res = []
-  tree.forEach(node => {
-    if (list.indexOf(node['@id']) !== -1) {
+  concepts.forEach(node => {
+    if (include.indexOf(node['@id']) !== -1) {
       if (node['narrower']) {
-        node['narrower'] = filterTree(node['narrower'], list)
+        node['narrower'] = filterConcepts(node['narrower'], include)
       }
       res.push(node)
     }
@@ -20,15 +20,15 @@ const filterTree = (tree, list) => {
   return res
 }
 
-const findConcept = (tree, id) => {
-  const concept = tree.find(concept => concept['@id'] === id)
+const findConcept = (concepts, id) => {
+  const concept = concepts.find(concept => concept['@id'] === id)
   if (concept) {
     return concept
   }
 
-  for (let i = 0; i < tree.length; i++) {
-    if (tree[i].narrower) {
-      const concept = findConcept(tree[i].narrower, id)
+  for (let i = 0; i < concepts.length; i++) {
+    if (concepts[i].narrower) {
+      const concept = findConcept(concepts[i].narrower, id)
       if (concept) {
         return concept
       }
@@ -152,7 +152,7 @@ class ConceptFilter extends React.Component {
               onChange={e => this.setState({search: e.target.value})}
             />
           </div>
-          {this.buildTree(filterTree(this.props.concepts, this.props.aggregation.buckets.map(bucket => bucket.key)))}
+          {this.buildTree(filterConcepts(this.props.concepts, this.props.aggregation.buckets.map(bucket => bucket.key)))}
         </div>
       </div>
     )
