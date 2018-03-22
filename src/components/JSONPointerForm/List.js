@@ -16,11 +16,11 @@ const List = ({name, value, children, errors, property, title, className, transl
     ))}
     <ul>
       {value.map((item, index) => (
-        <ListItem property={index} key={index}>
+        <ListItem property={index.toString()} key={index}>
           {React.cloneElement(children)}
         </ListItem>
       ))}
-      <ListItem property={value.length} key={value.length}>
+      <ListItem property={value.length.toString()} key={value.length}>
         {value.length ? (
           <div className="newItemWrapper">
             <input
