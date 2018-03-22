@@ -21,6 +21,9 @@ const JsonSchema = (schema) => {
       )
       delete schema.allOf
     }
+    if ('oneOf' in schema) {
+      schema = schema.oneOf.shift()
+    }
     if ('properties' in schema) {
       Object.keys(schema.properties).forEach((property) => {
         schema.properties[property] = expandSchema(

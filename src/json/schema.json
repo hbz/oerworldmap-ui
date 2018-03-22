@@ -1131,13 +1131,15 @@
                     }
                   },
                   "availableLanguage": {
+                    "title": "Service.availableChannel.availableLanguage",
                     "type": "array",
                     "items": {
-                      "type": "string",
-                      "enum": ["en", "de"]
+                      "title": "LocalizedString.@language",
+                      "$ref": "#/definitions/Language"
                     }
                   },
                   "serviceUrl": {
+                    "title": "Service.availableChannel.serviceUrl",
                     "type": "string",
                     "format": "uri"
                   }
@@ -1149,7 +1151,10 @@
                 "properties": {
                   "@type": {
                     "type": "string",
-                    "enum": [ "WebAPI" ]
+                    "enum": [ "WebAPI" ],
+                    "_display": {
+                      "className": "hidden"
+                    }
                   },
                   "availableLanguage": {
                     "type": "array",
