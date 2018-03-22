@@ -7,6 +7,8 @@ import ButtonFilter from '../src/components/ButtonFilter'
 import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
+import mock from './helpers/mock'
+
 const aggregation = {
   "doc_count_error_upper_bound": 0,
   "sum_other_doc_count": 0,
@@ -49,8 +51,8 @@ const aggregation = {
 describe('<ButtonFilter />', () => {
   it('creates eight items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']} phrases={{}}>
-        <EmittProvider emitter={{}}>
+      <I18nProvider i18n={mock.i18n}>
+        <EmittProvider emitter={mock.emitter}>
           <ButtonFilter
             filter={[]}
             aggregation={aggregation}

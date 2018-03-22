@@ -8,12 +8,13 @@ import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
 import user from './resources/user.json'
+import mock from './helpers/mock'
 
 describe('<ActionButtons />', () => {
   it('creates four items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']} phrases={{}}>
-        <EmittProvider emitter={{}}>
+      <I18nProvider i18n={mock.i18n}>
+        <EmittProvider emitter={mock.emitter}>
           <ActionButtons />
         </EmittProvider>
       </I18nProvider>
@@ -22,8 +23,8 @@ describe('<ActionButtons />', () => {
   })
   it('creates six items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']} phrases={{}}>
-        <EmittProvider emitter={{}}>
+      <I18nProvider i18n={mock.i18n}>
+        <EmittProvider emitter={mock.emitter}>
           <ActionButtons user={user} />
         </EmittProvider>
       </I18nProvider>

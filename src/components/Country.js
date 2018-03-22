@@ -102,9 +102,14 @@ class Country  extends React.Component {
                   <div className="frame">
                     <i className="fa fa-question" />
                   </div>
-                  <div className="text">
-                    There is no <Link href="/contribute">contry champion</Link> for {this.props.iso3166}, yet. <a href="mailto:info@oerworldmap.org">Contact us</a> if you can jump in!
-                  </div>
+                  <div
+                    className="text"
+                    dangerouslySetInnerHTML={{
+                      __html: this.props.translate('CountryIndex.read.noChampion', {
+                        country: this.props.translate(this.props.iso3166)
+                      })
+                    }}
+                  />
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ import I18nProvider from './I18nProvider'
 import EmittProvider from './EmittProvider'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
+import i18n from '../i18n'
 
 import { formatDate } from '../common'
 
@@ -16,7 +17,7 @@ import '../styles/components/Diff.pcss'
 
 const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to}) => {
   const v1 = renderToString(
-    <I18nProvider locales={locales} phrases={phrases}>
+    <I18nProvider i18n={i18n(locales, phrases)}>
       <EmittProvider emitter={emitter}>
         <WebPageView
           view="view"
@@ -29,7 +30,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to})
   )
 
   const v2 = renderToString(
-    <I18nProvider locales={locales} phrases={phrases}>
+    <I18nProvider i18n={i18n(locales, phrases)}>
       <EmittProvider emitter={emitter}>
         <WebPageView
           view="view"

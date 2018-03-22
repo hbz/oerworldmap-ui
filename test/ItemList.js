@@ -8,11 +8,13 @@ import ItemList from '../src/components/ItemList'
 import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
 
+import mock from './helpers/mock'
+
 describe('<ItemList />', () => {
   it('creates list entry for each item', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']} phrases={{}}>
-        <EmittProvider emitter={{}}>
+      <I18nProvider i18n={mock.i18n}>
+        <EmittProvider emitter={mock.emitter}>
           <ItemList listItems={testdata} selected='none' />
         </EmittProvider>
       </I18nProvider>

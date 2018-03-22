@@ -1,9 +1,11 @@
 import { describe, it } from 'mocha'
-import { mount } from 'enzyme'
+import { render } from 'enzyme'
 import React from 'react'
 import assert from 'assert'
 
 import I18nProvider from '../src/components/I18nProvider'
+import withI18n from '../src/components/withI18n'
+import i18n from '../src/i18n'
 
 describe('<I18nProvider />', () => {
   it('localizes correctly', () => {
@@ -12,11 +14,16 @@ describe('<I18nProvider />', () => {
       es: 'bar',
       en: 'bar'
     }
+
     for (const language in expected) {
-      const wrapper = mount(
-        <I18nProvider locales={[language]} phrases={{'foo': 'bar'}}><div /></I18nProvider>
-      ).instance()
-      assert.equal(wrapper.t('foo'), expected[language])
+      const wrapper = render(
+        <I18nProvider i18n={i18n([language], {'foo': 'bar'})}>
+          {React.createElement(
+            withI18n(({translate}) => <span>{translate('foo')}</span>)
+          )}
+        </I18nProvider>
+      )
+      assert.equal(wrapper.text(), 'bar')
     }
   })
 })
