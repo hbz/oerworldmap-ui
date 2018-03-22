@@ -17,11 +17,14 @@ const Password = ({translate, emitter}) => (
   <div className="Password">
     <FullModal closeLink={Link.back}>
       <Form
+        data={{'@type': 'ChangePasswordAction'}}
         validate={validate(JsonSchema(schema).get('#/definitions/ChangePasswordAction'))}
         onSubmit={data => emitter.emit('submit', {url: '/user/password/change', data})}
       >
         <Builder schema={JsonSchema(schema).get('#/definitions/ChangePasswordAction')} />
-        <button type="submit">{translate('UserIndex.password.setPassword')}</button>
+        <div className="buttons">
+          <button type="submit" className="btn">{translate('UserIndex.password.setPassword')}</button>
+        </div>
       </Form>
     </FullModal>
   </div>

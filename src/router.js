@@ -1,4 +1,5 @@
 /* global window */
+/* global XMLHttpRequest */
 
 import React from 'react'
 import toRegExp from 'path-to-regexp'
@@ -240,6 +241,15 @@ export default (api) => {
       path: '/user/password/change',
       post: async (params, context, state, body) => {
         const data = await api.post('/user/password/change', body, context.authorization)
+
+        setTimeout(()=> {
+          const request = new XMLHttpRequest()
+          const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
+          request.open('GET', url, false)
+          request.send(null)
+          window.location = Link.home
+        }, 5000)
+
         const component = () => (
           <Feedback>
             {context.i18n.translate('UserIndex.passwordChanged.message')}
