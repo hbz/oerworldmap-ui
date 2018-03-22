@@ -84,12 +84,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                   <i>
                     {translate('A description for this entry is missing.')}
                     {expose('editEntry', user, about) &&
-                      <Link href={'#edit'}>
+                      <Link href='#edit'>
                         &nbsp;{translate('Help us by adding some information!')}
                       </Link>
                     }
                     {!user && about['@type'] !== 'Person' &&
-                      <Link href={'/user/register'}>
+                      <Link href='/user/register'>
                         &nbsp;{translate('Help us by adding some information!')}
                       </Link>
                     }
