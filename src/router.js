@@ -1,4 +1,5 @@
 /* global window */
+/* global XMLHttpRequest */
 
 import React from 'react'
 import toRegExp from 'path-to-regexp'
