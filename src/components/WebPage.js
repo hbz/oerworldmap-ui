@@ -39,7 +39,7 @@ const WebPage = ({
 
         <div className="webPageContent">
 
-          {user &&
+          {user && (about['@type'] !== 'Person' || (user && about['@id'] === user.id)) &&
             <div id="edit" className={view === 'edit' ? 'visible' : ''}>
               <WebPageEdit
                 about={about}

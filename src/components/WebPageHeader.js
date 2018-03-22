@@ -25,7 +25,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, view, _s
                 <ShareExport _self={_self} _links={_links} view={view} />
               </div>
             ),
-            user &&
+            user && (about['@type'] !== 'Person' || about['@id'] === user.id) &&
               <div className="action" key="view">
                 {view === 'edit' ? (
                   <Link href="#view" className="closePage">

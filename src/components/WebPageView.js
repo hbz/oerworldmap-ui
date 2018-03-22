@@ -45,7 +45,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
         {translate(about.displayName) || translate(about.name)}
         {about.alternateName &&
           <span className="alternate">
-            {' '}({translate(about.alternateName)})
+            &nbsp;({translate(about.alternateName)})
           </span>
         }
       </h2>
@@ -81,20 +81,15 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               ) : (
                 <p>
                   <i>
-                    {translate('A description for this entry is missing, help us by')}&nbsp;
-                    {user ? (
-                      <Link href={`/resource/${about['@id']}/#edit`}>
-                        {translate('adding some information!')}
+                    {translate('A description for this entry is missing.')}
+                    {(about['@type'] !== 'Person' || (user && about['@id'] === user.id)) &&
+                      <Link href={user ? '#edit' : '/user/register'}>
+                        &nbsp;{translate('Help us by adding some information!')}
                       </Link>
-                    ) : (
-                      <Link href="/user/register">
-                        {translate('adding some information!')}
-                      </Link>
-                    )}
+                    }
                   </i>
                 </p>
-              )
-              }
+              )}
             </Block>
 
             {about.articleBody &&
