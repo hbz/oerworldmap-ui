@@ -3,7 +3,7 @@ import piwik from './piwik'
 
 export default ({body, title, initialState, env, piwikConfig}) => {
 
-  const piwikEmbed = true || env === 'production' && (piwikConfig.id && piwikConfig.url)
+  const piwikEmbed = env === 'production' && (piwikConfig.id && piwikConfig.url)
     ? piwik(piwikConfig)
     : ''
 
