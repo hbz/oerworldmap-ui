@@ -26,6 +26,7 @@ class Form extends React.Component {
       formErrors: []
     }
     this.lastUpdate = ""
+    this.lastOp = null
   }
 
   getChildContext() {
@@ -47,8 +48,10 @@ class Form extends React.Component {
 
   setValue(name, value) {
     this.setState(prevState => {
-      jsonPointer.set(prevState.formData, name, value)
+      this.lastOp = value && jsonPointer.has(prevState.formData, name)
+        ? 'changed' : value ? 'added' : 'removed'
       this.lastUpdate = name
+      jsonPointer.set(prevState.formData, name, value)
       return {
         formData: prune(prevState.formData)
       }
@@ -72,6 +75,8 @@ class Form extends React.Component {
     return !name
       || this.lastUpdate.startsWith(name)
       || name.startsWith(this.lastUpdate)
+      || (this.lastOp !== 'changed'
+          && jsonPointer.parse(this.lastUpdate).shift() === jsonPointer.parse(name).shift())
       || this.getValidationErrors(name).length
   }
 
@@ -88,6 +93,7 @@ class Form extends React.Component {
         onSubmit={e => {
           e.preventDefault()
           this.lastUpdate = ""
+          this.lastOp = null
           this.props.validate(this.state.formData)
             ? this.props.onSubmit(this.state.formData)
             : this.setState(
