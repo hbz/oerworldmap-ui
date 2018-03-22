@@ -14,6 +14,7 @@ import withEmitter from './withEmitter'
 import schema from '../json/schema.json'
 
 import { formatDate } from '../common'
+import expose from '../expose'
 
 import '../styles/components/Comments.pcss'
 
@@ -35,8 +36,7 @@ const Comments = ({moment, translate, emitter, about, comments, user}) => (
               {moment(comment.dateCreated).fromNow()}
             </span>
           </div>
-          {user &&
-          user.groups.includes('admin') &&
+          {expose('deleteEntry', user, comment) &&
             <div className="col">
               <form onSubmit={(e) => {
                 e.preventDefault()
@@ -55,7 +55,7 @@ const Comments = ({moment, translate, emitter, about, comments, user}) => (
         <ReactMarkdown source={translate(comment.text)} />
       </div>
     ))}
-    {user ? (
+    {expose('addEntry', user) ? (
       <div>
         <Form
           data={{

@@ -116,7 +116,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate}) => {
         </div>
       }
 
-      {about['@id'] && user && view === 'addLighthouse' &&
+      {view === 'addLighthouse' &&
         <FullModal className="Lighthouse" closeLink={`/resource/${about['@id']}`}>
           <Form
             data={lighthouse}

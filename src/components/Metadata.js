@@ -6,13 +6,14 @@ import Icon from './Icon'
 import Link from './Link'
 
 import { formatDate } from '../common'
+import expose from '../expose'
 
 const Metadata = ({type, about, dateModified, moment, translate, user}) => (
   <div className="Metadata">
     <Icon type={type} />
     {translate(type)}{' '}
     {dateModified && (
-      user ? (
+      expose('editEntry', user, about) ? (
         <Link
           href={`/log/${about["@id"]}`}
           title={formatDate(dateModified, moment)}

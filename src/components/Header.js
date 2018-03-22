@@ -5,6 +5,7 @@ import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
 import { triggerClick } from '../common'
+import expose from '../expose'
 
 import '../styles/components/Header.pcss'
 
@@ -98,7 +99,7 @@ class Header extends React.Component {
 
         </nav>
 
-        {this.props.user ? (
+        {expose('userMenu', this.props.user) ? (
           <div
             className="menuBtn"
             href="#nothing"

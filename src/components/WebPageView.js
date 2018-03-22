@@ -15,6 +15,7 @@ import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 
 import { formatURL, formatDate } from '../common'
+import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
@@ -50,7 +51,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
         }
       </h2>
 
-      {user &&
+      {expose('userActions', user) &&
         <WebPageUserActions about={about} user={user} view={view} />
       }
 
@@ -82,8 +83,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
                 <p>
                   <i>
                     {translate('A description for this entry is missing.')}
-                    {(about['@type'] !== 'Person' || (user && about['@id'] === user.id)) &&
-                      <Link href={user ? '#edit' : '/user/register'}>
+                    {expose('editEntry', user, about) &&
+                      <Link href={'#edit'}>
+                        &nbsp;{translate('Help us by adding some information!')}
+                      </Link>
+                    }
+                    {!user && about['@type'] !== 'Person' &&
+                      <Link href={'/user/register'}>
                         &nbsp;{translate('Help us by adding some information!')}
                       </Link>
                     }

@@ -5,6 +5,7 @@ import withI18n from './withI18n'
 import Link from './Link'
 import Icon from './Icon'
 import { triggerClick } from '../common'
+import expose from '../expose'
 
 import '../styles/components/ActionButtons.pcss'
 
@@ -35,16 +36,14 @@ class ActionButtons extends React.Component {
 
   render() {
     return (
-
       <div className="ActionButtons">
-        {this.props.user &&
-        this.props.user.groups.includes('admin') &&
+        {expose('groupAdmin', this.props.user) &&
           <Link href="/user/groups" title={this.props.translate('ClientTemplates.app.groups')}>
             <i className="fa fa-gear" />
           </Link>
         }
 
-        {this.props.user &&
+        {expose('addEntry', this.props.user) &&
           <div
             title={this.props.translate('ClientTemplates.app.add')}
             tabIndex="0"
