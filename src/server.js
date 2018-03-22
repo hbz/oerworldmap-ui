@@ -55,11 +55,7 @@ server.use(function (req, res, next) {
   const [user] = authorization
     ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
   if (user) {
-    const context = { authorization }
-    router(api).route('/user/profile', context).get().then(({data, err}) => {
-      req.user = err ? null : data
-      next()
-    })
+    api.get('/user/profile', authorization).then(user => (req.user = user) && next())
   } else {
     next()
   }

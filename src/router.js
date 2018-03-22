@@ -20,7 +20,7 @@ import Diffs from './components/Diffs'
 import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
-import i18nizer from './i18n'
+import i18n from './i18n'
 
 export default (api) => {
 
@@ -269,18 +269,6 @@ export default (api) => {
       }
     },
     {
-      path: '/user/profile',
-      get: async (params, context, state) => {
-        console.log(context.authorization)
-        const data = state || await api.get('/user/profile', context.authorization)
-        const component = (data) => (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        )
-        const title = context.i18n.translate('UserIndex.groups.user')
-        return { title, data, component }
-      }
-    },
-    {
       path: '/log/',
       get: async (params, context, state) => {
         const data = state || await api.get('/log/', context.authorization)
@@ -313,7 +301,7 @@ export default (api) => {
   }
 
   const handle = async (method, uri, context, state, params, body) => {
-    context.i18n = i18nizer(context.locales, context.phrases)
+    context.i18n = i18n(context.locales, context.phrases)
     try {
       if (context.err) {
         const message = context.err
