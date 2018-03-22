@@ -37,6 +37,8 @@ MAPBOX_STYLE=username/style_id
 API_HOST=https://oerworldmap.org
 API_PORT=443
 API_SCHEME=http
+PIWIK_ID=your.piwik.id
+PIWIK_URL=your.piwik.url
 ```
 
 Check if all is well and run:
