@@ -13,7 +13,7 @@ import router from './router'
 import Api from './api'
 import { parseProperties } from './common'
 
-import Config, { mapboxConfig, apiConfig } from '../config'
+import Config, { mapboxConfig, apiConfig, piwikConfig } from '../config'
 
 const server = express()
 const api = new Api(apiConfig)
@@ -108,7 +108,8 @@ server.get(/^(.*)$/, (req, res) => {
       body: renderToString(render(data)),
       initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
-      title
+      title,
+      piwikConfig
     }))
   })
 })
