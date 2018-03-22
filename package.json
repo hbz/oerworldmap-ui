@@ -8,6 +8,7 @@
     "server:static": "NODE_ENV=static node src/index.js",
     "server:prod": "npm run clean && NODE_ENV=production webpack && NODE_ENV=production node src/index.js",
     "test": "eslint src --quiet && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
+    "testrun": "mocha --require babel-core/register --inspect --require ignore-styles test/helpers/browser.js",
     "fix": "eslint src --fix",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint src --ext .jsx,.js --quiet",
