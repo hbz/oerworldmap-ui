@@ -17,7 +17,7 @@ export default ({ body, title, initialState, env, piwikConfig}) => {
     })();
     </script>
     <noscript>
-      <p><img src="//piwik.hbz-nrw.de/analytics/piwik.php?idsite=4" style="border:0;" alt="" /></p>
+      <p><img src="//${piwikConfig.url}piwik.php?idsite=${piwikConfig.id}" style="border:0;" alt="" /></p>
     </noscript>
     `
   }
