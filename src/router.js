@@ -62,7 +62,9 @@ export default (api) => {
             <ActionButtons user={context.user} />
           </ResourceIndex>
         )
-        const title = context.i18n.translate('Index')
+        const title = params.add
+          ? context.i18n.translate('add', {type: context.i18n.translate(params.add)})
+          : context.i18n.translate('ResourceIndex.index.showingEntities', {number: data.totalItems})
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
