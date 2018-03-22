@@ -12,7 +12,7 @@ import user from './resources/user.json'
 describe('<ActionButtons />', () => {
   it('creates four items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']}>
+      <I18nProvider locales={['en']} phrases={{}}>
         <EmittProvider emitter={{}}>
           <ActionButtons />
         </EmittProvider>
@@ -22,7 +22,7 @@ describe('<ActionButtons />', () => {
   })
   it('creates six items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']}>
+      <I18nProvider locales={['en']} phrases={{}}>
         <EmittProvider emitter={{}}>
           <ActionButtons user={user} />
         </EmittProvider>

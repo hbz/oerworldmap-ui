@@ -17,7 +17,7 @@ const fakeMapboxConfig = {
 describe('<WebPage />', () => {
   it('can be instantiated', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']}>
+      <I18nProvider locales={['en']} phrases={{}}>
         <EmittProvider emitter={{emit: () => null, on: () => null}}>
           <WebPage {...testdata} geo={null} mapboxConfig={fakeMapboxConfig} view='' />
         </EmittProvider>

@@ -10,9 +10,9 @@ import EmittProvider from '../src/components/EmittProvider'
 
 describe('<Diffs />', () => {
   const wrapper = render(
-    <I18nProvider locales={['en']}>
+    <I18nProvider locales={['en']} phrases={{}}>
       <EmittProvider emitter={{}}>
-        <Diffs {...data} />
+        <Diffs {...data} phrases={{}} />
       </EmittProvider>
     </I18nProvider>
   )

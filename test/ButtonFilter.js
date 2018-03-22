@@ -49,7 +49,7 @@ const aggregation = {
 describe('<ButtonFilter />', () => {
   it('creates eight items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']}>
+      <I18nProvider locales={['en']} phrases={{}}>
         <EmittProvider emitter={{}}>
           <ButtonFilter
             filter={[]}

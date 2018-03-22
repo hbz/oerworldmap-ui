@@ -10,7 +10,7 @@ import EmittProvider from '../src/components/EmittProvider'
 describe('<Block />', () => {
   it('creates three items', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']}>
+      <I18nProvider locales={['en']} phrases={{}}>
         <EmittProvider emitter={{}}>
           <Block className="testClass" collapsible collapsibleType="show-all" title="Test Title">
             <div className="tesDiv">Test</div>

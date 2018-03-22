@@ -11,7 +11,7 @@ import EmittProvider from '../src/components/EmittProvider'
 describe('<ItemList />', () => {
   it('creates list entry for each item', () => {
     const wrapper = render(
-      <I18nProvider locales={['en']}>
+      <I18nProvider locales={['en']} phrases={{}}>
         <EmittProvider emitter={{}}>
           <ItemList listItems={testdata} selected='none' />
         </EmittProvider>

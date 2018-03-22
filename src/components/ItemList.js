@@ -27,12 +27,36 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className }) =>
       >
         <Tooltip
           overlay={
-            <div>
-              <b>{translate(listItem.name) || listItem['@id']}</b>
-              {listItem.description
-                ? <ReactMarkdown
+            <div className="itemListTooltip" >
+              <div className="topWrapper">
+                {listItem.image &&
+                  <img
+                    style={{
+                      display: 'none'
+                    }}
+                    onLoad={e => {
+                      e.target.style.display = 'block'
+                    }}
+                    onError={e => {
+                      e.target.remove()
+                    }}
+                    src={listItem.image}
+                    alt={translate(listItem.name) || listItem['@id']}
+                  />
+                }
+                <div>
+                  <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
+                  <br />
+                  <b>{translate(listItem.name) || listItem['@id']}</b>
+                </div>
+              </div>
+              {listItem.description &&
+                <ReactMarkdown
+                  className="description"
                   escapeHtml={false}
                   source={translate(listItem.description)}
+                  skipHtml
+                  unwrapDisallowed={false}
                   renderers={
                     {link: link => (
                       <a href={link.href} target="_blank" rel="noopener">
@@ -41,7 +65,6 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className }) =>
                     )}
                   }
                 />
-                : <p>No description available</p>
               }
             </div>
           }
