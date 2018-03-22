@@ -38,8 +38,11 @@ import Link from './components/Link'
       )
       emitter.emit('setLoading', false)
       window.location.hash
-        && document.getElementById(window.location.hash.replace('#', ''))
-        && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
+        ? document.getElementById(window.location.hash.replace('#', ''))
+          && document.getElementById(window.location.hash.replace('#', '')).scrollIntoView()
+        : document.querySelector('.webPageWrapper')
+          && (document.querySelector('.webPageWrapper').scrollTop = 0)
+
       document.title = title
       referrer = window.location.href
     }

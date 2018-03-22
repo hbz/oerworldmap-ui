@@ -497,7 +497,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
           {about.license &&
             <Block title={translate(`${about['@type']}.license`)}>
-              <ul className="commaSeparatedList">
+              <ul className="spaceSeparatedList">
                 {about.license.map(license => (
                   <li key={license['@id']}>
                     <img className="licenseImage" src={license.image} alt={translate(license.name)} />
