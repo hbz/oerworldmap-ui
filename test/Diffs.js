@@ -14,7 +14,7 @@ describe('<Diffs />', () => {
   const wrapper = render(
     <I18nProvider i18n={mock.i18n}>
       <EmittProvider emitter={mock.emitter}>
-        <Diffs {...data} />
+        <Diffs {...data} phrases={{}} />
       </EmittProvider>
     </I18nProvider>
   )

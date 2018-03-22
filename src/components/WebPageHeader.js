@@ -28,7 +28,9 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, view, _s
             user &&
               <div className="action" key="view">
                 {view === 'edit' ? (
-                  <Link href="#view"><i className="fa fa-close" /></Link>
+                  <Link href="#view" className="closePage">
+                    &times;
+                  </Link>
                 ) : (
                   <Link href="#edit"><i className="fa fa-pencil" /></Link>
                 )}

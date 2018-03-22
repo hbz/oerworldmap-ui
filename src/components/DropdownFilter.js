@@ -1,7 +1,6 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
@@ -32,7 +31,7 @@ class DropdownFilter extends React.Component {
 
   render() {
     const list = (this.props.aggregation.buckets.filter(
-      item => this.props.translate(item.label || item.key).toLowerCase().includes(this.state.search.toLowerCase())
+      item => this.props.translateItems(item.label || item.key).toLowerCase().includes(this.state.search.toLowerCase())
     ) || this.props.aggregation.buckets).map((bucket, i) => (
       <li key={bucket.key}>
         <input
@@ -52,7 +51,7 @@ class DropdownFilter extends React.Component {
           tabIndex="0"
           role="button"
         >
-          {`${this.props.translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
+          {`${this.props.translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
         </label>
       </li>
     ))
@@ -127,7 +126,8 @@ class DropdownFilter extends React.Component {
 }
 
 DropdownFilter.propTypes = {
-  translate: PropTypes.func.isRequired,
+  translate: PropTypes.func,
+  translateItems: PropTypes.func,
   aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
   filter: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string,
@@ -138,6 +138,8 @@ DropdownFilter.propTypes = {
 
 DropdownFilter.defaultProps = {
   icon: null,
+  translate: key => key,
+  translateItems: key => key,
 }
 
-export default withEmitter(withI18n(DropdownFilter))
+export default withEmitter(DropdownFilter)

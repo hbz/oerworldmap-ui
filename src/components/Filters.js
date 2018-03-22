@@ -35,17 +35,20 @@ const primaryFilters = [
   {
     name: "about.@type",
     type: "button",
-    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article']
+    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article'],
+    translate: true
   },
   {
     name: "about.location.address.addressCountry",
     type: "dropdown",
-    icon: "globe"
+    icon: "globe",
+    translate: true
   },
   {
     name: "about.location.address.addressRegion",
     type: "dropdown",
-    icon: "globe"
+    icon: "globe",
+    translate: true
   },
   {
     name: "about.keywords",
@@ -57,34 +60,41 @@ const primaryFilters = [
 const secondaryFilters = [
   {
     name: "about.availableChannel.availableLanguage",
+    translate: true
   },
   {
     name: "about.primarySector.@id",
     type: "concepts",
-    scheme: require('../json/sectors.json')
+    scheme: require('../json/sectors.json'),
+    translate: true
   },
   {
     name: "about.secondarySector.@id",
     type: "concepts",
-    scheme: require('../json/sectors.json')
+    scheme: require('../json/sectors.json'),
+    translate: true
   },
   {
     name: "about.audience.@id",
     type: "concepts",
-    scheme: require('../json/isced-1997.json')
+    scheme: require('../json/isced-1997.json'),
+    translate: true
   },
   {
     name: "about.about.@id",
     type: "concepts",
-    scheme: require('../json/esc.json')
+    scheme: require('../json/esc.json'),
+    translate: true
   },
   {
     name: "about.award",
+    translate: true
   },
   {
     name: "about.license.@id",
     type: "concepts",
-    scheme: require('../json/licenses.json')
+    scheme: require('../json/licenses.json'),
+    translate: true
   },
 ]
 
@@ -193,6 +203,8 @@ class Filters extends React.Component {
                       filter={filter}
                       filterName={`filter.${filterDef.name}`}
                       submit={onSubmit}
+                      translate={this.props.translate}
+                      translateItems={filterDef.translate ? this.props.translate : undefined}
                     />
                   )
                 }
@@ -243,6 +255,8 @@ class Filters extends React.Component {
                       filter={filter}
                       filterName={`filter.${filterDef.name}`}
                       submit={onSubmit}
+                      translate={this.props.translate}
+                      translateItems={filterDef.translate ? this.props.translate : undefined}
                     />
                   )
                 }

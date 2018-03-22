@@ -7,7 +7,7 @@ import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import env from './config'
 
-const TARGET = process.env.npm_lifecycle_event
+const ENV = process.env.NODE_ENV
 
 let Config = {
   context: path.join(__dirname, 'src'),
@@ -63,7 +63,7 @@ let Config = {
 
 }
 
-if (TARGET === 'server:prod') {
+if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
       new ExtractTextPlugin("assets/styles.css"),
@@ -98,7 +98,7 @@ if (TARGET === 'server:prod') {
   })
 }
 
-if (TARGET === 'server:dev') {
+if (ENV === 'developement') {
   Config.module.rules[0].use.query = {
     presets: ['react-hmre']
   }
@@ -150,7 +150,7 @@ if (TARGET === 'server:dev') {
   })
 }
 
-if (TARGET === 'server:static') {
+if (ENV === 'static') {
   Config.module.rules[0].use.query = {
     presets: ['react-hmre']
   }

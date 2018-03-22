@@ -8,10 +8,10 @@ import Icon from './Icon'
 const getCenter = (geo) => {
   if (geo && geo.geometry) {
     if (geo.geometry.type ==='MultiPoint') {
-      return [geo.geometry.coordinates[0][0]-1, geo.geometry.coordinates[0][1]]
+      return [geo.geometry.coordinates[0][0]-15, geo.geometry.coordinates[0][1]]
     }
     else {
-      return [geo.geometry.coordinates[0]-1, geo.geometry.coordinates[1]]
+      return [geo.geometry.coordinates[0]-15, geo.geometry.coordinates[1]]
     }
   }
 }
@@ -21,8 +21,8 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
 
     <MiniMap
       mapboxConfig={mapboxConfig}
-      features={geo && geo.geometry}
-      zoom={geo && 3}
+      features={(geo && geo.geometry) ? geo.geometry : undefined}
+      zoom={geo ? 3 : 1}
       center={getCenter(geo)}
     />
 
