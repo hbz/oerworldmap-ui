@@ -147,7 +147,6 @@ class MiniMap extends React.Component {
   }
 
   updateMap(features, draggable, zoomable, center, zoom) {
-    console.log(this.MiniMap)
     this.MiniMap.getSource('points').setData(features)
     this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
     this.MiniMap.off('mouseleave', 'points', this.mouseLeave)

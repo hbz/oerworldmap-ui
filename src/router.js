@@ -324,7 +324,6 @@ export default (api) => {
       }
     } catch (err) {
       if (err instanceof APIError) {
-        console.error(err)
         const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
         return { title: err.message, data: err, component, render, err: err.message }
