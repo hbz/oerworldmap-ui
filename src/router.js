@@ -206,6 +206,15 @@ export default (api) => {
       path: '/user/password/change',
       post: async (params, context, state, body) => {
         const data = await api.post('/user/password/change', body, context.authorization)
+
+        setTimeout(()=> {
+          const request = new XMLHttpRequest()
+          const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
+          request.open('GET', url, false)
+          request.send(null)
+          window.location = Link.home
+        }, 5000)
+
         const component = () => (
           <Feedback>
             Your password was changed
