@@ -98,7 +98,7 @@ if (ENV === 'production') {
   })
 }
 
-if (ENV === 'developement') {
+if (ENV === 'development') {
   Config.module.rules[0].use.query = {
     presets: ['react-hmre']
   }
