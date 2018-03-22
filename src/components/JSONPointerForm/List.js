@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 import withFormData from './withFormData'
 
-const List = ({name, value, children, errors, property, title, className, translate}) => (
+const List = ({name, value, children, errors, property, title, className, translate, maxItems}) => (
   <div
     className={`List ${property || ''} ${className}`.trim()}
     role="group"
@@ -20,24 +20,26 @@ const List = ({name, value, children, errors, property, title, className, transl
           {React.cloneElement(children)}
         </ListItem>
       ))}
-      <ListItem property={value.length.toString()} key={value.length}>
-        {value.length ? (
-          <div className="newItemWrapper">
-            <input
-              type="checkbox"
-              key={`${name}-${value.length}`}
-              className="formControl"
-              id={`${name}-toggle`}
-            />
-            <label htmlFor={`${name}-toggle`}>
-              {translate('add', {type: translate(title)})}
-            </label>
-            <div className="newItem">
-              {React.cloneElement(children)}
+      {(!value.length || !maxItems || value.length < maxItems) &&
+        <ListItem property={value.length.toString()} key={value.length}>
+          {value.length && (!maxItems || value.length < maxItems) ? (
+            <div className="newItemWrapper">
+              <input
+                type="checkbox"
+                key={`${name}-${value.length}`}
+                className="formControl"
+                id={`${name}-toggle`}
+              />
+              <label htmlFor={`${name}-toggle`}>
+                {translate('add', {type: translate(title)})}
+              </label>
+              <div className="newItem">
+                {React.cloneElement(children)}
+              </div>
             </div>
-          </div>
-        ) : React.cloneElement(children)}
-      </ListItem>
+          ) : React.cloneElement(children)}
+        </ListItem>
+      }
     </ul>
   </div>
 )
@@ -50,7 +52,8 @@ List.propTypes = {
   property: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  maxItems: PropTypes.number
 }
 
 List.defaultProps = {
@@ -58,7 +61,8 @@ List.defaultProps = {
   errors: [],
   property: undefined,
   title: '',
-  className: ''
+  className: '',
+  maxItems: undefined
 }
 
 export default withFormData(List)

@@ -1118,6 +1118,7 @@
           "title": "Service.availableChannel",
           "description": "descriptions.Service.availableChannel",
           "type": "array",
+          "maxItems": 1,
           "items": {
             "oneOf": [
               {

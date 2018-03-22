@@ -61,7 +61,7 @@ class Builder extends React.Component {
     case 'boolean':
       return <Input {...props} type="checkbox" />
     case 'array':
-      return <List {...props}>{this.getComponent(schema.items)}</List>
+      return <List {...props} maxItems={schema.maxItems}>{this.getComponent(schema.items)}</List>
     case 'object':
       return (
         <Fieldset {...props}>

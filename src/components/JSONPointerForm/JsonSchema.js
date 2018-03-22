@@ -16,13 +16,12 @@ const JsonSchema = (schema) => {
       schema.items = expandSchema(schema.items)
     }
     if ('allOf' in schema) {
-      schema.allOf.forEach((allOf) =>
-        schema = merge(schema, expandSchema(allOf))
-      )
+      schema.allOf.forEach(allOf => schema = merge(schema, expandSchema(allOf)))
       delete schema.allOf
     }
     if ('oneOf' in schema) {
-      schema = schema.oneOf.shift()
+      schema = merge(schema, schema.oneOf.shift())
+      delete schema.oneOf
     }
     if ('properties' in schema) {
       Object.keys(schema.properties).forEach((property) => {
