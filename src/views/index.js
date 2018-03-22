@@ -1,6 +1,12 @@
 import favicon from '../assets/favicon.png'
+import piwik from './piwik'
 
-export default ({ body, title, initialState, env }) => {
+export default ({body, title, initialState, env, piwikConfig}) => {
+
+  const piwikEmbed = env === 'production' && (piwikConfig.id && piwikConfig.url)
+    ? piwik(piwikConfig)
+    : ''
+
   return `
     <!doctype html>
     <html lang="en">
@@ -15,6 +21,7 @@ export default ({ body, title, initialState, env }) => {
       </head>
       <body>
         <div id="root"><div>${body}</div></div>
+        ${piwikEmbed}
       </body>
     </html>
   `
