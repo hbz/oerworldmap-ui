@@ -31,21 +31,25 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user}) =>
     </a>
     <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} config={{mapboxConfig}} />
     <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
-    <button className="btn" type="submit">{translate('publish')}</button>
-    {expose('deleteEntry', user, about) &&
-      <button
-        className="btn"
-        type="button"
-        onClick={e => {
-          e.preventDefault()
-          emitter.emit('delete', {
-            url: `/resource/${about['@id']}`
-          })
-        }}
-      >
-        {translate('ResourceIndex.read.delete')}
-      </button>
-    }
+
+    <div className="formButtons">
+      <button className="btn" type="submit">{translate('publish')}</button>
+      {expose('deleteEntry', user, about) &&
+        <button
+          className="btn delete"
+          type="button"
+          onClick={e => {
+            e.preventDefault()
+            emitter.emit('delete', {
+              url: `/resource/${about['@id']}`
+            })
+          }}
+        >
+          {translate('ResourceIndex.read.delete')}
+        </button>
+      }
+    </div>
+
   </Form>
 )
 
