@@ -4,8 +4,9 @@ export default (action, user, context) => {
     return user && user.groups.includes('admin')
   case 'editEntry':
     return user
-      && user.groups.includes('admin')
-      || (context['@type'] !== 'Person' || context['@id'] === user.id)
+      && (user.groups.includes('admin')
+        || (context['@type'] !== 'Person' || context['@id'] === user.id)
+      )
   case 'userActions':
     return !!user
   case 'userMenu':
