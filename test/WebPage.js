@@ -25,6 +25,6 @@ describe('<WebPage />', () => {
         </EmittProvider>
       </I18nProvider>
     )
-    assert.equal(wrapper.find('h2').length, 1)
+    assert.equal(wrapper.find('h2').length, 2)
   })
 })
