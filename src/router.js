@@ -63,7 +63,9 @@ export default (api) => {
             <ActionButtons user={context.user} />
           </ResourceIndex>
         )
-        const title = context.i18n.translate('Index')
+        const title = params.add
+          ? context.i18n.translate('add', {type: context.i18n.translate(params.add)})
+          : context.i18n.translate('ResourceIndex.index.showingEntities', {number: data.totalItems})
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
@@ -334,7 +336,6 @@ export default (api) => {
       }
     } catch (err) {
       if (err instanceof APIError) {
-        console.error(err)
         const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
         return { title: err.message, data: err, component, render, err: err.message }
