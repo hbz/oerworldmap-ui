@@ -8,6 +8,7 @@ import DropdownSelect from './DropdownSelect'
 import RemoteSelect from './RemoteSelect'
 import Textarea from './Textarea'
 import PlaceWidget from './PlaceWidget'
+import KeywordSelect from './KeywordSelect'
 
 import withI18n from '../withI18n'
 
@@ -23,7 +24,7 @@ class Builder extends React.Component {
 
     const {translate, config} = this.props
     const widgets = Object.assign(
-      {Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget},
+      {Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget, KeywordSelect},
       this.props.widgets
     )
     const className = schema._display ? schema._display.className : undefined
