@@ -59,6 +59,7 @@
     & .toggleDropdown,
     & .selectedContainer {
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      height: 100%;
     }
   }
 
@@ -84,6 +85,8 @@
       padding: 8px 10px;
       position: relative;
       padding-right: 30px;
+      font-size: var(--font-size);
+      line-height: var(--line-height-forms);
 
       &.error {
         color: var(--orange);
@@ -141,6 +144,8 @@
         & label {
           display: block;
           padding: 8px 10px;
+          font-size: var(--font-size);
+          line-height: var(--line-height-forms);
 
           &:hover,
           &:focus {
@@ -166,9 +171,13 @@
 
     & label {
       padding: 8px 10px;
-      display: block;
       padding-right: 30px;
       color: var(--white);
+      font-size: var(--font-size);
+      line-height: var(--line-height-forms);
+      height: 100%;
+      display: flex;
+      align-items: center;
 
       &:hover,
       &:focus {
@@ -210,6 +219,8 @@
         & label {
           border-bottom: 1px solid #0f578a;
           display: blocK;
+          font-size: var(--font-size);
+          line-height: var(--line-height-forms);
 
           &:hover,
           &:focus {
@@ -301,7 +312,7 @@
     display: block;
   }
 
-  & .List.availableChannel>.label {
+  & .List.availableChannel > .label {
     display: none;
   }
 
