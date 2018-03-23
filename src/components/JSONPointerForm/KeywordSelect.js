@@ -44,6 +44,7 @@ class KeywordSelect extends React.Component {
           placeholder={`${translate('ClientTemplates.resource_typehead.search')} ${translate(title)}`}
           arrowRenderer={() => <i className="fa fa-chevron-down" />}
           clearable={false}
+          promptTextCreator={(label) => `${translate('create')} "${label}"`}
           multi
         />
       </div>
