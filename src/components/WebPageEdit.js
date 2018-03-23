@@ -1,4 +1,5 @@
 /* global document */
+/* global confirm */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -40,7 +41,7 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user}) =>
           type="button"
           onClick={e => {
             e.preventDefault()
-            emitter.emit('delete', {
+            confirm(translate('other.deleteResource')) && emitter.emit('delete', {
               url: `/resource/${about['@id']}`
             })
           }}
