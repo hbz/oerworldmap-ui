@@ -41,6 +41,9 @@ class KeywordSelect extends React.Component {
           value={value.map(value => ({value, label:value}))}
           options={this.state.options}
           onChange={selected => setValue(selected.map(option => option.value))}
+          placeholder={`${translate('ClientTemplates.resource_typehead.search')} ${translate(title)}`}
+          arrowRenderer={() => <i className="fa fa-chevron-down" />}
+          clearable={false}
           multi
         />
       </div>
