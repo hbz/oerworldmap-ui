@@ -136,6 +136,7 @@ class RemoteSelect extends React.Component {
                 name={`${name}/@id`}
                 value={this.state.filter}
                 className="filter"
+                onFocus={() => this.props.schema.properties.inScheme && this.updateOptions()}
                 placeholder={
                   translate('ClientTemplates.resource_typehead.search')
                     .concat(' ')
