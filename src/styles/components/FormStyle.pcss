@@ -316,6 +316,22 @@
     display: none;
   }
 
+  & .formButtons {
+    display: flex;
+    justify-content: space-between;
+
+    & .btn.delete {
+      border-color: var(--red);
+      color: var(--red);
+
+      &:hover,
+      &:focus {
+        background-color: var(--red);
+        color: var(--white);
+      }
+    }
+  }
+
   & .location {
 
     & .locationForm {

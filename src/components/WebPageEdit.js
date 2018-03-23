@@ -1,4 +1,5 @@
 /* global document */
+/* global confirm */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -10,9 +11,10 @@ import validate from './JSONPointerForm/validate'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
+import expose from '../expose'
 import schema from '../json/schema.json'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig}) => (
+const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
@@ -30,7 +32,25 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig}) => (
     </a>
     <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} config={{mapboxConfig}} />
     <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
-    <button className="btn" type="submit">{translate('publish')}</button>
+
+    <div className="formButtons">
+      <button className="btn" type="submit">{translate('publish')}</button>
+      {expose('deleteEntry', user, about) &&
+        <button
+          className="btn delete"
+          type="button"
+          onClick={e => {
+            e.preventDefault()
+            confirm(translate('other.deleteResource')) && emitter.emit('delete', {
+              url: `/resource/${about['@id']}`
+            })
+          }}
+        >
+          {translate('ResourceIndex.read.delete')}
+        </button>
+      }
+    </div>
+
   </Form>
 )
 
@@ -45,11 +65,13 @@ WebPageEdit.propTypes = {
       style: PropTypes.string,
       miniMapStyle: PropTypes.string,
     }
-  ).isRequired
+  ).isRequired,
+  user: PropTypes.objectOf(PropTypes.any)
 }
 
 WebPageEdit.defaultProps = {
-  action: 'edit'
+  action: 'edit',
+  user: null
 }
 
 export default withI18n(withEmitter(WebPageEdit))

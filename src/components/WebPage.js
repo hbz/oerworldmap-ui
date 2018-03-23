@@ -47,6 +47,7 @@ const WebPage = ({
                 about={about}
                 action={about['@id'] ? 'edit' : 'add'}
                 mapboxConfig={mapboxConfig}
+                user={user}
               />
             </div>
           }
