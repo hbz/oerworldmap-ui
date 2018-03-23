@@ -7,6 +7,7 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 import { formatDate } from '../common'
+import expose from '../expose'
 
 const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => (
   <div className="Lighthouses">
@@ -28,8 +29,7 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
               </span>
             }
           </div>
-          {user &&
-          user.groups.includes('admin') &&
+          {expose('deleteEntry', user, lighthouse) &&
             <div className="col">
               <form onSubmit={(e) => {
                 e.preventDefault()

@@ -5,6 +5,8 @@ import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
 
+import expose from '../expose'
+
 const WebPageHeader = ({user, about, author, contributor, dateModified, view, _self, _links}) => {
   return (
     <div className="WebPageHeader">
@@ -25,7 +27,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, view, _s
                 <ShareExport _self={_self} _links={_links} view={view} />
               </div>
             ),
-            user &&
+            expose('editEntry', user, about) &&
               <div className="action" key="view">
                 {view === 'edit' ? (
                   <Link href="#view" className="closePage">

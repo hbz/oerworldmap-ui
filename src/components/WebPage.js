@@ -6,6 +6,8 @@ import WebPageEdit from './WebPageEdit'
 import WebPageHeader from './WebPageHeader'
 import WebPageCover from './WebPageCover'
 
+import expose from '../expose'
+
 import '../styles/components/WebPage.pcss'
 import '../styles/components/FormStyle.pcss'
 
@@ -39,7 +41,7 @@ const WebPage = ({
 
         <div className="webPageContent">
 
-          {user &&
+          {expose('editEntry', user, about) &&
             <div id="edit" className={view === 'edit' ? 'visible' : ''}>
               <WebPageEdit
                 about={about}

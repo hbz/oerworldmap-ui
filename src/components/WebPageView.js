@@ -15,6 +15,7 @@ import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 
 import { formatURL, formatDate } from '../common'
+import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
@@ -45,12 +46,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
         {translate(about.displayName) || translate(about.name)}
         {about.alternateName &&
           <span className="alternate">
-            {' '}({translate(about.alternateName)})
+            &nbsp;({translate(about.alternateName)})
           </span>
         }
       </h2>
 
-      {user &&
+      {expose('userActions', user) &&
         <WebPageUserActions about={about} user={user} view={view} />
       }
 
@@ -81,20 +82,20 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               ) : (
                 <p>
                   <i>
-                    {translate('A description for this entry is missing, help us by')}&nbsp;
-                    {user ? (
-                      <Link href={`/resource/${about['@id']}/#edit`}>
-                        {translate('adding some information!')}
+                    {translate('A description for this entry is missing.')}
+                    {expose('editEntry', user, about) &&
+                      <Link href='#edit'>
+                        &nbsp;{translate('Help us by adding some information!')}
                       </Link>
-                    ) : (
-                      <Link href="/user/register">
-                        {translate('adding some information!')}
+                    }
+                    {!user && about['@type'] !== 'Person' &&
+                      <Link href='/user/register'>
+                        &nbsp;{translate('Help us by adding some information!')}
                       </Link>
-                    )}
+                    }
                   </i>
                 </p>
-              )
-              }
+              )}
             </Block>
 
             {about.articleBody &&
