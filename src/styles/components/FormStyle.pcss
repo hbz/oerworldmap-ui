@@ -366,6 +366,68 @@
     }
   }
 
+  & .KeywordSelect {
+    & .Select-control,
+    & .select {
+      border-color: var(--blue-dark);
+      border-radius: var(--border-radius);
+      padding-left: 30px;
+
+      & .Select-placeholder {
+        padding-left: 30px;
+      }
+
+      &::after {
+        font-family: FontAwesome;
+        content: "\F002";
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        -webkit-transform: translateY(-51%);
+        transform: translateY(-51%);
+        pointer-events: none;
+        color: var(--blue);
+      }
+    }
+
+    & .Select-value {
+      color: var(--white);
+      border-color: var(--blue-dark);
+      background-color: var(--blue-dark);
+    }
+
+    & .Select-arrow-zone {
+      color: var(--blue-dark);
+    }
+
+    & .Select.is-focused:not(.is-open) > .Select-control {
+      border-color: var(--blue-dark);
+    }
+
+    & .Select-input > input {
+      background-color: transparent;
+      padding: 8px 0;
+    }
+
+    & .Select-menu-outer {
+      border-color: var(--blue-dark);
+
+      & .Select-menu .Select-option {
+        border-bottom: 1px solid var(--blue-dark);
+        color: var(--blue-dark);
+
+        &.is-focused {
+          color: var(--white);
+          background-color: var(--blue-dark);
+        }
+      }
+
+      & .Select-menu .Select-option:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
   & .citation {
     margin-top: 10px;
   }

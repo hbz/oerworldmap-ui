@@ -192,6 +192,7 @@
         "keywords": {
           "title": "WebPage.keywords",
           "description": "descriptions.WebPage.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -433,6 +434,7 @@
         "keywords": {
           "title": "Article.keywords",
           "description": "descriptions.Article.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -803,6 +805,7 @@
         "keywords": {
           "title": "Action.keywords",
           "description": "descriptions.Action.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -1267,6 +1270,7 @@
         "keywords": {
           "title": "Service.keywords",
           "description": "descriptions.Service.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -1568,6 +1572,7 @@
         "keywords": {
           "title": "Person.keywords",
           "description": "descriptions.Person.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -1926,6 +1931,7 @@
         "keywords": {
           "title": "Organization.keywords",
           "description": "descriptions.Organization.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -2230,6 +2236,7 @@
         "keywords": {
           "title": "Event.keywords",
           "description": "descriptions.Event.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -2399,6 +2406,7 @@
         "keywords": {
           "title": "Product.keywords",
           "description": "descriptions.Product.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
@@ -2573,6 +2581,7 @@
         "keywords": {
           "title": "Grant.keywords",
           "description": "descriptions.Grant.keywords",
+          "_widget": "KeywordSelect",
           "type": "array",
           "items": {
             "type": "string"
