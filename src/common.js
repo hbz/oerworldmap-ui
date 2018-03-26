@@ -82,8 +82,8 @@ export const mapNominatimResult = (result) => ({
     }
   ],
   geo: {
-    lat: result.lat,
-    lon: result.lon
+    lat: +result.lat,
+    lon: +result.lon
   },
   address: {
     streetAddress: `${result.address.road || ''} ${result.address.house_number || ''}`.trim(),
