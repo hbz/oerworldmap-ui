@@ -55,7 +55,9 @@ server.use(function (req, res, next) {
   const [user] = authorization
     ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
   if (user) {
-    api.get('/user/profile', authorization).then(user => (req.user = user) && next())
+    api.get('/user/profile', authorization)
+      .then(user => (req.user = user) && next())
+      .catch(err => res.status(err.status).send(err.message))
   } else {
     next()
   }
