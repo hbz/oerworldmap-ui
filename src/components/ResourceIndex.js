@@ -33,54 +33,66 @@ const ResourceIndex = ({
   _self,
   _links,
   className
-}) => (
-  <div className={`ResourceIndex ${className ? className:''}`}>
-    {children}
+}) => {
+  const countProp = ('about.objectIn.@type' in filters)
+    ? filters['about.objectIn.@type'][0]
+    : undefined
 
-    <Columns show={!!query || Object.keys(filters).length > 0} >
-      <Column>
-        <Filters
-          query={query}
-          filters={filters}
-          aggregations={aggregations}
-          member={member}
-          size={Number.isInteger(+size) ? +size : 20}
-          _self={_self}
-          _links={_links}
-          view={view}
-        />
-        {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
-          <div className="wrapper-Calendar">
-            <Calendar entries={aggregations['about.startDate.GTE'].buckets} />
-          </div>
-        ) : (
-          <div className="wrapper-ItemList-Pagination">
-            <ItemList listItems={member.map(member => member.about)} />
-            <Pagination
-              totalItems={totalItems}
-              currentPage={currentPage}
-              pages={pages}
-              nextPage={nextPage}
-              previousPage={previousPage}
-              from={from}
-              size={size}
-            />
-          </div>
-        )}
-      </Column>
-    </Columns>
+  return (
+    <div className={`ResourceIndex ${className ? className:''}`}>
+      {children}
 
-    <Map
-      aggregations={aggregations}
-      emitter={emitter}
-      mapboxConfig={mapboxConfig}
-      features={features}
-      iso3166={iso3166}
-      map={map}
-    />
+      <Columns show={!!query || Object.keys(filters).length > 0} >
+        <Column>
+          <Filters
+            query={query}
+            filters={filters}
+            aggregations={aggregations}
+            member={member}
+            size={Number.isInteger(+size) ? +size : 20}
+            _self={_self}
+            _links={_links}
+            view={view}
+          />
+          {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
+            <div className="wrapper-Calendar">
+              <Calendar entries={aggregations['about.startDate.GTE'].buckets} />
+            </div>
+          ) : (
+            <div className="wrapper-ItemList-Pagination">
+              <ItemList
+                listItems={member.map(member => member.about)}
+                count={countProp
+                  ? entry => entry.objectIn.filter(objectIn => objectIn['@type'] === countProp).length
+                  : undefined
+                }
+              />
+              <Pagination
+                totalItems={totalItems}
+                currentPage={currentPage}
+                pages={pages}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                from={from}
+                size={size}
+              />
+            </div>
+          )}
+        </Column>
+      </Columns>
 
-  </div>
-)
+      <Map
+        aggregations={aggregations}
+        emitter={emitter}
+        mapboxConfig={mapboxConfig}
+        features={features}
+        iso3166={iso3166}
+        map={map}
+      />
+
+    </div>
+  )
+}
 
 ResourceIndex.propTypes = {
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
