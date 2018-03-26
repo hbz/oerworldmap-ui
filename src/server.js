@@ -6,12 +6,12 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import fs from 'fs'
+import properties from 'properties'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import router from './router'
 import Api from './api'
-import { parseProperties } from './common'
 
 import Config, { mapboxConfig, apiConfig, piwikConfig } from '../config'
 
@@ -68,15 +68,19 @@ const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels', '
 const i18ns = {}
 supportedLanguages.map(language => {
   const i18n = {}
-  bundles.map(bundle => {
+  bundles.forEach(bundle => {
     const basename = language === defaultLanguage ? bundle : `${bundle}_${language}`
-    const properties = parseProperties(fs.readFileSync(`./src/locale/${basename}.properties`, 'utf8'))
-    //FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
-    if (bundle === 'descriptions') {
-      i18n['descriptions'] = properties
-    } else {
-      Object.assign(i18n, properties)
-    }
+    properties.parse(`./src/locale/${basename}.properties`, {path: true}, (error, obj) => {
+      if (error) {
+        return console.error(error)
+      }
+      //FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
+      if (bundle === 'descriptions') {
+        i18n['descriptions'] = obj
+      } else {
+        Object.assign(i18n, obj)
+      }
+    })
   })
   i18ns[language] = i18n
 })

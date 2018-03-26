@@ -109,19 +109,6 @@ export const debounce = (func, wait, immediate) => {
   }
 }
 
-
-const unicodeEscapes = /\\u([\d\w]{4})/gi
-export const parseProperties = (properties) => properties.split(/\r?\n/)
-  .map(s => s.trim()).filter(s => !!s).reduce((acc, cur) => {
-    const [key, value] = cur.split(/=(.+)/).map(s => s.trim())
-    if (key && value) {
-      acc[key] = value.replace(unicodeEscapes, (match, grp) => String.fromCharCode(parseInt(grp, 16)))
-    }
-    return acc
-  }, {})
-
-export const obfuscate = string => string.split('').map(c => `&#${c.charCodeAt()};`).join('')
-
 export const getProp = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
 
 export const clearForm = form => {
@@ -178,5 +165,5 @@ export const formatDate = (date, moment) => {
 
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, parseProperties, obfuscate, getProp, appendOnFocus, formatDate
+  debounce, getProp, appendOnFocus, formatDate
 }
