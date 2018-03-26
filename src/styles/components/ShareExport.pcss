@@ -1,0 +1,16 @@
+@import '../variables.pcss';
+
+.ShareExport {
+
+  @media print {
+    display: none;
+  }
+
+  & > i {
+    font-size: var(--font-size);
+
+    &:focus {
+      color: var(--orange);
+    }
+  }
+}
