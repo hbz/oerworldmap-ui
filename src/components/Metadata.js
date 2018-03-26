@@ -13,7 +13,7 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
     <Icon type={type} />
     {translate(type)}{' '}
     {dateModified && (
-      expose('editEntry', user, about) ? (
+      expose('logEntry', user, about) ? (
         <Link
           href={`/log/${about["@id"]}`}
           title={formatDate(dateModified, moment)}
