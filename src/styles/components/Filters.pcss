@@ -230,6 +230,28 @@
       background-color: transparent;
       color: var(--blue);
       text-transform: lowercase;
+      position: relative;
+    }
+
+    & .arrowWrapper {
+      position: relative;
+
+      &::after {
+        font-family: FontAwesome;
+        content: "\f078";
+        color: var(--blue-light);
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: var(--font-size-xs);
+      }
+    }
+
+    & .totalSelect {
+      padding-right: 17px;
+      border: none;
     }
 
     & select {
@@ -237,7 +259,6 @@
       -moz-appearance: none;
       padding: 0 5px;
       position: relative;
-      text-align-last: center;
     }
   }
 }
