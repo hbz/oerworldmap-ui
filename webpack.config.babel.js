@@ -73,6 +73,7 @@ if (ENV === 'production') {
         cache: true,
       })
     ],
+    mode: 'production',
     module: {
       rules: [
         {
@@ -105,7 +106,7 @@ if (ENV === 'development') {
   }
   Config = merge(Config, {
     devtool: 'source-map',
-
+    mode: 'development',
     entry: [
       'webpack-hot-middleware/client?reload=true',
       'react-hot-loader/patch'
@@ -158,7 +159,7 @@ if (ENV === 'static') {
   }
   Config = merge(Config, {
     devtool: 'source-map',
-
+    mode: 'development',
     entry: [
       'webpack-hot-middleware/client?reload=true',
       'react-hot-loader/patch'
