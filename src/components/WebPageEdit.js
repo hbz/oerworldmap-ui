@@ -19,11 +19,9 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user}) =>
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
     onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
-    onError={() => document.querySelector('.hasError') && (
-      document.querySelector('.webPageWrapper')
-        .scrollTop = document.querySelector('.hasError').offsetTop
-      )
-    }
+    onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
+      .scrollTop = document.querySelector('.hasError').offsetTop
+    )}
   >
     <h2>{translate(action, {type: translate(about['@type'])})}</h2>
     <a
