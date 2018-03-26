@@ -6,7 +6,7 @@
     "clean": "rimraf dist/",
     "server:dev": "NODE_ENV=development node src/index.js",
     "server:static": "NODE_ENV=static node src/index.js",
-    "server:prod": "npm run clean && NODE_ENV=production webpack && NODE_ENV=production node src/index.js",
+    "server:prod": "npm run clean && NODE_ENV=production webpack-cli && NODE_ENV=production node src/index.js",
     "test": "eslint src --quiet && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
     "testrun": "mocha --require babel-core/register --inspect --require ignore-styles test/helpers/browser.js",
     "fix": "eslint src --fix",
@@ -41,7 +41,7 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "jsdom": "^11.6.2",
     "mocha": "^5.0.5",
@@ -53,6 +53,7 @@
     "stylelint-config-standard": "^18.2.0",
     "stylelint-webpack-plugin": "^0.10.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack-cli": "^2.0.13",
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
