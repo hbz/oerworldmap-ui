@@ -302,27 +302,31 @@ class Filters extends React.Component {
                 {!(this.props.filters['about.@type'] && this.props.filters['about.@type'].includes('Event')) &&
                   <span>
                     ,&nbsp;{this.props.translate('ResourceIndex.index.orderedBy')}
-                    <select
-                      name="sort"
-                      className="styledSelect"
-                      style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
-                      onChange={(evt) => {
-                        evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
-                        onSubmit(evt, this.props.emitter)
-                      }}
-                    >
-                      <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
-                      <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
-                      <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
-                    </select>
+                    <span className="arrowWrapper">
+                      <select
+                        name="sort"
+                        className="styledSelect"
+                        style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
+                        onChange={(evt) => {
+                          evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                          onSubmit(evt, this.props.emitter)
+                        }}
+                      >
+                        <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                        <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                        <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
+                      </select>
+                    </span>
 
-                    <select onChange={e => onSubmit(e, this.props.emitter)} className="btn" name="size" value={this.props.size}>
-                      {this.sizes.map(number => (
-                        number >= 0 &&
-                          <option key={number} value={number}>{number}</option>
-                      ))}
-                      <option value="-1">All</option>
-                    </select>
+                    <span className="arrowWrapper">
+                      <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
+                        {this.sizes.map(number => (
+                          number >= 0 &&
+                            <option key={number} value={number}>{number}</option>
+                        ))}
+                        <option value="-1">All</option>
+                      </select>
+                    </span>
                   </span>
                 }
               </div>
