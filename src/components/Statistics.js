@@ -16,7 +16,7 @@ const getColor = (totalItems, value) => {
   return color(value)
 }
 
-const PieChart = ({name, buckets, emitter}) => {
+const PieChart = ({name, buckets, emitter, translate}) => {
 
   const el = ReactFauxDOM.createElement('svg')
   el.setAttribute("width", "300")
@@ -49,6 +49,7 @@ const PieChart = ({name, buckets, emitter}) => {
   arc.append("path")
     .attr("d", path)
     .attr("fill", (d, i) => getColor(buckets.length, i))
+    .append("title").text(d => `${translate(d.data.label || d.data.key)} (${d.data.doc_count})`)
 
   return el.toReact()
 }
@@ -85,6 +86,7 @@ const Statistics = ({translate, aggregations, emitter}) => (
             <div className="graph">
               <PieChart
                 emitter={emitter}
+                translate={translate}
                 name={aggregation}
                 buckets={aggregations[aggregation].buckets.sort((a,b) => a.doc_count < b.doc_count)}
               />
