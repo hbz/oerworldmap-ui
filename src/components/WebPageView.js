@@ -18,7 +18,7 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
+const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) => {
 
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
 
@@ -52,7 +52,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
       </h2>
 
       {expose('userActions', user) &&
-        <WebPageUserActions about={about} user={user} view={view} />
+        <WebPageUserActions about={about} user={user} view={view} schema={schema} />
       }
 
       <div className="row stack-700 stack-gutter-2em">
@@ -200,7 +200,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
 
             {about['@id'] &&
               <Block title={translate('ResourceIndex.read.comments')}>
-                <Comments comments={about['comment']} about={about} user={user} />
+                <Comments comments={about['comment']} about={about} user={user} schema={schema} />
               </Block>
             }
 
@@ -301,7 +301,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll}) => {
               {formatDate(about.startDate, moment)}
               {about.endDate &&
                 <span> - {formatDate(about.endDate, moment)}</span>
-              }
+              }schema: PropTypes.objectOf(PropTypes.any).isRequired
             </Block>
           }
 
@@ -521,7 +521,8 @@ WebPageView.propTypes = {
   moment: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   view: PropTypes.string.isRequired,
-  expandAll: PropTypes.bool
+  expandAll: PropTypes.bool,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 WebPageView.defaultProps = {

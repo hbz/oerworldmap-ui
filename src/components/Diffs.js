@@ -15,7 +15,7 @@ import { formatDate } from '../common'
 
 import '../styles/components/Diff.pcss'
 
-const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to}) => {
+const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, schema}) => {
   const v1 = renderToString(
     <I18nProvider i18n={i18n(locales, phrases)}>
       <EmittProvider emitter={emitter}>
@@ -23,6 +23,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to})
           view="view"
           id="view"
           about={compare.about}
+          schema={schema}
           expandAll
         />
       </EmittProvider>
@@ -36,6 +37,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to})
           view="view"
           id="view"
           about={to.about}
+          schema={schema}
           expandAll
         />
       </EmittProvider>
@@ -119,7 +121,8 @@ Diffs.propTypes = {
   to: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  phrases: PropTypes.objectOf(PropTypes.any).isRequired
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(withI18n(Diffs))

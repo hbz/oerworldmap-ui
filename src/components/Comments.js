@@ -11,14 +11,12 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
-import schema from '../json/schema.json'
-
 import { formatDate } from '../common'
 import expose from '../expose'
 
 import '../styles/components/Comments.pcss'
 
-const Comments = ({moment, translate, emitter, about, comments, user}) => (
+const Comments = ({moment, translate, emitter, about, comments, user, schema}) => (
   <div className="Comments">
 
     {comments.filter(comment => comment.author && comment.text).map(comment => (
@@ -94,6 +92,7 @@ Comments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   about: PropTypes.objectOf(PropTypes.any).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 Comments.defaultProps = {

@@ -10,9 +10,7 @@ import FullModal from './FullModal'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 
-import schema from '../json/schema.json'
-
-const WebPageUserActions = ({user, about, emitter, view, translate}) => {
+const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => {
 
   const lighthouses = (about.objectIn || []).filter(action =>
     action['@type'] === 'LighthouseAction'
@@ -191,7 +189,8 @@ WebPageUserActions.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   view: PropTypes.string.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 WebPageUserActions.defaultProps = {

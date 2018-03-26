@@ -20,9 +20,9 @@ const WebPage = ({
   geo,
   _links,
   _self,
-  mapboxConfig
+  mapboxConfig,
+  schema
 }) => {
-
   return (
     <div className="webPageWrapper">
       <div className="WebPage">
@@ -48,12 +48,13 @@ const WebPage = ({
                 action={about['@id'] ? 'edit' : 'add'}
                 mapboxConfig={mapboxConfig}
                 user={user}
+                schema={schema}
               />
             </div>
           }
 
           <div id="view" className={!user || view !== 'edit' ? 'visible' : ''}>
-            <WebPageView id="view" about={about} user={user} view={view} />
+            <WebPageView id="view" about={about} user={user} view={view} schema={schema} />
           </div>
 
         </div>
@@ -78,6 +79,7 @@ WebPage.propTypes = {
       miniMapStyle: PropTypes.string,
     }
   ).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 WebPage.defaultProps = {

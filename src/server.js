@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') 
 server.use(express.static(path.join(__dirname, '/../dist')))
 
 // Middleware to fetch user profile
-server.use(function (req, res, next) {
+server.use((req, res, next) => {
   const authorization = req.get('authorization')
   const [user] = authorization
     ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
@@ -60,6 +60,13 @@ server.use(function (req, res, next) {
   } else {
     next()
   }
+})
+
+// Middleware to fetch JSON schema
+server.use((req, res, next) => {
+  api.get('/assets/json/schema.json')
+    .then(schema => (req.schema = schema) && next())
+    .catch(err => res.status(err.status).send(err.message))
 })
 
 // I18n configuration
@@ -87,7 +94,7 @@ supportedLanguages.map(language => {
 })
 
 // Middleware to extract locales
-server.use(function (req, res, next) {
+server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
     : [defaultLanguage]
@@ -105,13 +112,14 @@ server.get(/^(.*)$/, (req, res) => {
   const user = req.user
   const locales = req.locales
   const phrases = i18ns[locales[0]]
-  const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig }
+  const schema = req.schema
+  const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig, schema }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases})
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases, schema})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title,
       piwikConfig
@@ -119,6 +127,6 @@ server.get(/^(.*)$/, (req, res) => {
   })
 })
 
-server.listen(Config.port, Config.host, function () {
+server.listen(Config.port, Config.host, () => {
   console.info(`oerworldmap-ui server listening on http://${Config.host}:${Config.port}`)
 })
