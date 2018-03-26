@@ -7,6 +7,8 @@ import Export from './Export'
 import Share from './Share'
 import withI18n from './withI18n'
 
+import '../styles/components/ShareExport.pcss'
+
 import { triggerClick } from '../common'
 
 class ShareExport extends React.Component {

@@ -8,7 +8,7 @@ import ItemList from './ItemList'
 
 const Feed = ({translate, member}) => (
   <div className="Feed">
-    <FullModal closeLink={Link.back}>
+    <FullModal closeLink={Link.home}>
       <h2 className="title">
         {translate('ResourceIndex.feed.recentAdditions')}
       </h2>

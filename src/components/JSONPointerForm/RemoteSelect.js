@@ -106,7 +106,7 @@ class RemoteSelect extends React.Component {
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`RemoteSelect ${property || ''} ${className}`.trim()}
+        className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${name}-label`}
       >
         <div className="label" id={`${name}-label`}>{title}</div>

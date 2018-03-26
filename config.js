@@ -12,7 +12,7 @@ export const mapboxConfig = getenv.multi({
 
 export const apiConfig = getenv.multi({
   host: 'API_HOST',
-  port: 'API_PORT',
+  port: ['API_PORT', ''],
   scheme: ['API_SCHEME', 'http']
 })
 

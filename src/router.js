@@ -204,11 +204,20 @@ export default (api) => {
             </p>
             {data.newsletter &&
               <p>
-                {context.i18n.translate('UserIndex.registered.signedUpForNewsletter'), {
+                {context.i18n.translate('UserIndex.registered.signedUpForNewsletter', {
                   username: data.username
-                }}
+                })}
               </p>
             }
+            {data.newsletter ? (
+              <p>
+                {context.i18n.translate('UserIndex.registered.sentMessageNewsletter')}
+              </p>
+            ) : (
+              <p>
+                {context.i18n.translate('UserIndex.registered.sentMessage')}
+              </p>
+            )}
           </Feedback>
         )
         const title = context.i18n.translate('UserIndex.registered.successfullyRegistere', {
@@ -281,6 +290,24 @@ export default (api) => {
       }
     },
     {
+      path: '/user/verify',
+      get: async (params, context, state) => {
+        const url = getURL({path: '/user/verify', params})
+        const data = state || await api.get(url, context.authorization)
+        const component = (user) => (
+          <Feedback>
+            <p
+              dangerouslySetInnerHTML={
+                {__html: context.i18n.translate('UserIndex.verified.message', user) }
+              }
+            />
+          </Feedback>
+        )
+        const title = context.i18n.translate('UserIndex.verified.title', data)
+        return { title, data, component }
+      }
+    },
+    {
       path: '/log/',
       get: async (params, context, state) => {
         const data = state || await api.get('/log/', context.authorization)
@@ -316,9 +343,9 @@ export default (api) => {
     context.i18n = i18n(context.locales, context.phrases)
     try {
       if (context.err) {
-        const message = context.err
+        const {message, status} = context.err
         context.err = null
-        throw new APIError(message)
+        throw new APIError(message, status)
       }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -338,7 +365,7 @@ export default (api) => {
       if (err instanceof APIError) {
         const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
-        return { title: err.message, data: err, component, render, err: err.message }
+        return { title: err.message, data: err, component, render, err }
       }
       throw err
     }

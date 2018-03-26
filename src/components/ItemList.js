@@ -12,7 +12,7 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, emitter, listItems, linkTemplate, className }) => (
+const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count }) => (
   <ul className={`ItemList ${className}`} >
     {listItems.map(listItem => (
       <li
@@ -75,7 +75,10 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className }) =>
           <div>
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
-              <span>{translate(listItem.name) || listItem['@id']}</span>
+              <span>
+                {translate(listItem.name) || listItem['@id']}
+                {count && ` (${count(listItem)})`}
+              </span>
             </Link>
           </div>
         </Tooltip>
@@ -90,12 +93,14 @@ ItemList.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
   linkTemplate: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  count: PropTypes.func
 }
 
 ItemList.defaultProps = {
   linkTemplate: '/resource/{@id}',
-  className: ''
+  className: '',
+  count: undefined
 }
 
 export default withEmitter(withI18n(ItemList))

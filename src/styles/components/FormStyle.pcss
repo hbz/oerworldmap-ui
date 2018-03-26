@@ -488,6 +488,7 @@
     }
   }
 
+  & .Fieldset .Input.password,
   & .Fieldset .Input.text {
     margin-bottom: 10px;
 
@@ -495,8 +496,22 @@
       display: none;
     }
   }
+
+  & .DropdownSelect.location {
+    margin-bottom: 10px;
+  }
 }
 
-.registerForm .DropdownSelect.location {
-  margin-bottom: 10px;
+.forgotPassword {
+  & .Builder > .Fieldset > .label {
+    display: block;
+  }
+
+  & .Fieldset .Input.text {
+    margin-bottom: 10px;
+
+    & label {
+      display: none;
+    }
+  }
 }

@@ -606,6 +606,7 @@
           }
         }
       },
+      "required": [ "text" ],
       "additionalProperties": false
     },
     "Action": {

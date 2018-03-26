@@ -48,7 +48,7 @@ class DropdownSelect extends React.Component {
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`DropdownSelect ${property || ''} ${className}`.trim()}
+        className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${name}-label`}
       >
         <div className="label" id={`${name}-label`}>{translate(title)}</div>

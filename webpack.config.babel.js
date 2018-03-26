@@ -5,7 +5,7 @@ import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import env from './config'
+import { apiConfig } from './config'
 
 const ENV = process.env.NODE_ENV
 
@@ -18,7 +18,8 @@ let Config = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: `http://${env.host}:${env.port}/`,
+    publicPath: `${apiConfig.scheme}://${apiConfig.host}`
+      .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
     filename: 'assets/bundle.js'
   },
   module: {
