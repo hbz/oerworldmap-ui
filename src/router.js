@@ -316,9 +316,9 @@ export default (api) => {
     context.i18n = i18n(context.locales, context.phrases)
     try {
       if (context.err) {
-        const message = context.err
+        const {message, status} = context.err
         context.err = null
-        throw new APIError(message)
+        throw new APIError(message, status)
       }
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
@@ -338,7 +338,7 @@ export default (api) => {
       if (err instanceof APIError) {
         const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
-        return { title: err.message, data: err, component, render, err: err.message }
+        return { title: err.message, data: err, component, render, err }
       }
       throw err
     }
