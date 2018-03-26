@@ -11,9 +11,8 @@ import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import Link from './Link'
 import '../styles/components/Password.pcss'
-import schema from '../json/schema.json'
 
-const Password = ({translate, emitter}) => (
+const Password = ({translate, emitter, schema}) => (
   <div className="Password">
     <FullModal closeLink={Link.back}>
       <Form
@@ -33,6 +32,7 @@ const Password = ({translate, emitter}) => (
 Password.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(withI18n(Password))

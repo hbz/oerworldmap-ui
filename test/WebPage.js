@@ -21,7 +21,7 @@ describe('<WebPage />', () => {
     const wrapper = render(
       <I18nProvider i18n={mock.i18n}>
         <EmittProvider emitter={mock.emitter}>
-          <WebPage {...testdata} geo={null} mapboxConfig={fakeMapboxConfig} view='' />
+          <WebPage {...testdata} geo={null} mapboxConfig={fakeMapboxConfig} view='' schema={mock.schema} />
         </EmittProvider>
       </I18nProvider>
     )

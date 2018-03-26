@@ -51,6 +51,7 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             {...data}
             view="edit"
+            schema={context.schema}
           />
         ) : (
           <ResourceIndex
@@ -75,6 +76,7 @@ export default (api) => {
             {...data}
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            schema={context.schema}
           />
         )
 
@@ -95,6 +97,7 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            schema={context.schema}
           />
         )
         const title = context.i18n.translate(data.about.name)
@@ -107,6 +110,7 @@ export default (api) => {
             {...data}
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            schema={context.schema}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -134,6 +138,7 @@ export default (api) => {
             {...data}
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            schema={context.schema}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -189,7 +194,7 @@ export default (api) => {
       path: '/user/register',
       get: async (params, context, state) => {
         const data = state
-        const component = () => <Register />
+        const component = () => <Register schema={context.schema} />
         const title = context.i18n.translate('UserIndex.register.register')
         return { title, data, component }
       },
@@ -230,7 +235,7 @@ export default (api) => {
       path: '/user/password',
       get: async (params, context, state) => {
         const data = state
-        const component = () => <Password />
+        const component = () => <Password schema={context.schema} />
         const title = context.i18n.translate('UserIndex.register.resetPassword')
         return { title, data, component }
       }
@@ -326,7 +331,7 @@ export default (api) => {
           : getURL({ path: `/log/${id}`})
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
-          <Diffs {...data} phrases={context.phrases} />
+          <Diffs {...data} phrases={context.phrases} schema={context.schema} />
         )
         const title = context.i18n.translate('ResourceIndex.log.logFor', {id})
         return { title, data, component }

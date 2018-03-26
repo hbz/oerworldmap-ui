@@ -12,9 +12,8 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 import expose from '../expose'
-import schema from '../json/schema.json'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user}) => (
+const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
@@ -68,7 +67,8 @@ WebPageEdit.propTypes = {
       miniMapStyle: PropTypes.string,
     }
   ).isRequired,
-  user: PropTypes.objectOf(PropTypes.any)
+  user: PropTypes.objectOf(PropTypes.any),
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 WebPageEdit.defaultProps = {

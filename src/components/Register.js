@@ -10,9 +10,8 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import Link from './Link'
-import schema from '../json/schema.json'
 
-const Register = ({translate, emitter}) => (
+const Register = ({translate, emitter, schema}) => (
   <div className="Register">
     <FullModal closeLink={Link.back}>
       <div>
@@ -54,6 +53,7 @@ const Register = ({translate, emitter}) => (
 Register.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  schema: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default withEmitter(withI18n(Register))
