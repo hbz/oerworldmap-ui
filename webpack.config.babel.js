@@ -114,14 +114,15 @@ if (ENV === 'development') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
-      new StyleLintPlugin(
-        {
-          emitErrors: false,
-          configFile: '.stylelintrc',
-          context: 'src',
-          files: '**/*.pcss',
-        },
-      ),
+      // FIXME: CHeck if new version is compatible with webpack > 4
+      // new StyleLintPlugin(
+      //   {
+      //     emitErrors: false,
+      //     configFile: '.stylelintrc',
+      //     context: 'src',
+      //     files: '**/*.pcss',
+      //   },
+      // ),
     ],
     module: {
       rules: [
