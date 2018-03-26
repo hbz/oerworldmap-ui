@@ -5,7 +5,7 @@ import withFormData from './withFormData'
 
 const Fieldset = ({name, children, errors, property, title, className, translate}) => (
   <div
-    className={`Fieldset ${property || ''} ${className}`.trim()}
+    className={`Fieldset ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
     role="group"
     aria-labelledby={`${name}-label`}
   >

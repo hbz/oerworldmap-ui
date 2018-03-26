@@ -6,7 +6,7 @@ import withFormData from './withFormData'
 const Select = ({
   name, value, setValue, errors, options, property, title, className, translate
 }) => (
-  <div className={`Select ${property || ''} ${className}`.trim()}>
+  <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label htmlFor={name}>{translate(title)}</label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>

@@ -76,7 +76,7 @@ class PlaceWidget extends React.Component {
 
     return (
       <div
-        className={`PlaceWidget ${property || ''} ${className}`.trim()}
+        className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         role="group"
         aria-labelledby={`${name}-label`}
         ref={el => this.wrapper = el}

@@ -6,7 +6,7 @@ import withFormData from './withFormData'
 
 const List = ({name, value, children, errors, property, title, className, translate, maxItems}) => (
   <div
-    className={`List ${property || ''} ${className}`.trim()}
+    className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
     role="group"
     aria-labelledby={`${name}-label`}
   >
