@@ -198,7 +198,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               </Block>
             }
 
-            {about['@id'] &&
+            {about['@id'] && about['@type'] !== 'Person' &&
               <Block title={translate('ResourceIndex.read.comments')}>
                 <Comments comments={about['comment']} about={about} user={user} schema={schema} />
               </Block>
