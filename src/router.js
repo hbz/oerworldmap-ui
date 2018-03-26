@@ -204,11 +204,20 @@ export default (api) => {
             </p>
             {data.newsletter &&
               <p>
-                {context.i18n.translate('UserIndex.registered.signedUpForNewsletter'), {
+                {context.i18n.translate('UserIndex.registered.signedUpForNewsletter', {
                   username: data.username
-                }}
+                })}
               </p>
             }
+            {data.newsletter ? (
+              <p>
+                {context.i18n.translate('UserIndex.registered.sentMessageNewsletter')}
+              </p>
+            ) : (
+              <p>
+                {context.i18n.translate('UserIndex.registered.sentMessage')}
+              </p>
+            )}
           </Feedback>
         )
         const title = context.i18n.translate('UserIndex.registered.successfullyRegistere', {
@@ -277,6 +286,24 @@ export default (api) => {
           <Groups {...data} confirm />
         )
         const title = context.i18n.translate('UserIndex.groupsChanged.groupsUpdated')
+        return { title, data, component }
+      }
+    },
+    {
+      path: '/user/verify',
+      get: async (params, context, state) => {
+        const url = getURL({path: '/user/verify', params})
+        const data = state || await api.get(url, context.authorization)
+        const component = (user) => (
+          <Feedback>
+            <p
+              dangerouslySetInnerHTML={
+                {__html: context.i18n.translate('UserIndex.verified.message', user) }
+              }
+            />
+          </Feedback>
+        )
+        const title = context.i18n.translate('UserIndex.verified.title', data)
         return { title, data, component }
       }
     },
