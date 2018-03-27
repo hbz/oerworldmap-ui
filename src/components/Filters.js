@@ -317,7 +317,7 @@ class Filters extends React.Component {
                         name="sort"
                         value={this.props.sort}
                         className="styledSelect"
-                        style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
+                        style={{width: (this.props.translate('ClientTemplates.filter.dateCreated').length * 8) + 15 + 'px'}}
                         onChange={(evt) => {
                           evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
                           onSubmit(evt, this.props.emitter)
