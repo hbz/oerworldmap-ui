@@ -315,6 +315,7 @@ class Filters extends React.Component {
                     <span className="arrowWrapper">
                       <select
                         name="sort"
+                        value={this.props.sort}
                         className="styledSelect"
                         style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
                         onChange={(evt) => {
@@ -322,9 +323,11 @@ class Filters extends React.Component {
                           onSubmit(evt, this.props.emitter)
                         }}
                       >
-                        <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
-                        <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                        <option value="dateCreated:DESC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
                         <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
+                        {this.props.query &&
+                          <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                        }
                       </select>
                     </span>
                   </span>
@@ -356,10 +359,12 @@ Filters.propTypes = {
   view: PropTypes.string,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
+  sort: PropTypes.string
 }
 
 Filters.defaultProps = {
-  view: null
+  view: null,
+  sort: ""
 }
 
 export default withEmitter(withI18n(Filters))

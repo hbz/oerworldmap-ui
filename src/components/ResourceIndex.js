@@ -32,7 +32,8 @@ const ResourceIndex = ({
   children,
   _self,
   _links,
-  className
+  className,
+  sort
 }) => {
   const countProp = ('about.objectIn.@type' in filters)
     ? filters['about.objectIn.@type'][0]
@@ -50,6 +51,7 @@ const ResourceIndex = ({
             aggregations={aggregations}
             totalItems={totalItems}
             size={Number.isInteger(+size) ? +size : 20}
+            sort={sort}
             _self={_self}
             _links={_links}
             view={view}
@@ -116,6 +118,7 @@ ResourceIndex.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
+  sort: PropTypes.string
 }
 
 ResourceIndex.defaultProps = {
@@ -126,6 +129,7 @@ ResourceIndex.defaultProps = {
   iso3166: '',
   view: '',
   className: null,
+  sort: ""
 }
 
 
