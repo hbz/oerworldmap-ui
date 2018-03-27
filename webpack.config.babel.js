@@ -84,6 +84,7 @@ if (ENV === 'production') {
               {
                 loader: 'css-loader',
                 options: {
+                  minimize: true,
                   importLoaders: 1,
                 },
               },
