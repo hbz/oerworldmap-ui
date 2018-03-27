@@ -3,7 +3,6 @@ import webpack from 'webpack'
 import merge from 'webpack-merge'
 // import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-// import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { apiConfig } from './config'
 
