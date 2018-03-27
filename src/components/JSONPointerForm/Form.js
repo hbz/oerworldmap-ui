@@ -1,18 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import jsonPointer from 'json-pointer'
-import _ from 'lodash'
+import { forOwn, isUndefined, isNull,
+  isNaN, isString, isEmpty, isObject, isArray, pull } from 'lodash'
 
 const prune = (current) => {
-  _.forOwn(current, (value, key) => {
-    if (_.isUndefined(value) || _.isNull(value) || _.isNaN(value) ||
-      (_.isString(value) && _.isEmpty(value)) ||
-      (_.isObject(value) && _.isEmpty(prune(value)))) {
+  forOwn(current, (value, key) => {
+    if (isUndefined(value) || isNull(value) || isNaN(value) ||
+      (isString(value) && isEmpty(value)) ||
+      (isObject(value) && isEmpty(prune(value)))) {
       delete current[key]
     }
   })
-  if (_.isArray(current)) {
-    _.pull(current, undefined)
+  if (isArray(current)) {
+    pull(current, undefined)
   }
   return current
 }

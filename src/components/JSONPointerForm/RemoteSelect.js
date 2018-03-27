@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import { debounce } from 'lodash'
 
 import withFormData from './withFormData'
 import Icon from '../Icon'
@@ -17,7 +17,7 @@ class RemoteSelect extends React.Component {
       options: []
     }
     this.handleChange = this.handleChange.bind(this)
-    this.updateOptions = _.debounce(this.updateOptions.bind(this), 200)
+    this.updateOptions = debounce(this.updateOptions.bind(this), 200)
     this.optionList = this.optionList.bind(this)
     this.showOption = this.showOption.bind(this)
     this.handleClick = this.handleClick.bind(this)
