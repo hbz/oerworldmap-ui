@@ -301,7 +301,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               {formatDate(about.startDate, moment)}
               {about.endDate &&
                 <span> - {formatDate(about.endDate, moment)}</span>
-              }schema: PropTypes.objectOf(PropTypes.any).isRequired
+              }
             </Block>
           }
 
