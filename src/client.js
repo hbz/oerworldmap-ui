@@ -97,6 +97,7 @@ import Link from './components/Link'
     })
     // Deletion
     emitter.on('delete', ({url, redirect}) => {
+      emitter.emit('setLoading', true)
       routes.route(url, context).delete()
         .then(({title, data, render}) => {
           if (redirect) {

@@ -172,20 +172,6 @@
     }
   }
 
-  & #view,
-  & #edit {
-    opacity: 0;
-    transition: all 0.5s;
-    height: 0;
-    overflow: hidden;
-
-    &.visible {
-      opacity: 1;
-      overflow: unset;
-      height: auto;
-    }
-  }
-
   @media print {
     position: relative;
     background-color: var(--white);

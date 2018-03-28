@@ -1,9 +1,8 @@
 import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
-import StyleLintPlugin from 'stylelint-webpack-plugin'
+// import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { apiConfig } from './config'
 
@@ -68,11 +67,8 @@ if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
       new ExtractTextPlugin("assets/styles.css"),
-      new UglifyJSPlugin({
-        parallel: true,
-        cache: true,
-      })
     ],
+    mode: 'production',
     module: {
       rules: [
         {
@@ -83,13 +79,12 @@ if (ENV === 'production') {
               {
                 loader: 'css-loader',
                 options: {
+                  minimize: true,
                   importLoaders: 1,
                 },
               },
               {
                 loader: 'postcss-loader',
-                options: {
-                },
               },
             ],
           }),
@@ -105,7 +100,7 @@ if (ENV === 'development') {
   }
   Config = merge(Config, {
     devtool: 'source-map',
-
+    mode: 'development',
     entry: [
       'webpack-hot-middleware/client?reload=true',
       'react-hot-loader/patch'
@@ -114,14 +109,15 @@ if (ENV === 'development') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
-      new StyleLintPlugin(
-        {
-          emitErrors: false,
-          configFile: '.stylelintrc',
-          context: 'src',
-          files: '**/*.pcss',
-        },
-      ),
+      // FIXME: CHeck if new version is compatible with webpack > 4
+      // new StyleLintPlugin(
+      //   {
+      //     emitErrors: false,
+      //     configFile: '.stylelintrc',
+      //     context: 'src',
+      //     files: '**/*.pcss',
+      //   },
+      // ),
     ],
     module: {
       rules: [
@@ -157,7 +153,7 @@ if (ENV === 'static') {
   }
   Config = merge(Config, {
     devtool: 'source-map',
-
+    mode: 'development',
     entry: [
       'webpack-hot-middleware/client?reload=true',
       'react-hot-loader/patch'

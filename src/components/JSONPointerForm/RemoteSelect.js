@@ -109,7 +109,7 @@ class RemoteSelect extends React.Component {
         className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${name}-label`}
       >
-        <div className="label" id={`${name}-label`}>{title}</div>
+        <div className="label" id={`${name}-label`}>{translate(title)}</div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}

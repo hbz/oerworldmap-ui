@@ -16,7 +16,9 @@ const JsonSchema = (schema) => {
       schema.items = expandSchema(schema.items)
     }
     if ('allOf' in schema) {
-      schema.allOf.forEach(allOf => schema = merge(schema, expandSchema(allOf)))
+      let schemas = {}
+      schema.allOf.forEach(allOf => schemas = merge(schemas, expandSchema(allOf)))
+      schema = merge(schemas, schema)
       delete schema.allOf
     }
     if ('oneOf' in schema) {

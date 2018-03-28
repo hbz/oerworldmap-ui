@@ -295,8 +295,18 @@ class Filters extends React.Component {
           <div className="sortContainer">
             <section className="listOptions">
               <div>
+                <span className="arrowWrapper">
+                  <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
+                    {this.sizes.map(number => (
+                      number >= 0 &&
+                        <option key={number} value={number}>{number}</option>
+                    ))}
+                    <option value="-1">{this.props.translate('Pagination.all')}</option>
+                  </select>
+                </span>
+                {this.props.translate('Pagination.of')}&nbsp;
                 <span className="counter">
-                  <span>{this.props.member.length}</span>
+                  <span>{this.props.totalItems}</span>
                   &nbsp;{this.props.translate('ResourceIndex.index.results')}
                 </span>
                 {!(this.props.filters['about.@type'] && this.props.filters['about.@type'].includes('Event')) &&
@@ -305,26 +315,19 @@ class Filters extends React.Component {
                     <span className="arrowWrapper">
                       <select
                         name="sort"
+                        value={this.props.sort}
                         className="styledSelect"
-                        style={{width: (this.props.translate('ClientTemplates.filter.relevance').length * 8)+15}}
+                        style={{width: (this.props.translate('ClientTemplates.filter.dateCreated').length * 8) + 15 + 'px'}}
                         onChange={(evt) => {
                           evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
                           onSubmit(evt, this.props.emitter)
                         }}
                       >
-                        <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
-                        <option value="dateCreated:ASC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                        <option value="dateCreated:DESC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
                         <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
-                      </select>
-                    </span>
-
-                    <span className="arrowWrapper">
-                      <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
-                        {this.sizes.map(number => (
-                          number >= 0 &&
-                            <option key={number} value={number}>{number}</option>
-                        ))}
-                        <option value="-1">All</option>
+                        {this.props.query &&
+                          <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                        }
                       </select>
                     </span>
                   </span>
@@ -352,14 +355,16 @@ Filters.propTypes = {
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  member: PropTypes.arrayOf(PropTypes.any).isRequired,
+  totalItems: PropTypes.number.isRequired,
   view: PropTypes.string,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
+  sort: PropTypes.string
 }
 
 Filters.defaultProps = {
-  view: null
+  view: null,
+  sort: ""
 }
 
 export default withEmitter(withI18n(Filters))

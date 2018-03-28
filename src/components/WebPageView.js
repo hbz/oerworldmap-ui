@@ -198,7 +198,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               </Block>
             }
 
-            {about['@id'] &&
+            {about['@id'] && about['@type'] !== 'Person' &&
               <Block title={translate('ResourceIndex.read.comments')}>
                 <Comments comments={about['comment']} about={about} user={user} schema={schema} />
               </Block>
@@ -301,7 +301,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               {formatDate(about.startDate, moment)}
               {about.endDate &&
                 <span> - {formatDate(about.endDate, moment)}</span>
-              }schema: PropTypes.objectOf(PropTypes.any).isRequired
+              }
             </Block>
           }
 

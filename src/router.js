@@ -168,7 +168,7 @@ export default (api) => {
             />
           </ResourceIndex>
         )
-        const title = context.i18n.translate(id)
+        const title = context.i18n.translate(id.toUpperCase())
         return { title, data, component }
       }
     },
