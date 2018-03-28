@@ -60,7 +60,6 @@
     "babel-polyfill": "^6.26.0",
     "compression": "^1.7.2",
     "d3": "^5.0.0",
-    "d3-pie": "^1.1.0",
     "deepmerge": "^2.0.1",
     "dotenv": "^5.0.1",
     "es6-promise": "^4.2.4",
