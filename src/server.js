@@ -56,7 +56,10 @@ server.use((req, res, next) => {
   if (user) {
     api.get('/user/profile', authorization)
       .then(user => (req.user = user) && next())
-      .catch(err => res.status(err.status).send(err.message))
+      .catch(err => err.status === 401
+        ? res.redirect(`${apiConfig.scheme}://logout@${apiConfig.host}/.logout`)
+        : res.status(err.status).send(err.message)
+      )
   } else {
     next()
   }

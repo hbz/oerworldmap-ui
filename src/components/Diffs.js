@@ -43,7 +43,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
       </EmittProvider>
     </I18nProvider>
   )
-  const diff = htmldiff(v1, v2)
+  const diff = htmldiff(v2, v1)
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -66,7 +66,12 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
               {log.map(l => (
                 <div key={l.commit} className="logBlock">
                   <div>
-                    <a href={`/log/${l.commit}`}>{l.commit}</a>
+                    <a
+                      href={`/resource/${compare.about["@id"]}?version=${l.commit}`}
+                      target="_blank"
+                    >
+                      {l.commit}
+                    </a>
                     <br />
                     <span><b>{translate('Author')}:</b> {l.author}</span>
                     <br />

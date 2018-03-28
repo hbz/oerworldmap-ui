@@ -1,7 +1,7 @@
 export default (action, user, context) => {
   switch (action) {
   case 'deleteEntry':
-    return user && user.groups.includes('admin')
+    return context['@id'] && user && user.groups.includes('admin')
   case 'editEntry':
     return user
       && (user.groups.includes('admin')
