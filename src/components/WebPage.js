@@ -42,7 +42,7 @@ const WebPage = ({
         <div className="webPageContent">
 
           {expose('editEntry', user, about) &&
-            <div id="edit" className={view === 'edit' ? 'visible' : ''}>
+            <div id="edit" className={view === 'edit' ? '' : 'hidden'}>
               <WebPageEdit
                 about={about}
                 action={about['@id'] ? 'edit' : 'add'}
@@ -53,7 +53,7 @@ const WebPage = ({
             </div>
           }
 
-          <div id="view" className={!user || view !== 'edit' ? 'visible' : ''}>
+          <div id="view" className={!user || view !== 'edit' ? '' : 'hidden'}>
             <WebPageView id="view" about={about} user={user} view={view} schema={schema} />
           </div>
 
