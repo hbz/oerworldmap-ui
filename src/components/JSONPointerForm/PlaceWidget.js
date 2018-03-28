@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import { debounce } from 'lodash'
 
 import Fieldset from './Fieldset'
 import Input from './Input'
@@ -25,7 +25,7 @@ class PlaceWidget extends React.Component {
       collapsed: props.schema._display && props.schema._display.collapsed
     }
     this.handleChange = this.handleChange.bind(this)
-    this.updateOptions = _.debounce(this.updateOptions.bind(this), 200)
+    this.updateOptions = debounce(this.updateOptions.bind(this), 200)
     this.handleClick = this.handleClick.bind(this)
   }
 
