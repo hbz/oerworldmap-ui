@@ -74,12 +74,14 @@ WebPageEdit.propTypes = {
     }
   ).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  closeLink: PropTypes.string
 }
 
 WebPageEdit.defaultProps = {
   action: 'edit',
-  user: null
+  user: null,
+  closeLink: null
 }
 
 export default withI18n(withEmitter(WebPageEdit))
