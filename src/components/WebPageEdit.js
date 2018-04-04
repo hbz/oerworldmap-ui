@@ -10,10 +10,11 @@ import validate from './JSONPointerForm/validate'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import Link from './Link'
 
 import expose from '../expose'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema}) => (
+const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
@@ -35,7 +36,12 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
     <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
 
     <div className="formButtons">
-      <button className="btn" type="submit">{translate('publish')}</button>
+      <div className="primaryButtons">
+        <button className="btn prominent" type="submit">{translate('publish')}</button>
+        <Link href={closeLink || Link.home} className="btn">
+          Cancel
+        </Link>
+      </div>
       {expose('deleteEntry', user, about) &&
         <button
           className="btn delete"
@@ -68,12 +74,14 @@ WebPageEdit.propTypes = {
     }
   ).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  closeLink: PropTypes.string
 }
 
 WebPageEdit.defaultProps = {
   action: 'edit',
-  user: null
+  user: null,
+  closeLink: null
 }
 
 export default withI18n(withEmitter(WebPageEdit))

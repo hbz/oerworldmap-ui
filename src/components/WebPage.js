@@ -49,6 +49,7 @@ const WebPage = ({
                 mapboxConfig={mapboxConfig}
                 user={user}
                 schema={schema}
+                closeLink={about['@id'] ? _self : undefined}
               />
             </div>
           }
