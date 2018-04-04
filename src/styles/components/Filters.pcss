@@ -136,11 +136,12 @@
         }
       }
 
-      &:hover,
       &:focus {
-        background: var(--blue-light);
+        -moz-outline-radius: var(--border-radius);
+        outline: 1px solid var(--primary-color);
       }
 
+      &:hover,
       &:active {
         color: var(--white);
         background: var(--primary-color);
