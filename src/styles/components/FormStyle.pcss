@@ -326,6 +326,21 @@
     display: flex;
     justify-content: space-between;
 
+    & .primaryButtons > .btn {
+      margin-right: 10px;
+
+      &.prominent {
+        background-color: var(--blue);
+        color: var(--white);
+
+        &:hover,
+        &:focus {
+          border-color: var(--orange);
+          background-color: var(--orange);
+        }
+      }
+    }
+
     & .btn.delete {
       border-color: var(--red);
       color: var(--red);
