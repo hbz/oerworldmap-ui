@@ -34,6 +34,13 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
               />
 
               <label
+                onClick={e => {
+                  // Clear filters if type filter unchecked
+                  if (filter.includes(bucket.key)) {
+                    clearForm(e.target.parentElement.form || e.target.form || e.target)
+                    submit(e, emitter)
+                  }
+                }}
                 onKeyDown={triggerClick}
                 role="button"
                 tabIndex="0"
