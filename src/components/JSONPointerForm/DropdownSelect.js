@@ -93,6 +93,7 @@ class DropdownSelect extends React.Component {
                   placeholder="..."
                   onChange={e => this.setState({filter: e.target.value})}
                   value={this.state.filter}
+                  ref={el => this.state.dropdown && el && el.focus()}
                 />
               </div>
               <ul className="optionsContainer">
