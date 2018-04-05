@@ -6,13 +6,14 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import properties from 'properties'
+import {existsSync} from 'fs'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import router from './router'
 import Api from './api'
 
-import Config, { mapboxConfig, apiConfig, piwikConfig } from '../config'
+import Config, { mapboxConfig, apiConfig, piwikConfig, i18nConfig } from '../config'
 
 const server = express()
 const api = new Api(apiConfig)
@@ -73,15 +74,17 @@ server.use((req, res, next) => {
 })
 
 // I18n configuration
-const supportedLanguages = [ 'en', 'de' ]
-const defaultLanguage = 'en'
+const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
+const defaultLanguage = i18nConfig.defaultLanguage
 const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels', 'descriptions']
 const i18ns = {}
 supportedLanguages.map(language => {
   const i18n = {}
   bundles.forEach(bundle => {
-    const basename = language === defaultLanguage ? bundle : `${bundle}_${language}`
-    properties.parse(`./src/locale/${basename}.properties`, {path: true}, (error, obj) => {
+    const i18nfile = existsSync(`./src/locale/${bundle}_${language}.properties`)
+      ? `./src/locale/${bundle}_${language}.properties`
+      : `./src/locale/${bundle}.properties`
+    properties.parse(i18nfile, {path: true}, (error, obj) => {
       if (error) {
         return console.error(error)
       }

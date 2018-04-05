@@ -21,6 +21,11 @@ export const piwikConfig = getenv.multi({
   url: ['PIWIK_URL', '']
 })
 
+export const i18nConfig = getenv.multi({
+  supportedLanguages: ['LANG_SUPPORTED', 'en'],
+  defaultLanguage: ['LANG_DEFAULT', 'en']
+})
+
 // export server configuration
 export default getenv.multi({
   env: 'NODE_ENV',
