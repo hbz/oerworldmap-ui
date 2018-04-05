@@ -5,6 +5,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 
+import {scaleLog, quantile, interpolateHcl} from 'd3'
+
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import Icon from './Icon'
@@ -37,6 +39,7 @@ class Map extends React.Component {
     this.mouseLeave = this.mouseLeave.bind(this)
     this.clickPoints = this.clickPoints.bind(this)
     this.clickCountries = this.clickCountries.bind(this)
+    this.choroplethStopsFromBuckets = this.choroplethStopsFromBuckets.bind(this)
   }
 
   componentDidMount() {
@@ -368,7 +371,8 @@ class Map extends React.Component {
             }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
-              padding: 20
+              padding: 20,
+              maxZoom: 6.9
             })
           }
         }
@@ -388,86 +392,46 @@ class Map extends React.Component {
     }
   }
 
+  choroplethStopsFromBuckets(buckets) {
+    const counts = buckets.map(bucket => bucket.doc_count)
+    const range = this.map.getStyle().layers
+      .filter(layer => layer.id.startsWith("choropleth"))
+      .map(layer => {
+        this.map.setLayoutProperty(layer.id, 'visibility', 'none')
+        return this.map.getPaintProperty(layer.id, 'fill-color')
+      })
+
+    const getColor = scaleLog()
+      .range([range[range.length-1], range[0]])
+      .interpolate(interpolateHcl)
+      .domain([quantile(counts, .01), quantile(counts, .99)])
+
+    return buckets.length
+      ? buckets.map(bucket => [bucket.key, getColor(bucket.doc_count)])
+      : [['', 'rgb(255, 255, 255)']]
+  }
+
   updateChoropleth(aggregations) {
+    if (aggregations) {
+      const aggregation = aggregations["about.location.address.addressRegion"]
+        || aggregations["about.location.address.addressCountry"]
+      const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
+      const colors = stops
+        .map(stop => stop[1])
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .concat('rgba(255, 255, 255)')
+        .reverse()
+      const property = aggregations["about.location.address.addressRegion"] ? 'code_hasc' : 'iso_a2'
+      const layer = aggregations["about.location.address.addressRegion"] ? 'Regions' : 'countries'
 
-    if (aggregations === null) return
-    // The buckets holding the data for the choropleth layers
-    const buckets = aggregations && aggregations["about.location.address.addressCountry"]
-      ? aggregations["about.location.address.addressCountry"].buckets
-      : []
-
-    // Dynamically get layers to be used for choropleth country overlays
-    // and divide aggregation data into corresponding groups
-    const choroplethLayersCount = this.map.getStyle().layers
-      .filter(l => { return l.id.startsWith("choropleth")})
-      .map(l => { return l.id }).length
-
-    const max = buckets.length && buckets[0].doc_count || 0
-
-    // Divide into steps rounded to the next 10
-    const steps = Math.ceil(max / choroplethLayersCount / 10) * 10
-
-    // Initialize array of arrays to hold bucket keys
-    const choroplethLayerGroups = []
-    for (let i = 0; i < choroplethLayersCount; i++) {
-      choroplethLayerGroups.push([])
-    }
-
-    // Add keys to layer groups
-    buckets.forEach(bucket => {
-      choroplethLayerGroups[Math.floor(bucket.doc_count / steps)].push(bucket.key)
-    })
-
-    // Set filters of actual choropleth layers
-    choroplethLayerGroups.forEach((group, i) => {
-      this.map.setFilter('choropleth-'+(i+1), [ 'in', 'iso_a2' ].concat(group))
-    })
-
-    // Get mapbox colors for choropleth
-    const colors = []
-    choroplethLayerGroups.forEach((group, i) => {
-      colors.push(this.map.getPaintProperty(`choropleth-${i+1}`, 'fill-color'))
-    })
-
-    this.setState({colors})
-
-    if (aggregations["about.location.address.addressRegion"]) {
-
-      const regionColors = []
-
-      const regionBuckets = aggregations
-        ? aggregations["about.location.address.addressRegion"].buckets
-        : []
-
-      const stops = []
-
-      const regionMax = regionBuckets.reduce(function(acc, val) {
-        return acc < val.doc_count ? val.doc_count : acc
-      }, 0)
-
-      const regionSteps = Math.ceil(regionMax / choroplethLayersCount / 10) * 10
-
-      regionBuckets.forEach(function(bucket) {
-        const currentColor = colors[Math.floor(bucket.doc_count / regionSteps)]
-        regionColors.indexOf(currentColor) === -1 ? regionColors.push(currentColor) : ''
-        stops.push([bucket['key'], currentColor])
-      })
-
-      regionColors.push('rgba(255, 255, 255, 1)')
-
-      // In case of not having any stops, set an empty
-      if (stops.length === 0)
-        stops.push(['none', 'rgba(255, 255, 255, 1)'])
-
-      this.setState({
-        colors: regionColors.reverse()
-      })
-
-      this.map.setPaintProperty('Regions', 'fill-color', {
-        "property": 'code_hasc',
+      this.map.setPaintProperty(layer, 'fill-color', {
+        property,
+        stops,
         "type": "categorical",
-        "default": 'rgba(255, 255, 255, 1)',
-        "stops": stops
+        "default": 'rgb(255, 255, 255)'
+      })
+      this.setState({
+        colors
       })
     }
   }
