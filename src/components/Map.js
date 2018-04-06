@@ -384,7 +384,7 @@ class Map extends React.Component {
       if (Object.keys(this.state.center).length) {
         this.map.flyTo(
           {center: [this.state.center.lng, this.state.center.lat],
-            zoom: this.state.center.zoom || 2
+            zoom: this.state.center.zoom || 1
           }
         )
       }
