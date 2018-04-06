@@ -21,13 +21,7 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      center: {
-        lng: null,
-        lat: null,
-        zoom: null,
-      }
-    }
+    this.state = {}
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -66,7 +60,6 @@ class Map extends React.Component {
     this.map.once('load', () => {
 
       this.map.on('zoom', this.zoom)
-      this.setState({center})
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
       this.map.setLayoutProperty('road-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -316,7 +309,6 @@ class Map extends React.Component {
         hash: window.location.hash.replace('#', '')
       }
       window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
-      this.setState({center})
     }
   }
 
