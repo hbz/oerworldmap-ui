@@ -70,7 +70,7 @@ server.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   api.geoip(ip)
     .then(location => (req.location = location) && next())
-    .catch(() => (req.location = {country_code: 'GB'}) && next())
+    .catch(() => next())
 })
 
 // Middleware to fetch JSON schema
