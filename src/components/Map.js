@@ -58,8 +58,8 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-100.486052, 37.830348],
-      zoom: center.zoom || 2,
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+      zoom: center.zoom || 1,
       maxBounds: bounds
     })
 
@@ -376,14 +376,6 @@ class Map extends React.Component {
         window.setTimeout(()=> {
           this.updateZoom(iso3166)
         }, 500)
-      }
-    } else {
-      if (Object.keys(this.state.center).length) {
-        this.map.flyTo(
-          {center: [this.state.center.lng, this.state.center.lat],
-            zoom: this.state.center.zoom || 2
-          }
-        )
       }
     }
   }
