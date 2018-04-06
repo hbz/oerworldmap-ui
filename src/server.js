@@ -65,6 +65,14 @@ server.use((req, res, next) => {
   }
 })
 
+// Middleware to fetch user location
+server.use((req, res, next) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  api.geoip(ip)
+    .then(location => (req.location = location) && next())
+    .catch(() => next())
+})
+
 // Middleware to fetch JSON schema
 server.use((req, res, next) => {
   api.get('/assets/json/schema.json')
@@ -116,13 +124,14 @@ server.get(/^(.*)$/, (req, res) => {
   const locales = req.locales
   const phrases = i18ns[locales[0]]
   const schema = req.schema
-  const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig, schema }
+  const location = req.location
+  const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, location }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases, schema})
+      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases, schema, location})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title,
       piwikConfig

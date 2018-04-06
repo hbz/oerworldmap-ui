@@ -98,6 +98,14 @@ class Api {
       .then(toJson)
   }
 
+  geoip (ip) {
+    const anonIp = ip.split('.').map((v, i, a) => i+1 === a.length ? "0" : v).join('.')
+    return fetch(`https://www.iplocate.io/api/lookup/${anonIp}`, {
+      method: 'GET'
+    }).then(checkStatus)
+      .then(toJson)
+  }
+
   vocab (url) {
     switch(url) {
     case 'https://w3id.org/class/esc/scheme':

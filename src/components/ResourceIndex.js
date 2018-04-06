@@ -33,7 +33,8 @@ const ResourceIndex = ({
   _self,
   _links,
   className,
-  sort
+  sort,
+  location
 }) => {
   const countProp = ('about.objectIn.@type' in filters)
     ? filters['about.objectIn.@type'][0]
@@ -90,6 +91,7 @@ const ResourceIndex = ({
         features={features}
         iso3166={iso3166}
         map={map}
+        location={location}
       />
 
     </div>
@@ -118,7 +120,8 @@ ResourceIndex.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
-  sort: PropTypes.string
+  sort: PropTypes.string,
+  location: PropTypes.objectOf(PropTypes.any)
 }
 
 ResourceIndex.defaultProps = {
@@ -129,7 +132,8 @@ ResourceIndex.defaultProps = {
   iso3166: '',
   view: '',
   className: null,
-  sort: ""
+  sort: "",
+  location: null
 }
 
 

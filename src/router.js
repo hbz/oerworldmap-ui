@@ -60,6 +60,7 @@ export default (api) => {
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             add={params.add}
+            location={context.location}
           >
             <ActionButtons user={context.user} />
           </ResourceIndex>
