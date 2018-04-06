@@ -48,7 +48,10 @@ class Map extends React.Component {
     const mapParameters = this.props.map
       && this.props.map.split(',')
 
-    const center = {}
+    const center = this.props.location
+      ? {lng: this.props.location.longitude, lat: this.props.location.latitude}
+      : {}
+
     if (mapParameters) {
       center.lng = (mapParameters[0] && !isNaN(mapParameters[0])) ? mapParameters[0] : null
       center.lat = (mapParameters[1] && !isNaN(mapParameters[1])) ? mapParameters[1] : null
@@ -652,11 +655,13 @@ Map.propTypes = {
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,
+  location: PropTypes.objectOf(PropTypes.any)
 }
 
 Map.defaultProps = {
   iso3166: null,
   map: null,
+  location: null
 }
 
 export default withEmitter(withI18n(Map))
