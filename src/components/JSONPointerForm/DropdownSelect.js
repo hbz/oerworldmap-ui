@@ -50,10 +50,19 @@ class DropdownSelect extends React.Component {
         ref={el => this.wrapper = el}
         className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${name}-label`}
+        onKeyDown={(e) => {
+          if (e.keyCode === 27) {
+            this.setState({dropdown: false})
+          }
+        }}
+        role="button"
+        tabIndex="0"
       >
         <div className="label" id={`${name}-label`}>{translate(title)}</div>
         {value ? (
-          <div className="selectedContainer">
+          <div
+            className="selectedContainer"
+          >
             <input
               type="checkbox"
               name={name}
