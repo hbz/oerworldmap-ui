@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard">
+            <g id="arrow-down" transform="translate(1.000000, 1.000000)">
+                <circle id="Oval-8" stroke="#FFFFFF" stroke-width="2" cx="19" cy="19" r="19"></circle>
+                <g id="↓" transform="translate(11.000000, 12.000000)" fill="#FFFFFF">
+                    <polygon points="7.92523364 15 0 7.58152174 1.37570093 6.44021739 6.9682243 11.9021739 6.9682243 0 9.00186916 0 9.00186916 11.9021739 14.5943925 6.44021739 16 7.58152174 8.04485981 15"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
