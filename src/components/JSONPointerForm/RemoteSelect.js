@@ -108,6 +108,13 @@ class RemoteSelect extends React.Component {
         ref={el => this.wrapper = el}
         className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${name}-label`}
+        onKeyDown={(e) => {
+          if (e.keyCode === 27) {
+            this.setState({options: []})
+          }
+        }}
+        role="button"
+        tabIndex="0"
       >
         <div className="label" id={`${name}-label`}>{translate(title)}</div>
         {errors.map((error, index) => (
