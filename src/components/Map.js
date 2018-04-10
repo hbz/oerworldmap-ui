@@ -21,13 +21,7 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      center: {
-        lng: null,
-        lat: null,
-        zoom: null,
-      }
-    }
+    this.state = {}
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -58,15 +52,14 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-100.486052, 37.830348],
-      zoom: center.zoom || 2,
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+      zoom: center.zoom || 1,
       maxBounds: bounds
     })
 
     this.map.once('load', () => {
 
       this.map.on('zoom', this.zoom)
-      this.setState({center})
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
       this.map.setLayoutProperty('road-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -316,7 +309,6 @@ class Map extends React.Component {
         hash: window.location.hash.replace('#', '')
       }
       window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
-      this.setState({center})
     }
   }
 
@@ -376,14 +368,6 @@ class Map extends React.Component {
         window.setTimeout(()=> {
           this.updateZoom(iso3166)
         }, 500)
-      }
-    } else {
-      if (Object.keys(this.state.center).length) {
-        this.map.flyTo(
-          {center: [this.state.center.lng, this.state.center.lat],
-            zoom: this.state.center.zoom || 2
-          }
-        )
       }
     }
   }
