@@ -532,6 +532,13 @@ class Map extends React.Component {
             height: '100%',
             top:0,
             left: 0}}
+        onKeyDown={e => {
+          if (e.keyCode === 27 && this.props.iso3166) {
+            this.props.emitter.emit('navigate', '/resource/')
+          }
+        }}
+        role="button"
+        tabIndex="0"
       >
         {this.state.overlayList &&
           <div className="overlayList" />
