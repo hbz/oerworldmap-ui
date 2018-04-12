@@ -12,7 +12,9 @@
     "fix": "eslint src --fix",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint src --ext .jsx,.js --quiet",
-    "lint:style": "stylelint 'src/styles/**/*.pcss'"
+    "lint:style": "stylelint 'src/styles/**/*.pcss'",
+    "site:dev": "NODE_ENV=development webpack-dev-server --config site.config.babel.js",
+    "site:prod": "NODE_ENV=production webpack-cli --config site.config.babel.js"
   },
   "repository": {
     "type": "git",
