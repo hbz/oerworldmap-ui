@@ -1,7 +1,7 @@
 import favicon from '../assets/favicon.png'
 import piwik from './piwik'
 
-export default ({body, title, initialState, env, piwikConfig}) => {
+export default ({body, title, initialState, env, piwikConfig, embed}) => {
 
   const piwikEmbed = env === 'production' && (piwikConfig.id && piwikConfig.url)
     ? piwik(piwikConfig)
@@ -19,7 +19,7 @@ export default ({body, title, initialState, env, piwikConfig}) => {
         <link rel="shortcut icon" href="/assets/${favicon}" type="image/x-icon" />
         ${env !== 'development' ? '<link rel="stylesheet" href="/assets/styles.css">' : ''}
       </head>
-      <body>
+      ${embed === undefined ? '<body>': `<body data-embed="${embed}">`}
         <div id="root"><div>${body}</div></div>
         ${piwikEmbed}
       </body>
