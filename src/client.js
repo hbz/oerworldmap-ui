@@ -53,7 +53,20 @@ import Link from './components/Link'
     emitter.on('navigate', url => {
       const parser = document.createElement('a')
       parser.href = url
-      if (parser.href !== window.location.href) {
+
+      const newWindow = context.embed === "true" || (
+        context.embed === 'country' && (
+          parser.pathname === '/resource/' || (
+            !window.location.pathname.startsWith('/resource/urn') && (
+              parser.pathname.startsWith('/country') && (window.location.pathname.toLowerCase() !== parser.pathname.toLowerCase())
+            )
+          )
+        )
+      )
+
+      if (newWindow) {
+        window.open(parser.href, '_blank')
+      } else if (parser.href !== window.location.href) {
         Link.back = referrer
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
