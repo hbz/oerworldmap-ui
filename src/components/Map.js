@@ -537,8 +537,7 @@ class Map extends React.Component {
             this.props.emitter.emit('navigate', '/resource/')
           }
         }}
-        role="button"
-        tabIndex="0"
+        role="presentation"
       >
         {this.state.overlayList &&
           <div className="overlayList" />
