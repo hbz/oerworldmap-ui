@@ -14,6 +14,8 @@ import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
 
+require('formdata-polyfill');
+
 (function () {
 
   document.addEventListener('DOMContentLoaded', () => {
