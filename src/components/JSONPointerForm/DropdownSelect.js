@@ -51,13 +51,6 @@ class DropdownSelect extends React.Component {
         ref={el => this.wrapper = el}
         className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
-        onKeyDown={(e) => {
-          if (e.keyCode === 27) {
-            this.setState({dropdown: false})
-          }
-        }}
-        role="button"
-        tabIndex="0"
       >
         <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
           {translate(title)}
@@ -84,7 +77,15 @@ class DropdownSelect extends React.Component {
             </label>
           </div>
         ) : (
-          <div className="dropdownContainer">
+          <div
+            className="dropdownContainer"
+            onKeyDown={(e) => {
+              if (e.keyCode === 27) {
+                this.setState({dropdown: false})
+              }
+            }}
+            role="presentation"
+          >
             <button
               className={`toggleDropdown ${errors.length ? 'error' : ''}`.trim()}
               onClick={e => {
