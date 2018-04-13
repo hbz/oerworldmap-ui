@@ -56,6 +56,7 @@ const PieChart = ({name, buckets, emitter, translate}) => {
 
 const charts = [
   "about.@type",
+  "about.primarySector.@id",
   "about.secondarySector.@id",
   "about.isFundedBy.isAwardedBy.@id",
   "about.availableChannel.availableLanguage",
@@ -64,8 +65,7 @@ const charts = [
   "about.about.@id",
   "about.keywords",
   "about.agent.location.address.addressCountry",
-  "about.audience.@id",
-  "about.primarySector.@id"
+  "about.audience.@id"
 ]
 
 const Statistics = ({translate, aggregations, emitter}) => (
