@@ -123,6 +123,9 @@ class Filters extends React.Component {
   }
 
   render() {
+
+    const filter = this.props.filters && this.props.filters['about.@type'] || false
+    console.log('Filter', filter)
     return (
       <nav className="Filters">
 
@@ -295,16 +298,20 @@ class Filters extends React.Component {
           <div className="sortContainer">
             <section className="listOptions">
               <div>
-                <span className="arrowWrapper">
-                  <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
-                    {this.sizes.map(number => (
-                      number >= 0 &&
+                {(filter === false || !filter.includes('Event')) &&
+                <span>
+                  <span className="arrowWrapper">
+                    <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
+                      {this.sizes.map(number => (
+                        number >= 0 &&
                         <option key={number} value={number}>{number}</option>
-                    ))}
-                    <option value="-1">{this.props.translate('Pagination.all')}</option>
-                  </select>
+                      ))}
+                      <option value="-1">{this.props.translate('Pagination.all')}</option>
+                    </select>
+                  </span>
+                  {this.props.translate('Pagination.of')}&nbsp;
                 </span>
-                {this.props.translate('Pagination.of')}&nbsp;
+                }
                 <span className="counter">
                   <span>{this.props.totalItems}</span>
                   &nbsp;{this.props.translate('ResourceIndex.index.results')}
