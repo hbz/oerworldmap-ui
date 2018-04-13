@@ -42,7 +42,8 @@ class DropdownSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, options, setValue, errors, title, translate, className, formId
+      name, property, value, options, setValue, errors, title, translate, className, formId,
+      required
     } = this.props
 
     return (
@@ -51,7 +52,9 @@ class DropdownSelect extends React.Component {
         className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
       >
-        <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
+        <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
+          {translate(title)}
+        </div>
         {value ? (
           <div
             className="selectedContainer"
@@ -150,7 +153,8 @@ DropdownSelect.propTypes = {
   title: PropTypes.string,
   translate: PropTypes.func.isRequired,
   className: PropTypes.string,
-  formId: PropTypes.string.isRequired
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 DropdownSelect.defaultProps = {
@@ -158,7 +162,8 @@ DropdownSelect.defaultProps = {
   property: undefined,
   errors: [],
   title: '',
-  className: ''
+  className: '',
+  required: false
 }
 
 export default withFormData(DropdownSelect)

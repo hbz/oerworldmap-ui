@@ -19,6 +19,17 @@
     line-height: 1.27;
   }
 
+  & label.required,
+  & .label.required {
+    &::after {
+      font-family: FontAwesome;
+      content: "\F069";
+      color: orange;
+      vertical-align: top;
+      font-size: 75%;
+    }
+  }
+
   & .Builder > .Fieldset > .label {
     display: none;
   }

@@ -65,7 +65,7 @@ class PlaceWidget extends React.Component {
   render() {
     const {
       name, value, errors, property, title, className, translate, schema,
-      setValue, config, description, formId
+      setValue, config, description, formId, required
     } = this.props
 
     const geometry = value.geo && value.geo.lon && value.geo.lat
@@ -81,7 +81,12 @@ class PlaceWidget extends React.Component {
         aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
       >
-        <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
+        <div
+          className={`label ${required ? 'required' : ''}`.trim()}
+          id={`${formId}-${name}-label`}
+        >
+          {translate(title)}
+        </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
@@ -246,7 +251,8 @@ PlaceWidget.propTypes = {
   setValue: PropTypes.func.isRequired,
   config: PropTypes.objectOf(PropTypes.any).isRequired,
   description: PropTypes.string,
-  formId: PropTypes.string.isRequired
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 PlaceWidget.defaultProps = {
@@ -255,7 +261,8 @@ PlaceWidget.defaultProps = {
   title: '',
   description: '',
   className: '',
-  value: {}
+  value: {},
+  required: false
 }
 
 export default withApi(withFormData(PlaceWidget))

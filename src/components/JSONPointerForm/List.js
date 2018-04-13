@@ -5,14 +5,19 @@ import ListItem from './ListItem'
 import withFormData from './withFormData'
 
 const List = ({
-  name, value, children, errors, property, title, className, translate, maxItems, formId
+  name, value, children, errors, property, title, className, translate, maxItems, formId, required
 }) => (
   <div
     className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
     role="group"
     aria-labelledby={`${formId}-${name}-label`}
   >
-    <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
+    <div
+      className={`label ${required ? 'required' : ''}`.trim()}
+      id={`${formId}-${name}-label`}
+    >
+      {translate(title)}
+    </div>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
@@ -56,7 +61,8 @@ List.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   maxItems: PropTypes.number,
-  formId: PropTypes.string.isRequired
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 List.defaultProps = {
@@ -65,7 +71,8 @@ List.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  maxItems: undefined
+  maxItems: undefined,
+  required: false
 }
 
 export default withFormData(List)

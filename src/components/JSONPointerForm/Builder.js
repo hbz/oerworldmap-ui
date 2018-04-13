@@ -68,7 +68,9 @@ class Builder extends React.Component {
         <Fieldset {...props}>
           {Object.keys(schema.properties).map((property) => React.cloneElement(
             this.getComponent(schema.properties[property]), {
-              property, key: property
+              property,
+              key: property,
+              required: schema.required && schema.required.includes(property)
             }
           ))}
         </Fieldset>
