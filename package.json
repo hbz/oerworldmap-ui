@@ -65,6 +65,7 @@
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
+    "formdata-polyfill": "^3.0.9",
     "getenv": "^0.7.0",
     "http-link-header": "^0.8.0",
     "ignore-styles": "^5.0.1",
