@@ -15,6 +15,7 @@ import Register from './components/Register'
 import Password from './components/Password'
 import Groups from './components/Groups'
 import Feedback from './components/Feedback'
+import FullModal from './components/FullModal'
 import ErrorPage from './components/ErrorPage'
 import Log from './components/Log'
 import Diffs from './components/Diffs'
@@ -121,9 +122,11 @@ export default (api) => {
       delete: async (id, params, context) => {
         const data = await api.delete(`/resource/${id}`, context.authorization)
         const component = (data) => (
-          <Feedback>
-            {data.message}
-          </Feedback>
+          <FullModal closeLink={Link.home}>
+            <Feedback>
+              {data.message}
+            </Feedback>
+          </FullModal>
         )
         const title = context.i18n.translate('deleted.deleted', {id})
         return { title, data, component }
@@ -201,29 +204,31 @@ export default (api) => {
       post: async (params, context, state, body) => {
         const data = await api.post('/user/register', body, context.authorization)
         const component = (data) => (
-          <Feedback>
-            <p>
-              {context.i18n.translate('UserIndex.registered.successfullyRegistere', {
-                username: data.username
-              })}
-            </p>
-            {data.newsletter &&
+          <FullModal closeLink={Link.home}>
+            <Feedback>
               <p>
-                {context.i18n.translate('UserIndex.registered.signedUpForNewsletter', {
+                {context.i18n.translate('UserIndex.registered.successfullyRegistere', {
                   username: data.username
                 })}
               </p>
-            }
-            {data.newsletter ? (
-              <p>
-                {context.i18n.translate('UserIndex.registered.sentMessageNewsletter')}
-              </p>
-            ) : (
-              <p>
-                {context.i18n.translate('UserIndex.registered.sentMessage')}
-              </p>
-            )}
-          </Feedback>
+              {data.newsletter &&
+                <p>
+                  {context.i18n.translate('UserIndex.registered.signedUpForNewsletter', {
+                    username: data.username
+                  })}
+                </p>
+              }
+              {data.newsletter ? (
+                <p>
+                  {context.i18n.translate('UserIndex.registered.sentMessageNewsletter')}
+                </p>
+              ) : (
+                <p>
+                  {context.i18n.translate('UserIndex.registered.sentMessage')}
+                </p>
+              )}
+            </Feedback>
+          </FullModal>
         )
         const title = context.i18n.translate('UserIndex.registered.successfullyRegistere', {
           username: data.username
@@ -245,9 +250,11 @@ export default (api) => {
       post: async (params, context, state, body) => {
         const data = await api.post('/user/password/reset', body, context.authorization)
         const component = () => (
-          <Feedback>
-            {context.i18n.translate('UserIndex.passwordReset.message')}
-          </Feedback>
+          <FullModal closeLink={Link.home}>
+            <Feedback>
+              {context.i18n.translate('UserIndex.passwordReset.message')}
+            </Feedback>
+          </FullModal>
         )
         const title = context.i18n.translate('UserIndex.register.resetPassword')
         return { title, data, component }
@@ -267,9 +274,11 @@ export default (api) => {
         }, 5000)
 
         const component = () => (
-          <Feedback>
-            {context.i18n.translate('UserIndex.passwordChanged.message')}
-          </Feedback>
+          <FullModal closeLink={Link.home}>
+            <Feedback>
+              {context.i18n.translate('UserIndex.passwordChanged.message')}
+            </Feedback>
+          </FullModal>
         )
         const title = context.i18n.translate('UserIndex.passwordChanged.message')
         return { title, data, component }
@@ -300,13 +309,15 @@ export default (api) => {
         const url = getURL({path: '/user/verify', params})
         const data = state || await api.get(url, context.authorization)
         const component = (user) => (
-          <Feedback>
-            <p
-              dangerouslySetInnerHTML={
-                {__html: context.i18n.translate('UserIndex.verified.message', user) }
-              }
-            />
-          </Feedback>
+          <FullModal closeLink={Link.home}>
+            <Feedback>
+              <p
+                dangerouslySetInnerHTML={
+                  {__html: context.i18n.translate('UserIndex.verified.message', user) }
+                }
+              />
+            </Feedback>
+          </FullModal>
         )
         const title = context.i18n.translate('UserIndex.verified.title', data)
         return { title, data, component }
