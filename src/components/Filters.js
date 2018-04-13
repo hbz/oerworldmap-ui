@@ -125,7 +125,6 @@ class Filters extends React.Component {
   render() {
 
     const filter = this.props.filters && this.props.filters['about.@type'] || false
-    console.log('Filter', filter)
     return (
       <nav className="Filters">
 
