@@ -78,7 +78,7 @@ class PlaceWidget extends React.Component {
       <div
         className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         role="group"
-        aria-labelledby={`${name}-label`}
+        aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
       >
         <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
@@ -121,7 +121,7 @@ class PlaceWidget extends React.Component {
                     })}
                   />
                   {getProp(['address', 'addressRegion'], value) &&
-                    <div className="locationForm" aria-labelledby={`${name}/address-label`}>
+                    <div className="locationForm" aria-labelledby={`${formId}-${name}/address-label`}>
                       <div className="label" id={`${formId}-${name}/address-label`}>
                         {translate('ResourceIndex.PostalAddress.edit.address')}
                       </div>

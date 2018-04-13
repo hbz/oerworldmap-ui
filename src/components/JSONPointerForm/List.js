@@ -10,7 +10,7 @@ const List = ({
   <div
     className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
     role="group"
-    aria-labelledby={`${name}-label`}
+    aria-labelledby={`${formId}-${name}-label`}
   >
     <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
     {errors.map((error, index) => (

@@ -110,7 +110,7 @@ class RemoteSelect extends React.Component {
       <div
         ref={el => this.wrapper = el}
         className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
-        aria-labelledby={`${name}-label`}
+        aria-labelledby={`${formId}-${name}-label`}
         onKeyDown={(e) => {
           if (e.keyCode === 27) {
             this.setState({options: []})
