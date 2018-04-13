@@ -133,6 +133,14 @@ class Filters extends React.Component {
         >
           <div className="FiltersControls">
             <div className="filterSearch">
+
+              <button type="submit">
+                <i
+                  className="fa fa-search"
+                  title="Search"
+                />
+              </button>
+
               <input
                 type="search"
                 name="q"
