@@ -7,10 +7,15 @@ import { appendOnFocus } from '../../common'
 
 const Textarea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
-  formId
+  formId, required
 }) => (
   <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
-    <label htmlFor={`${formId}-${name}`}>{translate(title)}</label>
+    <label
+      htmlFor={`${formId}-${name}`}
+      className={required ? 'required' : ''}
+    >
+      {translate(title)}
+    </label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
@@ -36,7 +41,8 @@ Textarea.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   shouldFormComponentFocus: PropTypes.bool,
-  formId: PropTypes.string.isRequired
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 Textarea.defaultProps = {
@@ -45,7 +51,8 @@ Textarea.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  shouldFormComponentFocus: false
+  shouldFormComponentFocus: false,
+  required: false
 }
 
 export default withFormData(Textarea)

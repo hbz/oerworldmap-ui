@@ -22,10 +22,14 @@ const castValue = (target) => {
 
 const Input = ({
   type, name, value, setValue, errors, property, title, className, translate,
-  shouldFormComponentFocus, formId
+  shouldFormComponentFocus, formId, required
 }) => (
   <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
-    <label htmlFor={`${formId}-${name}`} dangerouslySetInnerHTML={{__html: translate(title)}} />
+    <label
+      htmlFor={`${formId}-${name}`}
+      dangerouslySetInnerHTML={{__html: translate(title)}}
+      className={required ? 'required' : ''}
+    />
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
@@ -57,7 +61,8 @@ Input.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   shouldFormComponentFocus: PropTypes.bool,
-  formId: PropTypes.string.isRequired
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 Input.defaultProps = {
@@ -67,7 +72,8 @@ Input.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  shouldFormComponentFocus: false
+  shouldFormComponentFocus: false,
+  required: false
 }
 
 export default withFormData(Input)
