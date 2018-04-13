@@ -2,8 +2,6 @@
 /* global window */
 /* global XMLHttpRequest */
 
-require('formdata-polyfill')
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'normalize.css'
@@ -15,6 +13,8 @@ import { getParams } from './common'
 import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
+
+require('formdata-polyfill');
 
 (function () {
 
