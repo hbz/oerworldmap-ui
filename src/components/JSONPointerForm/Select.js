@@ -4,17 +4,17 @@ import PropTypes from 'prop-types'
 import withFormData from './withFormData'
 
 const Select = ({
-  name, value, setValue, errors, options, property, title, className, translate
+  name, value, setValue, errors, options, property, title, className, translate, formId
 }) => (
   <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
-    <label htmlFor={name}>{translate(title)}</label>
+    <label htmlFor={`${formId}-${name}`}>{translate(title)}</label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
     <select
       name={name}
       value={value}
-      id={name}
+      id={`${formId}-${name}`}
       onChange={(e) => setValue(e.target.value)}
     >
       <option value={null} />
@@ -34,7 +34,8 @@ Select.propTypes = {
   property: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  formId: PropTypes.string.isRequired
 }
 
 Select.defaultProps = {

@@ -42,7 +42,7 @@ class DropdownSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, options, setValue, errors, title, translate, className
+      name, property, value, options, setValue, errors, title, translate, className, formId
     } = this.props
 
     return (
@@ -58,7 +58,7 @@ class DropdownSelect extends React.Component {
         role="button"
         tabIndex="0"
       >
-        <div className="label" id={`${name}-label`}>{translate(title)}</div>
+        <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
         {value ? (
           <div
             className="selectedContainer"
@@ -67,12 +67,12 @@ class DropdownSelect extends React.Component {
               type="checkbox"
               name={name}
               value={value}
-              id={`${name}-${value}`}
+              id={`${formId}-${name}-${value}`}
               checked
               onChange={e => setValue(e.target.checked ? e.target.value : undefined)}
             />
             <label
-              htmlFor={`${name}-${value}`}
+              htmlFor={`${formId}-${name}-${value}`}
               tabIndex="0"
               role="button"
               onKeyDown={e => triggerClick(e, 13)}
@@ -112,7 +112,7 @@ class DropdownSelect extends React.Component {
                       type="checkbox"
                       name={name}
                       value={option}
-                      id={`${name}-${option}`}
+                      id={`${formId}-${name}-${option}`}
                       checked={value === option}
                       onChange={e => {
                         setValue(e.target.checked ? e.target.value : undefined)
@@ -120,7 +120,7 @@ class DropdownSelect extends React.Component {
                       }}
                     />
                     <label
-                      htmlFor={`${name}-${option}`}
+                      htmlFor={`${formId}-${name}-${option}`}
                       tabIndex="0"
                       role="button"
                       onKeyDown={e => triggerClick(e, 13)}
@@ -148,7 +148,8 @@ DropdownSelect.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
   translate: PropTypes.func.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  formId: PropTypes.string.isRequired
 }
 
 DropdownSelect.defaultProps = {

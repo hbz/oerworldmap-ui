@@ -30,6 +30,7 @@ const withFormData = (BaseComponent) => {
         <BaseComponent
           name={this.name}
           value={this.context.getValue(this.name)}
+          formId={this.context.formId}
           setValue={value => this.context.setValue(this.name, value)}
           errors={this.context.getValidationErrors(this.name)}
           shouldFormComponentFocus={this.context.shouldFormComponentFocus(this.name)}
@@ -58,7 +59,8 @@ const withFormData = (BaseComponent) => {
     getValue: PropTypes.func,
     getValidationErrors: PropTypes.func,
     shouldFormComponentUpdate: PropTypes.func,
-    shouldFormComponentFocus: PropTypes.func
+    shouldFormComponentFocus: PropTypes.func,
+    formId: PropTypes.string
   }
 
   return formComponent
