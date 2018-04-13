@@ -71,7 +71,7 @@ class RemoteSelect extends React.Component {
   }
 
   optionList(options) {
-    const {name, translate, setValue} = this.props
+    const {name, translate, setValue, formId} = this.props
 
     return (
       <ul>
@@ -81,11 +81,11 @@ class RemoteSelect extends React.Component {
               type="checkbox"
               name={`${name}/@id`}
               value={option['@id']}
-              id={`${name}-${option['@id']}`}
+              id={`${formId}-${name}-${option['@id']}`}
               onChange={e => setValue(e.target.checked ? option : undefined)}
             />
             <label
-              htmlFor={`${name}-${option['@id']}`}
+              htmlFor={`${formId}-${name}-${option['@id']}`}
               tabIndex="0"
               role="button"
               className={this.showOption(option) ? null : 'hidden'}
@@ -102,12 +102,15 @@ class RemoteSelect extends React.Component {
   }
 
   render() {
-    const {name, property, value, setValue, errors, title, translate, className} = this.props
+    const {
+      name, property, value, setValue, errors, title, translate, className, formId
+    } = this.props
+
     return (
       <div
         ref={el => this.wrapper = el}
         className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
-        aria-labelledby={`${name}-label`}
+        aria-labelledby={`${formId}-${name}-label`}
         onKeyDown={(e) => {
           if (e.keyCode === 27) {
             this.setState({options: []})
@@ -116,7 +119,7 @@ class RemoteSelect extends React.Component {
         role="button"
         tabIndex="0"
       >
-        <div className="label" id={`${name}-label`}>{translate(title)}</div>
+        <div className="label" id={`${formId}-${name}-label`}>{translate(title)}</div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
@@ -126,11 +129,11 @@ class RemoteSelect extends React.Component {
               type="checkbox"
               name={`${name}/@id`}
               value={value['@id']}
-              id={`${name}-${value['@id']}`}
+              id={`${formId}-${name}-${value['@id']}`}
               checked
               onChange={e => setValue(e.target.checked ? value : undefined)}
             />
-            <label htmlFor={`${name}-${value['@id']}`} tabIndex="0" role="button">
+            <label htmlFor={`${formId}-${name}-${value['@id']}`} tabIndex="0" role="button">
               <Icon type={value["@type"]} />
               &nbsp;{translate(value.name)}
             </label>
@@ -177,7 +180,8 @@ RemoteSelect.propTypes = {
   translate: PropTypes.func.isRequired,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   api: PropTypes.objectOf(PropTypes.any).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  formId: PropTypes.string.isRequired
 }
 
 RemoteSelect.defaultProps = {
