@@ -98,7 +98,7 @@ class Map extends React.Component {
 
       // Initialize choropleth layers
       this.updateChoropleth(this.props.aggregations)
-      this.updateZoom(this.props.iso3166)
+      this.updateZoom(this.props.iso3166, this.props.home, this.props.map)
       this.updateActiveCountry(this.props.iso3166)
 
       // Update URL values
@@ -155,7 +155,7 @@ class Map extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.updateChoropleth(nextProps.aggregations)
-    this.updateZoom(nextProps.iso3166, nextProps.map)
+    this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166)
     this.updatePoints(nextProps.features)
   }
@@ -332,7 +332,7 @@ class Map extends React.Component {
     }
   }
 
-  updateZoom(iso3166, map) {
+  updateZoom(iso3166, home, map) {
     const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
@@ -373,7 +373,7 @@ class Map extends React.Component {
         }
       } else {
         window.setTimeout(()=> {
-          this.updateZoom(iso3166)
+          this.updateZoom(iso3166, home, map)
         }, 500)
       }
     } else if (map) {
@@ -389,7 +389,7 @@ class Map extends React.Component {
         zoom: center.zoom || 1
       }
       this.map.flyTo(pos)
-    } else {
+    } else if (home) {
       this.map.setCenter([0,0])
       this.map.setZoom(1)
     }
