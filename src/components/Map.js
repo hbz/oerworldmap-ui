@@ -625,6 +625,7 @@ Map.propTypes = {
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,
+  home: PropTypes.bool.isRequired
 }
 
 Map.defaultProps = {
