@@ -382,9 +382,16 @@
       position: relative !important;
     }
 
-    & .mapLeyend,
-    & .mapboxgl-ctrl-group button {
-      display: none !important;
+    & .mapLeyend {
+      display: none;
+    }
+
+    & .mapboxgl-ctrl-group {
+      height: 30px;
+
+      & > button.mapboxgl-ctrl-icon {
+        display: none;
+      }
     }
 
     & .goToMap {
