@@ -39,11 +39,13 @@ const ResourceIndex = ({
     ? filters['about.objectIn.@type'][0]
     : undefined
 
+  const home = _self.endsWith('/resource/?features=true')
+
   return (
     <div className={`ResourceIndex ${className ? className:''}`}>
       {children}
 
-      <Columns show={!_self.endsWith('/resource/?features=true')} >
+      <Columns show={!home} >
         <Column>
           <Filters
             query={query}
@@ -90,6 +92,7 @@ const ResourceIndex = ({
         features={features}
         iso3166={iso3166}
         map={map}
+        home={home}
       />
 
     </div>
