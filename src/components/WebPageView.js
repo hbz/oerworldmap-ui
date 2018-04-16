@@ -254,18 +254,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           }
 
-          {about.license &&
-            <Block title={translate(`${about['@type']}.license`)}>
-              <ul className="spaceSeparatedList">
-                {about.license.map(license => (
-                  <li key={license['@id']}>
-                    <img className="licenseImage" src={license.image} alt={translate(license.name)} />
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          }
-
           {about.email &&
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
@@ -507,6 +495,18 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList listItems={about[prop]} className="prominent" />
             </Block>
           ))}
+
+          {about.license &&
+            <Block title={translate(`${about['@type']}.license`)}>
+              <ul className="spaceSeparatedList">
+                {about.license.map(license => (
+                  <li key={license['@id']}>
+                    <img className="licenseImage" src={license.image} alt={translate(license.name)} />
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
 
         </aside>
       </div>
