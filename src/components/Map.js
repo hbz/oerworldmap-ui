@@ -152,7 +152,7 @@ class Map extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.updateChoropleth(nextProps.aggregations)
-    this.updateZoom(nextProps.iso3166)
+    this.updateZoom(nextProps.iso3166, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166)
     this.updatePoints(nextProps.features)
   }
@@ -329,7 +329,7 @@ class Map extends React.Component {
     }
   }
 
-  updateZoom(iso3166) {
+  updateZoom(iso3166, map) {
     const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
@@ -373,6 +373,22 @@ class Map extends React.Component {
           this.updateZoom(iso3166)
         }, 500)
       }
+    } else if (map) {
+      const center = {}
+      const mapParameters = map.split(',')
+
+      center.lng = (mapParameters[0] && !isNaN(mapParameters[0])) ? mapParameters[0] : null
+      center.lat = (mapParameters[1] && !isNaN(mapParameters[1])) ? mapParameters[1] : null
+      center.zoom = (mapParameters[2] && !isNaN(mapParameters[2])) ? mapParameters[2] : null
+
+      const pos = {
+        center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+        zoom: center.zoom || 1
+      }
+      this.map.flyTo(pos)
+    } else {
+      this.map.setCenter([0,0])
+      this.map.setZoom(1)
     }
   }
 
