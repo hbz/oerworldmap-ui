@@ -62,6 +62,9 @@ class Map extends React.Component {
 
     this.map.once('load', () => {
 
+      this.map.dragRotate.disable()
+      this.map.touchZoomRotate.disableRotation()
+
       this.map.on('zoom', this.zoom)
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${this.props.locales[0]}}`)
@@ -121,7 +124,7 @@ class Map extends React.Component {
       })
 
       // Add mapbox controls
-      const nav = new mapboxgl.NavigationControl()
+      const nav = new mapboxgl.NavigationControl({showCompass: false})
       this.map.addControl(nav, 'bottom-left')
 
       // Receive event from Filters
