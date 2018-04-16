@@ -240,6 +240,32 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </div>
           }
 
+          {about.award &&
+            <Block className="list" title={translate(`${about['@type']}.award`)}>
+              <ul className="ItemList award">
+                {about.award.map(award => (
+                  <li key={award}>
+                    <a className="item" href={award} target="_blank" rel="noopener">
+                      <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
+          {about.license &&
+            <Block title={translate(`${about['@type']}.license`)}>
+              <ul className="spaceSeparatedList">
+                {about.license.map(license => (
+                  <li key={license['@id']}>
+                    <img className="licenseImage" src={license.image} alt={translate(license.name)} />
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
           {about.email &&
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
@@ -481,32 +507,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList listItems={about[prop]} className="prominent" />
             </Block>
           ))}
-
-          {about.award &&
-            <Block className="list" title={translate(`${about['@type']}.award`)}>
-              <ul className="ItemList award">
-                {about.award.map(award => (
-                  <li key={award}>
-                    <a className="item" href={award} target="_blank" rel="noopener">
-                      <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          }
-
-          {about.license &&
-            <Block title={translate(`${about['@type']}.license`)}>
-              <ul className="spaceSeparatedList">
-                {about.license.map(license => (
-                  <li key={license['@id']}>
-                    <img className="licenseImage" src={license.image} alt={translate(license.name)} />
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          }
 
         </aside>
       </div>
