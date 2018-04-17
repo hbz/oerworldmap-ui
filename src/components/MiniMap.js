@@ -24,9 +24,7 @@ class MiniMap extends React.Component {
 
     this.MiniMap = new mapboxgl.Map({
       container: this.MiniMapContainer,
-      style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`,
-      center: this.props.center,
-      zoom: this.props.zoom
+      style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`
     })
 
     this.canvas = this.MiniMap.getCanvasContainer()
@@ -169,6 +167,14 @@ class MiniMap extends React.Component {
     }
     if (center && zoom) {
       this.MiniMap.flyTo({center, zoom})
+    } else {
+      const mapboxgl = require('mapbox-gl')
+      const coords = this.props.features.coordinates
+      const bounds = this.props.features.type === 'MultiPoint'
+        ? coords.reduce((bounds, coord) => bounds.extend(coord), new mapboxgl.LngLatBounds(coords[0], coords[0]))
+        : new mapboxgl.LngLatBounds([coords, coords])
+      console.log(this.MiniMap, bounds)
+      this.MiniMap.fitBounds(bounds)
     }
   }
 
@@ -206,8 +212,8 @@ MiniMap.propTypes = {
 }
 
 MiniMap.defaultProps = {
-  center: [-81.00637440726905, 43.32529936429404],
-  zoom: 10,
+  center: undefined,
+  zoom: undefined,
   features: {
     "type": "FeatureCollection",
     "features": []
