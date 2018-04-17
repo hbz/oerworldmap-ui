@@ -2,6 +2,7 @@
 /* global Event */
 import React from 'react'
 import PropTypes from 'prop-types'
+import turf from 'turf'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -168,13 +169,8 @@ class MiniMap extends React.Component {
     if (center && zoom) {
       this.MiniMap.flyTo({center, zoom})
     } else {
-      const mapboxgl = require('mapbox-gl')
-      const coords = this.props.features.coordinates
-      const bounds = this.props.features.type === 'MultiPoint'
-        ? coords.reduce((bounds, coord) => bounds.extend(coord), new mapboxgl.LngLatBounds(coords[0], coords[0]))
-        : new mapboxgl.LngLatBounds([coords, coords])
-      console.log(this.MiniMap, bounds)
-      this.MiniMap.fitBounds(bounds)
+      console.log(this.MiniMap, turf.bbox(this.props.features))
+      this.MiniMap.fitBounds(turf.bbox(this.props.features))
     }
   }
 
