@@ -35,9 +35,12 @@ const primaryFilters = [
   {
     name: "about.@type",
     type: "button",
-    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article'],
+    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage'],
     translate: true
-  },
+  }
+]
+
+const subFilters = [
   {
     name: "about.location.address.addressCountry",
     type: "dropdown",
@@ -220,6 +223,30 @@ class Filters extends React.Component {
                 }
               })}
 
+            </div>
+
+            <div className="subFilters">
+              {subFilters.map(filterDef => {
+                const aggregation = this.props.aggregations[filterDef.name]
+                  && this.props.aggregations[filterDef.name].buckets.length
+                  ? this.props.aggregations[filterDef.name] : null
+                const filter = this.props.filters[filterDef.name] || []
+                if (!aggregation) {
+                  return
+                }
+                return (
+                  <DropdownFilter
+                    key={filterDef.name}
+                    icon={filterDef.icon}
+                    aggregation={aggregation}
+                    filter={filter}
+                    filterName={`filter.${filterDef.name}`}
+                    submit={onSubmit}
+                    translate={this.props.translate}
+                    translateItems={filterDef.translate ? this.props.translate : undefined}
+                  />
+                )
+              })}
             </div>
 
             <div

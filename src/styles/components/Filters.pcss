@@ -55,7 +55,8 @@
     }
   }
 
-  & .filterType {
+  & .filterType,
+  & .subFilters {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -5px;
@@ -89,26 +90,16 @@
     }
 
     & .ButtonFilter {
-      width: 66.666%;
+      width: 100%;
       display: flex;
       flex-wrap: nowrap;
 
       & .filterBox {
-        display: none;
         padding: 0 2px;
         flex-grow: 1;
 
         & .btn {
           text-align: center;
-        }
-
-        &.value-Service,
-        &.value-Person,
-        &.value-Organization,
-        &.value-Event,
-        &.value-Article,
-        &.value-Action {
-          display: block;
         }
       }
     }
@@ -150,6 +141,15 @@
       &:active {
         color: var(--white);
         background: var(--primary-color);
+      }
+    }
+  }
+
+  & .subFilters {
+    & .DropdownFilter {
+      flex: 1;
+      & .btn.expand {
+        max-width: 100%;
       }
     }
   }
