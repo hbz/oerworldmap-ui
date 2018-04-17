@@ -25,6 +25,8 @@ class MiniMap extends React.Component {
 
     this.MiniMap = new mapboxgl.Map({
       container: this.MiniMapContainer,
+      center: [0, 0],
+      zoom: 1,
       style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`
     })
 
