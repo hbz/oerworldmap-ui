@@ -1,5 +1,6 @@
 /* global document */
 /* global window */
+/* global navigator */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -57,7 +58,8 @@ class Map extends React.Component {
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
       center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
       zoom: center.zoom || 1,
-      maxBounds: bounds
+      maxBounds: bounds,
+      preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1
     })
 
     this.map.once('load', () => {
