@@ -172,7 +172,10 @@ class MiniMap extends React.Component {
       this.MiniMap.flyTo({center, zoom})
     } else {
       setTimeout(() => {
-        this.MiniMap.fitBounds(turf.bbox(this.props.features), {padding: 20})
+        this.MiniMap.fitBounds(turf.bbox(this.props.features), {
+          padding: 20,
+          maxZoom: 3
+        })
       }, 0)
     }
   }
