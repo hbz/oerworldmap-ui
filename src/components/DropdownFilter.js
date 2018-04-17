@@ -76,7 +76,9 @@ class DropdownFilter extends React.Component {
         >
           <span className="btnText">
             {this.props.icon ? (
-              <i className={`fa fa-${this.props.icon}`} />
+              <span>
+                <i className={`fa fa-${this.props.icon}`} /> {this.props.translate(this.props.filterName)}
+              </span>
             ) : (
               this.props.filter.map(
                 filter => this.props.aggregation.buckets.find(bucket => bucket.key === filter)
