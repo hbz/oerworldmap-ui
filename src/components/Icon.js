@@ -11,7 +11,7 @@ const icons = {
   Concept: 'tag',
   ConceptScheme: 'sitemap',
   Event: 'calendar',
-  WebPage: 'book',
+  WebPage: 'file',
   Product: 'wrench'
 }
 
