@@ -337,11 +337,15 @@ class Filters extends React.Component {
                           onSubmit(evt, this.props.emitter)
                         }}
                       >
-                        <option value="dateCreated:DESC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
-                        <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
-                        {this.props.query &&
+                        {this.props.query ? (
                           <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                        ) : (
+                          <option value="">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                        )}
+                        {this.props.query &&
+                          <option value="dateCreated:DESC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
                         }
+                        <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
                       </select>
                     </span>
                   </span>
