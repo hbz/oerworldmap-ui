@@ -80,6 +80,11 @@
       position: relative;
       height: 280px;
 
+      &:hover .image {
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
       & .image {
         position: relative;
         float: left;
@@ -88,6 +93,7 @@
         background: white;
         border-radius: var(--border-radius);
         pointer-events: none;
+        transition: opacity 0.5s;
 
         & img {
           padding: 10px;
