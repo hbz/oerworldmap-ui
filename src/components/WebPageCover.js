@@ -28,9 +28,6 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
           onLoad={e => {
             e.target.style.visibility = 'visible'
           }}
-          onError={e => {
-            e.target.remove()
-          }}
           aria-label={translate(about.name)}
         />
       }
