@@ -178,6 +178,9 @@ class MiniMap extends React.Component {
         })
       }, 0)
     }
+    setTimeout(() => {
+      this.MiniMap.resize()
+    }, 0)
   }
 
   render() {
