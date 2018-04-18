@@ -65,11 +65,16 @@ class MiniMap extends React.Component {
       this.updateMap(this.props.features, this.props.draggable, this.props.zoomable)
       window.dispatchEvent(new Event('resize'))
     })
+
+    // document.addEventListener('resize', () => {
+    //   this.MiniMap.resize()
+    // })
   }
 
   componentWillReceiveProps(nextProps) {
     this.updateMap(nextProps.features, nextProps.draggable,
       nextProps.zoomable, nextProps.center, nextProps.zoom)
+    console.log(nextProps)
   }
 
   shouldComponentUpdate() {
@@ -178,6 +183,9 @@ class MiniMap extends React.Component {
         })
       }, 0)
     }
+    setTimeout(() => {
+      this.MiniMap.resize()
+    }, 0)
   }
 
   render() {
