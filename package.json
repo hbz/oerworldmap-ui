@@ -90,6 +90,7 @@
     "react-markdown": "^3.3.0",
     "react-select": "^1.2.1",
     "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
+    "turf": "^3.0.14",
     "url-template": "^2.0.8",
     "webpack": "^4.5.0",
     "webpack-dev-middleware": "^3.1.2",

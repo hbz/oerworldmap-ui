@@ -2,6 +2,7 @@
 /* global Event */
 import React from 'react'
 import PropTypes from 'prop-types'
+import turf from 'turf'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -24,9 +25,9 @@ class MiniMap extends React.Component {
 
     this.MiniMap = new mapboxgl.Map({
       container: this.MiniMapContainer,
-      style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`,
-      center: this.props.center,
-      zoom: this.props.zoom
+      center: [0, 0],
+      zoom: 1,
+      style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`
     })
 
     this.canvas = this.MiniMap.getCanvasContainer()
@@ -169,6 +170,13 @@ class MiniMap extends React.Component {
     }
     if (center && zoom) {
       this.MiniMap.flyTo({center, zoom})
+    } else {
+      setTimeout(() => {
+        this.MiniMap.fitBounds(turf.bbox(this.props.features), {
+          padding: 20,
+          maxZoom: 3
+        })
+      }, 0)
     }
   }
 
@@ -206,8 +214,8 @@ MiniMap.propTypes = {
 }
 
 MiniMap.defaultProps = {
-  center: [-81.00637440726905, 43.32529936429404],
-  zoom: 10,
+  center: undefined,
+  zoom: undefined,
   features: {
     "type": "FeatureCollection",
     "features": []
