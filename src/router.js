@@ -164,6 +164,7 @@ export default (api) => {
             {...data}
             className="countryView"
             mapboxConfig={context.mapboxConfig}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
           >
             <Country
               iso3166={data.iso3166}
