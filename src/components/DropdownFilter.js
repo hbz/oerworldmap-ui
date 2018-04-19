@@ -30,9 +30,7 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
-    const list = (this.props.aggregation.buckets.filter(
-      item => this.props.translateItems(item.label || item.key).toLowerCase().includes(this.state.search.toLowerCase())
-    ) || this.props.aggregation.buckets).map((bucket, i) => (
+    const list = this.props.aggregation.buckets.map((bucket, i) => (
       <li key={bucket.key}>
         <input
           type="checkbox"
@@ -42,6 +40,13 @@ class DropdownFilter extends React.Component {
           defaultChecked={this.props.filter.includes(bucket.key)}
         />
         <label
+          style={{
+            display: (this.state.search.length === 0) ||
+              (
+                this.props.translateItems(bucket.label || bucket.key).toLowerCase().includes(this.state.search.toLowerCase())
+                || bucket.key.toLowerCase() === this.state.search.toLowerCase()
+              )
+              ? 'block' : 'none'}}
           htmlFor={this.props.filterName+i}
           onKeyDown={e => {
             if (e.keyCode === 13) {
