@@ -1,4 +1,5 @@
 /* global FormData */
+/* global Event */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -25,10 +26,11 @@ const onSubmit = (e, emitter) => {
   emitter.emit('navigate', '?' + parameters)
 }
 
-const onReset = (e, emitter) => {
+const onReset = e => {
+  const form = e.target.parentElement.form || e.target.form || e.target
   e.preventDefault()
-  clearForm(e.target.parentElement.form || e.target.form || e.target)
-  emitter.emit('navigate', '/resource/')
+  clearForm(form, ['q'])
+  form.dispatchEvent(new Event('submit'))
 }
 
 const primaryFilters = [
@@ -134,7 +136,7 @@ class Filters extends React.Component {
         <form
           action=""
           onSubmit={(evt) => onSubmit(evt, this.props.emitter)}
-          onReset={(evt) => onReset(evt, this.props.emitter)}
+          onReset={(evt) => onReset(evt)}
         >
           <div className="FiltersControls">
             <div className="filterSearch">

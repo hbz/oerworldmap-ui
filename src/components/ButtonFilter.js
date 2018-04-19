@@ -27,7 +27,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
                 name="filter.about.@type"
                 id={"type:" + bucket.key}
                 onChange={(e) => {
-                  clearForm(e.target.parentElement.form || e.target.form || e.target)
+                  clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
                   e.target.checked = true
                   submit(e, emitter)
                 }}
@@ -37,7 +37,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
                 onClick={e => {
                   // Clear filters if type filter unchecked
                   if (filter.includes(bucket.key)) {
-                    clearForm(e.target.parentElement.form || e.target.form || e.target)
+                    clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
                     submit(e, emitter)
                   }
                 }}
