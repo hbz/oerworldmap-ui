@@ -1,4 +1,7 @@
-/* global btoa*/
+/* global btoa */
+/* global document */
+/* global Event */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
@@ -35,19 +38,16 @@ const loadHypothesis = () => {
 class WebPageView extends React.Component {
 
   componentDidMount() {
-    console.log("load hypo")
+    loadHypothesis()
+  }
+
+  componentDidUpdate() {
+    unloadHypothesis()
     loadHypothesis()
   }
 
   componentWillUnmount() {
-    console.log("unload hypo")
     unloadHypothesis()
-  }
-
-  componentDidUpdate() {
-    console.log("reload hypo")
-    unloadHypothesis()
-    loadHypothesis()
   }
 
   render () {
