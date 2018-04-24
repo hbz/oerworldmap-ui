@@ -141,7 +141,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
                 <ul className="spaceSeparatedList">
-                  {about.keywords.map(keyword => (
+                  {about.keywords.sort((a,b) => a > b).map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
                         {keyword}

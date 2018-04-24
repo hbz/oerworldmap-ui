@@ -14,7 +14,7 @@ import withEmitter from './withEmitter'
 
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count }) => (
   <ul className={`ItemList ${className}`} >
-    {listItems.map(listItem => (
+    {listItems.sort((a, b) => translate(a.name) > translate(b.name)).map(listItem => (
       <li
         id={listItem['@id']}
         key={listItem['@id']}
