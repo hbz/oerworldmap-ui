@@ -29,6 +29,26 @@ class Columns extends React.Component {
     return (
       <aside
         className={`Columns ${this.state.show ? '' : 'hideColumns'}`}
+        onTransitionEnd={e => {
+          if (e.propertyName === 'transform') {
+            const columnContent = e.target.querySelector('.wrapper-ItemList-Pagination')
+            const filtersControls = e.target.querySelector('.filtersControls')
+            const sortContainer = e.target.querySelector('.sortContainer')
+            const secondary = e.target.querySelector('.secondary')
+
+            if (e.target.classList.contains('hideColumns')) {
+              columnContent.style.display = 'none'
+              filtersControls.style.display = 'none'
+              sortContainer.style.display = 'none'
+              secondary.style.display = 'none'
+            } else {
+              columnContent.style.display = 'block'
+              filtersControls.style.display = 'block'
+              sortContainer.style.display = 'block'
+              secondary.style.display = 'block'
+            }
+          }
+        }}
       >
         {this.props.children}
       </aside>
