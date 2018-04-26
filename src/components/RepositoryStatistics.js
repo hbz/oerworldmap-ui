@@ -8,7 +8,7 @@ import withEmitter from './withEmitter'
 
 // import '../styles/components/RepositoryStatistics.pcss'
 
-const PieChart = ({data, emitter, translate}) => {
+const PieChart = ({data}) => {
 
   const el = createElement('svg')
   el.setAttribute("width", "400")
