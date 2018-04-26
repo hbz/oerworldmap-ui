@@ -297,7 +297,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
           {about.contactPoint &&
             <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
-              <ItemList listItems={about.contactPoint} className="prominent" />
+              <ItemList
+                listItems={about.contactPoint
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -385,7 +389,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} className="prominent" />
+                  <ItemList
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
                 </Block>
               )
             )
@@ -398,7 +406,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.agentIn`)}
             >
-              <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} className="prominent" />
+              <ItemList
+                listItems={about.agentIn.filter(item => item['@type'] === 'Action')
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -413,7 +425,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} className="prominent" />
+                  <ItemList
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
                 </Block>
               )
             )
@@ -429,6 +445,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={
                   [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
+                    .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
               />
@@ -457,6 +474,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={
                   [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+                    .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
               />
@@ -470,13 +488,21 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
             >
-              <ItemList listItems={about.hasPart} className="prominent" />
+              <ItemList
+                listItems={about.hasPart
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
           {about.isPartOf &&
             <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
-              <ItemList listItems={[about.isPartOf]} className="prominent" />
+              <ItemList
+                listItems={[about.isPartOf]
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -492,7 +518,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.${prop}`)}
             >
-              <ItemList listItems={about[prop]} className="prominent" />
+              <ItemList
+                listItems={about[prop]
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           ))}
 
