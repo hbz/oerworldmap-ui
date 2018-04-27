@@ -60,7 +60,7 @@
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "compression": "^1.7.2",
-    "d3": "^5.0.0",
+    "d3": "^5.1.0",
     "deepmerge": "^2.0.1",
     "dotenv": "^5.0.1",
     "es6-promise": "^4.2.4",
@@ -87,14 +87,14 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-faux-dom": "^4.1.0",
-    "react-hot-loader": "^4.0.1",
+    "react-hot-loader": "^4.1.0",
     "react-markdown": "^3.3.0",
     "react-select": "^1.2.1",
     "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
     "turf": "^3.0.14",
     "url-template": "^2.0.8",
-    "webpack": "^4.5.0",
+    "webpack": "^4.6.0",
     "webpack-dev-middleware": "^3.1.2",
-    "webpack-hot-middleware": "^2.22.0"
+    "webpack-hot-middleware": "^2.22.1"
   }
 }
