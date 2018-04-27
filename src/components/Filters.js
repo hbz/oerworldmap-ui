@@ -128,7 +128,6 @@ class Filters extends React.Component {
   }
 
   render() {
-
     const filter = this.props.filters && this.props.filters['about.@type'] || false
     return (
       <nav className="Filters">
@@ -152,6 +151,7 @@ class Filters extends React.Component {
                 type="search"
                 name="q"
                 defaultValue={this.props.query}
+                key={this.props.query}
                 placeholder={`${this.props.translate('ResourceIndex.index.searchMap')}...`}
               />
 
