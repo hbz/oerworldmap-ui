@@ -35,6 +35,9 @@ class MiniMap extends React.Component {
 
     this.MiniMap.on('load', () => {
 
+      this.MiniMap.dragRotate.disable()
+      this.MiniMap.touchZoomRotate.disableRotation()
+
       if (this.props.draggable) {
         const nav = new mapboxgl.NavigationControl({showCompass:false})
         this.MiniMap.addControl(nav, 'bottom-left')
