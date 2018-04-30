@@ -1,0 +1,19 @@
+<h3>{{ include.title }}</h3>
+
+<form method="post" action="https://oerworldmap.org/user/newsletter">
+  <div class="row">
+    
+    <div class="col">
+      <input class="width-100" type="email" name="email" placeholder="{{ include.placeholder }}" />
+    </div>
+    
+    <div class="col">
+      <button class="btn width-100" type="submit">{{ include.button }}</button>
+    </div>
+    
+  </div>
+</form>
+
+<p>
+  {{ include.subline }}
+</p>

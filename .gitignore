@@ -3,3 +3,4 @@ dist
 npm-debug.log
 .env
 .vscode/
+docs/_site/
