@@ -45,16 +45,14 @@ class Header extends React.Component {
           </Link>
         </nav>
 
-        <nav
+        <button
           className="menuToggle mobile"
-          tabIndex="0"
-          role="button"
           onClick={() => {this.setState({showMobileMenu:!this.state.showMobileMenu})}}
           onKeyDown={triggerClick}
           ref={el => this.menuToggle = el}
         >
           <i className="fa fa-bars" />
-        </nav>
+        </button>
 
         <nav className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}>
 
