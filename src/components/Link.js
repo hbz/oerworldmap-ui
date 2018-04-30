@@ -29,6 +29,7 @@ class Link extends React.Component {
   render() {
     return (
       <a
+        rel={this.props.rel}
         title={this.props.title}
         className={this.props.className}
         href={this.getRef()}
@@ -52,7 +53,8 @@ Link.propTypes = {
   className: PropTypes.string,
   dataShow: PropTypes.string,
   title: PropTypes.string,
-  target: PropTypes.string
+  target: PropTypes.string,
+  rel: PropTypes.string
 }
 
 Link.defaultProps = {
@@ -60,7 +62,8 @@ Link.defaultProps = {
   title: null,
   dataShow: null,
   target: null,
-  href: ''
+  href: '',
+  rel: null
 }
 
 export default withEmitter(Link)
