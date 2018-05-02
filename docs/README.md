@@ -1,4 +1,4 @@
-# oerworldmap-static
+# OER World Map static content
 Static content, such as pages and images, for https://oerworldmap.org
 
 ## Development

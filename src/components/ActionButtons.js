@@ -84,7 +84,7 @@ class ActionButtons extends React.Component {
           title={this.props.translate('ClientTemplates.app.lighthouses')}
         >
           <img
-            src='/assets/icon_lighthouse_static_transparent.svg'
+            src='/public/icon_lighthouse_static_transparent.svg'
             className="lighthouse"
             alt="Lighthouse"
           />
