@@ -54,6 +54,14 @@ Die OER World Map sammelt Daten über Akteure und Aktivitäten aus dem Bereich d
 
 Es gibt noch viele Möglichkeiten dieses Modell in der Zukunft auszubauen.
 
+## Was muss ich beachten, wenn ich einen Leuchtturm setze?
+
+Der Ljubjlana Action Plan betont die Wichtigkeit, Good-Practise-Beispiele zu identifizieren, die gezeigt haben, wie die Produktion, das Teilen und die Nutzung von OER nachhaltig organisiert werden können. Von den Erfahrungen anderer Länder zu lernen ist nach unserer Überzeugung der Schlüssel zur einer schnellen weltweiten Verbreitung von OER. Helfen Sie uns Good-Practise-Beispiele zu identifizieren und markieren Sie diese mit einem Leuchtturm!
+
+Einen Leuchtturm zu setzen ist einfach: Wenn Sie eingeloggt sind, klicken Sie auf das Leuchtturm-Symbol auf der Profilseite des Eintrags, den Sie markieren möchten. Anschließend beschreiben Sie im Kommentar-Feld, was man von diesem Beispiel lernen kann.
+
+Bitte setzen Sie keine Leuchttürme für Initiative, für die Sie arbeiten!
+
 ## Wo sind die Open Educational Resources?
 
 Wir denken, dass das Auffinden einzelner Ressourcen von einem suchmaschinenbasierten Service geleistet werden sollte. Die OER World Map erleichtert das Auffinden von OER indirekt, indem sie Listen von passenden OER-Services liefert.
@@ -102,11 +110,11 @@ Wir halten Datenschutz für sehr wichtig. Sie finden Informationen dazu in unser
 
 ## Wie kann ich eine Story teilen?
 
-Wir freuen uns, wenn Sie Ihre OER-Story mit der Community teilen und anderen von Ihren OER-Aktivitäten berichten wollen! Themen können sein OER-Projekte oder -Initiativen, Open Educational Practices, beispielsweise OER erstellen oder mit OER unterrichten, das Schreiben von OER-Richtlinien oder -Strategien, neue Erkenntnisse und Forschungsergebnisse zu OER, sowie das Entwickeln oder Verwenden nützlicher Tools für OER. Wählen Sie einen aussagekräftigen Titel und schreiben Sie einen Text (nicht mehr als 5000 Zeichen), der beschreibt, wer was wann warum und wie getan hat. Ein Foto zur Geschichte wäre schön. Bitte beachten Sie, dass Storys unter [CC-BY](https://creativecommons.org/licenses/by/4.0/) veröffentlicht werden. Wenn Sie eine OER-Story teilen wollen, registrieren Sie sich bitte und tragen Sie sie als Story auf der OER World Map ein. Wir freuen uns, von Ihnen zu lesen! Sie können auch Artikel oder Blogposts wiederveröffentlichen, wenn sie entsprechend lizenziert sind.
+Wir freuen uns, wenn Sie Ihre OER-Story mit der Community teilen und anderen von Ihren OER-Aktivitäten berichten wollen! Themen können sein OER-Projekte oder -Initiativen, Open Educational Practices, beispielsweise OER erstellen oder mit OER unterrichten, das Schreiben von OER-Richtlinien oder -Strategien, neue Erkenntnisse und Forschungsergebnisse zu OER, sowie das Entwickeln oder Verwenden nützlicher Tools für OER. Wählen Sie einen aussagekräftigen Titel und schreiben Sie einen Text (nicht mehr als 5000 Zeichen), der beschreibt, wer was wann warum und wie getan hat. Ein Foto zur Geschichte wäre schön. Bitte beachten Sie, dass Ihre Story unter [CC-BY](https://creativecommons.org/licenses/by/4.0/) veröffentlicht wird. Wenn Sie eine OER-Story teilen wollen, registrieren Sie sich bitte und tragen Sie sie als Story auf der OER World Map ein. Wir freuen uns, von Ihnen zu lesen! Sie können auch Artikel oder Blogposts wiederveröffentlichen, wenn sie entsprechend lizenziert sind.
 
 ## Wollen Sie nur von Lehrenden hören, oder auch von Lernenden?
 
-Ja, wir wollen auch von Schülern und Studenten hören. Unserer Überzeugung nach ist die Stimme der Lernenden in den Diskussionen über OER häufig nicht laut genug. Wir wollen von allen hören, wie ihre Erfahrungen mit OER sind, besonders aus der Perspektive der Lernenden!
+Ja! wir wollen auch von Schülern und Studenten hören. Unserer Überzeugung nach ist die Stimme der Lernenden in den Diskussionen über OER häufig nicht laut genug. Wir wollen von allen hören, wie ihre Erfahrungen mit OER sind, besonders aus der Perspektive der Lernenden!
 
 ## Was bedeutet es, Country Champion zu sein?
 
