@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import jsonPointer from 'json-pointer'
 import { forOwn, isUndefined, isNull,
-  isNaN, isString, isEmpty, isObject, isArray, pull } from 'lodash'
+  isNaN, isString, isEmpty, isObject, isArray, pull, uniqueId } from 'lodash'
 
 const prune = (current) => {
   forOwn(current, (value, key) => {
@@ -26,12 +26,14 @@ class Form extends React.Component {
       formData: props.data,
       formErrors: []
     }
+    this.id = props.id || uniqueId()
     this.lastUpdate = ""
     this.lastOp = null
   }
 
   getChildContext() {
     return {
+      formId: this.id,
       setValue: this.setValue.bind(this),
       getValue: this.getValue.bind(this),
       getValidationErrors: this.getValidationErrors.bind(this),
@@ -114,6 +116,7 @@ Form.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),
   action: PropTypes.string,
   method: PropTypes.string,
+  id: PropTypes.string,
   onSubmit: PropTypes.func,
   onError: PropTypes.func,
   validate: PropTypes.func,
@@ -124,12 +127,14 @@ Form.defaultProps = {
   data: {},
   action: '',
   method: 'get',
+  id: undefined,
   onSubmit: formData => console.log(formData),
   onError: formErrors => console.error(formErrors),
   validate: () => true
 }
 
 Form.childContextTypes = {
+  formId: PropTypes.string,
   setValue: PropTypes.func,
   getValue: PropTypes.func,
   getValidationErrors: PropTypes.func,

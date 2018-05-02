@@ -14,6 +14,8 @@ import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
 
+require('formdata-polyfill');
+
 (function () {
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -43,7 +45,7 @@ import Link from './components/Link'
         : document.querySelector('.webPageWrapper')
           && (document.querySelector('.webPageWrapper').scrollTop = 0)
 
-      document.title = title
+      document.title = `OER World Map - ${title}`  
       referrer = window.location.href
     }
 
