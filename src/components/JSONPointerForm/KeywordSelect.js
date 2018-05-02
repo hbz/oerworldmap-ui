@@ -25,14 +25,22 @@ class KeywordSelect extends React.Component {
   }
 
   render() {
-    const {name, value, setValue, property, className, title, translate, errors} = this.props
+    const {
+      name, value, setValue, property, className, title, translate, errors, formId, required
+    } = this.props
+
     return (
       <div
         className={`KeywordSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         role="group"
-        aria-labelledby={`${name}-label`}
+        aria-labelledby={`${formId}-${name}-label`}
       >
-        <div className="label" id={`${name}-label`}>{translate(title)}</div>
+        <div
+          className={`label ${required ? 'required' : ''}`.trim()}
+          id={`${formId}-${name}-label`}
+        >
+          {translate(title)}
+        </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
@@ -62,7 +70,9 @@ KeywordSelect.propTypes = {
   translate: PropTypes.func.isRequired,
   value: PropTypes.arrayOf(PropTypes.any),
   api: PropTypes.objectOf(PropTypes.any).isRequired,
-  setValue: PropTypes.func.isRequired
+  setValue: PropTypes.func.isRequired,
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 KeywordSelect.defaultProps = {
@@ -70,7 +80,8 @@ KeywordSelect.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  value: []
+  value: [],
+  required: false
 }
 
 export default withApi(withFormData(KeywordSelect))

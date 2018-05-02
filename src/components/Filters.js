@@ -1,4 +1,5 @@
 /* global FormData */
+/* global Event */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -25,19 +26,23 @@ const onSubmit = (e, emitter) => {
   emitter.emit('navigate', '?' + parameters)
 }
 
-const onReset = (e, emitter) => {
+const onReset = e => {
+  const form = e.target.parentElement.form || e.target.form || e.target
   e.preventDefault()
-  clearForm(e.target.parentElement.form || e.target.form || e.target)
-  emitter.emit('navigate', '/resource/')
+  clearForm(form, ['q'])
+  form.dispatchEvent(new Event('submit'))
 }
 
 const primaryFilters = [
   {
     name: "about.@type",
     type: "button",
-    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article'],
+    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage'],
     translate: true
-  },
+  }
+]
+
+const subFilters = [
   {
     name: "about.location.address.addressCountry",
     type: "dropdown",
@@ -123,20 +128,30 @@ class Filters extends React.Component {
   }
 
   render() {
+    const filter = this.props.filters && this.props.filters['about.@type'] || false
     return (
       <nav className="Filters">
 
         <form
           action=""
           onSubmit={(evt) => onSubmit(evt, this.props.emitter)}
-          onReset={(evt) => onReset(evt, this.props.emitter)}
+          onReset={(evt) => onReset(evt)}
         >
           <div className="FiltersControls">
             <div className="filterSearch">
+
+              <button type="submit">
+                <i
+                  className="fa fa-search"
+                  title="Search"
+                />
+              </button>
+
               <input
                 type="search"
                 name="q"
                 defaultValue={this.props.query}
+                key={this.props.query}
                 placeholder={`${this.props.translate('ResourceIndex.index.searchMap')}...`}
               />
 
@@ -210,6 +225,30 @@ class Filters extends React.Component {
                 }
               })}
 
+            </div>
+
+            <div className="subFilters">
+              {subFilters.map(filterDef => {
+                const aggregation = this.props.aggregations[filterDef.name]
+                  && this.props.aggregations[filterDef.name].buckets.length
+                  ? this.props.aggregations[filterDef.name] : null
+                const filter = this.props.filters[filterDef.name] || []
+                if (!aggregation) {
+                  return
+                }
+                return (
+                  <DropdownFilter
+                    key={filterDef.name}
+                    icon={filterDef.icon}
+                    aggregation={aggregation}
+                    filter={filter}
+                    filterName={`filter.${filterDef.name}`}
+                    submit={onSubmit}
+                    translate={this.props.translate}
+                    translateItems={filterDef.translate ? this.props.translate : undefined}
+                  />
+                )
+              })}
             </div>
 
             <div
@@ -295,16 +334,20 @@ class Filters extends React.Component {
           <div className="sortContainer">
             <section className="listOptions">
               <div>
-                <span className="arrowWrapper">
-                  <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
-                    {this.sizes.map(number => (
-                      number >= 0 &&
+                {(filter === false || !filter.includes('Event')) &&
+                <span>
+                  <span className="arrowWrapper">
+                    <select onChange={e => onSubmit(e, this.props.emitter)} className="styledSelect totalSelect" name="size" value={this.props.size}>
+                      {this.sizes.map(number => (
+                        number >= 0 &&
                         <option key={number} value={number}>{number}</option>
-                    ))}
-                    <option value="-1">{this.props.translate('Pagination.all')}</option>
-                  </select>
+                      ))}
+                      <option value="-1">{this.props.translate('Pagination.all')}</option>
+                    </select>
+                  </span>
+                  {this.props.translate('Pagination.of')}&nbsp;
                 </span>
-                {this.props.translate('Pagination.of')}&nbsp;
+                }
                 <span className="counter">
                   <span>{this.props.totalItems}</span>
                   &nbsp;{this.props.translate('ResourceIndex.index.results')}
@@ -323,11 +366,15 @@ class Filters extends React.Component {
                           onSubmit(evt, this.props.emitter)
                         }}
                       >
-                        <option value="dateCreated:DESC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
-                        <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
-                        {this.props.query &&
+                        {this.props.query ? (
                           <option value="">{this.props.translate('ClientTemplates.filter.relevance')}</option>
+                        ) : (
+                          <option value="">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
+                        )}
+                        {this.props.query &&
+                          <option value="dateCreated:DESC">{this.props.translate('ClientTemplates.filter.dateCreated')}</option>
                         }
+                        <option value="about.name.@value.sort:ASC">{this.props.translate('ClientTemplates.filter.alphabetical')}</option>
                       </select>
                     </span>
                   </span>

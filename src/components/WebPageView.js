@@ -141,7 +141,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
                 <ul className="spaceSeparatedList">
-                  {about.keywords.map(keyword => (
+                  {about.keywords.sort((a,b) => a > b).map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
                         {keyword}
@@ -240,6 +240,20 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </div>
           }
 
+          {about.award &&
+            <Block className="list" title={translate(`${about['@type']}.award`)}>
+              <ul className="ItemList award">
+                {about.award.map(award => (
+                  <li key={award}>
+                    <a className="item" href={award} target="_blank" rel="noopener">
+                      <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          }
+
           {about.email &&
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
@@ -283,7 +297,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
           {about.contactPoint &&
             <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
-              <ItemList listItems={about.contactPoint} className="prominent" />
+              <ItemList
+                listItems={about.contactPoint
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -371,7 +389,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} className="prominent" />
+                  <ItemList
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
                 </Block>
               )
             )
@@ -384,7 +406,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.agentIn`)}
             >
-              <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} className="prominent" />
+              <ItemList
+                listItems={about.agentIn.filter(item => item['@type'] === 'Action')
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -399,7 +425,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} className="prominent" />
+                  <ItemList
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
                 </Block>
               )
             )
@@ -415,6 +445,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={
                   [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
+                    .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
               />
@@ -443,6 +474,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={
                   [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+                    .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
               />
@@ -456,13 +488,21 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
             >
-              <ItemList listItems={about.hasPart} className="prominent" />
+              <ItemList
+                listItems={about.hasPart
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
           {about.isPartOf &&
             <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
-              <ItemList listItems={[about.isPartOf]} className="prominent" />
+              <ItemList
+                listItems={[about.isPartOf]
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -478,23 +518,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.${prop}`)}
             >
-              <ItemList listItems={about[prop]} className="prominent" />
+              <ItemList
+                listItems={about[prop]
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           ))}
-
-          {about.award &&
-            <Block className="list" title={translate(`${about['@type']}.award`)}>
-              <ul className="ItemList award">
-                {about.award.map(award => (
-                  <li key={award}>
-                    <a className="item" href={award} target="_blank" rel="noopener">
-                      <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          }
 
           {about.license &&
             <Block title={translate(`${about['@type']}.license`)}>

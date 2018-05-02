@@ -15,6 +15,7 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
     {dateModified && (
       expose('logEntry', user, about) ? (
         <Link
+          target="_blank"
           href={`/log/${about["@id"]}`}
           title={formatDate(dateModified, moment)}
         >

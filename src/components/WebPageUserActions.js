@@ -85,7 +85,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
   return (
     <div className="WebPageUserActions">
 
-      {['Organization', 'Action', 'Service', 'Product'].indexOf(about['@type']) !== -1 &&
+      {['Organization', 'Action', 'Service', 'Product', 'Event'].includes(about['@type']) &&
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggleLike()}>
             <button className={`btn ${like ? 'active': ''}`} type="submit" title={translate('Like')}>
@@ -96,19 +96,11 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
         </div>
       }
 
-      {['Organization', 'Action', 'Service'].indexOf(about['@type']) !== -1 &&
+      {['Organization', 'Action', 'Service', 'Event'].includes(about['@type']) &&
         <div className="action">
           <a href="#addLighthouse" className={`btn ${lighthouse['@id'] ? 'active': ''}`}>
-            <img
-              className="i hidden-hover hidden-active"
-              src="/assets/lighthouse_16px_blue.svg"
-              alt="Lighthouse"
-            />
-            <img
-              className="i visible-hover visible-active"
-              src="/assets/lighthouse_16px_white.svg"
-              alt="Lighthouse"
-            />
+            <img className="i blueLighthouse" src="/assets/lighthouse_16px_blue.svg" alt="Lighthouse" />
+            <img className="i whiteLighthouse" src="/assets/lighthouse_16px_white.svg" alt="Lighthouse" />
             {translate('Lighthouse')}
           </a>
         </div>

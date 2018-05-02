@@ -80,7 +80,7 @@ class ActionButtons extends React.Component {
           <i className="fa fa-thumbs-up" />
         </Link>
         <Link
-          href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=like_count:DESC"
+          href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC"
           title={this.props.translate('ClientTemplates.app.lighthouses')}
         >
           <img

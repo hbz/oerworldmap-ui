@@ -9,6 +9,7 @@ import RemoteSelect from './RemoteSelect'
 import Textarea from './Textarea'
 import PlaceWidget from './PlaceWidget'
 import KeywordSelect from './KeywordSelect'
+import LocalizedString from './LocalizedString'
 
 import withI18n from '../withI18n'
 
@@ -17,14 +18,16 @@ class Builder extends React.Component {
   constructor(props) {
     super(props)
     this.getComponent = this.getComponent.bind(this)
-    this.formComponents = this.getComponent(props.schema)
   }
 
   getComponent(schema) {
 
     const {translate, config} = this.props
     const widgets = Object.assign(
-      {Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget, KeywordSelect},
+      {
+        Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget, KeywordSelect,
+        LocalizedString
+      },
       this.props.widgets
     )
     const className = schema._display ? schema._display.className : undefined
@@ -39,6 +42,7 @@ class Builder extends React.Component {
     const props = {
       title: schema.title,
       description: schema.description,
+      placeholder: schema._display && schema._display.placeholder,
       config,
       className,
       translate
@@ -55,7 +59,7 @@ class Builder extends React.Component {
         ? <DropdownSelect {...props} options={schema.enum} />
         : schema._display && schema._display.rows > 1
           ? <Textarea {...props} />
-          : <Input {...props} type={schema._display && schema._display.type ? schema._display.type: "text"} />
+          : <Input {...props} type={schema._display && schema._display.type || "text"} />
     case 'integer':
     case 'number':
       return <Input {...props} type="number" />
@@ -68,7 +72,9 @@ class Builder extends React.Component {
         <Fieldset {...props}>
           {Object.keys(schema.properties).map((property) => React.cloneElement(
             this.getComponent(schema.properties[property]), {
-              property, key: property
+              property,
+              key: property,
+              required: schema.required && schema.required.includes(property)
             }
           ))}
         </Fieldset>
@@ -83,7 +89,7 @@ class Builder extends React.Component {
   render() {
     return (
       <div className="Builder">
-        {this.formComponents}
+        {this.getComponent(this.props.schema)}
       </div>
     )
   }

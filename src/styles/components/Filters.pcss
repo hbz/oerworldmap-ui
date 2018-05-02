@@ -16,7 +16,24 @@
     padding-bottom: 15px;
     position: relative;
 
-    & i {
+    & button[type=submit] {
+      position: absolute;
+      background-color: transparent;
+      border: none;
+      padding: 7px;
+      z-index: 1;
+
+      & > i {
+        color: var(--blue);
+      }
+
+      &:hover > i,
+      &:focus > i {
+        color: var(--orange);
+      }
+    }
+
+    & .fa-th-list {
       position: absolute;
       right: 14px;
       top: 50%;
@@ -36,21 +53,10 @@
       position: relative;
       background-color: white;
     }
-
-    &::after {
-      font-family: FontAwesome;
-      content: "\f002";
-      position: absolute;
-      left: 10px;
-      top: 55%;
-      transform: translateY(-100%);
-      z-index: 0;
-      color: var(--blue);
-      pointer-events: none;
-    }
   }
 
-  & .filterType {
+  & .filterType,
+  & .subFilters {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -5px;
@@ -84,26 +90,16 @@
     }
 
     & .ButtonFilter {
-      width: 66.666%;
+      width: 100%;
       display: flex;
       flex-wrap: nowrap;
 
       & .filterBox {
-        display: none;
         padding: 0 2px;
         flex-grow: 1;
 
         & .btn {
           text-align: center;
-        }
-
-        &.value-Service,
-        &.value-Person,
-        &.value-Organization,
-        &.value-Event,
-        &.value-Article,
-        &.value-Action {
-          display: block;
         }
       }
     }
@@ -145,6 +141,23 @@
       &:active {
         color: var(--white);
         background: var(--primary-color);
+      }
+    }
+  }
+
+  & .subFilters {
+    padding-top: 5px;
+
+    & .DropdownFilter {
+      flex: 1;
+
+      & .btn.expand {
+        max-width: 100%;
+        font-size: var(--font-size-xs);
+
+        & i {
+          padding-right: 10px;
+        }
       }
     }
   }

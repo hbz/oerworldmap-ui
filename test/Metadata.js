@@ -35,7 +35,7 @@ describe('<Metadata />', () => {
   )
 
   it("Generates the correct elements in metadata", () => {
-    assert.equal(wrapper.find('i')[0].attribs.class.includes('fa fa-book'), true)
+    assert.equal(wrapper.find('i')[0].attribs.class.includes('fa fa-file'), true)
     assert.equal(wrapper.children()[0].next.data.trim(), about['@type'])
     assert.equal(wrapper.find('a')[0].attribs.title, "February 22, 2018 4:26 PM")
   })

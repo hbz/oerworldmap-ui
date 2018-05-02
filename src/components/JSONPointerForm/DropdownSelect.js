@@ -42,28 +42,33 @@ class DropdownSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, options, setValue, errors, title, translate, className
+      name, property, value, options, setValue, errors, title, translate, className, formId,
+      required
     } = this.props
 
     return (
       <div
         ref={el => this.wrapper = el}
         className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
-        aria-labelledby={`${name}-label`}
+        aria-labelledby={`${formId}-${name}-label`}
       >
-        <div className="label" id={`${name}-label`}>{translate(title)}</div>
+        <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
+          {translate(title)}
+        </div>
         {value ? (
-          <div className="selectedContainer">
+          <div
+            className="selectedContainer"
+          >
             <input
               type="checkbox"
               name={name}
               value={value}
-              id={`${name}-${value}`}
+              id={`${formId}-${name}-${value}`}
               checked
               onChange={e => setValue(e.target.checked ? e.target.value : undefined)}
             />
             <label
-              htmlFor={`${name}-${value}`}
+              htmlFor={`${formId}-${name}-${value}`}
               tabIndex="0"
               role="button"
               onKeyDown={e => triggerClick(e, 13)}
@@ -72,7 +77,15 @@ class DropdownSelect extends React.Component {
             </label>
           </div>
         ) : (
-          <div className="dropdownContainer">
+          <div
+            className="dropdownContainer"
+            onKeyDown={(e) => {
+              if (e.keyCode === 27) {
+                this.setState({dropdown: false})
+              }
+            }}
+            role="presentation"
+          >
             <button
               className={`toggleDropdown ${errors.length ? 'error' : ''}`.trim()}
               onClick={e => {
@@ -93,6 +106,7 @@ class DropdownSelect extends React.Component {
                   placeholder="..."
                   onChange={e => this.setState({filter: e.target.value})}
                   value={this.state.filter}
+                  ref={el => this.state.dropdown && el && el.focus()}
                 />
               </div>
               <ul className="optionsContainer">
@@ -102,7 +116,7 @@ class DropdownSelect extends React.Component {
                       type="checkbox"
                       name={name}
                       value={option}
-                      id={`${name}-${option}`}
+                      id={`${formId}-${name}-${option}`}
                       checked={value === option}
                       onChange={e => {
                         setValue(e.target.checked ? e.target.value : undefined)
@@ -110,7 +124,7 @@ class DropdownSelect extends React.Component {
                       }}
                     />
                     <label
-                      htmlFor={`${name}-${option}`}
+                      htmlFor={`${formId}-${name}-${option}`}
                       tabIndex="0"
                       role="button"
                       onKeyDown={e => triggerClick(e, 13)}
@@ -138,7 +152,9 @@ DropdownSelect.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
   translate: PropTypes.func.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 DropdownSelect.defaultProps = {
@@ -146,7 +162,8 @@ DropdownSelect.defaultProps = {
   property: undefined,
   errors: [],
   title: '',
-  className: ''
+  className: '',
+  required: false
 }
 
 export default withFormData(DropdownSelect)
