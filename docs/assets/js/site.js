@@ -119,11 +119,35 @@ var injectStats = (function(){
 })();
 
 
+var toggleShow = (function(){
+
+  function init() {
+    $('[data-toggle-show]').each(function(){
+      init_one(this);
+    });
+  }
+
+  function init_one(one) {
+    var selector = $(one).data('toggle-show');
+    var $target = $(selector);
+    $(one).click(function(){
+      $target.toggleClass('show');
+    });
+  }
+
+  return {
+    init : init
+  };
+
+})();
+
+
 $(function(){
 
   selectHref.init();
   animateScrollToFragment.init();
   injectStats.init();
+  toggleShow.init();
 
   $('[data-slick]').slick();
 
