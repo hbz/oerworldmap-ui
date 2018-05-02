@@ -9,10 +9,10 @@ import { apiConfig } from './config'
 const ENV = process.env.NODE_ENV
 
 let Config = {
-  context: path.join(__dirname, 'docs'),
+  context: path.join(__dirname, 'src'),
   entry: [
     'babel-polyfill',
-    './assets/js/static.js'
+    './site.js'
   ],
   output: {
     path: path.join(__dirname, 'docs'),
