@@ -11,7 +11,7 @@
   padding: 20px;
   padding-top: 40px;
   color: var(--blue-dark);
-  background-image: url(https://raw.githubusercontent.com/hbz/oerworldmap-static/master/assets/img/landingpage/map-bg.png);
+  background-image: url(/public/map-bg.png);
   background-size: cover;
   background-position: center center;
 
@@ -80,6 +80,11 @@
       position: relative;
       height: 280px;
 
+      &:hover .image {
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
       & .image {
         position: relative;
         float: left;
@@ -88,6 +93,7 @@
         background: white;
         border-radius: var(--border-radius);
         pointer-events: none;
+        transition: opacity 0.5s;
 
         & img {
           padding: 10px;

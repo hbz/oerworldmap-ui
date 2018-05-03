@@ -1,5 +1,6 @@
 /* global document */
 /* global window */
+/* global navigator */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -57,10 +58,14 @@ class Map extends React.Component {
       style: `mapbox://styles/${this.props.mapboxConfig.style}`,
       center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
       zoom: center.zoom || 1,
-      maxBounds: bounds
+      maxBounds: bounds,
+      preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1
     })
 
     this.map.once('load', () => {
+
+      this.map.dragRotate.disable()
+      this.map.touchZoomRotate.disableRotation()
 
       this.map.on('zoom', this.zoom)
 
@@ -95,7 +100,7 @@ class Map extends React.Component {
 
       // Initialize choropleth layers
       this.updateChoropleth(this.props.aggregations)
-      this.updateZoom(this.props.iso3166)
+      this.updateZoom(this.props.iso3166, this.props.home, this.props.map)
       this.updateActiveCountry(this.props.iso3166)
 
       // Update URL values
@@ -121,7 +126,7 @@ class Map extends React.Component {
       })
 
       // Add mapbox controls
-      const nav = new mapboxgl.NavigationControl()
+      const nav = new mapboxgl.NavigationControl({showCompass: false})
       this.map.addControl(nav, 'bottom-left')
 
       // Receive event from Filters
@@ -152,7 +157,7 @@ class Map extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.updateChoropleth(nextProps.aggregations)
-    this.updateZoom(nextProps.iso3166)
+    this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166)
     this.updatePoints(nextProps.features)
   }
@@ -329,7 +334,7 @@ class Map extends React.Component {
     }
   }
 
-  updateZoom(iso3166) {
+  updateZoom(iso3166, home, map) {
     const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
@@ -370,9 +375,25 @@ class Map extends React.Component {
         }
       } else {
         window.setTimeout(()=> {
-          this.updateZoom(iso3166)
+          this.updateZoom(iso3166, home, map)
         }, 500)
       }
+    } else if (map) {
+      const center = {}
+      const mapParameters = map.split(',')
+
+      center.lng = (mapParameters[0] && !isNaN(mapParameters[0])) ? mapParameters[0] : null
+      center.lat = (mapParameters[1] && !isNaN(mapParameters[1])) ? mapParameters[1] : null
+      center.zoom = (mapParameters[2] && !isNaN(mapParameters[2])) ? mapParameters[2] : null
+
+      const pos = {
+        center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+        zoom: center.zoom || 1
+      }
+      this.map.flyTo(pos)
+    } else if (home) {
+      this.map.setCenter([0,0])
+      this.map.setZoom(1)
     }
   }
 
@@ -532,6 +553,12 @@ class Map extends React.Component {
             height: '100%',
             top:0,
             left: 0}}
+        onKeyDown={e => {
+          if (e.keyCode === 27 && this.props.iso3166) {
+            this.props.emitter.emit('navigate', '/resource/')
+          }
+        }}
+        role="presentation"
       >
         {this.state.overlayList &&
           <div className="overlayList" />
@@ -600,6 +627,7 @@ Map.propTypes = {
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,
+  home: PropTypes.bool.isRequired
 }
 
 Map.defaultProps = {

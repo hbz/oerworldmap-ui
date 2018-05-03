@@ -111,9 +111,10 @@ export const debounce = (func, wait, immediate) => {
 
 export const getProp = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
 
-export const clearForm = form => {
+export const clearForm = (form, exclude = []) => {
   // clearing inputs
-  const inputs = form.getElementsByTagName('input')
+  const inputs = [...form.getElementsByTagName('input')]
+    .filter(input => !exclude.includes(input.name))
   for (let i = 0; i<inputs.length; i++) {
     switch (inputs[i].type) {
     case 'radio':
@@ -127,15 +128,17 @@ export const clearForm = form => {
   }
 
   // clearing selects
-  const selects = form.getElementsByTagName('select')
+  const selects = [...form.getElementsByTagName('select')]
+    .filter(select => !exclude.includes(select.name))
   for (let i = 0; i<selects.length; i++) {
     selects[i].selectedIndex = 0
   }
 
   // clearing textarea
-  const text= form.getElementsByTagName('textarea')
-  for (let i = 0; i<text.length; i++) {
-    text[i].innerHTML= ''
+  const textareas = [...form.getElementsByTagName('textarea')]
+    .filter(textarea => !exclude.includes(textarea.name))
+  for (let i = 0; i<textareas.length; i++) {
+    textareas[i].innerHTML= ''
   }
 }
 

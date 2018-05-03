@@ -1,0 +1,22 @@
+body {
+
+  &[data-embed="true"] {
+    & .filterType.primary,
+    & .filterType.secondary,
+    & .filtersControls,
+    & .secondaryNav,
+    & .loginLink,
+    & .menuBtn,
+    & .ShareExport {
+      display: none;
+    }
+  }
+
+  &[data-embed="country"] {
+    & .loginLink,
+    & .menuBtn,
+    & .goToMap {
+      display: none;
+    }
+  }
+}

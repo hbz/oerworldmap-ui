@@ -65,7 +65,7 @@ class PlaceWidget extends React.Component {
   render() {
     const {
       name, value, errors, property, title, className, translate, schema,
-      setValue, config, description
+      setValue, config, description, formId, required
     } = this.props
 
     const geometry = value.geo && value.geo.lon && value.geo.lat
@@ -78,10 +78,15 @@ class PlaceWidget extends React.Component {
       <div
         className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         role="group"
-        aria-labelledby={`${name}-label`}
+        aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
       >
-        <div className="label" id={`${name}-label`}>{translate(title)}</div>
+        <div
+          className={`label ${required ? 'required' : ''}`.trim()}
+          id={`${formId}-${name}-label`}
+        >
+          {translate(title)}
+        </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
@@ -105,6 +110,7 @@ class PlaceWidget extends React.Component {
                 options={schema.properties.address.properties.addressCountry.enum}
                 title={schema.properties.address.properties.addressCountry.title}
                 setValue={country => setValue({address: {addressCountry: country}})}
+                required
               />
               {getProp(['address', 'addressCountry'], value) &&
                 <div>
@@ -121,8 +127,8 @@ class PlaceWidget extends React.Component {
                     })}
                   />
                   {getProp(['address', 'addressRegion'], value) &&
-                    <div className="locationForm" aria-labelledby={`${name}/address-label`}>
-                      <div className="label" id={`${name}/address-label`}>
+                    <div className="locationForm" aria-labelledby={`${formId}-${name}/address-label`}>
+                      <div className="label" id={`${formId}-${name}/address-label`}>
                         {translate('ResourceIndex.PostalAddress.edit.address')}
                       </div>
                       <div className="selectContainer">
@@ -143,7 +149,7 @@ class PlaceWidget extends React.Component {
                                   <input
                                     type="checkbox"
                                     value={option['@id']}
-                                    id={`${name}-${option['@id']}`}
+                                    id={`${formId}-${name}-${option['@id']}`}
                                     onChange={() => {
                                       const address = value.address || {}
                                       Object.assign(address, {
@@ -162,7 +168,7 @@ class PlaceWidget extends React.Component {
                                     }}
                                   />
                                   <label
-                                    htmlFor={`${name}-${option['@id']}`}
+                                    htmlFor={`${formId}-${name}-${option['@id']}`}
                                     tabIndex="0"
                                     role="button"
                                     onKeyDown={e => triggerClick(e, 13)}
@@ -245,7 +251,9 @@ PlaceWidget.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
   config: PropTypes.objectOf(PropTypes.any).isRequired,
-  description: PropTypes.string
+  description: PropTypes.string,
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 PlaceWidget.defaultProps = {
@@ -254,7 +262,8 @@ PlaceWidget.defaultProps = {
   title: '',
   description: '',
   className: '',
-  value: {}
+  value: {},
+  required: false
 }
 
 export default withApi(withFormData(PlaceWidget))

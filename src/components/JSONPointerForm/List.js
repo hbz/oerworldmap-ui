@@ -4,13 +4,20 @@ import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 import withFormData from './withFormData'
 
-const List = ({name, value, children, errors, property, title, className, translate, maxItems}) => (
+const List = ({
+  name, value, children, errors, property, title, className, translate, maxItems, formId, required
+}) => (
   <div
     className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
     role="group"
-    aria-labelledby={`${name}-label`}
+    aria-labelledby={`${formId}-${name}-label`}
   >
-    <div className="label" id={`${name}-label`}>{translate(title)}</div>
+    <div
+      className={`label ${required ? 'required' : ''}`.trim()}
+      id={`${formId}-${name}-label`}
+    >
+      {translate(title)}
+    </div>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
@@ -28,9 +35,9 @@ const List = ({name, value, children, errors, property, title, className, transl
                 type="checkbox"
                 key={`${name}-${value.length}`}
                 className="formControl"
-                id={`${name}-toggle`}
+                id={`${formId}-${name}-toggle`}
               />
-              <label htmlFor={`${name}-toggle`}>
+              <label htmlFor={`${formId}-${name}-toggle`}>
                 {translate('add', {type: translate(title)})}
               </label>
               <div className="newItem">
@@ -53,7 +60,9 @@ List.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
-  maxItems: PropTypes.number
+  maxItems: PropTypes.number,
+  formId: PropTypes.string.isRequired,
+  required: PropTypes.bool
 }
 
 List.defaultProps = {
@@ -62,7 +71,8 @@ List.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  maxItems: undefined
+  maxItems: undefined,
+  required: false
 }
 
 export default withFormData(List)

@@ -22,7 +22,7 @@ class Columns extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({show: nextProps.show || this.state.show})
+    this.setState({show: nextProps.show})
   }
 
   render() {
