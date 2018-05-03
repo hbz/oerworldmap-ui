@@ -19,7 +19,7 @@ let Config = {
     path: path.join(__dirname, 'dist'),
     publicPath: `${apiConfig.scheme}://${apiConfig.host}`
       .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
-    filename: 'assets/bundle.js'
+    filename: 'public/bundle.js'
   },
   module: {
     exprContextCritical: false,
@@ -48,7 +48,7 @@ let Config = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: 'assets/'
+            outputPath: 'public/'
           }
         }
       }
@@ -57,7 +57,7 @@ let Config = {
 
   plugins: [
     new CopyWebpackPlugin([
-      { from: 'assets', to: 'assets' },
+      { from: 'public', to: 'public' },
     ])
   ]
 
@@ -66,7 +66,7 @@ let Config = {
 if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("assets/styles.css"),
+      new ExtractTextPlugin("public/styles.css"),
     ],
     mode: 'production',
     module: {
@@ -161,7 +161,7 @@ if (ENV === 'static') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
-      new ExtractTextPlugin("assets/styles.css"),
+      new ExtractTextPlugin("public/styles.css"),
     ],
     module: {
       rules: [
