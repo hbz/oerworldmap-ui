@@ -80,9 +80,9 @@ const i18ns = {}
 supportedLanguages.map(language => {
   const i18n = {}
   bundles.forEach(bundle => {
-    const i18nfile = existsSync(`./src/locale/${bundle}_${language}.json`)
-      ? `./src/locale/${bundle}_${language}.json`
-      : `./src/locale/${bundle}.json`
+    const i18nfile = existsSync(`./docs/_data/locale/${bundle}_${language}.json`)
+      ? `./docs/_data/locale/${bundle}_${language}.json`
+      : `./docs/_data/locale/${bundle}.json`
     const obj = JSON.parse(readFileSync(i18nfile, 'utf8'))
     //FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
     if (bundle === 'descriptions') {
