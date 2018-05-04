@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import turf from 'turf'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+import centroids from '../json/centroids.json'
 
 class MiniMap extends React.Component {
 
@@ -151,7 +152,16 @@ class MiniMap extends React.Component {
   }
 
   updateMap(features, draggable, zoomable, center, zoom) {
-    this.MiniMap.getSource('points') && this.MiniMap.getSource('points').setData(features)
+
+    if (features && this.MiniMap.getSource('points')) {
+      this.MiniMap.getSource('points').setData(features)
+    } else {
+      this.MiniMap.getSource('points').setData({
+        "type": "FeatureCollection",
+        "features": []
+      })
+    }
+
     this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
     this.MiniMap.off('mouseleave', 'points', this.mouseLeave)
     this.MiniMap.off('mousedown', 'points', this.mouseDown)
@@ -174,12 +184,29 @@ class MiniMap extends React.Component {
     if (center && zoom) {
       this.MiniMap.flyTo({center, zoom})
     } else {
-      setTimeout(() => {
-        this.MiniMap.fitBounds(turf.bbox(this.props.features), {
-          padding: 20,
-          maxZoom: 3
-        })
-      }, 0)
+      if (features) {
+        setTimeout(() => {
+          this.MiniMap.fitBounds(turf.bbox(this.props.features), {
+            padding: 20,
+            maxZoom: 3
+          })
+        }, 0)
+      } else if (this.props.country) {
+        setTimeout(() => {
+          this.MiniMap.fitBounds(turf.bbox(
+            {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": centroids[this.props.country]
+              }
+            }
+          ), {
+            padding: 20,
+            maxZoom: 3
+          })
+        }, 0)
+      }
     }
     setTimeout(() => {
       this.MiniMap.resize()
@@ -216,7 +243,8 @@ MiniMap.propTypes = {
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
   zoomable: PropTypes.bool,
-  onFeatureDrag: PropTypes.func
+  onFeatureDrag: PropTypes.func,
+  country: PropTypes.string
 }
 
 MiniMap.defaultProps = {
@@ -229,6 +257,7 @@ MiniMap.defaultProps = {
   draggable: false,
   zoomable: false,
   onFeatureDrag: null,
+  country: undefined
 }
 
 export default MiniMap
