@@ -1,0 +1,21 @@
+{% include i18n.html bundle='ui' %}
+
+<header class="Header">
+    <nav class="mainNav">
+        <a href="/resource/"><h1>OER World Map</h1></a>
+    </nav>
+    <nav class="secondaryNav">
+        <a href="{{ '/contribute' | append: i18n_ext | relative_url }}">{{i18n_strings['contribute']}}</a>
+        <a href="{{ '/about' | append: i18n_ext | relative_url }}">{{i18n_strings['main.about']}}</a>
+        <a href="{{ '/FAQ' | append: i18n_ext | relative_url }}">{{i18n_strings['main.faq']}}</a>
+        <a href="/https://oerworldmap.wordpress.com/" target="_blank" rel="noopener noreferrer">{{i18n_strings['main.blog']}}</a>
+    </nav>
+    <nav
+      data-toggle-show=".secondaryNav"
+      class="menuToggle mobile"
+      tabIndex="0"
+      role="button"
+    >
+      <i class="fa fa-bars"></i>
+    </nav>
+</header>

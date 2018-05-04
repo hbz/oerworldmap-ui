@@ -220,7 +220,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                     <div className="item">
                       <i className="bg-highlight-color bg-important" style={{lineHeight: '33px'}}>
                         <img
-                          src="/assets/lighthouse_16px_white.svg"
+                          src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />
                       </i>
