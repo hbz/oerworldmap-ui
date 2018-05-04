@@ -15,7 +15,7 @@ let Config = {
   ],
   output: {
     path: path.join(__dirname, 'docs'),
-    publicPath: '/',
+    publicPath: '/oerworldmap-ui/',
     filename: 'assets/js/bundle.js'
   },
   module: {
