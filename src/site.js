@@ -42,17 +42,17 @@ const animateScrollToFragment = (() => {
 const injectStats = (() => {
 
   function init() {
-    const url = ENVIRONMENT === 'development'
-      ? 'https://oerworldmap.org/resource.json?size=0'
-      : '/resource.json?size=0'
-    fetch(url)
-      .then(response => response.json())
-      .then(json => {
-        ReactDOM.render(
-          <Overview buckets={json.aggregations['about.@type'].buckets} />,
-          document.querySelector('[data-inject-stats]')
+    const target = document.querySelector('[data-inject-stats]')
+    if (target) {
+      const url = ENVIRONMENT === 'development'
+        ? 'https://oerworldmap.org/resource.json?size=0'
+        : '/resource.json?size=0'
+      fetch(url)
+        .then(response => response.json())
+        .then(json => ReactDOM.render(
+          <Overview buckets={json.aggregations['about.@type'].buckets} />, target)
         )
-      })
+    }
   }
 
   return { init }
