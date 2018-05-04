@@ -1,0 +1,12 @@
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "page-with-section"
+
+baseurl: /oerworldmap-ui

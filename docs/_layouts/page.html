@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <title>{{ page.title }}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=latin-ext" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cc-icons/1.2.1/css/cc-icons.min.css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Economica" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
+
+    {% if jekyll.environment == "production" %}
+      <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/styles.css" />
+    {% endif %}
+
+    <script>
+      const ENVIRONMENT = "{{jekyll.environment}}";
+    </script>
+
+  </head>
+  <body class="static">
+
+    {% include header.html %}
+
+    <div class="static-content">
+
+      {{ content }}
+
+      {% include _newsletter/subscribe-section.html %}
+
+      {% include footer.html %}
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+
+    {% if jekyll.environment == "production" %}
+      <script src="{{ site.baseurl }}/assets/js/bundle.js"></script>
+    {% endif %}
+
+    {% if jekyll.environment == "development" %}
+      <script src="http://localhost:8080/assets/js/bundle.js"></script>
+    {% endif %}
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+    var _paq = _paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+    var u='//piwik.hbz-nrw.de/analytics/';
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 4]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+    </script>
+    <noscript><p><img src="//piwik.hbz-nrw.de/analytics/piwik.php?idsite=4" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+
+  </body>
+</html>
