@@ -3,3 +3,5 @@ dist
 npm-debug.log
 .env
 .vscode/
+docs/_site/
+docs/.jekyll-metadata
