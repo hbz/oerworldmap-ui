@@ -49,9 +49,9 @@ const injectStats = (() => {
         : '/resource.json?size=0'
       fetch(url)
         .then(response => response.json())
-        .then(json => ReactDOM.render(
+        .then(json => {ReactDOM.render(
           <Overview buckets={json.aggregations['about.@type'].buckets} />, target)
-        )
+        })
     }
   }
 
