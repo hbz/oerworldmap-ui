@@ -8,3 +8,5 @@ defaults:
       path: ""
     values:
       layout: "page-with-section"
+
+baseurl: /oerworldmap-ui
