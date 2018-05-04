@@ -4,7 +4,6 @@ import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import { apiConfig } from './config'
 
 const ENV = process.env.NODE_ENV
 
@@ -16,8 +15,7 @@ let Config = {
   ],
   output: {
     path: path.join(__dirname, 'docs'),
-    publicPath: `${apiConfig.scheme}://${apiConfig.host}`
-      .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
+    publicPath: '/',
     filename: 'assets/js/bundle.js'
   },
   module: {
