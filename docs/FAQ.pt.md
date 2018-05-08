@@ -54,6 +54,14 @@ O Mapa Global REAcoleta dados sobre os atores e as atividades relacionadas à RE
 
 Existem muitas oportunidades para a expansão futura do modelo.
 
+## What do I have to keep in mind when I set a lighthouse?
+
+The Ljubjlana Action Plan highlights the need to identify models of good practice, which have proven to be sustainable ways to organize production, sharing and use of OER. We believe that learning from experiences made in other countries will be key for fast global mainstreaming of OER, so please consider setting some lighthouses.
+
+Setting a lighthouse is pretty easy: When you are logged in, you simply click on the lighthouse symbol on the profile page of the entry you want to mark. Then you have to explain in the comment field what the community can learn from this particular example.
+
+Please set lighthouses only in case you are not affiliated with the entry in any way!
+
 ## Onde estão os REA?
 
 Acreditamos que a descoberta de REAs individuais tem de ser fornecida pelos serviços de motor de busca. O Mapa Global REA facilita a descoberta de REA indiretamente fornecendo listas qualificadas de serviços de REA.
