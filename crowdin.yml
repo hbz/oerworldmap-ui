@@ -2,6 +2,7 @@ files:
   - source: /docs/*.md
     ignore:
       - /docs/*.*.md
+      - /docs/README.md
     translation: /docs/%file_name%.%two_letters_code%.md
   - source: /docs/_data/locale/*.json
     ignore:
