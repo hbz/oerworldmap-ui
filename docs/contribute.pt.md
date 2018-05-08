@@ -1,11 +1,11 @@
 ---
-title: Contribute
+title: Contribuir
 ---
-## Raise awareness
+## Divulgue
 
-### Spread the news
+### Espalhe a notícia
 
-People need to know about the OER World Map if it is to provide a comprehensive overview of OER people and activities. We need to build the network together, so please speak to your friends and colleagues or use social media to reach out more widely (use [#oerworldmap](https://twitter.com/hashtag/oerworldmap)).
+As pessoas precisam saber sobre o Mapa Global REA para que ele possa fornecer uma visão abrangente de REA, incluindo pessoas e atividades. We need to build the network together, so please speak to your friends and colleagues or use social media to reach out more widely (use [#oerworldmap](https://twitter.com/hashtag/oerworldmap)).
 
 ### Become a Country Champion
 
