@@ -1,5 +1,5 @@
 ---
-title: Contribute
+title: Mithelfen
 ---
 ## Die OER World Map bekannter machen
 
@@ -13,31 +13,31 @@ Die OER World Map weiterzuentwickeln ist ein Gemeinschaftswerk. Sie wird von ein
 
 Viele Länder haben noch keinen Country Champion. Weitere Informationen über das OER World Map Country Champion Netzwerk finden Sie in unseren [Blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). Wenn Sie oder Ihre Institution diese Aufgabe übernehmen könnten, schreiben Sie uns bitte an [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
 
-### Contribute stories
+### Teilen Sie Ihre OER-Story
 
-We have much to learn from each other. Teilen Sie Ihre Erfahrungen mit OER mit uns und schreiben Sie über Ihre Erfahrungen: - mit Ihrem Projekt oder Ihrer Initiative - mit Open Educational Practice - mit der Entwicklung und dem Einsatz von Tools - oder über Ihre Forschungsergebnisse oder neue Einsichten zu OER
+Wir können viel voneinander lernen! Teilen Sie Ihre Erfahrungen mit OER mit uns und schreiben Sie über Ihre Erfahrungen: - mit Ihrem Projekt oder Ihrer Initiative - mit Open Educational Practice - mit der Entwicklung und dem Einsatz von Tools - oder über Ihre Forschungsergebnisse oder neue Einsichten zu OER
 
-Ein kurzer Text darüber, was Sie gelernt haben - was funktioniert hat und was nicht - wird anderen helfen zu verstehen, auf wie viele verschiedene Arten OER geschaffen und verwendet werden kann. Please note that stories will be published under [CC-BY](https://creativecommons.org/licenses/by/4.0/). Registrieren Sie sich auf der OER World Map und teilen Sie Ihre Erfahrungen mit der OER Community!
+Ein kurzer Text darüber, was Sie gelernt haben - was funktioniert hat und was nicht - wird anderen helfen zu verstehen, auf wie viele verschiedene Arten OER geschaffen und verwendet werden kann. Bitte beachten Sie, dass Ihre Story unter [CC-BY](https://creativecommons.org/licenses/by/4.0/) veröffentlicht wird. Registrieren Sie sich auf der OER World Map und teilen Sie Ihre Erfahrungen mit der OER Community!
 
 ### Übersetzen Sie die Website
 
-Um wirklich global genutzt werden zu können, muss die OER World Map in vielen Sprachen verfügbar sein. If you would be able to translate web pages into your native language please let us know at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Um wirklich global genutzt werden zu können, muss die OER World Map in vielen Sprachen verfügbar sein. Wenn Sie die OER World Map in Ihre Muttersprache übersetzen können, nehmen Sie bitte über [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) Kontakt mit uns auf.
 
 * * *
 
 ## Daten sammeln und nutzen
 
-### Become an editor and contribute data
+### Daten auf der OER World Map sammeln
 
-Wenn Sie Daten für die OER World Map sammeln möchten, können Sie diese direkt auf der Plattform über entsprechende Formulare eingeben. In order to do this, just register on the platform and start entering data. Lesen Sie auch die [FAQs für OER World Map Editoren](https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors) in unserem Wiki.
+Wenn Sie Daten für die OER World Map sammeln möchten, können Sie diese direkt auf der Plattform über entsprechende Formulare eingeben. Dazu müssen Sie sich nur auf der World Map registrieren, dann können Sie loslegen. Lesen Sie auch die [FAQs für OER World Map Editoren](https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors) in unserem Wiki.
 
-### Upload existing data
+### Bereits gesammelte Daten auf die OER World Map hochladen
 
 Vorhandene OER Daten können über die API der OER World Map hochgeladen werden. Wenn Sie bereits gesammelte Informationen haben, nehmen Sie bitte über[info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) mit uns Kontakt auf.
 
 ### Daten exportieren
 
-Über die API der OER World Map können Daten direkt exportiert werden. Die gesamten Daten oder ein herausgefilterter Datensatz können auf anderen Websites verwendet werden. Wir arbeiten daran, Tools zu entwickeln, mit denen die Weiterverwendung der Daten einfach und flexibel ermöglicht wird. If you would like to reuse OER World Map data, please contact us at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Über die API der OER World Map können Daten direkt exportiert werden. Die gesamten Daten oder ein herausgefilterter Datensatz können auf anderen Websites verwendet werden. Wir arbeiten daran, Tools zu entwickeln, mit denen die Weiterverwendung der Daten einfach und flexibel ermöglicht wird. Wenn Sie Daten von der OER World Map weiterverwenden wollen, wenden Sie sich bitte per Mail über [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) an uns.
 
 * * *
 
@@ -45,7 +45,7 @@ Vorhandene OER Daten können über die API der OER World Map hochgeladen werden.
 
 ### Fehler melden
 
-Please report any bugs you identify by opening a new ticket if you are registered on [GitHub](https://github.com/hbz/oerworldmap). Otherwise you can send a message to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Bitte melden Sie uns technische Fehler. Wenn Sie auf [GitHub](https://github.com/hbz/oerworldmap) registriert sind, können Sie direkt ein Ticket anlegen, Otherwise you can send a message to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Neue Funktionen vorschlagen
 
