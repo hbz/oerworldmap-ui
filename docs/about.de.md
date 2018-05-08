@@ -1,13 +1,13 @@
 ---
 title: Über uns
 ---
-## Die Vision
+## The Vision
 
 Seit mehr als 10 Jahren werden stetig mehr und mehr Open Educational Resources (OER) geschaffen und verwendet. Die OER World Map sammelt und veranschaulicht Daten zur wachsenden Zahl der Akteure und Aktivitäten im Bereich der offenen Bildung weltweit. Ihr Ziel ist es, die Entwicklung des OER-Ökosystems zu beschleunigen, indem sie ein möglichst umfassendes und aktuelles Bild der OER-Bewegung zeigt. Die dargestellten Informationen können für ganz verschiedene Zwecken verwendet werden, beispielsweise:
 
 - verschiedene Akteure miteinander vernetzen, um die Zusammenarbeit zu erleichtern und um Wissen und Ressourcen zu teilen
 - qualifizierte Listen von Repositorys und anderen OER-Services bereitstellen, um Lehrern und Lernenden zu helfen, passende Bildungsmaterialien zu finden
-- Entscheider durch aussagekräftige Statistiken und Überblicksdarstellungen zur OER-Bewegung und deren Auswirkungen dabei unterstützen, strategischen Entscheidungen zu treffen und zu vertreten
+- supporting policy makers in taking and defending strategic decisions by providing meaningful statistics and overviews of the open education movement and its associated impacts
 
 Die OER World Map stellt Informationen für die selbstorganisierte Entwicklung der OER-Bewegung bereit. Sie erfasst und zeigt relevante Organisationen, Projekte, Personen und Services. Gleichzeitig unterstützt die Plattform das Netzwerken, das Finden von OER-Sammlungen und das Treffen von Entscheidungen. Als Ganzes kann die OER World Map als eine Art "Steuerzentrale" für die Open Education Community gesehen werden.
 
@@ -21,9 +21,9 @@ Die OER World Map wird entwickelt von [hbz](http://www.hbz-nrw.de) und [graphthi
 
 ## Team
 
-### Philipp von Böselager (Backend-Entwickler)
+### Philipp von Böselager (Back-End Developer)
 
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) auf Twitter) entwickelt als gelernter Computerlinguist Java im Bereich Backend für die OER World Map und das hbz. In seinem Studium hat er sich unter anderem mit Suchmaschinen, Parsern, Neuronalen Netzen und Sprachsynthese befasst. Zwischenzeitlich hat er allgemeine IT-Projekterfahrung und Java-Backend-Erfahrung in privatwirtschaftlichen Unternehmen gesammelt, bevor er schließlich in die wirtschaftlich freiere universitätsnahe Welt zurückgekehrt ist, um beim hbz zu arbeiten. Er ist fest davon überzeugt, dass es eine unbedingte Aufgabe des WWW ist, den allgemeinen Lebensstandard zu erhöhen und deswegen offen und frei zugänglich zu sein. Philipp schätzt es sehr, an einem Projekt arbeiten zu können, mit dem er sich wirklich identifiziert.
+![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) on Twitter) is a Java backend developer in the field of Computational Linguistics (CL). In seinem Studium hat er sich unter anderem mit Suchmaschinen, Parsern, Neuronalen Netzen und Sprachsynthese befasst. Zwischenzeitlich hat er allgemeine IT-Projekterfahrung und Java-Backend-Erfahrung in privatwirtschaftlichen Unternehmen gesammelt, bevor er schließlich in die wirtschaftlich freiere universitätsnahe Welt zurückgekehrt ist, um beim hbz zu arbeiten. Er ist fest davon überzeugt, dass es eine unbedingte Aufgabe des WWW ist, den allgemeinen Lebensstandard zu erhöhen und deswegen offen und frei zugänglich zu sein. Philipp schätzt es sehr, an einem Projekt arbeiten zu können, mit dem er sich wirklich identifiziert.
 
 ### Karin Driesen (Online-Redakteurin)
 
@@ -35,7 +35,7 @@ Die OER World Map wird entwickelt von [hbz](http://www.hbz-nrw.de) und [graphthi
 
 ### Felix Link (Design)
 
-![Felix Link](/assets/images/felix-link.png) Felix ist seit 2015 als UI-/Frontend-Designer im OER World Map Team. Er hat von 2006 bis 2012 Grafik- und Kommunikationsdesign an der Fachhochschule Bielefeld studiert und arbeitet seit 2008 als selbstständiger Gestalter für Agenturen und eigene Kunden. Schwerpunkte seiner Arbeit sind die Entwicklung visueller Konzepte und das Gestalten öffentlicher Kommunikation in den Bereichen Editorial Design, UI/UX Design und Corporate Design. Fokus und besonderes Interesse dabei gelten Design als konzeptionellem, ganzheitlichem Prozess und als charakteristischem Ausdruck seines Inhalts.
+![Felix Link](/assets/images/felix-link.png) Felix ist seit 2015 als UI-/Frontend-Designer im OER World Map Team. He studied graphic and communication design from 2006 to 2012. und arbeitet seit 2008 als selbstständiger Gestalter für Agenturen und eigene Kunden. Schwerpunkte seiner Arbeit sind die Entwicklung visueller Konzepte und das Gestalten öffentlicher Kommunikation in den Bereichen Editorial Design, UI/UX Design und Corporate Design. Fokus und besonderes Interesse dabei gelten Design als konzeptionellem, ganzheitlichem Prozess und als charakteristischem Ausdruck seines Inhalts.
 
 ### Jan Neumann (Projektmanagement)
 
