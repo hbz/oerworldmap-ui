@@ -8,3 +8,5 @@ files:
       - /docs/_data/locale/*_*.json
       - /docs/_data/locale/iso*
     translation: /docs/_data/locale/%file_name%_%two_letters_code%.json
+  - source: /docs/_includes/_landingpage/*.html
+    translation: /docs/_includes/_landingpage/%file_name%.%two_letters_code%.html
