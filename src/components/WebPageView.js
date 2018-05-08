@@ -186,12 +186,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               </Block>
             ))}
 
-            {about.alternateName &&
-              <Block title={translate(`${about['@type']}.alternateName`)}>
-                {translate(about.alternateName)}
-              </Block>
-            }
-
             {lighthouses.length > 0 && about['@id'] &&
               <Block title={translate('ResourceIndex.read.lighthouses.title')}>
                 <Lighthouses lighthouses={lighthouses} about={about} user={user} />
