@@ -26,12 +26,12 @@ const Calendar = ({entries, moment, translate}) => (
                 </div>
                 <span>
                   {translate(event.name)}<br />
-                  {moment(event.startDate).format('M') === moment(event.endDate).format('M')
-                    ? moment(event.startDate).format('D')
-                    : moment(event.endDate).format('D MMM')
-                  } - {moment(event.endDate).format('D MMM')}
                   {event.location && event.location.address &&
                     <span className="subtitle">
+                      {moment(event.startDate).format('M') === moment(event.endDate).format('M')
+                        ? moment(event.startDate).format('D')
+                        : moment(event.endDate).format('D MMM')
+                      } &ndash; {moment(event.endDate).format('D MMM')}
                       &nbsp;&mdash;&nbsp;
                       {event.location.address.addressLocality &&
                         event.location.address.addressLocality.concat(',')
