@@ -1,0 +1,10 @@
+files:
+  - source: /docs/*.md
+    ignore:
+      - /docs/*.*.md
+    translation: /docs/%file_name%_%two_letters_code%.md
+  - source: /docs/_data/locale/*.json
+    ignore:
+      - /docs/_data/locale/*_*.json
+      - /docs/_data/locale/iso*
+    translation: /docs/_data/locale/%file_name%.%two_letters_code%.json
