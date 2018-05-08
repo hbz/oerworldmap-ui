@@ -45,7 +45,7 @@ Vorhandene OER Daten können über die API der OER World Map hochgeladen werden.
 
 ### Fehler melden
 
-Bitte melden Sie uns technische Fehler. Wenn Sie auf [GitHub](https://github.com/hbz/oerworldmap) registriert sind, können Sie direkt ein Ticket anlegen, andernfalls schreiben Sie uns an [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
+Bitte melden Sie uns technische Fehler. Wenn Sie auf [GitHub](https://github.com/hbz/oerworldmap) registriert sind, können Sie direkt ein Ticket anlegen, Otherwise you can send a message to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Neue Funktionen vorschlagen
 
