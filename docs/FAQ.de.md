@@ -114,7 +114,7 @@ Wir freuen uns, wenn Sie Ihre OER-Story mit der Community teilen und anderen von
 
 ## Wollen Sie nur von Lehrenden hören, oder auch von Lernenden?
 
-Ja! wir wollen auch von Schülern und Studenten hören. Unserer Überzeugung nach ist die Stimme der Lernenden in den Diskussionen über OER häufig nicht laut genug. Wir wollen von allen hören, wie ihre Erfahrungen mit OER sind, besonders aus der Perspektive der Lernenden!
+Ja, wir wollen auch von Schülern und Studenten hören. Unserer Überzeugung nach ist die Stimme der Lernenden in den Diskussionen über OER häufig nicht laut genug. Wir wollen von allen hören, wie ihre Erfahrungen mit OER sind, besonders aus der Perspektive der Lernenden!
 
 ## Was bedeutet es, Country Champion zu sein?
 
