@@ -118,6 +118,7 @@ server.get(/^(.*)$/, (req, res) => {
   const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
+    console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
