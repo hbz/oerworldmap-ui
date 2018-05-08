@@ -211,13 +211,13 @@
   "export": "Exportieren",
   "print": "Drucken",
   "markdownSupported": "Markdown wird unterstützt",
+  "https://w3id.org/class/esc/scheme": "Fächerklassifikation",
+  "https://w3id.org/isced/1997/scheme": "Bildungsstufen nach ISCED 1997",
   "filter.about.availableChannel.availableLanguage": "Sprache",
   "filter.about.availableChannel.avaikeywords": "Tag",
   "filter.about.location.address.addressCountry": "Ort",
   "filter.about.location.address.addressRegion": "Region",
   "filter.about.keywords": "Schlagwort",
-  "https://w3id.org/class/esc/scheme": "Fächerklassifikation",
-  "https://w3id.org/isced/1997/scheme": "Bildungsstufen nach ISCED 1997",
   "availableLanguage": "Sprache",
   "keywords": "Schlagwort",
   "country": "Land",
@@ -256,6 +256,8 @@
   "about.isFundedBy.isAwardedBy.@id": "Projekte nach Förderern",
   "about.primarySector.@id": "Einträge nach Hauptbildungssektor",
   "about.secondarySector.@id": "Einträge nach weiteren Bildungssektoren",
+  "https://open-educational-resources.de/wp-content/uploads/oerde16_logo_award.png": "OERde16-Award-Preisträger",
+  "https://oerworldmap.org/assets/images/badge_preistraeger_100_2017.png": "OERde17 Award Preisträger",
   "Pagination.prevPage": "Zurück",
   "Pagination.nextPage": "Vor",
   "Pagination.of": "von",
@@ -266,7 +268,5 @@
   "application/geo+json": "GeoJSON",
   "text/csv": "CSV",
   "application/json": "JSON",
-  "text/calendar": "iCal",
-  "https://open-educational-resources.de/wp-content/uploads/oerde16_logo_award.png": "OERde16-Award-Preisträger",
-  "https://oerworldmap.org/assets/images/badge_preistraeger_100_2017.png": "OERde17 Award Preisträger"
+  "text/calendar": "iCal"
 }
