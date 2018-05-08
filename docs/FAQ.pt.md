@@ -1,5 +1,5 @@
 ---
-title: FAQ
+title: Perguntas frequentes (FAQ)
 ---
 ## O que é REA?
 
@@ -54,6 +54,14 @@ O Mapa Global REAcoleta dados sobre os atores e as atividades relacionadas à RE
 
 Existem muitas oportunidades para a expansão futura do modelo.
 
+## What do I have to keep in mind when I set a lighthouse?
+
+The Ljubjlana Action Plan highlights the need to identify models of good practice, which have proven to be sustainable ways to organize production, sharing and use of OER. We believe that learning from experiences made in other countries will be key for fast global mainstreaming of OER, so please consider setting some lighthouses.
+
+Setting a lighthouse is pretty easy: When you are logged in, you simply click on the lighthouse symbol on the profile page of the entry you want to mark. Then you have to explain in the comment field what the community can learn from this particular example.
+
+Please set lighthouses only in case you are not affiliated with the entry in any way!
+
 ## Onde estão os REA?
 
 Acreditamos que a descoberta de REAs individuais tem de ser fornecida pelos serviços de motor de busca. O Mapa Global REA facilita a descoberta de REA indiretamente fornecendo listas qualificadas de serviços de REA.
@@ -106,16 +114,16 @@ Nós convidamos você a compartilhar sua história envolvendo REA com a comunida
 
 ## Você quer ouvir de alunos e educadores?
 
-Sim! Acreditamos que a voz dos alunos muitas vezes não é ouvida nas discussões sobre REA. Estamos interessados em ouvir de alguém com uma boa história para contar sobre REA e como os REA tem feito alguma diferença. Isto é especialmente verdadeiro para as histórias da perspectiva de um aluno.
+Yes! We believe that the student voice is often not loud enough in discussions about OER. We are interested in hearing from anyone with a good story to tell about OER and how it has made a difference to them. This is especially true for stories from a learner perspective.
 
-## O que significa tornar-se um embaixador para um país?
+## What does it mean to become a country champion?
 
-Embaixadores ajudam a mapear o mundo REA por país – coletando dados, garantindo sua qualidade e a sensibilizando sobre o projeto. Confira nosso [ blog post](https://oerworldmap.wordpress.com/2015/04/17/what-does-it-mean-to-become-a-country-champion/) para obter mais informações sobre a rede de embaixadores. O mapa na página inicial mostra onde os embaixadores ainda são necessários. Se você está interessado em agir como embaixador para o seu país, não hesite em [ contactar-nos](mailto:info@oerworldmap.org).
+Country champions help to map the OER world by country – gathering data, assuring its quality and raising awareness of the project. Check out our [blog post](https://oerworldmap.wordpress.com/2015/04/17/what-does-it-mean-to-become-a-country-champion/) for more information about the country champion network. The map on the homepage shows where country champions are still needed. If you are interested in acting as champion for your country, please do not hesitate to [contact us](mailto:info@oerworldmap.org).
 
-## O Mapa Global REA estará disponível em vários idiomas?
+## Will the OER World Map be available in several languages?
 
-A versão inicial do site está sendo desenvolvida em inglês. No entanto, acreditamos que, a longo prazo, o site deve estar disponível em muitas línguas e o sistema está preparado para apoiar o multilinguismo. No momento a plataforma permite entrada de dados em todos os principais idiomas do mundo e o sistema lhe mostrará dados no idioma escolhido no seu navegador, se disponível. Se você está interessado em traduzir o site para o seu próprio idioma, por favor [ entre em contato conosco](mailto:info@oerworldmap.org).
+The initial version of the website is beeing developed in English. Nevertheless, we believe that in the long run the site should be available in many languages and the system is prepared to support multilingualism. At the time being the platform supports data input in all major languages of the world and the system will show you data within the language chosen in your browser, if available. If you are interested in translating the website into your own language, please [contact us](mailto:info@oerworldmap.org).
 
-## Porque países são exibidos em diferentes tons de verde?
+## Why are countries displayed in different shades of green?
 
-Países com atividade REA documentada são exibidos verde. Quanto mais atividade, mais escuro o tom. Chamamos esse mecanismo de "mapa de calor". O mapa de calor baseia-se, neste momento, em um algoritmo muito simples: o número de entradas. Estamos pensando em refinação o algoritmo no futuro (por exemplo, representando o número de entradas em relação ao número de habitantes).
+Countries with documented OER activity are displayed green. The more activity there is, the darker the colour. We call this mechanism “heat map”. The heat map is based right now on a very simple algorithm: the number of entries. We are thinking about refining the algorithm in the future (e.g. by representing the number of entries into relation to the number of inhabitants).
