@@ -303,7 +303,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             <Block title={translate(`${about['@type']}.startTime`)}>
               {formatDate(about.startTime, moment)}
               {about.endTime &&
-                <span> - {formatDate(about.endTime, moment)}</span>
+                <span> – {formatDate(about.endTime, moment)}</span>
               }
             </Block>
           }
@@ -312,7 +312,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             <Block title={translate(`${about['@type']}.startDate`)}>
               {formatDate(about.startDate, moment)}
               {about.endDate &&
-                <span> - {formatDate(about.endDate, moment)}</span>
+                <span> – {formatDate(about.endDate, moment)}</span>
               }
             </Block>
           }
