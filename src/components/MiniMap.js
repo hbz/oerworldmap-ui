@@ -237,13 +237,13 @@ MiniMap.propTypes = {
       miniMapStyle: PropTypes.string,
     }
   ).isRequired,
-  center: PropTypes.arrayOf(PropTypes.any),
-  zoom: PropTypes.number,
+  center: PropTypes.arrayOf(PropTypes.any), // eslint-disable-line react/no-unused-prop-types
+  zoom: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
-  zoomable: PropTypes.bool,
+  zoomable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   onFeatureDrag: PropTypes.func,
-  country: PropTypes.string
+  country: PropTypes.string // eslint-disable-line react/no-unused-prop-types
 }
 
 MiniMap.defaultProps = {
