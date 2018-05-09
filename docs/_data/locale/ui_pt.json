@@ -68,7 +68,7 @@
   "ResourceIndex.index.agreeMessage": "Eu concordo em publicar as informações abaixo sob as condições de uma licença <a href=\"/imprint#cc0\" target=\"_blank\">CC-0</a>. Eu garanto que tenho todos os direitos necessários para publicar as informações sob essa licença.",
   "ResourceIndex.index.searchMap": "Procure no mapa",
   "ResourceIndex.index.filterBy": "Filtrar por",
-  "ResourceIndex.index.showingEntities": "Exibindo entradas",
+  "ResourceIndex.index.showingEntities": "%{number} entradas",
   "ResourceIndex.index.withMatch": "que corresponde com",
   "ResourceIndex.index.and": "e",
   "ResourceIndex.index.where": "onde",
