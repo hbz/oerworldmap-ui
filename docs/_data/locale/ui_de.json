@@ -242,6 +242,8 @@
   "audience": "Bildungsstufe",
   "about": "Fach",
   "license": "Lizenz",
+  "floss": "Free and Open Source Software",
+  "proprietary": "Proprietary Software",
   "primarySector": "Hauptsektor",
   "secondarySector": "Weiterer Sektor",
   "award": "Auszeichnung",
