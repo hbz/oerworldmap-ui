@@ -173,6 +173,7 @@
   "Product.primarySector": "The educational sector the tool is used for in the first place",
   "Product.secondarySector": "Educational sectors the tool is also useful for",
   "Product.award": "An award this Tool won",
+  "Product.rights": "License",
   "LighthouseAction.description": "Por favor nos diga porque essa submissão é um farol",
   "Place.geo": "Geo location",
   "Place.address": "Address",
