@@ -242,6 +242,8 @@
   "audience": "Audience",
   "about": "Subject",
   "license": "License",
+  "floss": "Free and Open Source Software",
+  "proprietary": "Proprietary Software",
   "primarySector": "Primary sector",
   "secondarySector": "Secondary sector",
   "award": "Award",
