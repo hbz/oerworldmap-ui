@@ -1,6 +1,9 @@
 export const formatURL = (url) =>  {
   const re = /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/
-  return re.exec(url)[1] || url
+  const result = re.exec(url)
+  return result[1].split('.').pop() === result.input.split('.').pop().replace(/\//g, '')
+    ? re.exec(url)[1]
+    : re.exec(url)[1] + '...'
 }
 
 export const getEntryByLocales = (locales, key) => {
