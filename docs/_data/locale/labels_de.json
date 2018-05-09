@@ -173,6 +173,7 @@
   "Product.primarySector": "Der Bildungssektor, in dem das Tool in erster Linie verwendet wird",
   "Product.secondarySector": "Bildungssektoren, in denen das Tool ebenfalls verwendet wird",
   "Product.award": "Preis, mit dem dieses Tool ausgezeichnet wurde",
+  "Product.rights": "License",
   "LighthouseAction.description": "Bitte beschreiben Sie, was diesen Eintrag zu einem \"Leuchtturm\" macht.",
   "Place.geo": "Standort",
   "Place.address": "Adresse",
