@@ -214,7 +214,7 @@
   "https://w3id.org/class/esc/scheme": "Fächerklassifikation",
   "https://w3id.org/isced/1997/scheme": "Bildungsstufen nach ISCED 1997",
   "filter.about.availableChannel.availableLanguage": "Sprache",
-  "filter.about.availableChannel.avaikeywords": "Tag",
+  "filter.about.availableChannel.avaikeywords": "Schlagwort",
   "filter.about.location.address.addressCountry": "Ort",
   "filter.about.location.address.addressRegion": "Region",
   "filter.about.keywords": "Schlagwort",
