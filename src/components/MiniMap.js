@@ -66,14 +66,13 @@ class MiniMap extends React.Component {
           "circle-stroke-color": "white"
         }
       })
-      this.updateMap(this.props.features, this.props.draggable, this.props.zoomable)
+      this.updateMap(this.props)
       window.dispatchEvent(new Event('resize'))
     })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateMap(nextProps.features, nextProps.draggable,
-      nextProps.zoomable, nextProps.center, nextProps.zoom)
+    this.updateMap(nextProps)
   }
 
   shouldComponentUpdate() {
@@ -151,7 +150,9 @@ class MiniMap extends React.Component {
     this.MiniMap.dragPan.enable()
   }
 
-  updateMap(features, draggable, zoomable, center, zoom) {
+  updateMap(props) {
+
+    const { features, draggable, zoomable, center, zoom, country } = props
 
     if (features && this.MiniMap.getSource('points')) {
       this.MiniMap.getSource('points').setData(features)
@@ -183,30 +184,28 @@ class MiniMap extends React.Component {
     }
     if (center && zoom) {
       this.MiniMap.flyTo({center, zoom})
-    } else {
-      if (features) {
-        setTimeout(() => {
-          this.MiniMap.fitBounds(turf.bbox(this.props.features), {
-            padding: 20,
-            maxZoom: 3
-          })
-        }, 0)
-      } else if (this.props.country) {
-        setTimeout(() => {
-          this.MiniMap.fitBounds(turf.bbox(
-            {
-              "type": "Feature",
-              "geometry": {
-                "type": "Point",
-                "coordinates": centroids[this.props.country]
-              }
+    } else if (features) {
+      setTimeout(() => {
+        this.MiniMap.fitBounds(turf.bbox(features), {
+          padding: 20,
+          maxZoom: 3
+        })
+      }, 0)
+    } else if (country) {
+      setTimeout(() => {
+        this.MiniMap.fitBounds(turf.bbox(
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": centroids[country]
             }
-          ), {
-            padding: 20,
-            maxZoom: 3
-          })
-        }, 0)
-      }
+          }
+        ), {
+          padding: 20,
+          maxZoom: 3
+        })
+      }, 0)
     }
     setTimeout(() => {
       this.MiniMap.resize()
