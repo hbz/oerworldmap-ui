@@ -126,6 +126,7 @@
   "Product.primarySector": "The educational sector the tool is used for in the first place",
   "Product.secondarySector": "Educational sectors the tool is also useful for",
   "Product.award": "An award this Tool won",
+  "Product.rights": "The kind of license (open/proprietary) pertaining to this tool",
   "Grant.hasMonetaryValue": "A moeda e o montante",
   "Grant.isAwardedBy": "O nome do financiador",
   "WebPage.name": "O título da publicação",
