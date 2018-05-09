@@ -83,7 +83,9 @@ class ActionButtons extends React.Component {
           className="lighthouse"
           href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC"
           title={this.props.translate('ClientTemplates.app.lighthouses')}
-        />
+        >
+          <span>Lighthouse</span>
+        </Link>
       </div>
     )
   }
