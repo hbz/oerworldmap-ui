@@ -29,14 +29,29 @@
       pointer-events: none;
     }
 
-    & .lighthouse {
-      position: relative;
-      top: 2px;
+    &.lighthouse {
+      background-image: url('../../public/lighthouse_16px_white.svg');
+      background-repeat: no-repeat;
+      background-size: 12px;
+      background-position: center;
+      outline-color: white;
+
+      &:hover {
+        background-image: url('../../public/lighthouse_16px_orange.svg');
+      }
     }
 
-    &:hover,
-    &:focus {
-      background-color: color(var(--orange) l(+20%));
+    &:hover {
+      background-color: var(--white);
+    }
+  }
+
+  & > div:focus {
+    color: var(--orange);
+    outline: 1px dotted white;
+
+    &:not(:hover) {
+      color: var(--white);
     }
   }
 
