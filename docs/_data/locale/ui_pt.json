@@ -242,6 +242,8 @@
   "audience": "Público-alvo",
   "about": "Assunto",
   "license": "Licença",
+  "floss": "Free and Open Source Software",
+  "proprietary": "Proprietary Software",
   "primarySector": "Setor primário",
   "secondarySector": "Sector secundário",
   "award": "Prêmio",
