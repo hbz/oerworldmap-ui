@@ -35,6 +35,7 @@
   "CountryIndex.read.countryReports": "Country reports",
   "CountryIndex.read.entriesShown": "entries shown",
   "CountryIndex.read.noRelatedEntries": "No related entries found",
+  "CountryIndex.description": "Discover the OER movement in %{countryName}",
   "LandigPage.index.welcome": "Welcome to the OER World Map!",
   "LandigPage.index.goal": "Our goal is to provide the most complete and comprehensible picture of the global Open Educational Resources (OER) movement. Information is collected on people, organizations, services, projects and events related to OER.",
   "LandigPage.index.contribute": "Building the map is a collaborative process. You can <a href=\"/contribute\">contribute</a>!",

@@ -3,6 +3,7 @@
 
 import React from 'react'
 import toRegExp from 'path-to-regexp'
+import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
@@ -68,7 +69,22 @@ export default (api) => {
         const title = params.add
           ? context.i18n.translate('add', {type: context.i18n.translate(params.add)})
           : context.i18n.translate('ResourceIndex.index.showingEntities', {number: data.totalItems})
-        return { title, data, component }
+
+        const metadata = {}
+        metadata.title = data.query
+          ?`${context.i18n.translate('Results for:')} ${data.query} - OER World Map`
+          : data.filters && data.filters["about.@type"] && data.filters["about.@type"].length > 0
+            ? `${context.i18n.translate(data.filters["about.@type"][0])} - OER World Map`
+            : `OER World Map`
+
+        metadata.description = context.i18n.translate('Discover the OER movement')
+
+        metadata.url = data._self
+
+        //TODO: Add static iamge with aggregations or custom logo
+        metadata.image = `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/0,30,1,0,0/1200x630?access_token=${context.mapboxConfig.token}`
+
+        return { title, data, component, metadata }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/resource/', body, context.authorization)
@@ -102,7 +118,18 @@ export default (api) => {
           />
         )
         const title = context.i18n.translate(data.about.name)
-        return { title, data, component }
+        const metadata = {}
+
+        metadata.title = title
+        metadata.description = data.about
+          && data.about.description
+          ? removeMd(context.i18n.translate(data.about.description)).slice(0, 300)
+          : null
+
+        metadata.url = data._self
+        metadata.image = data.about && data.about.image
+
+        return { title, data, component, metadata }
       },
       post: async (id, params, context, state, body) => {
         const data = await api.post(`/resource/${id}`, body, context.authorization)
@@ -173,7 +200,16 @@ export default (api) => {
           </ResourceIndex>
         )
         const title = context.i18n.translate(id.toUpperCase())
-        return { title, data, component }
+        const metadata = {}
+
+        metadata.title = `${context.i18n.translate(data.iso3166)} - OER World Map`
+        metadata.description = context.i18n.translate('CountryIndex.description', {countryName: context.i18n.translate(data.iso3166)}) + '!'
+
+        //TODO Use centroids and zoom 3 for countries
+        metadata.url = data._self
+        metadata.image = `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/0,30,1,0,0/1200x630?access_token=${context.mapboxConfig.token}`
+
+        return { title, data, component, metadata }
       }
     },
     {
