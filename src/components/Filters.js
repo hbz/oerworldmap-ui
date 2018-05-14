@@ -384,6 +384,7 @@ class Filters extends React.Component {
                 _self={this.props._self}
                 _links={this.props._links}
                 view={this.props.view}
+                embedValue={this.props.embedValue}
               />
             </section>
           </div>
@@ -406,12 +407,14 @@ Filters.propTypes = {
   view: PropTypes.string,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
-  sort: PropTypes.string
+  sort: PropTypes.string,
+  embedValue: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
-  sort: ""
+  sort: "",
+  embedValue: null
 }
 
 export default withEmitter(withI18n(Filters))
