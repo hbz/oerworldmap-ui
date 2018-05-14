@@ -23,6 +23,7 @@ let Config = {
   },
   module: {
     exprContextCritical: false,
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/,
