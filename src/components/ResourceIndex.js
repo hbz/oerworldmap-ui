@@ -33,7 +33,8 @@ const ResourceIndex = ({
   _self,
   _links,
   className,
-  sort
+  sort,
+  embedValue
 }) => {
   const countProp = ('about.objectIn.@type' in filters)
     ? filters['about.objectIn.@type'][0]
@@ -57,6 +58,7 @@ const ResourceIndex = ({
             _self={_self}
             _links={_links}
             view={view}
+            embedValue={embedValue}
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
@@ -121,7 +123,8 @@ ResourceIndex.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
-  sort: PropTypes.string
+  sort: PropTypes.string,
+  embedValue: PropTypes.string
 }
 
 ResourceIndex.defaultProps = {
@@ -132,7 +135,8 @@ ResourceIndex.defaultProps = {
   iso3166: '',
   view: '',
   className: null,
-  sort: ""
+  sort: "",
+  embedValue: null
 }
 
 

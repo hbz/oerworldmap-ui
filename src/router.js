@@ -61,6 +61,7 @@ export default (api) => {
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             add={params.add}
+            embedValue="true"
           >
             <ActionButtons user={context.user} />
           </ResourceIndex>
@@ -99,6 +100,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            embedValue="true"
           />
         )
         const title = context.i18n.translate(data.about.name)
@@ -165,6 +167,7 @@ export default (api) => {
             className="countryView"
             mapboxConfig={context.mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            embedValue="country"
           >
             <Country
               iso3166={data.iso3166}
