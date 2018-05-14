@@ -13,6 +13,16 @@ const Share = ({_self, translate}) => (
       <span className="title">{translate('share.permalink')}</span>
       <div className="content">{_self}</div>
     </div>
+
+    <br />
+
+    <div className="embedContent">
+      <span className="title">{translate('embed')}</span>
+      <div className="content">
+        {`<iframe src="${_self}" width="560" height="315" frameborder="0"></iframe>`}
+      </div>
+    </div>
+
     <div className="shareIcons">
       <a target="_blank" rel="noopener" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(_self)}`}>
         <i className="fa fa-twitter" />
@@ -26,6 +36,7 @@ const Share = ({_self, translate}) => (
       <a target="_blank" href={`mailto:?subject=&body=${encodeURIComponent(_self)}`}>
         <i className="fa fa-envelope" />
       </a>
+
     </div>
   </FullModal>
 )
