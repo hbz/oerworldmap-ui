@@ -126,7 +126,7 @@
   "Product.primarySector": "Der Bildungssektor, in dem das Tool in erster Linie verwendet wird",
   "Product.secondarySector": "Bildungssektoren, in denen das Tool ebenfalls verwendet wird",
   "Product.award": "Preis, mit dem dieses Tool ausgezeichnet wurde",
-  "Product.rights": "The kind of license (open/proprietary) pertaining to this tool",
+  "Product.rights": "Lizenztyp dieses Tools (offen/proprietär)",
   "Grant.hasMonetaryValue": "Währung und Betrag",
   "Grant.isAwardedBy": "Der Name des Förderers",
   "WebPage.name": "Der Titel der Veröffentlichung",
