@@ -89,7 +89,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggleLike()}>
             <button className={`btn ${like ? 'active': ''}`} type="submit" title={translate('Like')}>
-              <i className="fa fa-star" />
+              <i className="fa fa-thumbs-up" />
               {translate('Like')}
             </button>
           </form>
@@ -99,8 +99,8 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
       {['Organization', 'Action', 'Service', 'Event'].includes(about['@type']) &&
         <div className="action">
           <a href="#addLighthouse" className={`btn ${lighthouse['@id'] ? 'active': ''}`}>
-            <img className="i blueLighthouse" src="/assets/lighthouse_16px_blue.svg" alt="Lighthouse" />
-            <img className="i whiteLighthouse" src="/assets/lighthouse_16px_white.svg" alt="Lighthouse" />
+            <img className="i blueLighthouse" src="/public/lighthouse_16px_blue.svg" alt="Lighthouse" />
+            <img className="i whiteLighthouse" src="/public/lighthouse_16px_white.svg" alt="Lighthouse" />
             {translate('Lighthouse')}
           </a>
         </div>

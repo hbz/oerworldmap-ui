@@ -1,0 +1,12 @@
+<section
+  class="pageSection bg-{{page.background}} text-{{page.text}} {{page.custom-classes}}"
+  {% if page.custom-css %} style="{{page.custom-css}}" {% endif %}
+  {% if page.id %} id="{{page.id}}" {% endif %}
+>
+  <div
+    class="inner"
+    {% if page.custom-inner-css %} style="{{page.custom-inner-css}}" {% endif %}
+  >
+    {{ content }}
+  </div>
+</section>

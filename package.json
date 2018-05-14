@@ -13,7 +13,9 @@
     "fix": "eslint src --fix",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint src --ext .jsx,.js --quiet",
-    "lint:style": "stylelint 'src/styles/**/*.pcss'"
+    "lint:style": "stylelint 'src/styles/**/*.pcss'",
+    "site:dev": "NODE_ENV=development webpack-dev-server --config site.config.babel.js",
+    "site:prod": "NODE_ENV=production webpack-cli --config site.config.babel.js"
   },
   "repository": {
     "type": "git",
@@ -47,7 +49,7 @@
     "mocha": "^5.1.0",
     "postcss": "^6.0.21",
     "postcss-loader": "^2.1.4",
-    "style-loader": "^0.20.3",
+    "style-loader": "^0.21.0",
     "stylelint": "^9.2.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-webpack-plugin": "^0.10.4",
@@ -82,7 +84,6 @@
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.1.0",
     "prop-types": "^15.6.1",
-    "properties": "^1.2.1",
     "rc-tooltip": "^3.7.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
@@ -95,6 +96,7 @@
     "url-template": "^2.0.8",
     "webpack": "^4.6.0",
     "webpack-dev-middleware": "^3.1.2",
+    "webpack-dev-server": "^3.1.3",
     "webpack-hot-middleware": "^2.22.1"
   }
 }
