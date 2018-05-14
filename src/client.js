@@ -45,7 +45,7 @@ require('formdata-polyfill');
         : document.querySelector('.webPageWrapper')
           && (document.querySelector('.webPageWrapper').scrollTop = 0)
 
-      document.title = `OER World Map - ${title}`
+      document.title = `${title} - OER World Map`
       referrer = window.location.href
     }
 
