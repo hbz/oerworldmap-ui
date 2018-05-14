@@ -63,13 +63,14 @@ select,
 .btn {
   display: inline-block;
   cursor: pointer;
-  padding: 6px 12px;
+  padding: 7px 12px;
   border-radius: var(--border-radius);
   color: var(--action-color);
   font-size: var(--font-size-small);
   line-height: var(--line-height-forms);
   background-color: var(--white);
   border: 1px solid var(--action-color);
+  font-weight: 600;
   text-decoration: none !important;
 
   &:focus,
@@ -263,6 +264,7 @@ pre {
 
 .tooltipDisableEvents {
   pointer-events: none;
+  opacity: 1;
 
   & .rc-tooltip-inner {
     background-color: var(--grey-dark);
