@@ -1,3 +1,5 @@
+/* global URL */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -10,8 +12,6 @@ const Share = ({_self, translate, embedValue}) => {
 
   const embed = new URL(_self)
   embedValue && embed.searchParams.set('embed', embedValue)
-
-  console.log(embed)
 
   return (
     <FullModal className="Share" closeLink={_self}>

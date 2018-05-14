@@ -7,7 +7,9 @@ import Metadata from './Metadata'
 
 import expose from '../expose'
 
-const WebPageHeader = ({user, about, author, contributor, dateModified, view, _self, _links}) => {
+const WebPageHeader = ({
+  user, about, author, contributor, dateModified, view, _self, _links, embedValue
+}) => {
   return (
     <div className="WebPageHeader">
       <Metadata
@@ -24,7 +26,7 @@ const WebPageHeader = ({user, about, author, contributor, dateModified, view, _s
           {about['@id'] && [
             view !== 'edit' && (
               <div className="action" key="share">
-                <ShareExport _self={_self} _links={_links} view={view} />
+                <ShareExport _self={_self} _links={_links} view={view} embedValue={embedValue} />
               </div>
             ),
             expose('editEntry', user, about) &&
@@ -62,13 +64,15 @@ WebPageHeader.propTypes = {
   author: PropTypes.string,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
+  embedValue: PropTypes.string
 }
 
 WebPageHeader.defaultProps = {
   user: null,
   contributor: null,
   dateModified: null,
-  author: null
+  author: null,
+  embedValue: null
 }
 
 export default WebPageHeader

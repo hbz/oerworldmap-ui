@@ -21,7 +21,8 @@ const WebPage = ({
   _links,
   _self,
   mapboxConfig,
-  schema
+  schema,
+  embedValue
 }) => {
   return (
     <div className="webPageWrapper">
@@ -35,6 +36,7 @@ const WebPage = ({
           view={view}
           _self={_self}
           _links={_links}
+          embedValue={embedValue}
         />
 
         <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} />
@@ -80,7 +82,8 @@ WebPage.propTypes = {
       miniMapStyle: PropTypes.string,
     }
   ).isRequired,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  embedValue: PropTypes.string
 }
 
 WebPage.defaultProps = {
@@ -88,7 +91,8 @@ WebPage.defaultProps = {
   user: null,
   contributor: null,
   dateModified: null,
-  _links: { refs: [] }
+  _links: { refs: [] },
+  embedValue: null
 }
 
 export default WebPage
