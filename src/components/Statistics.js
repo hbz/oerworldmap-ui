@@ -106,6 +106,8 @@ const Statistics = ({translate, aggregations, emitter}) => (
 
           </div>
       ))}
+      <br />
+      <a href={Link.home} className="btn">{translate('close')}</a>
     </FullModal>
   </div>
 )

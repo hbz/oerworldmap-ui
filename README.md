@@ -14,12 +14,6 @@ $ git clone https://github.com/hbz/oerworldmap-ui.git
 $ cd oerworldmap-ui
 ```
 
-Install submodule
-```
-$ git submodule update --init --recursive
-$ npm install local_modules/json-pointer-form
-```
-
 Install node packages:
 ```
 $ npm install
@@ -51,9 +45,9 @@ Apache configuration
 
 Enable modules
 ```
-mod_rewrite
-mod_proxy
-mod_proxy_http
+sudo a2enmod rewrite #mod_rewrite
+sudo a2enmod proxy #mod_proxy
+sudo a2enmod proxy_http #mod_proxy_http
 ```
 
 Add new VirtualHost config and enable it
@@ -83,4 +77,4 @@ Add url to `/etc/hosts`
 127.0.0.1 oerworldmap.local
 ```
 
-Visit http://oerworldmap.local
+Visit http://oerworldmap.local/resource/

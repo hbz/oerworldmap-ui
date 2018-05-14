@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import turf from 'turf'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+import centroids from '../json/centroids.json'
 
 class MiniMap extends React.Component {
 
@@ -65,14 +66,13 @@ class MiniMap extends React.Component {
           "circle-stroke-color": "white"
         }
       })
-      this.updateMap(this.props.features, this.props.draggable, this.props.zoomable)
+      this.updateMap(this.props)
       window.dispatchEvent(new Event('resize'))
     })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateMap(nextProps.features, nextProps.draggable,
-      nextProps.zoomable, nextProps.center, nextProps.zoom)
+    this.updateMap(nextProps)
   }
 
   shouldComponentUpdate() {
@@ -150,8 +150,19 @@ class MiniMap extends React.Component {
     this.MiniMap.dragPan.enable()
   }
 
-  updateMap(features, draggable, zoomable, center, zoom) {
-    this.MiniMap.getSource('points') && this.MiniMap.getSource('points').setData(features)
+  updateMap(props) {
+
+    const { features, draggable, zoomable, center, zoom, country } = props
+
+    if (features && this.MiniMap.getSource('points')) {
+      this.MiniMap.getSource('points').setData(features)
+    } else {
+      this.MiniMap.getSource('points').setData({
+        "type": "FeatureCollection",
+        "features": []
+      })
+    }
+
     this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
     this.MiniMap.off('mouseleave', 'points', this.mouseLeave)
     this.MiniMap.off('mousedown', 'points', this.mouseDown)
@@ -173,9 +184,24 @@ class MiniMap extends React.Component {
     }
     if (center && zoom) {
       this.MiniMap.flyTo({center, zoom})
-    } else {
+    } else if (features) {
       setTimeout(() => {
-        this.MiniMap.fitBounds(turf.bbox(this.props.features), {
+        this.MiniMap.fitBounds(turf.bbox(features), {
+          padding: 20,
+          maxZoom: 3
+        })
+      }, 0)
+    } else if (country) {
+      setTimeout(() => {
+        this.MiniMap.fitBounds(turf.bbox(
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": centroids[country]
+            }
+          }
+        ), {
           padding: 20,
           maxZoom: 3
         })
@@ -211,12 +237,13 @@ MiniMap.propTypes = {
       miniMapStyle: PropTypes.string,
     }
   ).isRequired,
-  center: PropTypes.arrayOf(PropTypes.any),
-  zoom: PropTypes.number,
+  center: PropTypes.arrayOf(PropTypes.any), // eslint-disable-line react/no-unused-prop-types
+  zoom: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   features: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
-  zoomable: PropTypes.bool,
-  onFeatureDrag: PropTypes.func
+  zoomable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  onFeatureDrag: PropTypes.func,
+  country: PropTypes.string // eslint-disable-line react/no-unused-prop-types
 }
 
 MiniMap.defaultProps = {
@@ -229,6 +256,7 @@ MiniMap.defaultProps = {
   draggable: false,
   zoomable: false,
   onFeatureDrag: null,
+  country: undefined
 }
 
 export default MiniMap
