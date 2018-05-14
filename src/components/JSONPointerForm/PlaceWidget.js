@@ -117,7 +117,10 @@ class PlaceWidget extends React.Component {
                   <DropdownSelect
                     property="addressRegion"
                     translate={translate}
-                    options={regions.filter(region => region.startsWith(value.address.addressCountry))}
+                    options={regions
+                      .filter(region => region.startsWith(value.address.addressCountry))
+                      .filter((v, i, a) => a.indexOf(v) === i)
+                    }
                     title={schema.properties.address.properties.addressRegion.title}
                     setValue={region => setValue({
                       address: {
