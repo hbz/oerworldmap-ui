@@ -133,7 +133,6 @@ class Filters extends React.Component {
       <nav className="Filters">
 
         <form
-          action=""
           onSubmit={(evt) => onSubmit(evt, this.props.emitter)}
           onReset={(evt) => onReset(evt)}
         >

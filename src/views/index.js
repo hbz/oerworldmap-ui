@@ -1,7 +1,7 @@
 import favicon from '../public/favicon.png'
 import piwik from './piwik'
 
-export default ({body, title, initialState, env, piwikConfig, embed}) => {
+export default ({body, title, initialState, env, piwikConfig, embed, locales}) => {
 
   const piwikEmbed = env === 'production' && (piwikConfig.id && piwikConfig.url)
     ? piwik(piwikConfig)
@@ -9,7 +9,7 @@ export default ({body, title, initialState, env, piwikConfig, embed}) => {
 
   return `
     <!doctype html>
-    <html lang="en">
+    <html dir="ltr" lang="${locales.length ? locales.shift() : 'en'}">
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

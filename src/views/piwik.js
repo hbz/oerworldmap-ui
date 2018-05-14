@@ -12,6 +12,6 @@ export default ({id, url}) => {
       g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
       })();
     </script>
-    <noscript><p><img src="//${url}piwik.php?idsite=${id}" style="border:0;" alt="" /></p></noscript>
+    <noscript><p><img src="//${url}piwik.php?idsite=${id}" style="border:0;" alt="Piwik Url" /></p></noscript>
   `
 }
