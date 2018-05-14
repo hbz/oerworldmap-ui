@@ -16,21 +16,24 @@ export default ({body, title, initialState, env, piwikConfig, embed, metadata}) 
         <script src="/public/bundle.js" ></script>
         <title>${title} - OER World Map</title>
 
-        ${metadata && metadata.title ? `<meta property="og:title" content="${metadata.title}"/>
-        <meta name="twitter:title" content="${metadata.title}">` : ''}
-        ${metadata && metadata.description ? `<meta name="description" content="${metadata.description}">
-        <meta property="og:description" content="${metadata.description}"/>
-        <meta name="twitter:description" content="${metadata.description}">` : ''}
-        ${metadata && metadata.image ? `<meta property="og:image" content="${metadata.image}"/>
-        <meta property="og:image:alt" content="${metadata.title}" />
-        <meta property="twitter:image:alt" content="${metadata.title}" />
-        <meta name="twitter:image" content="${metadata.image}">`: ''}
-        <meta property="og:site_name" content="OER World Map"/>
-        ${metadata && metadata.url ? ` <meta property="og:url" content="${metadata.url}" />` : ''}
+        <meta property="og:site_name" content="OER World Map" />
         <meta property="og:type" content="website" />
-        <meta name="twitter:site" content="@oerworldmap">
-        <meta name="twitter:creator" content="@oerworldmap">
-        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@oerworldmap" />
+        <meta name="twitter:creator" content="@oerworldmap" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:title" content="${title} - OER World Map" />
+        <meta name="twitter:title" content="${title} - OER World Map" />
+        ${metadata && metadata.description &&
+          `<meta name="description" content="${metadata.description}" />
+          <meta property="og:description" content="${metadata.description}" />
+          <meta name="twitter:description" content="${metadata.description}" />`}
+        ${metadata && metadata.image &&
+          `<meta property="og:image" content="${metadata.image}" />
+          <meta property="og:image:alt" content="${metadata.title}" />
+          <meta property="twitter:image:alt" content="${metadata.title}" />
+          <meta name="twitter:image" content="${metadata.image}" />`}
+        ${metadata && metadata.url &&
+          `<meta property="og:url" content="${metadata.url}" />`}
 
         <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
         <link rel="shortcut icon" href="/public/${favicon}" type="image/x-icon" />
