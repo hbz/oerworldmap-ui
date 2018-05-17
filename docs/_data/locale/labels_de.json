@@ -187,5 +187,14 @@
   "PostalAddress.addressCountry": "Land",
   "LocalizedString.@language": "Sprache",
   "LocalizedText.@language": "Sprache",
-  "Comment.text": "Kommentar hinzufügen"
+  "Comment.text": "Kommentar hinzufügen",
+  "Tip.Organization": "Find organizations connected to OER",
+  "Tip.Action": "Find OER projects",
+  "Tip.Service": "Find repositories and other OER-services",
+  "Tip.Event": "Find OER events",
+  "Tip.Person": "Find people who are connected to OER",
+  "Tip.Product": "See, which software is used by which service",
+  "Tip.WebPage": "Find the best information on OER available on the web",
+  "Tip.Article": "Learn from other peoples OER experiences",
+  "Tip.showList": "Show List"
 }
