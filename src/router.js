@@ -24,6 +24,7 @@ import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
 import i18n from './i18n'
+import centroids from './json/centroids.json'
 
 export default (api) => {
 
@@ -207,8 +208,7 @@ export default (api) => {
             countryName: context.i18n.translate(data.iso3166)
           }),
           url: data._self,
-          //TODO Use centroids and zoom 3 for countries
-          image: `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/0,30,1,0,0/1200x630?access_token=${context.mapboxConfig.token}`
+          image: `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/${centroids[data.iso3166]},4,0,0/1200x630?access_token=${context.mapboxConfig.token}`
         }
 
         return { title, data, component, metadata }
