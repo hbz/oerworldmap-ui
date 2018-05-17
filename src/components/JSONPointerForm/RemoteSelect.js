@@ -40,7 +40,7 @@ class RemoteSelect extends React.Component {
 
   handleChange(e) {
     this.setState({filter: e.target.value})
-    e.target.value || schema.properties.inScheme
+    e.target.value || this.props.schema.properties.inScheme
       ? this.updateOptions()
       : this.setState({options: []})
   }
@@ -191,7 +191,8 @@ RemoteSelect.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 RemoteSelect.defaultProps = {
