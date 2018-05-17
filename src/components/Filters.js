@@ -155,14 +155,13 @@ class Filters extends React.Component {
               />
 
               <Tooltip
-                overlay="Show List"
+                overlay={this.props.translate('Tip.showList')}
                 placement="top"
                 mouseEnterDelay={0.2}
                 overlayClassName="tooltipDisableEvents"
               >
                 <i
                   className="fa fa-th-list"
-                  title="Show List"
                   tabIndex="0"
                   role="button"
                   onClick={() => {this.props.emitter.emit('toggleColumns')}}

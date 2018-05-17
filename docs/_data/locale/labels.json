@@ -195,5 +195,6 @@
   "Tip.Person": "Find people who are connected to OER",
   "Tip.Product": "See, which software is used by which service",
   "Tip.WebPage": "Find the best information on OER available on the web",
-  "Tip.Article": "Learn from other peoples OER experiences"
+  "Tip.Article": "Learn from other peoples OER experiences",
+  "Tip.showList": "Show List"
 }
