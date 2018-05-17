@@ -91,8 +91,7 @@ if (ENV === 'development') {
     devtool: 'source-map',
     mode: 'development',
     entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
+      'webpack-hot-middleware/client',
     ],
     devServer: {
       contentBase: __dirname + "/assets/",
@@ -101,7 +100,6 @@ if (ENV === 'development') {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
       new StyleLintPlugin(
         {
           emitErrors: false,

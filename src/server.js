@@ -29,20 +29,11 @@ if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') 
   const compiler = webpack(webpackConfig)
 
   server.use([
-
     webpackDevMiddleware(compiler, {
-      filename: webpackConfig.output.filename,
-      hot: true,
-      overlay: true,
-      stats: {
-        colors: true
-      }
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath
     }),
-
-    webpackHotMiddleware(compiler, {
-      log: console.log
-    })
-
+    webpackHotMiddleware(compiler)
   ])
 }
 

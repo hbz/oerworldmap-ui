@@ -102,14 +102,10 @@ if (ENV === 'development') {
   Config = merge(Config, {
     devtool: 'source-map',
     mode: 'development',
-    entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
-    ],
+    entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
       new StyleLintPlugin(
         {
           emitErrors: false,
@@ -154,14 +150,10 @@ if (ENV === 'static') {
   Config = merge(Config, {
     devtool: 'source-map',
     mode: 'development',
-    entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
-    ],
+    entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
       new ExtractTextPlugin("public/styles.css"),
     ],
     module: {
