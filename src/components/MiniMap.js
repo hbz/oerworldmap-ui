@@ -183,7 +183,20 @@ class MiniMap extends React.Component {
       this.MiniMap.doubleClickZoom.disable()
     }
     if (center && zoom) {
-      this.MiniMap.flyTo({center, zoom})
+      setTimeout(() => {
+        this.MiniMap.fitBounds(turf.bbox(
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": center
+            }
+          }
+        ), {
+          padding: 20,
+          maxZoom: zoom
+        })
+      }, 0)
     } else if (features) {
       setTimeout(() => {
         this.MiniMap.fitBounds(turf.bbox(features), {
