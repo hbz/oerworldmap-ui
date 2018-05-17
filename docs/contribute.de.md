@@ -29,7 +29,7 @@ Um wirklich global genutzt werden zu können, muss die OER World Map in vielen S
 
 ### Daten auf der OER World Map sammeln
 
-Wenn Sie Daten für die OER World Map sammeln möchten, können Sie diese direkt auf der Plattform über entsprechende Formulare eingeben. Dazu müssen Sie sich nur auf der World Map registrieren, dann können Sie loslegen. Lesen Sie auch die [FAQs für OER World Map Editoren](https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors) in unserem Wiki.
+Wenn Sie Daten für die OER World Map sammeln möchten, können Sie diese direkt auf der Plattform über entsprechende Formulare eingeben. Dazu müssen Sie sich nur auf der World Map registrieren, dann können Sie loslegen. Lesen Sie auch die [FAQs für OER World Map Editoren](https://github.com/hbz/oerworldmap/wiki/FAQs-f%C3%BCr-OER-World-Map-Editoren) in unserem Wiki.
 
 ### Bereits gesammelte Daten auf die OER World Map hochladen
 
