@@ -67,6 +67,7 @@ const ResourceIndex = ({
           ) : (
             <div className="wrapper-ItemList-Pagination">
               <ItemList
+                searchTerm={query}
                 listItems={member.map(member => member.about)}
                 count={countProp
                   ? entry => entry.objectIn.filter(objectIn => objectIn['@type'] === countProp).length
