@@ -1,0 +1,147 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/organizations.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#school",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "School"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#higherEducationInstitution",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Higher education institution"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#trainingProvider",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Training provider"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#fundingBody",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Funding bodies"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#researchInstitute",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Research institute"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#infrastructureProvider",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Infrastructure provider"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#governmentAgency",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Government agency"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#privateAgency",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Private agency"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#commercialEnterprise",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Commercial Enterprise"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#socialEnterprise",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Social Enterprises & NGO"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#grassrootsInitiative",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Grassroots initiative"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#specialInterestGroup",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Special Interest Group"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#communityOfPractice",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Community of practice"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Other"
+        }
+      ]
+    }
+  ]
+}
