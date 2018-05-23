@@ -1,0 +1,117 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/persons.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#teacher",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Teacher"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#student",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Student"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#librarian",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Librarian"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#instructionalDesigner",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Instructional designer"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#eLearningProfessional",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "E-learning professional"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#policyMaker",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Policy maker"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#scientist",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Scientist"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#oerAdvocate",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "OER advocate"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#consultant",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Consultant"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#developer",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Developer"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Other"
+        }
+      ]
+    }
+  ]
+}
