@@ -1,0 +1,37 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/projects.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/projects.json#program",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Program"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/projects.json#project",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Project"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/projects.json#initiative",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Initiative"
+        }
+      ]
+    }
+  ]
+}
