@@ -56,8 +56,17 @@ class Header extends React.Component {
         <nav className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}>
           <ul>
 
-            <li className="active hasDropdown">
-              <a href="#a">Find</a>
+            <li
+              className="hasDropdown"
+            >
+              <button
+                onClick={e => {
+                  e.preventDefault()
+                  e.target.parentElement.classList.toggle('active')
+                }}
+              >
+                Find
+              </button>
               <div className="dropdown">
                 <div className="inner">
                   <ul className="popular">
