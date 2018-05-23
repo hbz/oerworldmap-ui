@@ -6,7 +6,7 @@ import withI18n from './withI18n'
 import Link from './Link'
 import { triggerClick } from '../common'
 import expose from '../expose'
-import Icon from './Icon'
+import ConceptBlock from './ConceptBlock'
 
 import '../styles/components/Header.pcss'
 
@@ -66,28 +66,11 @@ class Header extends React.Component {
                   </ul>
                   <div className="row text-small">
                     <div className="col">
-                      <ul className="linedList">
-                        <li>
-                          <h3><Icon type="Person" />Organization</h3>
-                        </li>
-                        <li>Collective</li>
-                        <li>University</li>
-                        <li>Corporation</li>
-                        <li>Association</li>
-                        <li>Others</li>
-                      </ul>
-                    </div>
-                    <div className="col">
-                      <ul className="linedList">
-                        <li>
-                          <h3><Icon type="Action" />Project</h3>
-                        </li>
-                        <li>Collective</li>
-                        <li>University</li>
-                        <li>Corporation</li>
-                        <li>Association</li>
-                        <li>Others</li>
-                      </ul>
+                      <ConceptBlock
+                        type="Organization"
+                        conceptScheme={require('../json/persons.json').hasTopConcept}
+                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
                     </div>
                   </div>
                 </div>
