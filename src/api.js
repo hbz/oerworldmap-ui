@@ -117,6 +117,26 @@ class Api {
       return Promise.resolve({
         member: require('./json/sectors.json').hasTopConcept.map(entry => {return {about: entry}})
       })
+    case 'https://oerworldmap.org/assets/json/persons.json':
+      return Promise.resolve({
+        member: require('./json/persons.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/services.json':
+      return Promise.resolve({
+        member: require('./json/services.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/publications.json':
+      return Promise.resolve({
+        member: require('./json/publications.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/organizations.json':
+      return Promise.resolve({
+        member: require('./json/organizations.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/projects.json':
+      return Promise.resolve({
+        member: require('./json/projects.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
     default:
       return Promise.resolve({
         member: []
