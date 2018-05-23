@@ -216,6 +216,67 @@ class Header extends React.Component {
               </div>
             </li>
 
+            {this.props.user &&
+            <li className="hasDropdown">
+              <button>
+                {this.props.translate('Me')}
+              </button>
+              <div className="dropdown">
+                <div className="inner">
+                  <div className="row">
+                    <div className="col one-third">
+                      <ul className="linedList">
+                        <li>
+                          <Link href="/resource/">
+                            Home
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href={`/resource/${this.props.user.id}`}>
+                            Personal Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/user/password">
+                            Change Password
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="col one-third">
+                      <ul className="linedList">
+                        <li>
+                          <Link href={`/resource/?filter.author=${this.props.user.username}`}>
+                            My Entries
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
+                            Events I'm attending
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
+                            Organizations I'm a member of
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="col one-third">
+                      <ul className="linedList border-bottom">
+                        <li>
+                          <Link href="/.logout">
+                            Logout
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            }
+
             <li className="visible-mobile-block">
               <Link href="/resource/">
                 {this.props.translate('main.map')}
