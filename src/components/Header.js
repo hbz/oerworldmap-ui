@@ -77,8 +77,45 @@ class Header extends React.Component {
                     <div className="col">
                       <ConceptBlock
                         type="Organization"
+                        conceptScheme={require('../json/organizations.json').hasTopConcept}
+                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
+                    </div>
+                    <div className="col">
+                      <ConceptBlock
+                        type="Person"
                         conceptScheme={require('../json/persons.json').hasTopConcept}
                         linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
+                    </div>
+                    <div className="col">
+                      <ConceptBlock
+                        type="Service"
+                        conceptScheme={require('../json/services.json').hasTopConcept}
+                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
+                    </div>
+                    <div className="col">
+                      <ConceptBlock
+                        type="WebPage"
+                        conceptScheme={require('../json/publications.json').hasTopConcept}
+                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
+                    </div>
+                    <div className="col">
+                      <ConceptBlock
+                        type="Action"
+                        conceptScheme={require('../json/projects.json').hasTopConcept}
+                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
+                      <ConceptBlock
+                        type="Product"
+                      />
+                      <ConceptBlock
+                        type="Article"
+                      />
+                      <ConceptBlock
+                        type="Event"
                       />
                     </div>
                   </div>

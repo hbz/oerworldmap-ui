@@ -7,23 +7,23 @@ import Icon from './Icon'
 import withI18n from './withI18n'
 
 const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
-  <ul className="ConceptBlock linedList">
-    <li>
-      <h3>
-        <Icon type={type} />
-        <Link href={`/resource/?filter.about.@type=${type}`}>
-          {translate(type)}
-        </Link>
-      </h3>
-    </li>
-    {conceptScheme.map(concept => (
-      <li key={concept['@id']}>
-        <Link href={urlTemplate.parse(linkTemplate).expand(concept)}>
-          {translate(concept.name)}
-        </Link>
-      </li>
-    ))}
-  </ul>
+  <div className="ConceptBlock">
+    <h3>
+      <Icon type={type} />
+      <Link href={`/resource/?filter.about.@type=${type}`}>
+        {translate(type)}
+      </Link>
+    </h3>
+    <ul className="linedList border-bottom">
+      {conceptScheme && conceptScheme.map(concept => (
+        <li key={concept['@id']}>
+          <Link href={urlTemplate.parse(linkTemplate).expand(concept)}>
+            {translate(concept.name)}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
 )
 
 ConceptBlock.propTypes = {
@@ -31,6 +31,10 @@ ConceptBlock.propTypes = {
   conceptScheme: PropTypes.objectOf(PropTypes.any).isRequired,
   linkTemplate: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired
+}
+
+ConceptBlock.defaultProps = {
+  linkTemplate: undefined,
 }
 
 export default withI18n(ConceptBlock)
