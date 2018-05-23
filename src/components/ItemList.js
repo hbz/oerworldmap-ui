@@ -12,7 +12,7 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
-const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, query }) => (
+const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count }) => (
   <ul className={`ItemList ${className}`} >
     {listItems.map(listItem => (
       <li
@@ -47,7 +47,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                 <div>
                   <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
                   <br />
-                  <b>{translate(listItem.name).replace(query, `<b>${query}</b>`) || listItem['@id']}</b>
+                  <b>{translate(listItem.name) || listItem['@id']}</b>
                 </div>
               </div>
               {listItem.description &&
@@ -76,7 +76,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name).replace(query, `<b>${query}</b>`) || listItem['@id']}
+                {translate(listItem.name) || listItem['@id']}
                 {count && ` (${count(listItem)})`}
               </span>
             </Link>
