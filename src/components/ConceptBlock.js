@@ -9,7 +9,7 @@ import withI18n from './withI18n'
 const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
   <div className="ConceptBlock">
     <h3 className="border-bottom">
-      <Link href={`/resource/?filter.about.@type=${type}`}>
+      <Link className="iconItem" href={`/resource/?filter.about.@type=${type}`}>
         <Icon type={type} />{translate(type)}
       </Link>
     </h3>

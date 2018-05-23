@@ -253,11 +253,52 @@ pre {
     }
 
     & a {
+      display: block;
       color: var(--primary-color);
 
       &:hover {
         color: var(--highlight-color);
       }
+
+      &.item {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+
+        & i,
+        & .i {
+          line-height: inherit;
+          display: block;
+          width: 2.5em;
+          text-align: center;
+
+          & img {
+            position: relative;
+            top: 0.15em;
+          }
+        }
+
+        & > span {
+          flex: 1;
+          min-width: 0;
+        }
+      }
+    }
+  }
+}
+
+.iconItem {
+  & i,
+  & .i {
+    margin-right: 0.5em;
+  }
+
+  & .i {
+    display: inline-block;
+
+    & img {
+      position: relative;
+      top: 0.15em;
     }
   }
 }

@@ -85,20 +85,22 @@ class Header extends React.Component {
                     }
                     <ul>
                       <li>
-                        <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC">
-                          <img className="orangeLighthouse" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
-                          <img className="blueLighthouse" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
+                        <Link className="iconItem" href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC">
+                          <div className="i">
+                            <img className="orangeLighthouse" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
+                            <img className="blueLighthouse" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
+                          </div>
                           {this.props.translate('ClientTemplates.app.lighthouses')}
                         </Link>
                       </li>
                       <li>
-                        <Link href="/resource/?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC">
+                        <Link className="iconItem" href="/resource/?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC">
                           <i className="fa fa-thumbs-up" />
                           {this.props.translate('Most Liked')}
                         </Link>
                       </li>
                       <li>
-                        <Link href="/feed/">
+                        <Link className="iconItem" href="/feed/">
                           <i className="fa fa-rss" />
                           {this.props.translate('LandigPage.index.recentAdditions')}
                         </Link>
@@ -166,43 +168,43 @@ class Header extends React.Component {
                   <div className="row vertical-guttered">
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem" className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
@@ -246,18 +248,35 @@ class Header extends React.Component {
                     <div className="col one-third">
                       <ul className="linedList">
                         <li>
-                          <Link href={`/resource/?filter.author=${this.props.user.username}`}>
-                            My Entries
+                          <Link className="item" href={`/resource/?filter.author=${this.props.user.username}`}>
+                            <i className="fa fa-plus" /><span>My Entries</span>
+                          </Link>
+                        </li>
+                        {/* TODO: Set correct link */}
+                        <li>
+                          <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
+                            <i className="fa fa-thumbs-up" />
+                            <span>My likes</span>
                           </Link>
                         </li>
                         <li>
-                          <Link href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
-                            Events I'm attending
+                          <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LighthouseAction`}>
+                            <div className="i">
+                              <img className="blueLighthouse" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
+                            </div>
+                            <span>My Lighthouses</span>
                           </Link>
                         </li>
                         <li>
-                          <Link href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
-                            Organizations I'm a member of
+                          <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
+                            <i className="fa fa-calendar" />
+                            <span>Events I'm attending</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="item" href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
+                            <i className="fa fa-users" />
+                            <span>Organizations I'm a member of</span>
                           </Link>
                         </li>
                       </ul>
@@ -265,8 +284,9 @@ class Header extends React.Component {
                     <div className="col one-third">
                       <ul className="linedList border-bottom">
                         <li>
-                          <Link href="/.logout">
-                            Logout
+                          <Link className="item" href="/.logout">
+                            <i className="fa fa-sign-out" />
+                            <span>Logout</span>
                           </Link>
                         </li>
                       </ul>
