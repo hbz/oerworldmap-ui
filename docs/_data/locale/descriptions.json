@@ -29,6 +29,7 @@
   "Event.award": "An award this Event won",
   "Event.primarySector": "The educational sector the event is about in the first place",
   "Event.secondarySector": "Educational sectors the service is also relevant for",
+  "Organization": "A group of people sharing collective goals such as universities, corporations, assocoations, etc.",
   "Organization.name": "The name of the organization",
   "Organization.alternateName": "An abbreviation that identifies the organization",
   "Organization.url": "The insitutional website of the organization",

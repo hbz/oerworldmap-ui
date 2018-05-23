@@ -7,6 +7,7 @@ import Link from './Link'
 import { triggerClick } from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
+import Icon from './Icon'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
@@ -60,12 +61,7 @@ class Header extends React.Component {
             <li
               className="hasDropdown"
             >
-              <button
-                onClick={e => {
-                  e.preventDefault()
-                  e.target.parentElement.classList.toggle('active')
-                }}
-              >
+              <button>
                 {this.props.translate('Find')}
               </button>
               <div className="dropdown">
@@ -158,6 +154,66 @@ class Header extends React.Component {
                 </div>
               </div>
 
+            </li>
+
+            <li className="hasDropdown">
+              <button>
+                {this.props.translate('Add')}
+              </button>
+              <div className="dropdown">
+                <div className="inner">
+                  <p>What kind of entry would you like to add?</p>
+                  <div className="row vertical-guttered">
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <p>{this.props.translate('descriptions.Organization')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors">
+                        Need help?
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
 
             <li className="visible-mobile-block">

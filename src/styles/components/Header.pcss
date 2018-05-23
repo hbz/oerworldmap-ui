@@ -40,9 +40,13 @@
         &.active,
         &.hasDropdown:hover {
           background-image: url(/public/triangle.svg);
-          background-size: 12px 7px;
+          background-size: 15px 7px;
           background-repeat: no-repeat;
           background-position: center bottom;
+
+          & .dropdown {
+            display: block;
+          }
         }
 
         &.active .dropdown {
@@ -201,15 +205,31 @@
 
       & h3 {
         font-size: var(--font-size);
-        padding: 2em 0 0.4em 0;
         margin: 0;
         text-transform: uppercase;
         font-weight: 600;
         letter-spacing: 0.1em;
-        border-bottom: 1px solid var(--grey-light);
 
-        & > i {
+        & i {
           margin-right: 10px;
+        }
+      }
+
+      & .ConceptBlock h3 {
+        padding: 2em 0 0.4em 0;
+      }
+
+      & .addBox {
+        display: block;
+        padding: 0.9em 1.3em;
+        border: 1px solid var(--grey-light);
+
+        &:hover {
+          border-color: var(--orange);
+        }
+
+        & p:last-child {
+          margin-bottom: 0;
         }
       }
     }
@@ -260,6 +280,18 @@
       text-align: left;
       padding: 0 10px;
       border-top: 1px solid var(--blue-light);
+
+      & ul {
+        flex-direction: column;
+
+        & li > a,
+        & li > button {
+          width: 100%;
+          padding: 10px;
+          border-bottom: 1px solid var(--white);
+          display: block;
+        }
+      }
 
       &.show {
         display: block;
