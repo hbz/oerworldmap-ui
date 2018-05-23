@@ -87,6 +87,20 @@ button {
   }
 }
 
+.visible-mobile-block {
+  display: none !important;
+
+  @media screen and (--mobile-breakpoint) {
+    display: block;
+  }
+}
+
+.hidden-mobile {
+  @media screen and (--mobile-breakpoint) {
+    display: none;
+  }
+}
+
 /* --- print --- */
 
 @media print {

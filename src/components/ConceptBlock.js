@@ -9,32 +9,33 @@ import withI18n from './withI18n'
 const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
   <div className="ConceptBlock">
     <h3>
-      <Icon type={type} />
       <Link href={`/resource/?filter.about.@type=${type}`}>
-        {translate(type)}
+        <Icon type={type} /> {translate(type)}
       </Link>
     </h3>
-    <ul className="linedList border-bottom">
-      {conceptScheme && conceptScheme.map(concept => (
-        <li key={concept['@id']}>
-          <Link href={urlTemplate.parse(linkTemplate).expand(concept)}>
-            {translate(concept.name)}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    {conceptScheme &&
+      <ul className="linedList border-bottom">
+        {conceptScheme.map(concept => (
+          <li key={concept['@id']}>
+            <Link href={urlTemplate.parse(linkTemplate).expand(concept)}>
+              {translate(concept.name)}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    }
   </div>
 )
 
 ConceptBlock.propTypes = {
   type: PropTypes.string.isRequired,
   conceptScheme: PropTypes.objectOf(PropTypes.any).isRequired,
-  linkTemplate: PropTypes.string.isRequired,
+  linkTemplate: PropTypes.string,
   translate: PropTypes.func.isRequired
 }
 
 ConceptBlock.defaultProps = {
-  linkTemplate: undefined,
+  linkTemplate: undefined
 }
 
 export default withI18n(ConceptBlock)

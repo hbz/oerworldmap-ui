@@ -9,6 +9,7 @@ import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 
 import '../styles/components/Header.pcss'
+import '../styles/helpers.pcss'
 
 class Header extends React.Component {
 
@@ -45,7 +46,7 @@ class Header extends React.Component {
         </Link>
 
         <button
-          className="menuToggle mobile"
+          className="menuToggle visible-mobile-block"
           onClick={() => {this.setState({showMobileMenu:!this.state.showMobileMenu})}}
           onKeyDown={triggerClick}
           ref={el => this.menuToggle = el}
@@ -65,14 +66,49 @@ class Header extends React.Component {
                   e.target.parentElement.classList.toggle('active')
                 }}
               >
-                Find
+                {this.props.translate('Find')}
               </button>
               <div className="dropdown">
                 <div className="inner">
-                  <ul className="popular">
-                    <li>My entries</li>
-                    <li>lighthouses</li>
-                  </ul>
+                  <div className="popular">
+                    {this.props.user &&
+                    <ul>
+                      <li>
+                        <Link href={`/resource/?filter.author=${this.props.user.username}`}>
+                          {this.props.translate('My entries')}
+                        </Link>
+                      </li>
+                      {this.props.user.country &&
+                      <li>
+                        <Link href={`/country/${this.props.user.country}`} >
+                          {this.props.translate('Countryview:')} {this.props.translate(this.props.user.country)}
+                        </Link>
+                      </li>
+                      }
+                    </ul>
+                    }
+                    <ul>
+                      <li>
+                        <Link href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC">
+                          <img className="orangeLighthouse" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
+                          <img className="blueLighthouse" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
+                          {this.props.translate('ClientTemplates.app.lighthouses')}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/resource/?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC">
+                          <i className="fa fa-thumbs-up" />
+                          {this.props.translate('Most Liked')}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/feed/">
+                          <i className="fa fa-rss" />
+                          {this.props.translate('LandigPage.index.recentAdditions')}
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
                   <div className="row text-small">
                     <div className="col">
                       <ConceptBlock
@@ -124,8 +160,8 @@ class Header extends React.Component {
 
             </li>
 
-            <li>
-              <Link href="/resource/" className="mobile">
+            <li className="visible-mobile-block">
+              <Link href="/resource/">
                 {this.props.translate('main.map')}
               </Link>
             </li>
@@ -166,11 +202,10 @@ class Header extends React.Component {
               </a>
             </li>
 
-            <li>
+            <li className="visible-mobile-block">
               <a
                 href="/imprint"
                 target="_blank"
-                className="mobile"
                 title={this.props.translate('main.imprintPrivacy')}
               >
                 {this.props.translate('main.imprintPrivacy')}
@@ -179,19 +214,15 @@ class Header extends React.Component {
 
             <li>
               {expose('userMenu', this.props.user) ? (
-                <div
+                <button
                   className="menuBtn"
                   href="#nothing"
                   title={this.props.user.username}
-                  tabIndex="0"
-                  role="button"
                   onClick={() => {this.setState({showUserMenu:!this.state.showUserMenu})}}
-                  onKeyDown={triggerClick}
                   ref={el => this.menuBtn = el}
                 >
                   <i className="fa fa-user" />
-
-                </div>
+                </button>
 
               ) : (
                 <Link
