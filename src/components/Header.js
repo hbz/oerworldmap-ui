@@ -19,11 +19,11 @@ class Header extends React.Component {
     this.state = {
       // showUserMenu: true
     }
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleClick)
+    // document.addEventListener("click", this.handleClick)
 
     this.props.emitter.on('setLoading', () => {
       if (this.dropDown) {
@@ -35,9 +35,9 @@ class Header extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
-  }
+  // componentWillUnmount() {
+  //   document.removeEventListener("click", this.handleClick)
+  // }
 
   // handleClick(e) {
   //   // if (e.target !== this.menuBtn)
