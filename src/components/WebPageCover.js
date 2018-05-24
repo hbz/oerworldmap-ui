@@ -5,12 +5,12 @@ import MiniMap from './MiniMap'
 import withI18n from './withI18n'
 import Icon from './Icon'
 
-const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
+const WebPageCover = ({feature, about, translate, mapboxConfig}) => (
   <div className="WebPageCover">
 
     <MiniMap
       mapboxConfig={mapboxConfig}
-      features={geo && geo.geometry}
+      features={feature && feature.geometry}
       country={about
         && about.location
         && about.location.address
@@ -45,7 +45,7 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
 )
 
 WebPageCover.propTypes = {
-  geo: PropTypes.objectOf(PropTypes.any),
+  feature: PropTypes.objectOf(PropTypes.any),
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   mapboxConfig: PropTypes.shape(
@@ -58,7 +58,7 @@ WebPageCover.propTypes = {
 }
 
 WebPageCover.defaultProps = {
-  geo: null
+  feature: null
 }
 
 export default withI18n(WebPageCover)

@@ -44,13 +44,13 @@ const primaryFilters = [
 
 const subFilters = [
   {
-    name: "about.location.address.addressCountry",
+    name: "feature.properties.location.address.addressCountry",
     type: "dropdown",
     icon: "globe",
     translate: true
   },
   {
-    name: "about.location.address.addressRegion",
+    name: "feature.properties.location.address.addressRegion",
     type: "dropdown",
     icon: "globe",
     translate: true

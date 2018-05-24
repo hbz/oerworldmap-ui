@@ -60,7 +60,7 @@ const charts = [
   "about.secondarySector.@id",
   "about.isFundedBy.isAwardedBy.@id",
   "about.availableChannel.availableLanguage",
-  "about.location.address.addressCountry",
+  "feature.properties.location.address.addressCountry",
   "about.license.@id",
   "about.about.@id",
   "about.keywords",
