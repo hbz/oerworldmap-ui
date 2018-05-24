@@ -63,8 +63,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             add={params.add}
             embedValue="true"
-          >
-          </ResourceIndex>
+          />
         )
 
         const title = params.add

@@ -17,7 +17,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showUserMenu: true
+      // showUserMenu: true
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -39,12 +39,12 @@ class Header extends React.Component {
     document.removeEventListener("click", this.handleClick)
   }
 
-  handleClick(e) {
-    // if (e.target !== this.menuBtn)
-    //   this.setState({showUserMenu:false})
-    // if (e.target !== this.menuToggle)
-    //   this.setState({showMobileMenu:false})
-  }
+  // handleClick(e) {
+  //   // if (e.target !== this.menuBtn)
+  //   //   this.setState({showUserMenu:false})
+  //   // if (e.target !== this.menuToggle)
+  //   //   this.setState({showMobileMenu:false})
+  // }
 
   render() {
     return (
