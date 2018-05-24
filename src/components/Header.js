@@ -391,10 +391,17 @@ class Header extends React.Component {
                           </Link>
                         </li>
                         <li>
-                          <Link className="item" href="/.logout">
+                          <a
+                            className="item"
+                            href="/.logout"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              this.props.emitter.emit('logout')
+                            }}
+                          >
                             <i className="fa fa-sign-out" />
                             <span>Logout</span>
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                     </div>
