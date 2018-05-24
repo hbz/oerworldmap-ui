@@ -186,7 +186,7 @@ class Header extends React.Component {
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem" className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
+                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
                         <p>{this.props.translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
@@ -270,13 +270,13 @@ class Header extends React.Component {
                         <li>
                           <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
                             <i className="fa fa-calendar" />
-                            <span>Events I'm attending</span>
+                            <span>Events I&apos;m attending</span>
                           </Link>
                         </li>
                         <li>
                           <Link className="item" href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
                             <i className="fa fa-users" />
-                            <span>Organizations I'm a member of</span>
+                            <span>Organizations I&apos;m a member of</span>
                           </Link>
                         </li>
                       </ul>
