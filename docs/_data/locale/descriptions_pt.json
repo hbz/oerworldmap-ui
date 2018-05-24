@@ -65,6 +65,7 @@
   "Person.publication": "Publicações desta Pessoa",
   "Person.primarySector": "Setor educacional nos quais você trabalha prioritariamente",
   "Person.secondarySector": "Setor educacional também relevantes para você",
+  "Person.additionalType": "The type of the person",
   "Action.name": "O nome do projeto",
   "Action.alternateName": "Uma abreviatura que identifica o projeto",
   "Action.additionalType": "O tipo do projeto",
@@ -115,6 +116,7 @@
   "Service.primarySector": "Setor educacional para os quais o serviço é prioritário",
   "Service.secondarySector": "Setores educacionais para os quais o serviço também é relevante",
   "Service.resultOf": "O projeto onde o serviço foi criado",
+  "Service.additionalType": "The type of the service",
   "Product.name": "Nome da ferramenta",
   "Product.alternateName": "Uma abreviação que identifica a ferramenta",
   "Product.description": "Uma descrição da ferramenta",
@@ -135,5 +137,6 @@
   "WebPage.keywords": "Tags para a publicação",
   "WebPage.publisher": "Por quem a publicação foi publicada",
   "WebPage.award": "Um prêmio que essa publicação recebeu",
+  "WebPage.additionalType": "The type of the publication",
   "LighthouseAction.description": "Por favor nos diga porque essa submissão é um farol"
 }
