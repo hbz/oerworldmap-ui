@@ -54,7 +54,7 @@ O Mapa Global REAcoleta dados sobre os atores e as atividades relacionadas à RE
 
 Existem muitas oportunidades para a expansão futura do modelo.
 
-## What do I have to keep in mind when I set a lighthouse?
+## O que tenho que ter em mente quando definir um Farol?
 
 The Ljubjlana Action Plan highlights the need to identify models of good practice, which have proven to be sustainable ways to organize production, sharing and use of OER. We believe that learning from experiences made in other countries will be key for fast global mainstreaming of OER, so please consider setting some lighthouses.
 
