@@ -203,43 +203,45 @@ class Header extends React.Component {
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
                         <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <p className="text-small">{this.props.translate('An organization is a steady group of people sharing collective goals. Such as universities, corporations, associations, etc.')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <h3 className="iconItem"><Icon type="Action" />{this.props.translate('Action')}</h3>
+                        <p className="text-small">{this.props.translate('	A temporary undertaking intended to accomplish particular tasks under time constraints.')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <h3 className="iconItem"><Icon type="Service" />{this.props.translate('Service')}</h3>
+                        <p className="text-small">{this.props.translate('An steady online offer, which provides functionality and value related to OER to its users.')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <h3 className="iconItem"><Icon type="Event" />{this.props.translate('Event')}</h3>
+                        <p className="text-small">{this.props.translate('A gathering of people, which take place at a certain location (virtual or physical) at a certain time.')}</p>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <h3 className="iconItem"><Icon type="Person" />{this.props.translate('Person')}</h3>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <h3 className="iconItem"><Icon type="Article" />{this.props.translate('Article')}</h3>
                       </Link>
                     </div>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                        <h3 className="iconItem"><Icon type="WebPage" />{this.props.translate('WebPage')}</h3>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3 className="iconItem"><Icon type="Product" />{this.props.translate('Product')}</h3>
                       </Link>
                     </div>
                   </div>
