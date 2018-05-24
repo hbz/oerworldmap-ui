@@ -7,7 +7,6 @@ import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
-import ActionButtons from './components/ActionButtons'
 import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
@@ -65,7 +64,6 @@ export default (api) => {
             add={params.add}
             embedValue="true"
           >
-            <ActionButtons user={context.user} />
           </ResourceIndex>
         )
 

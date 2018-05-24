@@ -79,6 +79,21 @@ button {
   display: none;
 }
 
+.visible-hover-focus {
+  display: none;
+}
+
+a:hover,
+a:focus {
+  & .visible-hover-focus {
+    display: inline;
+  }
+
+  & .hidden-hover-focus {
+    display: none;
+  }
+}
+
 /* --- responsive --- */
 
 @media screen and (max-width: 1024px) {

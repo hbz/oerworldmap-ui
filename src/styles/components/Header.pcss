@@ -6,6 +6,7 @@
   align-items: stretch;
   background-color: var(--blue-dark);
   position: relative;
+  padding: 0 var(--column-padding);
 
   & a,
   & button {
@@ -14,7 +15,7 @@
 
   & h1 {
     margin: 0;
-    padding: 10px 15px;
+    padding: 10px 0;
     font-size: var(--font-size);
     font-weight: 600;
     letter-spacing: 0.15em;
@@ -36,6 +37,7 @@
       & > li {
         display: flex;
         align-items: center;
+        margin: 0 10px;
 
         &.active,
         &.hasDropdown:hover {
@@ -59,9 +61,9 @@
           letter-spacing: 0.15em;
           text-transform: uppercase;
           font-size: var(--font-size-xs);
-          padding: 0 10px;
           display: inline-block;
           position: relative;
+          padding: 0;
           border: none;
           background-color: transparent;
 
@@ -77,6 +79,10 @@
           &:hover {
             color: var(--blue-lightest);
           }
+        }
+
+        &:last-child {
+          margin-right: 0;
         }
       }
     }
@@ -140,9 +146,10 @@
     position: absolute;
     left: 0;
     top: 100%;
-    z-index: 99;
+    z-index: 9;
     width: 100%;
     display: none;
+    box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.1);
 
     & .inner {
       max-width: calc(var(--inner-width) + 2 * var(--header-padding));
@@ -162,8 +169,7 @@
       & .popular {
         display: flex;
         justify-content: space-between;
-        padding: 0 0 10px 0;
-        border-bottom: 1px solid var(--grey-light);
+        padding: 0 0 1.4em 0;
 
         & ul {
           list-style: none;
@@ -204,6 +210,11 @@
         text-transform: uppercase;
         font-weight: 600;
         letter-spacing: 0.1em;
+        /* padding-bottom: 0.4em; */
+
+        & i {
+          font-size: calc(var(--font-size) - 1px);
+        }
 
         & a {
           display: block;
@@ -211,7 +222,8 @@
       }
 
       & .ConceptBlock h3 {
-        padding: 2em 0 0.4em 0;
+        padding-top: 1.9em;
+        padding-bottom: 0.4em;
       }
 
       & .addBox {
@@ -219,11 +231,16 @@
         padding: 0.9em 1.3em;
         border: 1px solid var(--grey-light);
 
+        & h3 {
+          padding-bottom: 0;
+        }
+
         &:hover {
           border-color: var(--orange);
         }
 
-        & p:last-child {
+        & p {
+          margin-top: 0.7em;
           margin-bottom: 0;
         }
       }

@@ -9,6 +9,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
+    & i {
+      font-size: 15px;
+    }
+
     &.inUse {
       color: var(--white);
       background-color: var(--blue-dark);
@@ -24,7 +28,7 @@
     border: 1px solid var(--blue-dark);
     background-color: var(--white);
     border-radius: 2px;
-    font-size: 0.9rem;
+    font-size: var(--font-size);
     max-width: 100%;
 
     &.hidden {
