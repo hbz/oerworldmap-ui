@@ -29,12 +29,13 @@ const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
 
 ConceptBlock.propTypes = {
   type: PropTypes.string.isRequired,
-  conceptScheme: PropTypes.objectOf(PropTypes.any).isRequired,
+  conceptScheme: PropTypes.arrayOf(PropTypes.any),
   linkTemplate: PropTypes.string,
   translate: PropTypes.func.isRequired
 }
 
 ConceptBlock.defaultProps = {
+  conceptScheme: undefined,
   linkTemplate: undefined
 }
 
