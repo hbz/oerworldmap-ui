@@ -26,10 +26,12 @@ class Header extends React.Component {
     document.addEventListener("click", this.handleClick)
 
     this.props.emitter.on('setLoading', () => {
-      this.dropDown.style.pointerEvents = "none"
-      setTimeout(() => {
-        this.dropDown.style.pointerEvents = "auto"
-      }, 1000)
+      if (this.dropDown) {
+        this.dropDown.style.pointerEvents = "none"
+        setTimeout(() => {
+          this.dropDown.style.pointerEvents = "auto"
+        }, 1000)
+      }
     })
   }
 
