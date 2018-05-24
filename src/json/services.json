@@ -1,0 +1,87 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/services.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#repository",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Repository"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#referatory",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Referatory"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#authoringTool",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Authoring tool"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#learningPlatform",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Learning platform"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#learningManagementSystem",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Learning Management System"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#information",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Information, reflection & tutorials"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#communityPlatform",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Community platform"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "(Other) Content Source"
+        }
+      ]
+    }
+  ]
+}
