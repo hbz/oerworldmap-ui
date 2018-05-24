@@ -20,6 +20,11 @@
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+
+    &:focus,
+    &:hover {
+      color: var(--blue-lightest);
+    }
   }
 
   & .secondaryNav {
@@ -152,8 +157,8 @@
     box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.1);
 
     & .inner {
-      max-width: calc(var(--inner-width) + 2 * var(--header-padding));
-      padding: 1.5em var(--header-padding) 3em var(--header-padding);
+      max-width: calc(var(--inner-width) + 2 * var(--column-padding));
+      padding: 1.5em var(--column-padding) 3em var(--column-padding);
       margin: 0 auto;
       color: var(--primary-color);
 
