@@ -6,7 +6,7 @@
   align-items: stretch;
   background-color: var(--blue-dark);
   position: relative;
-  padding: 0 var(--column-padding);
+  padding: 0 calc(var(--column-padding) - 10px) 0 var(--column-padding);
 
   & a,
   & button {
@@ -23,7 +23,7 @@
 
     &:focus,
     &:hover {
-      color: var(--blue-lightest);
+      color: var(--white);
     }
   }
 
@@ -42,22 +42,19 @@
       & > li {
         display: flex;
         align-items: center;
-        margin: 0 10px;
+        padding: 0 10px;
 
-        &.active,
-        &.hasDropdown:hover {
-          background-image: url(/public/triangle.svg);
-          background-size: 15px 7px;
-          background-repeat: no-repeat;
-          background-position: center bottom;
+        @media screen and (--desktop-breakpoint) {
+          &.hasDropdown:hover {
+            background-image: url(/public/triangle.svg);
+            background-size: 15px 7px;
+            background-repeat: no-repeat;
+            background-position: center bottom;
 
-          & .dropdown {
-            display: block;
+            & .dropdown {
+              display: block;
+            }
           }
-        }
-
-        &.active .dropdown {
-          display: block;
         }
 
         & > a,
@@ -79,15 +76,6 @@
           & i {
             pointer-events: none;
           }
-
-          &:focus,
-          &:hover {
-            color: var(--blue-lightest);
-          }
-        }
-
-        &:last-child {
-          margin-right: 0;
         }
       }
     }
@@ -136,8 +124,7 @@
   }
 
   & .menuToggle {
-    color: var(--blue-lightest);
-    padding: 10px;
+    padding: 0 10px;
     border: none;
     background-color: transparent;
 
@@ -295,18 +282,47 @@
       background-color: var(--blue-dark);
       width: 100%;
       text-align: left;
-      padding: 0 10px;
-      border-top: 1px solid var(--blue-light);
+      border-top: 1px solid var(--white);
 
-      & ul {
-        flex-direction: column;
+      & > ul {
+        display: block;
 
-        & li > a,
-        & li > button {
-          width: 100%;
-          padding: 10px;
-          border-bottom: 1px solid var(--white);
+        & > li {
           display: block;
+          padding: 0;
+
+          & > a,
+          & > button {
+            padding: 10px var(--column-padding);
+            text-align: left;
+            font-size: var(--font-size);
+            font-weight: 400;
+            width: 100%;
+            border-bottom: 1px solid var(--blue-lightest);
+            display: block;
+          }
+
+          & .dropdown {
+            position: static;
+
+            & .popular {
+              display: block;
+
+              & ul {
+                display: block;
+
+                & li {
+                  margin-bottom: 0.7em;
+                }
+              }
+            }
+          }
+
+          &.active {
+            & .dropdown {
+              display: block;
+            }
+          }
         }
       }
 

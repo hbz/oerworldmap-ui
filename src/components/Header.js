@@ -17,7 +17,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showUserMenu: false
+      showUserMenu: true
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -40,10 +40,10 @@ class Header extends React.Component {
   }
 
   handleClick(e) {
-    if (e.target !== this.menuBtn)
-      this.setState({showUserMenu:false})
-    if (e.target !== this.menuToggle)
-      this.setState({showMobileMenu:false})
+    // if (e.target !== this.menuBtn)
+    //   this.setState({showUserMenu:false})
+    // if (e.target !== this.menuToggle)
+    //   this.setState({showMobileMenu:false})
   }
 
   render() {
@@ -69,7 +69,10 @@ class Header extends React.Component {
             <li
               className="hasDropdown"
             >
-              <button>
+              <button onClick={e => {
+                e.target.parentElement.classList.toggle('active')
+              }}
+              >
                 {this.props.translate('Find')}
               </button>
               <div className="dropdown">
@@ -124,7 +127,7 @@ class Header extends React.Component {
                     }
 
                   </div>
-                  <div className="row text-small">
+                  <div className="row text-small stack-700">
                     <div className="col">
                       <ConceptBlock
                         type="Organization"
@@ -176,7 +179,10 @@ class Header extends React.Component {
             </li>
 
             <li className="hasDropdown">
-              <button>
+              <button onClick={e => {
+                e.target.parentElement.classList.toggle('active')
+              }}
+              >
                 {this.props.translate('Add')}
               </button>
               <div className="dropdown">
@@ -193,7 +199,7 @@ class Header extends React.Component {
                       </li>
                     </ul>
                   </div>
-                  <div className="row vertical-guttered" style={{justifyContent: "start"}}>
+                  <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
                     <div className="col one-fourth">
                       <Link href="/resource/?add=Organization" className="addBox">
                         <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
@@ -242,12 +248,15 @@ class Header extends React.Component {
             </li>
 
             <li className="hasDropdown">
-              <button>
+              <button onClick={e => {
+                e.target.parentElement.classList.toggle('active')
+              }}
+              >
                 {this.props.translate('Info')}
               </button>
               <div className="dropdown">
                 <div className="inner">
-                  <div className="row">
+                  <div className="row stack-700 stack-gutter-2em">
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
@@ -343,7 +352,10 @@ class Header extends React.Component {
 
             {this.props.user &&
             <li className="hasDropdown">
-              <button>
+              <button onClick={e => {
+                e.target.parentElement.classList.toggle('active')
+              }}
+              >
                 {this.props.translate('Me')}
               </button>
               <div
@@ -351,7 +363,7 @@ class Header extends React.Component {
                 className="dropdown"
               >
                 <div className="inner">
-                  <div className="row">
+                  <div className="row stack-700 stack-gutter-2em">
                     <div className="col one-half">
                       <ul className="linedList border-bottom">
                         <li>
