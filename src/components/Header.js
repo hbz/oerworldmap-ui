@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
@@ -23,15 +24,17 @@ class Header extends React.Component {
         me: false
       }
     }
-    // this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
   }
 
   componentDidMount() {
-    // document.addEventListener("click", this.handleClick)
+    document.addEventListener("click", this.handleClick)
 
     this.props.emitter.on('setLoading', () => {
       if (this.dropDown) {
+        this.setState({showMobileMenu:false})
+        this.setDropdown('')
         this.dropDown.style.pointerEvents = "none"
         setTimeout(() => {
           this.dropDown.style.pointerEvents = "auto"
@@ -40,14 +43,10 @@ class Header extends React.Component {
     })
   }
 
-  // componentWillUnmount() {
-  //   document.removeEventListener("click", this.handleClick)
-  // }
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick)
+  }
 
-  // handleClick(e) {
-  //   // if (e.target !== this.menuToggle)
-  //   //   this.setState({showMobileMenu:false})
-  // }
   setDropdown(name) {
     const dropdowns = {}
 
@@ -56,6 +55,11 @@ class Header extends React.Component {
     })
 
     this.setState({dropdowns})
+  }
+
+  handleClick(e) {
+    if (e.target !== this.menuToggle && (this.secondaryNav && !this.secondaryNav.contains(e.target)))
+      this.setState({showMobileMenu:false})
   }
 
   render() {
@@ -68,14 +72,20 @@ class Header extends React.Component {
 
         <button
           className="menuToggle visible-mobile-block"
-          onClick={() => {this.setState({showMobileMenu:!this.state.showMobileMenu})}}
+          onClick={() => {
+            this.setState({showMobileMenu:!this.state.showMobileMenu})
+            this.setDropdown('')
+          }}
           onKeyDown={triggerClick}
           ref={el => this.menuToggle = el}
         >
           <i className="fa fa-bars" />
         </button>
 
-        <nav className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}>
+        <nav
+          className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}
+          ref={secondaryNav => this.secondaryNav = secondaryNav}
+        >
           <ul>
 
             <li
