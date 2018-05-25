@@ -296,14 +296,14 @@ class Header extends React.Component {
                           <h3>Topical</h3>
                         </li>
                         <li>
-                          <Link className="item" href="/about#newsletter">
+                          <a className="item" href="/about#newsletter">
                             Newsletter
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="https://oerworldmap.wordpress.com/" rel="noopener noreferrer" target="_blank">
+                          <a className="item" href="https://oerworldmap.wordpress.com/" rel="noopener noreferrer" target="_blank">
                             Blog
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -313,29 +313,29 @@ class Header extends React.Component {
                           <h3>About</h3>
                         </li>
                         <li>
-                          <Link className="item" href="/about#the-vision">
+                          <a className="item" href="/about#the-vision">
                             The OER World Map
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="/contribute">
+                          <a className="item" href="/contribute">
                             Contribute
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="/FAQ">
+                          <a className="item" href="/FAQ">
                             FAQ
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="/about#team">
+                          <a className="item" href="/about#team">
                             Team
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors">
+                          <a className="item" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors">
                             FAQs for Editors
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -345,19 +345,19 @@ class Header extends React.Component {
                           <h3>Social</h3>
                         </li>
                         <li>
-                          <Link className="item" href="https://www.facebook.com/oerworldmap" rel="noopener noreferrer" target="_blank">
+                          <a className="item" href="https://www.facebook.com/oerworldmap" rel="noopener noreferrer" target="_blank">
                             Facebook
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="https://twitter.com/oerworldmap" rel="noopener noreferrer" target="_blank">
+                          <a className="item" href="https://twitter.com/oerworldmap" rel="noopener noreferrer" target="_blank">
                             Twitter
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="https://github.com/hbz/oerworldmap" rel="noopener noreferrer" target="_blank">
+                          <a className="item" href="https://github.com/hbz/oerworldmap" rel="noopener noreferrer" target="_blank">
                             GitHub
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -367,14 +367,14 @@ class Header extends React.Component {
                           <h3>Legal</h3>
                         </li>
                         <li>
-                          <Link className="item" href="mailto:info@oerworldmap.org">
+                          <a className="item" href="mailto:info@oerworldmap.org">
                             Contact
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link className="item" href="/imprint">
+                          <a className="item" href="/imprint">
                             Imprint &amp; Privacy
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -446,7 +446,6 @@ class Header extends React.Component {
                               <i className="fa fa-pencil" /><span>My Entries</span>
                             </Link>
                           </li>
-                          {/* TODO: Set correct link */}
                           <li>
                             <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
                               <i className="fa fa-thumbs-up" />
@@ -469,7 +468,7 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
+                            <Link className="item" href={`/resource/?filter.about.affiliate.@id=${this.props.user.id}`}>
                               <i className="fa fa-users" />
                               <span>Organizations I&apos;m a member of</span>
                             </Link>
