@@ -35,10 +35,6 @@ class Header extends React.Component {
       if (this.dropDown) {
         this.setState({showMobileMenu:false})
         this.setDropdown('')
-        this.dropDown.style.pointerEvents = "none"
-        setTimeout(() => {
-          this.dropDown.style.pointerEvents = "auto"
-        }, 1000)
       }
     })
   }
@@ -90,9 +86,15 @@ class Header extends React.Component {
 
             <li
               className={`hasDropdown${this.state.dropdowns.find ? ' active': ''}`}
+              onMouseLeave={() => {
+                this.setDropdown('')
+              }}
             >
               <button
                 onClick={() => {
+                  this.setDropdown('find')
+                }}
+                onMouseEnter={() => {
                   this.setDropdown('find')
                 }}
               >
@@ -204,9 +206,15 @@ class Header extends React.Component {
             {expose('addEntry', this.props.user) &&
             <li
               className={`hasDropdown${this.state.dropdowns.add ? ' active': ''}`}
+              onMouseLeave={() => {
+                this.setDropdown('')
+              }}
             >
               <button
                 onClick={() => {
+                  this.setDropdown('add')
+                }}
+                onMouseEnter={() => {
                   this.setDropdown('add')
                 }}
               >
@@ -279,9 +287,15 @@ class Header extends React.Component {
 
             <li
               className={`hasDropdown${this.state.dropdowns.info ? ' active': ''}`}
+              onMouseLeave={() => {
+                this.setDropdown('')
+              }}
             >
               <button
                 onClick={() => {
+                  this.setDropdown('info')
+                }}
+                onMouseEnter={() => {
                   this.setDropdown('info')
                 }}
               >
@@ -386,9 +400,15 @@ class Header extends React.Component {
             {this.props.user ? (
               <li
                 className={`hasDropdown${this.state.dropdowns.me ? ' active': ''}`}
+                onMouseLeave={() => {
+                  this.setDropdown('')
+                }}
               >
                 <button
                   onClick={() => {
+                    this.setDropdown('me')
+                  }}
+                  onMouseEnter={() => {
                     this.setDropdown('me')
                   }}
                 >
