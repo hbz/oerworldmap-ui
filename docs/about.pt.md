@@ -49,7 +49,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ![Adrian Pohl](/assets/images/image09.jpg) Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at the hbz since 2008. He is the metadata and RDF vocabulary expert for the development of hbz`s linked open data service “lobid” and also responsible for the project management. He has been actively promoting open knowledge, web standards and the use of open source software in the international library community. Adrian initiated the establishment of a German-speaking working group for [OER metadata](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) within the Competence Center for Interoperable Metadata (KIM) of the German Initiative for Network Information (DINI).
 
-### Johannes Schnettker (Front-End Developer)
+### Johannes Schnettker (Desenvolvedor Front-End)
 
 ![Johannes Schnettker](/assets/images/image01.jpg) Johannes is the front-end developer of the project. Together with Felix Link he also develops the underlying UI concepts. He works as a freelance web developer since 2003 and implemented projects for a huge variety of clients and agencies. Lately he focussed on building UI functionalities and responsive layouts. Johannes studied computer- and communication science and is passionate about the intersections between the technical and conceptional aspects of his work.
 

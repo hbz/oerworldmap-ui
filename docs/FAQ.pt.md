@@ -54,13 +54,13 @@ O Mapa Global REAcoleta dados sobre os atores e as atividades relacionadas à RE
 
 Existem muitas oportunidades para a expansão futura do modelo.
 
-## What do I have to keep in mind when I set a lighthouse?
+## O que tenho que ter em mente quando definir um Farol?
 
-The Ljubjlana Action Plan highlights the need to identify models of good practice, which have proven to be sustainable ways to organize production, sharing and use of OER. We believe that learning from experiences made in other countries will be key for fast global mainstreaming of OER, so please consider setting some lighthouses.
+O plano de acção de Ljubjlana destaca a necessidade de identificar modelos de boas práticas, que demonstram maneiras sustentáveis para organizar a produção, compartilhamento e uso de REA. Acreditamos que aprender a partir de experiências feitas em outros países será chave para uma rápida disseminação global dos REA, então por favor considere a identificação de alguns Faróis.
 
-Setting a lighthouse is pretty easy: When you are logged in, you simply click on the lighthouse symbol on the profile page of the entry you want to mark. Then you have to explain in the comment field what the community can learn from this particular example.
+Propor um Farol é relativamente fácil: Quando estiver logado no sistema, clique no símbolo do Farol na página de perfil que você quiser marcar como Farol. Então, você deve explicar no campo de comentário, o que a comunidade pode aprender com este exemplo em particular.
 
-Please set lighthouses only in case you are not affiliated with the entry in any way!
+Por favor, defina faróis apenas quando você não tem relação pessoal com a entrada!
 
 ## Onde estão os REA?
 
