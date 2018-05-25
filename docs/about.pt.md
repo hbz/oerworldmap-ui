@@ -27,7 +27,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Karin Driesen (Editor on-line)
 
-![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin started to work for the OER World Map at hbz in spring 2016 as online editor. Before this she worked for the German office of O’Reilly Media, a computer book publisher known for supporting the open source community. She has studied two extremely different subjects: German literature and geoecology. These subjects were related to different ways of studying: reading and writing on your own studying literature and working together as a team by sharing all resources with your fellow geoecology students. Getting material written by other people, refine it and pass it on to the following students was much like the OER way. She wants to move ahead on this way and help people to find useful and reusable information.
+![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin começou a trabalhar para o mapa globa de REA em hbz, na primavera de 2016, como editora online. Antes, ela havia trabalhado para o escritória alemão da O'Reilly Media, editora de livros sobre computador conhecida pelo seu apoio à comunidade do código aberto. Ela tem estudado dois assuntos extremamente diferentes: literatura alemã e geoecologia. These subjects were related to different ways of studying: reading and writing on your own studying literature and working together as a team by sharing all resources with your fellow geoecology students. Getting material written by other people, refine it and pass it on to the following students was much like the OER way. She wants to move ahead on this way and help people to find useful and reusable information.
 
 ### Dr. Robert Farrow (Comunicação do Projeto)
 
