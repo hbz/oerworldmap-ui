@@ -177,6 +177,7 @@ class Header extends React.Component {
 
             </li>
 
+            {expose('addEntry', this.props.user) &&
             <li className="hasDropdown">
               <button onClick={e => {
                 e.target.parentElement.classList.toggle('active')
@@ -247,6 +248,7 @@ class Header extends React.Component {
                 </div>
               </div>
             </li>
+            }
 
             <li className="hasDropdown">
               <button onClick={e => {
@@ -351,103 +353,101 @@ class Header extends React.Component {
               </div>
             </li>
 
-            {this.props.user &&
-            <li className="hasDropdown">
-              <button onClick={e => {
-                e.target.parentElement.classList.toggle('active')
-              }}
-              >
-                {this.props.translate('Me')}
-              </button>
-              <div
-                ref={el => this.dropDown = el}
-                className="dropdown"
-              >
-                <div className="inner">
-                  <div className="row stack-700 stack-gutter-2em">
-                    <div className="col one-half">
-                      <ul className="linedList border-bottom">
-                        <li>
-                          <Link className="item" href="/resource/">
-                            <i className="fa fa-home" /><span>Home</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="item" href={`/resource/${this.props.user.id}`}>
-                            <i className="fa fa-user-circle" /><span>Personal Profile</span>
-                          </Link>
-                        </li>
-                        {expose('groupAdmin', this.props.user) &&
-                        <li>
-                          <Link className="item" href="/user/groups">
-                            <i className="fa fa-gear" /><span>Groups</span>
-                          </Link>
-                        </li>
-                        }
-                        <li>
-                          <Link className="item" href="/user/password">
-                            <i className="fa fa-lock" /><span>Change Password</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <a
-                            className="item"
-                            href="/.logout"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              this.props.emitter.emit('logout')
-                            }}
-                          >
-                            <i className="fa fa-sign-out" />
-                            <span>Logout</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="col one-half">
-                      <ul className="linedList border-bottom">
-                        <li>
-                          <Link className="item" href={`/resource/?filter.author=${this.props.user.username}`}>
-                            <i className="fa fa-pencil" /><span>My Entries</span>
-                          </Link>
-                        </li>
-                        {/* TODO: Set correct link */}
-                        <li>
-                          <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
-                            <i className="fa fa-thumbs-up" />
-                            <span>My likes</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LighthouseAction`}>
-                            <div className="i">
-                              <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
-                              <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
-                            </div>
-                            <span>My Lighthouses</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
-                            <i className="fa fa-calendar" />
-                            <span>Events I&apos;m attending</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="item" href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
-                            <i className="fa fa-users" />
-                            <span>Organizations I&apos;m a member of</span>
-                          </Link>
-                        </li>
-                      </ul>
+            {this.props.user ? (
+              <li className="hasDropdown">
+                <button onClick={e => {
+                  e.target.parentElement.classList.toggle('active')
+                }}
+                >
+                  {this.props.translate('Me')}
+                </button>
+                <div
+                  ref={el => this.dropDown = el}
+                  className="dropdown"
+                >
+                  <div className="inner">
+                    <div className="row stack-700 stack-gutter-2em">
+                      <div className="col one-half">
+                        <ul className="linedList border-bottom">
+                          <li>
+                            <Link className="item" href="/resource/">
+                              <i className="fa fa-home" /><span>Home</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="item" href={`/resource/${this.props.user.id}`}>
+                              <i className="fa fa-user-circle" /><span>Personal Profile</span>
+                            </Link>
+                          </li>
+                          {expose('groupAdmin', this.props.user) &&
+                          <li>
+                            <Link className="item" href="/user/groups">
+                              <i className="fa fa-gear" /><span>Groups</span>
+                            </Link>
+                          </li>
+                          }
+                          <li>
+                            <Link className="item" href="/user/password">
+                              <i className="fa fa-lock" /><span>Change Password</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <a
+                              className="item"
+                              href="/.logout"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                this.props.emitter.emit('logout')
+                              }}
+                            >
+                              <i className="fa fa-sign-out" />
+                              <span>Logout</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col one-half">
+                        <ul className="linedList border-bottom">
+                          <li>
+                            <Link className="item" href={`/resource/?filter.author=${this.props.user.username}`}>
+                              <i className="fa fa-pencil" /><span>My Entries</span>
+                            </Link>
+                          </li>
+                          {/* TODO: Set correct link */}
+                          <li>
+                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
+                              <i className="fa fa-thumbs-up" />
+                              <span>My likes</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LighthouseAction`}>
+                              <div className="i">
+                                <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
+                                <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
+                              </div>
+                              <span>My Lighthouses</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
+                              <i className="fa fa-calendar" />
+                              <span>Events I&apos;m attending</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="item" href={`/resource/?filter.about.member.@id=${this.props.user.id}`}>
+                              <i className="fa fa-users" />
+                              <span>Organizations I&apos;m a member of</span>
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            }
-
-            {!this.props.user &&
+              </li>
+            ) : (
               <li>
                 <Link
                   title={this.props.translate('login')}
@@ -457,7 +457,7 @@ class Header extends React.Component {
                   {this.props.translate('login')}
                 </Link>
               </li>
-            }
+            )}
 
           </ul>
 
