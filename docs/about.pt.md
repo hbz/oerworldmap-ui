@@ -23,7 +23,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Philipp von Böselager (desenvolvedor de Back-End)
 
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) on Twitter) is a Java backend developer in the field of Computational Linguistics (CL). After having worked with search engines, parsers, neural networks and speech synthesis in the course of his CL studies at the University of Cologne he went on to gain general IT experience at a German Java focused company. Later on he worked as a backend developer in an eDiscovery company, finally heading for the open minded spirit of the University-related HBZ again. He is deeply convinced of the WWW to serve for the common welfare and therefore being open and truly loves to work on a project he severely identifies with.
+![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) no Twitter) é um desenvolvedor de back-end Java no campo da Linguística Computacional (LC). Após ter trabalhado com ferramentas de busca, analisadores, redes neurais e sintetizadores de fala ao longo de seus estudos com LC na Universidade de Cologne, ele continuou a ganhar experência com T. I. em uma empresa alemã voltada para Java. Depois, ele trabalhou como desenvolvedor back-end em uma empresa de eDiscovery, finalmente para encaminhar-se ao espírito de mente aberta da HBZ, ligada à Universidade. He is deeply convinced of the WWW to serve for the common welfare and therefore being open and truly loves to work on a project he severely identifies with.
 
 ### Karin Driesen (Editor on-line)
 
@@ -39,7 +39,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Jan Neumann (Gerenciamento de Projeto)
 
-![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) trabalha como responsável pelos assuntos jurídicos e organizacionais na hbz. Ele estudou direito, economia e sistemas de pensamento e tem mais de 10 anos de experiência em projetos internacionais de gerenciamento para diferentes editoras e bibliotecas. A trajetória de Jan com os REAs começou em 2012 quando ele viu Susan D'Antoni apresentando sua visão sobre o Mapa Global dos REAs em Paris, no Congresso Mundial de REA . Jan is a member of the educational advisory board of the German UNESCO chapter, frequently speaks at conferences and blogs about OER on [OERSYS.org](https://oersys.org/).</p> 
+![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) trabalha como responsável pelos assuntos jurídicos e organizacionais na hbz. Ele estudou direito, economia e sistemas de pensamento e tem mais de 10 anos de experiência em projetos internacionais de gerenciamento para diferentes editoras e bibliotecas. A trajetória de Jan com os REAs começou em 2012 quando ele viu Susan D'Antoni apresentando sua visão sobre o Mapa Global dos REAs em Paris, no Congresso Mundial de REA . Jan é membro do conselho consultivo para educação do capítulo alemão da UNESCO, frequentemente fala em conferências e blogs sobre REAs em [OERSYS.org](https://oersys.org/).</p> 
 
 ### Felix Ostrowski (Líder Técnico)
 
@@ -51,7 +51,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Johannes Schnettker (Desenvolvedor Front-End)
 
-![Johannes Schnettker](/assets/images/image01.jpg) Johannes is the front-end developer of the project. Together with Felix Link he also develops the underlying UI concepts. He works as a freelance web developer since 2003 and implemented projects for a huge variety of clients and agencies. Lately he focussed on building UI functionalities and responsive layouts. Johannes studied computer- and communication science and is passionate about the intersections between the technical and conceptional aspects of his work.
+![Johannes Schnettker](/assets/images/image01.jpg) Johannes é o desenvolvedor front-end do projeto. Junto com Felix Link, ele também desenvolve os conceitos de interface de usuário subjacentes. Ele trabalha como desenvolvedor web freelancer desde 2002 e têm implementdo projetos para um grande variedade de clientes e agências. Ultimamente ele centrou-se na construção de layouts responsivos e funcionalidades da interface do usuário. Johannes estudou ciência da computação e da comunicação e é apaixonado pels intersecções entre os aspectos técnicos e conceituais de seu trabalho.
 
 ## Membros anteriores da equipe
 
