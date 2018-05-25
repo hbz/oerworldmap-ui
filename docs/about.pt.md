@@ -23,7 +23,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Philipp von Böselager (desenvolvedor de Back-End)
 
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) no Twitter) é um desenvolvedor de back-end Java no campo da Linguística Computacional (LC). Após ter trabalhado com ferramentas de busca, analisadores, redes neurais e sintetizadores de fala ao longo de seus estudos com LC na Universidade de Cologne, ele continuou a ganhar experência com T. I. em uma empresa alemã voltada para Java. Depois, ele trabalhou como desenvolvedor back-end em uma empresa de eDiscovery, finalmente para encaminhar-se ao espírito de mente aberta da HBZ, ligada à Universidade. He is deeply convinced of the WWW to serve for the common welfare and therefore being open and truly loves to work on a project he severely identifies with.
+![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) no Twitter) é um desenvolvedor de back-end Java no campo da Linguística Computacional (LC). Após ter trabalhado com ferramentas de busca, analisadores, redes neurais e sintetizadores de fala ao longo de seus estudos com LC na Universidade de Cologne, ele continuou a ganhar experência com T. I. em uma empresa alemã voltada para Java. Depois, ele trabalhou como desenvolvedor back-end em uma empresa de eDiscovery, finalmente para encaminhar-se ao espírito de mente aberta da HBZ, ligada à Universidade. Ele está profundamente convencido de que a WWW deve servir para o bem-estar comum e, portanto, ser aberta. Ele realmente ama trabalhar com projetos com os quais se identifica.
 
 ### Karin Driesen (Editor on-line)
 
