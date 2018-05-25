@@ -67,7 +67,7 @@ class Header extends React.Component {
       <header className="Header">
 
         <Link href="/resource/">
-          <h1>OER World Map</h1>
+          <h1>{this.props.translate('OER World Map')}</h1>
         </Link>
 
         <button
@@ -216,12 +216,12 @@ class Header extends React.Component {
                 <div className="inner">
                   <div className="popular">
                     <div>
-                      What kind of entry would you like to add?
+                      {this.props.translate('What kind of entry would you like to add?')}
                     </div>
                     <ul>
                       <li>
                         <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                          Need help?
+                          {this.props.translate('Need help?')}
                         </Link>
                       </li>
                     </ul>
@@ -293,16 +293,16 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>Topical</h3>
+                          <h3>{this.props.translate('Topical')}</h3>
                         </li>
                         <li>
                           <a className="item" href="/about#newsletter">
-                            Newsletter
+                            {this.props.translate('Newsletter')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="https://oerworldmap.wordpress.com/" rel="noopener noreferrer" target="_blank">
-                            Blog
+                            {this.props.translate('Blog')}
                           </a>
                         </li>
                       </ul>
@@ -310,31 +310,31 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>About</h3>
+                          <h3>{this.props.translate('About')}</h3>
                         </li>
                         <li>
                           <a className="item" href="/about#the-vision">
-                            The OER World Map
+                            {this.props.translate('The OER World Map')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/contribute">
-                            Contribute
+                            {this.props.translate('Contribute')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/FAQ">
-                            FAQ
+                            {this.props.translate('FAQ')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/about#team">
-                            Team
+                            {this.props.translate('Team')}
                           </a>
                         </li>
                         <li>
                           <a className="item" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors">
-                            FAQs for Editors
+                            {this.props.translate('FAQs for Editors')}
                           </a>
                         </li>
                       </ul>
@@ -342,21 +342,21 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>Social</h3>
+                          <h3>{this.props.translate('Social')}</h3>
                         </li>
                         <li>
                           <a className="item" href="https://www.facebook.com/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            Facebook
+                            {this.props.translate('Facebook')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="https://twitter.com/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            Twitter
+                            {this.props.translate('Twitter')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="https://github.com/hbz/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            GitHub
+                            {this.props.translate('GitHub')}
                           </a>
                         </li>
                       </ul>
@@ -364,16 +364,16 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>Legal</h3>
+                          <h3>{this.props.translate('Legal')}</h3>
                         </li>
                         <li>
                           <a className="item" href="mailto:info@oerworldmap.org">
-                            Contact
+                            {this.props.translate('Contact')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/imprint">
-                            Imprint &amp; Privacy
+                            {this.props.translate("Imprint & Privacy")}
                           </a>
                         </li>
                       </ul>
@@ -404,24 +404,24 @@ class Header extends React.Component {
                         <ul className="linedList border-bottom">
                           <li>
                             <Link className="item" href="/resource/">
-                              <i className="fa fa-home" /><span>Home</span>
+                              <i className="fa fa-home" /><span>{this.props.translate('Home')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/${this.props.user.id}`}>
-                              <i className="fa fa-user-circle" /><span>Personal Profile</span>
+                              <i className="fa fa-user-circle" /><span>{this.props.translate('Personal Profile')}</span>
                             </Link>
                           </li>
                           {expose('groupAdmin', this.props.user) &&
                           <li>
                             <Link className="item" href="/user/groups">
-                              <i className="fa fa-gear" /><span>Groups</span>
+                              <i className="fa fa-gear" /><span>{this.props.translate('Groups')}</span>
                             </Link>
                           </li>
                           }
                           <li>
                             <Link className="item" href="/user/password">
-                              <i className="fa fa-lock" /><span>Change Password</span>
+                              <i className="fa fa-lock" /><span>{this.props.translate('Change Password')}</span>
                             </Link>
                           </li>
                           <li>
@@ -434,7 +434,7 @@ class Header extends React.Component {
                               }}
                             >
                               <i className="fa fa-sign-out" />
-                              <span>Logout</span>
+                              <span>{this.props.translate('Logout')}</span>
                             </a>
                           </li>
                         </ul>
@@ -443,13 +443,13 @@ class Header extends React.Component {
                         <ul className="linedList border-bottom">
                           <li>
                             <Link className="item" href={`/resource/?filter.author=${this.props.user.username}`}>
-                              <i className="fa fa-pencil" /><span>My Entries</span>
+                              <i className="fa fa-pencil" /><span>{this.props.translate('My Entries')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
                               <i className="fa fa-thumbs-up" />
-                              <span>My likes</span>
+                              <span>{this.props.translate('My likes')}</span>
                             </Link>
                           </li>
                           <li>
@@ -458,19 +458,19 @@ class Header extends React.Component {
                                 <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                                 <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
                               </div>
-                              <span>My Lighthouses</span>
+                              <span>{this.props.translate('My Lighthouses')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
                               <i className="fa fa-calendar" />
-                              <span>Events I&apos;m attending</span>
+                              <span>{this.props.translate("Events I'm attending")}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/?filter.about.affiliate.@id=${this.props.user.id}`}>
                               <i className="fa fa-users" />
-                              <span>Organizations I&apos;m a member of</span>
+                              <span>{this.props.translate("Organizations I'm a member of")}</span>
                             </Link>
                           </li>
                         </ul>
