@@ -16,9 +16,15 @@ class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // showUserMenu: true
+      dropdowns: {
+        find: false,
+        add: false,
+        info: false,
+        me: false
+      }
     }
     // this.handleClick = this.handleClick.bind(this)
+    this.setDropdown = this.setDropdown.bind(this)
   }
 
   componentDidMount() {
@@ -39,11 +45,18 @@ class Header extends React.Component {
   // }
 
   // handleClick(e) {
-  //   // if (e.target !== this.menuBtn)
-  //   //   this.setState({showUserMenu:false})
   //   // if (e.target !== this.menuToggle)
   //   //   this.setState({showMobileMenu:false})
   // }
+  setDropdown(name) {
+    const dropdowns = {}
+
+    Object.keys(this.state.dropdowns).forEach(key =>  {
+      dropdowns[key] = key === name && this.state.dropdowns[key] !== true
+    })
+
+    this.setState({dropdowns})
+  }
 
   render() {
     return (
@@ -66,11 +79,12 @@ class Header extends React.Component {
           <ul>
 
             <li
-              className="hasDropdown"
+              className={`hasDropdown${this.state.dropdowns.find ? ' active': ''}`}
             >
-              <button onClick={e => {
-                e.target.parentElement.classList.toggle('active')
-              }}
+              <button
+                onClick={() => {
+                  this.setDropdown('find')
+                }}
               >
                 {this.props.translate('Find')}
               </button>
@@ -178,10 +192,13 @@ class Header extends React.Component {
             </li>
 
             {expose('addEntry', this.props.user) &&
-            <li className="hasDropdown">
-              <button onClick={e => {
-                e.target.parentElement.classList.toggle('active')
-              }}
+            <li
+              className={`hasDropdown${this.state.dropdowns.add ? ' active': ''}`}
+            >
+              <button
+                onClick={() => {
+                  this.setDropdown('add')
+                }}
               >
                 {this.props.translate('Add')}
               </button>
@@ -250,10 +267,13 @@ class Header extends React.Component {
             </li>
             }
 
-            <li className="hasDropdown">
-              <button onClick={e => {
-                e.target.parentElement.classList.toggle('active')
-              }}
+            <li
+              className={`hasDropdown${this.state.dropdowns.info ? ' active': ''}`}
+            >
+              <button
+                onClick={() => {
+                  this.setDropdown('info')
+                }}
               >
                 {this.props.translate('Info')}
               </button>
@@ -354,10 +374,13 @@ class Header extends React.Component {
             </li>
 
             {this.props.user ? (
-              <li className="hasDropdown">
-                <button onClick={e => {
-                  e.target.parentElement.classList.toggle('active')
-                }}
+              <li
+                className={`hasDropdown${this.state.dropdowns.me ? ' active': ''}`}
+              >
+                <button
+                  onClick={() => {
+                    this.setDropdown('me')
+                  }}
                 >
                   {this.props.translate('Me')}
                 </button>
