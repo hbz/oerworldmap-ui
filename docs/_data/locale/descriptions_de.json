@@ -137,6 +137,6 @@
   "WebPage.keywords": "Frei wählbare Schlagwörter (Tags), die die Veröffentlichung charakterisieren",
   "WebPage.publisher": "Von wem die Veröffentlichung veröffentlicht wurde",
   "WebPage.award": "Preis, mit dem diese Veröffentlichung ausgezeichnet wurde",
-  "WebPage.additionalType": "The type of the publication",
+  "WebPage.additionalType": "Die Art der Veröffentlichung",
   "LighthouseAction.description": "Bitte beschreiben Sie, was diesen Eintrag zu einem \"Leuchtturm\" macht."
 }
