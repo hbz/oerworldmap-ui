@@ -116,7 +116,7 @@
   "Service.primarySector": "Der Bildungssektor, für den der Service in erster Linie gedacht ist",
   "Service.secondarySector": "Bildungssektoren, für die der Service ebenfalls nützlich ist",
   "Service.resultOf": "Das Projekt, in dem Service entwickelt wurde",
-  "Service.additionalType": "The type of the service",
+  "Service.additionalType": "Die Art des Services",
   "Product.name": "Name des Tools",
   "Product.alternateName": "Eine Abkürzung für den Namen des Tools",
   "Product.description": "Eine Beschreibung des Tools",
