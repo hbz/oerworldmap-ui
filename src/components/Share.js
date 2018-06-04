@@ -31,16 +31,16 @@ const Share = ({_self, translate, embedValue}) => {
       </div>
 
       <div className="shareIcons">
-        <a target="_blank" rel="noopener" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(_self)}`}>
+        <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(_self)}`}>
           <i className="fa fa-twitter" />
         </a>
-        <a target="_blank" rel="noopener" href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(_self)}`}>
+        <a target="_blank" rel="noopener noreferrer" href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(_self)}`}>
           <i className="fa fa-facebook" />
         </a>
-        <a target="_blank" rel="noopener" href={`https://reddit.com/submit?url=${encodeURIComponent(_self)}`}>
+        <a target="_blank" rel="noopener noreferrer" href={`https://reddit.com/submit?url=${encodeURIComponent(_self)}`}>
           <i className="fa fa-reddit-alien" />
         </a>
-        <a target="_blank" href={`mailto:?subject=&body=${encodeURIComponent(_self)}`}>
+        <a target="_blank" rel="noopener noreferrer" href={`mailto:?subject=&body=${encodeURIComponent(_self)}`}>
           <i className="fa fa-envelope" />
         </a>
 
