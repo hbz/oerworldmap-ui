@@ -84,8 +84,12 @@ export default (api) => {
         const metadata = {
           description: context.i18n.translate('Discover the OER movement'),
           url: data._self,
-          //TODO: Add static iamge with aggregations or custom logo
-          image: `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/0,30,1,0,0/1200x630?access_token=${context.mapboxConfig.token}`
+          image: '/public/metadataBig.png'
+        }
+
+        if (data && (data.query || data.filters))  {
+          metadata.image = '/public/metadataSmall.png'
+          metadata.summary = 'summary'
         }
 
         return { title, data, component, metadata }
