@@ -10,6 +10,10 @@
         {
           "@language": "en",
           "@value": "Teacher"
+        },
+        {
+          "@language": "de",
+          "@value": "Lehrperson"
         }
       ]
     },
@@ -20,6 +24,10 @@
         {
           "@language": "en",
           "@value": "Student"
+        },
+        {
+          "@language": "de",
+          "@value": "Schüler/in oder Student/in"
         }
       ]
     },
@@ -30,6 +38,10 @@
         {
           "@language": "en",
           "@value": "Librarian"
+        },
+        {
+          "@language": "de",
+          "@value": "Bibliothekar/in"
         }
       ]
     },
@@ -40,6 +52,10 @@
         {
           "@language": "en",
           "@value": "Instructional designer"
+        },
+        {
+          "@language": "de",
+          "@value": "Instruktionsdesigner/in"
         }
       ]
     },
@@ -50,6 +66,10 @@
         {
           "@language": "en",
           "@value": "E-learning professional"
+        },
+        {
+          "@language": "de",
+          "@value": "E-Learning-Experte"
         }
       ]
     },
@@ -60,6 +80,10 @@
         {
           "@language": "en",
           "@value": "Policy maker"
+        },
+        {
+          "@language": "de",
+          "@value": "Politische/r Entscheidungsträger/in"
         }
       ]
     },
@@ -70,6 +94,10 @@
         {
           "@language": "en",
           "@value": "Scientist"
+        },
+        {
+          "@language": "de",
+          "@value": "Wissenschaftler/in"
         }
       ]
     },
@@ -80,6 +108,10 @@
         {
           "@language": "en",
           "@value": "OER advocate"
+        },
+        {
+          "@language": "de",
+          "@value": "OER-Befürworter"
         }
       ]
     },
@@ -90,6 +122,10 @@
         {
           "@language": "en",
           "@value": "Consultant"
+        },
+        {
+          "@language": "de",
+          "@value": "Berater/in"
         }
       ]
     },
@@ -100,6 +136,10 @@
         {
           "@language": "en",
           "@value": "Developer"
+        },
+        {
+          "@language": "de",
+          "@value": "Entwickler/in"
         }
       ]
     },
@@ -110,6 +150,10 @@
         {
           "@language": "en",
           "@value": "Other"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
         }
       ]
     }
