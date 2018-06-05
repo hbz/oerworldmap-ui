@@ -65,7 +65,7 @@
   "Person.publication": "Ihre Veröffentlichungen",
   "Person.primarySector": "Der Bildungssektor, in dem Sie hauptsächlich tätig sind",
   "Person.secondarySector": "Bildungssektor, in dem Sie ebenfalls tätig sind",
-  "Person.additionalType": "The type of the person",
+  "Person.additionalType": "Die Rolle der Person im OER-Kontext",
   "Action.name": "Der Name des Projekts",
   "Action.alternateName": "Die Abkürzung des Namens des Projekts",
   "Action.additionalType": "Die Art des Projekts",
