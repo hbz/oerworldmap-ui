@@ -12,6 +12,10 @@
           "@value": "Policy"
         },
         {
+          "@language": "pt",
+          "@value": "Policy"
+        },
+        {
           "@language": "de",
           "@value": "Policy"
         }
@@ -23,6 +27,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Learning Resource (OER)"
+        },
+        {
+          "@language": "pt",
           "@value": "Learning Resource (OER)"
         },
         {
@@ -40,6 +48,10 @@
           "@value": "Article"
         },
         {
+          "@language": "pt",
+          "@value": "Article"
+        },
+        {
           "@language": "de",
           "@value": "Artikel"
         }
@@ -51,6 +63,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Report"
+        },
+        {
+          "@language": "pt",
           "@value": "Report"
         },
         {
@@ -68,6 +84,10 @@
           "@value": "Project Document"
         },
         {
+          "@language": "pt",
+          "@value": "Project Document"
+        },
+        {
           "@language": "de",
           "@value": "Projektdokument"
         }
@@ -82,6 +102,10 @@
           "@value": "Interview"
         },
         {
+          "@language": "pt",
+          "@value": "Interview"
+        },
+        {
           "@language": "de",
           "@value": "Interview"
         }
@@ -93,6 +117,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
           "@value": "Other"
         },
         {

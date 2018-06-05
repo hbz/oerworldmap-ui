@@ -12,6 +12,10 @@
           "@value": "Repository"
         },
         {
+          "@language": "pt",
+          "@value": "Repository"
+        },
+        {
           "@language": "de",
           "@value": "Repositorium"
         }
@@ -23,6 +27,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Referatory"
+        },
+        {
+          "@language": "pt",
           "@value": "Referatory"
         },
         {
@@ -40,6 +48,10 @@
           "@value": "Authoring tool"
         },
         {
+          "@language": "pt",
+          "@value": "Authoring tool"
+        },
+        {
           "@language": "de",
           "@value": "Autorenwerkzeug"
         }
@@ -51,6 +63,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Learning platform"
+        },
+        {
+          "@language": "pt",
           "@value": "Learning platform"
         },
         {
@@ -68,6 +84,10 @@
           "@value": "Learning Management System"
         },
         {
+          "@language": "pt",
+          "@value": "Learning Management System"
+        },
+        {
           "@language": "de",
           "@value": "Learning Management System (LMS)"
         }
@@ -79,6 +99,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Information, reflection or tutorial"
+        },
+        {
+          "@language": "pt",
           "@value": "Information, reflection or tutorial"
         },
         {
@@ -96,6 +120,10 @@
           "@value": "Community platform"
         },
         {
+          "@language": "pt",
+          "@value": "Community platform"
+        },
+        {
           "@language": "de",
           "@value": "Community-Plattform"
         }
@@ -107,6 +135,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
           "@value": "Other"
         },
         {

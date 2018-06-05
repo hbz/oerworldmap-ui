@@ -12,6 +12,10 @@
           "@value": "School"
         },
         {
+          "@language": "pt",
+          "@value": "School"
+        },
+        {
           "@language": "de",
           "@value": "Schule"
         }
@@ -23,6 +27,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Higher education institution"
+        },
+        {
+          "@language": "pt",
           "@value": "Higher education institution"
         },
         {
@@ -40,6 +48,10 @@
           "@value": "Training provider"
         },
         {
+          "@language": "pt",
+          "@value": "Training provider"
+        },
+        {
           "@language": "de",
           "@value": "Schulungsanbieter"
         }
@@ -51,6 +63,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Funding body"
+        },
+        {
+          "@language": "pt",
           "@value": "Funding body"
         },
         {
@@ -68,6 +84,10 @@
           "@value": "Research institute"
         },
         {
+          "@language": "pt",
+          "@value": "Research institute"
+        },
+        {
           "@language": "de",
           "@value": "Forschungsinstitut"
         }
@@ -79,6 +99,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Infrastructure provider"
+        },
+        {
+          "@language": "pt",
           "@value": "Infrastructure provider"
         },
         {
@@ -96,6 +120,10 @@
           "@value": "Government agency"
         },
         {
+          "@language": "pt",
+          "@value": "Government agency"
+        },
+        {
           "@language": "de",
           "@value": "Behörde"
         }
@@ -107,6 +135,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Private agency"
+        },
+        {
+          "@language": "pt",
           "@value": "Private agency"
         },
         {
@@ -124,6 +156,10 @@
           "@value": "Commercial Enterprise"
         },
         {
+          "@language": "pt",
+          "@value": "Commercial Enterprise"
+        },
+        {
           "@language": "de",
           "@value": "Wirtschaftsunternehmen"
         }
@@ -135,6 +171,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Social Enterprise or NGO"
+        },
+        {
+          "@language": "pt",
           "@value": "Social Enterprise or NGO"
         },
         {
@@ -152,6 +192,10 @@
           "@value": "Grassroots initiative"
         },
         {
+          "@language": "pt",
+          "@value": "Grassroots initiative"
+        },
+        {
           "@language": "de",
           "@value": "Graswurzelinitiative"
         }
@@ -163,6 +207,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Special Interest Group"
+        },
+        {
+          "@language": "pt",
           "@value": "Special Interest Group"
         },
         {
@@ -180,6 +228,10 @@
           "@value": "Community of practice"
         },
         {
+          "@language": "pt",
+          "@value": "Community of practice"
+        },
+        {
           "@language": "de",
           "@value": "Community of Practice"
         }
@@ -191,6 +243,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
           "@value": "Other"
         },
         {
