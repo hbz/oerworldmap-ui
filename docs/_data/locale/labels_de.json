@@ -192,12 +192,12 @@
   "LocalizedText.@language": "Sprache",
   "Comment.text": "Kommentar hinzufügen",
   "Tip.Organization": "Find organizations connected to OER",
-  "Tip.Action": "Find OER projects",
-  "Tip.Service": "Find repositories and other OER-services",
-  "Tip.Event": "Find OER events",
-  "Tip.Person": "Find people who are connected to OER",
-  "Tip.Product": "See, which software is used by which service",
+  "Tip.Action": "OER-Projekte finden",
+  "Tip.Service": "Repositorien und andere OER-Services finden",
+  "Tip.Event": "OER-Veranstaltungen finden",
+  "Tip.Person": "Personen finden, die sich mit OER beschäftigen",
+  "Tip.Product": "Sehen, welche Software von welchem Service verwendet wird",
   "Tip.WebPage": "Find the best information on OER available on the web",
   "Tip.Article": "Learn from other peoples OER experiences",
-  "Tip.showList": "Show List"
+  "Tip.showList": "Liste anzeigen"
 }
