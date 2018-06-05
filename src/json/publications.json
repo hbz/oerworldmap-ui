@@ -10,6 +10,10 @@
         {
           "@language": "en",
           "@value": "Policy"
+        },
+        {
+          "@language": "de",
+          "@value": "Policy"
         }
       ]
     },
@@ -20,6 +24,10 @@
         {
           "@language": "en",
           "@value": "Learning Resource (OER)"
+        },
+        {
+          "@language": "de",
+          "@value": "Lernressource (OER)"
         }
       ]
     },
@@ -30,6 +38,10 @@
         {
           "@language": "en",
           "@value": "Article"
+        },
+        {
+          "@language": "de",
+          "@value": "Artikel"
         }
       ]
     },
@@ -40,6 +52,10 @@
         {
           "@language": "en",
           "@value": "Report"
+        },
+        {
+          "@language": "de",
+          "@value": "Bericht"
         }
       ]
     },
@@ -50,6 +66,10 @@
         {
           "@language": "en",
           "@value": "Project Document"
+        },
+        {
+          "@language": "de",
+          "@value": "Projektdokument"
         }
       ]
     },
@@ -59,6 +79,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Interview"
+        },
+        {
+          "@language": "de",
           "@value": "Interview"
         }
       ]
@@ -70,6 +94,10 @@
         {
           "@language": "en",
           "@value": "Other"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
         }
       ]
     }
