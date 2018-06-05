@@ -10,6 +10,10 @@
         {
           "@language": "en",
           "@value": "Program"
+        },
+        {
+          "@language": "de",
+          "@value": "Programm"
         }
       ]
     },
@@ -20,6 +24,10 @@
         {
           "@language": "en",
           "@value": "Project"
+        },
+        {
+          "@language": "de",
+          "@value": "Projekt"
         }
       ]
     },
@@ -29,6 +37,10 @@
       "name": [
         {
           "@language": "en",
+          "@value": "Initiative"
+        },
+        {
+          "@language": "de",
           "@value": "Initiative"
         }
       ]
