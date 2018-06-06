@@ -130,6 +130,24 @@
       ]
     },
     {
+      "@id": "https://oerworldmap.org/assets/json/services.json#contentSource",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Content Source"
+        },
+        {
+          "@language": "pt",
+          "@value": "Content Source"
+        },
+        {
+          "@language": "de",
+          "@value": "Inhaltsquelle"
+        }
+      ]
+    },
+    {
       "@id": "https://oerworldmap.org/assets/json/services.json#other",
       "@type": "Concept",
       "name": [
