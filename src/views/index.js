@@ -27,12 +27,12 @@ export default ({body, title, initialState, env, piwikConfig, embed, metadata, l
         ${metadata && metadata.description ? `<meta name="description" content="${metadata.description}" />
           <meta property="og:description" content="${metadata.description}" />
           <meta name="twitter:description" content="${metadata.description}" />` : ''}
-        ${metadata && metadata.image ? `<meta property="og:image" content="${metadata.image}" />
+          ${metadata && metadata.image ? `<meta property="og:image" content="${metadata.image}" />
           <meta property="og:image:alt" content="${title}" />
           <meta property="twitter:image:alt" content="${title}" />
           <meta name="twitter:image" content="${metadata.image}" />` : ''}
         ${metadata && metadata.url ? `<meta property="og:url" content="${metadata.url}" />` : ''}
-        <meta property="og:image" content="/public/${metadataBig}" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png" />
 
         <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
         <link rel="shortcut icon" href="/public/${favicon}" type="image/x-icon" />
