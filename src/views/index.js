@@ -1,5 +1,4 @@
 import favicon from '../public/favicon.png'
-import metadataBig from '../public/metadataBig.png'
 import piwik from './piwik'
 
 export default ({body, title, initialState, env, piwikConfig, embed, metadata, locales}) => {
