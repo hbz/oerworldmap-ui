@@ -85,7 +85,7 @@ export default (api) => {
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
         }
 
-        if (data && (data.query || Object.keys(data.filters).length > 0))  {
+        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0)))  {
           metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
           metadata.summary = 'summary'
         }
