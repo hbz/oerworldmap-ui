@@ -19,10 +19,11 @@ let Config = {
     path: path.join(__dirname, 'dist'),
     publicPath: `${apiConfig.scheme}://${apiConfig.host}`
       .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
-    filename: 'assets/bundle.js'
+    filename: 'public/bundle.js'
   },
   module: {
     exprContextCritical: false,
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/,
@@ -48,7 +49,7 @@ let Config = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: 'assets/'
+            outputPath: 'public/'
           }
         }
       }
@@ -57,7 +58,7 @@ let Config = {
 
   plugins: [
     new CopyWebpackPlugin([
-      { from: 'assets', to: 'assets' },
+      { from: 'public', to: 'public' },
     ])
   ]
 
@@ -66,7 +67,7 @@ let Config = {
 if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("assets/styles.css"),
+      new ExtractTextPlugin("public/styles.css"),
     ],
     mode: 'production',
     module: {
@@ -101,14 +102,10 @@ if (ENV === 'development') {
   Config = merge(Config, {
     devtool: 'source-map',
     mode: 'development',
-    entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
-    ],
+    entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
       new StyleLintPlugin(
         {
           emitErrors: false,
@@ -153,15 +150,11 @@ if (ENV === 'static') {
   Config = merge(Config, {
     devtool: 'source-map',
     mode: 'development',
-    entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
-    ],
+    entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-      new ExtractTextPlugin("assets/styles.css"),
+      new ExtractTextPlugin("public/styles.css"),
     ],
     module: {
       rules: [

@@ -73,7 +73,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   source={translate(about.description)}
                   renderers={
                     {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener">
+                      <a href={link.href} target="_blank" rel="noopener noreferrer">
                         {link.children}
                       </a>
                     )}
@@ -110,7 +110,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                     source={translate(about.articleBody)}
                     renderers={
                       {link: link => (
-                        <a href={link.href} target="_blank" rel="noopener">
+                        <a href={link.href} target="_blank" rel="noopener noreferrer">
                           {link.children}
                         </a>
                       )}
@@ -122,7 +122,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
             {about.url &&
               <p>
-                <a href={about.url} target="_blank" rel="noopener" className="boxedLink">
+                <a href={about.url} target="_blank" rel="noopener noreferrer" className="boxedLink">
                   {formatURL(about.url)}
                 </a>
               </p>
@@ -130,7 +130,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
             {about.availableChannel &&
               about.availableChannel.map(link => (
-                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener">
+                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener noreferrer">
                   {formatURL(link.serviceUrl)}
                 </a>
               ))
@@ -141,7 +141,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             {about.keywords &&
               <Block title={translate(`${about['@type']}.keywords`)}>
                 <ul className="spaceSeparatedList">
-                  {about.keywords.map(keyword => (
+                  {about.keywords.sort((a,b) => a > b).map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
                         {keyword}
@@ -186,12 +186,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               </Block>
             ))}
 
-            {about.alternateName &&
-              <Block title={translate(`${about['@type']}.alternateName`)}>
-                {translate(about.alternateName)}
-              </Block>
-            }
-
             {lighthouses.length > 0 && about['@id'] &&
               <Block title={translate('ResourceIndex.read.lighthouses.title')}>
                 <Lighthouses lighthouses={lighthouses} about={about} user={user} />
@@ -220,7 +214,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                     <div className="item">
                       <i className="bg-highlight-color bg-important" style={{lineHeight: '33px'}}>
                         <img
-                          src="/assets/lighthouse_16px_white.svg"
+                          src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />
                       </i>
@@ -245,7 +239,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ul className="ItemList award">
                 {about.award.map(award => (
                   <li key={award}>
-                    <a className="item" href={award} target="_blank" rel="noopener">
+                    <a className="item" href={award} target="_blank" rel="noopener noreferrer">
                       <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
                     </a>
                   </li>
@@ -297,7 +291,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
           {about.contactPoint &&
             <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
-              <ItemList listItems={about.contactPoint} className="prominent" />
+              <ItemList
+                listItems={about.contactPoint
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -305,7 +303,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             <Block title={translate(`${about['@type']}.startTime`)}>
               {formatDate(about.startTime, moment)}
               {about.endTime &&
-                <span> - {formatDate(about.endTime, moment)}</span>
+                <span> – {formatDate(about.endTime, moment)}</span>
               }
             </Block>
           }
@@ -314,7 +312,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             <Block title={translate(`${about['@type']}.startDate`)}>
               {formatDate(about.startDate, moment)}
               {about.endDate &&
-                <span> - {formatDate(about.endDate, moment)}</span>
+                <span> – {formatDate(about.endDate, moment)}</span>
               }
             </Block>
           }
@@ -352,7 +350,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             <Block title={translate(`${about['@type']}.hashtag`)}>
               <a
                 href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 {about.hashtag}
@@ -365,7 +363,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ul className="unstyledList">
                 {about.recordedIn.map(recording => (
                   <li key={recording}>
-                    <a href={recording} target="_blank" rel="noopener">
+                    <a href={recording} target="_blank" rel="noopener noreferrer">
                       {formatURL(recording)}
                     </a>
                   </li>
@@ -385,7 +383,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} className="prominent" />
+                  <ItemList
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
                 </Block>
               )
             )
@@ -398,7 +400,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.agentIn`)}
             >
-              <ItemList listItems={about.agentIn.filter(item => item['@type'] === 'Action')} className="prominent" />
+              <ItemList
+                listItems={about.agentIn.filter(item => item['@type'] === 'Action')
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -413,7 +419,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
                 >
-                  <ItemList listItems={about[prop]} className="prominent" />
+                  <ItemList
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
                 </Block>
               )
             )
@@ -429,6 +439,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={
                   [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
+                    .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
               />
@@ -457,6 +468,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={
                   [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+                    .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
               />
@@ -470,13 +482,21 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.hasPart`)}
             >
-              <ItemList listItems={about.hasPart} className="prominent" />
+              <ItemList
+                listItems={about.hasPart
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
           {about.isPartOf &&
             <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
-              <ItemList listItems={[about.isPartOf]} className="prominent" />
+              <ItemList
+                listItems={[about.isPartOf]
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           }
 
@@ -492,7 +512,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               className="list"
               title={translate(`${about['@type']}.${prop}`)}
             >
-              <ItemList listItems={about[prop]} className="prominent" />
+              <ItemList
+                listItems={about[prop]
+                  .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
             </Block>
           ))}
 

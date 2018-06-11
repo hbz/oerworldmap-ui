@@ -6,6 +6,7 @@ import { debounce } from 'lodash'
 import withFormData from './withFormData'
 import Icon from '../Icon'
 import withApi from '../withApi'
+import withI18n from '../withI18n'
 import { getURL, triggerClick } from '../../common'
 
 class RemoteSelect extends React.Component {
@@ -39,7 +40,9 @@ class RemoteSelect extends React.Component {
 
   handleChange(e) {
     this.setState({filter: e.target.value})
-    e.target.value ? this.updateOptions() : this.setState({options: []})
+    e.target.value || this.props.schema.properties.inScheme
+      ? this.updateOptions()
+      : this.setState({options: []})
   }
 
   updateOptions() {
@@ -65,9 +68,7 @@ class RemoteSelect extends React.Component {
   showOption(option) {
     return !this.props.schema.properties.inScheme
       || option['@type'] !== 'Concept'
-      || option.name.some(name =>
-        name['@value'].toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
-      )
+      || this.props.translate(option.name).toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
   }
 
   optionList(options) {
@@ -199,4 +200,4 @@ RemoteSelect.defaultProps = {
   required: false
 }
 
-export default withApi(withFormData(RemoteSelect))
+export default withI18n(withApi(withFormData(RemoteSelect)))

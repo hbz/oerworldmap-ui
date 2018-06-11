@@ -14,8 +14,18 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
         return (
           <Tooltip
             key={bucket.key}
-            overlay={<b>{translate(bucket.label || bucket.key)}</b>}
+            overlayStyle={{
+              maxWidth: "110px",
+            }}
+            overlay={
+              <span>
+                <b>{translate(bucket.label || bucket.key)}</b>: {translate(`Tip.${bucket.key}`)}
+              </span>
+            }
             placement="top"
+            align={{
+              targetOffset: [0, 5],
+            }}
             mouseEnterDelay={0.2}
             overlayClassName="tooltipDisableEvents"
           >

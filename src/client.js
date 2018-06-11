@@ -2,11 +2,9 @@
 /* global window */
 /* global XMLHttpRequest */
 
-import React from 'react'
 import ReactDOM from 'react-dom'
 import 'normalize.css'
 import mitt from 'mitt'
-import { AppContainer } from 'react-hot-loader'
 
 import router from './router'
 import { getParams } from './common'
@@ -32,12 +30,7 @@ require('formdata-polyfill');
     let referrer = window.location.href
     Link.back = '/resource/'
     const renderApp = (title, component) => {
-      ReactDOM.render(
-        <AppContainer>
-          {component}
-        </AppContainer>,
-        document.getElementById('root')
-      )
+      ReactDOM.render(component, document.getElementById('root'))
       emitter.emit('setLoading', false)
       window.location.hash
         ? document.getElementById(window.location.hash.replace('#', ''))
@@ -45,7 +38,7 @@ require('formdata-polyfill');
         : document.querySelector('.webPageWrapper')
           && (document.querySelector('.webPageWrapper').scrollTop = 0)
 
-      document.title = title
+      document.title = `${title} - OER World Map`
       referrer = window.location.href
     }
 

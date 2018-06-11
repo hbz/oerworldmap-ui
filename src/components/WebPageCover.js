@@ -11,6 +11,11 @@ const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
     <MiniMap
       mapboxConfig={mapboxConfig}
       features={geo && geo.geometry}
+      country={about
+        && about.location
+        && about.location.address
+        && about.location.address.addressCountry
+      }
     />
 
     <div className="image">

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>slider_arrow_right_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="landingpage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="slider_arrow_right_hover">
+            <circle id="Oval-6" fill="#1A91E6" cx="22.5" cy="22.5" r="22"></circle>
+            <polygon id="→" fill="#FFFFFF" points="32.32 22.275 32.32 22.415 22.8 31.69 21.295 30.08 28.33 23.535 13 23.535 13 21.155 28.33 21.155 21.295 14.61 22.8 13"></polygon>
+        </g>
+    </g>
+</svg>

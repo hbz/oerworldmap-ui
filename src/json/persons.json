@@ -1,0 +1,205 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/persons.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#teacher",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Teacher"
+        },
+        {
+          "@language": "pt",
+          "@value": "Teacher"
+        },
+        {
+          "@language": "de",
+          "@value": "Lehrperson"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#student",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Student"
+        },
+        {
+          "@language": "pt",
+          "@value": "Student"
+        },
+        {
+          "@language": "de",
+          "@value": "Schüler/in oder Student/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#librarian",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Librarian"
+        },
+        {
+          "@language": "pt",
+          "@value": "Librarian"
+        },
+        {
+          "@language": "de",
+          "@value": "Bibliothekar/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#instructionalDesigner",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Instructional designer"
+        },
+        {
+          "@language": "pt",
+          "@value": "Instructional designer"
+        },
+        {
+          "@language": "de",
+          "@value": "Instruktionsdesigner/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#eLearningProfessional",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "E-learning professional"
+        },
+        {
+          "@language": "pt",
+          "@value": "E-learning professional"
+        },
+        {
+          "@language": "de",
+          "@value": "E-Learning-Experte"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#policyMaker",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Policy maker"
+        },
+        {
+          "@language": "pt",
+          "@value": "Policy maker"
+        },
+        {
+          "@language": "de",
+          "@value": "Politische/r Entscheidungsträger/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#scientist",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Scientist"
+        },
+        {
+          "@language": "pt",
+          "@value": "Scientist"
+        },
+        {
+          "@language": "de",
+          "@value": "Wissenschaftler/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#oerAdvocate",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "OER advocate"
+        },
+        {
+          "@language": "pt",
+          "@value": "OER advocate"
+        },
+        {
+          "@language": "de",
+          "@value": "OER-Befürworter"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#consultant",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Consultant"
+        },
+        {
+          "@language": "pt",
+          "@value": "Consultant"
+        },
+        {
+          "@language": "de",
+          "@value": "Berater/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#developer",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Developer"
+        },
+        {
+          "@language": "pt",
+          "@value": "Developer"
+        },
+        {
+          "@language": "de",
+          "@value": "Entwickler/in"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/persons.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
+          "@value": "Other"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    }
+  ]
+}

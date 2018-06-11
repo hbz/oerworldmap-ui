@@ -1,3 +1,5 @@
+@import './variables.pcss';
+
 .static {
 
   & .Header {
@@ -114,6 +116,11 @@
       &.v-xs .inner {
         padding-top: var(--p-margin);
         padding-bottom: var(--p-margin);
+      }
+
+      &.h-xs .inner {
+        padding-left: var(--p-margin);
+        padding-right: var(--p-margin);
       }
     }
 

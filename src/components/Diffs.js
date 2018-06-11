@@ -69,6 +69,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
                     <a
                       href={`/resource/${compare.about["@id"]}?version=${l.commit}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {l.commit}
                     </a>
