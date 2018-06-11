@@ -129,6 +129,18 @@ class Filters extends React.Component {
 
   render() {
     const filter = this.props.filters && this.props.filters['about.@type'] || false
+
+    let sortSize
+    if (this.props.sort && this.props.sort.split(':').shift() === 'about.name.@value.sort') {
+      sortSize = this.props.translate('ClientTemplates.filter.alphabetical').length
+    } else if (this.props.sort) {
+      sortSize = this.props.translate(`ClientTemplates.filter.${this.props.sort.split(':').shift()}`).length
+    } else if (this.props.query) {
+      sortSize = this.props.translate('ClientTemplates.filter.relevance').length
+    } else {
+      sortSize = this.props.translate('ClientTemplates.filter.dateCreated').length
+    }
+
     return (
       <nav className="Filters">
 
@@ -358,13 +370,12 @@ class Filters extends React.Component {
                         name="sort"
                         value={this.props.sort}
                         className="styledSelect"
-                        style={{width:
-                          this.props.sort.length > 0
-                            ? (this.props.translate('ClientTemplates.filter.relevance').length * 8) + 15 + 'px'
-                            : (this.props.translate('ClientTemplates.filter.dateCreated').length * 8) + 15 + 'px'
+                        style={{
+                          width: sortSize * 1.4 + 'ex',
+                          minWidth: '70px'
                         }}
                         onChange={(evt) => {
-                          evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                          evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 1.4) + 'ex'
                           onSubmit(evt, this.props.emitter)
                         }}
                       >
