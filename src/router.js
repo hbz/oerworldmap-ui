@@ -73,22 +73,20 @@ export default (api) => {
           ? context.i18n.translate('add', {type: context.i18n.translate(params.add)})
           : context.i18n.translate('ResourceIndex.index.showingEntities', {
             number: data.totalItems,
-            query: data.query
-              || (data.filters
-                && data.filters["about.@type"]
-                && context.i18n.translate(data.filters["about.@type"][0])
-              )
+            query: data.filters
+              && data.filters["about.@type"]
+              && context.i18n.translate(data.filters["about.@type"][0])
               || ''
           })
 
         const metadata = {
           description: context.i18n.translate('Discover the OER movement'),
           url: data._self,
-          image: '/public/metadataBig.png'
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
         }
 
-        if (data && (data.query || data.filters))  {
-          metadata.image = '/public/metadataSmall.png'
+        if (data && (data.query || Object.keys(data.filters).length > 0))  {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
           metadata.summary = 'summary'
         }
 
