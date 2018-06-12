@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Input from './Input'
-import Textarea from './Textarea'
+import MarkdownArea from './MarkdownArea'
 import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
 
 const LocalizedString = ({schema, translate, value, setValue, shouldFormComponentFocus}) => {
   const TextInput = schema.properties['@value']._display
-    && schema.properties['@value']._display.rows > 1 ? Textarea : Input
+    && schema.properties['@value']._display.rows > 1 ? MarkdownArea : Input
   return (
     <div className="LocalizedString">
       <TextInput
