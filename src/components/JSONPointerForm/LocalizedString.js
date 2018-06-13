@@ -22,6 +22,7 @@ const LocalizedString = ({schema, translate, value, setValue, shouldFormComponen
       />
       <DropdownSelect
         property="@language"
+        title="LocalizedText.@language"
         options={schema.properties['@language'].enum}
         translate={translate}
       />
