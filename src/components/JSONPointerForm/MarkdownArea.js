@@ -1,3 +1,5 @@
+/* global MutationObserver */
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import SimpleMDE from 'react-simplemde-editor'
@@ -26,9 +28,22 @@ const MarkdownArea = ({
       placeholder={translate(title)}
       onChange={value => setValue(value)}
       className="SimpleMDE"
-      getMdeInstance={instance => instance.codemirror.on("focus", (i, e) =>
-        !e && i.setCursor(i.getValue().length))
-      }
+      getMdeInstance={instance => {
+
+        const mo = new MutationObserver(e => {
+          const mutation = e.shift()
+          if (mutation
+            && mutation.attributeName === "class"
+            && !mutation.target.classList.contains('hidden')) {
+            instance.codemirror.refresh()
+          }
+        })
+
+        mo.observe(document && document.getElementById('edit'), {attributes: true})
+
+        instance.codemirror.on("focus", (i, e) =>
+          !e && i.setCursor(i.getValue().length))
+      }}
       options={{
         autofocus: shouldFormComponentFocus,
         status: false,
