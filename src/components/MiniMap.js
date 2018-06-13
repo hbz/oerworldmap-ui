@@ -28,6 +28,7 @@ class MiniMap extends React.Component {
       container: this.MiniMapContainer,
       center: [0, 0],
       zoom: 1,
+      boxZoom: this.props.boxZoom,
       style: `mapbox://styles/${this.props.mapboxConfig.miniMapStyle}`
     })
 
@@ -256,7 +257,8 @@ MiniMap.propTypes = {
   draggable: PropTypes.bool,
   zoomable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   onFeatureDrag: PropTypes.func,
-  country: PropTypes.string // eslint-disable-line react/no-unused-prop-types
+  country: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  boxZoom: PropTypes.bool
 }
 
 MiniMap.defaultProps = {
@@ -269,7 +271,8 @@ MiniMap.defaultProps = {
   draggable: false,
   zoomable: false,
   onFeatureDrag: null,
-  country: undefined
+  country: undefined,
+  boxZoom: false
 }
 
 export default MiniMap
