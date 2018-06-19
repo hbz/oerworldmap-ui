@@ -279,3 +279,44 @@
     }
   }
 }
+
+.tagFilter {
+  border: 1px solid var(--blue-light);
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--border-radius);
+
+  & input[type=checkbox] {
+    display: none;
+  }
+
+  & label {
+    cursor: pointer;
+    padding: 4px 9px;
+    padding-right: 20px;
+  }
+
+  &::after {
+    content: "\D7";
+    font-family: "Source Sans Pro', futura-pt, sans-serif";
+    font-weight: bold;
+    color: var(--grey);
+    height: 100%;
+    width: 20px;
+    font-size: 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    color: var(--orange);
+  }
+}
