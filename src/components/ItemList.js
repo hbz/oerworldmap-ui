@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import ReactMarkdown from 'react-markdown'
 import urlTemplate from 'url-template'
 
 import Icon from './Icon'
