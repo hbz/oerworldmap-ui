@@ -57,6 +57,7 @@ let Config = {
   },
 
   plugins: [
+    new webpack.ProgressPlugin(),
     new CopyWebpackPlugin([
       { from: 'public', to: 'public' },
     ])
