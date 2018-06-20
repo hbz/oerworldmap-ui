@@ -5,6 +5,7 @@ import urlTemplate from 'url-template'
 
 import Icon from './Icon'
 import Link from './Link'
+import Topline from './Topline'
 
 import '../styles/components/ItemList.pcss'
 
@@ -49,67 +50,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                   <b>{translate(listItem.name) || listItem['@id']}</b>
                 </div>
               </div>
-              {listItem.agentIn && listItem.agentIn.some(item => item['@type'] === 'Action') &&
-                <React.Fragment>
-                  <hr />
-                  <div className="tooltipBlock">
-                    <span>{translate('Organization.agentIn')}</span>
-                    <div>
-                      <ul className="commaSeparatedList">
-                        {listItem.agentIn.filter(item => item['@type'] === 'Action')
-                          .slice(0,3).map(agent => (
-                            <li key={agent['@id']}>
-                              <Link href={`/resource/${agent['@id']}`}>
-                                {translate(agent.name)}
-                              </Link>
-                            </li>
-                          ))
-                        }
-                      </ul>
-                    </div>
-                  </div>
-                </React.Fragment>
-              }
-
-              {listItem.inLanguage &&
-                <React.Fragment>
-                  <hr />
-                  <div className="tooltipBlock">
-                    <span>{translate('availableLanguage')}</span>
-                    <div>
-                      <ul className="commaSeparatedList">
-                        {listItem.inLanguage.map(lang => (
-                          <li key={lang}>
-                            <Link href={`/resource/?filter.about.inLanguage=${lang}`}>
-                              {translate(lang)}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </React.Fragment>
-              }
-
-              {listItem.keywords &&
-                <React.Fragment>
-                  <hr />
-                  <div className="tooltipBlock">
-                    <span>{translate('Article.keywords')}</span>
-                    <div>
-                      <ul className="spaceSeparatedList">
-                        {listItem.keywords.sort((a,b) => a > b).map(keyword => (
-                          <li key={keyword}>
-                            <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
-                              {keyword}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </React.Fragment>
-              }
+              <Topline about={listItem} className="inTooltip" />
             </div>
           }
           placement="left"
