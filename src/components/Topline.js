@@ -18,7 +18,7 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span className="showInTooltip">{translate('Type')}</span>
+            <span className="showInTooltip">{translate('Type')}:&nbsp;</span>
             <ul className="commaSeparatedList">
               {about.additionalType.map(type => (
                 <li key={type}>
@@ -72,7 +72,7 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span className="showInTooltip">{translate('Date')}</span>
+            <span className="showInTooltip">{translate('Date')}:&nbsp;</span>
             <ul className="commaSeparatedList">
               <li>
                 {formatDate(about.startDate, moment)}
@@ -91,7 +91,7 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span className="showInTooltip">{translate('Location')}</span>
+            <span className="showInTooltip">{translate('Location:')}&nbsp;</span>
             <ul className="commaSeparatedList">
               <li>
                 {about.location.address.addressLocality}
@@ -168,7 +168,7 @@ const Topline = ({translate, moment, about, className}) => {
         <div className="showInTooltip">
           <hr />
           <div className="toplineEntry">
-            <span>{translate('availableLanguage')}</span>
+            <span>{translate('availableLanguage')}:&nbsp;</span>
             <ul className="commaSeparatedList">
               {about.inLanguage.map(lang => (
                 <li key={lang}>
@@ -186,7 +186,7 @@ const Topline = ({translate, moment, about, className}) => {
         <div className="showInTooltip">
           <hr />
           <div className="toplineEntry">
-            <span>{translate('Article.keywords')}</span>
+            <span>{translate('Article.keywords')}:&nbsp;</span>
             <ul className="spaceSeparatedList">
               {about.keywords.sort((a,b) => a > b).map(keyword => (
                 <li key={keyword}>
