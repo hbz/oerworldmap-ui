@@ -1,6 +1,7 @@
 /* global document */
 /* global window */
 /* global XMLHttpRequest */
+/* global localStorage */
 
 import ReactDOM from 'react-dom'
 import 'normalize.css'
@@ -23,6 +24,10 @@ require('formdata-polyfill');
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
+
+    context.user
+      ? localStorage.setItem('user', JSON.stringify(context.user))
+      : localStorage.removeItem('user')
 
     const api = new Api(context.apiConfig)
     const routes = router(api)
@@ -82,6 +87,7 @@ require('formdata-polyfill');
         request.open('GET', url, false)
         request.send(null)
       }
+      localStorage.removeItem('user')
       window.location.reload()
     })
     // Form submission
