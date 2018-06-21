@@ -59,7 +59,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                   unwrapDisallowed={false}
                   renderers={
                     {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener">
+                      <a href={link.href} target="_blank" rel="noopener noreferrer">
                         {link.children}
                       </a>
                     )}

@@ -65,6 +65,7 @@
   "Person.publication": "Ihre Veröffentlichungen",
   "Person.primarySector": "Der Bildungssektor, in dem Sie hauptsächlich tätig sind",
   "Person.secondarySector": "Bildungssektor, in dem Sie ebenfalls tätig sind",
+  "Person.additionalType": "Die Rolle der Person im OER-Kontext",
   "Action.name": "Der Name des Projekts",
   "Action.alternateName": "Die Abkürzung des Namens des Projekts",
   "Action.additionalType": "Die Art des Projekts",
@@ -115,6 +116,7 @@
   "Service.primarySector": "Der Bildungssektor, für den der Service in erster Linie gedacht ist",
   "Service.secondarySector": "Bildungssektoren, für die der Service ebenfalls nützlich ist",
   "Service.resultOf": "Das Projekt, in dem Service entwickelt wurde",
+  "Service.additionalType": "Die Art des Services",
   "Product.name": "Name des Tools",
   "Product.alternateName": "Eine Abkürzung für den Namen des Tools",
   "Product.description": "Eine Beschreibung des Tools",
@@ -135,5 +137,6 @@
   "WebPage.keywords": "Frei wählbare Schlagwörter (Tags), die die Veröffentlichung charakterisieren",
   "WebPage.publisher": "Von wem die Veröffentlichung veröffentlicht wurde",
   "WebPage.award": "Preis, mit dem diese Veröffentlichung ausgezeichnet wurde",
+  "WebPage.additionalType": "Die Art der Veröffentlichung",
   "LighthouseAction.description": "Bitte beschreiben Sie, was diesen Eintrag zu einem \"Leuchtturm\" macht."
 }

@@ -1,7 +1,7 @@
 ---
 title: Documentação da API
 ---
- <iframe enable-annotation src="/resource/urn:uuid:29056e88-727b-407e-b00a-16df279ac506.json" style="border: 0; width: 100%;" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"></iframe>
+ <iframe enable-annotation src="/resource/urn:uuid:29056e88-727b-407e-b00a-16df279ac506.json?disposition=inline" style="border: 0; width: 100%;" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"></iframe>
 
 <script type="application/json" class="js-hypothesis-config">
   {

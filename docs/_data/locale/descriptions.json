@@ -66,6 +66,7 @@
   "Person.publication": "Publications of this Person",
   "Person.primarySector": "The educational sector you are working for in the first place",
   "Person.secondarySector": "Educational sectors you are also working for",
+  "Person.additionalType": "The type of the person",
   "Action.name": "The project's name",
   "Action.alternateName": "An abbreviation that identifies the project",
   "Action.additionalType": "The type of the project",
@@ -116,6 +117,7 @@
   "Service.primarySector": "The educational sector the service is offered for in the first place",
   "Service.secondarySector": "Educational sectors the service is also useful for",
   "Service.resultOf": "The project the service was created in",
+  "Service.additionalType": "The type of the service",
   "Product.name": "The tool's name",
   "Product.alternateName": "An abbreviation that identifies the tool",
   "Product.description": "A description of the tool",
@@ -136,5 +138,6 @@
   "WebPage.keywords": "Tags for the publication",
   "WebPage.publisher": "By whom the publication was published",
   "WebPage.award": "An award this Publication won",
+  "WebPage.additionalType": "The type of the publication",
   "LighthouseAction.description": "Tell us what makes this entry a lighthouse. Please set lighthouses only in case you are not affiliated with the entry in any way!"
 }

@@ -10,11 +10,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import fetch from 'isomorphic-fetch'
 import mitt from 'mitt'
+import 'normalize.css'
 
 import Header from './components/Header'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
 import i18n from './i18n'
+
 import Overview from './components/Overview'
 
 import './styles/main.pcss'
