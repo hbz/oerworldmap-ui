@@ -89,12 +89,12 @@ class Header extends React.Component {
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
+              onMouseEnter={() => {
+                this.setDropdown('find')
+              }}
             >
               <button
                 onClick={() => {
-                  this.setDropdown('find')
-                }}
-                onMouseEnter={() => {
                   this.setDropdown('find')
                 }}
               >
@@ -209,12 +209,12 @@ class Header extends React.Component {
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
+              onMouseEnter={() => {
+                this.setDropdown('add')
+              }}
             >
               <button
                 onClick={() => {
-                  this.setDropdown('add')
-                }}
-                onMouseEnter={() => {
                   this.setDropdown('add')
                 }}
               >
@@ -290,12 +290,12 @@ class Header extends React.Component {
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
+              onMouseEnter={() => {
+                this.setDropdown('info')
+              }}
             >
               <button
                 onClick={() => {
-                  this.setDropdown('info')
-                }}
-                onMouseEnter={() => {
                   this.setDropdown('info')
                 }}
               >
@@ -403,12 +403,12 @@ class Header extends React.Component {
                 onMouseLeave={() => {
                   this.setDropdown('')
                 }}
+                onMouseEnter={() => {
+                  this.setDropdown('me')
+                }}
               >
                 <button
                   onClick={() => {
-                    this.setDropdown('me')
-                  }}
-                  onMouseEnter={() => {
                     this.setDropdown('me')
                   }}
                 >
