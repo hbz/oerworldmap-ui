@@ -173,9 +173,9 @@ class Map extends React.Component {
   }
 
   getBucket(country) {
-    const aggregation = this.props.aggregations.country
-      ? this.props.aggregations.country["feature.properties.location.address.addressCountry"]
-      : this.props.aggregations["feature.properties.location.address.addressCountry"]
+    const aggregation = this.props.aggregations["global#country"]
+      ? this.props.aggregations["global#country"]["sterms#feature.properties.location.address.addressCountry"]
+      : this.props.aggregations["sterms#feature.properties.location.address.addressCountry"]
     return this.props.features
       ? aggregation.buckets.find(e => e.key === country )
       : null
@@ -240,12 +240,12 @@ class Map extends React.Component {
                 {this.props.translate(this.state.hoveredFeatures[0].properties.iso_a2)}
                 <br />
                 {this.state.bucket &&
-                  <div className="buckets" >{this.renderTypes(this.state.bucket.by_type.buckets)}</div>
+                  <div className="buckets" >{this.renderTypes(this.state.bucket['sterms#by_type'].buckets)}</div>
                 }
               </b>
             </li>
 
-            {this.state.bucket && this.state.bucket.champions.doc_count > 0 &&
+            {this.state.bucket && this.state.bucket["filter#champions"].doc_count > 0 &&
               <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
             }
           </ul>
@@ -418,16 +418,16 @@ class Map extends React.Component {
 
   updateChoropleth(aggregations) {
     if (aggregations) {
-      const aggregation = aggregations["feature.properties.location.address.addressRegion"]
-        || aggregations["feature.properties.location.address.addressCountry"]
+      const aggregation = aggregations["sterms#feature.properties.location.address.addressRegion"]
+        || aggregations["sterms#feature.properties.location.address.addressCountry"]
       const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
       const colors = stops
         .map(stop => stop[1])
         .filter((value, index, self) => self.indexOf(value) === index)
         .concat('rgba(255, 255, 255)')
         .reverse()
-      const property = aggregations["feature.properties.location.address.addressRegion"] ? 'code_hasc' : 'iso_a2'
-      const layer = aggregations["feature.properties.location.address.addressRegion"] ? 'Regions' : 'countries'
+      const property = aggregations["sterms#feature.properties.location.address.addressRegion"] ? 'code_hasc' : 'iso_a2'
+      const layer = aggregations["sterms#feature.properties.location.address.addressRegion"] ? 'Regions' : 'countries'
 
       this.map.setPaintProperty(layer, 'fill-color', {
         property,
@@ -566,25 +566,25 @@ class Map extends React.Component {
 
         {this.state.colors &&
         (
-          (getProp(['feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
-          (getProp(['feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
-          (getProp(['country', 'feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0)
+          (getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
+          (getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0) ||
+          (getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) > 0)
         ) &&
           <div className="mapLeyend">
             <div className="infoContainer">
               <span className="min">0</span>
 
               <span className="description">
-                {this.props.aggregations['feature.properties.location.address.addressRegion'] &&
-                  this.props.aggregations['feature.properties.location.address.addressRegion'].buckets.length
+                {this.props.aggregations['sterms#feature.properties.location.address.addressRegion'] &&
+                  this.props.aggregations['sterms#feature.properties.location.address.addressRegion'].buckets.length
                   ? this.props.translate('Map.entriesPerRegion') : this.props.translate('Map.entriesPerCountry')}
               </span>
 
               <span className="max">
                 {
-                  getProp(['feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
-                  getProp(['feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
-                  getProp(['country', 'feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations)
+                  getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations) ||
+                  getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], this.props.aggregations)
                 }
               </span>
             </div>
@@ -597,7 +597,7 @@ class Map extends React.Component {
           </div>
         }
 
-        {this.props.aggregations['feature.properties.location.address.addressRegion'] &&
+        {this.props.aggregations['sterms#feature.properties.location.address.addressRegion'] &&
           <div className='goToMap'>
             <Link href='/resource/'>
               <i className='fa fa-globe' />
