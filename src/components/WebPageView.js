@@ -73,7 +73,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   source={translate(about.description)}
                   renderers={
                     {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener">
+                      <a href={link.href} target="_blank" rel="noopener noreferrer">
                         {link.children}
                       </a>
                     )}
@@ -110,7 +110,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                     source={translate(about.articleBody)}
                     renderers={
                       {link: link => (
-                        <a href={link.href} target="_blank" rel="noopener">
+                        <a href={link.href} target="_blank" rel="noopener noreferrer">
                           {link.children}
                         </a>
                       )}
@@ -122,7 +122,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
             {about.url &&
               <p>
-                <a href={about.url} target="_blank" rel="noopener" className="boxedLink">
+                <a href={about.url} target="_blank" rel="noopener noreferrer" className="boxedLink">
                   {formatURL(about.url)}
                 </a>
               </p>
@@ -130,7 +130,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
             {about.availableChannel &&
               about.availableChannel.map(link => (
-                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener">
+                <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener noreferrer">
                   {formatURL(link.serviceUrl)}
                 </a>
               ))
@@ -239,7 +239,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ul className="ItemList award">
                 {about.award.map(award => (
                   <li key={award}>
-                    <a className="item" href={award} target="_blank" rel="noopener">
+                    <a className="item" href={award} target="_blank" rel="noopener noreferrer">
                       <img src={award} className="awardImage" alt={translate(`${about['@type']}.award`)} />
                     </a>
                   </li>
@@ -350,7 +350,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             <Block title={translate(`${about['@type']}.hashtag`)}>
               <a
                 href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 {about.hashtag}
@@ -363,7 +363,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ul className="unstyledList">
                 {about.recordedIn.map(recording => (
                   <li key={recording}>
-                    <a href={recording} target="_blank" rel="noopener">
+                    <a href={recording} target="_blank" rel="noopener noreferrer">
                       {formatURL(recording)}
                     </a>
                   </li>

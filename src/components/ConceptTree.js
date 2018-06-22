@@ -9,6 +9,7 @@ import Link from './Link'
 import { triggerClick } from '../common'
 
 const filterConcepts = (concepts, include) => {
+  concepts = JSON.parse(JSON.stringify(concepts))
   const res = []
   concepts.forEach(node => {
     if (include.indexOf(node['@id']) !== -1) {

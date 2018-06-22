@@ -24,7 +24,6 @@ import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
 import i18n from './i18n'
-import centroids from './json/centroids.json'
 
 export default (api) => {
 
@@ -73,19 +72,21 @@ export default (api) => {
           ? context.i18n.translate('add', {type: context.i18n.translate(params.add)})
           : context.i18n.translate('ResourceIndex.index.showingEntities', {
             number: data.totalItems,
-            query: data.query
-              || (data.filters
-                && data.filters["about.@type"]
-                && context.i18n.translate(data.filters["about.@type"][0])
-              )
+            query: data.filters
+              && data.filters["about.@type"]
+              && context.i18n.translate(data.filters["about.@type"][0])
               || ''
           })
 
         const metadata = {
           description: context.i18n.translate('Discover the OER movement'),
           url: data._self,
-          //TODO: Add static iamge with aggregations or custom logo
-          image: `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/0,30,1,0,0/1200x630?access_token=${context.mapboxConfig.token}`
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
+        }
+
+        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0)))  {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
         }
 
         return { title, data, component, metadata }
@@ -208,7 +209,12 @@ export default (api) => {
             countryName: context.i18n.translate(data.iso3166)
           }),
           url: data._self,
-          image: `https://api.mapbox.com/styles/v1/${context.mapboxConfig.miniMapStyle}/static/${centroids[data.iso3166]},4,0,0/1200x630?access_token=${context.mapboxConfig.token}`
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
+        }
+
+        if (data && (data.query || Object.keys(data.filters).length > 0))  {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
         }
 
         return { title, data, component, metadata }

@@ -7,6 +7,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import fetch from 'isomorphic-fetch'
 
+import 'normalize.css'
+
 import Overview from './components/Overview'
 
 import './styles/main.pcss'

@@ -210,8 +210,8 @@ class PlaceWidget extends React.Component {
                           mapboxConfig={config.mapboxConfig}
                           features={geometry}
                           zoom={geometry ? 12 : 1}
-                          zoomable
                           draggable
+                          boxZoom
                           onFeatureDrag={point => setValue(Object.assign(
                             value ? JSON.parse(JSON.stringify(value)) : {},
                             {geo: {
