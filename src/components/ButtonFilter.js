@@ -7,7 +7,7 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick, clearForm } from '../common'
 
-const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) => (
+const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, filterName}) => (
   <div className="ButtonFilter">
     {aggregation.buckets.sort((a, b) => order.indexOf(a.key) > order.indexOf(b.key))
       .map((bucket) => {
@@ -34,7 +34,7 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
                 type="radio"
                 value={bucket.key}
                 checked={filter.includes(bucket.key)}
-                name="filter.about.@type"
+                name={filterName}
                 id={"type:" + bucket.key}
                 onChange={(e) => {
                   clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
@@ -74,7 +74,8 @@ ButtonFilter.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
-  order: PropTypes.arrayOf(PropTypes.string)
+  order: PropTypes.arrayOf(PropTypes.string),
+  filterName: PropTypes.string.isRequired
 }
 
 ButtonFilter.defaultProps = {

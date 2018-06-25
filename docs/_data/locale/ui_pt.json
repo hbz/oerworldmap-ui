@@ -251,7 +251,7 @@
   "award": "Prêmio",
   "GTE": "Data",
   "about.availableChannel.availableLanguage": "5 Idiomas Principais do Serviço",
-  "about.location.address.addressCountry": "Top 5 países",
+  "feature.properties.location.address.addressCountry": "Top 5 países",
   "about.@type": "Entradas pelo Tipo",
   "about.keywords": "Top 5 palavras-chave",
   "about.about.@id": "Serviços por Tópico",

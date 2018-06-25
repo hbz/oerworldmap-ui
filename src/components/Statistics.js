@@ -55,17 +55,17 @@ const PieChart = ({name, buckets, emitter, translate}) => {
 }
 
 const charts = [
-  "about.@type",
-  "about.primarySector.@id",
-  "about.secondarySector.@id",
-  "about.isFundedBy.isAwardedBy.@id",
-  "about.availableChannel.availableLanguage",
-  "about.location.address.addressCountry",
-  "about.license.@id",
-  "about.about.@id",
-  "about.keywords",
-  "about.agent.location.address.addressCountry",
-  "about.audience.@id"
+  "sterms#about.@type",
+  "sterms#about.primarySector.@id",
+  "sterms#about.secondarySector.@id",
+  "sterms#about.isFundedBy.isAwardedBy.@id",
+  "sterms#about.availableChannel.availableLanguage",
+  "sterms#feature.properties.location.address.addressCountry",
+  "sterms#about.license.@id",
+  "sterms#about.about.@id",
+  "sterms#about.keywords",
+  "sterms#about.agent.location.address.addressCountry",
+  "sterms#about.audience.@id"
 ]
 
 const Statistics = ({translate, aggregations, emitter}) => (
@@ -73,14 +73,18 @@ const Statistics = ({translate, aggregations, emitter}) => (
     <FullModal closeLink={Link.home}>
       <h1 className="title">Global Statistics</h1>
       <div className="links">
-        {charts.map(aggregation => (
-          <Link key={aggregation} href={`#${aggregation}`}>
-            {translate(aggregation)}
-          </Link>
-        ))}
+        {charts.map(typed_aggregation => {
+          const [, aggregation] = typed_aggregation.split('#')
+          return (
+            <Link key={aggregation} href={`#${aggregation}`}>
+              {translate(aggregation)}
+            </Link>
+          )
+        })}
       </div>
-      {charts.map(aggregation => (
-        aggregations[aggregation] &&
+      {charts.map(typed_aggregation => {
+        const [, aggregation] = typed_aggregation.split('#')
+        return aggregations[typed_aggregation] && (
           <div className="chartContainer" key={aggregation} id={aggregation}>
             <h2>{translate(aggregation)}</h2>
             <div className="graph">
@@ -88,24 +92,24 @@ const Statistics = ({translate, aggregations, emitter}) => (
                 emitter={emitter}
                 translate={translate}
                 name={aggregation}
-                buckets={aggregations[aggregation].buckets.sort((a,b) => a.doc_count < b.doc_count)}
+                buckets={aggregations[typed_aggregation].buckets.sort((a,b) => a.doc_count < b.doc_count)}
               />
             </div>
             <ul>
-              {aggregations[aggregation].buckets.map((bucket, i) => (
+              {aggregations[typed_aggregation].buckets.map((bucket, i) => (
                 <li key={bucket.key}>
                   <Link href={`/resource/?filter.${aggregation}=${encodeURIComponent(bucket.key)}`}>
                     <span
                       className="color"
-                      style={{backgroundColor: getColor(aggregations[aggregation].buckets.length, i)}}
+                      style={{backgroundColor: getColor(aggregations[typed_aggregation].buckets.length, i)}}
                     /> {`${translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
                   </Link>
                 </li>
               ))}
             </ul>
-
           </div>
-      ))}
+        )
+      })}
       <br />
       <a href={Link.home} className="btn">{translate('close')}</a>
     </FullModal>
