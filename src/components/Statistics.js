@@ -55,17 +55,17 @@ const PieChart = ({name, buckets, emitter, translate}) => {
 }
 
 const charts = [
-  "about.@type",
-  "about.primarySector.@id",
-  "about.secondarySector.@id",
+  "sterms#about.@type",
+  "sterms#about.primarySector.@id",
+  "sterms#about.secondarySector.@id",
   "about.isFundedBy.isAwardedBy.@id",
-  "about.availableChannel.availableLanguage",
-  "about.location.address.addressCountry",
-  "about.license.@id",
-  "about.about.@id",
-  "about.keywords",
+  "sterms#about.availableChannel.availableLanguage",
+  "sterms#feature.properties.location.address.addressCountry",
+  "sterms#about.license.@id",
+  "sterms#about.about.@id",
+  "sterms#about.keywords",
   "about.agent.location.address.addressCountry",
-  "about.audience.@id"
+  "sterms#about.audience.@id"
 ]
 
 const Statistics = ({translate, aggregations, emitter}) => (
