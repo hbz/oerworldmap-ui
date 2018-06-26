@@ -11,8 +11,9 @@
   z-index: 4;
 
   & .secondary,
+  & .selectedFilters,
   & .clearFilter {
-    transition: translate3d 1s;
+    transition: transform 1s, max-height 1s;
   }
 
   &.hideColumns {
@@ -24,8 +25,10 @@
     }
 
     & .secondary,
+    & .selectedFilters,
     & .filtersControls {
       transform: translate3d(109.6%, 0, 0);
+      transition: transform 1s;
     }
   }
 

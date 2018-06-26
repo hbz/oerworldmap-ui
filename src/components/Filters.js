@@ -255,8 +255,36 @@ class Filters extends React.Component {
               {secondaryFilters.map(filterDef => this.getFilter(filterDef))}
             </div>
 
-            <div className="selectedFilters">
+            <div className="filtersControls">
+              {secondaryFilters.map(f => f.name).some(
+                v => this.props.aggregations[v] && this.props.aggregations[v].buckets.length
+              ) &&
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    this.setState({ extended: !this.state.extended })
+                  }}
+                >
+                  {this.state.extended
+                    ? this.props.translate('ClientTemplates.filter.hide')
+                    : this.props.translate('ClientTemplates.filter.show')
+                  }
+                </button>
+              }
 
+              {Object.keys(filters).length > 0 &&
+              <div className="clearFilter">
+                <button type="reset">
+                  {this.props.translate('ClientTemplates.filter.clear')}
+                </button>
+              </div>
+              }
+
+            </div>
+
+            {Object.keys(filters).length > 0 &&
+            <div className="selectedFilters">
+              <hr />
               {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
                 filters[filterGroup].map(filter => (
                   <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
@@ -287,30 +315,7 @@ class Filters extends React.Component {
               ))}
 
             </div>
-
-            <div className="filtersControls">
-              {secondaryFilters.map(f => f.name).some(
-                v => this.props.aggregations[v] && this.props.aggregations[v].buckets.length
-              ) &&
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    this.setState({ extended: !this.state.extended })
-                  }}
-                >
-                  {this.state.extended
-                    ? this.props.translate('ClientTemplates.filter.hide')
-                    : this.props.translate('ClientTemplates.filter.show')
-                  }
-                </button>
-              }
-              <div className="clearFilter">
-                <button type="reset">
-                  {this.props.translate('ClientTemplates.filter.clear')}
-                </button>
-              </div>
-
-            </div>
+            }
 
           </div>
 
