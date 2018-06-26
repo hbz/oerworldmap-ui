@@ -92,7 +92,7 @@ const secondaryFilters = [
     translate: true
   },
   {
-    name: "about.award",
+    name: "sterms#about.award",
     translate: true
   },
   {
