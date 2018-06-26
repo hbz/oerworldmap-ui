@@ -17,7 +17,7 @@ const WebPage = ({
   contributor,
   dateModified,
   view,
-  geo,
+  feature,
   _links,
   _self,
   mapboxConfig,
@@ -39,7 +39,7 @@ const WebPage = ({
           embedValue={embedValue}
         />
 
-        <WebPageCover about={about} geo={geo} mapboxConfig={mapboxConfig} />
+        <WebPageCover about={about} feature={feature} mapboxConfig={mapboxConfig} />
 
         <div className="webPageContent">
 
@@ -71,7 +71,7 @@ WebPage.propTypes = {
   contributor: PropTypes.string,
   dateModified: PropTypes.string,
   view: PropTypes.string.isRequired,
-  geo: PropTypes.objectOf(PropTypes.any),
+  feature: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any),
@@ -87,7 +87,7 @@ WebPage.propTypes = {
 }
 
 WebPage.defaultProps = {
-  geo: null,
+  feature: null,
   user: null,
   contributor: null,
   dateModified: null,
