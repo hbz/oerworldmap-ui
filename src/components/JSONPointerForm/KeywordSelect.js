@@ -18,7 +18,7 @@ class KeywordSelect extends React.Component {
 
   componentDidMount() {
     this.props.api.get('/resource/?size=0').then(response => {
-      const options = response.aggregations['about.keywords'].buckets
+      const options = response.aggregations['sterms#about.keywords'].buckets
         .map(keyword => ({value: keyword.key, label: keyword.key}))
       this.setState({options})
     })
