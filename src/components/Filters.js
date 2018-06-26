@@ -59,6 +59,11 @@ const subFilters = [
     name: "sterms#about.keywords",
     type: "dropdown",
     icon: "tag"
+  },
+  {
+    name: "sterms#about.award",
+    translate: true,
+    icon: "trophy"
   }
 ]
 
@@ -89,10 +94,6 @@ const secondaryFilters = [
     name: "sterms#about.about.@id",
     type: "concepts",
     scheme: require('../json/esc.json'),
-    translate: true
-  },
-  {
-    name: "sterms#about.award",
     translate: true
   },
   {
