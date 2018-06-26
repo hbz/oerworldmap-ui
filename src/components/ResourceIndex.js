@@ -62,7 +62,7 @@ const ResourceIndex = ({
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
-              <Calendar entries={aggregations['about.startDate.GTE'].buckets} />
+              <Calendar entries={aggregations['date_histogram#about.startDate.GTE'].buckets} />
             </div>
           ) : (
             <div className="wrapper-ItemList-Pagination">

@@ -13,7 +13,7 @@ const Calendar = ({entries, moment, translate}) => (
       <li key={month.key} className="monthBlock">
         <h4>{moment(month.key_as_string).format('MMMM YYYY')}</h4>
         <ul>
-          {month['about.@id'].hits.hits.map(hit => hit._source.about).reverse().map(event => (
+          {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).reverse().map(event => (
             <li key={event['@id']}>
               <Link href={event['@id']}>
                 <div className="sheet">

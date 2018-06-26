@@ -344,6 +344,9 @@
     display: block;
   }
 
+  & .List.isFundedBy > .label,
+  & .List.isFundedBy > ul > li > .Fieldset > .label,
+  & .PlaceWidget.location > .label,
   & .List.availableChannel > .label {
     display: none;
   }
@@ -471,6 +474,74 @@
 
       & .Select-menu .Select-option:last-child {
         border-bottom: none;
+      }
+    }
+  }
+
+  & .LocalizedString {
+
+    & .SimpleMDE {
+
+      & p {
+        margin-top: 18px;
+      }
+
+      & ul {
+        list-style-type: initial;
+        padding: 0 0.5em;
+        margin-left: 1em;
+
+        & li {
+          margin-bottom: initial;
+        }
+      }
+
+      & img {
+        max-width: 100%;
+      }
+
+      & .editor-toolbar {
+        border-color: var(--blue-dark);
+        opacity: 1;
+
+        & a {
+          font-size: var(--font-size);
+          color: var(--blue-dark) !important;
+          width: 25px;
+          height: 25px;
+
+          &::before {
+            line-height: 25px;
+          }
+        }
+
+        &::before,
+        &::after {
+          margin-top: 4px;
+          margin-bottom: 0;
+        }
+      }
+      & .CodeMirror-wrap {
+        color: var(--blue-dark);
+        border-color: var(--blue-dark);
+        border-radius: 0;
+        z-index: 0;
+        min-height: 200px;
+      }
+
+      & .CodeMirror-fullscreen {
+        z-index: 9;
+      }
+
+      & .CodeMirror-scroll {
+        min-height: 200px;
+      }
+
+      & + .DropdownSelect {
+        & .toggleDropdown,
+        & .selectedContainer {
+          border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
       }
     }
   }

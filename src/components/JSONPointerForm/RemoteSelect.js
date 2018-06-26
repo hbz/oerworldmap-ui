@@ -66,12 +66,9 @@ class RemoteSelect extends React.Component {
   }
 
   showOption(option) {
-    const locale = this.props.locales[0]
     return !this.props.schema.properties.inScheme
       || option['@type'] !== 'Concept'
-      || option.name.some(name => name['@language'] === locale
-        && name['@value'].toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
-      )
+      || this.props.translate(option.name).toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
   }
 
   optionList(options) {
@@ -191,8 +188,7 @@ RemoteSelect.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  locales: PropTypes.arrayOf(PropTypes.any).isRequired
+  required: PropTypes.bool
 }
 
 RemoteSelect.defaultProps = {

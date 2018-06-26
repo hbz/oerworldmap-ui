@@ -91,8 +91,8 @@ class PlaceWidget extends React.Component {
           <div className="error" key={index}>{error.message}</div>
         ))}
         {this.state.collapsed ? (
-          <p>
-            <em>{translate(description)}</em>
+          <div>
+            <div><em>{translate(description)}</em></div>
             <button
               className="btn btn-default"
               type="button"
@@ -100,7 +100,7 @@ class PlaceWidget extends React.Component {
             >
               {translate('show')}
             </button>
-          </p>
+          </div>
         ) : (
           <div>
             <Fieldset property="address" translate={translate}>
@@ -183,6 +183,7 @@ class PlaceWidget extends React.Component {
                       type="text"
                       translate={translate}
                       title={schema.properties.address.properties.streetAddress.title}
+                      placeholder={schema.properties.address.properties.streetAddress.title}
                     />
                     <div className="divided">
                       <Input
@@ -190,12 +191,14 @@ class PlaceWidget extends React.Component {
                         type="text"
                         translate={translate}
                         title={schema.properties.address.properties.postalCode.title}
+                        placeholder={schema.properties.address.properties.postalCode.title}
                       />
                       <Input
                         property="addressLocality"
                         type="text"
                         translate={translate}
                         title={schema.properties.address.properties.addressLocality.title}
+                        placeholder={schema.properties.address.properties.addressLocality.title}
                       />
                     </div>
                     {geometry &&
@@ -210,8 +213,8 @@ class PlaceWidget extends React.Component {
                           mapboxConfig={config.mapboxConfig}
                           features={geometry}
                           zoom={geometry ? 12 : 1}
-                          zoomable
                           draggable
+                          boxZoom
                           onFeatureDrag={point => setValue(Object.assign(
                             value ? JSON.parse(JSON.stringify(value)) : {},
                             {geo: {

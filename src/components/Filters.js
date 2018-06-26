@@ -35,7 +35,7 @@ const onReset = e => {
 
 const primaryFilters = [
   {
-    name: "about.@type",
+    name: "sterms#about.@type",
     type: "button",
     order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage'],
     translate: true
@@ -44,59 +44,60 @@ const primaryFilters = [
 
 const subFilters = [
   {
-    name: "about.location.address.addressCountry",
+    name: "sterms#feature.properties.location.address.addressCountry",
     type: "dropdown",
     icon: "globe",
     translate: true
   },
   {
-    name: "about.location.address.addressRegion",
+    name: "sterms#feature.properties.location.address.addressRegion",
     type: "dropdown",
     icon: "globe",
     translate: true
   },
   {
-    name: "about.keywords",
+    name: "sterms#about.keywords",
     type: "dropdown",
     icon: "tag"
+  },
+  {
+    name: "sterms#about.award",
+    translate: true,
+    icon: "trophy"
   }
 ]
 
 const secondaryFilters = [
   {
-    name: "about.availableChannel.availableLanguage",
+    name: "sterms#about.availableChannel.availableLanguage",
     translate: true
   },
   {
-    name: "about.primarySector.@id",
+    name: "sterms#about.primarySector.@id",
     type: "concepts",
     scheme: require('../json/sectors.json'),
     translate: true
   },
   {
-    name: "about.secondarySector.@id",
+    name: "sterms#about.secondarySector.@id",
     type: "concepts",
     scheme: require('../json/sectors.json'),
     translate: true
   },
   {
-    name: "about.audience.@id",
+    name: "sterms#about.audience.@id",
     type: "concepts",
     scheme: require('../json/isced-1997.json'),
     translate: true
   },
   {
-    name: "about.about.@id",
+    name: "sterms#about.about.@id",
     type: "concepts",
     scheme: require('../json/esc.json'),
     translate: true
   },
   {
-    name: "about.award",
-    translate: true
-  },
-  {
-    name: "about.license.@id",
+    name: "sterms#about.license.@id",
     type: "concepts",
     scheme: require('../json/licenses.json'),
     translate: true
@@ -119,6 +120,8 @@ class Filters extends React.Component {
       this.sizes.push(this.props.size)
       this.sizes = this.sizes.sort((a, b) => a - b)
     }
+
+    this.getFilter = this.getFilter.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,8 +130,69 @@ class Filters extends React.Component {
     })
   }
 
+  getFilter(filterDef) {
+    const [, agg_field] = filterDef.name.split('#')
+    const aggregation = this.props.aggregations[filterDef.name]
+      && this.props.aggregations[filterDef.name].buckets.length
+      ? this.props.aggregations[filterDef.name] : null
+    const filter = this.props.filters[agg_field] || []
+    if (!aggregation) {
+      return
+    }
+    switch(filterDef.type) {
+    case 'button':
+      return (
+        <ButtonFilter
+          key={filterDef.name}
+          aggregation={aggregation}
+          filter={filter}
+          submit={onSubmit}
+          order={filterDef.order}
+          filterName={`filter.${agg_field}`}
+        />
+      )
+    case 'concepts':
+      return (
+        <ConceptFilter
+          key={filterDef.name}
+          concepts={filterDef.scheme.hasTopConcept}
+          aggregation={aggregation}
+          filter={filter}
+          filterName={`filter.${agg_field}`}
+          submit={onSubmit}
+        />
+      )
+    case 'dropdown':
+    default:
+      return (
+        <DropdownFilter
+          key={filterDef.name}
+          icon={filterDef.icon}
+          aggregation={aggregation}
+          filter={filter}
+          filterName={`filter.${agg_field}`}
+          submit={onSubmit}
+          translate={this.props.translate}
+          translateItems={filterDef.translate ? this.props.translate : undefined}
+        />
+      )
+    }
+  }
+
   render() {
     const filter = this.props.filters && this.props.filters['about.@type'] || false
+
+    let sortSize
+    if (this.props.sort && this.props.sort.split(':').shift() === 'about.name.@value.sort') {
+      sortSize = this.props.translate('ClientTemplates.filter.alphabetical').length
+    } else if (this.props.sort) {
+      sortSize = this.props.translate(`ClientTemplates.filter.${this.props.sort.split(':').shift()}`).length
+    } else if (this.props.query) {
+      sortSize = this.props.translate('ClientTemplates.filter.relevance').length
+    } else {
+      sortSize = this.props.translate('ClientTemplates.filter.dateCreated').length
+    }
+
     return (
       <nav className="Filters">
 
@@ -177,128 +241,17 @@ class Filters extends React.Component {
             </div>
 
             <div className="filterType primary">
-              {primaryFilters.map((filterDef) => {
-                const aggregation = this.props.aggregations[filterDef.name]
-                  && this.props.aggregations[filterDef.name].buckets.length
-                  ? this.props.aggregations[filterDef.name] : null
-                const filter = this.props.filters[filterDef.name] || []
-                if (!aggregation) {
-                  return
-                }
-                switch(filterDef.type) {
-                case 'button':
-                  return (
-                    <ButtonFilter
-                      key={filterDef.name}
-                      aggregation={aggregation}
-                      filter={filter}
-                      submit={onSubmit}
-                      order={filterDef.order}
-                    />
-                  )
-                case 'concepts':
-                  return (
-                    <ConceptFilter
-                      key={filterDef.name}
-                      concepts={filterDef.scheme.hasTopConcept}
-                      aggregation={aggregation}
-                      filter={filter}
-                      submit={onSubmit}
-                    />
-                  )
-                case 'dropdown':
-                default:
-                  return (
-                    <DropdownFilter
-                      key={filterDef.name}
-                      icon={filterDef.icon}
-                      aggregation={aggregation}
-                      filter={filter}
-                      filterName={`filter.${filterDef.name}`}
-                      submit={onSubmit}
-                      translate={this.props.translate}
-                      translateItems={filterDef.translate ? this.props.translate : undefined}
-                    />
-                  )
-                }
-              })}
-
+              {primaryFilters.map(filterDef => this.getFilter(filterDef))}
             </div>
 
             <div className="subFilters">
-              {subFilters.map(filterDef => {
-                const aggregation = this.props.aggregations[filterDef.name]
-                  && this.props.aggregations[filterDef.name].buckets.length
-                  ? this.props.aggregations[filterDef.name] : null
-                const filter = this.props.filters[filterDef.name] || []
-                if (!aggregation) {
-                  return
-                }
-                return (
-                  <DropdownFilter
-                    key={filterDef.name}
-                    icon={filterDef.icon}
-                    aggregation={aggregation}
-                    filter={filter}
-                    filterName={`filter.${filterDef.name}`}
-                    submit={onSubmit}
-                    translate={this.props.translate}
-                    translateItems={filterDef.translate ? this.props.translate : undefined}
-                  />
-                )
-              })}
+              {subFilters.map(filterDef => this.getFilter(filterDef))}
             </div>
 
             <div
               className={`filterType secondary${this.state.extended ? '' : ' collapsed'}`}
             >
-              {secondaryFilters.map((filterDef) => {
-                const aggregation = this.props.aggregations[filterDef.name]
-                  && this.props.aggregations[filterDef.name].buckets.length
-                  ? this.props.aggregations[filterDef.name] : null
-                const filter = this.props.filters[filterDef.name] || []
-                if (!aggregation) {
-                  return
-                }
-                switch(filterDef.type) {
-                case 'button':
-                  return (
-                    <ButtonFilter
-                      key={filterDef.name}
-                      aggregation={aggregation}
-                      filter={filter}
-                      submit={onSubmit}
-                      order={filterDef.order}
-                    />
-                  )
-                case 'concepts':
-                  return (
-                    <ConceptFilter
-                      key={filterDef.name}
-                      concepts={filterDef.scheme.hasTopConcept}
-                      aggregation={aggregation}
-                      filter={filter}
-                      filterName={`filter.${filterDef.name}`}
-                      submit={onSubmit}
-                    />
-                  )
-                case 'dropdown':
-                default:
-                  return (
-                    <DropdownFilter
-                      key={filterDef.name}
-                      icon={filterDef.icon}
-                      aggregation={aggregation}
-                      filter={filter}
-                      filterName={`filter.${filterDef.name}`}
-                      submit={onSubmit}
-                      translate={this.props.translate}
-                      translateItems={filterDef.translate ? this.props.translate : undefined}
-                    />
-                  )
-                }
-              })}
-
+              {secondaryFilters.map(filterDef => this.getFilter(filterDef))}
             </div>
 
             <div className="filtersControls">
@@ -358,9 +311,12 @@ class Filters extends React.Component {
                         name="sort"
                         value={this.props.sort}
                         className="styledSelect"
-                        style={{width: (this.props.translate('ClientTemplates.filter.dateCreated').length * 8) + 15 + 'px'}}
+                        style={{
+                          width: sortSize * 1.4 + 'ex',
+                          minWidth: '70px'
+                        }}
                         onChange={(evt) => {
-                          evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 8) + 15 + 'px'
+                          evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 1.4) + 'ex'
                           onSubmit(evt, this.props.emitter)
                         }}
                       >
