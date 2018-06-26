@@ -258,12 +258,12 @@ class Filters extends React.Component {
             <div className="selectedFilters">
 
               {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
-                filters[filterGroup].map((filter, i) => (
+                filters[filterGroup].map(filter => (
                   <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
                     <input
                       type="checkbox"
                       name={`filter.${filterGroup}`}
-                      id={`filterSelected.${filterGroup}${i}`}
+                      id={`filterSelected.${filterGroup}${filter}`}
                       onChange={e => {
                         onSubmit(e, this.props.emitter)
                       }}
@@ -271,7 +271,7 @@ class Filters extends React.Component {
                       defaultChecked
                     />
                     <label
-                      htmlFor={`filterSelected.${filterGroup}${i}`}
+                      htmlFor={`filterSelected.${filterGroup}${filter}`}
                       onKeyDown={e => {
                         if (e.keyCode === 13) {
                           e.target.click()
