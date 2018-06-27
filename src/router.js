@@ -76,7 +76,7 @@ export default (api) => {
           })
 
         const metadata = {
-          description: context.i18n.translate('Discover the OER movement'),
+          description: context.i18n.translate('slogan'),
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
         }
