@@ -5,7 +5,7 @@ import Tooltip from 'rc-tooltip'
 import Icon from './Icon'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
-import { triggerClick, clearForm } from '../common'
+import { triggerClick } from '../common'
 
 const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, filterName}) => (
   <div className="ButtonFilter">
@@ -36,21 +36,11 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, f
                 checked={filter.includes(bucket.key)}
                 name={filterName}
                 id={"type:" + bucket.key}
-                onChange={(e) => {
-                  clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
-                  e.target.checked = true
-                  submit(e, emitter)
-                }}
+                onChange={e => submit(e, emitter)}
               />
 
               <label
-                onClick={e => {
-                  // Clear filters if type filter unchecked
-                  if (filter.includes(bucket.key)) {
-                    clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
-                    submit(e, emitter)
-                  }
-                }}
+                onClick={e => filter.includes(bucket.key) && submit(e, emitter)}
                 onKeyDown={triggerClick}
                 role="button"
                 tabIndex="0"
