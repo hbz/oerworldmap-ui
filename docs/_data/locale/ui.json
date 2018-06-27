@@ -241,6 +241,7 @@
   "filter.about.primarySector.@id": "Primary sector",
   "filter.about.secondarySector.@id": "Secondary sector",
   "filter.about.award": "Award",
+  "filter.about.additionalType.@id": "Category",
   "audience": "Audience",
   "about": "Subject",
   "license": "License",
