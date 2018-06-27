@@ -307,6 +307,7 @@ class Filters extends React.Component {
                       }}
                       tabIndex="0"
                       role="button"
+                      title={this.props.translate(`filter.${filterGroup}`)}
                     >
                       {this.props.translate(filter)}
                     </label>
