@@ -32,9 +32,9 @@ class Country  extends React.Component {
         </div>
 
         {this.props.countryData &&
-        this.props.countryData.champions &&
-        this.props.countryData.champions.country_champions &&
-        this.props.countryData.champions.country_champions.hits.hits.length > 0 ?
+        this.props.countryData["filter#champions"] &&
+        this.props.countryData["filter#champions"]["top_hits#country_champions"] &&
+        this.props.countryData["filter#champions"]["top_hits#country_champions"].hits.hits.length > 0 ?
           (
             <div className="countryChampion">
               <h3
@@ -48,7 +48,7 @@ class Country  extends React.Component {
               </h3>
 
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
-                {this.props.countryData.champions.country_champions.hits.hits.map(champion => (
+                {this.props.countryData["filter#champions"]["top_hits#country_champions"].hits.hits.map(champion => (
                   <div className="user" key={champion._source.about['@id']}>
                     {champion._source.about.image ? (
                       <Link href={`/resource/${champion._source.about['@id']}`}>
@@ -117,8 +117,8 @@ class Country  extends React.Component {
         }
 
         {this.props.countryData &&
-        this.props.countryData.reports.country_reports &&
-        this.props.countryData.reports.country_reports.hits.hits.length > 0 &&
+        this.props.countryData["filter#reports"]["top_hits#country_reports"] &&
+        this.props.countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 &&
           <div className="countryReports">
             <h3
               onKeyDown={triggerClick}
@@ -131,7 +131,7 @@ class Country  extends React.Component {
             </h3>
 
             <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
-              {this.props.countryData.reports.country_reports.hits.hits.map(report => (
+              {this.props.countryData["filter#reports"]["top_hits#country_reports"].hits.hits.map(report => (
                 <div className="resource" key={report._source.about['@id']}>
                   <i className="fa fa-book" />
                   <div className="text">
@@ -147,8 +147,8 @@ class Country  extends React.Component {
         }
 
         {this.props.countryData &&
-        this.props.countryData.by_type &&
-        this.props.countryData.by_type.buckets &&
+        this.props.countryData['sterms#by_type'] &&
+        this.props.countryData['sterms#by_type'].buckets &&
         <div className="statistics">
           <h3
             onKeyDown={triggerClick}
@@ -163,7 +163,7 @@ class Country  extends React.Component {
             <table>
               <tbody>
 
-                {this.props.countryData.by_type.buckets.map(bucket => (
+                {this.props.countryData['sterms#by_type'].buckets.map(bucket => (
                   <tr key={bucket.key}>
                     <td>{bucket.doc_count}</td>
                     <td>

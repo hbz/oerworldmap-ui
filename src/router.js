@@ -196,7 +196,7 @@ export default (api) => {
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['country']['about.location.address.addressCountry'].buckets[0]}
+              countryData={data.aggregations['global#country']['sterms#feature.properties.location.address.addressCountry'].buckets[0]}
             />
           </ResourceIndex>
         )
@@ -421,14 +421,14 @@ export default (api) => {
       }
     } catch (err) {
       if (err instanceof APIError) {
-        const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
+        const component = (err) => <ErrorPage translate={context.i18n.translate} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
         return { title: err.message, data: err, component, render, err }
       }
       throw err
     }
     // 404
-    const component = () => <ErrorPage translate={(key) => key} message="Not Found" />
+    const component = () => <ErrorPage translate={context.i18n.translate} message="Not Found" />
     const render = () => <Init {...context}>{component()}</Init>
     return { title: 'Not Found', data: {}, component, render }
   }
