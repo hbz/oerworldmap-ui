@@ -198,7 +198,9 @@ class MiniMap extends React.Component {
           maxZoom: zoom
         })
       }, 0)
-    } else if (features) {
+    } else if (features
+      && features.features
+      && features.features.length) {
       setTimeout(() => {
         this.MiniMap.fitBounds(turf.bbox(features), {
           padding: 20,
