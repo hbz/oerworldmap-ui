@@ -211,9 +211,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ul className="ItemList prominent">
                 {lighthouses.length > 0 &&
                   <li>
-                    <div className="item">
-                      <i className="bg-highlight-color bg-important" style={{lineHeight: '33px'}}>
+                    <div className="item lighthouses">
+                      <i className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
                         <img
+                          style={{'position': 'relative', 'top': '2px'}}
                           src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />

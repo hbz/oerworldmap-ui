@@ -4,6 +4,14 @@
   justify-content: space-between;
   margin: 0 -10px;
 
+  &.vertical-guttered {
+    margin-bottom: -20px;
+
+    & .col {
+      margin-bottom: 20px;
+    }
+  }
+
   & .col {
     flex: 1;
     padding: 0 10px;
@@ -25,6 +33,11 @@
     &.two-third {
       flex-basis: 66.666666%;
       max-width: 66.666666%;
+    }
+
+    &.one-fourth {
+      flex-basis: 25%;
+      max-width: 25%;
     }
   }
 

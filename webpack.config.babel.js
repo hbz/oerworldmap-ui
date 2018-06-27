@@ -146,46 +146,5 @@ if (ENV === 'development') {
   })
 }
 
-if (ENV === 'static') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
-  Config = merge(Config, {
-    devtool: 'source-map',
-    mode: 'development',
-    entry: ['webpack-hot-middleware/client'],
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new ExtractTextPlugin("public/styles.css"),
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  importLoaders: 1,
-                  sourceMap: true,
-                },
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  sourceMap: true,
-                },
-              },
-            ],
-          }),
-        }
-      ]
-    }
-  })
-}
-
 const WebpackConfig = Config
 export default WebpackConfig

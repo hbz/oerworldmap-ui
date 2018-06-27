@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
+import i18ns from './src/i18ns'
 
 const ENV = process.env.NODE_ENV
 
@@ -18,6 +18,11 @@ let Config = {
     publicPath: '/oerworldmap-ui/',
     filename: 'assets/js/bundle.js'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      i18ns: JSON.stringify(i18ns)
+    })
+  ],
   module: {
     exprContextCritical: false,
     rules: [
