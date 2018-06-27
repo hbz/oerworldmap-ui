@@ -96,7 +96,7 @@
     "react-simplemde-editor": "^3.6.16",
     "remove-markdown": "^0.3.0",
     "simplemde": "^1.11.2",
-    "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
+    "source-sans-pro": "^2.20.2",
     "url-template": "^2.0.8",
     "webpack": "^4.12.2",
     "webpack-dev-middleware": "^3.1.2",
