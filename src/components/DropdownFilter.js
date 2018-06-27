@@ -30,7 +30,7 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
-    const list = this.props.aggregation.buckets.map((bucket, i) => (
+    const list = this.props.aggregation.buckets.filter(bucket => !this.props.filter.includes(bucket.key)).map((bucket, i) => (
       <li key={bucket.key}>
         <input
           type="checkbox"
@@ -85,10 +85,7 @@ class DropdownFilter extends React.Component {
                 <i className={`fa fa-${this.props.icon}`} /> {this.props.translate(this.props.filterName)}
               </span>
             ) : (
-              this.props.filter.map(
-                filter => this.props.aggregation.buckets.find(bucket => bucket.key === filter)
-              ).map(bucket => this.props.translate(bucket.label || bucket.key)).join(', ')
-              || this.props.translate(this.props.filterName)
+              this.props.translate(this.props.filterName)
             )}
           </span>
         </span>

@@ -72,17 +72,20 @@
         padding: 0;
 
         & > li {
-          & label {
+          & label,
+          & span {
             padding-left: 30px;
           }
 
           & ul > li {
 
-            & label {
+            & label,
+            & span {
               padding-left: 40px;
             }
 
-            & ul > li label {
+            & ul > li label,
+            & ul > li span {
               padding-left: 50px;
             }
           }
@@ -95,7 +98,8 @@
 
       & li {
 
-        & label {
+        & label,
+        & span {
           border-bottom: 1px solid var(--blue-dark);
           padding: 10px 20px;
           display: block;
@@ -107,6 +111,12 @@
             color: var(--white);
             outline: none;
           }
+        }
+
+        & span {
+          font-weight: bold;
+          cursor: not-allowed;
+          color: var(--blue);
         }
 
         & > input[type=checkbox] {

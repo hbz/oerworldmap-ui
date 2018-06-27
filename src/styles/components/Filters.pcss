@@ -87,6 +87,7 @@
     & .DropdownFilter {
       padding: 0 5px;
       margin-bottom: 10px;
+      top: 1px;
     }
 
     & .ButtonFilter {
@@ -101,6 +102,14 @@
         & .btn {
           text-align: center;
         }
+      }
+
+      & .filterBox:first-child {
+        padding-left: 0;
+      }
+
+      & .filterBox:last-child {
+        padding-right: 0;
       }
     }
 
@@ -122,6 +131,7 @@
       background: var(--blue-lightest);
       color: var(--primary-color);
       font-size: var(--font-size);
+      transform: translateY(1px);
 
       &.expand {
         padding-right: 32px !important;
@@ -163,7 +173,7 @@
   }
 
   & .filtersControls {
-    padding-top: 10px;
+    padding-top: 5px;
     font-size: 0.8rem;
     transition: all 1s;
     clear: bloth;
@@ -188,13 +198,19 @@
     }
   }
 
+  & .selectedFilters {
+    padding-top: 10px;
+  }
+
   & .secondary {
+    height: 100%;
     max-height: 400px;
-    transition: 0.5s all;
     overflow: hidden;
 
     &.collapsed {
       max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
     }
   }
 
@@ -277,5 +293,47 @@
       padding: 0 5px;
       position: relative;
     }
+  }
+}
+
+.tagFilter {
+  border: 1px solid var(--blue-light);
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+
+  & input[type=checkbox] {
+    display: none;
+  }
+
+  & label {
+    cursor: pointer;
+    padding: 4px 9px;
+    padding-right: 20px;
+  }
+
+  &::after {
+    content: "\D7";
+    font-family: "Source Sans Pro', futura-pt, sans-serif";
+    font-weight: bold;
+    color: var(--grey);
+    height: 100%;
+    width: 20px;
+    font-size: 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    color: var(--orange);
   }
 }
