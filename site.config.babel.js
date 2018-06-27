@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import i18ns from './src/generateLanguages'
+import i18ns from './src/i18ns'
 
 const ENV = process.env.NODE_ENV
 
