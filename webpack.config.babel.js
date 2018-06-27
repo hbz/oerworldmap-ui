@@ -2,7 +2,9 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import config, { apiConfig } from './config'
 
@@ -68,28 +70,33 @@ let Config = {
 if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("public/styles.css"),
+      new MiniCssExtractPlugin({
+        filename: "public/styles.css"
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessor: cssnano,
+        cssProcessorOptions: {
+          safe: true,
+          discardComments: { removeAll: true }
+        }
+      })
     ],
     mode: 'production',
     module: {
       rules: [
         {
           test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  minimize: true,
-                  importLoaders: 1,
-                },
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+                importLoaders: 1,
               },
-              {
-                loader: 'postcss-loader',
-              },
-            ],
-          }),
+            },
+            "postcss-loader"
+          ]
         },
       ]
     }
@@ -124,9 +131,7 @@ if (ENV === 'development') {
         {
           test: /\.(css|pcss)$/,
           use: [
-            {
-              loader: 'style-loader'
-            },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -141,47 +146,6 @@ if (ENV === 'development') {
               }
             }
           ]
-        }
-      ]
-    }
-  })
-}
-
-if (ENV === 'static') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
-  Config = merge(Config, {
-    devtool: 'source-map',
-    mode: 'development',
-    entry: ['webpack-hot-middleware/client'],
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new ExtractTextPlugin("public/styles.css"),
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  importLoaders: 1,
-                  sourceMap: true,
-                },
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  sourceMap: true,
-                },
-              },
-            ],
-          }),
         }
       ]
     }
