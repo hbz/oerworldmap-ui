@@ -56,6 +56,13 @@ server.use((req, res, next) => {
   }
 })
 
+// Middleware to fetch labels
+server.use((req, res, next) => {
+  api.get('/label')
+    .then(labels => (req.labels = labels) && next())
+    .catch(err => res.status(err.status).send(err.message))
+})
+
 // Middleware to fetch JSON schema
 server.use((req, res, next) => {
   api.get('/assets/json/schema.json')
@@ -84,6 +91,12 @@ server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
+  if (req.labels) {
+    req.labels.results.bindings.forEach(label => {
+      i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
+      i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
+    })
+  }
   const phrases = i18ns[locales[0]]
   const schema = req.schema
   const embed = req.query.embed
