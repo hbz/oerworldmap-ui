@@ -13,7 +13,7 @@ const withI18n = (BaseComponent) => {
 
   LocalizedComponent.contextTypes = {
     translate: PropTypes.func.isRequired,
-    locales: PropTypes.array.isRequired,
+    locales: PropTypes.arrayOf(PropTypes.any).isRequired,
     moment: PropTypes.func.isRequired
   }
 

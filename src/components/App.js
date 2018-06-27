@@ -7,7 +7,7 @@ import Header from './Header'
 import Loading from './Loading'
 
 const App = ({ user, children }) => (
-  <div id="wrapper" >
+  <div id="wrapper">
 
     <main className="container" data-userroles={user ? user.groups.join(' ') : null}>
 

@@ -46,6 +46,7 @@ class Header extends React.Component {
         </nav>
 
         <button
+          type="button"
           className="menuToggle mobile"
           onClick={() => {this.setState({showMobileMenu:!this.state.showMobileMenu})}}
           onKeyDown={triggerClick}
@@ -125,7 +126,7 @@ class Header extends React.Component {
         {this.state.showUserMenu &&
           <ul className="userMenu">
             <li>
-              <Link href={`/resource/${this.props.user.id}`} >My Profile <i className="fa fa-user" /></Link>
+              <Link href={`/resource/${this.props.user.id}`}>My Profile <i className="fa fa-user" /></Link>
             </li>
             <li>
               <Link href="/user/password">Change Password <i className="fa fa-lock" /></Link>
