@@ -260,11 +260,6 @@ class Header extends React.Component {
                       </Link>
                     </div>
                     <div className="col one-fourth">
-                      <Link href="/resource/?add=Person" className="addBox">
-                        <h3 className="iconItem"><Icon type="Person" />{this.props.translate('Person')}</h3>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
                       <Link href="/resource/?add=Article" className="addBox">
                         <h3 className="iconItem"><Icon type="Article" />{this.props.translate('Article')}</h3>
                       </Link>
