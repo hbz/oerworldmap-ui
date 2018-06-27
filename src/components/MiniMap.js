@@ -2,7 +2,7 @@
 /* global Event */
 import React from 'react'
 import PropTypes from 'prop-types'
-import turf from 'turf'
+import bbox from '@turf/bbox'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import centroids from '../json/centroids.json'
@@ -185,7 +185,7 @@ class MiniMap extends React.Component {
     }
     if (center && zoom) {
       setTimeout(() => {
-        this.MiniMap.fitBounds(turf.bbox(
+        this.MiniMap.fitBounds(bbox(
           {
             "type": "Feature",
             "geometry": {
@@ -200,14 +200,14 @@ class MiniMap extends React.Component {
       }, 0)
     } else if (features) {
       setTimeout(() => {
-        this.MiniMap.fitBounds(turf.bbox(features), {
+        this.MiniMap.fitBounds(bbox(features), {
           padding: 20,
           maxZoom: 3
         })
       }, 0)
     } else if (country) {
       setTimeout(() => {
-        this.MiniMap.fitBounds(turf.bbox(
+        this.MiniMap.fitBounds(bbox(
           {
             "type": "Feature",
             "geometry": {

@@ -94,7 +94,7 @@
     "remove-markdown": "^0.3.0",
     "simplemde": "^1.11.2",
     "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#release",
-    "turf": "^3.0.14",
+    "@turf/bbox": "^3.0.14",
     "url-template": "^2.0.8",
     "webpack": "^4.12.2",
     "webpack-dev-middleware": "^3.1.2",
