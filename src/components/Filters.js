@@ -180,6 +180,7 @@ class Filters extends React.Component {
   }
 
   render() {
+    const { filters } = this.props
     const filter = this.props.filters && this.props.filters['about.@type'] || false
 
     let sortSize
@@ -270,13 +271,52 @@ class Filters extends React.Component {
                   }
                 </button>
               }
+
+              {Object.keys(filters).length > 0 &&
               <div className="clearFilter">
                 <button type="reset">
                   {this.props.translate('ClientTemplates.filter.clear')}
                 </button>
               </div>
+              }
 
             </div>
+
+            {Object.keys(filters).some(name => name !== 'about.@type') &&
+            <div className="selectedFilters">
+              <hr />
+              {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
+                filters[filterGroup].map(filter => (
+                  <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
+                    <input
+                      type="checkbox"
+                      name={`filter.${filterGroup}`}
+                      id={`filterSelected.${filterGroup}${filter}`}
+                      onChange={e => {
+                        onSubmit(e, this.props.emitter)
+                      }}
+                      value={filter}
+                      defaultChecked
+                    />
+                    <label
+                      htmlFor={`filterSelected.${filterGroup}${filter}`}
+                      onKeyDown={e => {
+                        if (e.keyCode === 13) {
+                          e.target.click()
+                        }
+                      }}
+                      tabIndex="0"
+                      role="button"
+                      title={this.props.translate(`filter.${filterGroup}`)}
+                    >
+                      {this.props.translate(filter)}
+                    </label>
+                  </div>
+                ))
+              ))}
+
+            </div>
+            }
 
           </div>
 
