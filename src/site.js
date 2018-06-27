@@ -1,6 +1,7 @@
 /* global document */
 /* global window */
 /* global ENVIRONMENT */
+/* global LANG */
 /* global $ */
 /* global XMLHttpRequest */
 /* global localStorage */
@@ -24,7 +25,7 @@ import './styles/static.pcss'
 import './styles/components/Header.pcss'
 
 const user = JSON.parse(localStorage.getItem('user'))
-const locales = window.navigator.languages.filter(lang => !lang.includes('-'))
+const locales = [LANG]
 const emitter = mitt()
 
 emitter.on('navigate', url => {
