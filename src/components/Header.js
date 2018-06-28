@@ -137,7 +137,7 @@ class Header extends React.Component {
                     {this.props.user &&
                     <ul>
                       <li>
-                        <Link className="iconItem" href={`/resource/?filter.author=${this.props.user.username}`}>
+                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
                           <i className="fa fa-pencil" />{this.props.translate('menu.my_entries')}
                         </Link>
                       </li>
