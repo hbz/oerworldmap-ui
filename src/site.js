@@ -109,7 +109,7 @@ const injectStats = (() => {
       fetch(url)
         .then(response => response.json())
         .then(json => {ReactDOM.render(
-          <Overview buckets={json.aggregations['about.@type'].buckets} />, target)
+          <Overview buckets={json.aggregations['sterms#about.@type'].buckets} />, target)
         })
     }
   }
