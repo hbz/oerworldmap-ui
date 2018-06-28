@@ -40,7 +40,8 @@ class MiniMap extends React.Component {
       }
     })
 
-    mo.observe(document && document.getElementById('edit'), {attributes: true})
+    document && document.getElementById('edit') &&
+      mo.observe(document.getElementById('edit'), {attributes: true})
 
     const { geometry, mapboxConfig, boxZoom, draggable } = this.props
     const mapboxgl = require('mapbox-gl')

@@ -39,7 +39,8 @@ const MarkdownArea = ({
           }
         })
 
-        mo.observe(document && document.getElementById('edit'), {attributes: true})
+        document && document.getElementById('edit') &&
+          mo.observe(document.getElementById('edit'), {attributes: true})
 
         instance.codemirror.on("focus", (i, e) =>
           !e && i.setCursor(i.getValue().length))
