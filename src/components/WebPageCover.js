@@ -22,7 +22,7 @@ const WebPageCover = ({feature, about, translate, mapboxConfig}) => {
       <MiniMap
         mapboxConfig={mapboxConfig}
         geometry={geometry}
-        center={!geometry && (country && centroids[country])}
+        center={geometry ? undefined : (country && centroids[country])}
       />
 
       <div className="image">

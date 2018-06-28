@@ -1,13 +1,19 @@
 /* global window */
 /* global Event */
+/* global document */
+/* global MutationObserver */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { bbox } from '@turf/turf'
-import { getCoord } from '@turf/invariant'
-import { center as turfCenter } from '@turf/center'
 import { point } from '@turf/helpers'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+const emptyGeometry = {
+  type: "FeatureCollection",
+  features: []
+}
 
 class MiniMap extends React.Component {
 
@@ -24,60 +30,69 @@ class MiniMap extends React.Component {
 
   componentDidMount() {
 
-    const { geometry, mapboxConfig, boxZoom, draggable, center } = this.props
+    const mo = new MutationObserver(e => {
+      const mutation = e.shift()
+      if (mutation
+        && mutation.attributeName === "class"
+        && !mutation.target.classList.contains('hidden')) {
+        window.dispatchEvent(new Event('resize'))
+        mo.disconnect()
+      }
+    })
+
+    mo.observe(document && document.getElementById('edit'), {attributes: true})
+
+    const { geometry, mapboxConfig, boxZoom, draggable } = this.props
     const mapboxgl = require('mapbox-gl')
 
     mapboxgl.accessToken = mapboxConfig.token
 
-    this.MiniMap = new mapboxgl.Map({
-      container: this.MiniMapContainer,
-      center: center || (geometry
-          && geometry.features
-          && geometry.features.length
-          && getCoord(turfCenter(geometry))) || [0,0],
-      zoom: 1,
-      boxZoom,
-      style: `mapbox://styles/${mapboxConfig.miniMapStyle}`,
-      dragRotate: false,
-      touchZoomRotate: false
-    })
-
-    this.canvas = this.MiniMap.getCanvasContainer()
-    this.isDragging = false
-
-    this.MiniMap.on('load', () => {
-
-      if (draggable) {
-        const nav = new mapboxgl.NavigationControl({showCompass:false})
-        this.MiniMap.addControl(nav, 'bottom-left')
-      }
-
-      this.MiniMapContainer.addEventListener('mouseleave', () => {
-        this.selected = null
-        this.canvas.style.cursor = ''
-        this.isDragging = false
-        this.MiniMap.dragPan.enable()
+    setTimeout(() => {
+      this.MiniMap = new mapboxgl.Map({
+        container: this.MiniMapContainer,
+        center: [0, 0],
+        zoom: 1,
+        boxZoom,
+        style: `mapbox://styles/${mapboxConfig.miniMapStyle}`,
+        dragRotate: false,
+        touchZoomRotate: false
       })
+      this.canvas = this.MiniMap.getCanvasContainer()
+      this.isDragging = false
 
-      this.MiniMap.addSource('points', {
-        "type": "geojson",
-        "data": geometry
-      })
+      this.MiniMap.on('load', () => {
 
-      this.MiniMap.addLayer({
-        "id": "points",
-        "type": "circle",
-        "source": "points",
-        "paint": {
-          "circle-radius": 7,
-          "circle-color": "#f93",
-          "circle-stroke-width": 1,
-          "circle-stroke-color": "white"
+        if (draggable) {
+          const nav = new mapboxgl.NavigationControl({showCompass:false})
+          this.MiniMap.addControl(nav, 'bottom-left')
         }
+
+        this.MiniMapContainer.addEventListener('mouseleave', () => {
+          this.selected = null
+          this.canvas.style.cursor = ''
+          this.isDragging = false
+          this.MiniMap.dragPan.enable()
+        })
+
+        this.MiniMap.addSource('points', {
+          "type": "geojson",
+          "data": geometry || emptyGeometry
+        })
+
+        this.MiniMap.addLayer({
+          "id": "points",
+          "type": "circle",
+          "source": "points",
+          "paint": {
+            "circle-radius": 7,
+            "circle-color": "#f93",
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "white"
+          }
+        })
+        this.updateMap(this.props)
       })
-      this.updateMap(this.props)
-      window.dispatchEvent(new Event('resize'))
-    })
+    }, 0)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -139,28 +154,23 @@ class MiniMap extends React.Component {
   }
 
   updateMap(props) {
-
     const { geometry, draggable, zoomable, center } = props
 
-    this.MiniMap.getSource('points').setData(geometry)
+    this.MiniMap.getSource('points').setData(geometry || emptyGeometry)
 
-    if (center || (geometry && geometry.type !== 'FeatureCollection')) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (center || geometry) {
         this.MiniMap.fitBounds((center && bbox(point(center))) || bbox(geometry), {
           padding: 20,
           maxZoom: 3
         })
-      }, 0)
-    } else {
-      setTimeout(() => {
+      } else {
         this.MiniMap.flyTo({
           center: [0, 0],
           zoom: 1,
         })
-      }, 0)
-    }
-
-    this.MiniMap.getSource('points').setData(geometry)
+      }
+    }, 0)
 
     this.MiniMap.off('mouseenter', 'points', this.mouseEnter)
     this.MiniMap.off('mouseleave', 'points', this.mouseLeave)
@@ -183,9 +193,7 @@ class MiniMap extends React.Component {
       this.MiniMap.scrollZoom.disable()
       this.MiniMap.doubleClickZoom.disable()
     }
-    setTimeout(() => {
-      this.MiniMap.resize()
-    }, 0)
+
   }
 
   render() {
@@ -193,13 +201,13 @@ class MiniMap extends React.Component {
       <div
         ref={(map) => { this.MiniMapContainer = map }}
         className='MiniMap'
-        style={
-          {position: 'absolute',
-            width: '100%',
-            height: '100%',
-            top:0,
-            left: 0}
-        }
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          top:0,
+          left: 0
+        }}
       />
     )
   }
@@ -223,10 +231,7 @@ MiniMap.propTypes = {
 
 MiniMap.defaultProps = {
   center: undefined,
-  geometry: {
-    "type": "FeatureCollection",
-    "features": []
-  },
+  geometry: undefined,
   draggable: false,
   zoomable: false,
   onFeatureDrag: null,
