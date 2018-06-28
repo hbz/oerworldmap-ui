@@ -95,49 +95,28 @@ class MiniMap extends React.Component {
     this.canvas.style.cursor = 'grabbing'
 
     if (this.selected) {
-
       const data = JSON.parse(JSON.stringify(this.MiniMap.getSource('points')._data))
-
-      if (data.type === 'FeatureCollection') {
-        data.features = data.features.map(feature => {
-          if (feature.properties['@id'] === this.selected.properties['@id']) {
-            feature = feature.geometry.coordinates = [coords.lng, coords.lat]
-          }
-          return feature
-        })
-      } else if (data.type === 'Point') {
+      if (data.type === 'Point') {
         data.coordinates = [coords.lng, coords.lat]
       }
-
       this.MiniMap.getSource('points').setData(data)
     }
   }
 
   mouseUp(e) {
     this.selected = null
-    if (!this.isDragging) return
-    const coords = e.lngLat
+    if (!this.isDragging) {
+      return
+    }
 
     this.canvas.style.cursor = ''
     this.isDragging = false
     this.MiniMap.dragPan.enable()
 
-    const region = this.MiniMap.queryRenderedFeatures(e.point, { layers: ['Regions'] }).pop()
-
-    const feature = {
-      "type": "Feature",
-      "geometry": {
-        "coordinates": coords
-      },
-      "properties": {}
-    }
-
-    if (region) {
-      feature.properties.region =  region.properties
-    }
-    if (this.props.onFeatureDrag) {
-      this.props.onFeatureDrag(feature)
-    }
+    this.props.onFeatureDrag && this.props.onFeatureDrag({
+      type: 'Point',
+      coordinates: e.lngLat
+    })
   }
 
   mouseDown(e) {
