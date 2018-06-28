@@ -57,6 +57,11 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "@turf/bbox": "^6.0.1",
+    "@turf/center": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "@turf/invariant": "^6.1.2",
+    "@turf/turf": "^5.1.6",
     "ajv": "^6.5.0",
     "asset-require-hook": "^1.2.0",
     "babel-core": "^6.26.0",
