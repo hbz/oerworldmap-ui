@@ -460,7 +460,7 @@ class Header extends React.Component {
                       <div className="col one-half">
                         <ul className="linedList border-bottom">
                           <li>
-                            <Link className="item" href={`/resource/?filter.author=${this.props.user.username}`}>
+                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
                               <i className="fa fa-pencil" /><span>{this.props.translate('menu.me.entries')}</span>
                             </Link>
                           </li>
