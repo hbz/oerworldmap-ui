@@ -96,6 +96,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
 
@@ -139,6 +140,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -169,6 +171,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
