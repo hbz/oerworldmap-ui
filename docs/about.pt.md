@@ -39,7 +39,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Jan Neumann (Gerenciamento de Projeto)
 
-![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) trabalha como responsável pelos assuntos jurídicos e organizacionais na hbz. Ele estudou direito, economia e sistemas de pensamento e tem mais de 10 anos de experiência em projetos internacionais de gerenciamento para diferentes editoras e bibliotecas. A trajetória de Jan com os REAs começou em 2012 quando ele viu Susan D'Antoni apresentando sua visão sobre o Mapa Global dos REAs em Paris, no Congresso Mundial de REA . Jan é membro do conselho consultivo para educação do capítulo alemão da UNESCO, frequentemente fala em conferências e blogs sobre REAs em [OERSYS.org](https://oersys.org/).</p>
+![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) trabalha como responsável pelos assuntos jurídicos e organizacionais na hbz. Ele estudou direito, economia e sistemas de pensamento e tem mais de 10 anos de experiência em projetos internacionais de gerenciamento para diferentes editoras e bibliotecas. A trajetória de Jan com os REAs começou em 2012 quando ele viu Susan D'Antoni apresentando sua visão sobre o Mapa Global dos REAs em Paris, no Congresso Mundial de REA . Jan é membro do conselho consultivo para educação do capítulo alemão da UNESCO, frequentemente fala em conferências e blogs sobre REAs em [OERSYS.org](https://oersys.org/).</p> 
 
 ### Felix Ostrowski (Líder Técnico)
 
