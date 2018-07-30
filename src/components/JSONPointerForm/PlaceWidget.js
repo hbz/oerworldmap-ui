@@ -81,17 +81,17 @@ class PlaceWidget extends React.Component {
         aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
       >
-        <div
-          className={`label ${required ? 'required' : ''}`.trim()}
-          id={`${formId}-${name}-label`}
-        >
-          {translate(title)}
-        </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
         {this.state.collapsed ? (
           <div>
+            <div
+              className={`label ${required ? 'required' : ''}`.trim()}
+              id={`${formId}-${name}-label`}
+            >
+              {translate(title)}
+            </div>
             <div><em>{translate(description)}</em></div>
             <button
               className="btn btn-default"
