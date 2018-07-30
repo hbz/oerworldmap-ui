@@ -4,6 +4,7 @@ import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import safe from 'postcss-safe-parser'
 import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import config, { apiConfig } from './config'
@@ -25,7 +26,6 @@ let Config = {
   },
   module: {
     exprContextCritical: false,
-    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/,
@@ -76,7 +76,7 @@ if (ENV === 'production') {
       new OptimizeCSSAssetsPlugin({
         cssProcessor: cssnano,
         cssProcessorOptions: {
-          safe: true,
+          parser: safe,
           discardComments: { removeAll: true }
         }
       })
@@ -91,7 +91,6 @@ if (ENV === 'production') {
             {
               loader: 'css-loader',
               options: {
-                minimize: true,
                 importLoaders: 1,
               },
             },
