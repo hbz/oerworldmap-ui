@@ -143,7 +143,7 @@ class Header extends React.Component {
                       </li>
                       {this.props.user.country &&
                       <li>
-                        <Link className="iconItem" href={`/country/${this.props.user.country}`} >
+                        <Link className="iconItem" href={`/country/${this.props.user.country}`}>
                           <i className="fa fa-flag" />{this.props.translate('Countryview:')} {this.props.translate(this.props.user.country)}
                         </Link>
                       </li>
