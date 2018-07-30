@@ -30,34 +30,43 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
-    const list = this.props.aggregation.buckets.filter(bucket => !this.props.filter.includes(bucket.key)).map((bucket, i) => (
+    const list = this.props.aggregation.buckets.map((bucket, i) => (
       <li key={bucket.key}>
-        <input
-          type="checkbox"
-          value={bucket.key}
-          name={this.props.filterName}
-          id={this.props.filterName+i}
-          defaultChecked={this.props.filter.includes(bucket.key)}
-        />
-        <label
-          style={{
-            display: (this.state.search.length === 0) ||
-              (
-                this.props.translateItems(bucket.label || bucket.key).toLowerCase().includes(this.state.search.toLowerCase())
-                || bucket.key.toLowerCase() === this.state.search.toLowerCase()
-              )
-              ? 'block' : 'none'}}
-          htmlFor={this.props.filterName+i}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              e.target.click()
-            }
-          }}
-          tabIndex="0"
-          role="button"
-        >
-          {`${this.props.translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
-        </label>
+        {!this.props.filter.includes(bucket.key) ? (
+          <React.Fragment>
+            <input
+              type="checkbox"
+              value={bucket.key}
+              name={this.props.filterName}
+              id={this.props.filterName+i}
+              defaultChecked={this.props.filter.includes(bucket.key)}
+            />
+            <label
+              style={{
+                display: (this.state.search.length === 0) ||
+                  (
+                    this.props.translateItems(bucket.label || bucket.key).toLowerCase().includes(this.state.search.toLowerCase())
+                    || bucket.key.toLowerCase() === this.state.search.toLowerCase()
+                  )
+                  ? 'block' : 'none'}}
+              htmlFor={this.props.filterName+i}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  e.target.click()
+                }
+              }}
+              tabIndex="0"
+              role="button"
+            >
+              {`${this.props.translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
+            </label>
+          </React.Fragment>
+        ) : (
+          <span>
+            {`${this.props.translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
+          </span>
+        )}
+
       </li>
     ))
 
