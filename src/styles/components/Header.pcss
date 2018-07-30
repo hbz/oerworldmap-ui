@@ -3,47 +3,82 @@
 .Header {
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
   background-color: var(--blue-dark);
-  letter-spacing: 0.15em;
-  font-weight: 300;
   position: relative;
-
-  & nav {
-    padding: 0 10px;
-  }
+  padding: 0 calc(var(--column-padding) - 10px) 0 var(--column-padding);
 
   & a,
-  & .menuBtn {
+  & button {
     color: var(--white);
-    padding: 10px;
-    display: inline-block;
-    position: relative;
-
-    & i {
-      pointer-events: none;
-    }
-
-    &:focus,
-    &:hover {
-      color: var(--blue-lightest);
-    }
   }
 
   & h1 {
     margin: 0;
-    padding: 0;
+    padding: 10px 0;
     font-size: var(--font-size);
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
+
+    &:focus,
+    &:hover {
+      color: var(--white);
+    }
   }
 
   & .secondaryNav {
     flex: 1;
-    text-align: right;
 
-    & a {
-      font-weight: 500;
-      letter-spacing: 0.5px;
+    & > ul {
+      display: flex;
+      justify-content: flex-end;
+      align-items: stretch;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+
+      & > li {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        @media screen and (--desktop-breakpoint) {
+          &.hasDropdown:hover {
+            background-image: url(/public/triangle.svg);
+            background-size: 15px 7px;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+          }
+          &.active {
+            & .dropdown {
+              display: block;
+            }
+          }
+        }
+
+        & > a,
+        & button {
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          font-size: var(--font-size-xs);
+          display: inline-block;
+          position: relative;
+          padding: 0;
+          border: none;
+          background-color: transparent;
+
+          &:focus {
+            outline: 1px dotted var(--white);
+          }
+
+          & i {
+            pointer-events: none;
+          }
+        }
+      }
     }
   }
 
@@ -90,13 +125,118 @@
   }
 
   & .menuToggle {
-    color: var(--blue-lightest);
-    padding: 10px;
+    padding: 0 10px;
     border: none;
     background-color: transparent;
 
     & i {
       pointer-events: none;
+    }
+  }
+
+  & .dropdown {
+    background-color: var(--white);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 9;
+    width: 100%;
+    display: none;
+    box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.1);
+
+    & .inner {
+      max-width: calc(var(--inner-width) + 2 * var(--column-padding));
+      padding: 1.5em var(--column-padding) 3em var(--column-padding);
+      margin: 0 auto;
+      color: var(--primary-color);
+
+      & a {
+        color: var(--primary-color);
+
+        &:hover,
+        &:focus {
+          color: var(--orange);
+        }
+      }
+
+      & .popular {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0 1.4em 0;
+
+        & ul {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          font-weight: 600;
+          margin: 0 -10px;
+
+          & li {
+            margin: 0 10px;
+
+            & a:hover,
+            & a:focus {
+              & > .i .orangeLighthouse {
+                display: inline-block;
+              }
+
+              & > .i .blueLighthouse {
+                display: none;
+              }
+            }
+
+            & a > .i img {
+              position: relative;
+              top: 3px;
+
+              &.orangeLighthouse {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+      & h3 {
+        font-size: var(--font-size);
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+
+        & i {
+          font-size: calc(var(--font-size) - 1px);
+        }
+
+        & a {
+          display: block;
+        }
+      }
+
+      & .ConceptBlock h3 {
+        padding-top: 1.9em;
+        padding-bottom: 0.4em;
+      }
+
+      & .addBox {
+        display: block;
+        padding: 0.9em 1.3em;
+        border: 1px solid var(--grey-light);
+        height: 100%;
+
+        & h3 {
+          padding-bottom: 0;
+        }
+
+        &:hover {
+          border-color: var(--orange);
+        }
+
+        & p {
+          margin-top: 0.7em;
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
@@ -143,8 +283,49 @@
       background-color: var(--blue-dark);
       width: 100%;
       text-align: left;
-      padding: 0 10px;
-      border-top: 1px solid var(--blue-light);
+      border-top: 1px solid var(--white);
+
+      & > ul {
+        display: block;
+
+        & > li {
+          display: block;
+          padding: 0;
+
+          & > a,
+          & > button {
+            padding: 10px var(--column-padding);
+            text-align: left;
+            font-size: var(--font-size);
+            font-weight: 400;
+            width: 100%;
+            border-bottom: 1px solid var(--blue-lightest);
+            display: block;
+          }
+
+          & .dropdown {
+            position: static;
+
+            & .popular {
+              display: block;
+
+              & ul {
+                display: block;
+
+                & li {
+                  margin-bottom: 0.7em;
+                }
+              }
+            }
+          }
+
+          &.active {
+            & .dropdown {
+              display: block;
+            }
+          }
+        }
+      }
 
       &.show {
         display: block;

@@ -7,7 +7,6 @@ import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
-import ActionButtons from './components/ActionButtons'
 import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
@@ -63,9 +62,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             add={params.add}
             embedValue="true"
-          >
-            <ActionButtons user={context.user} />
-          </ResourceIndex>
+          />
         )
 
         const title = params.add
@@ -79,7 +76,7 @@ export default (api) => {
           })
 
         const metadata = {
-          description: context.i18n.translate('Discover the OER movement'),
+          description: context.i18n.translate('slogan'),
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
         }
@@ -99,6 +96,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
 
@@ -142,6 +140,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -172,6 +171,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {

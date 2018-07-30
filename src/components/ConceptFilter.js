@@ -71,28 +71,37 @@ class ConceptFilter extends React.Component {
       <ul>
         {concepts.map(concept => (
           <li key={concept['@id']}>
-            <input
-              type="checkbox"
-              value={concept['@id']}
-              name={this.props.filterName}
-              id={this.props.filterName + concept['@id']}
-              defaultChecked={this.props.filter.includes(concept['@id'])}
-            />
-            <label
-              htmlFor={this.props.filterName + concept['@id']}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  e.target.click()
+            {!this.props.filter.includes(concept['@id']) ? (
+              <React.Fragment>
+                <input
+                  type="checkbox"
+                  value={concept['@id']}
+                  name={this.props.filterName}
+                  id={this.props.filterName + concept['@id']}
+                />
+                <label
+                  htmlFor={this.props.filterName + concept['@id']}
+                  onKeyDown={e => {
+                    if (e.keyCode === 13) {
+                      e.target.click()
+                    }
+                  }}
+                  tabIndex="0"
+                  role="button"
+                  className={this.show(concept) ? null: 'hidden'}
+                >
+                  {`${this.props.translate(concept.name)} (${this.props.aggregation.buckets.find(
+                    bucket => bucket.key === concept['@id']).doc_count})`
+                  }
+                </label>
+              </React.Fragment>
+            ) : (
+              <span>
+                {`${this.props.translate(concept.name)} (${this.props.aggregation.buckets.find(
+                  bucket => bucket.key === concept['@id']).doc_count})`
                 }
-              }}
-              tabIndex="0"
-              role="button"
-              className={this.show(concept) ? null: 'hidden'}
-            >
-              {`${this.props.translate(concept.name)} (${this.props.aggregation.buckets.find(
-                bucket => bucket.key === concept['@id']).doc_count})`
-              }
-            </label>
+              </span>
+            )}
             {concept.narrower && this.buildTree(concept.narrower)}
           </li>
         ))}
@@ -123,9 +132,7 @@ class ConceptFilter extends React.Component {
             {this.props.icon ? (
               <i className={`fa fa-${this.props.icon}`} />
             ) : (
-              this.props.filter.map(
-                filter => this.props.translate(findConcept(this.props.concepts, filter).name)
-              ).join(', ') || this.props.translate(this.props.filterName)
+              this.props.translate(this.props.filterName)
             )}
           </span>
         </span>

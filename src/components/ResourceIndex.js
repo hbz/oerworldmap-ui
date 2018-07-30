@@ -67,6 +67,7 @@ const ResourceIndex = ({
           ) : (
             <div className="wrapper-ItemList-Pagination">
               <ItemList
+                searchTerm={query}
                 listItems={member.map(member => member.about)}
                 count={countProp
                   ? entry => entry.objectIn.filter(objectIn => objectIn['@type'] === countProp).length
@@ -119,7 +120,7 @@ ResourceIndex.propTypes = {
   query: PropTypes.string,
   map: PropTypes.string,
   view: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
@@ -136,7 +137,8 @@ ResourceIndex.defaultProps = {
   view: '',
   className: null,
   sort: "",
-  embedValue: null
+  embedValue: null,
+  children: null
 }
 
 

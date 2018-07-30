@@ -1,3 +1,4 @@
+{% include i18n.html bundle='ui' %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,12 +22,13 @@
 
     <script>
       const ENVIRONMENT = "{{jekyll.environment}}";
+      const LANG = "{{i18n_lang}}";
     </script>
 
   </head>
   <body class="static">
 
-    {% include header.html %}
+    <div data-inject-header></div>
 
     <div class="static-content">
 

@@ -13,7 +13,7 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count }) => (
-  <ul className={`ItemList ${className}`}>
+  <ul className={`ItemList linedList ${className}`} >
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}

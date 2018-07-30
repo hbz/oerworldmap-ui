@@ -5,7 +5,6 @@
   "scripts": {
     "clean": "rimraf dist/",
     "server:dev": "NODE_ENV=development node src/index.js",
-    "server:static": "NODE_ENV=static node src/index.js",
     "server:prod": "NODE_ENV=production node src/index.js",
     "build:prod": "NODE_ENV=production webpack-cli",
     "test": "eslint src --quiet && mocha --require babel-core/register --require ignore-styles test/helpers/browser.js test/*.js",
@@ -61,6 +60,10 @@
   },
   "dependencies": {
     "@turf/bbox": "^6.0.1",
+    "@turf/center": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "@turf/invariant": "^6.1.2",
+    "@turf/turf": "^5.1.6",
     "ajv": "^6.5.2",
     "asset-require-hook": "^1.2.0",
     "babel-core": "^6.26.0",

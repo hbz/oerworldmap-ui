@@ -211,18 +211,17 @@ class PlaceWidget extends React.Component {
                       >
                         <MiniMap
                           mapboxConfig={config.mapboxConfig}
-                          features={geometry}
+                          geometry={geometry}
                           zoom={geometry ? 12 : 1}
                           draggable
                           boxZoom
-                          onFeatureDrag={point => setValue(Object.assign(
+                          onFeatureDrag={geometry => setValue(Object.assign(
                             value ? JSON.parse(JSON.stringify(value)) : {},
                             {geo: {
-                              lat: point.geometry.coordinates.lat,
-                              lon: point.geometry.coordinates.lng,
+                              lat: geometry.coordinates.lat,
+                              lon: geometry.coordinates.lng,
                             }}
                           ))}
-                          center={geometry ? geometry.coordinates : undefined}
                         />
                       </div>
                     }

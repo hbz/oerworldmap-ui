@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import safe from 'postcss-safe-parser'
 import cssnano from 'cssnano'
+import i18ns from './src/i18ns'
 
 const ENV = process.env.NODE_ENV
 
@@ -20,6 +21,11 @@ let Config = {
     publicPath: '/oerworldmap-ui/',
     filename: 'assets/js/bundle.js'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      i18ns: JSON.stringify(i18ns)
+    })
+  ],
   module: {
     exprContextCritical: false,
     rules: [
