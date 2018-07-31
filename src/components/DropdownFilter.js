@@ -30,7 +30,7 @@ class DropdownFilter extends React.Component {
   }
 
   render() {
-    const list = this.props.aggregation.buckets.map((bucket, i) => (
+    const list = this.props.buckets.map((bucket, i) => (
       <li key={bucket.key}>
         {!this.props.filter.includes(bucket.key) ? (
           <React.Fragment>
@@ -141,7 +141,7 @@ class DropdownFilter extends React.Component {
 DropdownFilter.propTypes = {
   translate: PropTypes.func,
   translateItems: PropTypes.func,
-  aggregation: PropTypes.objectOf(PropTypes.any).isRequired,
+  buckets: PropTypes.objectOf(PropTypes.any).isRequired,
   filter: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
