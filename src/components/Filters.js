@@ -36,6 +36,7 @@ const onReset = e => {
 const primaryFilters = [
   {
     name: "sterms#about.@type",
+    filter: "filter#about.@type",
     type: "button",
     order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage'],
     translate: true
@@ -45,23 +46,27 @@ const primaryFilters = [
 const subFilters = [
   {
     name: "sterms#feature.properties.location.address.addressCountry",
+    filter: "filter#feature.properties.location.address.addressCountry",
     type: "dropdown",
     icon: "globe",
     translate: true
   },
   {
     name: "sterms#feature.properties.location.address.addressRegion",
+    filter: "filter#feature.properties.location.address.addressRegion",
     type: "dropdown",
     icon: "globe",
     translate: true
   },
   {
     name: "sterms#about.keywords",
+    filter: "filter#about.keywords",
     type: "dropdown",
     icon: "tag"
   },
   {
     name: "sterms#about.award",
+    filter: "filter#about.award",
     translate: true,
     icon: "trophy",
     order: (array, translate) => array.sort((a, b) => translate(a.key) > translate(b.key))
@@ -71,34 +76,40 @@ const subFilters = [
 const secondaryFilters = [
   {
     name: "sterms#about.availableChannel.availableLanguage",
+    filter: "filter#about.availableChannel.availableLanguage",
     translate: true
   },
   {
     name: "sterms#about.primarySector.@id",
+    filter: "filter#about.primarySector.@id",
     type: "concepts",
     scheme: require('../json/sectors.json'),
     translate: true
   },
   {
     name: "sterms#about.secondarySector.@id",
+    filter: "filter#about.secondarySector.@id",
     type: "concepts",
     scheme: require('../json/sectors.json'),
     translate: true
   },
   {
     name: "sterms#about.audience.@id",
+    filter: "filter#about.audience.@id",
     type: "concepts",
     scheme: require('../json/isced-1997.json'),
     translate: true
   },
   {
     name: "sterms#about.about.@id",
+    filter: "filter#about.about.@id",
     type: "concepts",
     scheme: require('../json/esc.json'),
     translate: true
   },
   {
     name: "sterms#about.license.@id",
+    filter: "filter#about.license.@id",
     type: "concepts",
     scheme: require('../json/licenses.json'),
     translate: true
@@ -133,9 +144,10 @@ class Filters extends React.Component {
 
   getFilter(filterDef) {
     const [, agg_field] = filterDef.name.split('#')
-    const aggregation = this.props.aggregations[filterDef.name]
-      && this.props.aggregations[filterDef.name].buckets.length
-      ? this.props.aggregations[filterDef.name] : null
+    const aggregation = this.props.aggregations['global#facets'][filterDef.filter]
+      && this.props.aggregations['global#facets'][filterDef.filter][filterDef.name]
+      && this.props.aggregations['global#facets'][filterDef.filter][filterDef.name].buckets.length
+      ? this.props.aggregations['global#facets'][filterDef.filter][filterDef.name] : null
     const filter = this.props.filters[agg_field] || []
     if (!aggregation) {
       return
