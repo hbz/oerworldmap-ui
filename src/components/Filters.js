@@ -63,7 +63,8 @@ const subFilters = [
   {
     name: "sterms#about.award",
     translate: true,
-    icon: "trophy"
+    icon: "trophy",
+    order: (array, translate) => array.sort((a, b) => translate(a.key) > translate(b.key))
   }
 ]
 
@@ -168,7 +169,9 @@ class Filters extends React.Component {
         <DropdownFilter
           key={filterDef.name}
           icon={filterDef.icon}
-          aggregation={aggregation}
+          buckets={filterDef.hasOwnProperty('order')
+            ? filterDef.order(aggregation.buckets, this.props.translate)
+            : aggregation.buckets}
           filter={filter}
           filterName={`filter.${agg_field}`}
           submit={onSubmit}
