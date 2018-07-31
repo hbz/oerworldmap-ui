@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Select from 'react-select'
+import CreatableSelect from 'react-select/lib/Creatable'
 
-import 'react-select/dist/react-select.css'
+// import 'react-select/dist/react-select.css'
 
 import withFormData from './withFormData'
 import withApi from '../withApi'
@@ -44,16 +44,19 @@ class KeywordSelect extends React.Component {
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
-        <Select.Creatable
+        <CreatableSelect
           name={name}
           value={value.map(value => ({value, label:value}))}
           options={this.state.options}
           onChange={selected => setValue(selected.map(option => option.value))}
           placeholder={`${translate('ClientTemplates.resource_typehead.search')} ${translate(title)}`}
-          arrowRenderer={() => <i className="fa fa-chevron-down" />}
-          clearable={false}
-          promptTextCreator={(label) => `${translate('create')} "${label}"`}
-          multi
+          isClearable={false}
+          formatCreateLabel={(label) => `${translate('create')} "${label}"`}
+          isMulti
+          classNamePrefix='Select'
+          components={{
+            DropdownIndicator: () => <i className="fa fa-chevron-down" />
+          }}
         />
       </div>
     )

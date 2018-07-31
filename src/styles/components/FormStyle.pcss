@@ -416,11 +416,11 @@
   }
 
   & .KeywordSelect {
-    & .Select-control,
+    & .Select__control,
     & .select {
       border-color: var(--blue-dark);
       border-radius: var(--border-radius);
-      padding-left: 30px;
+      padding-left: 22px;
 
       & .Select-placeholder {
         padding-left: 30px;
@@ -439,14 +439,34 @@
       }
     }
 
-    & .Select-value {
-      color: var(--white);
-      border-color: var(--blue-dark);
-      background-color: var(--blue-dark);
+    & .Select__multi-value {
+      & .Select__multi-value__label,
+      & .Select__multi-value__remove {
+        border-radius: 2px 0 0 2px;
+        color: var(--white);
+        border-color: var(--blue-dark);
+        background-color: var(--blue-dark);
+        cursor: pointer;
+      }
+
+      & .Select__multi-value__remove {
+        border-left: 1px solid rgba(0, 126, 255, 0.24);
+        border-radius: 0 2px 2px 0;
+
+        &:hover {
+          color: var(--orange);
+        }
+      }
     }
 
-    & .Select-arrow-zone {
+    & .Select__indicators {
       color: var(--blue-dark);
+      padding: 0 10px;
+      cursor: pointer;
+
+      & .Select__indicator-separator {
+        display: none;
+      }
     }
 
     & .Select.is-focused:not(.is-open) > .Select-control {
@@ -458,22 +478,31 @@
       padding: 8px 0;
     }
 
-    & .Select-menu-outer {
-      border-color: var(--blue-dark);
+    & .Select__menu {
+      margin: 0;
 
-      & .Select-menu .Select-option {
-        border-bottom: 1px solid var(--blue-dark);
-        color: var(--blue-dark);
+      & .Select__menu-list {
+        border-color: var(--blue-dark);
+        border: 1px solid var(--blue-dark);
+        border-radius: 0 0 2px 2px;
+        padding: 0;
+        border-top: none;
 
-        &.is-focused {
-          color: var(--white);
-          background-color: var(--blue-dark);
+        & .Select__option {
+          border-bottom: 1px solid var(--blue-dark);
+          color: var(--blue-dark);
+
+          &.Select__option--is-focused {
+            color: var(--white);
+            background-color: var(--blue-dark);
+          }
+        }
+
+        & .Select__option:last-child {
+          border-bottom: none;
         }
       }
 
-      & .Select-menu .Select-option:last-child {
-        border-bottom: none;
-      }
     }
   }
 
