@@ -69,7 +69,7 @@ const subFilters = [
     filter: "filter#about.award",
     translate: true,
     icon: "trophy",
-    order: (array, translate) => array.sort((a, b) => translate(a.key) > translate(b.key))
+    order: (array, translate) => array.sort((a, b) => translate(a.key) < translate(b.key))
   }
 ]
 
