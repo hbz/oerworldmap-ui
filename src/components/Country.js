@@ -131,16 +131,18 @@ class Country  extends React.Component {
             </h3>
 
             <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
-              {this.props.countryData["filter#reports"]["top_hits#country_reports"].hits.hits.map(report => (
-                <div className="resource" key={report._source.about['@id']}>
-                  <i className="fa fa-book" />
-                  <div className="text">
-                    <Link href={`/resource/${report._source.about['@id']}`}>
-                      {this.props.translate(report._source.about.name)}
-                    </Link>
+              {this.props.countryData["filter#reports"]["top_hits#country_reports"].hits.hits
+                .sort((a,b) => a._source.about.dateCreated < b._source.about.dateCreated)
+                .map(report => (
+                  <div className="resource" key={report._source.about['@id']}>
+                    <i className="fa fa-book" />
+                    <div className="text">
+                      <Link href={`/resource/${report._source.about['@id']}`}>
+                        {this.props.translate(report._source.about.name)}
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
             </div>
           </div>
