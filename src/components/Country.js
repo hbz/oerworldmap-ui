@@ -168,7 +168,9 @@ class Country  extends React.Component {
                     <td>{bucket.doc_count}</td>
                     <td>
                       <Icon type={bucket.key} />
-                      &nbsp;<Link href={`/country/${this.props.iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>{bucket.key}</Link>
+                      &nbsp;<Link href={`/country/${this.props.iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>
+                        {this.props.translate(bucket.key)}
+                      </Link>
                     </td>
                   </tr>
                 ))}
