@@ -27,7 +27,10 @@ const Input = ({
   <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
-      dangerouslySetInnerHTML={{__html: translate(title)}}
+      dangerouslySetInnerHTML={{__html: translate(title) +
+        ((type === 'checkbox' && required)
+          ? `<span class="asterisk" title="${translate('This is a required field!')}">*</span>`
+          : '') }}
       className={required ? 'required' : ''}
     />
     {errors.map((error, index) => (
