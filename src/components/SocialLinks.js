@@ -43,6 +43,8 @@ const SocialLinks = ({links}) => (
         icon = 'wordpress-simple'
       } else if (link.includes('slideshare')) {
         icon = 'slideshare'
+      } else if (link.includes('pinterest')) {
+        icon = 'pinterest-p'
       }
 
       return (
