@@ -25,7 +25,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
 
   return (
-    <div className="WebPageView">
+    <div className={`WebPageView ${about['@type']}`}>
 
       <div className="row auto gutter-40 text-large">
         <div className="col">
