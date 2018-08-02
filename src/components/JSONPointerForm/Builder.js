@@ -18,6 +18,9 @@ class Builder extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      showOptionalFields: !props.schema.required && !props.schema.allOf
+    }
     this.getComponent = this.getComponent.bind(this)
   }
 
@@ -75,13 +78,26 @@ class Builder extends React.Component {
     case 'object':
       return (
         <Fieldset {...props}>
-          {Object.keys(schema.properties).map((property) => React.cloneElement(
-            this.getComponent(schema.properties[property]), {
-              property,
-              key: property,
-              required: schema.required && schema.required.includes(property)
-            }
-          ))}
+          {schema.required && Object.keys(schema.properties)
+            .filter(property => schema.required.includes(property))
+            .map(property => React.cloneElement(
+              this.getComponent(schema.properties[property]), {
+                property,
+                key: property,
+                required: true
+              }
+            ))
+          }
+          {this.state.showOptionalFields && Object.keys(schema.properties)
+            .filter(property => !schema.required || !schema.required.includes(property))
+            .map((property) => React.cloneElement(
+              this.getComponent(schema.properties[property]), {
+                property,
+                key: property,
+                required: false
+              }
+            ))
+          }
         </Fieldset>
       )
     case 'null':
@@ -92,9 +108,20 @@ class Builder extends React.Component {
   }
 
   render() {
+    const { schema, translate } = this.props
     return (
       <div className="Builder">
-        {this.getComponent(this.props.schema)}
+        {this.getComponent(schema)}
+        {!this.state.showOptionalFields &&
+          <button
+            className="btn"
+            onClick={event =>
+              event.preventDefault() || this.setState({showOptionalFields: true})
+            }
+          >
+            {translate('form.showOptionalFields', {title: translate(schema.title)})}
+          </button>
+        }
       </div>
     )
   }

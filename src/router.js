@@ -60,7 +60,6 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            add={params.add}
             embedValue="true"
           />
         )

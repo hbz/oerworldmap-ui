@@ -2,6 +2,7 @@
 /* global confirm */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { uniqueId } from 'lodash'
 
 import JsonSchema from './JSONPointerForm/JsonSchema'
 import Form from './JSONPointerForm/Form'
@@ -32,7 +33,7 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
     >
       {translate('needHelp')}
     </a>
-    <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} config={{mapboxConfig}} />
+    <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} config={{mapboxConfig}} key={uniqueId()} />
     <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
 
     <div className="formButtons">
