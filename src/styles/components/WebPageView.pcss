@@ -71,6 +71,21 @@
     display: none;
   }
 
+  & .description.Article {
+
+    & blockquote {
+      font-size: var(--font-size-large);
+
+      &::before {
+        background-color: transparent;
+      }
+    }
+
+    & figcaption {
+      font-size: 0.9em;
+    }
+  }
+
   & iframe,
   & img {
     max-width: 100%;

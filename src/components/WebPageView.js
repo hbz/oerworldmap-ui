@@ -100,7 +100,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
             {about.articleBody &&
               <Block
-                className="first description"
+                className={`first description ${about['@type']}`}
                 title=''
               >
                 {about.articleBody &&
