@@ -100,7 +100,7 @@ class Country  extends React.Component {
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
                 <div className="user">
                   <div className="frame">
-                    <i className="fa fa-question" />
+                    <i className="fa fa-user" />
                   </div>
                   <div
                     className="text"
