@@ -71,6 +71,7 @@
     "dotenv": "^5.0.1",
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
+    "express-useragent": "^1.0.12",
     "font-awesome": "^4.7.0",
     "formdata-polyfill": "^3.0.9",
     "getenv": "^0.7.0",
