@@ -264,6 +264,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           }
 
+          {about.status &&
+            <Block title={translate(`${about['@type']}.status`)}>
+              <Link href={`/resource/?filter.about.status=${about.status}`}>
+                {about.status}
+              </Link>
+            </Block>
+          }
+
           {about.location && about.location.address &&
             <Block title={translate(`${about['@type']}.location`)}>
               <p>
@@ -287,6 +295,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   </Link>
                 }
               </p>
+            </Block>
+          }
+
+          {about.spatialCoverage &&
+            <Block title={translate(`${about['@type']}.spatialCoverage`)}>
+              <Link href={`/resource/?filter.about.spatialCoverage=${about.spatialCoverage}`}>
+                {about.spatialCoverage}
+              </Link>
             </Block>
           }
 
