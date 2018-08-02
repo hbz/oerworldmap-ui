@@ -22,7 +22,7 @@ const filterConcepts = (concepts, include) => {
   return res
 }
 
-const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested}) => (
+const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested, noIcon}) => (
   <ul className={className}>
     {(include ? filterConcepts(concepts, include) : concepts).map(concept => (
       <li
@@ -30,7 +30,9 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
         className={!nested && (concept.narrower && concept.narrower.length > 0) ? 'expandable': ''}
       >
         <Link className="item" href={urlTemplate.parse(linkTemplate).expand(concept)}>
-          <Icon type={concept['@type']} />
+          {!noIcon &&
+            <Icon type={concept['@type']} />
+          }
           <span>{translate(concept.name)}</span>
         </Link>
         {!nested && (concept.narrower && concept.narrower.length > 0) &&
@@ -56,6 +58,7 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
             concepts={concept.narrower}
             linkTemplate={linkTemplate}
             translate={translate}
+            noIcon={noIcon}
           />
         }
       </li>

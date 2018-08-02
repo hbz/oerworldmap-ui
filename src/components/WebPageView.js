@@ -159,6 +159,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   include={about.about.map(concept => concept['@id'])}
                   className="ItemList recursive"
                   linkTemplate="/resource/?filter.about.about.@id={@id}"
+                  noIcon
                 />
               </Block>
             }
