@@ -171,6 +171,8 @@
   "WebPage.inLanguage": "Language",
   "WebPage.license": "License",
   "WebPage.location": "Location",
+  "WebPage.spatialCoverage": "Coverage",
+  "WebPage.status": "Status",
   "Product.name": "Name",
   "Product.alternateName": "Abbreviation",
   "Product.description": "Description",
