@@ -1,12 +1,11 @@
 /* global document */
 /* global window */
 /* global XMLHttpRequest */
+/* global localStorage */
 
-import React from 'react'
 import ReactDOM from 'react-dom'
 import 'normalize.css'
 import mitt from 'mitt'
-import { AppContainer } from 'react-hot-loader'
 
 import router from './router'
 import { getParams } from './common'
@@ -26,18 +25,17 @@ require('formdata-polyfill');
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
 
+    context.user
+      ? localStorage.setItem('user', JSON.stringify(context.user))
+      : localStorage.removeItem('user')
+
     const api = new Api(context.apiConfig)
     const routes = router(api)
 
     let referrer = window.location.href
     Link.back = '/resource/'
     const renderApp = (title, component) => {
-      ReactDOM.render(
-        <AppContainer>
-          {component}
-        </AppContainer>,
-        document.getElementById('root')
-      )
+      ReactDOM.render(component, document.getElementById('root'))
       emitter.emit('setLoading', false)
       window.location.hash
         ? document.getElementById(window.location.hash.replace('#', ''))
@@ -45,7 +43,7 @@ require('formdata-polyfill');
         : document.querySelector('.webPageWrapper')
           && (document.querySelector('.webPageWrapper').scrollTop = 0)
 
-      document.title = title
+      document.title = `${title} - OER World Map`
       referrer = window.location.href
     }
 
@@ -89,6 +87,7 @@ require('formdata-polyfill');
         request.open('GET', url, false)
         request.send(null)
       }
+      localStorage.removeItem('user')
       window.location.reload()
     })
     // Form submission

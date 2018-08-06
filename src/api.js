@@ -1,4 +1,5 @@
 /* global Headers */
+/* global URL */
 
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
@@ -27,10 +28,10 @@ const toJson = response => {
     if (response.headers.has('Link')) {
       json._links = linkHeader.parse(response.headers.get('Link'))
     }
-    json._self = response.url
     if (response.headers.has('Location')) {
       json._location = response.headers.get('Location')
     }
+    json._self = (new URL(response.url)).href
     json._status = response.statusText
     return json
   })
@@ -115,6 +116,26 @@ class Api {
     case 'https://oerworldmap.org/assets/json/sectors.json':
       return Promise.resolve({
         member: require('./json/sectors.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/persons.json':
+      return Promise.resolve({
+        member: require('./json/persons.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/services.json':
+      return Promise.resolve({
+        member: require('./json/services.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/publications.json':
+      return Promise.resolve({
+        member: require('./json/publications.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/organizations.json':
+      return Promise.resolve({
+        member: require('./json/organizations.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
+    case 'https://oerworldmap.org/assets/json/projects.json':
+      return Promise.resolve({
+        member: require('./json/projects.json').hasTopConcept.map(entry => {return {about: entry}})
       })
     default:
       return Promise.resolve({

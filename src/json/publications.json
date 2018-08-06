@@ -1,0 +1,133 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/publications.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#policy",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Policy"
+        },
+        {
+          "@language": "pt",
+          "@value": "Policy"
+        },
+        {
+          "@language": "de",
+          "@value": "Policy"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#oer",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Learning Resource (OER)"
+        },
+        {
+          "@language": "pt",
+          "@value": "Learning Resource (OER)"
+        },
+        {
+          "@language": "de",
+          "@value": "Lernressource (OER)"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#article",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Article"
+        },
+        {
+          "@language": "pt",
+          "@value": "Article"
+        },
+        {
+          "@language": "de",
+          "@value": "Artikel"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#report",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Report"
+        },
+        {
+          "@language": "pt",
+          "@value": "Report"
+        },
+        {
+          "@language": "de",
+          "@value": "Bericht"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#projectDocument",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Project Document"
+        },
+        {
+          "@language": "pt",
+          "@value": "Project Document"
+        },
+        {
+          "@language": "de",
+          "@value": "Projektdokument"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#interview",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Interview"
+        },
+        {
+          "@language": "pt",
+          "@value": "Interview"
+        },
+        {
+          "@language": "de",
+          "@value": "Interview"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
+          "@value": "Other"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    }
+  ]
+}

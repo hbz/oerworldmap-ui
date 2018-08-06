@@ -4,7 +4,7 @@ import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import { apiConfig } from './config'
+import config, { apiConfig } from './config'
 
 const ENV = process.env.NODE_ENV
 
@@ -19,10 +19,11 @@ let Config = {
     path: path.join(__dirname, 'dist'),
     publicPath: `${apiConfig.scheme}://${apiConfig.host}`
       .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
-    filename: 'assets/bundle.js'
+    filename: 'public/bundle.js'
   },
   module: {
     exprContextCritical: false,
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/,
@@ -48,7 +49,7 @@ let Config = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: 'assets/'
+            outputPath: 'public/'
           }
         }
       }
@@ -57,7 +58,7 @@ let Config = {
 
   plugins: [
     new CopyWebpackPlugin([
-      { from: 'assets', to: 'assets' },
+      { from: 'public', to: 'public' },
     ])
   ]
 
@@ -66,7 +67,7 @@ let Config = {
 if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("assets/styles.css"),
+      new ExtractTextPlugin("public/styles.css"),
     ],
     mode: 'production',
     module: {
@@ -99,16 +100,15 @@ if (ENV === 'development') {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
+    output: {
+      publicPath: `http://${config.host}:${config.port}/`,
+    },
     devtool: 'source-map',
     mode: 'development',
-    entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
-    ],
+    entry: ['webpack-hot-middleware/client'],
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
       new StyleLintPlugin(
         {
           emitErrors: false,
@@ -140,51 +140,6 @@ if (ENV === 'development') {
               }
             }
           ]
-        }
-      ]
-    }
-  })
-}
-
-if (ENV === 'static') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
-  Config = merge(Config, {
-    devtool: 'source-map',
-    mode: 'development',
-    entry: [
-      'webpack-hot-middleware/client?reload=true',
-      'react-hot-loader/patch'
-    ],
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-      new ExtractTextPlugin("assets/styles.css"),
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  importLoaders: 1,
-                  sourceMap: true,
-                },
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  sourceMap: true,
-                },
-              },
-            ],
-          }),
         }
       ]
     }

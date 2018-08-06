@@ -40,7 +40,7 @@
           },
           "scopeNote": [
             {
-              "@value": "Generic programmes which cover a range of subjects, such as languages and literature, social and natural sciences, mathematics, arts and/or physical education, should be classified in 0011 \\u2018Basic programmes and qualifications\\u2019. This should be the case even if there is some concentration on a certain category of subject matter, such as humanities, social sciences, natural sciences, etc., which can occur.",
+              "@value": "Generic programmes which cover a range of subjects, such as languages and literature, social and natural sciences, mathematics, arts and/or physical education, should be classified in 0011 \u2018Basic programmes and qualifications\u2019. This should be the case even if there is some concentration on a certain category of subject matter, such as humanities, social sciences, natural sciences, etc., which can occur.",
               "@language": "en"
             }
           ],
@@ -100,7 +100,7 @@
       ],
       "scopeNote": [
         {
-          "@value": "General education programmes and qualifications which cover a broad range of subjects with little or no specialisation in a particular field or fields will typically be classified within the broad field 00 \\u2018Generic programmes and qualifications\\u2019",
+          "@value": "General education programmes and qualifications which cover a broad range of subjects with little or no specialisation in a particular field or fields will typically be classified within the broad field 00 \u2018Generic programmes and qualifications\u2019",
           "@language": "en"
         }
       ],
@@ -519,7 +519,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 Chinese",
+                      "@value": "Language acquisition \u2013 Chinese",
                       "@language": "en"
                     }
                   ],
@@ -542,7 +542,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 Italian",
+                      "@value": "Language acquisition \u2013 Italian",
                       "@language": "en"
                     }
                   ],
@@ -565,7 +565,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 German",
+                      "@value": "Language acquisition \u2013 German",
                       "@language": "en"
                     }
                   ],
@@ -588,7 +588,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 Spanish",
+                      "@value": "Language acquisition \u2013 Spanish",
                       "@language": "en"
                     }
                   ],
@@ -611,7 +611,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 Gaelic",
+                      "@value": "Language acquisition \u2013 Gaelic",
                       "@language": "en"
                     }
                   ],
@@ -634,7 +634,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 Welsh",
+                      "@value": "Language acquisition \u2013 Welsh",
                       "@language": "en"
                     }
                   ],
@@ -657,7 +657,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 American Sign Language",
+                      "@value": "Language acquisition \u2013 American Sign Language",
                       "@language": "en"
                     }
                   ],
@@ -680,7 +680,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 French",
+                      "@value": "Language acquisition \u2013 French",
                       "@language": "en"
                     }
                   ],
@@ -703,7 +703,7 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \\u2013 English",
+                      "@value": "Language acquisition \u2013 English",
                       "@language": "en"
                     }
                   ],
@@ -1891,7 +1891,7 @@
           },
           "scopeNote": [
             {
-              "@value": "Manufacturing programmes should be classified in the detailed fields under 071 \\u2018Engineering and engineering trades\\u2019 if the emphasis is towards engineering, i.e. on metals, mechanics, machinery, engines, electrical devices, etc.",
+              "@value": "Manufacturing programmes should be classified in the detailed fields under 071 \u2018Engineering and engineering trades\u2019 if the emphasis is towards engineering, i.e. on metals, mechanics, machinery, engines, electrical devices, etc.",
               "@language": "en"
             }
           ],
@@ -2014,7 +2014,7 @@
           },
           "scopeNote": [
             {
-              "@value": "Other manufacturing programmes [those without an emphasis towards engineering, i.e. on metals, mechanics, machinery, engines, electrical devices, etc.] and qualifications should be classified under 072 \\u2018Manufacturing and processing\\u2019. This is the case where the emphasis is on manufacturing specific products, such as food, textiles, shoes, paper, furniture, glass, plastic, etc., However, manufacturing of metal products is excluded from narrow field 072 and included in detailed field 0715 \\u2018Mechanics and metal trades\\u2019.",
+              "@value": "Other manufacturing programmes [those without an emphasis towards engineering, i.e. on metals, mechanics, machinery, engines, electrical devices, etc.] and qualifications should be classified under 072 \u2018Manufacturing and processing\u2019. This is the case where the emphasis is on manufacturing specific products, such as food, textiles, shoes, paper, furniture, glass, plastic, etc., However, manufacturing of metal products is excluded from narrow field 072 and included in detailed field 0715 \u2018Mechanics and metal trades\u2019.",
               "@language": "en"
             }
           ],

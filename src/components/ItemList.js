@@ -11,9 +11,11 @@ import '../styles/components/ItemList.pcss'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import { formatDate } from '../common'
 
-const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count }) => (
-  <ul className={`ItemList ${className}`} >
+
+const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
+  <ul className={`ItemList linedList ${className}`} >
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
@@ -59,7 +61,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                   unwrapDisallowed={false}
                   renderers={
                     {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener">
+                      <a href={link.href} target="_blank" rel="noopener noreferrer">
                         {link.children}
                       </a>
                     )}
@@ -76,7 +78,9 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}
+                {translate(listItem.name) || listItem['@id']}{(listItem['@type'] === 'Event' && listItem.startDate)
+                  ? <React.Fragment>, <i title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
+                  : ''}
                 {count && ` (${count(listItem)})`}
               </span>
             </Link>
@@ -94,6 +98,7 @@ ItemList.propTypes = {
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
   linkTemplate: PropTypes.string,
   className: PropTypes.string,
+  moment: PropTypes.func.isRequired,
   count: PropTypes.func
 }
 

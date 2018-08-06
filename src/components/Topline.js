@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import urlTemplate from 'url-template'
+
 import withI18n from './withI18n'
 import Link from './Link'
 import { formatDate } from '../common'
@@ -9,6 +11,20 @@ const Topline = ({translate, moment, about}) => {
 
   return (
     <div className="Topline">
+
+      {about.additionalType &&
+        <div className="toplineEntry">
+          <ul className="commaSeparatedList">
+            {about.additionalType.map(type => (
+              <li key={type}>
+                <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
+                  {translate(type.name)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      }
 
       {about.countryChampionFor &&
         <div className="toplineEntry">

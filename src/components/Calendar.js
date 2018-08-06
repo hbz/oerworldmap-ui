@@ -13,7 +13,7 @@ const Calendar = ({entries, moment, translate}) => (
       <li key={month.key} className="monthBlock">
         <h4>{moment(month.key_as_string).format('MMMM YYYY')}</h4>
         <ul>
-          {month['about.@id'].hits.hits.map(hit => hit._source.about).map(event => (
+          {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).reverse().map(event => (
             <li key={event['@id']}>
               <Link href={event['@id']}>
                 <div className="sheet">
@@ -26,12 +26,12 @@ const Calendar = ({entries, moment, translate}) => (
                 </div>
                 <span>
                   {translate(event.name)}<br />
-                  {moment(event.startDate).format('M') === moment(event.endDate).format('M')
-                    ? moment(event.startDate).format('D')
-                    : moment(event.endDate).format('D MMM')
-                  } - {moment(event.endDate).format('D MMM')}
                   {event.location && event.location.address &&
                     <span className="subtitle">
+                      {moment(event.startDate).format('M') === moment(event.endDate).format('M')
+                        ? moment(event.startDate).format('D')
+                        : moment(event.endDate).format('D MMM')
+                      } &ndash; {moment(event.endDate).format('D MMM')}
                       &nbsp;&mdash;&nbsp;
                       {event.location.address.addressLocality &&
                         event.location.address.addressLocality.concat(',')

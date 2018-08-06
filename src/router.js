@@ -3,10 +3,10 @@
 
 import React from 'react'
 import toRegExp from 'path-to-regexp'
+import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
-import ActionButtons from './components/ActionButtons'
 import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
@@ -61,14 +61,32 @@ export default (api) => {
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             add={params.add}
-          >
-            <ActionButtons user={context.user} />
-          </ResourceIndex>
+            embedValue="true"
+          />
         )
+
         const title = params.add
           ? context.i18n.translate('add', {type: context.i18n.translate(params.add)})
-          : context.i18n.translate('ResourceIndex.index.showingEntities', {number: data.totalItems})
-        return { title, data, component }
+          : context.i18n.translate('ResourceIndex.index.showingEntities', {
+            number: data.totalItems,
+            query: data.filters
+              && data.filters["about.@type"]
+              && context.i18n.translate(data.filters["about.@type"][0])
+              || ''
+          })
+
+        const metadata = {
+          description: context.i18n.translate('slogan'),
+          url: data._self,
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
+        }
+
+        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0)))  {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
+        }
+
+        return { title, data, component, metadata }
       },
       post: async (params, context, state, body) => {
         const data = await api.post('/resource/', body, context.authorization)
@@ -78,6 +96,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
 
@@ -99,10 +118,19 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            embedValue="true"
           />
         )
         const title = context.i18n.translate(data.about.name)
-        return { title, data, component }
+        const metadata = {
+          description: data.about
+            && data.about.description
+            && removeMd(context.i18n.translate(data.about.description)).slice(0, 300),
+          url: data._self,
+          image: data.about && data.about.image
+        }
+
+        return { title, data, component, metadata }
       },
       post: async (id, params, context, state, body) => {
         const data = await api.post(`/resource/${id}`, body, context.authorization)
@@ -112,6 +140,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -142,6 +171,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -165,15 +195,29 @@ export default (api) => {
             className="countryView"
             mapboxConfig={context.mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            embedValue="country"
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['country']['about.location.address.addressCountry'].buckets[0]}
+              countryData={data.aggregations['global#facets']['filter#country']}
             />
           </ResourceIndex>
         )
         const title = context.i18n.translate(id.toUpperCase())
-        return { title, data, component }
+        const metadata = {
+          description: context.i18n.translate('CountryIndex.description', {
+            countryName: context.i18n.translate(data.iso3166)
+          }),
+          url: data._self,
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
+        }
+
+        if (data && (data.query || Object.keys(data.filters).length > 0))  {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
+        }
+
+        return { title, data, component, metadata }
       }
     },
     {
@@ -380,14 +424,14 @@ export default (api) => {
       }
     } catch (err) {
       if (err instanceof APIError) {
-        const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
+        const component = (err) => <ErrorPage translate={context.i18n.translate} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
         return { title: err.message, data: err, component, render, err }
       }
       throw err
     }
     // 404
-    const component = () => <ErrorPage translate={(key) => key} message="Not Found" />
+    const component = () => <ErrorPage translate={context.i18n.translate} message="Not Found" />
     const render = () => <Init {...context}>{component()}</Init>
     return { title: 'Not Found', data: {}, component, render }
   }

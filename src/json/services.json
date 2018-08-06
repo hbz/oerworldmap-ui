@@ -1,0 +1,169 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/services.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#repository",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Repository"
+        },
+        {
+          "@language": "pt",
+          "@value": "Repository"
+        },
+        {
+          "@language": "de",
+          "@value": "Repositorium"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#referatory",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Referatory"
+        },
+        {
+          "@language": "pt",
+          "@value": "Referatory"
+        },
+        {
+          "@language": "de",
+          "@value": "Referatorium"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#authoringTool",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Authoring tool"
+        },
+        {
+          "@language": "pt",
+          "@value": "Authoring tool"
+        },
+        {
+          "@language": "de",
+          "@value": "Autorenwerkzeug"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#learningPlatform",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Learning platform"
+        },
+        {
+          "@language": "pt",
+          "@value": "Learning platform"
+        },
+        {
+          "@language": "de",
+          "@value": "Lernplattform"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#learningManagementSystem",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Learning Management System"
+        },
+        {
+          "@language": "pt",
+          "@value": "Learning Management System"
+        },
+        {
+          "@language": "de",
+          "@value": "Learning Management System (LMS)"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#information",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Information, reflection or tutorial"
+        },
+        {
+          "@language": "pt",
+          "@value": "Information, reflection or tutorial"
+        },
+        {
+          "@language": "de",
+          "@value": "Information, Reflexion oder Tutorial"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#communityPlatform",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Community platform"
+        },
+        {
+          "@language": "pt",
+          "@value": "Community platform"
+        },
+        {
+          "@language": "de",
+          "@value": "Community-Plattform"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#contentSource",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Content Source"
+        },
+        {
+          "@language": "pt",
+          "@value": "Content Source"
+        },
+        {
+          "@language": "de",
+          "@value": "Inhaltsquelle"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
+          "@value": "Other"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    }
+  ]
+}

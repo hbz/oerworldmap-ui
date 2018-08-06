@@ -5,13 +5,13 @@ import compression from 'compression'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import properties from 'properties'
-import {existsSync} from 'fs'
+import userAgent from 'express-useragent'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import router from './router'
 import Api from './api'
+import i18ns from './i18ns'
 
 import Config, { mapboxConfig, apiConfig, piwikConfig, i18nConfig } from '../config'
 
@@ -30,24 +30,21 @@ if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') 
   const compiler = webpack(webpackConfig)
 
   server.use([
-
     webpackDevMiddleware(compiler, {
-      filename: webpackConfig.output.filename,
-      hot: true,
-      overlay: true,
-      stats: {
-        colors: true
-      }
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath
     }),
-
-    webpackHotMiddleware(compiler, {
-      log: console.log
-    })
-
+    webpackHotMiddleware(compiler)
   ])
 }
 
 server.use(express.static(path.join(__dirname, '/../dist')))
+
+// Middleware to check browser support
+server.use((req, res, next) => {
+  const ua = userAgent.parse(req.headers['user-agent'])
+  ua.isIE && res.send('Sorry, your browser is not supported') || next()
+})
 
 // Middleware to fetch user profile
 server.use((req, res, next) => {
@@ -66,6 +63,13 @@ server.use((req, res, next) => {
   }
 })
 
+// Middleware to fetch labels
+server.use((req, res, next) => {
+  api.get('/label')
+    .then(labels => (req.labels = labels) && next())
+    .catch(err => res.status(err.status).send(err.message))
+})
+
 // Middleware to fetch JSON schema
 server.use((req, res, next) => {
   api.get('/assets/json/schema.json')
@@ -73,33 +77,10 @@ server.use((req, res, next) => {
     .catch(err => res.status(err.status).send(err.message))
 })
 
-// I18n configuration
+// Middleware to extract locales
 const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
 const defaultLanguage = i18nConfig.defaultLanguage
-const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels', 'descriptions']
-const i18ns = {}
-supportedLanguages.map(language => {
-  const i18n = {}
-  bundles.forEach(bundle => {
-    const i18nfile = existsSync(`./src/locale/${bundle}_${language}.properties`)
-      ? `./src/locale/${bundle}_${language}.properties`
-      : `./src/locale/${bundle}.properties`
-    properties.parse(i18nfile, {path: true}, (error, obj) => {
-      if (error) {
-        return console.error(error)
-      }
-      //FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
-      if (bundle === 'descriptions') {
-        i18n['descriptions'] = obj
-      } else {
-        Object.assign(i18n, obj)
-      }
-    })
-  })
-  i18ns[language] = i18n
-})
 
-// Middleware to extract locales
 server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
@@ -117,12 +98,19 @@ server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
+  if (req.labels) {
+    req.labels.results.bindings.forEach(label => {
+      i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
+      i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
+    })
+  }
   const phrases = i18ns[locales[0]]
   const schema = req.schema
   const embed = req.query.embed
   const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
   //TODO: use actual request method
-  router(api).route(req.path, context).get(req.query).then(({title, data, render, err}) => {
+  router(api).route(req.path, context).get(req.query).then(({title, data, render, err, metadata}) => {
+    console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
@@ -130,7 +118,9 @@ server.get(/^(.*)$/, (req, res) => {
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title,
       piwikConfig,
-      embed
+      embed,
+      metadata,
+      locales
     }))
   })
 })

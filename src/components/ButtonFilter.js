@@ -5,17 +5,27 @@ import Tooltip from 'rc-tooltip'
 import Icon from './Icon'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
-import { triggerClick, clearForm } from '../common'
+import { triggerClick } from '../common'
 
-const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) => (
+const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, filterName}) => (
   <div className="ButtonFilter">
     {aggregation.buckets.sort((a, b) => order.indexOf(a.key) > order.indexOf(b.key))
       .map((bucket) => {
         return (
           <Tooltip
             key={bucket.key}
-            overlay={<b>{translate(bucket.label || bucket.key)}</b>}
+            overlayStyle={{
+              maxWidth: "110px",
+            }}
+            overlay={
+              <span>
+                <b>{translate(bucket.label || bucket.key)}</b>: {translate(`Tip.${bucket.key}`)}
+              </span>
+            }
             placement="top"
+            align={{
+              targetOffset: [0, 5],
+            }}
             mouseEnterDelay={0.2}
             overlayClassName="tooltipDisableEvents"
           >
@@ -24,23 +34,13 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order}) 
                 type="radio"
                 value={bucket.key}
                 checked={filter.includes(bucket.key)}
-                name="filter.about.@type"
+                name={filterName}
                 id={"type:" + bucket.key}
-                onChange={(e) => {
-                  clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
-                  e.target.checked = true
-                  submit(e, emitter)
-                }}
+                onChange={e => submit(e, emitter)}
               />
 
               <label
-                onClick={e => {
-                  // Clear filters if type filter unchecked
-                  if (filter.includes(bucket.key)) {
-                    clearForm(e.target.parentElement.form || e.target.form || e.target, ['q'])
-                    submit(e, emitter)
-                  }
-                }}
+                onClick={e => filter.includes(bucket.key) && submit(e, emitter)}
                 onKeyDown={triggerClick}
                 role="button"
                 tabIndex="0"
@@ -64,7 +64,8 @@ ButtonFilter.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
-  order: PropTypes.arrayOf(PropTypes.string)
+  order: PropTypes.arrayOf(PropTypes.string),
+  filterName: PropTypes.string.isRequired
 }
 
 ButtonFilter.defaultProps = {

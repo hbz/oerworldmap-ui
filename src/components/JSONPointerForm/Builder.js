@@ -18,7 +18,6 @@ class Builder extends React.Component {
   constructor(props) {
     super(props)
     this.getComponent = this.getComponent.bind(this)
-    this.formComponents = this.getComponent(props.schema)
   }
 
   getComponent(schema) {
@@ -90,7 +89,7 @@ class Builder extends React.Component {
   render() {
     return (
       <div className="Builder">
-        {this.formComponents}
+        {this.getComponent(this.props.schema)}
       </div>
     )
   }

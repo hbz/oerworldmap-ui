@@ -1,3 +1,5 @@
+@import './variables.pcss';
+
 .static {
 
   & .Header {
@@ -94,8 +96,8 @@
       position: relative;
 
       & .inner {
-        max-width: 1100px;
-        padding: 100px;
+        max-width: calc(var(--inner-width) + 2 * var(--static-padding));
+        padding: var(--static-padding);
         margin: 0 auto;
 
         @media screen and (max-width: 1024px) {
@@ -114,6 +116,11 @@
       &.v-xs .inner {
         padding-top: var(--p-margin);
         padding-bottom: var(--p-margin);
+      }
+
+      &.h-xs .inner {
+        padding-left: var(--p-margin);
+        padding-right: var(--p-margin);
       }
     }
 

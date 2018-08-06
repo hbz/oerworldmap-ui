@@ -1,0 +1,5 @@
+{% capture slug %}{{ page.url | split: '/' | last | remove: '.html' }}{% endcapture %}
+{% capture slugsize %}{{ slug | split: '.' | size }}{% endcapture %}
+{% capture filename %}{{ include.bundle }}{% if slugsize == '2' %}_{{ slug | split: '.' | last }}{% endif %}{% endcapture %}
+{% assign i18n_strings = site.data.locale[filename] %}
+{% capture i18n_lang %}{% if slugsize == '2' %}{{ slug | split: '.' | last }}{% else %}en{% endif %}{% endcapture %}

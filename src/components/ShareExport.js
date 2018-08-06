@@ -60,7 +60,7 @@ class ShareExport extends React.Component {
           </ul>
         }
         {this.props.view === 'share' &&
-          <Share _self={this.props._self} />
+          <Share embedValue={this.props.embedValue} _self={this.props._self} />
         }
         {this.props.view === 'export' &&
           <Export _self={this.props._self} _links={this.props._links} />
@@ -75,10 +75,12 @@ ShareExport.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
+  embedValue: PropTypes.string
 }
 
 ShareExport.defaultProps = {
-  view: null
+  view: null,
+  embedValue: null
 }
 
 export default withI18n(ShareExport)
