@@ -28,7 +28,7 @@ const Input = ({
     <label
       htmlFor={`${formId}-${name}`}
       dangerouslySetInnerHTML={{__html: translate(title) +
-        ((type === 'checkbox' && required)
+        (required
           ? `<span class="asterisk" title="${translate('This is a required field!')}">*</span>`
           : '') }}
       className={required ? 'required' : ''}
