@@ -73,9 +73,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   source={translate(about.description)}
                   renderers={
                     {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.children}
-                      </a>
+                      link.href.startsWith('#')
+                        ? <Link href={link.href}>{link.children}</Link>
+                        :
+                        <a href={link.href} target="_blank" rel="noopener noreferrer">
+                          {link.children}
+                        </a>
                     )}
                   }
                 />
@@ -110,9 +113,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                     source={translate(about.articleBody)}
                     renderers={
                       {link: link => (
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.children}
-                        </a>
+                        link.href.startsWith('#')
+                          ? <Link href={link.href}>{link.children}</Link>
+                          :
+                          <a href={link.href} target="_blank" rel="noopener noreferrer">
+                            {link.children}
+                          </a>
                       )}
                     }
                   />
