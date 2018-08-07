@@ -9,7 +9,7 @@
     "react/jsx-filename-extension": 0, // Comment to only use jsx on files with extension jsx
     // "linebreak-style": 0, // Accept windows JumpLines
     "react/no-array-index-key": 0,
-    "indent": ["error", 2],
+    "indent": "off",
     "semi": ["error", "never"],
     "import/no-dynamic-require": "off",
     "no-console": "warn",
