@@ -13,7 +13,9 @@
     "semi": ["error", "never"],
     "import/no-dynamic-require": "off",
     "no-console": "warn",
-    "jsx-a11y/no-autofocus": "off"
+    "jsx-a11y/no-autofocus": "off",
+    "template-curly-spacing" : "off",
+    "indent" : "off"
   },
   "parser": "babel-eslint",
   "extends": ["airbnb", "stylelint"]
