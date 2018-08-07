@@ -14,8 +14,7 @@
     "import/no-dynamic-require": "off",
     "no-console": "warn",
     "jsx-a11y/no-autofocus": "off",
-    "template-curly-spacing" : "off",
-    "indent" : "off"
+    "template-curly-spacing" : "off"
   },
   "parser": "babel-eslint",
   "extends": ["airbnb", "stylelint"]
