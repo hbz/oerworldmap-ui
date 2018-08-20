@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
+import ErrorBoundary from './ErrorBoundary'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -67,21 +68,25 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <ReactMarkdown
-                  className='markdown'
-                  escapeHtml={false}
-                  source={translate(about.description)}
-                  renderers={
-                    {link: link => (
-                      link.href.startsWith('#')
-                        ? <Link href={link.href}>{link.children}</Link>
-                        :
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.children}
-                        </a>
-                    )}
-                  }
-                />
+                <ErrorBoundary
+                  errorMessage={translate(about.description)}
+                >
+                  <ReactMarkdown
+                    className='markdown'
+                    escapeHtml={false}
+                    source={translate(about.description)}
+                    renderers={
+                      {link: link => (
+                        link.href.startsWith('#')
+                          ? <Link href={link.href}>{link.children}</Link>
+                          :
+                          <a href={link.href} target="_blank" rel="noopener noreferrer">
+                            {link.children}
+                          </a>
+                      )}
+                    }
+                  />
+                </ErrorBoundary>
               ) : (
                 <p>
                   <i>
