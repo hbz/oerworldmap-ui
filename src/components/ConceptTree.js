@@ -23,7 +23,7 @@ const filterConcepts = (concepts, include) => {
 }
 
 const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested, noIcon}) => (
-  <ul className={className}>
+  <ul className={`${className}${noIcon ? ' noIcon' : ''}`}>
     {(include ? filterConcepts(concepts, include) : concepts).map(concept => (
       <li
         key={concept['@id']}
