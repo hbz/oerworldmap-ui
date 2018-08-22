@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import ReactMarkdown from 'react-markdown'
+import ErrorFallBack from 'react-ssr-error-boundary'
+
 import urlTemplate from 'url-template'
 
 import Icon from './Icon'
@@ -53,20 +55,24 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                 </div>
               </div>
               {listItem.description &&
-                <ReactMarkdown
-                  className="description"
-                  escapeHtml={false}
-                  source={translate(listItem.description)}
-                  skipHtml
-                  unwrapDisallowed={false}
-                  renderers={
-                    {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.children}
-                      </a>
-                    )}
-                  }
-                />
+                <ErrorFallBack
+                  fallBack={() => <React.Fragment>{translate(listItem.description)}</React.Fragment>}
+                >
+                  <ReactMarkdown
+                    className="description"
+                    escapeHtml={false}
+                    source={translate(listItem.description)}
+                    skipHtml
+                    unwrapDisallowed={false}
+                    renderers={
+                      {link: link => (
+                        <a href={link.href} target="_blank" rel="noopener noreferrer">
+                          {link.children}
+                        </a>
+                      )}
+                    }
+                  />
+                </ErrorFallBack>
               }
             </div>
           }

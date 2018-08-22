@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
-import ErrorBoundary from './ErrorBoundary'
+import ErrorFallBack from 'react-ssr-error-boundary'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -68,8 +68,8 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <ErrorBoundary
-                  errorMessage={translate(about.description)}
+                <ErrorFallBack
+                  fallBack={() => <React.Fragment>{translate(about.description)}</React.Fragment>}
                 >
                   <ReactMarkdown
                     className='markdown'
@@ -86,7 +86,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                       )}
                     }
                   />
-                </ErrorBoundary>
+                </ErrorFallBack>
               ) : (
                 <p>
                   <i>
@@ -112,21 +112,26 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 title=''
               >
                 {about.articleBody &&
-                  <ReactMarkdown
-                    className='markdown'
-                    escapeHtml={false}
-                    source={translate(about.articleBody)}
-                    renderers={
-                      {link: link => (
-                        link.href.startsWith('#')
-                          ? <Link href={link.href}>{link.children}</Link>
-                          :
-                          <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            {link.children}
-                          </a>
-                      )}
-                    }
-                  />
+                  <ErrorFallBack
+                    fallBack={() => <React.Fragment>{translate(about.articleBody)}</React.Fragment>}
+                  >
+                    <ReactMarkdown
+                      className='markdown'
+                      escapeHtml={false}
+                      source={translate(about.articleBody)}
+                      renderers={
+                        {link: link => (
+                          link.href.startsWith('#')
+                            ? <Link href={link.href}>{link.children}</Link>
+                            :
+                            <a href={link.href} target="_blank" rel="noopener noreferrer">
+                              {link.children}
+                            </a>
+                        )}
+                      }
+                    />
+                  </ErrorFallBack>
+
                 }
               </Block>
             }
