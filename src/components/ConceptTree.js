@@ -72,14 +72,16 @@ ConceptTree.propTypes = {
   include: PropTypes.arrayOf(PropTypes.any),
   className: PropTypes.string,
   linkTemplate: PropTypes.string,
-  nested: PropTypes.bool
+  nested: PropTypes.bool,
+  noIcon: PropTypes.bool
 }
 
 ConceptTree.defaultProps = {
   include: null,
   className: null,
   linkTemplate: '/resource/{@id}',
-  nested: false
+  nested: false,
+  noIcon: false
 }
 
 export default withI18n(ConceptTree)
