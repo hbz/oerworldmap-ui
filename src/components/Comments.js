@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
+import ErrorFallBack from 'react-ssr-error-boundary'
 
 import JsonSchema from './JSONPointerForm/JsonSchema'
 import Form from './JSONPointerForm/Form'
@@ -50,7 +51,11 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
             </div>
           }
         </div>
-        <ReactMarkdown source={translate(comment.text)} />
+        <ErrorFallBack
+          fallBack={() => <React.Fragment>{translate(comment.text)}</React.Fragment>}
+        >
+          <ReactMarkdown source={translate(comment.text)} />
+        </ErrorFallBack>
       </div>
     ))}
     {expose('addEntry', user) ? (
