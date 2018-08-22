@@ -278,7 +278,8 @@
   "Pagination.all": "Todos",
   "Map.entriesPerCountry": "Entradas por país",
   "Map.entriesPerRegion": "Entradas por região",
-  "Map.countryChampionAvailable": "Campeão do país disponível",
+  "Map.countryChampionAvailable": "Country Champion",
+  "Map.noCountryChampionYet": "No Country Champion yet",
   "application/geo+json": "GeoJSON",
   "text/csv": "CSV",
   "application/json": "JSON",
@@ -315,5 +316,7 @@
   "menu.me.likes": "My Likes",
   "menu.me.lighthouses": "My Lighthouses",
   "menu.me.events": "Events I'm attending",
-  "menu.me.organizations": "My affiliations"
+  "menu.me.organizations": "My affiliations",
+  "entry.missing.info.note": "A description for this entry is missing.",
+  "entry.missing.info.action": "Help us by adding some information!"
 }
