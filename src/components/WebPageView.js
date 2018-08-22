@@ -170,6 +170,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   include={about.about.map(concept => concept['@id'])}
                   className="ItemList recursive"
                   linkTemplate="/resource/?filter.about.about.@id={@id}"
+                  noIcon
                 />
               </Block>
             }
@@ -181,6 +182,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   include={about.audience.map(concept => concept['@id'])}
                   className="ItemList"
                   linkTemplate="/resource/?filter.about.audience.@id={@id}"
+                  noIcon
                 />
               </Block>
             }
