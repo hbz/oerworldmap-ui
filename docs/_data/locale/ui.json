@@ -315,5 +315,7 @@
   "menu.me.likes": "My Likes",
   "menu.me.lighthouses": "My Lighthouses",
   "menu.me.events": "Events I'm attending",
-  "menu.me.organizations": "My affiliations"
+  "menu.me.organizations": "My affiliations",
+  "entry.missing.info.note": "A description for this entry is missing.",
+  "entry.missing.info.action": "Help us by adding some information!"
 }
