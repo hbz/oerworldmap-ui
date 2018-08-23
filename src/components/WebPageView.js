@@ -1,7 +1,7 @@
 /* global btoa*/
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'markdown-to-jsx'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -13,6 +13,7 @@ import SocialLinks from './SocialLinks'
 import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
+import LinkOverride from './LinkOverride'
 
 import { formatURL, formatDate } from '../common'
 import expose from '../expose'
@@ -67,33 +68,28 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <ReactMarkdown
-                  className='markdown'
-                  escapeHtml={false}
-                  source={translate(about.description)}
-                  renderers={
-                    {link: link => (
-                      link.href.startsWith('#')
-                        ? <Link href={link.href}>{link.children}</Link>
-                        :
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.children}
-                        </a>
-                    )}
+                <Markdown options={{
+                  overrides: {
+                    a: {
+                      component: LinkOverride
+                    }
                   }
-                />
+                }}
+                >
+                  {translate(about.description)}
+                </Markdown>
               ) : (
                 <p>
                   <i>
-                    {translate('entry.missing.info.note')}
+                    {translate('A description for this entry is missing.')}
                     {expose('editEntry', user, about) &&
                       <Link href='#edit'>
-                        &nbsp;{translate('entry.missing.info.action')}
+                        &nbsp;{translate('Help us by adding some information!')}
                       </Link>
                     }
                     {!user && about['@type'] !== 'Person' &&
                       <Link href='/user/register'>
-                        &nbsp;{translate('entry.missing.info.action')}
+                        &nbsp;{translate('Help us by adding some information!')}
                       </Link>
                     }
                   </i>
@@ -107,21 +103,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 title=''
               >
                 {about.articleBody &&
-                  <ReactMarkdown
-                    className='markdown'
-                    escapeHtml={false}
-                    source={translate(about.articleBody)}
-                    renderers={
-                      {link: link => (
-                        link.href.startsWith('#')
-                          ? <Link href={link.href}>{link.children}</Link>
-                          :
-                          <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            {link.children}
-                          </a>
-                      )}
+                  <Markdown options={{
+                    overrides: {
+                      a: {
+                        component: LinkOverride
+                      }
                     }
-                  />
+                  }}
+                  >
+                    {translate(about.articleBody)}
+                  </Markdown>
                 }
               </Block>
             }
@@ -165,7 +156,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   include={about.about.map(concept => concept['@id'])}
                   className="ItemList recursive"
                   linkTemplate="/resource/?filter.about.about.@id={@id}"
-                  noIcon
                 />
               </Block>
             }
@@ -177,7 +167,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   include={about.audience.map(concept => concept['@id'])}
                   className="ItemList"
                   linkTemplate="/resource/?filter.about.audience.@id={@id}"
-                  noIcon
                 />
               </Block>
             }
