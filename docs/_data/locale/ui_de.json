@@ -279,7 +279,7 @@
   "Map.entriesPerCountry": "Einträge pro Land",
   "Map.entriesPerRegion": "Einträge pro Region",
   "Map.countryChampionAvailable": "Country Champion",
-  "Map.noCountryChampionYet": "No Country Champion yet",
+  "Map.noCountryChampionYet": "Bisher kein Country Champion",
   "application/geo+json": "GeoJSON",
   "text/csv": "CSV",
   "application/json": "JSON",
@@ -317,6 +317,6 @@
   "menu.me.lighthouses": "Meine Leuchttürme",
   "menu.me.events": "Veranstaltungen, an denen ich teilnehme",
   "menu.me.organizations": "Meine Mitgliedschaften",
-  "entry.missing.info.note": "A description for this entry is missing.",
-  "entry.missing.info.action": "Help us by adding some information!"
+  "entry.missing.info.note": "Keine Beschreibung für diesen Eintrag vorhanden.",
+  "entry.missing.info.action": "Helfen Sie uns, ergänzen Sie Informationen!"
 }
