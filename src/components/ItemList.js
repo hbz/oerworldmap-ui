@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import ReactMarkdown from 'react-markdown'
-import ErrorFallBack from 'react-ssr-error-boundary'
+import Markdown from 'markdown-to-jsx'
 
 import urlTemplate from 'url-template'
 
 import Icon from './Icon'
 import Link from './Link'
+import LinkOverride from './LinkOverride'
 
 import '../styles/components/ItemList.pcss'
 
@@ -55,24 +55,16 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                 </div>
               </div>
               {listItem.description &&
-                <ErrorFallBack
-                  fallBack={() => <React.Fragment>{translate(listItem.description)}</React.Fragment>}
-                >
-                  <ReactMarkdown
-                    className="description"
-                    escapeHtml={false}
-                    source={translate(listItem.description)}
-                    skipHtml
-                    unwrapDisallowed={false}
-                    renderers={
-                      {link: link => (
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.children}
-                        </a>
-                      )}
+                <Markdown options={{
+                  overrides: {
+                    a: {
+                      component: LinkOverride
                     }
-                  />
-                </ErrorFallBack>
+                  }
+                }}
+                >
+                  {translate(listItem.description)}
+                </Markdown>
               }
             </div>
           }

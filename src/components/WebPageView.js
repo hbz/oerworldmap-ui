@@ -1,8 +1,7 @@
 /* global btoa*/
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
-import ErrorFallBack from 'react-ssr-error-boundary'
+import Markdown from 'markdown-to-jsx'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -14,6 +13,7 @@ import SocialLinks from './SocialLinks'
 import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
+import LinkOverride from './LinkOverride'
 
 import { formatURL, formatDate } from '../common'
 import expose from '../expose'
@@ -68,25 +68,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <ErrorFallBack
-                  fallBack={() => <React.Fragment>{translate(about.description)}</React.Fragment>}
-                >
-                  <ReactMarkdown
-                    className='markdown'
-                    escapeHtml={false}
-                    source={translate(about.description)}
-                    renderers={
-                      {link: link => (
-                        link.href.startsWith('#')
-                          ? <Link href={link.href}>{link.children}</Link>
-                          :
-                          <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            {link.children}
-                          </a>
-                      )}
+                <Markdown options={{
+                  overrides: {
+                    a: {
+                      component: LinkOverride
                     }
-                  />
-                </ErrorFallBack>
+                  }
+                }}
+                >
+                  {translate(about.description)}
+                </Markdown>
               ) : (
                 <p>
                   <i>
@@ -112,26 +103,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 title=''
               >
                 {about.articleBody &&
-                  <ErrorFallBack
-                    fallBack={() => <React.Fragment>{translate(about.articleBody)}</React.Fragment>}
-                  >
-                    <ReactMarkdown
-                      className='markdown'
-                      escapeHtml={false}
-                      source={translate(about.articleBody)}
-                      renderers={
-                        {link: link => (
-                          link.href.startsWith('#')
-                            ? <Link href={link.href}>{link.children}</Link>
-                            :
-                            <a href={link.href} target="_blank" rel="noopener noreferrer">
-                              {link.children}
-                            </a>
-                        )}
+                  <Markdown options={{
+                    overrides: {
+                      a: {
+                        component: LinkOverride
                       }
-                    />
-                  </ErrorFallBack>
-
+                    }
+                  }}
+                  >
+                    {translate(about.articleBody)}
+                  </Markdown>
                 }
               </Block>
             }
