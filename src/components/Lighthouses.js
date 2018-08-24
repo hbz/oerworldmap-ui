@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
-import ErrorFallBack from 'react-ssr-error-boundary'
 
 import Link from './Link'
 import withI18n from './withI18n'
@@ -46,11 +45,7 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
             </div>
           }
         </div>
-        <ErrorFallBack
-          fallBack={() => <React.Fragment>{translate(lighthouse.description)}</React.Fragment>}
-        >
-          <ReactMarkdown source={translate(lighthouse.description)} />
-        </ErrorFallBack>
+        <ReactMarkdown source={translate(lighthouse.description)} />
       </div>
     ))}
 
