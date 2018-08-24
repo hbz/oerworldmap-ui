@@ -331,6 +331,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           }
 
+          {about.datePublished &&
+            <Block title={translate(`${about['@type']}.datePublished`)}>
+              {formatDate(about.datePublished, moment)}
+            </Block>
+          }
+
           {about.inLanguage &&
             <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
               <ul className="commaSeparatedList">
