@@ -177,7 +177,7 @@
   "Product.alternateName": "An abbreviation that identifies the tool",
   "Product.description": "A description of the tool",
   "Product.url": "A website for the tool",
-  "Product.image": "The tool's logo",
+  "Product.image": "Logo",
   "Product.isRelatedTo": "A service that makes use of the tool",
   "Product.manufacturer": "The organization or person developing the tool",
   "Product.keywords": "An arbitrary tag for the tool",
