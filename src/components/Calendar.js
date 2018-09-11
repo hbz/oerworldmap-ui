@@ -16,9 +16,11 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    if (this.currentMonthNode) {
-      this.currentMonthNode.scrollIntoView({behavior: "smooth"})
-    }
+    setTimeout(() => {
+      if (this.currentMonthNode) {
+        this.currentMonthNode.scrollIntoView({behavior: "smooth"})
+      }
+    }, 1000)
   }
 
   render() {
