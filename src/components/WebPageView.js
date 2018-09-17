@@ -125,6 +125,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               </p>
             }
 
+            {about.citation &&
+              <p>
+                <cite>{about.citation}</cite>
+              </p>
+            }
+
             {about.availableChannel &&
               about.availableChannel.map(link => (
                 <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener noreferrer">
