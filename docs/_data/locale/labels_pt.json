@@ -136,6 +136,7 @@
   "Service.availableChannel": "URL do serviço",
   "Service.availableChannel.serviceUrl": "URL",
   "Service.availableChannel.availableLanguage": "Idiomas disponíveis",
+  "Service.availableChannel.documentation": "API documentation",
   "Service.memberOf": "Consórcio ou outras organizações das quais o serviço faz parte",
   "Service.sameAs": "Perfis do serviço em outros sítios (por exemplo, Facebook, Twitter, Flickr)",
   "Service.mentionedIn": "Mencionado em",
