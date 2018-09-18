@@ -26,6 +26,9 @@
     "url": "https://github.com/hbz/oerworldmap-ui/issues"
   },
   "homepage": "https://github.com/hbz/oerworldmap-ui#readme",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
