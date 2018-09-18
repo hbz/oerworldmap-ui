@@ -1,11 +1,13 @@
+/* global MutationObserver */
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
+import SimpleMDE from 'react-simplemde-editor'
+import "simplemde/dist/simplemde.min.css"
 
 import withFormData from './withFormData'
 
-import { appendOnFocus } from '../../common'
-
-const Textarea = ({
+const MarkdownArea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
   formId, required
 }) => (
@@ -19,19 +21,40 @@ const Textarea = ({
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
     ))}
-    <textarea
+    <SimpleMDE
       name={name}
       value={value}
       id={`${formId}-${name}`}
       placeholder={translate(title)}
-      autoFocus={shouldFormComponentFocus}
-      onFocus={appendOnFocus}
-      onChange={e => setValue(e.target.value)}
+      onChange={value => setValue(value)}
+      className="SimpleMDE"
+      getMdeInstance={instance => {
+
+        const mo = new MutationObserver(e => {
+          const mutation = e.shift()
+          if (mutation
+            && mutation.attributeName === "class"
+            && !mutation.target.classList.contains('hidden')) {
+            instance.codemirror.refresh()
+          }
+        })
+
+        document && document.getElementById('edit') &&
+          mo.observe(document.getElementById('edit'), {attributes: true})
+
+        instance.codemirror.on("focus", (i, e) =>
+          !e && i.setCursor(i.getValue().length))
+      }}
+      options={{
+        autofocus: shouldFormComponentFocus,
+        status: false,
+        spellChecker: false,
+      }}
     />
   </div>
 )
 
-Textarea.propTypes = {
+MarkdownArea.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
@@ -45,7 +68,7 @@ Textarea.propTypes = {
   required: PropTypes.bool
 }
 
-Textarea.defaultProps = {
+MarkdownArea.defaultProps = {
   value: '',
   errors: [],
   property: undefined,
@@ -55,4 +78,4 @@ Textarea.defaultProps = {
   required: false
 }
 
-export default withFormData(Textarea)
+export default withFormData(MarkdownArea)

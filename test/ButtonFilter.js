@@ -57,6 +57,7 @@ describe('<ButtonFilter />', () => {
             filter={[]}
             aggregation={aggregation}
             submit={e => e}
+            filterName="Test"
           />
         </EmittProvider>
       </I18nProvider>

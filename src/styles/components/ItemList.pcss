@@ -2,41 +2,30 @@
 
 .ItemList {
   margin: 0;
-  padding: 0;
+  padding: 10px 0;
   list-style: none;
   overflow: auto;
   flex: 1;
 
   & li {
+    padding: 0 10px;
 
     & a {
       color: var(--primary-color);
+
+      & span {
+        padding-left: 5px;
+      }
 
       &:focus,
       &:hover {
         color: var(--highlight-color);
       }
     }
+  }
 
-    & .item {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--grey-light);
-      padding: 0.35em 0;
-
-      & i {
-        line-height: inherit;
-        display: block;
-        width: 2.5em;
-        text-align: center;
-      }
-
-      & > span {
-        flex: 1;
-        min-width: 0;
-      }
-    }
+  &.noIcon li a span {
+    padding-left: 0;
   }
 
   &.prominent {
@@ -47,7 +36,7 @@
         padding: 0.7em 0;
         align-items: center;
 
-        & i {
+        & > i {
           margin: 0 10px;
           border-radius: 100%;
           width: 30px;
@@ -56,6 +45,7 @@
           line-height: 30px;
           background-color: var(--blue-light);
           color: white;
+          text-align: center;
 
           & img {
             height: var(--font-size);
@@ -67,7 +57,7 @@
           font-weight: 600;
         }
 
-        &:hover i {
+        &:hover > i {
           background-color: var(--highlight-color);
         }
       }
@@ -75,6 +65,7 @@
   }
 
   &.recursive {
+    overflow: visible;
 
     & ul {
       margin: 0;
@@ -126,7 +117,7 @@
     & .toggle {
       position: absolute;
       right: 10px;
-      top: 10px;
+      top: 3px;
       color: var(--blue-dark);
 
       &:hover,

@@ -81,18 +81,18 @@ class PlaceWidget extends React.Component {
         aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
       >
-        <div
-          className={`label ${required ? 'required' : ''}`.trim()}
-          id={`${formId}-${name}-label`}
-        >
-          {translate(title)}
-        </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
         {this.state.collapsed ? (
-          <p>
-            <em>{translate(description)}</em>
+          <div>
+            <div
+              className={`label ${required ? 'required' : ''}`.trim()}
+              id={`${formId}-${name}-label`}
+            >
+              {translate(title)}
+            </div>
+            <div><em>{translate(description)}</em></div>
             <button
               className="btn btn-default"
               type="button"
@@ -100,7 +100,7 @@ class PlaceWidget extends React.Component {
             >
               {translate('show')}
             </button>
-          </p>
+          </div>
         ) : (
           <div>
             <Fieldset property="address" translate={translate}>
@@ -183,6 +183,7 @@ class PlaceWidget extends React.Component {
                       type="text"
                       translate={translate}
                       title={schema.properties.address.properties.streetAddress.title}
+                      placeholder={schema.properties.address.properties.streetAddress.title}
                     />
                     <div className="divided">
                       <Input
@@ -190,12 +191,14 @@ class PlaceWidget extends React.Component {
                         type="text"
                         translate={translate}
                         title={schema.properties.address.properties.postalCode.title}
+                        placeholder={schema.properties.address.properties.postalCode.title}
                       />
                       <Input
                         property="addressLocality"
                         type="text"
                         translate={translate}
                         title={schema.properties.address.properties.addressLocality.title}
+                        placeholder={schema.properties.address.properties.addressLocality.title}
                       />
                     </div>
                     {geometry &&
@@ -208,18 +211,17 @@ class PlaceWidget extends React.Component {
                       >
                         <MiniMap
                           mapboxConfig={config.mapboxConfig}
-                          features={geometry}
+                          geometry={geometry}
                           zoom={geometry ? 12 : 1}
-                          zoomable
                           draggable
-                          onFeatureDrag={point => setValue(Object.assign(
+                          boxZoom
+                          onFeatureDrag={geometry => setValue(Object.assign(
                             value ? JSON.parse(JSON.stringify(value)) : {},
                             {geo: {
-                              lat: point.geometry.coordinates.lat,
-                              lon: point.geometry.coordinates.lng,
+                              lat: geometry.coordinates.lat,
+                              lon: geometry.coordinates.lng,
                             }}
                           ))}
-                          center={geometry ? geometry.coordinates : undefined}
                         />
                       </div>
                     }

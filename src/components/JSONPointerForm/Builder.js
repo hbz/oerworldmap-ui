@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import merge from 'deepmerge'
 
 import Fieldset from './Fieldset'
 import Input from './Input'
@@ -21,6 +22,10 @@ class Builder extends React.Component {
   }
 
   getComponent(schema) {
+
+    schema.allOf && (schema = merge.all(schema.allOf.concat(schema))) && (delete schema.allOf)
+    schema.anyOf && (schema = merge.all(schema.anyOf.concat(schema))) && (delete schema.anyOf)
+    schema.oneOf && (schema = merge.all(schema.oneOf.concat(schema))) && (delete schema.oneOf)
 
     const {translate, config} = this.props
     const widgets = Object.assign(

@@ -7,7 +7,6 @@ import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
-import ActionButtons from './components/ActionButtons'
 import Country from './components/Country'
 import Feed from './components/Feed'
 import Statistics from './components/Statistics'
@@ -63,9 +62,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             add={params.add}
             embedValue="true"
-          >
-            <ActionButtons user={context.user} />
-          </ResourceIndex>
+          />
         )
 
         const title = params.add
@@ -79,7 +76,7 @@ export default (api) => {
           })
 
         const metadata = {
-          description: context.i18n.translate('Discover the OER movement'),
+          description: context.i18n.translate('slogan'),
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
         }
@@ -99,6 +96,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
 
@@ -142,6 +140,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -172,6 +171,7 @@ export default (api) => {
             user={context.user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={context.schema}
+            mapboxConfig={context.mapboxConfig}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -199,7 +199,7 @@ export default (api) => {
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['country']['about.location.address.addressCountry'].buckets[0]}
+              countryData={data.aggregations['global#facets']['filter#country']}
             />
           </ResourceIndex>
         )
@@ -424,14 +424,14 @@ export default (api) => {
       }
     } catch (err) {
       if (err instanceof APIError) {
-        const component = (err) => <ErrorPage translate={(key) => key} message={err.message} />
+        const component = (err) => <ErrorPage translate={context.i18n.translate} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
         return { title: err.message, data: err, component, render, err }
       }
       throw err
     }
     // 404
-    const component = () => <ErrorPage translate={(key) => key} message="Not Found" />
+    const component = () => <ErrorPage translate={context.i18n.translate} message="Not Found" />
     const render = () => <Init {...context}>{component()}</Init>
     return { title: 'Not Found', data: {}, component, render }
   }

@@ -4,48 +4,65 @@ import MiniMap from './MiniMap'
 
 import withI18n from './withI18n'
 import Icon from './Icon'
+import centroids from '../json/centroids.json'
 
-const WebPageCover = ({geo, about, translate, mapboxConfig}) => (
-  <div className="WebPageCover">
 
-    <MiniMap
-      mapboxConfig={mapboxConfig}
-      features={geo && geo.geometry}
-      country={about
-        && about.location
-        && about.location.address
-        && about.location.address.addressCountry
-      }
-    />
+const WebPageCover = ({feature, about, translate, mapboxConfig}) => {
 
-    <div className="image">
-      <div className="missingImg">
-        <Icon type={about['@type']} />
+  const country = (about
+    && about.location
+    && about.location.address
+    && about.location.address.addressCountry) || null
+
+  const twitterURL = about.sameAs && about.sameAs.find(url => url.includes('twitter.com'))
+  const twitterID = /twitter.com\/([a-zA-Z0-9_]{1,15})/.exec(twitterURL)
+
+  const geometry = feature && feature.geometry
+
+  return (
+    <div className="WebPageCover">
+
+      <MiniMap
+        mapboxConfig={mapboxConfig}
+        geometry={geometry}
+        center={geometry ? undefined : (country && centroids[country])}
+      />
+
+      <div className="image">
+        <div className="missingImg">
+          <Icon type={about['@type']} />
+        </div>
+        {about.image &&
+          <img
+            className={about['@type']}
+            src={about.image}
+            alt={translate(about.name)}
+            style={{
+              visibility: 'hidden'
+            }}
+            onLoad={e => {
+              e.target && (e.target.style.visibility = 'visible')
+            }}
+            onError={e => {
+              e.target && (e.target.style.visibility = 'hidden')
+            }}
+            aria-label={translate(about.name)}
+          />
+        }
+        {!about.image && twitterID && twitterID[1] &&
+          <img
+            src={`https://avatars.io/twitter/${twitterID[1]}`}
+            alt={translate(about.name)}
+            aria-label={translate(about.name)}
+          />
+        }
       </div>
-      {about.image &&
-        <img
-          className={about['@type']}
-          src={about.image}
-          alt={translate(about.name)}
-          style={{
-            visibility: 'hidden'
-          }}
-          onLoad={e => {
-            e.target && (e.target.style.visibility = 'visible')
-          }}
-          onError={e => {
-            e.target && (e.target.style.visibility = 'hidden')
-          }}
-          aria-label={translate(about.name)}
-        />
-      }
-    </div>
 
-  </div>
-)
+    </div>
+  )}
 
 WebPageCover.propTypes = {
-  geo: PropTypes.objectOf(PropTypes.any),
+  feature: PropTypes.objectOf(PropTypes.any),
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   mapboxConfig: PropTypes.shape(
@@ -58,7 +75,7 @@ WebPageCover.propTypes = {
 }
 
 WebPageCover.defaultProps = {
-  geo: null
+  feature: null
 }
 
 export default withI18n(WebPageCover)

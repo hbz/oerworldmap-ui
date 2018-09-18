@@ -1,7 +1,7 @@
 /* global btoa*/
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'markdown-to-jsx'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -13,6 +13,7 @@ import SocialLinks from './SocialLinks'
 import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
+import LinkOverride from './LinkOverride'
 
 import { formatURL, formatDate } from '../common'
 import expose from '../expose'
@@ -25,7 +26,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
 
   return (
-    <div className="WebPageView">
+    <div className={`WebPageView ${about['@type']}`}>
 
       <div className="row auto gutter-40 text-large">
         <div className="col">
@@ -43,7 +44,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
       </div>
 
       <h2>
-        {translate(about.displayName) || translate(about.name)}
+        {translate(about.name)}
         {about.alternateName &&
           <span className="alternate">
             &nbsp;({translate(about.alternateName)})
@@ -67,18 +68,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <ReactMarkdown
-                  className='markdown'
-                  escapeHtml={false}
-                  source={translate(about.description)}
-                  renderers={
-                    {link: link => (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.children}
-                      </a>
-                    )}
+                <Markdown options={{
+                  overrides: {
+                    a: {
+                      component: LinkOverride
+                    }
                   }
-                />
+                }}
+                >
+                  {translate(about.description)}
+                </Markdown>
               ) : (
                 <p>
                   <i>
@@ -104,18 +103,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 title=''
               >
                 {about.articleBody &&
-                  <ReactMarkdown
-                    className='markdown'
-                    escapeHtml={false}
-                    source={translate(about.articleBody)}
-                    renderers={
-                      {link: link => (
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.children}
-                        </a>
-                      )}
+                  <Markdown options={{
+                    overrides: {
+                      a: {
+                        component: LinkOverride
+                      }
                     }
-                  />
+                  }}
+                  >
+                    {translate(about.articleBody)}
+                  </Markdown>
                 }
               </Block>
             }
@@ -125,6 +122,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 <a href={about.url} target="_blank" rel="noopener noreferrer" className="boxedLink">
                   {formatURL(about.url)}
                 </a>
+              </p>
+            }
+
+            {about.citation &&
+              <p>
+                <cite>{about.citation}</cite>
               </p>
             }
 
@@ -211,9 +214,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ul className="ItemList prominent">
                 {lighthouses.length > 0 &&
                   <li>
-                    <div className="item">
-                      <i className="bg-highlight-color bg-important" style={{lineHeight: '33px'}}>
+                    <div className="item lighthouses">
+                      <i className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
                         <img
+                          style={{'position': 'relative', 'top': '2px'}}
                           src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />
@@ -263,6 +267,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           }
 
+          {about.status &&
+            <Block title={translate(`${about['@type']}.status`)}>
+              <Link href={`/resource/?filter.about.status=${about.status}`}>
+                {about.status}
+              </Link>
+            </Block>
+          }
+
           {about.location && about.location.address &&
             <Block title={translate(`${about['@type']}.location`)}>
               <p>
@@ -286,6 +298,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   </Link>
                 }
               </p>
+            </Block>
+          }
+
+          {about.spatialCoverage &&
+            <Block title={translate(`${about['@type']}.spatialCoverage`)}>
+              <Link href={`/resource/?filter.about.spatialCoverage=${about.spatialCoverage}`}>
+                {about.spatialCoverage}
+              </Link>
             </Block>
           }
 
@@ -314,6 +334,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               {about.endDate &&
                 <span> – {formatDate(about.endDate, moment)}</span>
               }
+            </Block>
+          }
+
+          {about.datePublished &&
+            <Block title={translate(`${about['@type']}.datePublished`)}>
+              {formatDate(about.datePublished, moment)}
             </Block>
           }
 

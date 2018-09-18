@@ -45,7 +45,7 @@
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;
-          padding: 5px 0;
+          padding-top: 5px;
           flex: 1;
 
           & div {
@@ -69,6 +69,8 @@
           & span {
             border-top: 1px solid var(--blue-lightest);
             padding: 10px 10px 0;
+            text-align: center;
+            display: block;
           }
         }
       }
@@ -400,9 +402,6 @@
   }
 
   @media screen and (--mobile-breakpoint) {
-    height: calc(100% - 35px) !important;
-    top: 35px !important;
-
     & .goToMap {
       right: 10px;
       bottom: 42px;

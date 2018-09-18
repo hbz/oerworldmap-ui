@@ -1,3 +1,5 @@
+@import './variables.pcss';
+
 /* --- clearfix --- */
 
 .cf::before,
@@ -79,11 +81,40 @@ button {
   display: none;
 }
 
+.visible-hover-focus {
+  display: none;
+}
+
+a:hover,
+a:focus {
+  & .visible-hover-focus {
+    display: inline;
+  }
+
+  & .hidden-hover-focus {
+    display: none;
+  }
+}
+
 /* --- responsive --- */
 
 @media screen and (max-width: 1024px) {
   .max-1024-top-margin-0 {
     margin-top: 0;
+  }
+}
+
+.visible-mobile-block {
+  display: none !important;
+
+  @media screen and (--mobile-breakpoint) {
+    display: block !important;
+  }
+}
+
+.hidden-mobile {
+  @media screen and (--mobile-breakpoint) {
+    display: none;
   }
 }
 

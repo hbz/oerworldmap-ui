@@ -4,7 +4,7 @@ import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import { apiConfig } from './config'
+import config, { apiConfig } from './config'
 
 const ENV = process.env.NODE_ENV
 
@@ -100,6 +100,9 @@ if (ENV === 'development') {
     presets: ['react-hmre']
   }
   Config = merge(Config, {
+    output: {
+      publicPath: `http://${config.host}:${config.port}/`,
+    },
     devtool: 'source-map',
     mode: 'development',
     entry: ['webpack-hot-middleware/client'],
@@ -137,47 +140,6 @@ if (ENV === 'development') {
               }
             }
           ]
-        }
-      ]
-    }
-  })
-}
-
-if (ENV === 'static') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
-  Config = merge(Config, {
-    devtool: 'source-map',
-    mode: 'development',
-    entry: ['webpack-hot-middleware/client'],
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new ExtractTextPlugin("public/styles.css"),
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  importLoaders: 1,
-                  sourceMap: true,
-                },
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  sourceMap: true,
-                },
-              },
-            ],
-          }),
         }
       ]
     }

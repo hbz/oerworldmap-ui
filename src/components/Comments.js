@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'markdown-to-jsx'
+import LinkOverride from './LinkOverride'
 
 import JsonSchema from './JSONPointerForm/JsonSchema'
 import Form from './JSONPointerForm/Form'
@@ -50,7 +51,16 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
             </div>
           }
         </div>
-        <ReactMarkdown source={translate(comment.text)} />
+        <Markdown options={{
+          overrides: {
+            a: {
+              component: LinkOverride
+            }
+          }
+        }}
+        >
+          {translate(comment.text)}
+        </Markdown>
       </div>
     ))}
     {expose('addEntry', user) ? (
