@@ -136,6 +136,7 @@
   "Service.availableChannel": "URL",
   "Service.availableChannel.serviceUrl": "URL",
   "Service.availableChannel.availableLanguage": "Available languages",
+  "Service.availableChannel.documentation": "API documentation",
   "Service.memberOf": "Member Of",
   "Service.sameAs": "Profiles elsewhere",
   "Service.mentionedIn": "Mentioned in",
