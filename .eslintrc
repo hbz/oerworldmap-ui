@@ -4,7 +4,7 @@
   "rules": {
     "jsx-a11y/href-no-hash": "off", // Removed rule definiton
     "jsx-a11y/label-has-for": "off",
-    "node/no-unsupported-features": "off", // Disable es6 node check
+    "node/no-unsupported-features": "off" // Disable es6 node check
     "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
     "react/jsx-filename-extension": 0, // Comment to only use jsx on files with extension jsx
     // "linebreak-style": 0, // Accept windows JumpLines
@@ -13,7 +13,7 @@
     "semi": ["error", "never"],
     "import/no-dynamic-require": "off",
     "no-console": "warn",
-    "jsx-a11y/no-autofocus": "off"
+    "jsx-a11y/no-autofocus": "off",
   },
   "parser": "babel-eslint",
   "extends": ["airbnb", "stylelint"]
