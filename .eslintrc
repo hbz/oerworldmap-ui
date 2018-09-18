@@ -13,8 +13,7 @@
     "semi": ["error", "never"],
     "import/no-dynamic-require": "off",
     "no-console": "warn",
-    "jsx-a11y/no-autofocus": "off",
-    "yetnode/no-unsupported-features/es-syntax": "off"
+    "jsx-a11y/no-autofocus": "off"
   },
   "parser": "babel-eslint",
   "extends": ["airbnb", "stylelint"]
