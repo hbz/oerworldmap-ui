@@ -6,6 +6,7 @@
     "jsx-a11y/label-has-for": "off",
     "node/no-unsupported-features": "off", // Disable es6 node check
     "yetnode/no-unsupported-features/es-syntax": "off",
+    "node/no-unsupported-features/es-syntax": "off",
     "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
     "react/jsx-filename-extension": 0, // Comment to only use jsx on files with extension jsx
     // "linebreak-style": 0, // Accept windows JumpLines
