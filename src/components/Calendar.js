@@ -1,3 +1,4 @@
+/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -19,6 +20,7 @@ class Calendar extends React.Component {
     setTimeout(() => {
       if (this.currentMonthNode) {
         this.currentMonthNode.scrollIntoView({behavior: "smooth", block: "start"})
+        window.scrollBy(0, -10)
       }
     }, 1000)
   }
