@@ -12,22 +12,22 @@ class Calendar extends React.Component {
 
   constructor(props) {
     super(props)
-    this.currentDate = new Date()
+    this.currentDate = new Date(1519862400000)
+    // this.currentDate = new Date()
     this.currentMonthNode = null
   }
 
   componentDidMount() {
     setTimeout(() => {
       if (this.currentMonthNode) {
-        this.currentMonthNode.scrollIntoView({behavior: "smooth", block: "start"})
-        window.scrollBy(0, -10)
+        this.calendarRef.scrollTop = this.currentMonthNode.offsetTop - this.calendarRef.offsetTop
       }
     }, 1000)
   }
 
   render() {
     return (
-      <ul className="Calendar">
+      <ul ref={node => this.calendarRef = node} className="Calendar">
         {this.props.entries.map(month => (
           <li
             ref={(node) => {
