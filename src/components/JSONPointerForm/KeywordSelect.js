@@ -39,7 +39,7 @@ class KeywordSelect extends React.Component {
           className={`label ${required ? 'required' : ''}`.trim()}
           id={`${formId}-${name}-label`}
         >
-          {translate(title)}
+          {translate(title)} {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
         </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
