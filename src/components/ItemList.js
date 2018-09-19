@@ -14,7 +14,7 @@ import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
-  <ul className={`ItemList linedList ${className}`} >
+  <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
