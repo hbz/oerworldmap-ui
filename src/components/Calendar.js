@@ -1,4 +1,3 @@
-/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -12,8 +11,7 @@ class Calendar extends React.Component {
 
   constructor(props) {
     super(props)
-    this.currentDate = new Date(1519862400000)
-    // this.currentDate = new Date()
+    this.currentDate = new Date()
     this.currentMonthNode = null
   }
 
