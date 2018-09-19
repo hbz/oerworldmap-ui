@@ -13,7 +13,7 @@ const ENV = process.env.NODE_ENV
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './site.js'
   ],
   output: {
@@ -99,9 +99,6 @@ if (ENV === 'production') {
 }
 
 if (ENV === 'development') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
   Config = merge(Config, {
     devtool: 'source-map',
     mode: 'development',

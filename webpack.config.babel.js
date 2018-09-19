@@ -14,7 +14,7 @@ const ENV = process.env.NODE_ENV
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './client.js',
     './views/index.js'
   ],
@@ -103,9 +103,6 @@ if (ENV === 'production') {
 }
 
 if (ENV === 'development') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
   Config = merge(Config, {
     output: {
       publicPath: `http://${config.host}:${config.port}/`,
