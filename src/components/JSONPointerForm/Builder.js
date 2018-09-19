@@ -78,26 +78,30 @@ class Builder extends React.Component {
     case 'object':
       return (
         <Fieldset {...props}>
-          {schema.required && Object.keys(schema.properties)
-            .filter(property => schema.required.includes(property))
-            .map(property => React.cloneElement(
-              this.getComponent(schema.properties[property]), {
-                property,
-                key: property,
-                required: true
-              }
-            ))
-          }
-          {this.state.showOptionalFields && Object.keys(schema.properties)
-            .filter(property => !schema.required || !schema.required.includes(property))
-            .map((property) => React.cloneElement(
-              this.getComponent(schema.properties[property]), {
-                property,
-                key: property,
-                required: false
-              }
-            ))
-          }
+          <div className="requiredFields">
+            {schema.required && Object.keys(schema.properties)
+              .filter(property => schema.required.includes(property))
+              .map(property => React.cloneElement(
+                this.getComponent(schema.properties[property]), {
+                  property,
+                  key: property,
+                  required: true
+                }
+              ))
+            }
+          </div>
+          <div className="optionalFields">
+            {Object.keys(schema.properties)
+              .filter(property => !schema.required || !schema.required.includes(property))
+              .map((property) => React.cloneElement(
+                this.getComponent(schema.properties[property]), {
+                  property,
+                  key: property,
+                  required: false
+                }
+              ))
+            }
+          </div>
         </Fieldset>
       )
     case 'null':
@@ -109,8 +113,11 @@ class Builder extends React.Component {
 
   render() {
     const { schema, translate } = this.props
+    const optionalFieldsClass = this.state.showOptionalFields
+      ? 'optionalFieldsVisible'
+      : 'optionalFieldsHidden'
     return (
-      <div className="Builder">
+      <div className={`Builder ${optionalFieldsClass}`}>
         {this.getComponent(schema)}
         {!this.state.showOptionalFields &&
           <button
