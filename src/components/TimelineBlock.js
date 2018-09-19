@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 import '../styles/components/TimelineBlock.pcss'
 
-const TimelineBlock = ({title, date, children, prominent, withBorder, translate, moment}) => (
+const TimelineBlock = ({title, date, children, prominent, withBorder, moment}) => (
   <div className={`TimelineBlock${prominent ? ' prominent': ''}`}>
     {date &&
       <div className="timelineBlockMetadata">
@@ -37,13 +37,17 @@ const TimelineBlock = ({title, date, children, prominent, withBorder, translate,
 )
 
 TimelineBlock.propTypes = {
+  title: PropTypes.string,
   prominent: PropTypes.bool,
+  date: PropTypes.string,
   withBorder: PropTypes.bool,
-  translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 }
 
 TimelineBlock.defaultProps = {
+  title: undefined,
+  date: undefined,
   prominent: false,
   withBorder: false
 }

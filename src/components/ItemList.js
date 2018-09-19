@@ -31,7 +31,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         <Tooltip
           overlay={
             <div className="itemListTooltip" >
-              <TopWrapper about={listItem}/>
+              <TopWrapper about={listItem} />
               <Topline about={listItem} className="inTooltip" />
             </div>
           }
