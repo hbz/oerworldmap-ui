@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import Markdown from 'markdown-to-jsx'
-
 import urlTemplate from 'url-template'
 
 import Icon from './Icon'
 import Link from './Link'
-import LinkOverride from './LinkOverride'
+import Topline from './Topline'
 
 import '../styles/components/ItemList.pcss'
 
@@ -54,18 +52,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                   <b>{translate(listItem.name) || listItem['@id']}</b>
                 </div>
               </div>
-              {listItem.description &&
-                <Markdown options={{
-                  overrides: {
-                    a: {
-                      component: LinkOverride
-                    }
-                  }
-                }}
-                >
-                  {translate(listItem.description)}
-                </Markdown>
-              }
+              <Topline about={listItem} className="inTooltip" />
             </div>
           }
           placement="left"
