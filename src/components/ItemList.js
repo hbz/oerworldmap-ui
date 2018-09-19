@@ -5,6 +5,7 @@ import urlTemplate from 'url-template'
 
 import Icon from './Icon'
 import Link from './Link'
+import TopWrapper from './TopWrapper'
 import Topline from './Topline'
 
 import '../styles/components/ItemList.pcss'
@@ -30,28 +31,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         <Tooltip
           overlay={
             <div className="itemListTooltip" >
-              <div className="topWrapper">
-                {listItem.image &&
-                  <img
-                    style={{
-                      display: 'none'
-                    }}
-                    onLoad={e => {
-                      e.target.style.display = 'block'
-                    }}
-                    onError={e => {
-                      e.target.remove()
-                    }}
-                    src={listItem.image}
-                    alt={translate(listItem.name) || listItem['@id']}
-                  />
-                }
-                <div>
-                  <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
-                  <br />
-                  <b>{translate(listItem.name) || listItem['@id']}</b>
-                </div>
-              </div>
+              <TopWrapper about={listItem}/>
               <Topline about={listItem} className="inTooltip" />
             </div>
           }

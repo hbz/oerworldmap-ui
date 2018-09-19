@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withI18n from './withI18n'
+import Topline from './Topline'
 import Link from './Link'
+import TopWrapper from './TopWrapper'
+
 import '../styles/components/Timeline.pcss'
 import TimelineBlock from './TimelineBlock'
 
-const Timeline = ({data, user, translate, member, mapboxConfig}) => (
+const Timeline = ({user, translate, member, mapboxConfig}) => (
   <div className="Timeline">
     <div className="timelineContainer">
       <section className="timelineContainerMain">
@@ -21,14 +24,23 @@ const Timeline = ({data, user, translate, member, mapboxConfig}) => (
           http://oerworldmap.org/resource/urn%3Auuid%3A55d772c7-4059-456d-a49d-40e2ecb48a10
         </TimelineBlock>
 
-        {member.map(me => (
+        {member.map(member => (
           <TimelineBlock
-            key={me["@id"]}
-            title={me.about && translate(me.about.name)}
-            date={me.dateCreated}
-            withBorder
-          />
+            key={member["@id"]}
+            // title={member.about && translate(member.about.name)}
+            date={member.dateCreated}
+            // withBorder
+          >
+            <TopWrapper about={member.about} />
+            <Topline about={member.about} className="inTooltip" />
+          </TimelineBlock>
         ))}
+
+        <div className="more">
+          <Link href="/resource/?size=20&sort=dateCreated:desc">
+            {translate('ResourceIndex.feed.more')}
+          </Link>
+        </div>
 
       </section>
 
@@ -37,23 +49,22 @@ const Timeline = ({data, user, translate, member, mapboxConfig}) => (
 
           <TimelineBlock>
             <div className="userBlock">
-              <a href={user._self}>
+              <a href={`/resource/${user.id}`}>
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Frau" />
                 <h2>a{translate(user.username)}</h2>
               </a>
-              {/* <h3>Country Champion for <Link href="#none">United Kingdom</Link></h3> */}
+              <h3>Country Champion for <Link href="#none">United Kingdom</Link></h3>
             </div>
           </TimelineBlock>
 
-          {/*
-          <div className="timelineBlock">
+          <TimelineBlock>
             <div className="nearBy">
               <h2>Near By</h2>
               <img src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/6.92391,50.92854,11.2,0,0/300x300@2x?access_token=${mapboxConfig.token}`} alt="" />
               <br />
-              <Link href="map" >Show in fullscreen map</Link>
+              <Link href="/resource/" >Show in fullscreen map</Link>
             </div>
-          </div> */}
+          </TimelineBlock>
 
         </aside>
       }
@@ -64,6 +75,13 @@ const Timeline = ({data, user, translate, member, mapboxConfig}) => (
 
 Timeline.propTypes = {
   translate: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.any),
+  member: PropTypes.objectOf(PropTypes.any).isRequired,
+  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
+}
+
+Timeline.defaultProps = {
+  user: null
 }
 
 export default withI18n(Timeline)

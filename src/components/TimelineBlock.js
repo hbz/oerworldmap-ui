@@ -11,9 +11,13 @@ const TimelineBlock = ({title, date, children, prominent, withBorder, translate,
           {moment(date).fromNow()}
         </div>
         {prominent &&
-          <div className="timelineBlockMetadataActions">
-            <i className="fa fa-close" />
-          </div>
+          <i
+            className="fa fa-close"
+            role="presentation"
+            onClick={e => {
+              e.target.parentElement.parentElement.remove()
+            }}
+          />
         }
       </div>
     }
