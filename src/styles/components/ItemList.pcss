@@ -2,21 +2,30 @@
 
 .ItemList {
   margin: 0;
-  padding: 0;
+  padding: 10px 0;
   list-style: none;
   overflow: auto;
   flex: 1;
 
   & li {
+    padding: 0 10px;
 
     & a {
       color: var(--primary-color);
+
+      & span {
+        padding-left: 5px;
+      }
 
       &:focus,
       &:hover {
         color: var(--highlight-color);
       }
     }
+  }
+
+  &.noIcon li a span {
+    padding-left: 0;
   }
 
   &.prominent {
@@ -27,7 +36,7 @@
         padding: 0.7em 0;
         align-items: center;
 
-        & i {
+        & > i {
           margin: 0 10px;
           border-radius: 100%;
           width: 30px;
@@ -48,7 +57,7 @@
           font-weight: 600;
         }
 
-        &:hover i {
+        &:hover > i {
           background-color: var(--highlight-color);
         }
       }
@@ -56,6 +65,7 @@
   }
 
   &.recursive {
+    overflow: visible;
 
     & ul {
       margin: 0;
@@ -107,7 +117,7 @@
     & .toggle {
       position: absolute;
       right: 10px;
-      top: 10px;
+      top: 3px;
       color: var(--blue-dark);
 
       &:hover,
@@ -135,7 +145,8 @@
 }
 
 .itemListTooltip {
-  max-width: 400px;
+  max-width: 100%;
+  width: 350px;
   opacity: 1;
 
   & .topWrapper {
@@ -175,7 +186,6 @@
   }
 
   & .rc-tooltip-inner {
-    max-height: 150px;
     overflow: hidden;
   }
 

@@ -173,12 +173,14 @@ class Map extends React.Component {
   }
 
   getBucket(country) {
-    const aggregation = this.props.aggregations["global#country"]
-      ? this.props.aggregations["global#country"]["sterms#feature.properties.location.address.addressCountry"]
-      : this.props.aggregations["sterms#feature.properties.location.address.addressCountry"]
-    return this.props.features
-      ? aggregation.buckets.find(e => e.key === country )
-      : null
+    return this.props.features ? (
+      country === this.props.iso3166
+      && Object.assign(this.props.aggregations["global#facets"]["filter#country"], {key: country})
+    ) || (
+      this.props.aggregations["sterms#feature.properties.location.address.addressCountry"]
+      && this.props.aggregations["sterms#feature.properties.location.address.addressCountry"]
+        .buckets.find(e => e.key === country)
+    ) : null
   }
 
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
@@ -215,7 +217,8 @@ class Map extends React.Component {
 
     if (hoveredCountry
       && hoveredCountry[0]
-      && (!this.state.bucket || this.state.bucket && this.state.bucket.key !== hoveredCountry[0].properties.iso_a)) {
+      && (!this.state.bucket || this.state.bucket && this.state.bucket.key !== hoveredCountry[0].properties.iso_a)
+    ) {
       const bucket = this.getBucket(hoveredCountry[0].properties.iso_a2)
       this.setState({bucket})
       this.map.getCanvas().style.cursor = 'pointer'
@@ -245,8 +248,13 @@ class Map extends React.Component {
               </b>
             </li>
 
-            {this.state.bucket && this.state.bucket["filter#champions"].doc_count > 0 &&
+            {this.state.bucket && this.state.bucket["filter#champions"].doc_count > 0 ? (
               <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
+            ) : (
+              !this.props.iso3166
+                ? <li className="separator"><span>{this.props.translate('Map.noCountryChampionYet')}</span></li>
+                : null
+            )
             }
           </ul>
         )

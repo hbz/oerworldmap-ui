@@ -19,15 +19,17 @@
     line-height: 1.27;
   }
 
-  & label.required,
-  & .label.required {
-    &::after {
-      font-family: FontAwesome;
-      content: "\F069";
-      color: orange;
-      vertical-align: top;
-      font-size: 50%;
-    }
+  & .asterisk {
+    color: orange;
+    font-size: 2em;
+    line-height: 0;
+    position: relative;
+    top: 7px;
+  }
+
+ & .List .LocalizedString .Input.text label,
+ & .List.sameAs .Input.text label {
+    display: none;
   }
 
   & .Builder > .Fieldset > .label {
@@ -340,13 +342,14 @@
   & .DropdownSelect.rights .label,
   & .RemoteSelect.isPartOf .label,
   & .DropdownSelect.addressCountry .label,
-  & .DropdownSelect.addressRegion .label {
+  & .DropdownSelect.addressRegion .label,
+  & .DropdownSelect.spatialCoverage .label,
+  & .DropdownSelect.status .label {
     display: block;
   }
 
   & .List.isFundedBy > .label,
   & .List.isFundedBy > ul > li > .Fieldset > .label,
-  & .PlaceWidget.location > .label,
   & .List.availableChannel > .label {
     display: none;
   }

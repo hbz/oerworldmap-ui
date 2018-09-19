@@ -22,15 +22,17 @@ const filterConcepts = (concepts, include) => {
   return res
 }
 
-const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested}) => (
-  <ul className={className}>
+const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested, noIcon}) => (
+  <ul className={`${className}${noIcon ? ' noIcon' : ''}`}>
     {(include ? filterConcepts(concepts, include) : concepts).map(concept => (
       <li
         key={concept['@id']}
         className={!nested && (concept.narrower && concept.narrower.length > 0) ? 'expandable': ''}
       >
         <Link className="item" href={urlTemplate.parse(linkTemplate).expand(concept)}>
-          <Icon type={concept['@type']} />
+          {!noIcon &&
+            <Icon type={concept['@type']} />
+          }
           <span>{translate(concept.name)}</span>
         </Link>
         {!nested && (concept.narrower && concept.narrower.length > 0) &&
@@ -56,6 +58,7 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
             concepts={concept.narrower}
             linkTemplate={linkTemplate}
             translate={translate}
+            noIcon={noIcon}
           />
         }
       </li>
@@ -69,14 +72,16 @@ ConceptTree.propTypes = {
   include: PropTypes.arrayOf(PropTypes.any),
   className: PropTypes.string,
   linkTemplate: PropTypes.string,
-  nested: PropTypes.bool
+  nested: PropTypes.bool,
+  noIcon: PropTypes.bool
 }
 
 ConceptTree.defaultProps = {
   include: null,
   className: null,
   linkTemplate: '/resource/{@id}',
-  nested: false
+  nested: false,
+  noIcon: false
 }
 
 export default withI18n(ConceptTree)

@@ -14,6 +14,9 @@ const WebPageCover = ({feature, about, translate, mapboxConfig}) => {
     && about.location.address
     && about.location.address.addressCountry) || null
 
+  const twitterURL = about.sameAs && about.sameAs.find(url => url.includes('twitter.com'))
+  const twitterID = /twitter.com\/([a-zA-Z0-9_]{1,15})/.exec(twitterURL)
+
   const geometry = feature && feature.geometry
 
   return (
@@ -43,6 +46,13 @@ const WebPageCover = ({feature, about, translate, mapboxConfig}) => {
             onError={e => {
               e.target && (e.target.style.visibility = 'hidden')
             }}
+            aria-label={translate(about.name)}
+          />
+        }
+        {!about.image && twitterID && twitterID[1] &&
+          <img
+            src={`https://avatars.io/twitter/${twitterID[1]}`}
+            alt={translate(about.name)}
             aria-label={translate(about.name)}
           />
         }
