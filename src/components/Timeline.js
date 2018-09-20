@@ -4,6 +4,7 @@ import withI18n from './withI18n'
 import Topline from './Topline'
 import Link from './Link'
 import TopWrapper from './TopWrapper'
+import UserBlock from './UserBlock'
 
 import '../styles/components/Timeline.pcss'
 import TimelineBlock from './TimelineBlock'
@@ -48,13 +49,12 @@ const Timeline = ({user, translate, member, mapboxConfig}) => (
         <aside className="timelineContainerAside">
 
           <TimelineBlock>
-            <div className="userBlock">
-              <a href={`/resource/${user.id}`}>
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Frau" />
-                <h2>a{translate(user.username)}</h2>
-              </a>
-              <h3>Country Champion for <Link href="#none">United Kingdom</Link></h3>
-            </div>
+            <UserBlock
+              id={user.id}
+              username={user.username}
+              image="https://randomuser.me/api/portraits/women/44.jpg"
+              countryChampion={translate('DE')}
+            />
           </TimelineBlock>
 
           <TimelineBlock>
