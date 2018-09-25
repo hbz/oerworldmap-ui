@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from './Link'
 import Icon from './Icon'
+import withI18n from './withI18n'
+
 import '../styles/components/FindBlock.pcss'
 
-const FindBlock = () => {
+const FindBlock = ({translate}) => {
   const links = [
     {name: "Organization", type: "Organization"},
     {name: "Project", type: "Action"},
@@ -23,7 +24,7 @@ const FindBlock = () => {
             <a href={`/resource/?add=${link.type}`}>
               <Icon type={link.type} />
               <span>
-                {link.name}
+                {translate(link.name)}
               </span>
               <i className="fa fa-plus" />
             </a>
@@ -35,9 +36,10 @@ const FindBlock = () => {
 }
 
 FindBlock.propTypes = {
+  translate: PropTypes.func.isRequired,
 }
 
 FindBlock.defaultProps = {
 }
 
-export default FindBlock
+export default withI18n(FindBlock)
