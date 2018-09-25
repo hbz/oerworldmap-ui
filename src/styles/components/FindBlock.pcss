@@ -9,7 +9,7 @@
 
     & li a {
       padding: 15px;
-      border-top: 2px solid var(--grey);
+      border-top: 2px solid var(--grey-light);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -20,10 +20,14 @@
         padding-left: 20px;
         flex: 1;
       }
+
+      &:hover {
+        color: var(--orange);
+      }
     }
 
     & li:last-child a {
-      border-bottom: 2px solid var(--grey);
+      border-bottom: 2px solid var(--grey-light);
     }
   }
 }
