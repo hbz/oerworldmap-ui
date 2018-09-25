@@ -51,7 +51,7 @@ class Calendar extends React.Component {
                       </div>
                     </div>
                     <span>
-                      {this.props.translate(event.name)}<br />
+                      {this.props.translate(event.name)}{event.alternateName ? ` (${this.props.translate(event.alternateName)})`: ''}<br />
                       {event.location && event.location.address &&
                         <span className="subtitle">
                           {this.props.moment(event.startDate).format('M') === this.props.moment(event.endDate).format('M')
