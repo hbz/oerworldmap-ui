@@ -5,10 +5,10 @@ import ListItem from './ListItem'
 import withFormData from './withFormData'
 
 const List = ({
-  name, value, children, errors, property, title, className, translate, maxItems, formId, required
+  name, value, children, errors, property, title, className, translate, maxItems, formId, required, empty
 }) => (
   <div
-    className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+    className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}
     role="group"
     aria-labelledby={`${formId}-${name}-label`}
   >

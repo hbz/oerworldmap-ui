@@ -6,11 +6,11 @@ import MarkdownArea from './MarkdownArea'
 import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
 
-const LocalizedString = ({schema, translate, value, setValue, shouldFormComponentFocus}) => {
+const LocalizedString = ({schema, translate, value, setValue, shouldFormComponentFocus, empty}) => {
   const TextInput = schema.properties['@value']._display
     && schema.properties['@value']._display.rows > 1 ? MarkdownArea : Input
   return (
-    <div className="LocalizedString">
+    <div className={`LocalizedString ${empty ? 'isEmpty': ''}`.trim()}>
       <TextInput
         property="@value"
         translate={translate}

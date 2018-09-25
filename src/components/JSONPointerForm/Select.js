@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import withFormData from './withFormData'
 
 const Select = ({
-  name, value, setValue, errors, options, property, title, className, translate, formId, required
+  name, value, setValue, errors, options, property, title, className, translate, formId, required, empty
 }) => (
-  <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}

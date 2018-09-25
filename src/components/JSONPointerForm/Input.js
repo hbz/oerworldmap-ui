@@ -22,9 +22,9 @@ const castValue = (target) => {
 
 const Input = ({
   type, name, value, setValue, errors, property, title, className, translate,
-  shouldFormComponentFocus, formId, required, placeholder
+  shouldFormComponentFocus, formId, required, placeholder, empty
 }) => (
-  <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       dangerouslySetInnerHTML={{__html: translate(title) +

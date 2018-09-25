@@ -9,9 +9,9 @@ import withFormData from './withFormData'
 
 const MarkdownArea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
-  formId, required
+  formId, required, empty
 }) => (
-  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}

@@ -104,13 +104,13 @@ class RemoteSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, setValue, errors, title, translate, className, formId, required
+      name, property, value, setValue, errors, title, translate, className, formId, required, empty
     } = this.props
 
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+        className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
         onKeyDown={(e) => {
           if (e.keyCode === 27) {

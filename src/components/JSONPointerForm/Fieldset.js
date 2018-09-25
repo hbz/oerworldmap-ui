@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import withFormData from './withFormData'
 
 const Fieldset = ({
-  name, children, errors, property, title, className, translate, formId, required
+  name, children, errors, property, title, className, translate, formId, required, empty
 }) => (
   <div
-    className={`Fieldset ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+    className={`Fieldset ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}
     role="group"
     aria-labelledby={`${formId}-${name}-label`}
   >
