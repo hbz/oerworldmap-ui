@@ -76,7 +76,7 @@ const Timeline = ({user, translate, member, mapboxConfig}) => (
 Timeline.propTypes = {
   translate: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
-  member: PropTypes.objectOf(PropTypes.any).isRequired,
+  member: PropTypes.arrayOf(PropTypes.any).isRequired,
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
