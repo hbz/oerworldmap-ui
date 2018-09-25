@@ -87,6 +87,7 @@ class DropdownSelect extends React.Component {
             role="presentation"
           >
             <button
+              type="button"
               className={`toggleDropdown ${errors.length ? 'error' : ''}`.trim()}
               onClick={e => {
                 e.preventDefault()

@@ -62,7 +62,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
           <div className="scroll">
             <h1>{translate('History for')}: <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a></h1>
 
-            <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)} >
+            <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)}>
               {log.map(l => (
                 <div key={l.commit} className="logBlock">
                   <div>

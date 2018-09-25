@@ -13,9 +13,8 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 
-
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
-  <ul className={`ItemList linedList ${className}`} >
+  <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
@@ -29,7 +28,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
       >
         <Tooltip
           overlay={
-            <div className="itemListTooltip" >
+            <div className="itemListTooltip">
               <div className="topWrapper">
                 {listItem.image &&
                   <img

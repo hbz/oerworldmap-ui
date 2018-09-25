@@ -32,7 +32,8 @@ if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') 
   server.use([
     webpackDevMiddleware(compiler, {
       noInfo: true,
-      publicPath: webpackConfig.output.publicPath
+      publicPath: webpackConfig.output.publicPath,
+      stats: 'minimal'
     }),
     webpackHotMiddleware(compiler)
   ])
