@@ -5,6 +5,7 @@ import Topline from './Topline'
 import Link from './Link'
 import TopWrapper from './TopWrapper'
 import UserBlock from './UserBlock'
+import FindBlock from './FindBlock'
 
 import '../styles/components/Timeline.pcss'
 import TimelineBlock from './TimelineBlock'
@@ -55,6 +56,10 @@ const Timeline = ({user, translate, member, mapboxConfig}) => (
               image="https://randomuser.me/api/portraits/women/44.jpg"
               countryChampion={translate('DE')}
             />
+          </TimelineBlock>
+
+          <TimelineBlock>
+            <FindBlock />
           </TimelineBlock>
 
           <TimelineBlock>
