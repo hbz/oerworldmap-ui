@@ -16,7 +16,7 @@ class I18nProvider extends React.Component {
 }
 
 I18nProvider.childContextTypes = {
-  locales: PropTypes.array.isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
 }

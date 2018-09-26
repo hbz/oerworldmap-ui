@@ -93,7 +93,7 @@ class RemoteSelect extends React.Component {
               onKeyDown={e => triggerClick(e, 13)}
             >
               <Icon type={option["@type"]} />
-              &nbsp;{translate(option.name)}
+              &nbsp;{translate(option.name)}{option.alternateName ? ` (${translate(option.alternateName)})`: ''}
             </label>
             {option.narrower && this.optionList(option.narrower)}
           </li>

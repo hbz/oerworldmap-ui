@@ -52,11 +52,11 @@ const withFormData = (BaseComponent) => {
   }
 
   formComponent.childContextTypes = {
-    path: PropTypes.array
+    path: PropTypes.arrayOf(PropTypes.any)
   }
 
   formComponent.contextTypes = {
-    path: PropTypes.array,
+    path: PropTypes.arrayOf(PropTypes.any),
     setValue: PropTypes.func,
     getValue: PropTypes.func,
     getValidationErrors: PropTypes.func,

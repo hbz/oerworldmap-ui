@@ -50,9 +50,11 @@ class ShareExport extends React.Component {
             <li><a href="#share">{this.props.translate('share')} <i className="fa fa-share-alt" /></a></li>
             <li><a href="#export">{this.props.translate('export')} <i className="fa fa-share" /></a></li>
             <li>
-              <button onClick={() => {
-                window.print()
-              }}
+              <button
+                type="button"
+                onClick={() => {
+                  window.print()
+                }}
               >
                 {this.props.translate('print')} <i className="fa fa-print" />
               </button>

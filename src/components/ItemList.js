@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import Markdown from 'markdown-to-jsx'
-
 import urlTemplate from 'url-template'
 
 import Icon from './Icon'
 import Link from './Link'
-import LinkOverride from './LinkOverride'
+import Topline from './Topline'
 
 import '../styles/components/ItemList.pcss'
 
@@ -15,9 +13,8 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 
-
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
-  <ul className={`ItemList linedList ${className}`} >
+  <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
@@ -31,7 +28,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
       >
         <Tooltip
           overlay={
-            <div className="itemListTooltip" >
+            <div className="itemListTooltip">
               <div className="topWrapper">
                 {listItem.image &&
                   <img
@@ -51,21 +48,10 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                 <div>
                   <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
                   <br />
-                  <b>{translate(listItem.name) || listItem['@id']}</b>
+                  <b>{translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${listItem.alternateName})`: ''}</b>
                 </div>
               </div>
-              {listItem.description &&
-                <Markdown options={{
-                  overrides: {
-                    a: {
-                      component: LinkOverride
-                    }
-                  }
-                }}
-                >
-                  {translate(listItem.description)}
-                </Markdown>
-              }
+              <Topline about={listItem} className="inTooltip" />
             </div>
           }
           placement="left"
@@ -76,7 +62,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}{(listItem['@type'] === 'Event' && listItem.startDate)
+                {translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}{(listItem['@type'] === 'Event' && listItem.startDate)
                   ? <React.Fragment>, <i title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
                   : ''}
                 {count && ` (${count(listItem)})`}

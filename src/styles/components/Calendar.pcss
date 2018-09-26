@@ -9,6 +9,7 @@
   width: 100%;
 
   & .monthBlock {
+    max-width: 100%;
 
     & h4 {
       font-size: var(--font-size);
@@ -29,6 +30,7 @@
           padding: 10px 0;
           color: var(--blue-dark);
           align-items: start;
+          word-break: break-word;
 
           & .sheet {
             border: 1px solid var(--blue-dark);
@@ -40,6 +42,7 @@
             border-radius: 2px;
             margin-right: 10px;
             text-transform: uppercase;
+            min-width: 0;
 
             & .month {
               font-size: var(--font-size-xs);
@@ -48,6 +51,8 @@
 
           & span {
             flex: 1;
+            word-break: break-word;
+            min-width: 0;
 
             & .subtitle {
               font-size: var(--font-size-xs);

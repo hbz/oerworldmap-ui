@@ -275,6 +275,7 @@ class Filters extends React.Component {
                 v => this.props.aggregations[v] && this.props.aggregations[v].buckets.length
               ) &&
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.preventDefault()
                     this.setState({ extended: !this.state.extended })

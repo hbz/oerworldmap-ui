@@ -243,7 +243,7 @@ class Map extends React.Component {
                 {this.props.translate(this.state.hoveredFeatures[0].properties.iso_a2)}
                 <br />
                 {this.state.bucket &&
-                  <div className="buckets" >{this.renderTypes(this.state.bucket['sterms#by_type'].buckets)}</div>
+                  <div className="buckets">{this.renderTypes(this.state.bucket['sterms#by_type'].buckets)}</div>
                 }
               </b>
             </li>
