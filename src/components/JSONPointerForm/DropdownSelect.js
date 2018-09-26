@@ -155,7 +155,8 @@ DropdownSelect.propTypes = {
   translate: PropTypes.func.isRequired,
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  empty: PropTypes.bool
 }
 
 DropdownSelect.defaultProps = {
@@ -164,7 +165,8 @@ DropdownSelect.defaultProps = {
   errors: [],
   title: '',
   className: '',
-  required: false
+  required: false,
+  empty: true
 }
 
 export default withFormData(DropdownSelect)

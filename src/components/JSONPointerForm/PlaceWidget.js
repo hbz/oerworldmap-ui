@@ -250,7 +250,8 @@ PlaceWidget.propTypes = {
   config: PropTypes.objectOf(PropTypes.any).isRequired,
   description: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  empty: PropTypes.bool
 }
 
 PlaceWidget.defaultProps = {
@@ -260,7 +261,8 @@ PlaceWidget.defaultProps = {
   description: '',
   className: '',
   value: {},
-  required: false
+  required: false,
+  empty: true
 }
 
 export default withApi(withFormData(PlaceWidget))

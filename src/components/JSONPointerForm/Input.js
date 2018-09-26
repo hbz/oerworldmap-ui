@@ -66,7 +66,8 @@ Input.propTypes = {
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  empty: PropTypes.bool
 }
 
 Input.defaultProps = {
@@ -78,7 +79,8 @@ Input.defaultProps = {
   className: '',
   shouldFormComponentFocus: false,
   required: false,
-  placeholder: undefined
+  placeholder: undefined,
+  empty: true
 }
 
 export default withFormData(Input)

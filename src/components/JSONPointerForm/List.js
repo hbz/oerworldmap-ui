@@ -62,7 +62,8 @@ List.propTypes = {
   translate: PropTypes.func.isRequired,
   maxItems: PropTypes.number,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  empty: PropTypes.bool
 }
 
 List.defaultProps = {
@@ -72,7 +73,8 @@ List.defaultProps = {
   title: '',
   className: '',
   maxItems: undefined,
-  required: false
+  required: false,
+  empty: true
 }
 
 export default withFormData(List)

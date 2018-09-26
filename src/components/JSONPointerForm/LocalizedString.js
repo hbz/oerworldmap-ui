@@ -35,11 +35,13 @@ LocalizedString.propTypes = {
   translate: PropTypes.func.isRequired,
   value: PropTypes.objectOf(PropTypes.any),
   setValue: PropTypes.func.isRequired,
-  shouldFormComponentFocus: PropTypes.bool.isRequired
+  shouldFormComponentFocus: PropTypes.bool.isRequired,
+  empty: PropTypes.bool
 }
 
 LocalizedString.defaultProps = {
-  value: undefined
+  value: undefined,
+  empty: true
 }
 
 export default withFormData(LocalizedString)

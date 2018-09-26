@@ -72,7 +72,8 @@ KeywordSelect.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  empty: PropTypes.bool
 }
 
 KeywordSelect.defaultProps = {
@@ -81,7 +82,8 @@ KeywordSelect.defaultProps = {
   title: '',
   className: '',
   value: [],
-  required: false
+  required: false,
+  empty: true
 }
 
 export default withApi(withFormData(KeywordSelect))

@@ -65,7 +65,8 @@ MarkdownArea.propTypes = {
   translate: PropTypes.func.isRequired,
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  empty: PropTypes.bool
 }
 
 MarkdownArea.defaultProps = {
@@ -75,7 +76,8 @@ MarkdownArea.defaultProps = {
   title: '',
   className: '',
   shouldFormComponentFocus: false,
-  required: false
+  required: false,
+  empty: true
 }
 
 export default withFormData(MarkdownArea)

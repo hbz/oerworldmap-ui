@@ -33,7 +33,8 @@ Fieldset.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  empty: PropTypes.bool
 }
 
 Fieldset.defaultProps = {
@@ -41,7 +42,8 @@ Fieldset.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  required: false
+  required: false,
+  empty: true
 }
 
 export default withFormData(Fieldset)
