@@ -48,7 +48,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                 <div>
                   <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
                   <br />
-                  <b>{translate(listItem.name) || listItem['@id']}</b>
+                  <b>{translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${listItem.alternateName})`: ''}</b>
                 </div>
               </div>
               <Topline about={listItem} className="inTooltip" />
@@ -62,7 +62,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}{(listItem['@type'] === 'Event' && listItem.startDate)
+                {translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}{(listItem['@type'] === 'Event' && listItem.startDate)
                   ? <React.Fragment>, <i title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
                   : ''}
                 {count && ` (${count(listItem)})`}
