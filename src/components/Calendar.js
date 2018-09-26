@@ -11,35 +11,29 @@ class Calendar extends React.Component {
 
   constructor(props) {
     super(props)
-    this.currentDate = new Date()
-    this.currentMonthNode = null
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      if (this.currentMonthNode) {
-        this.calendarRef.scrollTop = this.currentMonthNode.offsetTop - this.calendarRef.offsetTop
-      }
-    }, 1000)
+    this.state = {
+      showPastEvents: false
+    }
   }
 
   render() {
     return (
       <ul ref={node => this.calendarRef = node} className="Calendar">
+        <label>
+          <input
+            type="checkbox"
+            onChange={() => this.setState({showPastEvents: !this.state.showPastEvents})}
+          />
+          &nbsp;{this.props.translate('calendar.show.past_events')}
+        </label>
         {this.props.entries.map(month => (
           <li
-            ref={(node) => {
-              ((this.currentDate.getMonth() === new Date(month.key).getMonth()) &&
-              (this.currentDate.getFullYear() === new Date(month.key).getFullYear()))
-                ? (this.currentMonthNode = node)
-                : null
-            }}
             key={month.key}
-            className="monthBlock"
+            className={`monthBlock ${this.state.showPastEvents || this.props.moment(month.key).diff(this.props.moment()) > 0 ? '' : 'hidden'}`}
           >
             <h4>{this.props.moment(month.key_as_string).format('MMMM YYYY')}</h4>
             <ul>
-              {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).reverse().map(event => (
+              {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).map(event => (
                 <li key={event['@id']}>
                   <Link href={event['@id']}>
                     <div className="sheet">
