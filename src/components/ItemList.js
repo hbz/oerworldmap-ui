@@ -48,7 +48,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
                 <div>
                   <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
                   <br />
-                  <b>{translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${listItem.alternateName})`: ''}</b>
+                  <b>{translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}</b>
                 </div>
               </div>
               <Topline about={listItem} className="inTooltip" />
