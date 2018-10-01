@@ -229,7 +229,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 {likes.length > 0 &&
                   <li>
                     <div className="item">
-                      <i className="fa fa-star bg-highlight-color bg-important" />
+                      <i className="fa fa-thumbs-up bg-highlight-color bg-important" />
                       <span>{translate('Likes')} ({likes.length})</span>
                     </div>
                   </li>
