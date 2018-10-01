@@ -25,7 +25,6 @@ const MarkdownArea = ({
       name={name}
       value={value}
       id={`${formId}-${name}`}
-      placeholder={translate(title)}
       onChange={value => setValue(value)}
       className="SimpleMDE"
       getMdeInstance={instance => {
@@ -49,6 +48,7 @@ const MarkdownArea = ({
         autofocus: shouldFormComponentFocus,
         status: false,
         spellChecker: false,
+        placeholder: translate(title)
       }}
     />
   </div>
