@@ -87,6 +87,7 @@
   "Person.attends": "Attending",
   "Person.primarySector": "Primary educational sector",
   "Person.secondarySector": "Secondary educational sector",
+  "Person.activityField": "Activity field",
   "Person.publication": "Publications",
   "Person.manufactured": "Develops",
   "Person.additionalType": "Person type",
