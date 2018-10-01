@@ -41,8 +41,7 @@ Select.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  empty: PropTypes.bool
+  required: PropTypes.bool
 }
 
 Select.defaultProps = {
@@ -51,8 +50,7 @@ Select.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  required: false,
-  empty: true
+  required: false
 }
 
 export default withFormData(Select)

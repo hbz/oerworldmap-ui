@@ -188,8 +188,7 @@ RemoteSelect.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  empty: PropTypes.bool
+  required: PropTypes.bool
 }
 
 RemoteSelect.defaultProps = {
@@ -198,8 +197,7 @@ RemoteSelect.defaultProps = {
   errors: [],
   title: '',
   className: '',
-  required: false,
-  empty: true
+  required: false
 }
 
 export default withI18n(withApi(withFormData(RemoteSelect)))

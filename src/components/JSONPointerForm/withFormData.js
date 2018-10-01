@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import jsonPointer from 'json-pointer'
+import { isEmpty } from 'lodash'
 
 const withFormData = (BaseComponent) => {
 

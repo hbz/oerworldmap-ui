@@ -42,8 +42,7 @@ Textarea.propTypes = {
   translate: PropTypes.func.isRequired,
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  empty: PropTypes.bool
+  required: PropTypes.bool
 }
 
 Textarea.defaultProps = {
@@ -53,8 +52,7 @@ Textarea.defaultProps = {
   title: '',
   className: '',
   shouldFormComponentFocus: false,
-  required: false,
-  empty: true
+  required: false
 }
 
 export default withFormData(Textarea)
