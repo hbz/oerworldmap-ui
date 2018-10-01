@@ -12,6 +12,7 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
+import ResourcePreview from './ResourcePreview'
 
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
   <ul className={`ItemList linedList ${className}`}>
@@ -29,28 +30,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         <Tooltip
           overlay={
             <div className="itemListTooltip">
-              <div className="topWrapper">
-                {listItem.image &&
-                  <img
-                    style={{
-                      display: 'none'
-                    }}
-                    onLoad={e => {
-                      e.target.style.display = 'block'
-                    }}
-                    onError={e => {
-                      e.target.remove()
-                    }}
-                    src={listItem.image}
-                    alt={translate(listItem.name) || listItem['@id']}
-                  />
-                }
-                <div>
-                  <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
-                  <br />
-                  <b>{translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${listItem.alternateName})`: ''}</b>
-                </div>
-              </div>
+              <ResourcePreview about={listItem} />
               <Topline about={listItem} className="inTooltip" />
             </div>
           }

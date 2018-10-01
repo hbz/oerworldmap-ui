@@ -1,0 +1,46 @@
+@import '../variables.pcss';
+
+.ResourcePreview {
+  display: flex;
+  justify-content: space-between;
+  color: var(--blue-dark);
+
+  & .previewContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & .previewHeader {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-small);
+
+      & .previewTypes {
+        flex: 1;
+      }
+
+      & .previewCounters span {
+        color: var(--grey);
+        padding: 0 7px;
+
+        & img {
+          width: 9px;
+          position: relative;
+          top: 4px;
+        }
+      }
+    }
+
+    & .previewTitle {
+      font-size: var(--font-size-large);
+      font-weight: 600;
+      display: block;
+      color: var(--blue-dark);
+    }
+
+    & .previewLocation {
+      font-size: var(--font-size);
+    }
+  }
+}
