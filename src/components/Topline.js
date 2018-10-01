@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import urlTemplate from 'url-template'
 
 import withI18n from './withI18n'
 import Link from './Link'
@@ -13,24 +12,6 @@ const Topline = ({translate, moment, about, className}) => {
 
   return (
     <div className={`Topline ${className}`}>
-
-      {about.additionalType &&
-        <React.Fragment>
-          <hr />
-          <div className="toplineEntry">
-            <span className="showInTooltip">{translate('Type')}:&nbsp;</span>
-            <ul className="commaSeparatedList">
-              {about.additionalType.map(type => (
-                <li key={type}>
-                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
-                    {translate(type.name)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </React.Fragment>
-      }
 
       {about.countryChampionFor &&
         <React.Fragment>
