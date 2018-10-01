@@ -65,7 +65,7 @@ class PlaceWidget extends React.Component {
   render() {
     const {
       name, value, errors, property, title, className, translate, schema,
-      setValue, config, description, formId, required, empty
+      setValue, config, description, formId, required
     } = this.props
 
     const geometry = value.geo && value.geo.lon && value.geo.lat
@@ -76,7 +76,7 @@ class PlaceWidget extends React.Component {
 
     return (
       <div
-        className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}
+        className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         role="group"
         aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}

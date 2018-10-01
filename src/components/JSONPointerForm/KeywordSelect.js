@@ -26,12 +26,12 @@ class KeywordSelect extends React.Component {
 
   render() {
     const {
-      name, value, setValue, property, className, title, translate, errors, formId, required, empty
+      name, value, setValue, property, className, title, translate, errors, formId, required
     } = this.props
 
     return (
       <div
-        className={`KeywordSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}
+        className={`KeywordSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         role="group"
         aria-labelledby={`${formId}-${name}-label`}
       >

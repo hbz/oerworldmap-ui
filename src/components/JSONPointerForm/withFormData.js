@@ -30,7 +30,6 @@ const withFormData = (BaseComponent) => {
         <BaseComponent
           name={this.name}
           value={this.context.getValue(this.name)}
-          empty={this.context.getValue(this.name) === undefined}
           formId={this.context.formId}
           setValue={value => this.context.setValue(this.name, value)}
           errors={this.context.getValidationErrors(this.name)}

@@ -7,9 +7,9 @@ import { appendOnFocus } from '../../common'
 
 const Textarea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
-  formId, required, empty
+  formId, required
 }) => (
-  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}>
+  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}

@@ -43,13 +43,13 @@ class DropdownSelect extends React.Component {
   render() {
     const {
       name, property, value, options, setValue, errors, title, translate, className, formId,
-      required, empty
+      required
     } = this.props
 
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''} ${empty ? 'isEmpty': ''}`.trim()}
+        className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
       >
         <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
