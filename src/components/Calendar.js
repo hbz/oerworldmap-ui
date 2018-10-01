@@ -17,6 +17,7 @@ class Calendar extends React.Component {
   }
 
   render() {
+    const { translate, moment, entries } = this.props
     return (
       <ul ref={node => this.calendarRef = node} className="Calendar">
         <label>
@@ -26,7 +27,11 @@ class Calendar extends React.Component {
             defaultChecked
             onChange={() => this.setState({showPastEvents: !this.state.showPastEvents})}
           />
-          &nbsp;{this.props.translate('calendar.show.upcoming')}
+          &nbsp;{translate('calendar.show.upcoming')}
+          &nbsp;({entries
+            .filter(month => moment(month.key).diff(moment().startOf('month')) >= 0)
+            .reduce((count, month) => count + month['top_hits#about.@id'].hits.hits.length, 0)
+          })
         </label>
         &nbsp;
         <label>
@@ -35,38 +40,41 @@ class Calendar extends React.Component {
             name="togglePastEvents"
             onChange={() => this.setState({showPastEvents: !this.state.showPastEvents})}
           />
-          &nbsp;{this.props.translate('calendar.show.all')}
+          &nbsp;{translate('calendar.show.past')}
+          &nbsp;({entries
+            .filter(month => moment(month.key).diff(moment().startOf('month')) < 0)
+            .reduce((count, month) => count + month['top_hits#about.@id'].hits.hits.length, 0)
+          })
         </label>
-        {this.props.entries.map(month => (
+        {entries.map(month => (
           <li
             key={month.key}
             className={`monthBlock ${
               this.state.showPastEvents
-              || this.props.moment(month.key).diff(this.props.moment().startOf('month')) >= 0
-              ? '' : 'hidden'}`
-            }
+                || moment(month.key).diff(moment().startOf('month')) >= 0
+                ? '' : 'hidden'}`}
           >
-            <h4>{this.props.moment(month.key_as_string).format('MMMM YYYY')}</h4>
+            <h4>{moment(month.key_as_string).format('MMMM YYYY')}</h4>
             <ul>
               {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).map(event => (
                 <li key={event['@id']}>
                   <Link href={event['@id']}>
                     <div className="sheet">
                       <div>
-                        {this.props.moment(event.startDate).format('D')}
+                        {moment(event.startDate).format('D')}
                       </div>
                       <div className="month">
-                        {this.props.moment(event.startDate).format('MMM')}
+                        {moment(event.startDate).format('MMM')}
                       </div>
                     </div>
                     <span>
-                      {this.props.translate(event.name)}{event.alternateName ? ` (${this.props.translate(event.alternateName)})`: ''}<br />
+                      {translate(event.name)}{event.alternateName ? ` (${translate(event.alternateName)})`: ''}<br />
                       {event.location && event.location.address &&
                         <span className="subtitle">
-                          {this.props.moment(event.startDate).format('M') === this.props.moment(event.endDate).format('M')
-                            ? this.props.moment(event.startDate).format('D')
-                            : this.props.moment(event.endDate).format('D MMM')
-                          } &ndash; {this.props.moment(event.endDate).format('D MMM')}
+                          {moment(event.startDate).format('M') === moment(event.endDate).format('M')
+                            ? moment(event.startDate).format('D')
+                            : moment(event.endDate).format('D MMM')
+                          } &ndash; {moment(event.endDate).format('D MMM')}
                           &nbsp;&mdash;&nbsp;
                           {event.location.address.addressLocality &&
                             event.location.address.addressLocality.concat(',')
