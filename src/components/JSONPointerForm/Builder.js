@@ -19,7 +19,7 @@ class Builder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showOptionalFields: !props.schema.required && !props.schema.allOf
+      showOptionalFields: props.showOptionalFields
     }
     this.getComponent = this.getComponent.bind(this)
   }
@@ -139,12 +139,14 @@ Builder.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   widgets: PropTypes.objectOf(PropTypes.any),
-  config: PropTypes.objectOf(PropTypes.any)
+  config: PropTypes.objectOf(PropTypes.any),
+  showOptionalFields: PropTypes.bool
 }
 
 Builder.defaultProps = {
   widgets: {},
-  config: null
+  config: null,
+  showOptionalFields: true
 }
 
 export default withI18n(Builder)

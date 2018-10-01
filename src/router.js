@@ -53,6 +53,7 @@ export default (api) => {
             {...data}
             view="edit"
             schema={context.schema}
+            showOptionalFields={false}
           />
         ) : (
           <ResourceIndex
