@@ -318,5 +318,8 @@
   "menu.me.events": "Eventos dos quais participarei",
   "menu.me.organizations": "Minhas associações",
   "entry.missing.info.note": "Uma descrição para essa entrada está faltando.",
-  "entry.missing.info.action": "Nos ajude adicionando alguma informação!"
+  "entry.missing.info.action": "Nos ajude adicionando alguma informação!",
+  "calendar.show.upcoming": "Upcoming",
+  "calendar.show.past": "Past",
+  "form.showOptionalFields": "Show optional fields for %{title}"
 }
