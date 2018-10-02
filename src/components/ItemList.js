@@ -5,7 +5,6 @@ import urlTemplate from 'url-template'
 
 import Icon from './Icon'
 import Link from './Link'
-import TopWrapper from './TopWrapper'
 import Topline from './Topline'
 
 import '../styles/components/ItemList.pcss'
@@ -13,10 +12,10 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
-
+import ResourcePreview from './ResourcePreview'
 
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
-  <ul className={`ItemList linedList ${className}`} >
+  <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
@@ -30,8 +29,8 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
       >
         <Tooltip
           overlay={
-            <div className="itemListTooltip" >
-              <TopWrapper about={listItem} />
+            <div className="itemListTooltip">
+              <ResourcePreview about={listItem} />
               <Topline about={listItem} className="inTooltip" />
             </div>
           }
@@ -43,7 +42,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}{(listItem['@type'] === 'Event' && listItem.startDate)
+                {translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}{(listItem['@type'] === 'Event' && listItem.startDate)
                   ? <React.Fragment>, <i title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
                   : ''}
                 {count && ` (${count(listItem)})`}

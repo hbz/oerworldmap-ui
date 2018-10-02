@@ -58,6 +58,7 @@ export default (api) => {
         ) : (
           <ResourceIndex
             {...data}
+            phrases={context.phrases}
             mapboxConfig={context.mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}

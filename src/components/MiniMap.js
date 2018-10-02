@@ -20,6 +20,10 @@ class MiniMap extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      zoom: props.zoom
+    }
+
     this.mouseDown = this.mouseDown.bind(this)
     this.mouseMove = this.mouseMove.bind(this)
     this.mouseUp = this.mouseUp.bind(this)
@@ -129,6 +133,8 @@ class MiniMap extends React.Component {
     this.isDragging = false
     this.MiniMap.dragPan.enable()
 
+    this.setState({zoom: this.MiniMap.getZoom()})
+
     this.props.onFeatureDrag && this.props.onFeatureDrag({
       type: 'Point',
       coordinates: e.lngLat
@@ -163,12 +169,12 @@ class MiniMap extends React.Component {
       if (center || geometry) {
         this.MiniMap.fitBounds((center && bbox(point(center))) || bbox(geometry), {
           padding: 20,
-          maxZoom: 3
+          maxZoom: this.state.zoom || 1
         })
       } else {
         this.MiniMap.flyTo({
           center: [0, 0],
-          zoom: 1,
+          zoom: this.state.zoom || 1
         })
       }
     }, 0)
@@ -227,7 +233,8 @@ MiniMap.propTypes = {
   draggable: PropTypes.bool,
   zoomable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   onFeatureDrag: PropTypes.func,
-  boxZoom: PropTypes.bool
+  boxZoom: PropTypes.bool,
+  zoom: PropTypes.number
 }
 
 MiniMap.defaultProps = {
@@ -236,7 +243,8 @@ MiniMap.defaultProps = {
   draggable: false,
   zoomable: false,
   onFeatureDrag: null,
-  boxZoom: false
+  boxZoom: false,
+  zoom: null
 }
 
 export default MiniMap

@@ -222,11 +222,11 @@
     color: var(--white);
 
     &::placeholder {
-      color: color(var(--white) alpha(-30%));
+      color: color-mod(var(--white) alpha(-30%));
     }
 
     &:focus {
-      background-color: color(var(--white) alpha(-80%));
+      background-color: color-mod(var(--white) alpha(-80%));
     }
   }
 }
@@ -237,7 +237,7 @@
     border-color: var(--primary-color);
 
     &::placeholder {
-      color: color(var(--primary-color) alpha(-50%));
+      color: color-mod(var(--primary-color) alpha(-50%));
     }
   }
 

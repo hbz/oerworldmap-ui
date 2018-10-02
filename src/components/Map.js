@@ -17,6 +17,9 @@ import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
 import { getParams, getURL, getProp } from '../common'
 import bounds from  '../json/bounds.json'
+import ResourcePreview from './ResourcePreview'
+import I18nProvider from './I18nProvider'
+import i18n from '../i18n'
 
 import '../styles/components/Map.pcss'
 
@@ -243,7 +246,7 @@ class Map extends React.Component {
                 {this.props.translate(this.state.hoveredFeatures[0].properties.iso_a2)}
                 <br />
                 {this.state.bucket &&
-                  <div className="buckets" >{this.renderTypes(this.state.bucket['sterms#by_type'].buckets)}</div>
+                  <div className="buckets">{this.renderTypes(this.state.bucket['sterms#by_type'].buckets)}</div>
                 }
               </b>
             </li>
@@ -262,12 +265,33 @@ class Map extends React.Component {
         popupContent = (
           <ul className="list">
             {this.state.hoveredFeatures.length <= 6 || this.map.getZoom() === this.map.getMaxZoom() ? (
-              this.state.hoveredFeatures.map(feature => (
-                <li key={feature.properties['@id']}>
-                  <Icon type={feature.properties['@type']} />
-                  &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+              (this.state.hoveredFeatures.length >= 1 && this.state.hoveredFeatures.length < 2) ? (
+                <li>
+                  <I18nProvider i18n={i18n(this.props.locales, this.props.phrases)}>
+                    <EmittProvider emitter={this.props.emitter}>
+                      <ResourcePreview
+                        about={Object.assign(this.state.hoveredFeatures[0].properties, {
+                          name: JSON.parse(this.state.hoveredFeatures[0].properties.name),
+                          location: JSON.parse(this.state.hoveredFeatures[0].properties.location),
+                          additionalType: this.state.hoveredFeatures[0].properties.additionalType
+                            && JSON.parse(this.state.hoveredFeatures[0].properties.additionalType)
+                            || undefined,
+                          alternateName: this.state.hoveredFeatures[0].properties.alternateName
+                            && JSON.parse(this.state.hoveredFeatures[0].properties.alternateName)
+                            || undefined,
+                        })}
+                      />
+                    </EmittProvider>
+                  </I18nProvider>
                 </li>
-              ))
+              ) : (
+                this.state.hoveredFeatures.map(feature => (
+                  <li key={feature.properties['@id']}>
+                    <Icon type={feature.properties['@type']} />
+                    &nbsp;{this.props.translate(JSON.parse(feature.properties.name))}
+                  </li>
+                ))
+              )
             ) : (
               <li>
                 {this.calculateTypes(this.state.hoveredFeatures)}
@@ -635,7 +659,8 @@ Map.propTypes = {
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,
-  home: PropTypes.bool.isRequired
+  home: PropTypes.bool.isRequired,
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 Map.defaultProps = {

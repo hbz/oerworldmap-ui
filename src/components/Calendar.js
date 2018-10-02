@@ -18,14 +18,14 @@ class Calendar extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       if (this.currentMonthNode) {
-        this.currentMonthNode.scrollIntoView({behavior: "smooth", block: "start"})
+        this.calendarRef.scrollTop = this.currentMonthNode.offsetTop - this.calendarRef.offsetTop
       }
     }, 1000)
   }
 
   render() {
     return (
-      <ul className="Calendar">
+      <ul ref={node => this.calendarRef = node} className="Calendar">
         {this.props.entries.map(month => (
           <li
             ref={(node) => {
@@ -51,7 +51,7 @@ class Calendar extends React.Component {
                       </div>
                     </div>
                     <span>
-                      {this.props.translate(event.name)}<br />
+                      {this.props.translate(event.name)}{event.alternateName ? ` (${this.props.translate(event.alternateName)})`: ''}<br />
                       {event.location && event.location.address &&
                         <span className="subtitle">
                           {this.props.moment(event.startDate).format('M') === this.props.moment(event.endDate).format('M')

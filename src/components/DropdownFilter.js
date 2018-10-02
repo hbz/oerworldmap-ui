@@ -141,7 +141,7 @@ class DropdownFilter extends React.Component {
 DropdownFilter.propTypes = {
   translate: PropTypes.func,
   translateItems: PropTypes.func,
-  buckets: PropTypes.objectOf(PropTypes.any).isRequired,
+  buckets: PropTypes.arrayOf(PropTypes.any).isRequired,
   filter: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,

@@ -54,6 +54,7 @@ describe('<ButtonFilter />', () => {
       <I18nProvider i18n={mock.i18n}>
         <EmittProvider emitter={mock.emitter}>
           <ButtonFilter
+            filterName="test"
             filter={[]}
             aggregation={aggregation}
             submit={e => e}

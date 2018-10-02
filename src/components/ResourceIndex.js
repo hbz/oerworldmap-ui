@@ -9,6 +9,7 @@ import ItemList from './ItemList'
 import Pagination from './Pagination'
 import Calendar from './Calendar'
 
+import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 const ResourceIndex = ({
@@ -34,7 +35,8 @@ const ResourceIndex = ({
   _links,
   className,
   sort,
-  embedValue
+  embedValue,
+  phrases
 }) => {
   const countProp = ('about.objectIn.@type' in filters)
     ? filters['about.objectIn.@type'][0]
@@ -46,7 +48,7 @@ const ResourceIndex = ({
     <div className={`ResourceIndex ${className ? className:''}`}>
       {children}
 
-      <Columns show={!home || view.length > 0} >
+      <Columns show={!home || view.length > 0}>
         <Column>
           <Filters
             query={query}
@@ -89,6 +91,7 @@ const ResourceIndex = ({
       </Columns>
 
       <Map
+        phrases={phrases}
         aggregations={aggregations}
         emitter={emitter}
         mapboxConfig={mapboxConfig}
@@ -125,7 +128,9 @@ ResourceIndex.propTypes = {
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   sort: PropTypes.string,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
+  phrases: PropTypes.objectOf(PropTypes.any).isRequired,
+
 }
 
 ResourceIndex.defaultProps = {
@@ -141,7 +146,4 @@ ResourceIndex.defaultProps = {
   children: null
 }
 
-
-
-
-export default withEmitter(ResourceIndex)
+export default withEmitter(withI18n(ResourceIndex))
