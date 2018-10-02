@@ -129,6 +129,18 @@ require('formdata-polyfill');
         })
     })
 
+    let lastActivity
+    setInterval(() => {
+
+      // TODO: STORE LAST ACTIVITY IN LOCALSTORAGE
+
+      const until = lastActivity ? `?until=${lastActivity}` : ''
+      api.get(`/activity/${until}`).then(response => {
+        lastActivity = response[0].id
+        emitter.emit('newActivity', response)
+      })
+    }, 5000)
+
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
       const url = window.location.pathname

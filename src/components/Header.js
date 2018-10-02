@@ -21,7 +21,8 @@ class Header extends React.Component {
         find: false,
         add: false,
         info: false,
-        me: false
+        me: false,
+        activityCount: 0
       }
     }
     this.handleClick = this.handleClick.bind(this)
@@ -36,6 +37,10 @@ class Header extends React.Component {
         this.setState({showMobileMenu:false})
         this.setDropdown('')
       }
+    })
+
+    this.props.emitter.on('newActivity', (activities) =>  {
+      this.setState({activityCount: activities.length + (this.state.activityCount || 0)})
     })
   }
 
@@ -84,6 +89,16 @@ class Header extends React.Component {
         >
           <ul>
 
+            <li>
+              <Link href="/activity/">
+                {this.props.translate('Activity')}
+              </Link>
+              {this.state.activityCount > 0 &&
+                <span className="activityCount">
+                  {this.state.activityCount}
+                </span>
+              }
+            </li>
             <li
               className={`hasDropdown${this.state.dropdowns.find ? ' active': ''}`}
               onMouseLeave={() => {
