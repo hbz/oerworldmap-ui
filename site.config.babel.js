@@ -24,7 +24,8 @@ let Config = {
   plugins: [
     new webpack.DefinePlugin({
       i18ns: JSON.stringify(i18ns)
-    })
+    }),
+    new webpack.ProgressPlugin()
   ],
   module: {
     exprContextCritical: false,
@@ -57,10 +58,7 @@ let Config = {
         }
       }
     ]
-  },
-  plugins: [
-    new webpack.ProgressPlugin()
-  ]
+  }
 }
 
 if (ENV === 'production') {
