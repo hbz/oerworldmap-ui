@@ -26,6 +26,23 @@
   & .timelineBlockContent {
     padding: 10px;
 
+    & .comment {
+      margin-top: 10px;
+      border: 1px solid var(--grey);
+      padding: 15px;
+      color: var(--grey-dark);
+      border-radius: var(--border-radius);
+
+      & .commentMetadata a {
+        color: var(--grey-dark);
+      }
+
+      & .commentText {
+        margin-top: 10px;
+        font-size: var(--font-size-large);
+      }
+    }
+
     &.withBorder {
       border: 1px solid var(--blue-dark);
     }
