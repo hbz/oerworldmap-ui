@@ -18,6 +18,9 @@ class Builder extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      showOptionalFields: props.showOptionalFields
+    }
     this.getComponent = this.getComponent.bind(this)
   }
 
@@ -75,13 +78,30 @@ class Builder extends React.Component {
     case 'object':
       return (
         <Fieldset {...props}>
-          {Object.keys(schema.properties).map((property) => React.cloneElement(
-            this.getComponent(schema.properties[property]), {
-              property,
-              key: property,
-              required: schema.required && schema.required.includes(property)
+          <div className="requiredFields">
+            {schema.required && Object.keys(schema.properties)
+              .filter(property => schema.required.includes(property))
+              .map(property => React.cloneElement(
+                this.getComponent(schema.properties[property]), {
+                  property,
+                  key: property,
+                  required: true
+                }
+              ))
             }
-          ))}
+          </div>
+          <div className="optionalFields">
+            {Object.keys(schema.properties)
+              .filter(property => !schema.required || !schema.required.includes(property))
+              .map((property) => React.cloneElement(
+                this.getComponent(schema.properties[property]), {
+                  property,
+                  key: property,
+                  required: false
+                }
+              ))
+            }
+          </div>
         </Fieldset>
       )
     case 'null':
@@ -92,9 +112,23 @@ class Builder extends React.Component {
   }
 
   render() {
+    const { schema, translate } = this.props
+    const optionalFieldsClass = this.state.showOptionalFields
+      ? 'optionalFieldsVisible'
+      : 'optionalFieldsHidden'
     return (
-      <div className="Builder">
-        {this.getComponent(this.props.schema)}
+      <div className={`Builder ${optionalFieldsClass}`}>
+        {this.getComponent(schema)}
+        {!this.state.showOptionalFields &&
+          <button
+            className="btn"
+            onClick={event =>
+              event.preventDefault() || this.setState({showOptionalFields: true})
+            }
+          >
+            {translate('form.showOptionalFields', {title: translate(schema.title)})}
+          </button>
+        }
       </div>
     )
   }
@@ -105,12 +139,14 @@ Builder.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   widgets: PropTypes.objectOf(PropTypes.any),
-  config: PropTypes.objectOf(PropTypes.any)
+  config: PropTypes.objectOf(PropTypes.any),
+  showOptionalFields: PropTypes.bool
 }
 
 Builder.defaultProps = {
   widgets: {},
-  config: null
+  config: null,
+  showOptionalFields: true
 }
 
 export default withI18n(Builder)

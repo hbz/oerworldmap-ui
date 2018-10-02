@@ -320,5 +320,6 @@
   "entry.missing.info.note": "A description for this entry is missing.",
   "entry.missing.info.action": "Help us by adding some information!",
   "calendar.show.upcoming": "Upcoming",
-  "calendar.show.past": "Past"
+  "calendar.show.past": "Past",
+  "form.showOptionalFields": "Show optional fields for %{title}"
 }
