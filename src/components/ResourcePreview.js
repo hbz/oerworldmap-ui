@@ -40,7 +40,7 @@ const ResourcePreview = ({ translate, about }) => {
             }
           </div>
 
-          {(about['comment'] || about.objectIn) &&
+          {/* {(about['comment'] || about.objectIn) &&
             <div className="previewCounters">
               <span>
                 <img className="i" src="/public/lighthouse_16px_grey.svg" alt="Lighthouse" />&nbsp;
@@ -57,7 +57,7 @@ const ResourcePreview = ({ translate, about }) => {
                 {(about['comment'] || []).filter(comment => comment.author && comment.text).length || 0}
               </span>
             </div>
-          }
+          } */}
 
         </div>
 
