@@ -17,12 +17,16 @@ class Timeline extends React.Component {
   componentDidMount() {
 
     // TODO: SET COUNTER TO 0
+    // this.props.emitter.emit('clearActivity')
 
     this.props.emitter.on('newActivity', (activities) => {
-      this.setState({entries: activities.concat(this.state.entries)})
+      this.setState({entries: activities.concat(this.state.entries)}, () => {
+        // localStorage.setItem('lastActivity', this.state.entries[0].id);
+        // window.lastActivity = this.state.entries[0].id
+      })
     })
-
   }
+
   render() {
     const entries = this.state.entries
     const translate = this.props.translate
@@ -30,10 +34,10 @@ class Timeline extends React.Component {
       <div className="Timeline">
         <div className="timelineContainer">
           <section className="timelineContainerMain">
-
             {entries ? (
               entries.map(entry => (
                 <TimelineBlock
+                  key={`${entry.id}-${entry.action.time}`}
                   withBorder
                   entry={entry}
                 />
