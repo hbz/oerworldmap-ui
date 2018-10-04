@@ -3,8 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
-
-import '../styles/components/Timeline.pcss'
+import FullModal from './FullModal'
+import Link from './Link'
 import TimelineBlock from './TimelineBlock'
 
 class Timeline extends React.Component {
@@ -30,9 +30,12 @@ class Timeline extends React.Component {
     const entries = this.state.entries
     const translate = this.props.translate
     return (
-      <div className="Timeline">
-        <div className="timelineContainer">
-          <section className="timelineContainerMain">
+
+      <FullModal closeLink={Link.home}>
+        <h2 className="title">
+          {translate('Activity')}
+        </h2>
+        <div className="Timeline">
             {entries ? (
               entries.map(entry => (
                 <TimelineBlock
@@ -44,10 +47,8 @@ class Timeline extends React.Component {
             ) : (
               translate("No entries")
             )}
-
-          </section>
         </div>
-      </div>
+      </FullModal>
     )
   }
 }
