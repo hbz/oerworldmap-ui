@@ -40,6 +40,10 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
     user = entry.about
     message = 'updated their profile'
     resource = entry.about
+  } else if (entry.action.type === 'edit' && entry.about['@type'] === 'LighthouseAction') {
+    user = entry.user
+    message = 'updated the lighthouse for'
+    resource = entry.about.object
   } else if (entry.action.type === 'edit') {
     user = entry.user
     message = 'edited'
@@ -51,6 +55,7 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
       {entry.action.time &&
         <div className="timelineBlockMetadata">
           <div className="timelineBlockMetadataTime">
+            {entry.id}
             {moment(entry.action.time).fromNow()}
           </div>
           {prominent &&

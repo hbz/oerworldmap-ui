@@ -16,14 +16,12 @@ class Timeline extends React.Component {
 
   componentDidMount() {
 
-    // TODO: SET COUNTER TO 0
-    // this.props.emitter.emit('clearActivity')
+    const entries = this.state.entries
+    entries.length && localStorage.setItem('lastActivity', entries[0].id)
 
+    this.props.emitter.emit('clearActivity')
     this.props.emitter.on('newActivity', (activities) => {
-      this.setState({entries: activities.concat(this.state.entries)}, () => {
-        // localStorage.setItem('lastActivity', this.state.entries[0].id);
-        // window.lastActivity = this.state.entries[0].id
-      })
+      this.setState({entries: activities.concat(entries)})
     })
   }
 

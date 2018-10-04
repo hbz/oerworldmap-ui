@@ -129,15 +129,14 @@ require('formdata-polyfill');
         })
     })
 
-    let lastActivity
+    let lastActivity = (location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
     setInterval(() => {
-
-      // TODO: STORE LAST ACTIVITY IN LOCALSTORAGE
-
       const until = lastActivity ? `?until=${lastActivity}` : ''
       api.get(`/activity/${until}`).then(response => {
-        lastActivity = response[0].id
-        emitter.emit('newActivity', response)
+        if (response.length) {
+          lastActivity = response[0].id
+          emitter.emit('newActivity', response)
+        }
       })
     }, 5000)
 

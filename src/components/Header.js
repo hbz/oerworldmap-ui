@@ -40,8 +40,15 @@ class Header extends React.Component {
     })
 
     this.props.emitter.on('newActivity', (activities) =>  {
-      this.setState({activityCount: activities.length + (this.state.activityCount || 0)})
+      if (location.pathname !== '/activity/') {
+        this.setState({activityCount: activities.length + (this.state.activityCount || 0)})
+      }
     })
+
+    this.props.emitter.on('clearActivity', () =>  {
+      this.setState({activityCount: 0})
+    })
+
   }
 
   componentWillUnmount() {
@@ -92,12 +99,11 @@ class Header extends React.Component {
             <li>
               <Link href="/activity/">
                 {this.props.translate('Activity')}
-              </Link>
-              {this.state.activityCount > 0 &&
-                <span className="activityCount">
-                  {this.state.activityCount}
-                </span>
-              }
+                {this.state.activityCount > 0 &&
+                  <span className="activityCount">
+                    {this.state.activityCount}
+                  </span>
+                }
               </Link>
             </li>
             <li
