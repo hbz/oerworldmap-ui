@@ -1,3 +1,4 @@
+/* global localStorage */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withI18n from './withI18n'

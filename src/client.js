@@ -1,5 +1,6 @@
 /* global document */
 /* global window */
+/* global location */
 /* global XMLHttpRequest */
 /* global localStorage */
 
