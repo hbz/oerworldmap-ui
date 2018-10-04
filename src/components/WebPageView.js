@@ -301,6 +301,17 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           }
 
+          {about.activityField &&
+            <Block className="list" title={translate(`${about['@type']}.activityField`)}>
+              <ConceptTree
+                concepts={require('../json/activities.json').hasTopConcept}
+                include={about.activityField.map(concept => concept['@id'])}
+                className="ItemList recursive"
+                linkTemplate="/resource/?filter.about.activityField.@id={@id}"
+              />
+            </Block>
+          }
+
           {about.spatialCoverage &&
             <Block title={translate(`${about['@type']}.spatialCoverage`)}>
               <Link href={`/resource/?filter.about.spatialCoverage=${about.spatialCoverage}`}>
