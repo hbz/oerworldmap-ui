@@ -30,23 +30,22 @@ class Timeline extends React.Component {
     const entries = this.state.entries
     const translate = this.props.translate
     return (
-
       <FullModal closeLink={Link.home}>
         <h2 className="title">
           {translate('Activity')}
         </h2>
         <div className="Timeline">
-            {entries ? (
-              entries.map(entry => (
-                <TimelineBlock
-                  key={`${entry.id}-${entry.action.time}`}
-                  withBorder
-                  entry={entry}
-                />
-              ))
-            ) : (
-              translate("No entries")
-            )}
+          {entries ? (
+            entries.map(entry => (
+              <TimelineBlock
+                key={`${entry.id}-${entry.action.time}`}
+                withBorder
+                entry={entry}
+              />
+            ))
+          ) : (
+            translate("No entries")
+          )}
         </div>
       </FullModal>
     )
