@@ -98,6 +98,7 @@ class Header extends React.Component {
                   {this.state.activityCount}
                 </span>
               }
+              </Link>
             </li>
             <li
               className={`hasDropdown${this.state.dropdowns.find ? ' active': ''}`}
