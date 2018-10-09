@@ -22,7 +22,7 @@ const WebPageCover = ({feature, about, mapboxConfig}) => {
         center={geometry ? undefined : (country && centroids[country])}
       />
 
-      <ResourceImage about={about} />
+      <ResourceImage about={about} className="webPageCoverImage" />
     </div>
   )}
 

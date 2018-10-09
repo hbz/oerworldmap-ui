@@ -7,12 +7,12 @@ import withI18n from './withI18n'
 
 import '../styles/components/ResourceImage.pcss'
 
-const ResourceImage = ({about, translate}) => {
+const ResourceImage = ({about, translate, className}) => {
 
   const twitterId = getTwitterId(about.sameAs)
 
   return (
-    <div className="ResourceImage">
+    <div className={`ResourceImage ${className}`}>
       <div className="missingImg">
         <Icon type={about['@type']} />
       </div>
@@ -49,7 +49,11 @@ const ResourceImage = ({about, translate}) => {
 ResourceImage.propTypes = {
   translate: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
+  className: PropTypes.string
+}
 
+ResourceImage.defaultProps = {
+  className: undefined
 }
 
 export default withI18n(ResourceImage)
