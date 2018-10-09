@@ -169,7 +169,12 @@ export const formatDate = (date, moment) => {
   return currentDate
 }
 
+export const getTwitterId = (sameAs) => {
+  const twitterURL = sameAs && sameAs.find(url => url.includes('twitter.com'))
+  return /twitter.com\/([a-zA-Z0-9_]{1,15})/.exec(twitterURL)
+}
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, getProp, appendOnFocus, formatDate
+  debounce, getProp, appendOnFocus, formatDate, getTwitterId
 }

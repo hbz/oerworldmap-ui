@@ -146,58 +146,11 @@
 
 .itemListTooltip {
   max-width: 100%;
-  width: 350px;
+  width: 500px;
   opacity: 1;
-
-  & .topWrapper {
-    display: flex;
-    align-items: start;
-    color: var(--blue-dark);
-
-    & img {
-      width: 75px;
-      height: 75px;
-      object-fit: contain;
-      border-radius: var(--border-radius);
-      margin-right: 10px;
-    }
-
-    & > div {
-      flex: 1;
-      font-size: var(--font-size-xs);
-      line-height: 15px;
-
-      & b {
-        margin: 10px 0;
-        font-size: var(--font-size);
-        font-weight: 700;
-        line-height: 18px;
-        display: block;
-      }
-    }
-  }
-
-  & .description {
-    padding-top: 5px;
-
-    & p:first-child {
-      margin-top: 0;
-    }
-  }
 
   & .rc-tooltip-inner {
     overflow: hidden;
-  }
-
-  &::after {
-    content: "";
-    width: 98%;
-    height: 14px;
-    background: linear-gradient(180deg, rgba(0, 17, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    position: absolute;
-    z-index: 99;
-    bottom: 2px;
-    left: 3px;
   }
 
   @media screen and (--mobile-breakpoint) {
