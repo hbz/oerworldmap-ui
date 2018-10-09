@@ -68,6 +68,7 @@
   "Person.publication": "Publicações desta Pessoa",
   "Person.primarySector": "Setor educacional nos quais você trabalha prioritariamente",
   "Person.secondarySector": "Setor educacional também relevantes para você",
+  "Person.activityField": "The OER fields the person is focusing their work on",
   "Person.additionalType": "O tipo de pessoa",
   "Action": "Um acontecimento temporário que tem intenção de atingir de completar tarefas específicas com restrições de tempo.",
   "Action.name": "O nome do projeto",
