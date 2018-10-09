@@ -318,5 +318,8 @@
   "menu.me.events": "Veranstaltungen, an denen ich teilnehme",
   "menu.me.organizations": "Meine Mitgliedschaften",
   "entry.missing.info.note": "Keine Beschreibung für diesen Eintrag vorhanden.",
-  "entry.missing.info.action": "Helfen Sie uns, ergänzen Sie Informationen!"
+  "entry.missing.info.action": "Helfen Sie uns, ergänzen Sie Informationen!",
+  "calendar.show.upcoming": "Upcoming",
+  "calendar.show.past": "Past",
+  "form.showOptionalFields": "Show optional fields for %{title}"
 }
