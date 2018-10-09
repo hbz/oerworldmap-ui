@@ -22,7 +22,8 @@ const WebPage = ({
   _self,
   mapboxConfig,
   schema,
-  embedValue
+  embedValue,
+  showOptionalFields
 }) => {
   return (
     <div className="webPageWrapper">
@@ -52,6 +53,7 @@ const WebPage = ({
                 user={user}
                 schema={schema}
                 closeLink={about['@id'] ? _self : undefined}
+                showOptionalFields={showOptionalFields}
               />
             </div>
           }
@@ -83,7 +85,8 @@ WebPage.propTypes = {
     }
   ).isRequired,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
+  showOptionalFields: PropTypes.bool
 }
 
 WebPage.defaultProps = {
@@ -92,7 +95,8 @@ WebPage.defaultProps = {
   contributor: null,
   dateModified: null,
   _links: { refs: [] },
-  embedValue: null
+  embedValue: null,
+  showOptionalFields: true
 }
 
 export default WebPage

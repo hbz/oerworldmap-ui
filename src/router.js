@@ -53,6 +53,7 @@ export default (api) => {
             {...data}
             view="edit"
             schema={context.schema}
+            showOptionalFields={false}
           />
         ) : (
           <ResourceIndex
@@ -60,7 +61,6 @@ export default (api) => {
             mapboxConfig={context.mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            add={params.add}
             embedValue="true"
           />
         )
