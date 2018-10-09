@@ -114,6 +114,13 @@ const secondaryFilters = [
     scheme: require('../json/licenses.json'),
     translate: true
   },
+  {
+    name: "sterms#about.activityField.@id",
+    filter: "filter#about.activityField.@id",
+    type: "concepts",
+    scheme: require('../json/activities.json'),
+    translate: true
+  },
 ]
 
 class Filters extends React.Component {
