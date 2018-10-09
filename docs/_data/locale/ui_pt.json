@@ -242,6 +242,7 @@
   "filter.about.secondarySector.@id": "Sector secundário",
   "filter.about.award": "Prêmio",
   "filter.about.additionalType.@id": "Categoria",
+  "filter.about.activityField.@id": "Field of Activity",
   "audience": "Público-alvo",
   "about": "Assunto",
   "license": "Licença",
