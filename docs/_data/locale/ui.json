@@ -242,6 +242,7 @@
   "filter.about.secondarySector.@id": "Secondary sector",
   "filter.about.award": "Award",
   "filter.about.additionalType.@id": "Category",
+  "filter.about.activityField.@id": "Field of Activity",
   "audience": "Audience",
   "about": "Subject",
   "license": "License",
