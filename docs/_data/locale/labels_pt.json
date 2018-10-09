@@ -87,6 +87,7 @@
   "Person.attends": "Um evento do qual você será participante",
   "Person.primarySector": "The educational sector you are working for in the first place",
   "Person.secondarySector": "Educational sectors you are also working for",
+  "Person.activityField": "Activity field",
   "Person.publication": "Publicações desta Pessoa",
   "Person.manufactured": "Desenvolve",
   "Person.additionalType": "Tipo de pessoa",
