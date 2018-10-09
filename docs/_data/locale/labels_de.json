@@ -87,6 +87,7 @@
   "Person.attends": "Nimmt teil an",
   "Person.primarySector": "Hauptbildungssektor",
   "Person.secondarySector": "Weiterer Bildungssektor",
+  "Person.activityField": "Activity field",
   "Person.publication": "Veröffentlichungen",
   "Person.manufactured": "Entwickelt",
   "Person.additionalType": "Rolle als Person",
