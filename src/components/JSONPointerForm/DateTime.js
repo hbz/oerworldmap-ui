@@ -27,10 +27,11 @@ const DateTime = (
           options={{
             date: true,
             datePattern: ["Y", "m", "d"],
+            delimiter: "-"
           }}
           value={value}
           onChange={e => {
-            const date = e.target.value.replace(/\//g, '-')
+            const date = e.target.value
             setValue(date.endsWith("-") ? date.slice(0, -1) : date)
           }}
         />
