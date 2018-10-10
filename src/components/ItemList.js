@@ -43,7 +43,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
               <Icon type={listItem['@type']} />
               <span>
                 {translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}{(listItem['@type'] === 'Event' && listItem.startDate)
-                  ? <React.Fragment>, <i title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
+                  ? <React.Fragment>, <i aria-hidden="true" title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
                   : ''}
                 {count && ` (${count(listItem)})`}
               </span>
