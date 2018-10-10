@@ -11,6 +11,7 @@ import Textarea from './Textarea'
 import PlaceWidget from './PlaceWidget'
 import KeywordSelect from './KeywordSelect'
 import LocalizedString from './LocalizedString'
+import DateTime from './DateTime'
 
 import withI18n from '../withI18n'
 
@@ -34,7 +35,7 @@ class Builder extends React.Component {
     const widgets = Object.assign(
       {
         Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget, KeywordSelect,
-        LocalizedString
+        LocalizedString, DateTime
       },
       this.props.widgets
     )
