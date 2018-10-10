@@ -242,6 +242,7 @@
   "filter.about.secondarySector.@id": "Weiterer Sektor",
   "filter.about.award": "Auszeichnung",
   "filter.about.additionalType.@id": "Typ",
+  "filter.about.activityField.@id": "Field of Activity",
   "audience": "Bildungsstufe",
   "about": "Fach",
   "license": "Lizenz",
