@@ -11,7 +11,7 @@ Por mais de uma década a criação e uso de Recursos Educacionais Abertos (REA)
 
 O Mapa Global de REA destina-se a fornecer informações necessárias para o apoio à auto-organização dos processos do movimento REA. Além de mapeamento de serviços, projetos, pessoas e organizações relevantes, a plataforma fornece uma rede social, permite a identificação de coleções de REA e oferece suporte a tomada de decisão. Tomado em conjunto, o Mapa Global REA pode ser visto como uma espécie de "sala de operações" para a comunidade de educação aberta.
 
-![The OER World Map seen as 'operations room' for the open education community](/assets/images/open-control-room.jpg)
+<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="The OER World Map seen as 'operations room' for the open education community" />
 
 O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [ graphthinking GmbH](http://www.graphthinking.com), em associação com [ The Open University (Reino Unido)](http://www.open.ac.uk/), financiado pela [ William e Flora Hewlett Foundation](http://www.hewlett.org/). Mas o Mapa pertence à comunidade global de REA. Com a inserção de dados e a inteligência de fontes locais e uma rede global de parceiros e voluntários, o Mapa Global REA será construído e atualizado – um recurso para todos.
 
