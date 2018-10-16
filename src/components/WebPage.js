@@ -66,11 +66,6 @@ const WebPage = ({
 
         </div>
 
-        {/* <div className="closeBtn">
-          <a href="#a">
-            x
-          </a>
-        </div> */}
         <div className="closeBtn">
           <Link href={Link.home}>
             &times;
