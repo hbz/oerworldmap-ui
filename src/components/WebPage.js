@@ -5,6 +5,7 @@ import WebPageView from './WebPageView'
 import WebPageEdit from './WebPageEdit'
 import WebPageHeader from './WebPageHeader'
 import WebPageCover from './WebPageCover'
+import Link from './Link'
 
 import expose from '../expose'
 
@@ -62,7 +63,20 @@ const WebPage = ({
             <WebPageView id="view" about={about} user={user} view={view} schema={schema} />
           </div>
 
+
         </div>
+
+        {/* <div className="closeBtn">
+          <a href="#a">
+            x
+          </a>
+        </div> */}
+        <div className="closeBtn">
+          <Link href={Link.home}>
+            &times;
+          </Link>
+        </div>
+
       </div>
     </div>
   )
