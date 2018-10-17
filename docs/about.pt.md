@@ -17,6 +17,21 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![The Open University](/assets/images/image07.png) ![The William and Flora Hewlett Foundation](/assets/images/image04.jpg)
 
+<div style="clear: both;">
+  <p xmlns:dct="http://purl.org/dc/terms/" >
+    To the extent possible under law,
+    <a rel="dct:publisher"
+      href="https://www.hbz-nrw.de/">
+      <span property="dct:title">hbz</span></a>
+    has waived all copyright and related or neighboring rights to
+    <span property="dct:title">OER World Map data</span>.
+    <a rel="license"
+      href="http://creativecommons.org/publicdomain/zero/1.0/">
+      <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none; float: none; margin: 0; position: relative; top: 10px;" alt="CC0" />
+    </a>
+  </p>
+</div>
+
 * * *
 
 ## Equipe
