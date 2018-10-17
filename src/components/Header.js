@@ -132,6 +132,12 @@ class Header extends React.Component {
                           {this.props.translate('ClientTemplates.app.statistics')}
                         </Link>
                       </li>
+                      <li>
+                        <Link className="iconItem" href="/resource/?q=_exists_:about.countryChampionFor">
+                          <i className="fa fa-trophy" />
+                          {this.props.translate('ClientTemplates.app.countryChampions')}
+                        </Link>
+                      </li>
                     </ul>
 
                     {this.props.user &&

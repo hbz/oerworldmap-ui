@@ -28,6 +28,7 @@
   "ClientTemplates.place_widget.selectCountry": "Search Country",
   "ClientTemplates.popoverCountry.champion": "Country Champion",
   "ClientTemplates.resource_typehead.search": "Search",
+  "ClientTemplates.app.countryChampions": "Country Champions",
   "CountryIndex.read.agreeConditions": "I agree to publish the information above under the conditions of <a href=\"/imprint#cc0\" target=\"_blank\">CC0-License</a>. I assure, that I have all rights necessary to publish the information to grant this license.",
   "CountryIndex.read.countryChampion": "Country Champion",
   "CountryIndex.read.noChampion": "There is no <a href=\"/contribute\">country champion</a> for %{country}, yet. <a href=\"mailto:info@oerworldmap.org\">Contact us</a> if you can jump in!",
