@@ -137,7 +137,7 @@ class Header extends React.Component {
                     {this.props.user &&
                     <ul>
                       <li>
-                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
+                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
                           <i className="fa fa-pencil" />{this.props.translate('menu.my_entries')}
                         </Link>
                       </li>
@@ -460,7 +460,7 @@ class Header extends React.Component {
                       <div className="col one-half">
                         <ul className="linedList border-bottom">
                           <li>
-                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
+                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
                               <i className="fa fa-pencil" /><span>{this.props.translate('menu.me.entries')}</span>
                             </Link>
                           </li>
