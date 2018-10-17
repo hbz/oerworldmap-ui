@@ -209,4 +209,69 @@
       }
     }
   }
+
+  & .faq {
+
+    & h1 {
+      max-width: calc(var(--inner-width) + 2 * var(--static-padding));
+      margin: 0 auto;
+      padding-bottom: 1.5rem;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--blue-light);
+      margin-top: 65px;
+    }
+
+    & #newsletter {
+      margin-top: 60px;
+    }
+  }
+
+  & .accordion {
+    padding: 0 var(--static-padding);
+    margin: 0 auto;
+
+    & h2 {
+      max-width: calc(var(--inner-width) + 2 * var(--static-padding));
+      padding: 1.5rem 0 !important;
+      padding-right: 40px !important;
+      border-bottom: 1px solid var(--blue-light);
+      position: relative;
+      margin: 0 auto;
+
+      &::after {
+        content: "+";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+      }
+    }
+
+    & h2:first-child {
+      padding-top: 0;
+    }
+
+    & .accordionContainer {
+      max-width: calc(var(--inner-width) + 2 * var(--static-padding));
+      height: 0;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    &.active {
+      background-color: var(--grey-lightest);
+
+      & h2 {
+        border-bottom: none;
+
+        &::after {
+          content: "–";
+        }
+      }
+
+      & .accordionContainer {
+        height: 100%;
+      }
+    }
+  }
 }
