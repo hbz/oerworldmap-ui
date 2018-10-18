@@ -139,7 +139,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <a className="item" href="/oerpolicies">
+                        <a className="iconItem" href="/oerpolicies">
                           <i className="fa fa-balance-scale" />
                           {this.props.translate('ClientTemplates.app.oerpolicies')}
                         </a>
