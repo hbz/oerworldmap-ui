@@ -11,11 +11,26 @@ Seit mehr als 10 Jahren werden stetig mehr und mehr Open Educational Resources (
 
 Die OER World Map stellt Informationen für die selbstorganisierte Entwicklung der OER-Bewegung bereit. Sie erfasst und zeigt relevante Organisationen, Projekte, Personen und Services. Gleichzeitig unterstützt die Plattform das Netzwerken, das Finden von OER-Sammlungen und das Treffen von Entscheidungen. Als Ganzes kann die OER World Map als eine Art "Steuerzentrale" für die Open Education Community gesehen werden.
 
-![Die OER World Map als "Steuerzentrale" für die Open Education Community](/assets/images/open-control-room.jpg)
+<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="The OER World Map seen as 'operations room' for the open education community" />
 
 Die OER World Map wird entwickelt von [hbz](http://www.hbz-nrw.de) und [graphthinking GmbH](http://www.graphthinking.com) in Verbindung mit der [Open University (UK)](http://www.open.ac.uk/) gefördert von der [William and Flora Hewlett Foundation](http://www.hewlett.org/). Aber sie gehört der weltweiten OER-Community. Durch Einsatz und Ideen auf lokaler Ebene und ein globales Netz aus Partnern und freiwilligen Helfern wird die OER World Map aufgebaut und aktuell gehalten als nützliche Quelle für alle.
 
 ![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![The Open University](/assets/images/image07.png) ![The William and Flora Hewlett Foundation](/assets/images/image04.jpg)
+
+<div style="clear: both;">
+  <p xmlns:dct="http://purl.org/dc/terms/" >
+    To the extent possible under law,
+    <a rel="dct:publisher"
+      href="https://www.hbz-nrw.de/">
+      <span property="dct:title">hbz</span></a>
+    has waived all copyright and related or neighboring rights to
+    <span property="dct:title">OER World Map data</span>.
+    <a rel="license"
+      href="http://creativecommons.org/publicdomain/zero/1.0/">
+      <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none; float: none; margin: 0; position: relative; top: 10px;" alt="CC0" />
+    </a>
+  </p>
+</div>
 
 * * *
 
