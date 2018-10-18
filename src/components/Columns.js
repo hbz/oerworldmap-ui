@@ -40,7 +40,7 @@ class Columns extends React.Component {
 Columns.propTypes = {
   children: PropTypes.node.isRequired,
   show: PropTypes.bool.isRequired,
-  country: PropTypes.bool.isRequired,
+  country: PropTypes.string.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
