@@ -632,7 +632,7 @@ class Map extends React.Component {
         {this.props.aggregations['sterms#feature.properties.location.address.addressRegion'] &&
           <div className='goToMap'>
             <Link href='/resource/'>
-              <i className='fa fa-globe' />
+              <i aria-hidden="true" className='fa fa-globe' />
             </Link>
           </div>
         }

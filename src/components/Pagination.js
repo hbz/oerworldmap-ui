@@ -11,7 +11,7 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate})
       <div className="Pagination">
         {previousPage ?
           (
-            <Link rel="prev" title={translate('Pagination.prevPage')} href={previousPage}><i className="fa fa-arrow-left " /></Link>
+            <Link rel="prev" title={translate('Pagination.prevPage')} href={previousPage}><i aria-hidden="true" className="fa fa-arrow-left " /></Link>
           ) :
           (
             <span>&nbsp;</span>
@@ -25,7 +25,7 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate})
         </div>
         {nextPage ?
           (
-            <Link rel="next" title={translate('Pagination.nextPage')} href={nextPage}><i className="fa fa-arrow-right " /></Link>
+            <Link rel="next" title={translate('Pagination.nextPage')} href={nextPage}><i aria-hidden="true" className="fa fa-arrow-right " /></Link>
           ) :
           (
             <span>&nbsp;</span>

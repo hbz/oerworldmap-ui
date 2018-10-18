@@ -50,7 +50,7 @@ class KeywordSelect extends React.Component {
           options={this.state.options}
           onChange={selected => setValue(selected.map(option => option.value))}
           placeholder={`${translate('ClientTemplates.resource_typehead.search')} ${translate(title)}`}
-          arrowRenderer={() => <i className="fa fa-chevron-down" />}
+          arrowRenderer={() => <i aria-hidden="true" className="fa fa-chevron-down" />}
           clearable={false}
           promptTextCreator={(label) => `${translate('create')} "${label}"`}
           multi

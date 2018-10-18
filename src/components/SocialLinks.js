@@ -49,7 +49,7 @@ const SocialLinks = ({links}) => (
 
       return (
         <a key={link} href={link} rel="noopener noreferrer" target="_blank">
-          <i className={`fa fa-${icon}`} />
+          <i aria-hidden="true" className={`fa fa-${icon}`} />
         </a>
       )
     })}

@@ -89,7 +89,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggleLike()}>
             <button className={`btn ${like ? 'active': ''}`} type="submit" title={translate('Like')}>
-              <i className="fa fa-thumbs-up" />
+              <i aria-hidden="true" className="fa fa-thumbs-up" />
               {translate('Like')}
             </button>
           </form>
@@ -143,7 +143,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('attendee', isAttendee)}>
             <button className={`btn ${isAttendee ? 'active': ''}`} type="submit" title={translate('I\'m attending')}>
-              <i className="fa fa-flag" />
+              <i aria-hidden="true" className="fa fa-flag" />
               {translate('I\'m attending')}
             </button>
           </form>
@@ -154,7 +154,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('performer', isPerformer)}>
             <button className={`btn ${isPerformer ? 'active': ''}`} type="submit" title={translate('I\'m presenting')}>
-              <i className="fa fa-bullhorn" />
+              <i aria-hidden="true" className="fa fa-bullhorn" />
               {translate('I\'m presenting')}
             </button>
           </form>
@@ -165,7 +165,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('affiliate', isAffiliate)}>
             <button className={`btn ${isAffiliate ? 'active': ''}`} type="submit" title={translate('I\'m a member')}>
-              <i className="fa fa-sitemap" />
+              <i aria-hidden="true" className="fa fa-sitemap" />
               {translate('I\'m a member')}
             </button>
           </form>
