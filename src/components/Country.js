@@ -44,7 +44,7 @@ class Country  extends React.Component {
                 onClick={() => this.setState({showCountryChampion:!this.state.showCountryChampion})}
               >
                 <span>{this.props.translate('CountryIndex.read.countryChampion')}</span>
-                &nbsp;<i className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
+                &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
@@ -94,13 +94,13 @@ class Country  extends React.Component {
                 onClick={() => this.setState({showCountryChampion: !this.state.showCountryChampion})}
               >
                 <span>{this.props.translate('CountryIndex.read.countryChampion')}</span>
-                &nbsp;<i className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
+                &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
               <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
                 <div className="user">
                   <div className="frame">
-                    <i className="fa fa-user" />
+                    <i aria-hidden="true" className="fa fa-user" />
                   </div>
                   <div
                     className="text"
@@ -127,7 +127,7 @@ class Country  extends React.Component {
               onClick={() => this.setState({showReports:!this.state.showReports})}
             >
               <span>{this.props.translate('CountryIndex.read.countryReports')}</span>
-              &nbsp;<i className={`fa fa-${this.state.showReports ? 'minus' : 'plus'}`} />
+              &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showReports ? 'minus' : 'plus'}`} />
             </h3>
 
             <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
@@ -135,7 +135,7 @@ class Country  extends React.Component {
                 .sort((a,b) => a._source.about.dateCreated < b._source.about.dateCreated)
                 .map(report => (
                   <div className="resource" key={report._source.about['@id']}>
-                    <i className="fa fa-book" />
+                    <i aria-hidden="true" className="fa fa-book" />
                     <div className="text">
                       <Link href={`/resource/${report._source.about['@id']}`}>
                         {this.props.translate(report._source.about.name)}
@@ -159,7 +159,7 @@ class Country  extends React.Component {
             onClick={() => this.setState({showStatistics:!this.state.showStatistics})}
           >
             <span>{this.props.translate('CountryIndex.read.statistics')}</span>
-            &nbsp;<i className={`fa fa-${this.state.showStatistics ? 'minus' : 'plus'}`} />
+            &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showStatistics ? 'minus' : 'plus'}`} />
           </h3>
           <div className={`statisticsContainer ${this.state.showStatistics ? '' : 'collapsed'}`}>
             <table>

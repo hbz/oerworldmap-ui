@@ -36,7 +36,7 @@ const WebPageHeader = ({
                     &times;
                   </Link>
                 ) : (
-                  <Link href="#edit"><i className="fa fa-pencil" /></Link>
+                  <Link href="#edit"><i aria-hidden="true" className="fa fa-pencil" /></Link>
                 )}
               </div>
           ]}

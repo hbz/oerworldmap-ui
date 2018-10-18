@@ -133,12 +133,51 @@ const toggleShow = (() => {
 
 })()
 
+const createAccordeon = (() => {
+
+  const init = () => {
+
+    if (window.location.pathname.includes("FAQ")) {
+
+      const titles = document.querySelectorAll('h2')
+      titles.forEach((title) => {
+        const accordion = document.createElement('div')
+        accordion.classList.add('accordion')
+
+        const accordionContainer = document.createElement("div")
+        accordionContainer.classList.add("accordionContainer")
+
+        let currentChild = title.nextElementSibling
+
+        while (currentChild && currentChild.nodeName !== "H2" && currentChild.nodeName !== "SECTION") {
+          const next = currentChild.nextElementSibling
+          accordionContainer.appendChild(currentChild)
+          currentChild = next
+        }
+
+        title.addEventListener("click", (e) => {
+          document.querySelectorAll('.active').forEach(active => active.classList.remove("active"))
+          e.target.parentElement.classList.toggle("active")
+        })
+
+        title.parentNode.insertBefore(accordion, title)
+
+        accordion.appendChild(title)
+        accordion.appendChild(accordionContainer)
+      })
+    }
+  }
+
+  return { init }
+
+})()
 
 $(() => {
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
   toggleShow.init()
+  createAccordeon.init()
 
   $('[data-slick]').slick()
 

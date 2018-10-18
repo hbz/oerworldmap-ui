@@ -48,12 +48,12 @@ const ResourcePreview = ({ translate, about }) => {
               </span>
 
               <span>
-                <i className="fa fa-thumbs-up" />&nbsp;
+                <i aria-hidden="true" className="fa fa-thumbs-up" />&nbsp;
                 {(about.objectIn || []).filter(action => action['@type'] === 'LikeAction').length || 0}
               </span>
 
               <span>
-                <i className="fa fa-comments" />&nbsp;
+                <i aria-hidden="true" className="fa fa-comments" />&nbsp;
                 {(about['comment'] || []).filter(comment => comment.author && comment.text).length || 0}
               </span>
             </div>

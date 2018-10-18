@@ -228,6 +228,7 @@ class Filters extends React.Component {
 
               <button type="submit">
                 <i
+                  aria-hidden="true"
                   className="fa fa-search"
                   title="Search"
                 />
@@ -248,6 +249,7 @@ class Filters extends React.Component {
                 overlayClassName="tooltipDisableEvents"
               >
                 <i
+                  aria-hidden="true"
                   className="fa fa-th-list"
                   tabIndex="0"
                   role="button"

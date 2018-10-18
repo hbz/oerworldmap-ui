@@ -73,11 +73,11 @@ require('formdata-polyfill');
       }
     })
     // Log in
-    emitter.on('login', () => {
+    emitter.on('login', (back) => {
       const request = new XMLHttpRequest()
       request.open('GET', '/.login', false)
       request.send(null)
-      window.location.reload()
+      window.location.href = back || '/resource'
     })
     // Log out
     emitter.on('logout', () => {

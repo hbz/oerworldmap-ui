@@ -91,7 +91,7 @@ class DropdownFilter extends React.Component {
           <span className="btnText">
             {this.props.icon ? (
               <span>
-                <i className={`fa fa-${this.props.icon}`} /> {this.props.translate(this.props.filterName)}
+                <i aria-hidden="true" className={`fa fa-${this.props.icon}`} /> {this.props.translate(this.props.filterName)}
               </span>
             ) : (
               this.props.translate(this.props.filterName)

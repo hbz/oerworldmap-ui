@@ -75,7 +75,7 @@ class Header extends React.Component {
           onKeyDown={triggerClick}
           ref={el => this.menuToggle = el}
         >
-          <i className="fa fa-bars" />
+          <i aria-hidden="true" className="fa fa-bars" />
         </button>
 
         <nav
@@ -116,35 +116,47 @@ class Header extends React.Component {
                       </li>
                       <li>
                         <Link className="iconItem" href="/resource/?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC">
-                          <i className="fa fa-thumbs-up" />
+                          <i aria-hidden="true" className="fa fa-thumbs-up" />
                           {this.props.translate('menu.most_liked')}
                         </Link>
                       </li>
                       <li>
                         <Link className="iconItem" href="/feed/">
-                          <i className="fa fa-rss" />
+                          <i aria-hidden="true" className="fa fa-rss" />
                           {this.props.translate('LandigPage.index.recentAdditions')}
                         </Link>
                       </li>
                       <li>
                         <Link className="iconItem" href="/aggregation/">
-                          <i className="fa fa-pie-chart" />
+                          <i aria-hidden="true" className="fa fa-pie-chart" />
                           {this.props.translate('ClientTemplates.app.statistics')}
                         </Link>
+                      </li>
+                      <li>
+                        <Link className="iconItem" href="/resource/?q=_exists_:about.countryChampionFor">
+                          <i className="fa fa-trophy" />
+                          {this.props.translate('ClientTemplates.app.countryChampions')}
+                        </Link>
+                      </li>
+                      <li>
+                        <a className="iconItem" href="/oerpolicies">
+                          <i className="fa fa-balance-scale" />
+                          {this.props.translate('ClientTemplates.app.oerpolicies')}
+                        </a>
                       </li>
                     </ul>
 
                     {this.props.user &&
                     <ul>
                       <li>
-                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
-                          <i className="fa fa-pencil" />{this.props.translate('menu.my_entries')}
+                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
+                          <i aria-hidden="true" className="fa fa-pencil" />{this.props.translate('menu.my_entries')}
                         </Link>
                       </li>
                       {this.props.user.country &&
                       <li>
                         <Link className="iconItem" href={`/country/${this.props.user.country}`}>
-                          <i className="fa fa-flag" />{this.props.translate('Countryview:')} {this.props.translate(this.props.user.country)}
+                          <i aria-hidden="true" className="fa fa-flag" />{this.props.translate('Countryview:')} {this.props.translate(this.props.user.country)}
                         </Link>
                       </li>
                       }
@@ -422,24 +434,24 @@ class Header extends React.Component {
                         <ul className="linedList border-bottom">
                           <li>
                             <Link className="item" href="/resource/">
-                              <i className="fa fa-home" /><span>{this.props.translate('menu.me.home')}</span>
+                              <i aria-hidden="true" className="fa fa-home" /><span>{this.props.translate('menu.me.home')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/${this.props.user.id}`}>
-                              <i className="fa fa-user-circle" /><span>{this.props.translate('menu.me.profile')}</span>
+                              <i aria-hidden="true" className="fa fa-user-circle" /><span>{this.props.translate('menu.me.profile')}</span>
                             </Link>
                           </li>
                           {expose('groupAdmin', this.props.user) &&
                           <li>
                             <Link className="item" href="/user/groups">
-                              <i className="fa fa-gear" /><span>{this.props.translate('menu.me.groups')}</span>
+                              <i aria-hidden="true" className="fa fa-gear" /><span>{this.props.translate('menu.me.groups')}</span>
                             </Link>
                           </li>
                           }
                           <li>
                             <Link className="item" href="/user/password">
-                              <i className="fa fa-lock" /><span>{this.props.translate('menu.me.password')}</span>
+                              <i aria-hidden="true" className="fa fa-lock" /><span>{this.props.translate('menu.me.password')}</span>
                             </Link>
                           </li>
                           <li>
@@ -451,7 +463,7 @@ class Header extends React.Component {
                                 this.props.emitter.emit('logout')
                               }}
                             >
-                              <i className="fa fa-sign-out" />
+                              <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{this.props.translate('menu.me.logout')}</span>
                             </a>
                           </li>
@@ -460,13 +472,13 @@ class Header extends React.Component {
                       <div className="col one-half">
                         <ul className="linedList border-bottom">
                           <li>
-                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
-                              <i className="fa fa-pencil" /><span>{this.props.translate('menu.me.entries')}</span>
+                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
+                              <i aria-hidden="true" className="fa fa-pencil" /><span>{this.props.translate('menu.me.entries')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
-                              <i className="fa fa-thumbs-up" />
+                              <i aria-hidden="true" className="fa fa-thumbs-up" />
                               <span>{this.props.translate('menu.me.likes')}</span>
                             </Link>
                           </li>
@@ -481,13 +493,13 @@ class Header extends React.Component {
                           </li>
                           <li>
                             <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
-                              <i className="fa fa-calendar" />
+                              <i aria-hidden="true" className="fa fa-calendar" />
                               <span>{this.props.translate('menu.me.events')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/?filter.about.affiliate.@id=${this.props.user.id}`}>
-                              <i className="fa fa-users" />
+                              <i aria-hidden="true" className="fa fa-users" />
                               <span>{this.props.translate('menu.me.organizations')}</span>
                             </Link>
                           </li>
