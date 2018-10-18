@@ -138,6 +138,11 @@ class Header extends React.Component {
                           {this.props.translate('ClientTemplates.app.countryChampions')}
                         </Link>
                       </li>
+                      <li>
+                        <a className="item" href="/oerpolicies">
+                          {this.props.translate('ClientTemplates.app.oerpolicies')}
+                        </a>
+                      </li>
                     </ul>
 
                     {this.props.user &&
