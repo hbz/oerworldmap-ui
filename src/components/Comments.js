@@ -45,7 +45,7 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
                 })}}
               >
                 <button className="btn icon" type="submit" title="Delete">
-                  <i className="fa fa-fw fa-trash" />
+                  <i aria-hidden="true" className="fa fa-fw fa-trash" />
                 </button>
               </form>
             </div>

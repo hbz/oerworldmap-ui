@@ -30,7 +30,7 @@ class Block extends React.Component {
               className="plus"
               onClick={() => this.setState({collapsed: !this.state.collapsed})}
             >
-              <i className={`fa fa-${this.state.collapsed ? 'plus' : 'minus'}`} />
+              <i aria-hidden="true" className={`fa fa-${this.state.collapsed ? 'plus' : 'minus'}`} />
             </span>
           }
         </div>

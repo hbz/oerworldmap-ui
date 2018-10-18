@@ -37,6 +37,7 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
         </Link>
         {!nested && (concept.narrower && concept.narrower.length > 0) &&
           <i
+            aria-hidden="true"
             className="fa fa-plus toggle"
             onKeyDown={triggerClick}
             tabIndex="0"

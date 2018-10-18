@@ -38,6 +38,7 @@ class ShareExport extends React.Component {
     return (
       <div className="ShareExport dropdownParent">
         <i
+          aria-hidden="true"
           role="button"
           tabIndex="0"
           className="fa fa-gear"
@@ -47,8 +48,8 @@ class ShareExport extends React.Component {
         />
         { this.state.showing &&
           <ul className="dropdownMenu">
-            <li><a href="#share">{this.props.translate('share')} <i className="fa fa-share-alt" /></a></li>
-            <li><a href="#export">{this.props.translate('export')} <i className="fa fa-share" /></a></li>
+            <li><a href="#share">{this.props.translate('share')} <i aria-hidden="true" className="fa fa-share-alt" /></a></li>
+            <li><a href="#export">{this.props.translate('export')} <i aria-hidden="true" className="fa fa-share" /></a></li>
             <li>
               <button
                 type="button"
@@ -56,7 +57,7 @@ class ShareExport extends React.Component {
                   window.print()
                 }}
               >
-                {this.props.translate('print')} <i className="fa fa-print" />
+                {this.props.translate('print')} <i aria-hidden="true" className="fa fa-print" />
               </button>
             </li>
           </ul>

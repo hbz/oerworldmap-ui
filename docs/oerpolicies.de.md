@@ -1,8 +1,8 @@
 ---
 title: OER Policy registry
 ---
-
 ## Welcome to the new OER Policy Layer of the OER World Map!
+
 We are currently working on moving Creative Commons OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides.
 
 Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
