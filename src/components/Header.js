@@ -132,12 +132,18 @@ class Header extends React.Component {
                           {this.props.translate('ClientTemplates.app.statistics')}
                         </Link>
                       </li>
+                      <li>
+                        <Link className="iconItem" href="/resource/?q=_exists_:about.countryChampionFor">
+                          <i className="fa fa-trophy" />
+                          {this.props.translate('ClientTemplates.app.countryChampions')}
+                        </Link>
+                      </li>
                     </ul>
 
                     {this.props.user &&
                     <ul>
                       <li>
-                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
+                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
                           <i aria-hidden="true" className="fa fa-pencil" />{this.props.translate('menu.my_entries')}
                         </Link>
                       </li>
@@ -460,7 +466,7 @@ class Header extends React.Component {
                       <div className="col one-half">
                         <ul className="linedList border-bottom">
                           <li>
-                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.username}`}>
+                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
                               <i aria-hidden="true" className="fa fa-pencil" /><span>{this.props.translate('menu.me.entries')}</span>
                             </Link>
                           </li>
