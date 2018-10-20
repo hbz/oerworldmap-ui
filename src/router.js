@@ -194,6 +194,7 @@ export default (api) => {
           <ResourceIndex
             {...data}
             className="countryView"
+            phrases={context.phrases}
             mapboxConfig={context.mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"

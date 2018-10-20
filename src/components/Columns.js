@@ -28,7 +28,7 @@ class Columns extends React.Component {
   render() {
     return (
       <aside
-        className={`Columns ${this.state.show ? '' : 'hideColumns'}`}
+        className={`Columns${this.state.show ? '' : ' hideColumns'}${this.props.country ? ' country': ''}`}
       >
         {this.props.children}
       </aside>
@@ -40,6 +40,7 @@ class Columns extends React.Component {
 Columns.propTypes = {
   children: PropTypes.node.isRequired,
   show: PropTypes.bool.isRequired,
+  country: PropTypes.string.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
