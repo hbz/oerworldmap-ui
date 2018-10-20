@@ -1,6 +1,10 @@
 ---
 title: FAQ
+layout: page
+class: faq
 ---
+# FAQ
+
 ## Was ist OER?
 
 'OER' ist die Abkürzung für 'Open Educational Resources' und bezieht sich auf frei verfügbare Materialien, die zum [Lehren und Lernen](https://www.opencontent.org/definition/) verwendet werden können. "Offen" sind sie typischerweise durch Veröffentlichung unter einer offenen Lizenz anstelle einer traditionellen Copyright-Lizenz. Ein wesentliches Merkmal ist, dass sie neue Möglichkeiten für kollaboratives Arbeiten bieten und innovatives Lehren und Lernen ermöglichen.
@@ -45,7 +49,7 @@ Die OER World Map sammelt Daten über Akteure und Aktivitäten aus dem Bereich d
 
 <table class="table">
   
-<tr> <th>Datentyp</th><th>Definition</th> <th>Beispiele</th></tr> 
+<tr> <th>Datentyp</th><th>Definition</th> <th>Beispiele</th></tr>
 <tr> <td>Organisationen</td><td>Eine Organisation ist eine stabile Gruppe von Personen, die gemeinsame Ziele verfolgen. Das Spektrum reicht von eingetragenen juristischen Personen auf der einen Seite bis hin zu informellen, lose verbundenen Gemeinschaften auf der anderen Seite.</td> <td>Universitäten, Gesellschaften, Vereine, Gemeinschaften</td></tr>
 <tr> <td>Projekte</td><td>Ein Projekt ist ein zeitlich begrenztes Unterfangen (innerhalb einer Organisation oder organisationsübergreifend) mit dem Ziel, eine bestimmte Aufgabe innerhalb einer bestimmten Zeitspanne zu erledigen.</td> <td>OER World Map Projekt</td></tr>
 <tr> <td>Services</td><td>Ein Service ist ein Online-Angebot, das kontinuierlich zur Verfügung steht und Funktionen oder Inhalte im Zusammenhang mit OER bzw. für deren Nutzer zur Verfügung stellt.</td> <td>Repositorys, Sammlungen, Authoring-Tools, Kommunikationsplattformen</td></tr>

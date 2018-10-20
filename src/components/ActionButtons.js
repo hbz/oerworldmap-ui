@@ -39,7 +39,7 @@ class ActionButtons extends React.Component {
       <div className="ActionButtons">
         {expose('groupAdmin', this.props.user) &&
           <Link href="/user/groups" title={this.props.translate('ClientTemplates.app.groups')}>
-            <i className="fa fa-gear" />
+            <i aria-hidden="true" className="fa fa-gear" />
           </Link>
         }
 
@@ -52,7 +52,7 @@ class ActionButtons extends React.Component {
             onKeyDown={triggerClick}
             ref={el => this.addBtn = el}
           >
-            <i className="fa fa-plus" />
+            <i aria-hidden="true" className="fa fa-plus" />
 
             <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
               {['Organization', 'Service', 'Action', 'Article', 'Event', 'WebPage', 'Product'].map(type => (
@@ -67,17 +67,17 @@ class ActionButtons extends React.Component {
         }
 
         <Link href="/aggregation/" title={this.props.translate('ClientTemplates.app.statistics')}>
-          <i className="fa fa-pie-chart" />
+          <i aria-hidden="true" className="fa fa-pie-chart" />
         </Link>
 
         <Link href="/feed/" title={this.props.translate('ClientTemplates.app.recentAdditions')}>
-          <i className="fa fa-rss" />
+          <i aria-hidden="true" className="fa fa-rss" />
         </Link>
         <Link
           href="?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC"
           title={this.props.translate('ClientTemplates.app.likes')}
         >
-          <i className="fa fa-thumbs-up" />
+          <i aria-hidden="true" className="fa fa-thumbs-up" />
         </Link>
         <Link
           className="lighthouse"

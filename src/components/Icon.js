@@ -16,7 +16,7 @@ const icons = {
 }
 
 const Icon = ({ type }) => (
-  <i className={`fa fa-${icons[type] || 'question'}`} />
+  <i aria-hidden="true" className={`fa fa-${icons[type] || 'question'}`} />
 )
 
 Icon.propTypes = {

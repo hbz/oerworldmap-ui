@@ -215,7 +215,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 {lighthouses.length > 0 &&
                   <li>
                     <div className="item lighthouses">
-                      <i className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
+                      <i aria-hidden="true" className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
                         <img
                           style={{'position': 'relative', 'top': '2px'}}
                           src="/public/lighthouse_16px_white.svg"
@@ -229,7 +229,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 {likes.length > 0 &&
                   <li>
                     <div className="item">
-                      <i className="fa fa-thumbs-up bg-highlight-color bg-important" />
+                      <i aria-hidden="true" className="fa fa-thumbs-up bg-highlight-color bg-important" />
                       <span>{translate('Likes')} ({likes.length})</span>
                     </div>
                   </li>
