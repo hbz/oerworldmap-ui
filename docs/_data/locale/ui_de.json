@@ -29,6 +29,7 @@
   "ClientTemplates.popoverCountry.champion": "Country Champion",
   "ClientTemplates.resource_typehead.search": "Suche",
   "ClientTemplates.app.countryChampions": "Country Champions",
+  "ClientTemplates.app.oerpolicies": "OER Policy Registry",
   "CountryIndex.read.agreeConditions": "Ich bin damit einverstanden, die oben genannten Informationen unter den Bedingungen der <a href=\"/imprint#cc0\" target=\"_blank\">CC0-Lizenz</a> zu veröffentlichen. Ich versichere, dass ich alle Rechte habe, um die Informationen zu veröffentlichen und um diese Lizenz zu erteilen.",
   "CountryIndex.read.countryChampion": "Country Champion",
   "CountryIndex.read.noChampion": "Es gibt noch keinen <a href=\"/contribute\">Country Champion</a> für %{country}. <a href=\"mailto:info@oerworldmap.org\">Kontaktieren Sie uns</a> wenn Sie das übernehmen möchten!",

@@ -29,6 +29,7 @@
   "ClientTemplates.popoverCountry.champion": "Embaixador para o País",
   "ClientTemplates.resource_typehead.search": "Busca",
   "ClientTemplates.app.countryChampions": "Country Champions",
+  "ClientTemplates.app.oerpolicies": "OER Policy Registry",
   "CountryIndex.read.agreeConditions": "Eu concordo em publicar as informações abaixo sob as condições de uma licença <a href=\"/imprint#cc0\" target=\"_blank\">CC-0</a>. Eu garanto que tenho todos os direitos necessários para publicar as informações sob essa licença.",
   "CountryIndex.read.countryChampion": "Embaixador do País",
   "CountryIndex.read.noChampion": "Ainda não há <a href=\"/contribute\">embaixador do país</a>para %{country}. <a href=\"mailto:info@oerworldmap.org\">Entre em contato</a> se quiser participar!",
