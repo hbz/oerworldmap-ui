@@ -1,11 +1,11 @@
 ---
 title: OER Policy registry
 ---
-## Welcome to the new OER Policy Layer of the OER World Map!
+## Herzlich willkommen auf der neuen OER-Policy-Ebene der OER World Map!
 
-We are currently working on moving [Creative Commons](https://creativecommons.org/) OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides.
+Wir integrieren derzeit die [Creative Commons](https://creativecommons.org/) OER Policy Registry in die OER World Map. Dieses Register ermöglicht es jedem, Informationen über Strategiepapiere, Richtlinien und Gesetze zu Open Education einfach zu teilen, zu aktualisieren und zu finden. Auch verwandte Dokumente wie Fallstudien und Leitfäden werden hier gesammelt.
 
-Gratitude to [Creative Commons](https://creativecommons.org/) for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
+Herzlicher Dank an [Creative Commons](https://creativecommons.org/) dafür, die OER Policy Registry ins Leben gerufen, gepflegt und der OER World Map zur Verfügung gestellt zu haben. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
 
 More information on the state of the project can be found [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map).
 
