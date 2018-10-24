@@ -244,7 +244,7 @@
   "filter.about.secondarySector.@id": "Weiterer Sektor",
   "filter.about.award": "Auszeichnung",
   "filter.about.additionalType.@id": "Typ",
-  "filter.about.activityField.@id": "Field of Activity",
+  "filter.about.activityField.@id": "Tätigkeitsbereich",
   "audience": "Bildungsstufe",
   "about": "Fach",
   "license": "Lizenz",
@@ -322,7 +322,7 @@
   "menu.me.organizations": "Meine Mitgliedschaften",
   "entry.missing.info.note": "Keine Beschreibung für diesen Eintrag vorhanden.",
   "entry.missing.info.action": "Helfen Sie uns, ergänzen Sie Informationen!",
-  "calendar.show.upcoming": "Upcoming",
-  "calendar.show.past": "Past",
-  "form.showOptionalFields": "Show optional fields for %{title}"
+  "calendar.show.upcoming": "Zukünftig",
+  "calendar.show.past": "Vergangen",
+  "form.showOptionalFields": "Optionale Felder für %{title} anzeigen"
 }
