@@ -1,5 +1,5 @@
 ---
-title: OER Policy registry
+title: OER-Policy-Registry
 ---
 ## Herzlich willkommen auf der neuen OER-Policy-Ebene der OER World Map!
 
