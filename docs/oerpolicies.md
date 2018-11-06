@@ -1,5 +1,6 @@
 ---
 title: OER Policy registry
+class: oerPolicies
 ---
 
 ## Welcome to the new OER Policy Layer of the OER World Map!

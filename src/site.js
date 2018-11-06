@@ -17,6 +17,7 @@ import Header from './components/Header'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
 import i18n from './i18n'
+import ItemList from './components/ItemList'
 
 import Overview from './components/Overview'
 
@@ -172,12 +173,60 @@ const createAccordeon = (() => {
 
 })()
 
+
+const createPoliciesFeed = (() => {
+
+  const init =  async () => {
+
+    if (window.location.pathname.includes("oerpolicies")) {
+
+      // Request data for policies
+      const rawResponse = await fetch(`https://oerworldmap.org/resource.json?filter.about.additionalType.@id=https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy`, {
+        headers: {
+          'accept': 'application/json'
+        }
+      })
+
+      const content = await rawResponse.json()
+
+      if (content) {
+        const oerPolciesContainer = document.querySelector('.oerPolicies .markdown .inner')
+        const feedContainer = document.createElement('div')
+        oerPolciesContainer.appendChild(feedContainer)
+
+        ReactDOM.render(
+          <I18nProvider i18n={
+            i18n(
+              locales,
+              i18ns[locales[0]]
+            )}
+          >
+            <EmittProvider emitter={emitter}>
+              <React.Fragment>
+                <h2>Lastest policies on the map</h2>
+                <ItemList listItems={content.member.map(member => member.about)} />
+              </React.Fragment>
+            </EmittProvider>
+          </I18nProvider>,
+          feedContainer
+        )
+      }
+
+
+    }
+  }
+
+  return { init }
+
+})()
+
 $(() => {
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
   toggleShow.init()
   createAccordeon.init()
+  createPoliciesFeed.init()
 
   $('[data-slick]').slick()
 
