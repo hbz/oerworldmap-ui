@@ -31,11 +31,12 @@ const Groups = ({translate, emitter, groups, users, _status, confirm}) => (
           <table>
             <thead>
               <tr>
-                <th>Profile</th>
-                <th>Account</th>
+                <th>{translate('Profile')}</th>
+                <th>{translate('Account')}</th>
                 {groups.map(group => (
                   <th key={group}>{group}</th>
                 ))}
+                <th>{translate('Verified')}</th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +65,11 @@ const Groups = ({translate, emitter, groups, users, _status, confirm}) => (
                       />
                     </td>
                   ))}
+                  <td
+                    className="center"
+                  >
+                    <input type="checkbox" />
+                  </td>
                 </tr>
               ))}
             </tbody>
