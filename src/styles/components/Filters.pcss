@@ -177,14 +177,9 @@
     font-size: 0.8rem;
     transition: all 1s;
     clear: bloth;
-
-    &::after {
-      content: ".";
-      visibility: hidden;
-      display: block;
-      height: 0;
-      clear: both;
-    }
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
 
     & button {
       border: none;
@@ -198,15 +193,22 @@
       color: var(--blue);
     }
 
+
     & .floatingBtn {
       background-color: var(--white);
-      border: 1px solid var(--blue);
       padding: 5px 10px;
+      font-size: var(--font-size-xs);
+      border-radius: var(--border-radius);
+      margin-right: 10px;
 
       &:hover,
       &:focus {
         color: var(--orange);
       }
+    }
+
+    & .floatingBtn:last-child {
+      margin-right: 0;
     }
   }
 
