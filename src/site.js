@@ -181,6 +181,7 @@ const createPoliciesFeed = (() => {
     if (window.location.pathname.includes("oerpolicies")) {
 
       // Request data for policies
+      // ADD carry a tag called policy
       const rawResponse = await fetch(`https://oerworldmap.org/resource.json?filter.about.additionalType.@id=https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy`, {
         headers: {
           'accept': 'application/json'
@@ -190,9 +191,9 @@ const createPoliciesFeed = (() => {
       const content = await rawResponse.json()
 
       if (content) {
-        const oerPolciesContainer = document.querySelector('.oerPolicies .markdown .inner')
+        const iframe = document.querySelector('iframe')
         const feedContainer = document.createElement('div')
-        oerPolciesContainer.appendChild(feedContainer)
+        iframe.parentElement.insertBefore(feedContainer, iframe)
 
         ReactDOM.render(
           <I18nProvider i18n={
@@ -205,14 +206,13 @@ const createPoliciesFeed = (() => {
               <React.Fragment>
                 <h2>Lastest policies on the map</h2>
                 <ItemList listItems={content.member.map(member => member.about)} />
+                <h2>Policies Statistics</h2>
               </React.Fragment>
             </EmittProvider>
           </I18nProvider>,
           feedContainer
         )
       }
-
-
     }
   }
 
