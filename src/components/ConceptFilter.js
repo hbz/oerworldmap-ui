@@ -20,22 +20,6 @@ const filterConcepts = (concepts, include) => {
   return res
 }
 
-const findConcept = (concepts, id) => {
-  const concept = concepts.find(concept => concept['@id'] === id)
-  if (concept) {
-    return concept
-  }
-
-  for (let i = 0; i < concepts.length; i++) {
-    if (concepts[i].narrower) {
-      const concept = findConcept(concepts[i].narrower, id)
-      if (concept) {
-        return concept
-      }
-    }
-  }
-}
-
 class ConceptFilter extends React.Component {
 
   constructor(props) {
