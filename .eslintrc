@@ -23,8 +23,11 @@
     "semi": ["error", "never"],
     "import/no-dynamic-require": "off",
     "no-console": "warn",
-    "jsx-a11y/no-autofocus": "off"
-  },
+    "jsx-a11y/no-autofocus": "off",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "any", "prev": "*", "next": "*" }
+  ]},
   "parser": "babel-eslint",
   "extends": ["airbnb", "stylelint"]
 }
