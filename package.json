@@ -40,7 +40,7 @@
     "cssnano": "^4.0.4",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "eslint": "^5.0.1",
+    "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-stylelint": "^8.2.0",
     "eslint-plugin-import": "^2.14.0",
