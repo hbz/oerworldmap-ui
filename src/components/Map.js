@@ -251,7 +251,7 @@ class Map extends React.Component {
               </b>
             </li>
 
-            {this.state.bucket && this.state.bucket["filter#champions"].doc_count > 0 ? (
+            {this.state.bucket && this.props.aggregations["global#champions"]["sterms#about.countryChampionFor.keyword"].buckets.some(b => b.key === this.state.bucket.key) ? (
               <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
             ) : (
               !this.props.iso3166
