@@ -29,7 +29,7 @@
   "ClientTemplates.popoverCountry.champion": "Country Champion",
   "ClientTemplates.resource_typehead.search": "Suche",
   "ClientTemplates.app.countryChampions": "Country Champions",
-  "ClientTemplates.app.oerpolicies": "OER Policy Registry",
+  "ClientTemplates.app.oerpolicies": "OER-Policy-Registry",
   "CountryIndex.read.agreeConditions": "Ich bin damit einverstanden, die oben genannten Informationen unter den Bedingungen der <a href=\"/imprint#cc0\" target=\"_blank\">CC0-Lizenz</a> zu veröffentlichen. Ich versichere, dass ich alle Rechte habe, um die Informationen zu veröffentlichen und um diese Lizenz zu erteilen.",
   "CountryIndex.read.countryChampion": "Country Champion",
   "CountryIndex.read.noChampion": "Es gibt noch keinen <a href=\"/contribute\">Country Champion</a> für %{country}. <a href=\"mailto:info@oerworldmap.org\">Kontaktieren Sie uns</a> wenn Sie das übernehmen möchten!",
@@ -244,7 +244,7 @@
   "filter.about.secondarySector.@id": "Weiterer Sektor",
   "filter.about.award": "Auszeichnung",
   "filter.about.additionalType.@id": "Typ",
-  "filter.about.activityField.@id": "Field of Activity",
+  "filter.about.activityField.@id": "Tätigkeitsbereich",
   "audience": "Bildungsstufe",
   "about": "Fach",
   "license": "Lizenz",
@@ -322,7 +322,7 @@
   "menu.me.organizations": "Meine Mitgliedschaften",
   "entry.missing.info.note": "Keine Beschreibung für diesen Eintrag vorhanden.",
   "entry.missing.info.action": "Helfen Sie uns, ergänzen Sie Informationen!",
-  "calendar.show.upcoming": "Upcoming",
-  "calendar.show.past": "Past",
-  "form.showOptionalFields": "Show optional fields for %{title}"
+  "calendar.show.upcoming": "Zukünftig",
+  "calendar.show.past": "Vergangen",
+  "form.showOptionalFields": "Optionale Felder für %{title} anzeigen"
 }
