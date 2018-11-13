@@ -178,7 +178,7 @@ class Map extends React.Component {
   getBucket(country) {
     return this.props.features ? (
       country === this.props.iso3166
-      && Object.assign(this.props.aggregations["global#facets"]["filter#country"], {key: country})
+      && Object.assign(this.props.aggregations["global#facets"]["filter#filtered"]["filter#country"], {key: country})
     ) || (
       this.props.aggregations["sterms#feature.properties.location.address.addressCountry"]
       && this.props.aggregations["sterms#feature.properties.location.address.addressCountry"]
