@@ -234,6 +234,7 @@ export default (api) => {
     {
       path: '/feed/',
       get: async (params, context, state) => {
+        Link.home = '/feed/'
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
         const component = (data) => <Feed {...data} />
         const title = context.i18n.translate('ClientTemplates.app.recentAdditions')
