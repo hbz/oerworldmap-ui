@@ -5,6 +5,7 @@ import compression from 'compression'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import userAgent from 'express-useragent'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
@@ -38,6 +39,12 @@ if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') 
 }
 
 server.use(express.static(path.join(__dirname, '/../dist')))
+
+// Middleware to check browser support
+server.use((req, res, next) => {
+  const ua = userAgent.parse(req.headers['user-agent'])
+  ua.isIE && res.send('Sorry, your browser is not supported') || next()
+})
 
 // Middleware to fetch user profile
 server.use((req, res, next) => {

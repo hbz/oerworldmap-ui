@@ -248,8 +248,13 @@ class Map extends React.Component {
               </b>
             </li>
 
-            {this.state.bucket && this.state.bucket["filter#champions"].doc_count > 0 &&
+            {this.state.bucket && this.state.bucket["filter#champions"].doc_count > 0 ? (
               <li className="separator"><span>{this.props.translate('Map.countryChampionAvailable')}</span></li>
+            ) : (
+              !this.props.iso3166
+                ? <li className="separator"><span>{this.props.translate('Map.noCountryChampionYet')}</span></li>
+                : null
+            )
             }
           </ul>
         )

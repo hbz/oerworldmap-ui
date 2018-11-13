@@ -1,0 +1,43 @@
+@import '../variables.pcss';
+
+.Topline {
+
+  & hr {
+    display: none;
+  }
+
+  & .showInTooltip {
+    display: none;
+  }
+
+  &.inTooltip {
+    & hr {
+      display: block;
+      margin: 4px 0 3px 0;
+    }
+
+    & .hideInTooltip {
+      display: none;
+    }
+
+    & .showInTooltip {
+      display: block;
+    }
+
+    & .toplineEntry {
+      display: flex;
+
+      & > span {
+        flex: 1;
+        color: var(--grey);
+        padding-right: 5px;
+      }
+
+      & > ul {
+        margin: 0;
+        flex: 3;
+        max-width: 70%;
+      }
+    }
+  }
+}

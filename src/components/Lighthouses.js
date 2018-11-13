@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'markdown-to-jsx'
 
 import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import LinkOverride from './LinkOverride'
 
 import { formatDate } from '../common'
 import expose from '../expose'
@@ -45,7 +46,16 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
             </div>
           }
         </div>
-        <ReactMarkdown source={translate(lighthouse.description)} />
+        <Markdown options={{
+          overrides: {
+            a: {
+              component: LinkOverride
+            }
+          }
+        }}
+        >
+          {translate(lighthouse.description)}
+        </Markdown>
       </div>
     ))}
 
