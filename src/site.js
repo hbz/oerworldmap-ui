@@ -182,7 +182,7 @@ const createPoliciesFeed = (() => {
 
       // Request data for policies
       // ADD carry a tag called policy
-      const rawResponse = await fetch(`https://oerworldmap.org/resource.json?filter.about.additionalType.@id=https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy`, {
+      const rawResponse = await fetch(`https://oerworldmap.org/resource.json?q=about.additionalType.@id:"https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy"%20OR%20about.keywords:policy`, {
         headers: {
           'accept': 'application/json'
         }
