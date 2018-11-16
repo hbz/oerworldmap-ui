@@ -31,15 +31,15 @@ To become a truly global resource, OER World Map web site pages need to be avail
 
 ### Daten auf der OER World Map sammeln
 
-If you are interested in collecting data for the OER World Map, you can use templates to edit data directly on the platform. In order to do this, just register on the platform and start entering data. Please have a look at the [FAQs for OER World Map editors](https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors) in our wiki.
+Wenn Sie Daten für die OER World Map sammeln möchten, können Sie diese direkt auf der Plattform über entsprechende Formulare eingeben. Dazu müssen Sie sich nur auf der World Map registrieren, dann können Sie loslegen. Lesen Sie auch die [FAQs für OER World Map Editoren](https://github.com/hbz/oerworldmap/wiki/FAQs-f%C3%BCr-OER-World-Map-Editoren) in unserem Wiki.
 
 ### Bereits gesammelte Daten auf die OER World Map hochladen
 
-Existing OER data can be uploaded to the OER World Map platform using a powerful API. If you think you have relevant information to add, please contact us at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Vorhandene OER Daten können über die API der OER World Map hochgeladen werden. Wenn Sie bereits gesammelte Informationen haben, nehmen Sie bitte über [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) mit uns Kontakt auf.
 
 ### Daten exportieren
 
-The API of the OER World Map can be used to generate and export data with no delay. Complete or filtered data can be used in other web sites. A special functionality currently is developed to support the reuse of data with flexible and easily integrated gadgets. If you would like to reuse OER World Map data, please contact us at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Über die API der OER World Map können Daten direkt exportiert werden. Die gesamten Daten oder ein herausgefilterter Datensatz können auf anderen Websites verwendet werden. Wir arbeiten daran, Tools zu entwickeln, mit denen die Weiterverwendung der Daten einfach und flexibel ermöglicht wird. Wenn Sie Daten von der OER World Map weiterverwenden wollen, wenden Sie sich bitte per Mail über [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) an uns.
 
 * * *
 
@@ -47,12 +47,12 @@ The API of the OER World Map can be used to generate and export data with no del
 
 ### Fehler melden
 
-Please report any bugs you identify by opening a new ticket if you are registered on [GitHub](https://github.com/hbz/oerworldmap). Otherwise you can send a message to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Bitte melden Sie uns technische Fehler. Wenn Sie auf [GitHub](https://github.com/hbz/oerworldmap) registriert sind, können Sie direkt ein Ticket anlegen, andernfalls schreiben Sie uns an [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
 
 ### Neue Funktionen vorschlagen
 
-The OER World Map has been developed using an agile approach. This means that you can contribute to its development by proposing new features. We store new features as [“user stories”](https://github.com/hbz/oerworldmap/labels/story) in our GitHub. If you think something is missing, you can either directly open a new ticket on GitHub or send us a message to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Die OER World Map wird agil entwickelt. Das bedeutet, dass Sie sich an der Entwicklung beteiligen können, indem Sie neue Funktionen vorschlagen. Wir sammeln Vorschläge für neue Funktionen als [„User storys”](https://github.com/hbz/oerworldmap/labels/story) auf GitHub. Wenn Sie eine Funktion vermissen, können Sie ein neues Ticket auf Github anlegen oder uns eine Mail an [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) schicken.
 
 ### Schreiben Sie Code und Anwendungen für die OER World Map
 
-The OER World Map is 100% open – its complete source code is available on GitHub. Developers can contribute to the code or even develop applications that interact with the OER World Map.
+Die OER World Map ist zu 100% offen, der gesamte Quellcode ist auf GitHub verfügbar. Entwickler können an der Weiterentwicklung des Codes mitarbeiten oder Anwendungen entwickeln, die mit der OER World Map interagieren.
