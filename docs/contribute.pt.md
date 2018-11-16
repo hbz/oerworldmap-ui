@@ -11,19 +11,19 @@ As pessoas precisam saber sobre o Mapa Global REA para que ele possa fornecer um
 
 ### Torne-se um Embaixador para um país
 
-Developing the OER World Map depends upon collaboration. It will be built best by a network of Country Champions who will have or want to create an overview of the OER movement in their own country. From their local base they will raise awareness with their connections, gather data and assure its quality.
+Desenvolver o Mapa Global REA depende de colaboração. O desenvolvimento será melhor construído por uma rede de Embaixadores que têm ou desejam criar uma visão geral do movimento de REA no seu próprio país. De sua base local eles poderão sensibilizar seus pares, coletar dados e garantir a sua qualidade.
 
-Many countries do not have a Country Champion yet. More information on the OER World Map Country Champion Network can be found on our [blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). If you or your institution could play this role please write to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Muitos países ainda não tem um Embaixador. Mais informações sobre o Rede de Embaixadores do Mapa Global REA podem ser encontradas em nosso [ blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). Se você ou sua instituição quer participar escreva para <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Contribua uma história
 
-We have much to learn from each other. Please consider sharing a story describing your - project or initiative - Open Educational Practice - research and new insights on OER - development or use of infrastructure tools.
+Temos muito a aprender uns com os outros. Por favor, considere compartilhar uma história descrevendo: - seu projeto ou inciativa - sua Prática Educacional Aberta - sua pesquisa e novos insights em REA - o desenvolvimento ou uso de ferramentas de infraestrutura.
 
-A short text with lessons learned – what worked and what did not – would contribute to understanding of the different ways that OER are created and used. Please note that stories will be published under [CC-BY](https://creativecommons.org/licenses/by/4.0/). If you have an OER story which you consider worth sharing, please register yourself and add it to the OER World Map!
+Um pequeno texto com as lições aprendidas – o que funcionou e o que não funcionou – contribuiria para a compreensão das diferentes formas que os REA são criados e usados. Por favor, note que histórias serão publicadas sob uma licença [CC-BY](https://creativecommons.org/licenses/by/4.0/). Se você tem uma história REA que você considerar vale a pena compartilhar, por favor entre no sistema e adicione a história no Mapa Global REA!
 
 ### Traduza as páginas
 
-To become a truly global resource, OER World Map web site pages need to be available in multiple languages. If you would be able to translate web pages into your native language please let us know at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Para se tornar um recurso verdadeiramente global, páginas do site do Mapa Global REA precisam estar disponível em vários idiomas. Se você pode traduzir páginas da web em sua língua nativa, por favor nos avisem em: <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 * * *
 
@@ -31,15 +31,15 @@ To become a truly global resource, OER World Map web site pages need to be avail
 
 ### Torne-se um editor e contriba com dados
 
-If you are interested in collecting data for the OER World Map, you can use templates to edit data directly on the platform. In order to do this, just register on the platform and start entering data. Please have a look at the [FAQs for OER World Map editors](https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors) in our wiki.
+Se você está interessado em coletar dados para o Mapa Global REA, você pode usar modelos para editar dados diretamente na plataforma. Para fazer isso, basta se registrar para usar a plataforma e começar a inserir dados. Por favor, dê uma olhada no [ FAQ para editores de mapa-múndi OER](https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors) em nossa wiki.
 
 ### Upload de dados existentes
 
-Existing OER data can be uploaded to the OER World Map platform using a powerful API. If you think you have relevant information to add, please contact us at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Dados existentes sobre REA podem ser enviados para a plataforma usando uma API poderosa. Se você acha que tem informações relevantes para adicionar, por favor contacte-nos em: <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Exporte dados
 
-The API of the OER World Map can be used to generate and export data with no delay. Complete or filtered data can be used in other web sites. A special functionality currently is developed to support the reuse of data with flexible and easily integrated gadgets. If you would like to reuse OER World Map data, please contact us at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+A API do Mapa Global REA pode ser usada para gerar e exportar dados com rapidez. Dados completos ou selecionados podem ser usados em outros sites. Uma funcionalidade especial atualmente em desenvolvimento permite a reutilização de dados com apps flexíveis e facilmente integrados ao Mapa. Se você gostaria de reutilizar dados do Mapa Global de REA, por favor contacte-nos em: <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 * * *
 
@@ -47,7 +47,7 @@ The API of the OER World Map can be used to generate and export data with no del
 
 ### Relate erros
 
-Please report any bugs you identify by opening a new ticket if you are registered on [GitHub](https://github.com/hbz/oerworldmap). Otherwise you can send a message to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Por favor reporte quaisquer erros que você identifica, abrindo um novo 'ticket', se você está registrado no [ GitHub](https://github.com/hbz/oerworldmap). Alternativamente você pode enviar mensagem para <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Proponha novas funcionalidades
 
