@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { render } from 'enzyme'
@@ -11,7 +10,7 @@ import EmittProvider from '../src/components/EmittProvider'
 import mock from './helpers/mock'
 
 describe('<ItemList />', () => {
-  it('creates list entry for each item', () => {
+  test('creates list entry for each item', () => {
     const wrapper = render(
       <I18nProvider i18n={mock.i18n}>
         <EmittProvider emitter={mock.emitter}>
@@ -19,6 +18,6 @@ describe('<ItemList />', () => {
         </EmittProvider>
       </I18nProvider>
     )
-    assert.equal(wrapper.find('li').length, 6)
+    assert.strictEqual(wrapper.find('li').length, 6)
   })
 })

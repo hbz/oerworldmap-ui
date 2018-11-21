@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { render } from 'enzyme'
@@ -34,9 +33,9 @@ describe('<Metadata />', () => {
     </I18nProvider>
   )
 
-  it("Generates the correct elements in metadata", () => {
-    assert.equal(wrapper.find('i')[0].attribs.class.includes('fa fa-file'), true)
-    assert.equal(wrapper.children()[0].next.children[0].data, about['@type'])
-    assert.equal(wrapper.find('a')[1].attribs.title, "February 22, 2018 4:26 PM")
+  test("Generates the correct elements in metadata", () => {
+    assert.strictEqual(wrapper.find('i')[0].attribs.class.includes('fa fa-file'), true)
+    assert.strictEqual(wrapper.children()[0].next.children[0].data, about['@type'])
+    assert.strictEqual(wrapper.find('a')[1].attribs.title, "February 22, 2018 4:26 PM")
   })
 })
