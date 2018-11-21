@@ -43,6 +43,7 @@ server.use(express.static(path.join(__dirname, '/../dist')))
 
 // Middleware to check browser support
 server.use((req, res, next) => {
+  console.time("server")
   const ua = userAgent.parse(req.headers['user-agent'])
   ua.isIE && res.send('Sorry, your browser is not supported') || next()
 })
@@ -123,6 +124,7 @@ server.get(/^(.*)$/, (req, res) => {
       metadata,
       locales
     }))
+    console.timeEnd("server")
   })
 })
 
