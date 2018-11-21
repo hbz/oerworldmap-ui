@@ -235,16 +235,13 @@ class Header extends React.Component {
               <div className="dropdown">
                 <div className="inner">
                   <div className="popular">
-                    <div>
+                    <div style={{maxWidth: '80%'}}>
                       {this.props.translate('menu.add.subtitle')}
+                      <p dangerouslySetInnerHTML={{__html: this.props.translate('menu.hint')}} />
                     </div>
-                    <ul>
-                      <li>
-                        <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                          {this.props.translate('needHelp')}
-                        </Link>
-                      </li>
-                    </ul>
+                    <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
+                      {this.props.translate('needHelp')}
+                    </Link>
                   </div>
                   <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
                     <div className="col one-fourth">
