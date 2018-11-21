@@ -44,12 +44,15 @@ server.use(express.static(path.join(__dirname, '/../dist')))
 // Middleware to check browser support
 server.use((req, res, next) => {
   console.time("server")
+  console.time("UA")
   const ua = userAgent.parse(req.headers['user-agent'])
   ua.isIE && res.send('Sorry, your browser is not supported') || next()
 })
 
 // Middleware to fetch user profile
 server.use((req, res, next) => {
+  console.timeEnd("UA")
+  console.time("Profile")
   const authorization = req.get('authorization')
   const [user] = authorization
     ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
@@ -67,6 +70,8 @@ server.use((req, res, next) => {
 
 // Middleware to fetch labels
 server.use((req, res, next) => {
+  console.timeEnd("Profile")
+  console.time("Labels")
   api.get('/label')
     .then(labels => (req.labels = labels) && next())
     .catch(err => res.status(err.status).send(err.message))
@@ -74,6 +79,8 @@ server.use((req, res, next) => {
 
 // Middleware to fetch JSON schema
 server.use((req, res, next) => {
+  console.timeEnd("Labels")
+  console.time("Schema")
   api.get('/assets/json/schema.json')
     .then(schema => (req.schema = schema) && next())
     .catch(err => res.status(err.status).send(err.message))
@@ -84,6 +91,8 @@ const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
 const defaultLanguage = i18nConfig.defaultLanguage
 
 server.use((req, res, next) => {
+  console.timeEnd("Schema")
+  console.time("Locales")
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
     : [defaultLanguage]
@@ -97,6 +106,8 @@ server.use((req, res, next) => {
 
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
+  console.timeEnd("Locales")
+  console.time("Request")
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
@@ -124,6 +135,7 @@ server.get(/^(.*)$/, (req, res) => {
       metadata,
       locales
     }))
+    console.timeEnd("Request")
     console.timeEnd("server")
   })
 })
