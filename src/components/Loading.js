@@ -14,15 +14,19 @@ class Loading extends React.Component {
   }
 
   componentDidMount() {
-    this.props.emitter.on('setLoading', (state) => {
+    const { emitter } = this.props
+
+    emitter.on('setLoading', (state) => {
       this.setState({loading: state})
     })
   }
 
   render() {
+    const { loading } = this.state
+
     return (
       <div>
-        {this.state.loading &&
+        {loading &&
           <div className="Loading">
             <div className="loadingCircle" />
           </div>

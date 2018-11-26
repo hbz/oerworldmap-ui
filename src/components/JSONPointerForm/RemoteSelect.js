@@ -39,21 +39,25 @@ class RemoteSelect extends React.Component {
   }
 
   handleChange(e) {
+    const { schema } = this.props
+
     this.setState({filter: e.target.value})
-    e.target.value || this.props.schema.properties.inScheme
+    e.target.value || schema.properties.inScheme
       ? this.updateOptions()
       : this.setState({options: []})
   }
 
   updateOptions() {
-    const {schema, api} = this.props
+    const { schema, api } = this.props
+    const { filter } = this.state
+
     let apiCall
 
     if (schema.properties.inScheme) {
       apiCall = api.vocab(schema.properties.inScheme.properties['@id'].enum[0])
     } else {
       const params = {
-        q: `${this.state.filter}*`,
+        q: `${filter}*`,
         'filter.about.@type': schema.properties['@type'].enum
       }
       const url = getURL({
@@ -66,9 +70,13 @@ class RemoteSelect extends React.Component {
   }
 
   showOption(option) {
-    return !this.props.schema.properties.inScheme
+
+    const { schema, translate } = this.props
+    const { filter } = this.state
+
+    return !schema.properties.inScheme
       || option['@type'] !== 'Concept'
-      || this.props.translate(option.name).toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
+      || translate(option.name).toLowerCase().search(filter.trim().toLowerCase()) !== -1
   }
 
   optionList(options) {
@@ -104,8 +112,9 @@ class RemoteSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, setValue, errors, title, translate, className, formId, required
+      name, property, value, setValue, errors, title, translate, className, formId, required, schema
     } = this.props
+    const { filter, options } = this.state
 
     return (
       <div
@@ -150,22 +159,22 @@ class RemoteSelect extends React.Component {
               <input
                 type="text"
                 name={`${name}/@id`}
-                value={this.state.filter}
+                value={filter}
                 className="filter"
-                onFocus={() => this.props.schema.properties.inScheme && this.updateOptions()}
+                onFocus={() => schema.properties.inScheme && this.updateOptions()}
                 placeholder={
                   translate('ClientTemplates.resource_typehead.search')
                     .concat(' ')
-                    .concat(this.props.schema.properties['@type'].enum
+                    .concat(schema.properties['@type'].enum
                       .map(type => translate(type)).join(' or ')
                     )
                 }
                 onChange={this.handleChange}
               />
             </div>
-            {this.state.options.length > 0 &&
+            {options.length > 0 &&
               <div className="optionsContainer">
-                {this.optionList(this.state.options)}
+                {this.optionList(options)}
               </div>
             }
           </div>

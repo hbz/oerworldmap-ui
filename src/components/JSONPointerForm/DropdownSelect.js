@@ -35,9 +35,10 @@ class DropdownSelect extends React.Component {
   }
 
   optionFilter() {
-    return option => !this.state.filter
-      || option.toLowerCase().search(this.state.filter.trim().toLowerCase()) !== -1
-      || this.state.labels[option].search(this.state.filter.trim().toLowerCase()) !== -1
+    const { filter, labels} = this.state
+    return option => !filter
+      || option.toLowerCase().search(filter.trim().toLowerCase()) !== -1
+      || labels[option].search(filter.trim().toLowerCase()) !== -1
   }
 
   render() {
@@ -45,6 +46,8 @@ class DropdownSelect extends React.Component {
       name, property, value, options, setValue, errors, title, translate, className, formId,
       required
     } = this.props
+
+    const { dropdown, filter } = this.state
 
     return (
       <div
@@ -91,7 +94,7 @@ class DropdownSelect extends React.Component {
               className={`toggleDropdown ${errors.length ? 'error' : ''}`.trim()}
               onClick={e => {
                 e.preventDefault()
-                this.setState({dropdown: !this.state.dropdown})
+                this.setState({dropdown: !dropdown})
               }}
             >
               {!errors.length
@@ -99,15 +102,15 @@ class DropdownSelect extends React.Component {
                 : errors.map(error => error.message).join(', ')
               }
             </button>
-            <div className={this.state.dropdown ? 'dropdownList' : 'hidden'}>
+            <div className={dropdown ? 'dropdownList' : 'hidden'}>
               <div className="filterContainer">
                 <input
                   type="text"
                   className="filter"
                   placeholder="..."
                   onChange={e => this.setState({filter: e.target.value})}
-                  value={this.state.filter}
-                  ref={el => this.state.dropdown && el && el.focus()}
+                  value={filter}
+                  ref={el => dropdown && el && el.focus()}
                 />
               </div>
               <ul className="optionsContainer">

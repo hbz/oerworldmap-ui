@@ -16,36 +16,40 @@ class Block extends React.Component {
   }
 
   render() {
+
+    const { className, title, collapsible, collapsibleType, type, children, translate } = this.props
+    const { collapsed } = this.state
+
     return (
-      <div className={`Block ${this.props.className} ${this.props.collapsible ? 'collapsible' : ''} ${this.props.collapsibleType} ${this.state.collapsed ? 'collapsed' : ''}`}>
-        <div className={`head ${this.props.type}`}>
+      <div className={`Block ${className} ${collapsible ? 'collapsible' : ''} ${collapsibleType} ${collapsed ? 'collapsed' : ''}`}>
+        <div className={`head ${type}`}>
           <h3>
-            {this.props.title}
+            {title}
           </h3>
-          {(this.props.collapsible && this.props.collapsibleType === 'plus') &&
+          {(collapsible && collapsibleType === 'plus') &&
             <span
               role="button"
               tabIndex="0"
               onKeyDown={triggerClick}
               className="plus"
-              onClick={() => this.setState({collapsed: !this.state.collapsed})}
+              onClick={() => this.setState({collapsed: !collapsed})}
             >
-              <i aria-hidden="true" className={`fa fa-${this.state.collapsed ? 'plus' : 'minus'}`} />
+              <i aria-hidden="true" className={`fa fa-${collapsed ? 'plus' : 'minus'}`} />
             </span>
           }
         </div>
-        <div className={`main ${this.props.type}`}>
-          {this.props.children}
+        <div className={`main ${type}`}>
+          {children}
         </div>
-        {(this.props.collapsible && this.props.collapsibleType === 'show-all') &&
+        {(collapsible && collapsibleType === 'show-all') &&
           <div
             role="button"
             tabIndex="0"
             onKeyDown={triggerClick}
             className="show-all"
-            onClick={() => this.setState({collapsed: !this.state.collapsed})}
+            onClick={() => this.setState({collapsed: !collapsed})}
           >
-            {this.props.translate(this.state.collapsed ? 'Show all' : 'Show less')}
+            {translate(collapsed ? 'Show all' : 'Show less')}
           </div>
         }
       </div>

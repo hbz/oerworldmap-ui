@@ -114,13 +114,14 @@ class Builder extends React.Component {
 
   render() {
     const { schema, translate } = this.props
-    const optionalFieldsClass = this.state.showOptionalFields
+    const { showOptionalFields } = this.state
+    const optionalFieldsClass = showOptionalFields
       ? 'optionalFieldsVisible'
       : 'optionalFieldsHidden'
     return (
       <div className={`Builder ${optionalFieldsClass}`}>
         {this.getComponent(schema)}
-        {!this.state.showOptionalFields &&
+        {!showOptionalFields &&
           <button
             className="btn"
             onClick={event =>

@@ -18,6 +18,7 @@ class Calendar extends React.Component {
 
   render() {
     const { translate, moment, entries } = this.props
+    const { showPastEvents } = this.state
     return (
       <ul ref={node => this.calendarRef = node} className="Calendar">
         <label>
@@ -25,7 +26,7 @@ class Calendar extends React.Component {
             type="radio"
             name="togglePastEvents"
             defaultChecked
-            onChange={() => this.setState({showPastEvents: !this.state.showPastEvents})}
+            onChange={() => this.setState({showPastEvents: !showPastEvents})}
           />
           &nbsp;{translate('calendar.show.upcoming')}
           &nbsp;({entries
@@ -38,7 +39,7 @@ class Calendar extends React.Component {
           <input
             type="radio"
             name="togglePastEvents"
-            onChange={() => this.setState({showPastEvents: !this.state.showPastEvents})}
+            onChange={() => this.setState({showPastEvents: !showPastEvents})}
           />
           &nbsp;{translate('calendar.show.past')}
           &nbsp;({entries
@@ -50,7 +51,7 @@ class Calendar extends React.Component {
           <li
             key={month.key}
             className={`monthBlock ${
-              this.state.showPastEvents
+              showPastEvents
                 || moment(month.key).diff(moment().startOf('month')) >= 0
                 ? '' : 'hidden'}`}
           >
