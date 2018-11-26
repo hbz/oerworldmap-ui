@@ -43,7 +43,7 @@ const WebPageHeader = ({
 
           {(view !== 'edit' || !about['@id']) &&
           <div className="action">
-            <Link href={Link.back.includes("/feed/") ? Link.back : Link.home} className="closePage">
+            <Link href={Link.back && Link.back.includes("/feed/") ? Link.back : Link.home} className="closePage">
               &times;
             </Link>
           </div>
