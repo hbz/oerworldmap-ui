@@ -151,22 +151,22 @@ class Header extends React.Component {
                       </li>
                     </ul>
 
-                    {user &&
-                    <ul>
-                      <li>
-                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${user.id}`}>
-                          <i aria-hidden="true" className="fa fa-pencil" />{translate('menu.my_entries')}
-                        </Link>
-                      </li>
-                      {user.country &&
-                      <li>
-                        <Link className="iconItem" href={`/country/${user.country}`}>
-                          <i aria-hidden="true" className="fa fa-flag" />{translate('Countryview:')} {translate(user.country)}
-                        </Link>
-                      </li>
-                      }
-                    </ul>
-                    }
+                    {user && (
+                      <ul>
+                        <li>
+                          <Link className="iconItem" href={`/resource/?filter.author.keyword=${user.id}`}>
+                            <i aria-hidden="true" className="fa fa-pencil" />{translate('menu.my_entries')}
+                          </Link>
+                        </li>
+                        {user.country && (
+                          <li>
+                            <Link className="iconItem" href={`/country/${user.country}`}>
+                              <i aria-hidden="true" className="fa fa-flag" />{translate('Countryview:')} {translate(user.country)}
+                            </Link>
+                          </li>
+                        )}
+                      </ul>
+                    )}
 
                   </div>
                   <div className="row text-small stack-700">
@@ -220,82 +220,82 @@ class Header extends React.Component {
 
             </li>
 
-            {expose('addEntry', user) &&
-            <li
-              className={`hasDropdown${dropdowns.add ? ' active': ''}`}
-              onMouseLeave={() => {
-                this.setDropdown('')
-              }}
-              onMouseEnter={() => {
-                this.setDropdown('add')
-              }}
-            >
-              <button
-                onClick={() => {
+            {expose('addEntry', user) && (
+              <li
+                className={`hasDropdown${dropdowns.add ? ' active': ''}`}
+                onMouseLeave={() => {
+                  this.setDropdown('')
+                }}
+                onMouseEnter={() => {
                   this.setDropdown('add')
                 }}
               >
-                {translate('menu.add')}
-              </button>
-              <div className="dropdown">
-                <div className="inner">
-                  <div className="popular">
-                    <div style={{maxWidth: '80%'}}>
-                      {translate('menu.add.subtitle')}
-                      <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
-                    </div>
-                    <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                      {translate('needHelp')}
-                    </Link>
-                  </div>
-                  <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{translate('Organization')}</h3>
-                        <p className="text-small">{translate('descriptions.Organization')}</p>
+                <button
+                  onClick={() => {
+                    this.setDropdown('add')
+                  }}
+                >
+                  {translate('menu.add')}
+                </button>
+                <div className="dropdown">
+                  <div className="inner">
+                    <div className="popular">
+                      <div style={{maxWidth: '80%'}}>
+                        {translate('menu.add.subtitle')}
+                        <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
+                      </div>
+                      <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
+                        {translate('needHelp')}
                       </Link>
                     </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Action" className="addBox">
-                        <h3 className="iconItem"><Icon type="Action" />{translate('Action')}</h3>
-                        <p className="text-small">{translate('descriptions.Action')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Service" className="addBox">
-                        <h3 className="iconItem"><Icon type="Service" />{translate('Service')}</h3>
-                        <p className="text-small">{translate('descriptions.Service')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Event" className="addBox">
-                        <h3 className="iconItem"><Icon type="Event" />{translate('Event')}</h3>
-                        <p className="text-small">{translate('descriptions.Event')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Article" className="addBox">
-                        <h3 className="iconItem"><Icon type="Article" />{translate('Article')}</h3>
-                        <p className="text-small">{translate('descriptions.Article')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=WebPage" className="addBox">
-                        <h3 className="iconItem"><Icon type="WebPage" />{translate('WebPage')}</h3>
-                        <p className="text-small">{translate('descriptions.WebPage')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Product" className="addBox">
-                        <h3 className="iconItem"><Icon type="Product" />{translate('Product')}</h3>
-                        <p className="text-small">{translate('descriptions.Product')}</p>
-                      </Link>
+                    <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Organization" className="addBox">
+                          <h3 className="iconItem"><Icon type="Organization" />{translate('Organization')}</h3>
+                          <p className="text-small">{translate('descriptions.Organization')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Action" className="addBox">
+                          <h3 className="iconItem"><Icon type="Action" />{translate('Action')}</h3>
+                          <p className="text-small">{translate('descriptions.Action')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Service" className="addBox">
+                          <h3 className="iconItem"><Icon type="Service" />{translate('Service')}</h3>
+                          <p className="text-small">{translate('descriptions.Service')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Event" className="addBox">
+                          <h3 className="iconItem"><Icon type="Event" />{translate('Event')}</h3>
+                          <p className="text-small">{translate('descriptions.Event')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Article" className="addBox">
+                          <h3 className="iconItem"><Icon type="Article" />{translate('Article')}</h3>
+                          <p className="text-small">{translate('descriptions.Article')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=WebPage" className="addBox">
+                          <h3 className="iconItem"><Icon type="WebPage" />{translate('WebPage')}</h3>
+                          <p className="text-small">{translate('descriptions.WebPage')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Product" className="addBox">
+                          <h3 className="iconItem"><Icon type="Product" />{translate('Product')}</h3>
+                          <p className="text-small">{translate('descriptions.Product')}</p>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            }
+              </li>
+            )}
 
             <li
               className={`hasDropdown${dropdowns.info ? ' active': ''}`}
@@ -444,13 +444,13 @@ class Header extends React.Component {
                               <i aria-hidden="true" className="fa fa-user-circle" /><span>{translate('menu.me.profile')}</span>
                             </Link>
                           </li>
-                          {expose('groupAdmin', user) &&
-                          <li>
-                            <Link className="item" href="/user/groups">
-                              <i aria-hidden="true" className="fa fa-gear" /><span>{translate('menu.me.groups')}</span>
-                            </Link>
-                          </li>
-                          }
+                          {expose('groupAdmin', user) && (
+                            <li>
+                              <Link className="item" href="/user/groups">
+                                <i aria-hidden="true" className="fa fa-gear" /><span>{translate('menu.me.groups')}</span>
+                              </Link>
+                            </li>
+                          )}
                           <li>
                             <Link className="item" href="/user/password">
                               <i aria-hidden="true" className="fa fa-lock" /><span>{translate('menu.me.password')}</span>

@@ -13,7 +13,7 @@ const Topline = ({translate, moment, about, className}) => {
   return (
     <div className={`Topline ${className}`}>
 
-      {about.countryChampionFor &&
+      {about.countryChampionFor && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -27,10 +27,10 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </React.Fragment>
-      }
+      )}
 
       {about['@type'] === 'Service' &&
-      about.provider &&
+      about.provider && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -46,10 +46,10 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </React.Fragment>
-      }
+      )}
 
       {about['@type'] === 'Event' &&
-      about.startDate &&
+      about.startDate && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -64,11 +64,11 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </React.Fragment>
-      }
+      )}
 
       {about['@type'] === 'Event' &&
       about.location &&
-      about.location.address &&
+      about.location.address && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -85,10 +85,10 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </React.Fragment>
-      }
+      )}
 
       {about.creator &&
-      about['@type'] === 'Article' &&
+      about['@type'] === 'Article' && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -104,10 +104,10 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </React.Fragment>
-      }
+      )}
 
       {about.agent &&
-      about['@type'] === 'Action' &&
+      about['@type'] === 'Action' && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -123,29 +123,29 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </React.Fragment>
-      }
+      )}
 
       {about['@type'] === 'Action' &&
       about.isFundedBy &&
-      about.isFundedBy.some(grant => grant.isAwardedBy) &&
-      <React.Fragment>
-        <hr />
-        <div className="toplineEntry">
-          <span>{translate('Action.isFundedBy')}:&nbsp;</span>
-          <ul className="commaSeparatedList">
-            {[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
-              <li key={awarded['@id']}>
-                <Link href={`/resource/${awarded['@id']}`}>
-                  {translate(awarded.name)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </React.Fragment>
-      }
+      about.isFundedBy.some(grant => grant.isAwardedBy) && (
+        <React.Fragment>
+          <hr />
+          <div className="toplineEntry">
+            <span>{translate('Action.isFundedBy')}:&nbsp;</span>
+            <ul className="commaSeparatedList">
+              {[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
+                <li key={awarded['@id']}>
+                  <Link href={`/resource/${awarded['@id']}`}>
+                    {translate(awarded.name)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </React.Fragment>
+      )}
 
-      {about.inLanguage &&
+      {about.inLanguage && (
         <div className="showInTooltip">
           <hr />
           <div className="toplineEntry">
@@ -161,9 +161,9 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </div>
-      }
+      )}
 
-      {about.keywords &&
+      {about.keywords && (
         <div className="showInTooltip">
           <hr />
           <div className="toplineEntry">
@@ -179,7 +179,7 @@ const Topline = ({translate, moment, about, className}) => {
             </ul>
           </div>
         </div>
-      }
+      )}
 
     </div>
   )

@@ -35,7 +35,7 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
               {moment(comment.dateCreated).fromNow()}
             </span>
           </div>
-          {expose('deleteEntry', user, comment) &&
+          {expose('deleteEntry', user, comment) && (
             <div className="col">
               <form onSubmit={(e) => {
                 e.preventDefault()
@@ -49,7 +49,7 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
                 </button>
               </form>
             </div>
-          }
+          )}
         </div>
         <Markdown options={{
           overrides: {

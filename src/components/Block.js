@@ -26,7 +26,7 @@ class Block extends React.Component {
           <h3>
             {title}
           </h3>
-          {(collapsible && collapsibleType === 'plus') &&
+          {(collapsible && collapsibleType === 'plus') && (
             <span
               role="button"
               tabIndex="0"
@@ -36,12 +36,12 @@ class Block extends React.Component {
             >
               <i aria-hidden="true" className={`fa fa-${collapsed ? 'plus' : 'minus'}`} />
             </span>
-          }
+          )}
         </div>
         <div className={`main ${type}`}>
           {children}
         </div>
-        {(collapsible && collapsibleType === 'show-all') &&
+        {(collapsible && collapsibleType === 'show-all') && (
           <div
             role="button"
             tabIndex="0"
@@ -51,7 +51,7 @@ class Block extends React.Component {
           >
             {translate(collapsed ? 'Show all' : 'Show less')}
           </div>
-        }
+        )}
       </div>
     )
   }

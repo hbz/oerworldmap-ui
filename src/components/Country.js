@@ -78,11 +78,11 @@ class Country  extends React.Component {
                         {translate(champion._source.about.name)}
                       </Link>
                       <br />
-                      {champion._source.about.email &&
+                      {champion._source.about.email && (
                         <a href={`mailto:${champion._source.about.email}`}>
                           {champion._source.about.email}
                         </a>
-                      }
+                      )}
                     </div>
                   </div>
                 ))}
@@ -121,7 +121,7 @@ class Country  extends React.Component {
 
         {countryData &&
         countryData["filter#reports"]["top_hits#country_reports"] &&
-        countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 &&
+        countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 && (
           <div className="countryReports">
             <h3
               onKeyDown={triggerClick}
@@ -149,42 +149,42 @@ class Country  extends React.Component {
 
             </div>
           </div>
-        }
+        )}
 
         {countryData &&
         countryData['sterms#by_type'] &&
-        countryData['sterms#by_type'].buckets &&
-        <div className="statistics">
-          <h3
-            onKeyDown={triggerClick}
-            tabIndex="0"
-            role="button"
-            onClick={() => this.setState({showStatistics:!showStatistics})}
-          >
-            <span>{translate('CountryIndex.read.statistics')}</span>
-            &nbsp;<i aria-hidden="true" className={`fa fa-${showStatistics ? 'minus' : 'plus'}`} />
-          </h3>
-          <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
-            <table>
-              <tbody>
+        countryData['sterms#by_type'].buckets && (
+          <div className="statistics">
+            <h3
+              onKeyDown={triggerClick}
+              tabIndex="0"
+              role="button"
+              onClick={() => this.setState({showStatistics:!showStatistics})}
+            >
+              <span>{translate('CountryIndex.read.statistics')}</span>
+              &nbsp;<i aria-hidden="true" className={`fa fa-${showStatistics ? 'minus' : 'plus'}`} />
+            </h3>
+            <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
+              <table>
+                <tbody>
 
-                {countryData['sterms#by_type'].buckets.map(bucket => (
-                  <tr key={bucket.key}>
-                    <td>{bucket.doc_count}</td>
-                    <td>
-                      <Icon type={bucket.key} />
-                      &nbsp;
-                      <Link href={`/country/${iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>
-                        {translate(bucket.key)}
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                  {countryData['sterms#by_type'].buckets.map(bucket => (
+                    <tr key={bucket.key}>
+                      <td>{bucket.doc_count}</td>
+                      <td>
+                        <Icon type={bucket.key} />
+                        &nbsp;
+                        <Link href={`/country/${iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>
+                          {translate(bucket.key)}
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        }
+        )}
       </div>
     )}
 }

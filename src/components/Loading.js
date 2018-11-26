@@ -26,11 +26,11 @@ class Loading extends React.Component {
 
     return (
       <div>
-        {loading &&
+        {loading && (
           <div className="Loading">
             <div className="loadingCircle" />
           </div>
-        }
+        )}
       </div>
     )
   }

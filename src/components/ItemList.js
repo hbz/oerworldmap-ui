@@ -28,12 +28,12 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         }}
       >
         <Tooltip
-          overlay={
+          overlay={(
             <div className="itemListTooltip">
               <ResourcePreview about={listItem} />
               <Topline about={listItem} className="inTooltip" />
             </div>
-          }
+          )}
           placement="left"
           mouseEnterDelay={0.2}
           overlayClassName="itemListTooltip"

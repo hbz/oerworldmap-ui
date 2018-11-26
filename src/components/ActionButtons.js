@@ -41,13 +41,19 @@ class ActionButtons extends React.Component {
 
     return (
       <div className="ActionButtons">
-        {expose('groupAdmin', user) &&
-          <Link href="/user/groups" title={translate('ClientTemplates.app.groups')}>
-            <i aria-hidden="true" className="fa fa-gear" />
+        {expose('groupAdmin', user) && (
+          <Link
+            href="/user/groups"
+            title={translate('ClientTemplates.app.groups')}
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-gear"
+            />
           </Link>
-        }
+        )}
 
-        {expose('addEntry', user) &&
+        {expose('addEntry', user) && (
           <div
             title={translate('ClientTemplates.app.add')}
             tabIndex="0"
@@ -68,7 +74,7 @@ class ActionButtons extends React.Component {
               ))}
             </ul>
           </div>
-        }
+        )}
 
         <Link href="/aggregation/" title={translate('ClientTemplates.app.statistics')}>
           <i aria-hidden="true" className="fa fa-pie-chart" />

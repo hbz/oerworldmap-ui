@@ -27,7 +27,7 @@ const List = ({
           {React.cloneElement(children)}
         </ListItem>
       ))}
-      {(!value.length || !maxItems || value.length < maxItems) &&
+      {(!value.length || !maxItems || value.length < maxItems) && (
         <ListItem property={value.length.toString()} key={value.length}>
           {value.length && (!maxItems || value.length < maxItems) ? (
             <div className="newItemWrapper">
@@ -46,7 +46,7 @@ const List = ({
             </div>
           ) : React.cloneElement(children)}
         </ListItem>
-      }
+      )}
     </ul>
   </div>
 )

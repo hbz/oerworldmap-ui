@@ -48,7 +48,7 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
           Cancel
         </Link>
       </div>
-      {expose('deleteEntry', user, about) &&
+      {expose('deleteEntry', user, about) && (
         <button
           className="btn delete"
           type="button"
@@ -61,7 +61,7 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
         >
           {translate('ResourceIndex.read.delete')}
         </button>
-      }
+      )}
     </div>
 
   </Form>

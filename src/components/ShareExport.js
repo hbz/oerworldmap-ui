@@ -50,7 +50,7 @@ class ShareExport extends React.Component {
           onKeyDown={triggerClick}
           ref={el => this.dropdownButton = el}
         />
-        { showing &&
+        { showing && (
           <ul className="dropdownMenu">
             <li><a href="#share">{translate('share')} <i aria-hidden="true" className="fa fa-share-alt" /></a></li>
             <li><a href="#export">{translate('export')} <i aria-hidden="true" className="fa fa-share" /></a></li>
@@ -65,7 +65,7 @@ class ShareExport extends React.Component {
               </button>
             </li>
           </ul>
-        }
+        )}
         {view === 'share' &&
           <Share embedValue={embedValue} _self={_self} />
         }

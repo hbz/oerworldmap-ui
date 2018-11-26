@@ -70,7 +70,7 @@ class Calendar extends React.Component {
                     </div>
                     <span>
                       {translate(event.name)}{event.alternateName ? ` (${translate(event.alternateName)})`: ''}<br />
-                      {event.location && event.location.address &&
+                      {event.location && event.location.address && (
                         <span className="subtitle">
                           {moment(event.startDate).format('M') === moment(event.endDate).format('M')
                             ? moment(event.startDate).format('D')
@@ -82,7 +82,7 @@ class Calendar extends React.Component {
                           }
                           &nbsp;{event.location.address.addressCountry}
                         </span>
-                      }
+                      )}
                     </span>
                   </Link>
                 </li>

@@ -13,7 +13,7 @@ const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
         <Icon type={type} />{translate(type)}
       </Link>
     </h3>
-    {conceptScheme &&
+    {conceptScheme && (
       <ul className="linedList border-bottom">
         {conceptScheme.map(concept => (
           <li key={concept['@id']}>
@@ -23,7 +23,7 @@ const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
           </li>
         ))}
       </ul>
-    }
+    )}
   </div>
 )
 

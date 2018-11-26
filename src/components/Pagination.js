@@ -7,7 +7,7 @@ import '../styles/components/Pagination.pcss'
 
 const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
-    size > 0 &&
+    size > 0 && (
       <div className="Pagination">
         {previousPage ?
           (
@@ -31,9 +31,8 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate})
             <span>&nbsp;</span>
           )
         }
-
       </div>
-  )
+    ))
 }
 
 Pagiantion.propTypes = {

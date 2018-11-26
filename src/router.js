@@ -267,13 +267,13 @@ export default (api) => {
                   username: data.username
                 })}
               </p>
-              {data.newsletter &&
+              {data.newsletter && (
                 <p>
                   {i18n.translate('UserIndex.registered.signedUpForNewsletter', {
                     username: data.username
                   })}
                 </p>
-              }
+              )}
               {data.newsletter ? (
                 <p>
                   {i18n.translate('UserIndex.registered.sentMessageNewsletter')}

@@ -117,7 +117,7 @@ class PlaceWidget extends React.Component {
                 setValue={country => setValue({address: {addressCountry: country}})}
                 required
               />
-              {getProp(['address', 'addressCountry'], value) &&
+              {getProp(['address', 'addressCountry'], value) && (
                 <div>
                   <DropdownSelect
                     property="addressRegion"
@@ -142,7 +142,7 @@ class PlaceWidget extends React.Component {
                           placeholder={translate('ClientTemplates.place_widget.searchLocation')}
                         />
                       </div>
-                      {options.length > 0 &&
+                      {options.length > 0 && (
                         <div className="optionsContainer">
                           <ul>
                             {options.map(option => (
@@ -180,7 +180,7 @@ class PlaceWidget extends React.Component {
                             ))}
                           </ul>
                         </div>
-                      }
+                      )}
                     </div>
                     <p>{translate('ClientTemplates.place_widget.searchExplanation')}</p>
                     <Input
@@ -206,7 +206,7 @@ class PlaceWidget extends React.Component {
                         placeholder={schema.properties.address.properties.addressLocality.title}
                       />
                     </div>
-                    {geometry &&
+                    {geometry && (
                       <div
                         className="mapContainer"
                         style={{
@@ -229,10 +229,10 @@ class PlaceWidget extends React.Component {
                           ))}
                         />
                       </div>
-                    }
+                    )}
                   </div>
                 </div>
-              }
+              )}
             </Fieldset>
           </div>
         )}

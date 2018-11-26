@@ -614,7 +614,7 @@ class Map extends React.Component {
           (getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations) > 0) ||
           (getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0) ||
           (getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-        ) &&
+        ) && (
           <div className="mapLeyend">
             <div className="infoContainer">
               <span className="min">0</span>
@@ -640,15 +640,15 @@ class Map extends React.Component {
               ))}
             </div>
           </div>
-        }
+        )}
 
-        {aggregations['sterms#feature.properties.location.address.addressRegion'] &&
+        {aggregations['sterms#feature.properties.location.address.addressRegion'] && (
           <div className='goToMap'>
             <Link href='/resource/'>
               <i aria-hidden="true" className='fa fa-globe' />
             </Link>
           </div>
-        }
+        )}
 
         <a className="imprintLink" href="/imprint">{translate('main.imprintPrivacy')}</a>
 

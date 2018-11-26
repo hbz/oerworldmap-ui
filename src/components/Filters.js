@@ -289,7 +289,7 @@ class Filters extends React.Component {
             <div className="filtersControls">
               {secondaryFilters.map(f => f.name).some(
                 v => aggregations[v] && aggregations[v].buckets.length
-              ) &&
+              ) && (
                 <button
                   type="button"
                   onClick={(e) => {
@@ -302,53 +302,52 @@ class Filters extends React.Component {
                     : translate('ClientTemplates.filter.show')
                   }
                 </button>
-              }
+              )}
 
-              {Object.keys(filters).length > 0 &&
-              <div className="clearFilter">
-                <button type="reset">
-                  {translate('ClientTemplates.filter.clear')}
-                </button>
+              {Object.keys(filters).length > 0 && (
+                <div className="clearFilter">
+                  <button type="reset">
+                    {translate('ClientTemplates.filter.clear')}
+                  </button>
+                </div>
+              )}
+
+            </div>
+
+            {Object.keys(filters).some(name => name !== 'about.@type') && (
+              <div className="selectedFilters">
+                <hr />
+                {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
+                  filters[filterGroup].map(filter => (
+                    <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
+                      <input
+                        type="checkbox"
+                        name={`filter.${filterGroup}`}
+                        id={`filterSelected.${filterGroup}${filter}`}
+                        onChange={e => {
+                          onSubmit(e, emitter)
+                        }}
+                        value={filter}
+                        defaultChecked
+                      />
+                      <label
+                        htmlFor={`filterSelected.${filterGroup}${filter}`}
+                        onKeyDown={e => {
+                          if (e.keyCode === 13) {
+                            e.target.click()
+                          }
+                        }}
+                        tabIndex="0"
+                        role="button"
+                        title={translate(`filter.${filterGroup}`)}
+                      >
+                        {translate(filter)}
+                      </label>
+                    </div>
+                  ))
+                ))}
               </div>
-              }
-
-            </div>
-
-            {Object.keys(filters).some(name => name !== 'about.@type') &&
-            <div className="selectedFilters">
-              <hr />
-              {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
-                filters[filterGroup].map(filter => (
-                  <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
-                    <input
-                      type="checkbox"
-                      name={`filter.${filterGroup}`}
-                      id={`filterSelected.${filterGroup}${filter}`}
-                      onChange={e => {
-                        onSubmit(e, emitter)
-                      }}
-                      value={filter}
-                      defaultChecked
-                    />
-                    <label
-                      htmlFor={`filterSelected.${filterGroup}${filter}`}
-                      onKeyDown={e => {
-                        if (e.keyCode === 13) {
-                          e.target.click()
-                        }
-                      }}
-                      tabIndex="0"
-                      role="button"
-                      title={translate(`filter.${filterGroup}`)}
-                    >
-                      {translate(filter)}
-                    </label>
-                  </div>
-                ))
-              ))}
-
-            </div>
-            }
+            )}
 
           </div>
 
@@ -357,25 +356,25 @@ class Filters extends React.Component {
           <div className="sortContainer">
             <section className="listOptions">
               <div>
-                {(filter === false || !filter.includes('Event')) &&
-                <span>
-                  <span className="arrowWrapper">
-                    <select onChange={e => onSubmit(e, emitter)} className="styledSelect totalSelect" name="size" value={size}>
-                      {this.sizes.map(number => (
-                        number >= 0 &&
-                        <option key={number} value={number}>{number}</option>
-                      ))}
-                      <option value="-1">{translate('Pagination.all')}</option>
-                    </select>
+                {(filter === false || !filter.includes('Event')) && (
+                  <span>
+                    <span className="arrowWrapper">
+                      <select onChange={e => onSubmit(e, emitter)} className="styledSelect totalSelect" name="size" value={size}>
+                        {this.sizes.map(number => (
+                          number >= 0 &&
+                          <option key={number} value={number}>{number}</option>
+                        ))}
+                        <option value="-1">{translate('Pagination.all')}</option>
+                      </select>
+                    </span>
+                    {translate('Pagination.of')}&nbsp;
                   </span>
-                  {translate('Pagination.of')}&nbsp;
-                </span>
-                }
+                )}
                 <span className="counter">
                   <span>{totalItems}</span>
                   &nbsp;{translate('ResourceIndex.index.results')}
                 </span>
-                {!(filters['about.@type'] && filters['about.@type'].includes('Event')) &&
+                {!(filters['about.@type'] && filters['about.@type'].includes('Event')) && (
                   <span>
                     ,&nbsp;{translate('ResourceIndex.index.orderedBy')}
                     <span className="arrowWrapper">
@@ -404,7 +403,7 @@ class Filters extends React.Component {
                       </select>
                     </span>
                   </span>
-                }
+                )}
               </div>
               <ShareExport
                 _self={_self}

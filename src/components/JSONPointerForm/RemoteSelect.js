@@ -172,11 +172,11 @@ class RemoteSelect extends React.Component {
                 onChange={this.handleChange}
               />
             </div>
-            {options.length > 0 &&
+            {options.length > 0 && (
               <div className="optionsContainer">
                 {this.optionList(options)}
               </div>
-            }
+            )}
           </div>
         )}
       </div>

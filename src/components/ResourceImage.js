@@ -12,13 +12,13 @@ const ResourceImage = ({about, translate, className}) => {
 
   const twitterId = getTwitterId(about.sameAs)
 
-  const images =
+  const images = (
     <React.Fragment>
       <div className="missingImg">
         <Icon type={about['@type']} />
       </div>
 
-      {about.image &&
+      {about.image && (
         <img
           className={about['@type']}
           src={about.image}
@@ -34,16 +34,17 @@ const ResourceImage = ({about, translate, className}) => {
           }}
           aria-label={translate(about.name)}
         />
-      }
+      )}
 
-      {!about.image && twitterId && twitterId[1] &&
+      {!about.image && twitterId && twitterId[1] && (
         <img
           src={`https://avatars.io/twitter/${twitterId[1]}`}
           alt={translate(about.name)}
           aria-label={translate(about.name)}
         />
-      }
+      )}
     </React.Fragment>
+  )
 
   return (
     <div className={`ResourceImage ${className}`}>

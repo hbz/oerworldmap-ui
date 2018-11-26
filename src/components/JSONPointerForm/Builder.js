@@ -121,7 +121,7 @@ class Builder extends React.Component {
     return (
       <div className={`Builder ${optionalFieldsClass}`}>
         {this.getComponent(schema)}
-        {!showOptionalFields &&
+        {!showOptionalFields && (
           <button
             className="btn"
             onClick={event =>
@@ -130,7 +130,7 @@ class Builder extends React.Component {
           >
             {translate('form.showOptionalFields', {title: translate(schema.title)})}
           </button>
-        }
+        )}
       </div>
     )
   }
