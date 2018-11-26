@@ -151,10 +151,10 @@ class Filters extends React.Component {
 
   getFilter(filterDef) {
     const [, agg_field] = filterDef.name.split('#')
-    const aggregation = this.props.aggregations['global#facets'][filterDef.filter]
-      && this.props.aggregations['global#facets'][filterDef.filter][filterDef.name]
-      && this.props.aggregations['global#facets'][filterDef.filter][filterDef.name].buckets.length
-      ? this.props.aggregations['global#facets'][filterDef.filter][filterDef.name] : null
+    const aggregation = this.props.aggregations['global#facets']['filter#filtered'][filterDef.filter]
+      && this.props.aggregations['global#facets']['filter#filtered'][filterDef.filter][filterDef.name]
+      && this.props.aggregations['global#facets']['filter#filtered'][filterDef.filter][filterDef.name].buckets.length
+      ? this.props.aggregations['global#facets']['filter#filtered'][filterDef.filter][filterDef.name] : null
     const filter = this.props.filters[agg_field] || []
     if (!aggregation) {
       return
