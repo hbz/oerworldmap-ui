@@ -20,36 +20,41 @@ class DropdownFilter extends React.Component {
   }
 
   handleClick(e) {
+    const { showContent } = this.state
+
     if (e.target !== this.DropdownFilter && !this.DropdownFilter.contains(e.target)) {
       this.setState({showContent: false})
     } else {
       if (!this.dropdownContent.contains(e.target)) {
-        this.setState({showContent: !this.state.showContent})
+        this.setState({showContent: !showContent})
       }
     }
   }
 
   render() {
-    const list = this.props.buckets.map((bucket, i) => (
+    const { buckets, filter, filterName, translateItems, icon, translate, submit, emitter } = this.props
+    const { search, showContent } = this.state
+
+    const list = buckets.map((bucket, i) => (
       <li key={bucket.key}>
-        {!this.props.filter.includes(bucket.key) ? (
+        {!filter.includes(bucket.key) ? (
           <React.Fragment>
             <input
               type="checkbox"
               value={bucket.key}
-              name={this.props.filterName}
-              id={this.props.filterName+i}
-              defaultChecked={this.props.filter.includes(bucket.key)}
+              name={filterName}
+              id={filterName+i}
+              defaultChecked={filter.includes(bucket.key)}
             />
             <label
               style={{
-                display: (this.state.search.length === 0) ||
+                display: (search.length === 0) ||
                   (
-                    this.props.translateItems(bucket.label || bucket.key).toLowerCase().includes(this.state.search.toLowerCase())
-                    || bucket.key.toLowerCase() === this.state.search.toLowerCase()
+                    translateItems(bucket.label || bucket.key).toLowerCase().includes(search.toLowerCase())
+                    || bucket.key.toLowerCase() === search.toLowerCase()
                   )
                   ? 'block' : 'none'}}
-              htmlFor={this.props.filterName+i}
+              htmlFor={filterName+i}
               onKeyDown={e => {
                 if (e.keyCode === 13) {
                   e.target.click()
@@ -58,12 +63,12 @@ class DropdownFilter extends React.Component {
               tabIndex="0"
               role="button"
             >
-              {`${this.props.translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
+              {`${translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
             </label>
           </React.Fragment>
         ) : (
           <span>
-            {`${this.props.translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
+            {`${translateItems(bucket.label || bucket.key)} (${bucket.doc_count})`}
           </span>
         )}
 
@@ -86,38 +91,38 @@ class DropdownFilter extends React.Component {
           tabIndex="0"
           role="button"
           onKeyDown={triggerClick}
-          className={`btn expand${this.props.filter.length ? ' inUse' : ''}`}
+          className={`btn expand${filter.length ? ' inUse' : ''}`}
         >
           <span className="btnText">
-            {this.props.icon ? (
+            {icon ? (
               <span>
-                <i aria-hidden="true" className={`fa fa-${this.props.icon}`} /> {this.props.translate(this.props.filterName)}
+                <i aria-hidden="true" className={`fa fa-${icon}`} /> {translate(filterName)}
               </span>
             ) : (
-              this.props.translate(this.props.filterName)
+              translate(filterName)
             )}
           </span>
         </span>
 
         <div
-          className={`dropdownContent${this.state.showContent ? '' : ' hidden'}`}
+          className={`dropdownContent${showContent ? '' : ' hidden'}`}
           ref={dropdownContent => this.dropdownContent = dropdownContent}
         >
           <div className="searchContainer">
             <input
               type="submit"
-              value={this.props.translate('ClientTemplates.filter-dropdown.applyFilter')}
+              value={translate('ClientTemplates.filter-dropdown.applyFilter')}
               onClick={evt => {
                 evt.preventDefault()
                 this.setState({search: ''})
-                this.props.submit(evt, this.props.emitter)
+                submit(evt, emitter)
                 this.setState({showContent: false})
               }}
             />
             <input
               type="text"
               placeholder="..."
-              value={this.state.search}
+              value={search}
               onChange={e => this.setState({search: e.target.value})}
             />
           </div>
@@ -127,7 +132,7 @@ class DropdownFilter extends React.Component {
               : (
                 <li>
                   <label>
-                    {this.props.translate('ClientTemplates.filter-dropdown.noResults')}
+                    {translate('ClientTemplates.filter-dropdown.noResults')}
                   </label>
                 </li>
               )}

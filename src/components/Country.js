@@ -20,35 +20,38 @@ class Country  extends React.Component {
   }
 
   render() {
+    const { countryData, iso3166, translate } = this.props
+    const { showCountryChampion, showReports, showStatistics } = this.state
+
     return (
       <div className="Country">
         <div className="countryHeader">
           <img
             className="countryFlag"
-            src={`https://lipis.github.io/flag-icon-css/flags/4x3/${this.props.iso3166.toLowerCase()}.svg`}
-            alt={`Flag for ${this.props.translate(this.props.iso3166)}`}
+            src={`https://lipis.github.io/flag-icon-css/flags/4x3/${iso3166.toLowerCase()}.svg`}
+            alt={`Flag for ${translate(iso3166)}`}
           />
-          <h2>{this.props.translate(this.props.iso3166)}</h2>
+          <h2>{translate(iso3166)}</h2>
         </div>
 
-        {this.props.countryData &&
-        this.props.countryData["filter#champions"] &&
-        this.props.countryData["filter#champions"]["top_hits#country_champions"] &&
-        this.props.countryData["filter#champions"]["top_hits#country_champions"].hits.hits.length > 0 ?
+        {countryData &&
+        countryData["filter#champions"] &&
+        countryData["filter#champions"]["top_hits#country_champions"] &&
+        countryData["filter#champions"]["top_hits#country_champions"].hits.hits.length > 0 ?
           (
             <div className="countryChampion">
               <h3
                 onKeyDown={triggerClick}
                 tabIndex="0"
                 role="button"
-                onClick={() => this.setState({showCountryChampion:!this.state.showCountryChampion})}
+                onClick={() => this.setState({showCountryChampion:!showCountryChampion})}
               >
-                <span>{this.props.translate('CountryIndex.read.countryChampion')}</span>
-                &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
+                <span>{translate('CountryIndex.read.countryChampion')}</span>
+                &nbsp;<i aria-hidden="true" className={`fa fa-${showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
-              <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
-                {this.props.countryData["filter#champions"]["top_hits#country_champions"].hits.hits.map(champion => (
+              <div className={`countryChampionContainer ${showCountryChampion ? '' : 'collapsed'}`}>
+                {countryData["filter#champions"]["top_hits#country_champions"].hits.hits.map(champion => (
                   <div className="user" key={champion._source.about['@id']}>
                     {champion._source.about.image ? (
                       <Link href={`/resource/${champion._source.about['@id']}`}>
@@ -56,7 +59,7 @@ class Country  extends React.Component {
                           <img
                             className={champion._source.about['@type']}
                             src={champion._source.about.image}
-                            alt={this.props.translate(champion._source.about.name)}
+                            alt={translate(champion._source.about.name)}
                             onLoad={e => {
                               if (e.target.complete) {
                                 e.target.classList.add('visible')
@@ -72,7 +75,7 @@ class Country  extends React.Component {
                     )}
                     <div className="text">
                       <Link href={`/resource/${champion._source.about['@id']}`}>
-                        {this.props.translate(champion._source.about.name)}
+                        {translate(champion._source.about.name)}
                       </Link>
                       <br />
                       {champion._source.about.email &&
@@ -91,13 +94,13 @@ class Country  extends React.Component {
                 onKeyDown={triggerClick}
                 tabIndex="0"
                 role="button"
-                onClick={() => this.setState({showCountryChampion: !this.state.showCountryChampion})}
+                onClick={() => this.setState({showCountryChampion: !showCountryChampion})}
               >
-                <span>{this.props.translate('CountryIndex.read.countryChampion')}</span>
-                &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showCountryChampion ? 'minus' : 'plus'}`} />
+                <span>{translate('CountryIndex.read.countryChampion')}</span>
+                &nbsp;<i aria-hidden="true" className={`fa fa-${showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
-              <div className={`countryChampionContainer ${this.state.showCountryChampion ? '' : 'collapsed'}`}>
+              <div className={`countryChampionContainer ${showCountryChampion ? '' : 'collapsed'}`}>
                 <div className="user">
                   <div className="frame">
                     <i aria-hidden="true" className="fa fa-user" />
@@ -105,8 +108,8 @@ class Country  extends React.Component {
                   <div
                     className="text"
                     dangerouslySetInnerHTML={{
-                      __html: this.props.translate('CountryIndex.read.noChampion', {
-                        country: this.props.translate(this.props.iso3166)
+                      __html: translate('CountryIndex.read.noChampion', {
+                        country: translate(iso3166)
                       })
                     }}
                   />
@@ -116,29 +119,29 @@ class Country  extends React.Component {
           )
         }
 
-        {this.props.countryData &&
-        this.props.countryData["filter#reports"]["top_hits#country_reports"] &&
-        this.props.countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 &&
+        {countryData &&
+        countryData["filter#reports"]["top_hits#country_reports"] &&
+        countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 &&
           <div className="countryReports">
             <h3
               onKeyDown={triggerClick}
               tabIndex="0"
               role="button"
-              onClick={() => this.setState({showReports:!this.state.showReports})}
+              onClick={() => this.setState({showReports:!showReports})}
             >
-              <span>{this.props.translate('CountryIndex.read.countryReports')}</span>
-              &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showReports ? 'minus' : 'plus'}`} />
+              <span>{translate('CountryIndex.read.countryReports')}</span>
+              &nbsp;<i aria-hidden="true" className={`fa fa-${showReports ? 'minus' : 'plus'}`} />
             </h3>
 
-            <div className={`resourcesContainer ${this.state.showReports ? '' : 'collapsed'}`}>
-              {this.props.countryData["filter#reports"]["top_hits#country_reports"].hits.hits
+            <div className={`resourcesContainer ${showReports ? '' : 'collapsed'}`}>
+              {countryData["filter#reports"]["top_hits#country_reports"].hits.hits
                 .sort((a,b) => a._source.about.dateCreated < b._source.about.dateCreated)
                 .map(report => (
                   <div className="resource" key={report._source.about['@id']}>
                     <i aria-hidden="true" className="fa fa-book" />
                     <div className="text">
                       <Link href={`/resource/${report._source.about['@id']}`}>
-                        {this.props.translate(report._source.about.name)}
+                        {translate(report._source.about.name)}
                       </Link>
                     </div>
                   </div>
@@ -148,31 +151,31 @@ class Country  extends React.Component {
           </div>
         }
 
-        {this.props.countryData &&
-        this.props.countryData['sterms#by_type'] &&
-        this.props.countryData['sterms#by_type'].buckets &&
+        {countryData &&
+        countryData['sterms#by_type'] &&
+        countryData['sterms#by_type'].buckets &&
         <div className="statistics">
           <h3
             onKeyDown={triggerClick}
             tabIndex="0"
             role="button"
-            onClick={() => this.setState({showStatistics:!this.state.showStatistics})}
+            onClick={() => this.setState({showStatistics:!showStatistics})}
           >
-            <span>{this.props.translate('CountryIndex.read.statistics')}</span>
-            &nbsp;<i aria-hidden="true" className={`fa fa-${this.state.showStatistics ? 'minus' : 'plus'}`} />
+            <span>{translate('CountryIndex.read.statistics')}</span>
+            &nbsp;<i aria-hidden="true" className={`fa fa-${showStatistics ? 'minus' : 'plus'}`} />
           </h3>
-          <div className={`statisticsContainer ${this.state.showStatistics ? '' : 'collapsed'}`}>
+          <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
             <table>
               <tbody>
 
-                {this.props.countryData['sterms#by_type'].buckets.map(bucket => (
+                {countryData['sterms#by_type'].buckets.map(bucket => (
                   <tr key={bucket.key}>
                     <td>{bucket.doc_count}</td>
                     <td>
                       <Icon type={bucket.key} />
                       &nbsp;
-                      <Link href={`/country/${this.props.iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>
-                        {this.props.translate(bucket.key)}
+                      <Link href={`/country/${iso3166.toLowerCase()}?filter.about.@type=${bucket.key}`}>
+                        {translate(bucket.key)}
                       </Link>
                     </td>
                   </tr>
