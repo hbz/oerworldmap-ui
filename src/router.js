@@ -22,7 +22,7 @@ import Diffs from './components/Diffs'
 import Link from './components/Link'
 import { getURL } from './common'
 import { APIError } from './api'
-import i18n from './i18n'
+import i18nWrapper from './i18n'
 
 export default (api) => {
 
@@ -33,6 +33,7 @@ export default (api) => {
     {
       path: '/resource/',
       get: async (params, context, state) => {
+        const { user, mapboxConfig, schema, phrases } = context
         const url = getURL({
           path: '/resource/',
           params: Object.assign(params, {features: true})
@@ -48,18 +49,18 @@ export default (api) => {
         } : state || await api.get(url, context.authorization)
         const component = (data) => params.add ? (
           <WebPage
-            user={context.user}
-            mapboxConfig={context.mapboxConfig}
+            user={user}
+            mapboxConfig={mapboxConfig}
             {...data}
             view="edit"
-            schema={context.schema}
+            schema={schema}
             showOptionalFields={false}
           />
         ) : (
           <ResourceIndex
             {...data}
-            phrases={context.phrases}
-            mapboxConfig={context.mapboxConfig}
+            phrases={phrases}
+            mapboxConfig={mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
@@ -90,14 +91,15 @@ export default (api) => {
         return { title, data, component, metadata }
       },
       post: async (params, context, state, body) => {
+        const { user, mapboxConfig, schema } = context
         const data = await api.post('/resource/', body, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}
-            user={context.user}
+            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            schema={context.schema}
-            mapboxConfig={context.mapboxConfig}
+            schema={schema}
+            mapboxConfig={mapboxConfig}
           />
         )
 
@@ -110,15 +112,16 @@ export default (api) => {
     {
       path: '/resource/:id',
       get: async (id, params, context, state) => {
+        const { user, mapboxConfig, schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}
-            mapboxConfig={context.mapboxConfig}
-            user={context.user}
+            mapboxConfig={mapboxConfig}
+            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            schema={context.schema}
+            schema={schema}
             embedValue="true"
           />
         )
@@ -134,14 +137,15 @@ export default (api) => {
         return { title, data, component, metadata }
       },
       post: async (id, params, context, state, body) => {
+        const { user, mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}`, body, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}
-            user={context.user}
+            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            schema={context.schema}
-            mapboxConfig={context.mapboxConfig}
+            schema={schema}
+            mapboxConfig={mapboxConfig}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -165,14 +169,15 @@ export default (api) => {
     {
       path: '/resource/:id/comment',
       post: async (id, params, context, state, body) => {
+        const { user, mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, context.authorization)
         const component = (data) => (
           <WebPage
             {...data}
-            user={context.user}
+            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            schema={context.schema}
-            mapboxConfig={context.mapboxConfig}
+            schema={schema}
+            mapboxConfig={mapboxConfig}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -184,6 +189,7 @@ export default (api) => {
     {
       path: '/country/:id',
       get: async (id, params, context, state) => {
+        const { phrases, mapboxConfig } = context
         const url = getURL({
           path: `/country/${id}`,
           params: Object.assign(params, {features: true})
@@ -194,8 +200,8 @@ export default (api) => {
           <ResourceIndex
             {...data}
             className="countryView"
-            phrases={context.phrases}
-            mapboxConfig={context.mapboxConfig}
+            phrases={phrases}
+            mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
           >
@@ -243,35 +249,38 @@ export default (api) => {
     {
       path: '/user/register',
       get: async (params, context, state) => {
+        const { schema } = context
+
         const data = state
-        const component = () => <Register schema={context.schema} />
+        const component = () => <Register schema={schema} />
         const title = context.i18n.translate('UserIndex.register.register')
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
+        const { i18n } = context
         const data = await api.post('/user/register', body, context.authorization)
         const component = (data) => (
           <FullModal closeLink={Link.home}>
             <Feedback>
               <p>
-                {context.i18n.translate('UserIndex.registered.successfullyRegistere', {
+                {i18n.translate('UserIndex.registered.successfullyRegistere', {
                   username: data.username
                 })}
               </p>
               {data.newsletter &&
                 <p>
-                  {context.i18n.translate('UserIndex.registered.signedUpForNewsletter', {
+                  {i18n.translate('UserIndex.registered.signedUpForNewsletter', {
                     username: data.username
                   })}
                 </p>
               }
               {data.newsletter ? (
                 <p>
-                  {context.i18n.translate('UserIndex.registered.sentMessageNewsletter')}
+                  {i18n.translate('UserIndex.registered.sentMessageNewsletter')}
                 </p>
               ) : (
                 <p>
-                  {context.i18n.translate('UserIndex.registered.sentMessage')}
+                  {i18n.translate('UserIndex.registered.sentMessage')}
                 </p>
               )}
             </Feedback>
@@ -286,8 +295,10 @@ export default (api) => {
     {
       path: '/user/password',
       get: async (params, context, state) => {
+        const { schema } = context
+
         const data = state
-        const component = () => <Password schema={context.schema} />
+        const component = () => <Password schema={schema} />
         const title = context.i18n.translate('UserIndex.register.resetPassword')
         return { title, data, component }
       }
@@ -295,11 +306,12 @@ export default (api) => {
     {
       path: '/user/password/reset',
       post: async (params, context, state, body) => {
+        const { i18n } = context
         const data = await api.post('/user/password/reset', body, context.authorization)
         const component = () => (
           <FullModal closeLink={Link.home}>
             <Feedback>
-              {context.i18n.translate('UserIndex.passwordReset.message')}
+              {i18n.translate('UserIndex.passwordReset.message')}
             </Feedback>
           </FullModal>
         )
@@ -310,6 +322,7 @@ export default (api) => {
     {
       path: '/user/password/change',
       post: async (params, context, state, body) => {
+        const { i18n } = context
         const data = await api.post('/user/password/change', body, context.authorization)
 
         setTimeout(()=> {
@@ -323,7 +336,7 @@ export default (api) => {
         const component = () => (
           <FullModal closeLink={Link.home}>
             <Feedback>
-              {context.i18n.translate('UserIndex.passwordChanged.message')}
+              {i18n.translate('UserIndex.passwordChanged.message')}
             </Feedback>
           </FullModal>
         )
@@ -353,6 +366,7 @@ export default (api) => {
     {
       path: '/user/verify',
       get: async (params, context, state) => {
+        const { i18n } = context
         const url = getURL({path: '/user/verify', params})
         const data = state || await api.get(url, context.authorization)
         const component = (user) => (
@@ -360,7 +374,7 @@ export default (api) => {
             <Feedback>
               <p
                 dangerouslySetInnerHTML={
-                  {__html: context.i18n.translate('UserIndex.verified.message', user) }
+                  {__html: i18n.translate('UserIndex.verified.message', user) }
                 }
               />
             </Feedback>
@@ -373,23 +387,26 @@ export default (api) => {
     {
       path: '/log/',
       get: async (params, context, state) => {
+        const { i18n } = context
         const data = state || await api.get('/log/', context.authorization)
         const component = (data) => (
           <Log entries={data} />
         )
-        const title = context.i18n.translate('ResourceIndex.log.log')
+        const title = i18n.translate('ResourceIndex.log.log')
         return { title, data, component }
       },
     },
     {
       path: '/log/:id',
       get: async (id, params, context, state) => {
+        const { phrases, schema } = context
+
         const url = params.compare && params.to
           ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
           : getURL({ path: `/log/${id}`})
         const data = state || await api.get(url, context.authorization)
         const component = (data) => (
-          <Diffs {...data} phrases={context.phrases} schema={context.schema} />
+          <Diffs {...data} phrases={phrases} schema={schema} />
         )
         const title = context.i18n.translate('ResourceIndex.log.logFor', {id})
         return { title, data, component }
@@ -403,7 +420,8 @@ export default (api) => {
   }
 
   const handle = async (method, uri, context, state, params, body) => {
-    context.i18n = i18n(context.locales, context.phrases)
+    context.i18n = i18nWrapper(context.locales, context.phrases)
+    const { i18n } = context
     try {
       if (context.err) {
         const {message, status} = context.err
@@ -426,14 +444,14 @@ export default (api) => {
       }
     } catch (err) {
       if (err instanceof APIError) {
-        const component = (err) => <ErrorPage translate={context.i18n.translate} message={err.message} />
+        const component = (err) => <ErrorPage translate={i18n.translate} message={err.message} />
         const render = (err) => <Init {...context}>{component(err)}</Init>
         return { title: err.message, data: err, component, render, err }
       }
       throw err
     }
     // 404
-    const component = () => <ErrorPage translate={context.i18n.translate} message="Not Found" />
+    const component = () => <ErrorPage translate={i18n.translate} message="Not Found" />
     const render = () => <Init {...context}>{component()}</Init>
     return { title: 'Not Found', data: {}, component, render }
   }
