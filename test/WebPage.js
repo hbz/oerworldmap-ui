@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { render } from 'enzyme'
@@ -17,7 +16,7 @@ const fakeMapboxConfig = {
 }
 
 describe('<WebPage />', () => {
-  it('can be instantiated', () => {
+  test('can be instantiated', () => {
     const wrapper = render(
       <I18nProvider i18n={mock.i18n}>
         <EmittProvider emitter={mock.emitter}>
@@ -25,6 +24,6 @@ describe('<WebPage />', () => {
         </EmittProvider>
       </I18nProvider>
     )
-    assert.equal(wrapper.find('h2').length, 1)
+    assert.strictEqual(wrapper.find('h2').length, 1)
   })
 })
