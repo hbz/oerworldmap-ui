@@ -17,9 +17,9 @@ class Columns extends React.Component {
 
   componentDidMount() {
     const { emitter } = this.props
-    const { show } = this.state
     emitter.on('toggleColumns', () => {
-      this.setState({'show': !show})
+      const { show } = this.state
+      this.setState({show: !show})
     })
   }
 
