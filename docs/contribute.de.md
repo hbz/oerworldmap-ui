@@ -11,15 +11,15 @@ Möglichst viele Menschen sollen erfahren, dass die OER World Map einen guten Ü
 
 ### Werden Sie Country Champion
 
-Developing the OER World Map depends upon collaboration. It will be built best by a network of Country Champions who will have or want to create an overview of the OER movement in their own country. From their local base they will raise awareness with their connections, gather data and assure its quality.
+Die OER World Map weiterzuentwickeln ist ein Gemeinschaftswerk. Sie wird von einem Netzwerk von Country Champions aufgebaut bzw. unterstützt, die einen Überblick über die OER-Bewegung in ihrem Land haben oder sich aneignen wollen. Mit ihren lokalen Vernetzungen schaffen die Country Champions Bewusstsein, sammeln Daten und sichern die Qualität der Daten.
 
-Many countries do not have a Country Champion yet. More information on the OER World Map Country Champion Network can be found on our [blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). If you or your institution could play this role please write to <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Viele Länder haben noch keinen Country Champion. Weitere Informationen über das OER World Map Country Champion Netzwerk finden Sie in unseren [Blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). Wenn Sie oder Ihre Institution diese Aufgabe übernehmen könnten, schreiben Sie uns bitte an <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Teilen Sie Ihre OER-Story
 
-We have much to learn from each other. Please consider sharing a story describing your - project or initiative - Open Educational Practice - research and new insights on OER - development or use of infrastructure tools.
+Wir können viel voneinander lernen! Teilen Sie Ihre Erfahrungen mit OER mit uns und schreiben Sie über Ihre Erfahrungen: - mit Ihrem Projekt oder Ihrer Initiative - mit Open Educational Practice - mit der Entwicklung und dem Einsatz von Tools - oder über Ihre Forschungsergebnisse oder neue Einsichten zu OER
 
-A short text with lessons learned – what worked and what did not – would contribute to understanding of the different ways that OER are created and used. Please note that stories will be published under [CC-BY](https://creativecommons.org/licenses/by/4.0/). If you have an OER story which you consider worth sharing, please register yourself and add it to the OER World Map!
+Ein kurzer Text darüber, was Sie gelernt haben - was funktioniert hat und was nicht - wird anderen helfen zu verstehen, auf wie viele verschiedene Arten OER geschaffen und verwendet werden kann. Bitte beachten Sie, dass Ihre Story unter [CC-BY](https://creativecommons.org/licenses/by/4.0/) veröffentlicht wird. Registrieren Sie sich auf der OER World Map und teilen Sie Ihre Erfahrungen mit der OER Community!
 
 ### Übersetzen Sie die Website
 
