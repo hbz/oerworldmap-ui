@@ -26,7 +26,8 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
               <span
                 title={formatDate(lighthouse.startTime, moment)}
               >
-                &nbsp;{moment(lighthouse.startTime).fromNow()}
+                &nbsp;
+                {moment(lighthouse.startTime).fromNow()}
               </span>
             )}
           </div>

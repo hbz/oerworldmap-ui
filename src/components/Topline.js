@@ -17,7 +17,10 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span>{translate(`${about['@type']}.countryChampionFor`)}:&nbsp;</span>
+            <span>
+              {translate(`${about['@type']}.countryChampionFor`)}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               {about.countryChampionFor.map(country => (
                 <li key={country}>
@@ -34,7 +37,10 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span>{translate('Service.provider')}:&nbsp;</span>
+            <span>
+              {translate('Service.provider')}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               {about.provider.map(provider => (
                 <li key={provider['@id']}>
@@ -53,13 +59,19 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span className="showInTooltip">{translate('Date')}:&nbsp;</span>
+            <span className="showInTooltip">
+              {translate('Date')}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               <li>
                 {formatDate(about.startDate, moment)}
-                {about.endDate &&
-                  <span> - {formatDate(about.endDate, moment)}</span>
-                }
+                {about.endDate && (
+                  <span>
+                    &nbsp;-&nbsp;
+                    {formatDate(about.endDate, moment)}
+                  </span>
+                )}
               </li>
             </ul>
           </div>
@@ -72,7 +84,10 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span className="showInTooltip">{translate('Location:')}&nbsp;</span>
+            <span className="showInTooltip">
+              {translate('Location:')}
+              &nbsp;
+            </span>
             <ul className="commaSeparatedList">
               <li>
                 {about.location.address.addressLocality}
@@ -92,7 +107,10 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span>{translate('ResourceIndex.Article.subtitle.contributedBy')}:&nbsp;</span>
+            <span>
+              {translate('ResourceIndex.Article.subtitle.contributedBy')}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               {about.creator.map(creator => (
                 <li key={creator['@id']}>
@@ -111,7 +129,10 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span>{translate('Action.agent')}:&nbsp;</span>
+            <span>
+              {translate('Action.agent')}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               {about.agent.map(agent => (
                 <li key={agent['@id']}>
@@ -131,7 +152,10 @@ const Topline = ({translate, moment, about, className}) => {
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
-            <span>{translate('Action.isFundedBy')}:&nbsp;</span>
+            <span>
+              {translate('Action.isFundedBy')}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               {[].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).map(awarded => (
                 <li key={awarded['@id']}>
@@ -149,7 +173,10 @@ const Topline = ({translate, moment, about, className}) => {
         <div className="showInTooltip">
           <hr />
           <div className="toplineEntry">
-            <span>{translate('availableLanguage')}:&nbsp;</span>
+            <span>
+              {translate('availableLanguage')}
+              :&nbsp;
+            </span>
             <ul className="commaSeparatedList">
               {about.inLanguage.map(lang => (
                 <li key={lang}>
@@ -167,7 +194,10 @@ const Topline = ({translate, moment, about, className}) => {
         <div className="showInTooltip">
           <hr />
           <div className="toplineEntry">
-            <span>{translate('Article.keywords')}:&nbsp;</span>
+            <span>
+              {translate('Article.keywords')}
+              :&nbsp;
+            </span>
             <ul className="spaceSeparatedList">
               {about.keywords.sort((a,b) => a > b).map(keyword => (
                 <li key={keyword}>

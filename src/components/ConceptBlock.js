@@ -10,7 +10,8 @@ const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
   <div className="ConceptBlock">
     <h3 className="border-bottom">
       <Link className="iconItem" href={`/resource/?filter.about.@type=${type}`}>
-        <Icon type={type} />{translate(type)}
+        <Icon type={type} />
+        {translate(type)}
       </Link>
     </h3>
     {conceptScheme && (

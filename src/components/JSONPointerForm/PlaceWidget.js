@@ -174,7 +174,8 @@ class PlaceWidget extends React.Component {
                                   role="button"
                                   onKeyDown={e => triggerClick(e, 13)}
                                 >
-                                  &nbsp;{translate(option.name)}
+                                  &nbsp;
+                                  {translate(option.name)}
                                 </label>
                               </li>
                             ))}

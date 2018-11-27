@@ -19,7 +19,9 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, f
             }}
             overlay={(
               <span>
-                <b>{translate(bucket.label || bucket.key)}</b>: {translate(`Tip.${bucket.key}`)}
+                <b>{translate(bucket.label || bucket.key)}</b>
+                :&nbsp;
+                {translate(`Tip.${bucket.key}`)}
               </span>
             )}
             placement="top"

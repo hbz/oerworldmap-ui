@@ -52,8 +52,20 @@ class ShareExport extends React.Component {
         />
         { showing && (
           <ul className="dropdownMenu">
-            <li><a href="#share">{translate('share')} <i aria-hidden="true" className="fa fa-share-alt" /></a></li>
-            <li><a href="#export">{translate('export')} <i aria-hidden="true" className="fa fa-share" /></a></li>
+            <li>
+              <a href="#share">
+                {translate('share')}
+                &nbsp;
+                <i aria-hidden="true" className="fa fa-share-alt" />
+              </a>
+            </li>
+            <li>
+              <a href="#export">
+                {translate('export')}
+                &nbsp;
+                <i aria-hidden="true" className="fa fa-share" />
+              </a>
+            </li>
             <li>
               <button
                 type="button"
@@ -61,7 +73,9 @@ class ShareExport extends React.Component {
                   window.print()
                 }}
               >
-                {translate('print')} <i aria-hidden="true" className="fa fa-print" />
+                {translate('print')}
+                &nbsp;
+                <i aria-hidden="true" className="fa fa-print" />
               </button>
             </li>
           </ul>

@@ -47,7 +47,8 @@ class Country  extends React.Component {
                 onClick={() => this.setState({showCountryChampion:!showCountryChampion})}
               >
                 <span>{translate('CountryIndex.read.countryChampion')}</span>
-                &nbsp;<i aria-hidden="true" className={`fa fa-${showCountryChampion ? 'minus' : 'plus'}`} />
+                &nbsp;
+                <i aria-hidden="true" className={`fa fa-${showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
               <div className={`countryChampionContainer ${showCountryChampion ? '' : 'collapsed'}`}>
@@ -97,7 +98,8 @@ class Country  extends React.Component {
                 onClick={() => this.setState({showCountryChampion: !showCountryChampion})}
               >
                 <span>{translate('CountryIndex.read.countryChampion')}</span>
-                &nbsp;<i aria-hidden="true" className={`fa fa-${showCountryChampion ? 'minus' : 'plus'}`} />
+                &nbsp;
+                <i aria-hidden="true" className={`fa fa-${showCountryChampion ? 'minus' : 'plus'}`} />
               </h3>
 
               <div className={`countryChampionContainer ${showCountryChampion ? '' : 'collapsed'}`}>
@@ -130,7 +132,8 @@ class Country  extends React.Component {
               onClick={() => this.setState({showReports:!showReports})}
             >
               <span>{translate('CountryIndex.read.countryReports')}</span>
-              &nbsp;<i aria-hidden="true" className={`fa fa-${showReports ? 'minus' : 'plus'}`} />
+              &nbsp;
+              <i aria-hidden="true" className={`fa fa-${showReports ? 'minus' : 'plus'}`} />
             </h3>
 
             <div className={`resourcesContainer ${showReports ? '' : 'collapsed'}`}>
@@ -162,7 +165,8 @@ class Country  extends React.Component {
               onClick={() => this.setState({showStatistics:!showStatistics})}
             >
               <span>{translate('CountryIndex.read.statistics')}</span>
-              &nbsp;<i aria-hidden="true" className={`fa fa-${showStatistics ? 'minus' : 'plus'}`} />
+              &nbsp;
+              <i aria-hidden="true" className={`fa fa-${showStatistics ? 'minus' : 'plus'}`} />
             </h3>
             <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
               <table>

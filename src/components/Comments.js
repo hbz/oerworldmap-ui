@@ -28,7 +28,8 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
               <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
                 {translate(author.name)}
               </Link>)
-            )}{' '}
+            )}
+            {' '}
             <span
               title={formatDate(comment.dateCreated, moment)}
             >

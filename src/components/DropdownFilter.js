@@ -53,7 +53,8 @@ class DropdownFilter extends React.Component {
                     translateItems(bucket.label || bucket.key).toLowerCase().includes(search.toLowerCase())
                     || bucket.key.toLowerCase() === search.toLowerCase()
                   )
-                  ? 'block' : 'none'}}
+                  ? 'block' : 'none'
+              }}
               htmlFor={filterName+i}
               onKeyDown={e => {
                 if (e.keyCode === 13) {
@@ -96,7 +97,9 @@ class DropdownFilter extends React.Component {
           <span className="btnText">
             {icon ? (
               <span>
-                <i aria-hidden="true" className={`fa fa-${icon}`} /> {translate(filterName)}
+                <i aria-hidden="true" className={`fa fa-${icon}`} />
+                &nbsp;
+                {translate(filterName)}
               </span>
             ) : (
               translate(filterName)

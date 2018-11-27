@@ -68,7 +68,10 @@ class ActionButtons extends React.Component {
               {['Organization', 'Service', 'Action', 'Article', 'Event', 'WebPage', 'Product'].map(type => (
                 <li key={type}>
                   <Link href={`?add=${type}`}>
-                    + {translate(type)} <Icon type={type} />
+                    +&nbsp;
+                    {translate(type)}
+                    &nbsp;
+                    <Icon type={type} />
                   </Link>
                 </li>
               ))}

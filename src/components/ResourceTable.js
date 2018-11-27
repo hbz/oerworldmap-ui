@@ -81,7 +81,12 @@ class ResourceTable extends React.Component {
     case 'boolean':
       return (
         <span>
-          {definition.format === 'uri' ? <Link href={value}> {label ? label : value}</Link> : value}
+          {definition.format === 'uri' ? (
+            <Link href={value}>
+              &nbsp;
+              {label ? label : value}
+            </Link>
+          ): value}
         </span>
       )
     case 'object':

@@ -2,7 +2,6 @@
   "env": {"es6": true},
   "parserOptions": {"ecmaVersion": 2017},
   "rules": {
-    "react/jsx-one-expression-per-line": "off",
     "react/no-access-state-in-setstate": "off",
     "react/button-has-type": ["on", {
       "reset": true

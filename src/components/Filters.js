@@ -367,16 +367,19 @@ class Filters extends React.Component {
                         <option value="-1">{translate('Pagination.all')}</option>
                       </select>
                     </span>
-                    {translate('Pagination.of')}&nbsp;
+                    {translate('Pagination.of')}
+                    &nbsp;
                   </span>
                 )}
                 <span className="counter">
                   <span>{totalItems}</span>
-                  &nbsp;{translate('ResourceIndex.index.results')}
+                  &nbsp;
+                  {translate('ResourceIndex.index.results')}
                 </span>
                 {!(filters['about.@type'] && filters['about.@type'].includes('Event')) && (
                   <span>
-                    ,&nbsp;{translate('ResourceIndex.index.orderedBy')}
+                    ,&nbsp;
+                    {translate('ResourceIndex.index.orderedBy')}
                     <span className="arrowWrapper">
                       <select
                         name="sort"

@@ -56,7 +56,9 @@ class DropdownSelect extends React.Component {
         aria-labelledby={`${formId}-${name}-label`}
       >
         <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
-          {translate(title)} {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+          {translate(title)}
+          &nbsp;
+          {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
         </div>
         {value ? (
           <div

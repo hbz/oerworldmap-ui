@@ -155,13 +155,17 @@ class Header extends React.Component {
                       <ul>
                         <li>
                           <Link className="iconItem" href={`/resource/?filter.author.keyword=${user.id}`}>
-                            <i aria-hidden="true" className="fa fa-pencil" />{translate('menu.my_entries')}
+                            <i aria-hidden="true" className="fa fa-pencil" />
+                            {translate('menu.my_entries')}
                           </Link>
                         </li>
                         {user.country && (
                           <li>
                             <Link className="iconItem" href={`/country/${user.country}`}>
-                              <i aria-hidden="true" className="fa fa-flag" />{translate('Countryview:')} {translate(user.country)}
+                              <i aria-hidden="true" className="fa fa-flag" />
+                              {translate('Countryview:')}
+                              &nbsp;
+                              {translate(user.country)}
                             </Link>
                           </li>
                         )}
@@ -251,43 +255,64 @@ class Header extends React.Component {
                     <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=Organization" className="addBox">
-                          <h3 className="iconItem"><Icon type="Organization" />{translate('Organization')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="Organization" />
+                            {translate('Organization')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.Organization')}</p>
                         </Link>
                       </div>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=Action" className="addBox">
-                          <h3 className="iconItem"><Icon type="Action" />{translate('Action')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="Action" />
+                            {translate('Action')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.Action')}</p>
                         </Link>
                       </div>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=Service" className="addBox">
-                          <h3 className="iconItem"><Icon type="Service" />{translate('Service')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="Service" />
+                            {translate('Service')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.Service')}</p>
                         </Link>
                       </div>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=Event" className="addBox">
-                          <h3 className="iconItem"><Icon type="Event" />{translate('Event')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="Event" />
+                            {translate('Event')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.Event')}</p>
                         </Link>
                       </div>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=Article" className="addBox">
-                          <h3 className="iconItem"><Icon type="Article" />{translate('Article')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="Article" />
+                            {translate('Article')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.Article')}</p>
                         </Link>
                       </div>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=WebPage" className="addBox">
-                          <h3 className="iconItem"><Icon type="WebPage" />{translate('WebPage')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="WebPage" />
+                            {translate('WebPage')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.WebPage')}</p>
                         </Link>
                       </div>
                       <div className="col one-fourth">
                         <Link href="/resource/?add=Product" className="addBox">
-                          <h3 className="iconItem"><Icon type="Product" />{translate('Product')}</h3>
+                          <h3 className="iconItem">
+                            <Icon type="Product" />
+                            {translate('Product')}
+                          </h3>
                           <p className="text-small">{translate('descriptions.Product')}</p>
                         </Link>
                       </div>
@@ -436,24 +461,28 @@ class Header extends React.Component {
                         <ul className="linedList border-bottom">
                           <li>
                             <Link className="item" href="/resource/">
-                              <i aria-hidden="true" className="fa fa-home" /><span>{translate('menu.me.home')}</span>
+                              <i aria-hidden="true" className="fa fa-home" />
+                              <span>{translate('menu.me.home')}</span>
                             </Link>
                           </li>
                           <li>
                             <Link className="item" href={`/resource/${user.id}`}>
-                              <i aria-hidden="true" className="fa fa-user-circle" /><span>{translate('menu.me.profile')}</span>
+                              <i aria-hidden="true" className="fa fa-user-circle" />
+                              <span>{translate('menu.me.profile')}</span>
                             </Link>
                           </li>
                           {expose('groupAdmin', user) && (
                             <li>
                               <Link className="item" href="/user/groups">
-                                <i aria-hidden="true" className="fa fa-gear" /><span>{translate('menu.me.groups')}</span>
+                                <i aria-hidden="true" className="fa fa-gear" />
+                                <span>{translate('menu.me.groups')}</span>
                               </Link>
                             </li>
                           )}
                           <li>
                             <Link className="item" href="/user/password">
-                              <i aria-hidden="true" className="fa fa-lock" /><span>{translate('menu.me.password')}</span>
+                              <i aria-hidden="true" className="fa fa-lock" />
+                              <span>{translate('menu.me.password')}</span>
                             </Link>
                           </li>
                           <li>
@@ -475,7 +504,8 @@ class Header extends React.Component {
                         <ul className="linedList border-bottom">
                           <li>
                             <Link className="item" href={`/resource/?filter.author.keyword=${user.id}`}>
-                              <i aria-hidden="true" className="fa fa-pencil" /><span>{translate('menu.me.entries')}</span>
+                              <i aria-hidden="true" className="fa fa-pencil" />
+                              <span>{translate('menu.me.entries')}</span>
                             </Link>
                           </li>
                           <li>

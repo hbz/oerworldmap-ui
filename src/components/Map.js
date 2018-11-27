@@ -294,7 +294,8 @@ class Map extends React.Component {
                 hoveredFeatures.map(feature => (
                   <li key={feature.properties['@id']}>
                     <Icon type={feature.properties['@type']} />
-                    &nbsp;{translate(JSON.parse(feature.properties.name))}
+                    &nbsp;
+                    {translate(JSON.parse(feature.properties.name))}
                   </li>
                 ))
               )
@@ -499,7 +500,8 @@ class Map extends React.Component {
           <li key={feature.properties['@id']}>
             <Link href={feature.properties['@id']}>
               <Icon type={feature.properties['@type']} />
-              &nbsp;{translate(JSON.parse(feature.properties.name))}
+              &nbsp;
+              {translate(JSON.parse(feature.properties.name))}
             </Link>
           </li>
         )
@@ -573,13 +575,24 @@ class Map extends React.Component {
       }
     })
     return Object.keys(types).map((key) => {
-      return <span className="item" key={key}><Icon type={key} /> {types[key]}</span>
+      return (
+        <span className="item" key={key}>
+          <Icon type={key} />
+          &nbsp;
+          {types[key]}
+        </span>
+      )
     })
   }
 
   renderTypes(types) {
     return types.map((type) => {
-      return <div key={type.key}><Icon type={type.key} /><span>{type.doc_count}</span></div>
+      return (
+        <div key={type.key}>
+          <Icon type={type.key} />
+          <span>{type.doc_count}</span>
+        </div>
+      )
     })
   }
 

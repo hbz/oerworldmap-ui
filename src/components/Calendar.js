@@ -28,11 +28,15 @@ class Calendar extends React.Component {
             defaultChecked
             onChange={() => this.setState({showPastEvents: !showPastEvents})}
           />
-          &nbsp;{translate('calendar.show.upcoming')}
-          &nbsp;({entries
+          &nbsp;
+          {translate('calendar.show.upcoming')}
+          &nbsp;
+          (
+          {entries
             .filter(month => moment(month.key).diff(moment().startOf('month')) >= 0)
             .reduce((count, month) => count + month['top_hits#about.@id'].hits.hits.length, 0)
-          })
+          }
+          )
         </label>
         &nbsp;
         <label>
@@ -41,11 +45,15 @@ class Calendar extends React.Component {
             name="togglePastEvents"
             onChange={() => this.setState({showPastEvents: !showPastEvents})}
           />
-          &nbsp;{translate('calendar.show.past')}
-          &nbsp;({entries
+          &nbsp;
+          {translate('calendar.show.past')}
+          &nbsp;
+          (
+          {entries
             .filter(month => moment(month.key).diff(moment().startOf('month')) < 0)
             .reduce((count, month) => count + month['top_hits#about.@id'].hits.hits.length, 0)
-          })
+          }
+          )
         </label>
         {entries.map(month => (
           <li
@@ -69,18 +77,23 @@ class Calendar extends React.Component {
                       </div>
                     </div>
                     <span>
-                      {translate(event.name)}{event.alternateName ? ` (${translate(event.alternateName)})`: ''}<br />
+                      {translate(event.name)}
+                      {event.alternateName ? ` (${translate(event.alternateName)})`: ''}
+                      <br />
                       {event.location && event.location.address && (
                         <span className="subtitle">
                           {moment(event.startDate).format('M') === moment(event.endDate).format('M')
                             ? moment(event.startDate).format('D')
                             : moment(event.endDate).format('D MMM')
-                          } &ndash; {moment(event.endDate).format('D MMM')}
+                          }
+                          &nbsp;&ndash;&nbsp;
+                          {moment(event.endDate).format('D MMM')}
                           &nbsp;&mdash;&nbsp;
                           {event.location.address.addressLocality &&
                             event.location.address.addressLocality.concat(',')
                           }
-                          &nbsp;{event.location.address.addressCountry}
+                          &nbsp;
+                          {event.location.address.addressCountry}
                         </span>
                       )}
                     </span>

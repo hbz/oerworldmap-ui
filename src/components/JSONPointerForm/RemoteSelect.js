@@ -101,7 +101,9 @@ class RemoteSelect extends React.Component {
               onKeyDown={e => triggerClick(e, 13)}
             >
               <Icon type={option["@type"]} />
-              &nbsp;{translate(option.name)}{option.alternateName ? ` (${translate(option.alternateName)})`: ''}
+              &nbsp;
+              {translate(option.name)}
+              {option.alternateName ? ` (${translate(option.alternateName)})`: ''}
             </label>
             {option.narrower && this.optionList(option.narrower)}
           </li>
@@ -150,7 +152,8 @@ class RemoteSelect extends React.Component {
             />
             <label htmlFor={`${formId}-${name}-${value['@id']}`} tabIndex="0" role="button">
               <Icon type={value["@type"]} />
-              &nbsp;{translate(value.name)}
+              &nbsp;
+              {translate(value.name)}
             </label>
           </div>
         ) : (

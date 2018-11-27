@@ -47,7 +47,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
         {translate(about.name)}
         {about.alternateName && (
           <span className="alternate">
-            &nbsp;({translate(about.alternateName)})
+            &nbsp;
+            (
+            {translate(about.alternateName)}
+            )
           </span>
         )}
       </h2>
@@ -84,12 +87,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                     {translate('A description for this entry is missing.')}
                     {expose('editEntry', user, about) && (
                       <Link href='#edit'>
-                        &nbsp;{translate('Help us by adding some information!')}
+                        &nbsp;
+                        {translate('Help us by adding some information!')}
                       </Link>
                     )}
                     {!user && about['@type'] !== 'Person' && (
                       <Link href='/user/register'>
-                        &nbsp;{translate('Help us by adding some information!')}
+                        &nbsp;
+                        {translate('Help us by adding some information!')}
                       </Link>
                     )}
                   </i>
@@ -222,7 +227,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                           alt="Lighthouse"
                         />
                       </i>
-                      <span>{translate('Lighthouses')} ({lighthouses.length})</span>
+                      <span>
+                        {translate('Lighthouses')}
+                        &nbsp;
+                        (
+                        {lighthouses.length}
+                        )
+                      </span>
                     </div>
                   </li>
                 )}
@@ -230,7 +241,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   <li>
                     <div className="item">
                       <i aria-hidden="true" className="fa fa-thumbs-up bg-highlight-color bg-important" />
-                      <span>{translate('Likes')} ({likes.length})</span>
+                      <span>
+                        {translate('Likes')}
+                        &nbsp;
+                        (
+                        {likes.length}
+                        )
+                      </span>
                     </div>
                   </li>
                 )}
@@ -333,18 +350,24 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
           {about.startTime && (
             <Block title={translate(`${about['@type']}.startTime`)}>
               {formatDate(about.startTime, moment)}
-              {about.endTime &&
-                <span> – {formatDate(about.endTime, moment)}</span>
-              }
+              {about.endTime && (
+                <span>
+                  &nbsp;–&nbsp;
+                  {formatDate(about.endTime, moment)}
+                </span>
+              )}
             </Block>
           )}
 
           {about.startDate && (
             <Block title={translate(`${about['@type']}.startDate`)}>
               {formatDate(about.startDate, moment)}
-              {about.endDate &&
-                <span> – {formatDate(about.endDate, moment)}</span>
-              }
+              {about.endDate && (
+                <span>
+                  &nbsp;–&nbsp;
+                  {formatDate(about.endDate, moment)}
+                </span>
+              )}
             </Block>
           )}
 

@@ -117,9 +117,14 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
               data
             })}
           >
-            <h2>{translate('ResourceIndex.read.lightHouse')} {translate(about['@type'])}</h2>
+            <h2>
+              {translate('ResourceIndex.read.lightHouse')}
+              &nsbsp;
+              {translate(about['@type'])}
+            </h2>
             <p>
-              <em>{translate('descriptions.LighthouseAction.description')}
+              <em>
+                {translate('descriptions.LighthouseAction.description')}
                 &nbsp;
                 <a
                   href="https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/"
