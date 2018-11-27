@@ -7,7 +7,7 @@ title: Mithelfen
 
 Möglichst viele Menschen sollen erfahren, dass die OER World Map einen guten Überblick über OER-Akteure und -Aktivitäten gibt. Dazu müssen wir gemeinsam ein Netzwerk aufbauen. Bitte sprechen Sie mit Ihren Freunden und Kollegen über die OER World Map, persönlich oder über Social Media ([#oerworldmap](https://twitter.com/hashtag/oerworldmap)).
 
-[Register](https://oerworldmap.org/user/register) to the map and create your profile.
+[Registrieren](https://oerworldmap.org/user/register) Sie sich auf der OER World Map und erstellen Sie Ihr persönliches Profil.
 
 ### Werden Sie Country Champion
 
@@ -23,7 +23,7 @@ Ein kurzer Text darüber, was Sie gelernt haben - was funktioniert hat und was n
 
 ### Übersetzen Sie die Website
 
-To become a truly global resource, OER World Map web site pages need to be available in multiple languages. If you would be able to translate web pages into your native language please let us know at <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
+Um wirklich global genutzt werden zu können, muss die OER World Map in vielen Sprachen verfügbar sein. Wenn Sie die OER World Map in Ihre Muttersprache übersetzen können, nehmen Sie bitte über <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org> Kontakt mit uns auf.
 
 * * *
 
