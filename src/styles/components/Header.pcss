@@ -44,6 +44,35 @@
         align-items: center;
         padding: 0 10px;
 
+        & div.btnHover {
+          position: relative;
+          color: white;
+        }
+
+        &:hover div.btnHover {
+          &::before,
+          &::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 124%;
+            background-color: transparent;
+            position: absolute;
+            z-index: 8;
+            bottom: -5px;
+          }
+
+          &::before {
+            left: 0;
+            transform: skewY(-17deg) translateX(-100%) translateY(-50%);
+          }
+
+          &::after {
+            right: 0;
+            transform: skewY(17deg) translateX(100%) translateY(-50%);
+          }
+        }
+
         @media screen and (--desktop-breakpoint) {
           &.hasDropdown:hover {
             background-image: url(/public/triangle.svg);
@@ -59,7 +88,8 @@
         }
 
         & > a,
-        & button {
+        & button,
+        & .btnHover {
           font-weight: 600;
           letter-spacing: 0.15em;
           text-transform: uppercase;
