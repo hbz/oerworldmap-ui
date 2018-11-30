@@ -50,6 +50,9 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
     resource = entry.about
   }
 
+  user = user || {}
+  resource = resource || {}
+
   return (
     <div className={`TimelineBlock${prominent ? ' prominent': ''}`}>
       {entry.action.time &&
@@ -88,7 +91,7 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
           {entry.about['@type'] === 'Comment' &&
           <div className="comment">
             <div className="commentMetadata">
-              <Link href={entry.user['@id']}>{translate(entry.user.name)}</Link>
+              <Link href={user['@id']}>{translate(user.name)}</Link>
             </div>
             <div className="commentText">
               <Markdown options={{
