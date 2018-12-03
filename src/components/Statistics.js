@@ -102,7 +102,9 @@ const Statistics = ({translate, aggregations, emitter}) => (
                     <span
                       className="color"
                       style={{backgroundColor: getColor(aggregations[typed_aggregation].buckets.length, i)}}
-                    /> {`${translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
+                    />
+                    &nbsp;
+                    {`${translate(bucket.label || bucket.key)} (${bucket.doc_count})`}
                   </Link>
                 </li>
               ))}

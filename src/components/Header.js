@@ -29,9 +29,10 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
+    const { emitter } = this.props
     document.addEventListener("click", this.handleClick)
 
-    this.props.emitter.on('setLoading', () => {
+    emitter.on('setLoading', () => {
       if (this.dropDown) {
         this.setState({showMobileMenu:false})
         this.setDropdown('')
@@ -44,13 +45,14 @@ class Header extends React.Component {
   }
 
   setDropdown(name) {
-    const dropdowns = {}
+    const { dropdowns } = this.state
+    const dropdownsState = {}
 
-    Object.keys(this.state.dropdowns).forEach(key =>  {
-      dropdowns[key] = key === name && this.state.dropdowns[key] !== true
+    Object.keys(dropdowns).forEach(key =>  {
+      dropdownsState[key] = key === name && dropdowns[key] !== true
     })
 
-    this.setState({dropdowns})
+    this.setState({dropdowns: dropdownsState})
   }
 
   handleClick(e) {
@@ -59,17 +61,20 @@ class Header extends React.Component {
   }
 
   render() {
+    const { translate, user, emitter } = this.props
+    const { showMobileMenu, dropdowns} = this.state
+
     return (
       <header className="Header">
 
         <Link href="/resource/">
-          <h1>{this.props.translate('OER World Map')}</h1>
+          <h1>{translate('OER World Map')}</h1>
         </Link>
 
         <button
           className="menuToggle visible-mobile-block"
           onClick={() => {
-            this.setState({showMobileMenu:!this.state.showMobileMenu})
+            this.setState({showMobileMenu:!showMobileMenu})
             this.setDropdown('')
           }}
           onKeyDown={triggerClick}
@@ -79,13 +84,13 @@ class Header extends React.Component {
         </button>
 
         <nav
-          className={`secondaryNav${this.state.showMobileMenu ? ' show' : '' }`}
+          className={`secondaryNav${showMobileMenu ? ' show' : '' }`}
           ref={secondaryNav => this.secondaryNav = secondaryNav}
         >
           <ul>
 
             <li
-              className={`hasDropdown${this.state.dropdowns.find ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.find ? ' active': ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -98,7 +103,7 @@ class Header extends React.Component {
                   this.setDropdown('find')
                 }}
               >
-                {this.props.translate('menu.find')}
+                {translate('menu.find')}
               </button>
               <div className="dropdown">
                 <div className="inner">
@@ -111,57 +116,61 @@ class Header extends React.Component {
                             <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                             <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
                           </div>
-                          {this.props.translate('ClientTemplates.app.lighthouses')}
+                          {translate('ClientTemplates.app.lighthouses')}
                         </Link>
                       </li>
                       <li>
                         <Link className="iconItem" href="/resource/?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC">
                           <i aria-hidden="true" className="fa fa-thumbs-up" />
-                          {this.props.translate('menu.most_liked')}
+                          {translate('menu.most_liked')}
                         </Link>
                       </li>
                       <li>
                         <Link className="iconItem" href="/feed/">
                           <i aria-hidden="true" className="fa fa-rss" />
-                          {this.props.translate('LandigPage.index.recentAdditions')}
+                          {translate('LandigPage.index.recentAdditions')}
                         </Link>
                       </li>
                       <li>
                         <Link className="iconItem" href="/aggregation/">
                           <i aria-hidden="true" className="fa fa-pie-chart" />
-                          {this.props.translate('ClientTemplates.app.statistics')}
+                          {translate('ClientTemplates.app.statistics')}
                         </Link>
                       </li>
                       <li>
                         <Link className="iconItem" href="/resource/?q=_exists_:about.countryChampionFor">
                           <i className="fa fa-trophy" />
-                          {this.props.translate('ClientTemplates.app.countryChampions')}
+                          {translate('ClientTemplates.app.countryChampions')}
                         </Link>
                       </li>
                       <li>
                         <a className="iconItem" href="/oerpolicies">
                           <i className="fa fa-balance-scale" />
-                          {this.props.translate('ClientTemplates.app.oerpolicies')}
+                          {translate('ClientTemplates.app.oerpolicies')}
                         </a>
                       </li>
                     </ul>
 
-                    {this.props.user &&
-                    <ul>
-                      <li>
-                        <Link className="iconItem" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
-                          <i aria-hidden="true" className="fa fa-pencil" />{this.props.translate('menu.my_entries')}
-                        </Link>
-                      </li>
-                      {this.props.user.country &&
-                      <li>
-                        <Link className="iconItem" href={`/country/${this.props.user.country}`}>
-                          <i aria-hidden="true" className="fa fa-flag" />{this.props.translate('Countryview:')} {this.props.translate(this.props.user.country)}
-                        </Link>
-                      </li>
-                      }
-                    </ul>
-                    }
+                    {user && (
+                      <ul>
+                        <li>
+                          <Link className="iconItem" href={`/resource/?filter.author.keyword=${user.id}`}>
+                            <i aria-hidden="true" className="fa fa-pencil" />
+                            {translate('menu.my_entries')}
+                          </Link>
+                        </li>
+                        {user.country && (
+                          <li>
+                            <Link className="iconItem" href={`/country/${user.country}`}>
+                              <i aria-hidden="true" className="fa fa-flag" />
+                              {translate('Countryview:')}
+                              &nbsp;
+                              {translate(user.country)}
+                            </Link>
+                          </li>
+                        )}
+                      </ul>
+                    )}
 
                   </div>
                   <div className="row text-small stack-700">
@@ -215,85 +224,106 @@ class Header extends React.Component {
 
             </li>
 
-            {expose('addEntry', this.props.user) &&
-            <li
-              className={`hasDropdown${this.state.dropdowns.add ? ' active': ''}`}
-              onMouseLeave={() => {
-                this.setDropdown('')
-              }}
-              onMouseEnter={() => {
-                this.setDropdown('add')
-              }}
-            >
-              <button
-                onClick={() => {
+            {expose('addEntry', user) && (
+              <li
+                className={`hasDropdown${dropdowns.add ? ' active': ''}`}
+                onMouseLeave={() => {
+                  this.setDropdown('')
+                }}
+                onMouseEnter={() => {
                   this.setDropdown('add')
                 }}
               >
-                {this.props.translate('menu.add')}
-              </button>
-              <div className="dropdown">
-                <div className="inner">
-                  <div className="popular">
-                    <div style={{maxWidth: '80%'}}>
-                      {this.props.translate('menu.add.subtitle')}
-                      <p dangerouslySetInnerHTML={{__html: this.props.translate('menu.hint')}} />
-                    </div>
-                    <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                      {this.props.translate('needHelp')}
-                    </Link>
-                  </div>
-                  <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem"><Icon type="Organization" />{this.props.translate('Organization')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Organization')}</p>
+                <button
+                  onClick={() => {
+                    this.setDropdown('add')
+                  }}
+                >
+                  {translate('menu.add')}
+                </button>
+                <div className="dropdown">
+                  <div className="inner">
+                    <div className="popular">
+                      <div style={{maxWidth: '80%'}}>
+                        {translate('menu.add.subtitle')}
+                        <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
+                      </div>
+                      <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
+                        {translate('needHelp')}
                       </Link>
                     </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Action" className="addBox">
-                        <h3 className="iconItem"><Icon type="Action" />{this.props.translate('Action')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Action')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Service" className="addBox">
-                        <h3 className="iconItem"><Icon type="Service" />{this.props.translate('Service')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Service')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Event" className="addBox">
-                        <h3 className="iconItem"><Icon type="Event" />{this.props.translate('Event')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Event')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Article" className="addBox">
-                        <h3 className="iconItem"><Icon type="Article" />{this.props.translate('Article')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Article')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=WebPage" className="addBox">
-                        <h3 className="iconItem"><Icon type="WebPage" />{this.props.translate('WebPage')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.WebPage')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Product" className="addBox">
-                        <h3 className="iconItem"><Icon type="Product" />{this.props.translate('Product')}</h3>
-                        <p className="text-small">{this.props.translate('descriptions.Product')}</p>
-                      </Link>
+                    <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Organization" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Organization" />
+                            {translate('Organization')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Organization')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Action" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Action" />
+                            {translate('Action')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Action')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Service" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Service" />
+                            {translate('Service')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Service')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Event" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Event" />
+                            {translate('Event')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Event')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Article" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Article" />
+                            {translate('Article')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Article')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=WebPage" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="WebPage" />
+                            {translate('WebPage')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.WebPage')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Product" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Product" />
+                            {translate('Product')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Product')}</p>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            }
+              </li>
+            )}
 
             <li
-              className={`hasDropdown${this.state.dropdowns.info ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.info ? ' active': ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -306,7 +336,7 @@ class Header extends React.Component {
                   this.setDropdown('info')
                 }}
               >
-                {this.props.translate('menu.info')}
+                {translate('menu.info')}
               </button>
               <div className="dropdown">
                 <div className="inner">
@@ -314,16 +344,16 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>{this.props.translate('menu.info.topical')}</h3>
+                          <h3>{translate('menu.info.topical')}</h3>
                         </li>
                         <li>
                           <a className="item" href="/about#newsletter">
-                            {this.props.translate('menu.info.topical.newsletter')}
+                            {translate('menu.info.topical.newsletter')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="https://oerworldmap.wordpress.com/" rel="noopener noreferrer" target="_blank">
-                            {this.props.translate('menu.info.topical.blog')}
+                            {translate('menu.info.topical.blog')}
                           </a>
                         </li>
                       </ul>
@@ -331,31 +361,31 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>{this.props.translate('menu.info.about')}</h3>
+                          <h3>{translate('menu.info.about')}</h3>
                         </li>
                         <li>
                           <a className="item" href="/about#the-vision">
-                            {this.props.translate('The OER World Map')}
+                            {translate('The OER World Map')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/contribute">
-                            {this.props.translate('menu.info.about.contribute')}
+                            {translate('menu.info.about.contribute')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/FAQ">
-                            {this.props.translate('menu.info.about.faq')}
+                            {translate('menu.info.about.faq')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/about#team">
-                            {this.props.translate('menu.info.about.team')}
+                            {translate('menu.info.about.team')}
                           </a>
                         </li>
                         <li>
                           <a className="item" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors">
-                            {this.props.translate('menu.info.about.faqeditors')}
+                            {translate('menu.info.about.faqeditors')}
                           </a>
                         </li>
                       </ul>
@@ -363,21 +393,21 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>{this.props.translate('menu.info.social')}</h3>
+                          <h3>{translate('menu.info.social')}</h3>
                         </li>
                         <li>
                           <a className="item" href="https://www.facebook.com/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            {this.props.translate('menu.info.social.facebook')}
+                            {translate('menu.info.social.facebook')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="https://twitter.com/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            {this.props.translate('menu.info.social.twitter')}
+                            {translate('menu.info.social.twitter')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="https://github.com/hbz/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            {this.props.translate('menu.info.social.github')}
+                            {translate('menu.info.social.github')}
                           </a>
                         </li>
                       </ul>
@@ -385,16 +415,16 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>{this.props.translate('menu.info.legal')}</h3>
+                          <h3>{translate('menu.info.legal')}</h3>
                         </li>
                         <li>
                           <a className="item" href="mailto:info@oerworldmap.org">
-                            {this.props.translate('menu.info.legal.contact')}
+                            {translate('menu.info.legal.contact')}
                           </a>
                         </li>
                         <li>
                           <a className="item" href="/imprint">
-                            {this.props.translate('menu.info.legal.imprint')}
+                            {translate('menu.info.legal.imprint')}
                           </a>
                         </li>
                       </ul>
@@ -404,9 +434,9 @@ class Header extends React.Component {
               </div>
             </li>
 
-            {this.props.user ? (
+            {user ? (
               <li
-                className={`hasDropdown${this.state.dropdowns.me ? ' active': ''}`}
+                className={`hasDropdown${dropdowns.me ? ' active': ''}`}
                 onMouseLeave={() => {
                   this.setDropdown('')
                 }}
@@ -419,7 +449,7 @@ class Header extends React.Component {
                     this.setDropdown('me')
                   }}
                 >
-                  {this.props.translate('menu.me')}
+                  {translate('menu.me')}
                 </button>
                 <div
                   ref={el => this.dropDown = el}
@@ -431,24 +461,28 @@ class Header extends React.Component {
                         <ul className="linedList border-bottom">
                           <li>
                             <Link className="item" href="/resource/">
-                              <i aria-hidden="true" className="fa fa-home" /><span>{this.props.translate('menu.me.home')}</span>
+                              <i aria-hidden="true" className="fa fa-home" />
+                              <span>{translate('menu.me.home')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/${this.props.user.id}`}>
-                              <i aria-hidden="true" className="fa fa-user-circle" /><span>{this.props.translate('menu.me.profile')}</span>
+                            <Link className="item" href={`/resource/${user.id}`}>
+                              <i aria-hidden="true" className="fa fa-user-circle" />
+                              <span>{translate('menu.me.profile')}</span>
                             </Link>
                           </li>
-                          {expose('groupAdmin', this.props.user) &&
-                          <li>
-                            <Link className="item" href="/user/groups">
-                              <i aria-hidden="true" className="fa fa-gear" /><span>{this.props.translate('menu.me.groups')}</span>
-                            </Link>
-                          </li>
-                          }
+                          {expose('groupAdmin', user) && (
+                            <li>
+                              <Link className="item" href="/user/groups">
+                                <i aria-hidden="true" className="fa fa-gear" />
+                                <span>{translate('menu.me.groups')}</span>
+                              </Link>
+                            </li>
+                          )}
                           <li>
                             <Link className="item" href="/user/password">
-                              <i aria-hidden="true" className="fa fa-lock" /><span>{this.props.translate('menu.me.password')}</span>
+                              <i aria-hidden="true" className="fa fa-lock" />
+                              <span>{translate('menu.me.password')}</span>
                             </Link>
                           </li>
                           <li>
@@ -457,11 +491,11 @@ class Header extends React.Component {
                               href="/.logout"
                               onClick={(e) => {
                                 e.preventDefault()
-                                this.props.emitter.emit('logout')
+                                emitter.emit('logout')
                               }}
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
-                              <span>{this.props.translate('menu.me.logout')}</span>
+                              <span>{translate('menu.me.logout')}</span>
                             </a>
                           </li>
                         </ul>
@@ -469,35 +503,36 @@ class Header extends React.Component {
                       <div className="col one-half">
                         <ul className="linedList border-bottom">
                           <li>
-                            <Link className="item" href={`/resource/?filter.author.keyword=${this.props.user.id}`}>
-                              <i aria-hidden="true" className="fa fa-pencil" /><span>{this.props.translate('menu.me.entries')}</span>
+                            <Link className="item" href={`/resource/?filter.author.keyword=${user.id}`}>
+                              <i aria-hidden="true" className="fa fa-pencil" />
+                              <span>{translate('menu.me.entries')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LikeAction`}>
+                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${user.id}&filter.about.objectIn.@type=LikeAction`}>
                               <i aria-hidden="true" className="fa fa-thumbs-up" />
-                              <span>{this.props.translate('menu.me.likes')}</span>
+                              <span>{translate('menu.me.likes')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${this.props.user.id}&filter.about.objectIn.@type=LighthouseAction`}>
+                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${user.id}&filter.about.objectIn.@type=LighthouseAction`}>
                               <div className="i">
                                 <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                                 <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
                               </div>
-                              <span>{this.props.translate('menu.me.lighthouses')}</span>
+                              <span>{translate('menu.me.lighthouses')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.attendee.@id=${this.props.user.id}`}>
+                            <Link className="item" href={`/resource/?filter.about.attendee.@id=${user.id}`}>
                               <i aria-hidden="true" className="fa fa-calendar" />
-                              <span>{this.props.translate('menu.me.events')}</span>
+                              <span>{translate('menu.me.events')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.affiliate.@id=${this.props.user.id}`}>
+                            <Link className="item" href={`/resource/?filter.about.affiliate.@id=${user.id}`}>
                               <i aria-hidden="true" className="fa fa-users" />
-                              <span>{this.props.translate('menu.me.organizations')}</span>
+                              <span>{translate('menu.me.organizations')}</span>
                             </Link>
                           </li>
                         </ul>
@@ -509,11 +544,11 @@ class Header extends React.Component {
             ) : (
               <li>
                 <Link
-                  title={this.props.translate('login')}
+                  title={translate('login')}
                   href="/user/register"
                   className="loginLink"
                 >
-                  {this.props.translate('login')}
+                  {translate('login')}
                 </Link>
               </li>
             )}

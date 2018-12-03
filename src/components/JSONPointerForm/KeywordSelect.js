@@ -17,7 +17,9 @@ class KeywordSelect extends React.Component {
   }
 
   componentDidMount() {
-    this.props.api.get('/resource/?size=0').then(response => {
+    const { api } = this.props
+
+    api.get('/resource/?size=0').then(response => {
       const options = response.aggregations['sterms#about.keywords'].buckets
         .map(keyword => ({value: keyword.key, label: keyword.key}))
       this.setState({options})
@@ -28,6 +30,7 @@ class KeywordSelect extends React.Component {
     const {
       name, value, setValue, property, className, title, translate, errors, formId, required
     } = this.props
+    const { options } = this.state
 
     return (
       <div
@@ -39,7 +42,9 @@ class KeywordSelect extends React.Component {
           className={`label ${required ? 'required' : ''}`.trim()}
           id={`${formId}-${name}-label`}
         >
-          {translate(title)} {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+          {translate(title)}
+          &nbsp;
+          {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
         </div>
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
@@ -47,7 +52,7 @@ class KeywordSelect extends React.Component {
         <Select.Creatable
           name={name}
           value={value.map(value => ({value, label:value}))}
-          options={this.state.options}
+          options={options}
           onChange={selected => setValue(selected.map(option => option.value))}
           placeholder={`${translate('ClientTemplates.resource_typehead.search')} ${translate(title)}`}
           arrowRenderer={() => <i aria-hidden="true" className="fa fa-chevron-down" />}
