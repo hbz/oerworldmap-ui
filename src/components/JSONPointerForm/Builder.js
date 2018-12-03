@@ -31,13 +31,13 @@ class Builder extends React.Component {
     schema.anyOf && (schema = merge.all(schema.anyOf.concat(schema))) && (delete schema.anyOf)
     schema.oneOf && (schema = merge.all(schema.oneOf.concat(schema))) && (delete schema.oneOf)
 
-    const {translate, config} = this.props
-    const widgets = Object.assign(
+    const {translate, config, widgets} = this.props
+    const widgetsObj = Object.assign(
       {
         Fieldset, Input, List, DropdownSelect, RemoteSelect, Textarea, PlaceWidget, KeywordSelect,
         LocalizedString, DateTime
       },
-      this.props.widgets
+      widgets
     )
     const className = schema._display ? schema._display.className : undefined
 
@@ -57,8 +57,8 @@ class Builder extends React.Component {
       translate
     }
 
-    if (schema._widget && widgets[schema._widget]) {
-      const Widget = widgets[schema._widget]
+    if (schema._widget && widgetsObj[schema._widget]) {
+      const Widget = widgetsObj[schema._widget]
       return <Widget {...props} schema={schema} />
     }
 
@@ -114,13 +114,14 @@ class Builder extends React.Component {
 
   render() {
     const { schema, translate } = this.props
-    const optionalFieldsClass = this.state.showOptionalFields
+    const { showOptionalFields } = this.state
+    const optionalFieldsClass = showOptionalFields
       ? 'optionalFieldsVisible'
       : 'optionalFieldsHidden'
     return (
       <div className={`Builder ${optionalFieldsClass}`}>
         {this.getComponent(schema)}
-        {!this.state.showOptionalFields &&
+        {!showOptionalFields && (
           <button
             className="btn"
             onClick={event =>
@@ -129,7 +130,7 @@ class Builder extends React.Component {
           >
             {translate('form.showOptionalFields', {title: translate(schema.title)})}
           </button>
-        }
+        )}
       </div>
     )
   }

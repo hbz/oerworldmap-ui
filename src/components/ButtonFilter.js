@@ -17,11 +17,13 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, f
             overlayStyle={{
               maxWidth: "110px",
             }}
-            overlay={
+            overlay={(
               <span>
-                <b>{translate(bucket.label || bucket.key)}</b>: {translate(`Tip.${bucket.key}`)}
+                <b>{translate(bucket.label || bucket.key)}</b>
+                :&nbsp;
+                {translate(`Tip.${bucket.key}`)}
               </span>
-            }
+            )}
             placement="top"
             align={{
               targetOffset: [0, 5],

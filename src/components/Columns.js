@@ -16,8 +16,10 @@ class Columns extends React.Component {
   }
 
   componentDidMount() {
-    this.props.emitter.on('toggleColumns', () => {
-      this.setState({show: !this.state.show})
+    const { emitter } = this.props
+    emitter.on('toggleColumns', () => {
+      const { show } = this.state
+      this.setState({show: !show})
     })
   }
 
@@ -26,11 +28,14 @@ class Columns extends React.Component {
   }
 
   render() {
+    const { country, children } = this.props
+    const { show } = this.state
+
     return (
       <aside
-        className={`Columns${this.state.show ? '' : ' hideColumns'}${this.props.country ? ' country': ''}`}
+        className={`Columns${show ? '' : ' hideColumns'}${country ? ' country': ''}`}
       >
-        {this.props.children}
+        {children}
       </aside>
     )
   }

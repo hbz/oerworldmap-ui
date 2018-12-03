@@ -85,7 +85,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
   return (
     <div className="WebPageUserActions">
 
-      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) &&
+      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggleLike()}>
             <button className={`btn ${like ? 'active': ''}`} type="submit" title={translate('Like')}>
@@ -94,9 +94,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             </button>
           </form>
         </div>
-      }
+      )}
 
-      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) &&
+      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) && (
         <div className="action">
           <a href="#addLighthouse" className={`btn ${lighthouse['@id'] ? 'active': ''}`}>
             <img className="i blueLighthouse" src="/public/lighthouse_16px_blue.svg" alt="Lighthouse" />
@@ -104,9 +104,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             {translate('Lighthouse')}
           </a>
         </div>
-      }
+      )}
 
-      {view === 'addLighthouse' &&
+      {view === 'addLighthouse' && (
         <FullModal className="Lighthouse" closeLink={`/resource/${about['@id']}`}>
           <Form
             data={lighthouse}
@@ -117,9 +117,14 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
               data
             })}
           >
-            <h2>{translate('ResourceIndex.read.lightHouse')} {translate(about['@type'])}</h2>
+            <h2>
+              {translate('ResourceIndex.read.lightHouse')}
+              &nsbsp;
+              {translate(about['@type'])}
+            </h2>
             <p>
-              <em>{translate('descriptions.LighthouseAction.description')}
+              <em>
+                {translate('descriptions.LighthouseAction.description')}
                 &nbsp;
                 <a
                   href="https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/"
@@ -137,9 +142,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             </div>
           </Form>
         </FullModal>
-      }
+      )}
 
-      {about['@type'] === 'Event' &&
+      {about['@type'] === 'Event' && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('attendee', isAttendee)}>
             <button className={`btn ${isAttendee ? 'active': ''}`} type="submit" title={translate('I\'m attending')}>
@@ -148,9 +153,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             </button>
           </form>
         </div>
-      }
+      )}
 
-      {about['@type'] === 'Event' &&
+      {about['@type'] === 'Event' && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('performer', isPerformer)}>
             <button className={`btn ${isPerformer ? 'active': ''}`} type="submit" title={translate('I\'m presenting')}>
@@ -159,9 +164,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             </button>
           </form>
         </div>
-      }
+      )}
 
-      {(about['@type'] === 'Organization' || about['@type'] === 'Action') &&
+      {(about['@type'] === 'Organization' || about['@type'] === 'Action') && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('affiliate', isAffiliate)}>
             <button className={`btn ${isAffiliate ? 'active': ''}`} type="submit" title={translate('I\'m a member')}>
@@ -170,7 +175,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             </button>
           </form>
         </div>
-      }
+      )}
 
     </div>
   )

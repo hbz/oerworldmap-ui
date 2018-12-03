@@ -292,6 +292,7 @@
   "menu.most_liked": "Am beliebtesten",
   "menu.my_entries": "Meine Einträge",
   "menu.add": "Hinzufügen",
+  "menu.hint": "Die OER World Map sammelt Daten mit Bezug zu Open Educational Resources (OER, Freie Bildungsmaterialien) und Open Education (Freie Bildung), wie in der <a href='http://www.capetowndeclaration.org/' target='_blank' rel='noopener noreferrer'>Cape Town Declaration</a> und der <a target='_blank' rel='noopener noreferrer' href='http://www.unesco.org/new/fileadmin/MULTIMEDIA/HQ/CI/CI/pdf/Events/English_Paris_OER_Declaration.pdf'>OER Paris Declaration</a> von 2012 beschrieben. Bitte tragen Sie nur solche Daten ein. Wenn der Bezug Ihrer Daten zu OER nicht offensichtlich ist, erklären Sie den Bezug bitte im beschreibenden Text.",
   "menu.add.subtitle": "Was für einen Eintrag möchten hinzufügen?",
   "menu.info": "Info",
   "menu.info.topical": "Aktuell",

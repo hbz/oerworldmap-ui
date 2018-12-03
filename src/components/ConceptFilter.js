@@ -35,36 +35,43 @@ class ConceptFilter extends React.Component {
   }
 
   handleClick(e) {
+    const { showContent } = this.state
+
     if (e.target !== this.ConceptFilter && !this.ConceptFilter.contains(e.target)) {
       this.setState({showContent: false})
     } else {
       if (!this.dropdownContent.contains(e.target)) {
-        this.setState({showContent: !this.state.showContent})
+        this.setState({showContent: !showContent})
       }
     }
   }
 
   show(concept) {
-    return (!this.state.search) || concept.name.some(name =>
-      name['@value'].toLowerCase().search(this.state.search.trim().toLowerCase()) !== -1
+    const { search } = this.state
+
+    return (!search) || concept.name.some(name =>
+      name['@value'].toLowerCase().search(search.trim().toLowerCase()) !== -1
     )
   }
 
   buildTree(concepts) {
+
+    const { filter, translate, aggregation, filterName } = this.props
+
     return (
       <ul>
         {concepts.map(concept => (
           <li key={concept['@id']}>
-            {!this.props.filter.includes(concept['@id']) ? (
+            {!filter.includes(concept['@id']) ? (
               <React.Fragment>
                 <input
                   type="checkbox"
                   value={concept['@id']}
-                  name={this.props.filterName}
-                  id={this.props.filterName + concept['@id']}
+                  name={filterName}
+                  id={filterName + concept['@id']}
                 />
                 <label
-                  htmlFor={this.props.filterName + concept['@id']}
+                  htmlFor={filterName + concept['@id']}
                   onKeyDown={e => {
                     if (e.keyCode === 13) {
                       e.target.click()
@@ -74,14 +81,14 @@ class ConceptFilter extends React.Component {
                   role="button"
                   className={this.show(concept) ? null: 'hidden'}
                 >
-                  {`${this.props.translate(concept.name)} (${this.props.aggregation.buckets.find(
+                  {`${translate(concept.name)} (${aggregation.buckets.find(
                     bucket => bucket.key === concept['@id']).doc_count})`
                   }
                 </label>
               </React.Fragment>
             ) : (
               <span>
-                {`${this.props.translate(concept.name)} (${this.props.aggregation.buckets.find(
+                {`${translate(concept.name)} (${aggregation.buckets.find(
                   bucket => bucket.key === concept['@id']).doc_count})`
                 }
               </span>
@@ -94,6 +101,10 @@ class ConceptFilter extends React.Component {
   }
 
   render() {
+
+    const { filter, icon, filterName, translate, emitter, submit, concepts, aggregation } = this.props
+    const { showContent, search } = this.state
+
     return (
       <div
         ref={ConceptFilter => {
@@ -110,40 +121,40 @@ class ConceptFilter extends React.Component {
           tabIndex="0"
           role="button"
           onKeyDown={triggerClick}
-          className={`btn expand${this.props.filter.length ? ' inUse' : ''}`}
+          className={`btn expand${filter.length ? ' inUse' : ''}`}
         >
           <span className="btnText">
-            {this.props.icon ? (
-              <i aria-hidden="true" className={`fa fa-${this.props.icon}`} />
+            {icon ? (
+              <i aria-hidden="true" className={`fa fa-${icon}`} />
             ) : (
-              this.props.translate(this.props.filterName)
+              translate(filterName)
             )}
           </span>
         </span>
 
         <div
-          className={`dropdownContent${this.state.showContent ? '' : ' hidden'}`}
+          className={`dropdownContent${showContent ? '' : ' hidden'}`}
           ref={dropdownContent => this.dropdownContent = dropdownContent}
         >
           <div className="searchContainer">
             <input
               type="submit"
-              value={this.props.translate('ClientTemplates.filter-dropdown.applyFilter')}
+              value={translate('ClientTemplates.filter-dropdown.applyFilter')}
               onClick={evt => {
                 evt.preventDefault()
                 this.setState({search: ''})
-                this.props.submit(evt, this.props.emitter)
+                submit(evt, emitter)
                 this.setState({showContent: false})
               }}
             />
             <input
               type="text"
               placeholder="..."
-              value={this.state.search}
+              value={search}
               onChange={e => this.setState({search: e.target.value})}
             />
           </div>
-          {this.buildTree(filterConcepts(this.props.concepts, this.props.aggregation.buckets.map(bucket => bucket.key)))}
+          {this.buildTree(filterConcepts(concepts, aggregation.buckets.map(bucket => bucket.key)))}
         </div>
       </div>
     )

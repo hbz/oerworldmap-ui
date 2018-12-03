@@ -17,8 +17,10 @@ const labels = {
 const Overview = ({buckets}) => buckets.map(bucket => (
   <div className="col" key={bucket.key}>
     <a href={`/resource/?filter.about.@type=${bucket.key}`}>
-      <Icon type={bucket.key} /><br />
-      {labels[bucket.key]}<br />
+      <Icon type={bucket.key} />
+      <br />
+      {labels[bucket.key]}
+      <br />
       <span className="large">{bucket.doc_count}</span>
     </a>
   </div>
