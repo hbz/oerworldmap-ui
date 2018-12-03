@@ -98,13 +98,17 @@ class Header extends React.Component {
                 this.setDropdown('find')
               }}
             >
-              <button
+              <div
+                tabIndex="0"
+                className="btnHover"
+                onKeyDown={triggerClick}
+                role="button"
                 onClick={() => {
                   this.setDropdown('find')
                 }}
               >
                 {translate('menu.find')}
-              </button>
+              </div>
               <div className="dropdown">
                 <div className="inner">
                   <div className="popular border-bottom">
@@ -234,13 +238,17 @@ class Header extends React.Component {
                   this.setDropdown('add')
                 }}
               >
-                <button
+                <div
+                  tabIndex="0"
+                  className="btnHover"
+                  onKeyDown={triggerClick}
+                  role="button"
                   onClick={() => {
                     this.setDropdown('add')
                   }}
                 >
                   {translate('menu.add')}
-                </button>
+                </div>
                 <div className="dropdown">
                   <div className="inner">
                     <div className="popular">
@@ -331,13 +339,17 @@ class Header extends React.Component {
                 this.setDropdown('info')
               }}
             >
-              <button
+              <div
+                tabIndex="0"
+                className="btnHover"
+                onKeyDown={triggerClick}
+                role="button"
                 onClick={() => {
                   this.setDropdown('info')
                 }}
               >
                 {translate('menu.info')}
-              </button>
+              </div>
               <div className="dropdown">
                 <div className="inner">
                   <div className="row stack-700 stack-gutter-2em">
@@ -444,13 +456,17 @@ class Header extends React.Component {
                   this.setDropdown('me')
                 }}
               >
-                <button
+                <div
+                  tabIndex="0"
+                  className="btnHover"
+                  onKeyDown={triggerClick}
+                  role="button"
                   onClick={() => {
                     this.setDropdown('me')
                   }}
                 >
                   {translate('menu.me')}
-                </button>
+                </div>
                 <div
                   ref={el => this.dropDown = el}
                   className="dropdown"
