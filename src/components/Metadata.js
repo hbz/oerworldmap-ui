@@ -13,7 +13,7 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
   <div className="Metadata">
     <Icon type={type} />
     <Link href={`/resource/?filter.about.@type=${type}&size=20`}>{translate(type)}</Link>
-    {about.additionalType &&
+    {about.additionalType && (
       <React.Fragment>
         &nbsp;(
         {about.additionalType.map((type, i) => (
@@ -26,7 +26,7 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
         ))}
         )
       </React.Fragment>
-    }
+    )}
     &nbsp;
     {dateModified && (
       expose('logEntry', user, about) ? (

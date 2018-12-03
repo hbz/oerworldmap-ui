@@ -64,7 +64,7 @@ const WebPage = ({
 
         <div className="webPageContent">
 
-          {expose('editEntry', user, about) &&
+          {expose('editEntry', user, about) && (
             <div id="edit" className={view === 'edit' ? '' : 'hidden'}>
               <WebPageEdit
                 about={about}
@@ -76,7 +76,7 @@ const WebPage = ({
                 showOptionalFields={showOptionalFields}
               />
             </div>
-          }
+          )}
 
           <div id="view" className={!user || view !== 'edit' ? '' : 'hidden'}>
             <WebPageView id="view" about={about} user={user} view={view} schema={schema} />

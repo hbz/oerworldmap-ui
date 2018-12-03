@@ -37,7 +37,7 @@ const DateTime = (
         />
 
         {value &&
-          moment(value.split('T')[0], 'YYYY-MM-DD', true).isValid() &&
+          moment(value.split('T')[0], 'YYYY-MM-DD', true).isValid() && (
           <Cleave
             placeholder={`hh:mm ${translate('(Optional)')}`} // USE SECOND PLACEHOLDER?
             options={{
@@ -54,7 +54,7 @@ const DateTime = (
               setValue(date)
             }}
           />
-        }
+        )}
       </div>
       <input
         type="hidden"

@@ -15,12 +15,16 @@ class ResourceTable extends React.Component {
   }
 
   getSchema(ptr) {
+    const { schema } = this.props
+
     return ptr.charAt(0) === '#'
-      ? pointer.get(this.props.schema, ptr.slice(1))
+      ? pointer.get(schema, ptr.slice(1))
       : { "type" : "string", "remote": ptr }
   }
 
   property(name, definition, value) {
+
+    const { translate } = this.props
 
     if ('$ref' in definition) {
       Object.assign(definition, this.getSchema(definition['$ref']))
@@ -42,7 +46,7 @@ class ResourceTable extends React.Component {
     if (definition.remote) {
       definition.type = 'string'
       definition.format = 'uri'
-      label = this.props.translate(value.name)
+      label = translate(value.name)
       value = value['@id']
     } else if (definition.translate) {
       //FIXME: do not (never!) modify schema in place
@@ -77,7 +81,12 @@ class ResourceTable extends React.Component {
     case 'boolean':
       return (
         <span>
-          {definition.format === 'uri' ? <Link href={value}> {label ? label : value}</Link> : value}
+          {definition.format === 'uri' ? (
+            <Link href={value}>
+              &nbsp;
+              {label ? label : value}
+            </Link>
+          ): value}
         </span>
       )
     case 'object':
@@ -89,6 +98,8 @@ class ResourceTable extends React.Component {
   }
 
   process(schema, value) {
+    const { translate } = this.props
+
     return (
       <table className="ResourceTable">
         <tbody>
@@ -98,7 +109,7 @@ class ResourceTable extends React.Component {
               const className = definition._display ? definition._display.className : null
               return (
                 <tr key={property} className={className}>
-                  <td>{this.props.translate(property)}</td>
+                  <td>{translate(property)}</td>
                   <td>{this.property(property, definition, value[property])}</td>
                 </tr>
               )
@@ -110,9 +121,11 @@ class ResourceTable extends React.Component {
   }
 
   render() {
-    const type = this.props.value['@type']
+    const { value } = this.props
+
+    const type = value['@type']
     const schema = this.getSchema('#/definitions/' + type)
-    return this.process(schema, this.props.value)
+    return this.process(schema, value)
   }
 
 }

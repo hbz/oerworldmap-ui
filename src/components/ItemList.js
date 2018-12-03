@@ -28,12 +28,12 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         }}
       >
         <Tooltip
-          overlay={
+          overlay={(
             <div className="itemListTooltip">
               <ResourcePreview about={listItem} />
               <Topline about={listItem} className="inTooltip" />
             </div>
-          }
+          )}
           placement="left"
           mouseEnterDelay={0.2}
           overlayClassName="itemListTooltip"
@@ -42,8 +42,15 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}{listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}{(listItem['@type'] === 'Event' && listItem.startDate)
-                  ? <React.Fragment>, <i aria-hidden="true" title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
+                {translate(listItem.name) || listItem['@id']}
+                {listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}
+                {(listItem['@type'] === 'Event' && listItem.startDate)
+                  ? (
+                    <React.Fragment>
+                      ,&nbsp;
+                      <i aria-hidden="true" title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i>
+                    </React.Fragment>
+                  )
                   : ''}
                 {count && ` (${count(listItem)})`}
               </span>

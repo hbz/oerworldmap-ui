@@ -16,7 +16,9 @@ const MarkdownArea = ({
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}
     >
-      {translate(title)} {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+      {translate(title)}
+      &nbsp;
+      {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
     </label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>

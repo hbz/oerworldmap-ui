@@ -7,7 +7,7 @@ import '../styles/components/Pagination.pcss'
 
 const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
-    size > 0 &&
+    size > 0 && (
       <div className="Pagination">
         {previousPage ?
           (
@@ -18,10 +18,23 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate})
           )
         }
         <div className="numbers">
-          <span>{from}-{parseInt(from)+parseInt(size) >= totalItems
-            ? totalItems
-            : parseInt(from)+parseInt(size)} {translate('Pagination.of')} {totalItems}
-          </span>
+          <React.Fragment>
+            {from}
+            &ndash;
+            {(parseInt(from) + parseInt(size)) >= totalItems
+              ? totalItems
+              : (
+                <React.Fragment>
+                  {parseInt(from) + parseInt(size)}
+                  &nbsp;
+                  {translate('Pagination.of')}
+                  &nbsp;
+                  {totalItems}
+                </React.Fragment>
+              )
+            }
+
+          </React.Fragment>
         </div>
         {nextPage ?
           (
@@ -31,9 +44,8 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate})
             <span>&nbsp;</span>
           )
         }
-
       </div>
-  )
+    ))
 }
 
 Pagiantion.propTypes = {

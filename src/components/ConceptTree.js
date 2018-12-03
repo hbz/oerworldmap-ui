@@ -35,7 +35,7 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
           }
           <span>{translate(concept.name)}</span>
         </Link>
-        {!nested && (concept.narrower && concept.narrower.length > 0) &&
+        {!nested && (concept.narrower && concept.narrower.length > 0) && (
           <i
             aria-hidden="true"
             className="fa fa-plus toggle"
@@ -52,8 +52,8 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
               }
             }}
           />
-        }
-        {concept.narrower &&
+        )}
+        {concept.narrower && (
           <ConceptTree
             nested
             concepts={concept.narrower}
@@ -61,7 +61,7 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
             translate={translate}
             noIcon={noIcon}
           />
-        }
+        )}
       </li>
     ))}
   </ul>

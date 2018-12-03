@@ -7,11 +7,13 @@ title: Mithelfen
 
 Möglichst viele Menschen sollen erfahren, dass die OER World Map einen guten Überblick über OER-Akteure und -Aktivitäten gibt. Dazu müssen wir gemeinsam ein Netzwerk aufbauen. Bitte sprechen Sie mit Ihren Freunden und Kollegen über die OER World Map, persönlich oder über Social Media ([#oerworldmap](https://twitter.com/hashtag/oerworldmap)).
 
+[Registrieren](https://oerworldmap.org/user/register) Sie sich auf der OER World Map und erstellen Sie Ihr persönliches Profil.
+
 ### Werden Sie Country Champion
 
-Die OER World Map weiterzuentwickeln ist ein Gemeinschaftswerk. Sie wird von einem Netzwerk von Country Champions aufgebaut, die einen Überblick über die OER-Bewegung in ihrem Land haben oder sich aneignen wollen. Mit ihren lokalen Vernetzungen schaffen die Country Champions Bewusstsein, sammeln Daten und sichern die Qualität der Daten.
+Die OER World Map weiterzuentwickeln ist ein Gemeinschaftswerk. Sie wird von einem Netzwerk von Country Champions aufgebaut bzw. unterstützt, die einen Überblick über die OER-Bewegung in ihrem Land haben oder sich aneignen wollen. Mit ihren lokalen Vernetzungen schaffen die Country Champions Bewusstsein, sammeln Daten und sichern die Qualität der Daten.
 
-Viele Länder haben noch keinen Country Champion. Weitere Informationen über das OER World Map Country Champion Netzwerk finden Sie in unseren [Blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). Wenn Sie oder Ihre Institution diese Aufgabe übernehmen könnten, schreiben Sie uns bitte an [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org).
+Viele Länder haben noch keinen Country Champion. Weitere Informationen über das OER World Map Country Champion Netzwerk finden Sie in unseren [Blog](https://oerworldmap.wordpress.com/2015/09/19/how-to-become-part-of-the-oer-world-map-country-champion-network/). Wenn Sie oder Ihre Institution diese Aufgabe übernehmen könnten, schreiben Sie uns bitte an <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org>.
 
 ### Teilen Sie Ihre OER-Story
 
@@ -21,7 +23,7 @@ Ein kurzer Text darüber, was Sie gelernt haben - was funktioniert hat und was n
 
 ### Übersetzen Sie die Website
 
-Um wirklich global genutzt werden zu können, muss die OER World Map in vielen Sprachen verfügbar sein. Wenn Sie die OER World Map in Ihre Muttersprache übersetzen können, nehmen Sie bitte über [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) Kontakt mit uns auf.
+Um wirklich global genutzt werden zu können, muss die OER World Map in vielen Sprachen verfügbar sein. Wenn Sie die OER World Map in Ihre Muttersprache übersetzen können, nehmen Sie bitte über <in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org> Kontakt mit uns auf.
 
 * * *
 
@@ -33,7 +35,7 @@ Wenn Sie Daten für die OER World Map sammeln möchten, können Sie diese direkt
 
 ### Bereits gesammelte Daten auf die OER World Map hochladen
 
-Vorhandene OER Daten können über die API der OER World Map hochgeladen werden. Wenn Sie bereits gesammelte Informationen haben, nehmen Sie bitte über[info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) mit uns Kontakt auf.
+Vorhandene OER Daten können über die API der OER World Map hochgeladen werden. Wenn Sie bereits gesammelte Informationen haben, nehmen Sie bitte über [info@oerworldmap.org](mailto:in&#102;o&#64;oerw&#111;&#114;ldma&#112;&#46;org) mit uns Kontakt auf.
 
 ### Daten exportieren
 
