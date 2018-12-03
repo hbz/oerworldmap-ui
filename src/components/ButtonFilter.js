@@ -9,7 +9,7 @@ import { triggerClick } from '../common'
 
 const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, filterName}) => (
   <div className="ButtonFilter">
-    {aggregation.buckets.sort((a, b) => order.indexOf(a.key) > order.indexOf(b.key))
+    {aggregation.buckets.sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key))
       .map((bucket) => {
         return (
           <Tooltip
