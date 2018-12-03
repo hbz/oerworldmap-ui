@@ -1,6 +1,10 @@
 ---
 title: FAQ
+layout: page
+class: faq
 ---
+# FAQ
+
 ## O que é REA?
 
 'REA' significa 'Recursos Educacionais Abertos' e refere-se aos materiais livremente acessíveis que podem ser usados para uma [ variedade de atividades em torno do ensino e da aprendizagem](https://www.opencontent.org/definition/). O que os faz abertos é que eles normalmente são publicados com uma licença aberta em vez de uma licença de copyright (todos os direitos reservados) tradicional. Uma característica chave dos REA é que eles geram novas oportunidades para colaboração e inovação no ensino e aprendizagem.
@@ -45,7 +49,7 @@ O Mapa Global REAcoleta dados sobre os atores e as atividades relacionadas à RE
 
 <table class="table">
   
-<tr> <th>Tipo de dado</th><th>Definição</th> <th>Exemplos</th></tr> 
+<tr> <th>Tipo de dado</th><th>Definição</th> <th>Exemplos</th></tr>
 <tr> <td>organizações</td><td>Uma organização é um grupo estável de pessoas que compartilham metas coletivas. O espectro atinge desde pessoas jurídicas (corporações) às comunidades frouxamente conectadas.</td> <td>universidades, empresas, associações e comunidades</td></tr>
 <tr> <td>projetos</td><td>Um projeto é um empreendimento temporário (envolvendo uma ou mais organizações) e destina-se a realizar tarefas específicas com restrições temporais.</td> <td>O projeto Mapa Global REA</td></tr>
 <tr> <td>serviços</td><td>Um serviço é uma oferta on-line, que existe de maneira perene e que fornece funcionalidade e valor relacionados com REA para seus usuários.</td> <td>repositórios, agregadores, ferramentas para autoria, plataformas de comunicação</td></tr>

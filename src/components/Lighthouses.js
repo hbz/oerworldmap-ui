@@ -22,15 +22,16 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
                 {translate(author.name)}
               </Link>)
             )}
-            {lighthouse.startTime &&
+            {lighthouse.startTime && (
               <span
                 title={formatDate(lighthouse.startTime, moment)}
               >
-                &nbsp;{moment(lighthouse.startTime).fromNow()}
+                &nbsp;
+                {moment(lighthouse.startTime).fromNow()}
               </span>
-            }
+            )}
           </div>
-          {expose('deleteEntry', user, lighthouse) &&
+          {expose('deleteEntry', user, lighthouse) && (
             <div className="col">
               <form onSubmit={(e) => {
                 e.preventDefault()
@@ -40,11 +41,11 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
                 })}}
               >
                 <button className="btn icon" type="submit" title="Delete">
-                  <i className="fa fa-fw fa-trash" />
+                  <i aria-hidden="true" className="fa fa-fw fa-trash" />
                 </button>
               </form>
             </div>
-          }
+          )}
         </div>
         <Markdown options={{
           overrides: {

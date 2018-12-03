@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import { render } from 'enzyme'
 import React from 'react'
 import assert from 'assert'
@@ -8,7 +7,7 @@ import withI18n from '../src/components/withI18n'
 import i18n from '../src/i18n'
 
 describe('<I18nProvider />', () => {
-  it('localizes correctly', () => {
+  test('localizes correctly', () => {
     const expected = {
       de: 'bar',
       es: 'bar',
@@ -23,7 +22,7 @@ describe('<I18nProvider />', () => {
           )}
         </I18nProvider>
       )
-      assert.equal(wrapper.text(), 'bar')
+      assert.strictEqual(wrapper.text(), 'bar')
     }
   })
 })

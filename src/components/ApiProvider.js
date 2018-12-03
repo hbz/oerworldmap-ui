@@ -6,11 +6,13 @@ import Api from '../api'
 class ApiProvider extends React.Component {
 
   getChildContext() {
-    return { api: new Api(this.props.config) }
+    const { config } = this.props
+    return { api: new Api(config) }
   }
 
   render() {
-    return React.Children.only(this.props.children)
+    const { children } = this.props
+    return React.Children.only(children)
   }
 
 }

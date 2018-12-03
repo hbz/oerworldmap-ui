@@ -11,33 +11,40 @@ class Link extends React.Component {
   }
 
   onClick(event) {
-    if (!this.props.target
+    const { target, emitter } = this.props
+
+    if (!target
       && !event.shiftKey
       && !(event.button === 1)
       && !event.ctrlKey
       && !event.metaKey) {
       event.preventDefault()
-      this.props.emitter.emit('navigate', this.getRef())
+      emitter.emit('navigate', this.getRef())
     }
   }
 
   getRef() {
-    return this.props.href.startsWith('urn:uuid') ?
-      `/resource/${this.props.href}` : this.props.href
+    const { href } = this.props
+
+    return href.startsWith('urn:uuid') ?
+      `/resource/${href}` : href
   }
 
   render() {
+
+    const { rel, title, className, dataShow, target, children } = this.props
+
     return (
       <a
-        rel={this.props.rel}
-        title={this.props.title}
-        className={this.props.className}
+        rel={rel}
+        title={title}
+        className={className}
         href={this.getRef()}
         onClick={this.onClick}
-        data-show={this.props.dataShow}
-        target={this.props.target}
+        data-show={dataShow}
+        target={target}
       >
-        {this.props.children}
+        {children}
       </a>
     )
   }

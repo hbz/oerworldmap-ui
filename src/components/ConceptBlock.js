@@ -10,10 +10,11 @@ const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
   <div className="ConceptBlock">
     <h3 className="border-bottom">
       <Link className="iconItem" href={`/resource/?filter.about.@type=${type}`}>
-        <Icon type={type} />{translate(type)}
+        <Icon type={type} />
+        {translate(type)}
       </Link>
     </h3>
-    {conceptScheme &&
+    {conceptScheme && (
       <ul className="linedList border-bottom">
         {conceptScheme.map(concept => (
           <li key={concept['@id']}>
@@ -23,7 +24,7 @@ const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
           </li>
         ))}
       </ul>
-    }
+    )}
   </div>
 )
 

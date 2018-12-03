@@ -68,7 +68,7 @@
   "Person.publication": "Ihre Veröffentlichungen",
   "Person.primarySector": "Der Bildungssektor, in dem Sie hauptsächlich tätig sind",
   "Person.secondarySector": "Bildungssektor, in dem Sie ebenfalls tätig sind",
-  "Person.activityField": "The OER fields the person is focusing their work on",
+  "Person.activityField": "Der OER-Bereich, auf den die Person ihren Schwepunkt legt",
   "Person.additionalType": "Die Rolle der Person im OER-Kontext",
   "Action": "Ein temporäres Vorhaben, das darauf abzielt, bestimmte Aufgaben in einem bestimmten Zeitraum zu erledigen.",
   "Action.name": "Der Name des Projekts",

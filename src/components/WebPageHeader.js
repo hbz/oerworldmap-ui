@@ -29,25 +29,25 @@ const WebPageHeader = ({
                 <ShareExport _self={_self} _links={_links} view={view} embedValue={embedValue} />
               </div>
             ),
-            expose('editEntry', user, about) &&
+            expose('editEntry', user, about) && (
               <div className="action" key="view">
                 {view === 'edit' ? (
                   <Link href="#view" className="closePage">
                     &times;
                   </Link>
                 ) : (
-                  <Link href="#edit"><i className="fa fa-pencil" /></Link>
+                  <Link href="#edit"><i aria-hidden="true" className="fa fa-pencil" /></Link>
                 )}
               </div>
-          ]}
+            )]}
 
-          {(view !== 'edit' || !about['@id']) &&
-          <div className="action">
-            <Link href={Link.home} className="closePage">
-              &times;
-            </Link>
-          </div>
-          }
+          {(view !== 'edit' || !about['@id']) &&(
+            <div className="action">
+              <Link href={Link.back && Link.back.includes("/feed/") ? Link.back : Link.home} className="closePage">
+                &times;
+              </Link>
+            </div>
+          )}
 
         </div>
       </div>

@@ -45,11 +45,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
       <h2>
         {translate(about.name)}
-        {about.alternateName &&
+        {about.alternateName && (
           <span className="alternate">
-            &nbsp;({translate(about.alternateName)})
+            &nbsp;
+            (
+            {translate(about.alternateName)}
+            )
           </span>
-        }
+        )}
       </h2>
 
       {expose('userActions', user) &&
@@ -82,27 +85,29 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 <p>
                   <i>
                     {translate('A description for this entry is missing.')}
-                    {expose('editEntry', user, about) &&
+                    {expose('editEntry', user, about) && (
                       <Link href='#edit'>
-                        &nbsp;{translate('Help us by adding some information!')}
+                        &nbsp;
+                        {translate('Help us by adding some information!')}
                       </Link>
-                    }
-                    {!user && about['@type'] !== 'Person' &&
+                    )}
+                    {!user && about['@type'] !== 'Person' && (
                       <Link href='/user/register'>
-                        &nbsp;{translate('Help us by adding some information!')}
+                        &nbsp;
+                        {translate('Help us by adding some information!')}
                       </Link>
-                    }
+                    )}
                   </i>
                 </p>
               )}
             </Block>
 
-            {about.articleBody &&
+            {about.articleBody && (
               <Block
                 className="first description"
                 title=''
               >
-                {about.articleBody &&
+                {about.articleBody && (
                   <Markdown options={{
                     overrides: {
                       a: {
@@ -113,23 +118,23 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   >
                     {translate(about.articleBody)}
                   </Markdown>
-                }
+                )}
               </Block>
-            }
+            )}
 
-            {about.url &&
+            {about.url && (
               <p>
                 <a href={about.url} target="_blank" rel="noopener noreferrer" className="boxedLink">
                   {formatURL(about.url)}
                 </a>
               </p>
-            }
+            )}
 
-            {about.citation &&
+            {about.citation && (
               <p>
                 <cite>{about.citation}</cite>
               </p>
-            }
+            )}
 
             {about.availableChannel &&
               about.availableChannel.map(link => (
@@ -141,7 +146,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
             <hr className="border-grey" />
 
-            {about.keywords &&
+            {about.keywords && (
               <Block title={translate(`${about['@type']}.keywords`)}>
                 <ul className="spaceSeparatedList">
                   {about.keywords.sort((a,b) => a > b).map(keyword => (
@@ -153,9 +158,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   ))}
                 </ul>
               </Block>
-            }
+            )}
 
-            {about.about &&
+            {about.about && (
               <Block className="list" title={translate(`${about['@type']}.about`)}>
                 <ConceptTree
                   concepts={require('../json/esc.json').hasTopConcept}
@@ -164,9 +169,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   linkTemplate="/resource/?filter.about.about.@id={@id}"
                 />
               </Block>
-            }
+            )}
 
-            {about.audience &&
+            {about.audience && (
               <Block className="list" title={translate(`${about['@type']}.audience`)}>
                 <ConceptTree
                   concepts={require('../json/isced-1997.json').hasTopConcept}
@@ -175,31 +180,31 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                   linkTemplate="/resource/?filter.about.audience.@id={@id}"
                 />
               </Block>
-            }
+            )}
 
             {['primarySector', 'secondarySector'].map(prop => (
-              about[prop] &&
-              <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
-                <ConceptTree
-                  concepts={require('../json/sectors.json').hasTopConcept}
-                  include={about[prop].map(concept => concept['@id'])}
-                  className="ItemList"
-                  linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
-                />
-              </Block>
-            ))}
+              about[prop] && (
+                <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
+                  <ConceptTree
+                    concepts={require('../json/sectors.json').hasTopConcept}
+                    include={about[prop].map(concept => concept['@id'])}
+                    className="ItemList"
+                    linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
+                  />
+                </Block>
+              )))}
 
-            {lighthouses.length > 0 && about['@id'] &&
+            {lighthouses.length > 0 && about['@id'] && (
               <Block title={translate('ResourceIndex.read.lighthouses.title')}>
                 <Lighthouses lighthouses={lighthouses} about={about} user={user} />
               </Block>
-            }
+            )}
 
-            {about['@id'] && about['@type'] !== 'Person' &&
+            {about['@id'] && about['@type'] !== 'Person' && (
               <Block title={translate('ResourceIndex.read.comments')}>
                 <Comments comments={about['comment']} about={about} user={user} schema={schema} />
               </Block>
-            }
+            )}
 
           </div>
 
@@ -209,36 +214,48 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
           <hr style={{marginBottom: '0px'}} />
 
-          {(lighthouses.length > 0 || likes.length > 0 ) &&
+          {(lighthouses.length > 0 || likes.length > 0 ) && (
             <div className="Block" style={{marginTop: '0px'}}>
               <ul className="ItemList prominent">
-                {lighthouses.length > 0 &&
+                {lighthouses.length > 0 && (
                   <li>
                     <div className="item lighthouses">
-                      <i className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
+                      <i aria-hidden="true" className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
                         <img
                           style={{'position': 'relative', 'top': '2px'}}
                           src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />
                       </i>
-                      <span>{translate('Lighthouses')} ({lighthouses.length})</span>
+                      <span>
+                        {translate('Lighthouses')}
+                        &nbsp;
+                        (
+                        {lighthouses.length}
+                        )
+                      </span>
                     </div>
                   </li>
-                }
-                {likes.length > 0 &&
+                )}
+                {likes.length > 0 && (
                   <li>
                     <div className="item">
-                      <i className="fa fa-thumbs-up bg-highlight-color bg-important" />
-                      <span>{translate('Likes')} ({likes.length})</span>
+                      <i aria-hidden="true" className="fa fa-thumbs-up bg-highlight-color bg-important" />
+                      <span>
+                        {translate('Likes')}
+                        &nbsp;
+                        (
+                        {likes.length}
+                        )
+                      </span>
                     </div>
                   </li>
-                }
+                )}
               </ul>
             </div>
-          }
+          )}
 
-          {about.award &&
+          {about.award && (
             <Block className="list" title={translate(`${about['@type']}.award`)}>
               <ul className="ItemList award">
                 {about.award.map(award => (
@@ -250,9 +267,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 ))}
               </ul>
             </Block>
-          }
+          )}
 
-          {about.email &&
+          {about.email && (
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
                 <a
@@ -265,17 +282,17 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 </a>
               </p>
             </Block>
-          }
+          )}
 
-          {about.status &&
+          {about.status && (
             <Block title={translate(`${about['@type']}.status`)}>
               <Link href={`/resource/?filter.about.status=${about.status}`}>
                 {about.status}
               </Link>
             </Block>
-          }
+          )}
 
-          {about.location && about.location.address &&
+          {about.location && about.location.address && (
             <Block title={translate(`${about['@type']}.location`)}>
               <p>
                 {about.location.address.streetAddress &&
@@ -292,16 +309,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 {about.location.address.addressRegion &&
                   [translate(about.location.address.addressRegion), <br key="br" />]
                 }
-                {about.location.address.addressCountry &&
+                {about.location.address.addressCountry && (
                   <Link href={`/country/${about.location.address.addressCountry}`}>
                     {translate(about.location.address.addressCountry)}
                   </Link>
-                }
+                )}
               </p>
             </Block>
-          }
+          )}
 
-          {about.activityField &&
+          {about.activityField && (
             <Block className="list" title={translate(`${about['@type']}.activityField`)}>
               <ConceptTree
                 concepts={require('../json/activities.json').hasTopConcept}
@@ -310,17 +327,17 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 linkTemplate="/resource/?filter.about.activityField.@id={@id}"
               />
             </Block>
-          }
+          )}
 
-          {about.spatialCoverage &&
+          {about.spatialCoverage && (
             <Block title={translate(`${about['@type']}.spatialCoverage`)}>
               <Link href={`/resource/?filter.about.spatialCoverage=${about.spatialCoverage}`}>
                 {about.spatialCoverage}
               </Link>
             </Block>
-          }
+          )}
 
-          {about.contactPoint &&
+          {about.contactPoint && (
             <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
               <ItemList
                 listItems={about.contactPoint
@@ -328,33 +345,39 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="prominent"
               />
             </Block>
-          }
+          )}
 
-          {about.startTime &&
+          {about.startTime && (
             <Block title={translate(`${about['@type']}.startTime`)}>
               {formatDate(about.startTime, moment)}
-              {about.endTime &&
-                <span> – {formatDate(about.endTime, moment)}</span>
-              }
+              {about.endTime && (
+                <span>
+                  &nbsp;–&nbsp;
+                  {formatDate(about.endTime, moment)}
+                </span>
+              )}
             </Block>
-          }
+          )}
 
-          {about.startDate &&
+          {about.startDate && (
             <Block title={translate(`${about['@type']}.startDate`)}>
               {formatDate(about.startDate, moment)}
-              {about.endDate &&
-                <span> – {formatDate(about.endDate, moment)}</span>
-              }
+              {about.endDate && (
+                <span>
+                  &nbsp;–&nbsp;
+                  {formatDate(about.endDate, moment)}
+                </span>
+              )}
             </Block>
-          }
+          )}
 
-          {about.datePublished &&
+          {about.datePublished && (
             <Block title={translate(`${about['@type']}.datePublished`)}>
               {formatDate(about.datePublished, moment)}
             </Block>
-          }
+          )}
 
-          {about.inLanguage &&
+          {about.inLanguage && (
             <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
               <ul className="commaSeparatedList">
                 {about.inLanguage.map(lang => (
@@ -366,10 +389,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 ))}
               </ul>
             </Block>
-          }
+          )}
 
           {about.availableChannel &&
-          about.availableChannel.some(channel => channel.availableLanguage) &&
+          about.availableChannel.some(channel => channel.availableLanguage) && (
             <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
               <ul className="commaSeparatedList">
                 {[].concat.apply([], about.availableChannel.map(channel => channel.availableLanguage)).map(lang => (
@@ -381,9 +404,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 ))}
               </ul>
             </Block>
-          }
+          )}
 
-          {about.hashtag &&
+          {about.hashtag && (
             <Block title={translate(`${about['@type']}.hashtag`)}>
               <a
                 href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
@@ -393,9 +416,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 {about.hashtag}
               </a>
             </Block>
-          }
+          )}
 
-          {about.recordedIn &&
+          {about.recordedIn && (
             <Block title={translate(`${about['@type']}.recordedIn`)}>
               <ul className="unstyledList">
                 {about.recordedIn.map(recording => (
@@ -407,30 +430,30 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 ))}
               </ul>
             </Block>
-          }
+          )}
 
           {
             ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
               prop => (
-                about[prop] &&
-                <Block
-                  key={prop}
-                  collapsible={!expandAll && about[prop].length > 3}
-                  collapsibleType="show-all"
-                  className="list"
-                  title={translate(`${about['@type']}.${prop}`)}
-                >
-                  <ItemList
-                    listItems={about[prop]
-                      .sort((a, b) => translate(a.name) > translate(b.name))}
-                    className="prominent"
-                  />
-                </Block>
-              )
+                about[prop] &&(
+                  <Block
+                    key={prop}
+                    collapsible={!expandAll && about[prop].length > 3}
+                    collapsibleType="show-all"
+                    className="list"
+                    title={translate(`${about['@type']}.${prop}`)}
+                  >
+                    <ItemList
+                      listItems={about[prop]
+                        .sort((a, b) => translate(a.name) > translate(b.name))}
+                      className="prominent"
+                    />
+                  </Block>
+                ))
             )
           }
 
-          {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') &&
+          {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') && (
             <Block
               collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'Action').length > 3}
               collapsibleType="show-all"
@@ -443,30 +466,30 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="prominent"
               />
             </Block>
-          }
+          )}
 
           {
             ['participant', 'participantIn'].map(
               prop => (
-                about[prop] &&
-                <Block
-                  key={prop}
-                  collapsible={!expandAll && about[prop].length > 3}
-                  collapsibleType="show-all"
-                  className="list"
-                  title={translate(`${about['@type']}.${prop}`)}
-                >
-                  <ItemList
-                    listItems={about[prop]
-                      .sort((a, b) => translate(a.name) > translate(b.name))}
-                    className="prominent"
-                  />
-                </Block>
-              )
+                about[prop] && (
+                  <Block
+                    key={prop}
+                    collapsible={!expandAll && about[prop].length > 3}
+                    collapsibleType="show-all"
+                    className="list"
+                    title={translate(`${about['@type']}.${prop}`)}
+                  >
+                    <ItemList
+                      listItems={about[prop]
+                        .sort((a, b) => translate(a.name) > translate(b.name))}
+                      className="prominent"
+                    />
+                  </Block>
+                ))
             )
           }
 
-          {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) &&
+          {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) && (
             <Block
               collapsible={!expandAll && [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).length > 3}
               collapsibleType="show-all"
@@ -481,9 +504,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="prominent"
               />
             </Block>
-          }
+          )}
 
-          {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) &&
+          {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) && (
             <Block title={translate(`${about['@type']}.budget`)}>
               <ul className="commaSeparatedList">
                 {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
@@ -493,9 +516,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 ))}
               </ul>
             </Block>
-          }
+          )}
 
-          {about.awards && about.awards.some(grant => grant.funds) &&
+          {about.awards && about.awards.some(grant => grant.funds) && (
             <Block
               collapsible={!expandAll && [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds)).length > 3}
               collapsibleType="show-all"
@@ -510,9 +533,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="prominent"
               />
             </Block>
-          }
+          )}
 
-          {about.hasPart &&
+          {about.hasPart && (
             <Block
               collapsible={!expandAll && about.hasPart.length > 3}
               collapsibleType="show-all"
@@ -525,9 +548,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="prominent"
               />
             </Block>
-          }
+          )}
 
-          {about.isPartOf &&
+          {about.isPartOf && (
             <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
               <ItemList
                 listItems={[about.isPartOf]
@@ -535,29 +558,29 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="prominent"
               />
             </Block>
-          }
+          )}
 
           {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
             'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
             'isRelatedTo'].map(prop => (
-            about[prop] &&
-            <Block
-              key={prop}
-              collapsible={!expandAll && about[prop].length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate(`${about['@type']}.${prop}`)}
-            >
-              <ItemList
-                listItems={about[prop]
-                  .sort((a, b) => translate(a.name) > translate(b.name))}
-                className="prominent"
-              />
-            </Block>
-          ))}
+            about[prop] &&  (
+              <Block
+                key={prop}
+                collapsible={!expandAll && about[prop].length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate(`${about['@type']}.${prop}`)}
+              >
+                <ItemList
+                  listItems={about[prop]
+                    .sort((a, b) => translate(a.name) > translate(b.name))}
+                  className="prominent"
+                />
+              </Block>
+            )))}
 
-          {about.license &&
+          {about.license && (
             <Block title={translate(`${about['@type']}.license`)}>
               <ul className="spaceSeparatedList">
                 {about.license.map(license => (
@@ -567,7 +590,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 ))}
               </ul>
             </Block>
-          }
+          )}
 
         </aside>
       </div>

@@ -38,7 +38,9 @@ class PlaceWidget extends React.Component {
   }
 
   handleClick(e) {
-    if (this.state.options.length && !this.wrapper.contains(e.target)) {
+    const { options } = this.state
+
+    if (options.length && !this.wrapper.contains(e.target)) {
       this.setState({options: []})
     }
   }
@@ -50,6 +52,8 @@ class PlaceWidget extends React.Component {
 
   updateOptions() {
     const {value, api, translate} = this.props
+    const { filter } = this.state
+
     const url = 'https://nominatim.openstreetmap.org/search'
     const params = [
       'format=json',
@@ -57,7 +61,7 @@ class PlaceWidget extends React.Component {
       'limit=10',
       `countrycodes=${getProp(['address', 'addressCountry'], value)}`
     ]
-    api.fetch(`${url}/${this.state.filter} ${translate(getProp(['address', 'addressRegion'], value)) || ''}?${params.join('&')}`).then(
+    api.fetch(`${url}/${filter} ${translate(getProp(['address', 'addressRegion'], value)) || ''}?${params.join('&')}`).then(
       result => this.setState({options: result.map(result => mapNominatimResult(result))})
     )
   }
@@ -67,6 +71,7 @@ class PlaceWidget extends React.Component {
       name, value, errors, property, title, className, translate, schema,
       setValue, config, description, formId, required
     } = this.props
+    const { collapsed, filter, options } = this.state
 
     const geometry = value.geo && value.geo.lon && value.geo.lat
       ? {
@@ -84,7 +89,7 @@ class PlaceWidget extends React.Component {
         {errors.map((error, index) => (
           <div className="error" key={index}>{error.message}</div>
         ))}
-        {this.state.collapsed ? (
+        {collapsed ? (
           <div>
             <div
               className={`label ${required ? 'required' : ''}`.trim()}
@@ -112,7 +117,7 @@ class PlaceWidget extends React.Component {
                 setValue={country => setValue({address: {addressCountry: country}})}
                 required
               />
-              {getProp(['address', 'addressCountry'], value) &&
+              {getProp(['address', 'addressCountry'], value) && (
                 <div>
                   <DropdownSelect
                     property="addressRegion"
@@ -131,16 +136,16 @@ class PlaceWidget extends React.Component {
                       <div className="filterContainer">
                         <input
                           type="text"
-                          value={this.state.filter}
+                          value={filter}
                           className="filter"
                           onChange={this.handleChange}
                           placeholder={translate('ClientTemplates.place_widget.searchLocation')}
                         />
                       </div>
-                      {this.state.options.length > 0 &&
+                      {options.length > 0 && (
                         <div className="optionsContainer">
                           <ul>
-                            {this.state.options.map(option => (
+                            {options.map(option => (
                               <li key={option['@id']}>
                                 <input
                                   type="checkbox"
@@ -169,13 +174,14 @@ class PlaceWidget extends React.Component {
                                   role="button"
                                   onKeyDown={e => triggerClick(e, 13)}
                                 >
-                                  &nbsp;{translate(option.name)}
+                                  &nbsp;
+                                  {translate(option.name)}
                                 </label>
                               </li>
                             ))}
                           </ul>
                         </div>
-                      }
+                      )}
                     </div>
                     <p>{translate('ClientTemplates.place_widget.searchExplanation')}</p>
                     <Input
@@ -201,11 +207,11 @@ class PlaceWidget extends React.Component {
                         placeholder={schema.properties.address.properties.addressLocality.title}
                       />
                     </div>
-                    {geometry &&
+                    {geometry && (
                       <div
                         className="mapContainer"
                         style={{
-                          position:'relative',
+                          position: 'relative',
                           height: '300px'
                         }}
                       >
@@ -224,10 +230,10 @@ class PlaceWidget extends React.Component {
                           ))}
                         />
                       </div>
-                    }
+                    )}
                   </div>
                 </div>
-              }
+              )}
             </Fieldset>
           </div>
         )}

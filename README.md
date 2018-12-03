@@ -78,3 +78,18 @@ Add url to `/etc/hosts`
 ```
 
 Visit http://oerworldmap.local/resource/
+
+
+## Tests
+
+To run all tests
+
+```
+npm test
+```
+
+To run a single test the description tag of the test must be passed to the npm script
+
+```
+npm run singleTest -- "<ActionButtons />"
+```
