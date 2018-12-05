@@ -51,6 +51,20 @@
         margin-bottom: 0;
       }
     }
+
+    &.hasError {
+      & .Input.text input[type=text],
+      & .RemoteSelect input[type=text],
+      & .LocalizedString .SimpleMDE .CodeMirror-wrap,
+      & .LocalizedString .SimpleMDE .editor-toolbar {
+        border-color: var(--orange);
+      }
+
+      & .LocalizedString button,
+      & .dropdownContainer button {
+        background-color: var(--orange);
+      }
+    }
   }
 
   & .optionsContainer ul li {
@@ -639,4 +653,8 @@
       display: none;
     }
   }
+}
+
+div.error {
+  display: none;
 }
