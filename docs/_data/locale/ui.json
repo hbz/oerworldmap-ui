@@ -325,5 +325,7 @@
   "entry.missing.info.action": "Help us by adding some information!",
   "calendar.show.upcoming": "Upcoming",
   "calendar.show.past": "Past",
-  "form.showOptionalFields": "Show optional fields for %{title}"
+  "form.showOptionalFields": "Show optional fields for %{title}",
+  "Error.required": "Please specify a %{missingProperty}",
+  "Error.format": "The provided format is not valid for the field %{format}"
 }

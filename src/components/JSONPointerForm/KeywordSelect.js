@@ -6,6 +6,7 @@ import 'react-select/dist/react-select.css'
 
 import withFormData from './withFormData'
 import withApi from '../withApi'
+import { objectMap } from '../../common'
 
 class KeywordSelect extends React.Component {
 
@@ -47,7 +48,9 @@ class KeywordSelect extends React.Component {
           {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
         </div>
         {errors.map((error, index) => (
-          <div className="error" key={index}>{error.message}</div>
+          <div className="error" key={index}>
+            {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+          </div>
         ))}
         <Select.Creatable
           name={name}

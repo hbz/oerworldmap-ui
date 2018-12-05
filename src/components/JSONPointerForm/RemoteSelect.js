@@ -7,7 +7,7 @@ import withFormData from './withFormData'
 import Icon from '../Icon'
 import withApi from '../withApi'
 import withI18n from '../withI18n'
-import { getURL, triggerClick } from '../../common'
+import { getURL, triggerClick, objectMap } from '../../common'
 
 class RemoteSelect extends React.Component {
 
@@ -138,7 +138,9 @@ class RemoteSelect extends React.Component {
           {translate(title)}
         </div>
         {errors.map((error, index) => (
-          <div className="error" key={index}>{error.message}</div>
+          <div className="error" key={index}>
+            {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+          </div>
         ))}
         {value ? (
           <div className="selectedContainer">

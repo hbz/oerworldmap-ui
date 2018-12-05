@@ -4,6 +4,7 @@ import Cleave from "cleave.js/react"
 import moment from "moment"
 
 import withFormData from './withFormData'
+import { objectMap } from '../../common'
 
 const DateTime = (
   {name, value, setValue, errors, title, className, translate, formId, required, placeholder}) => {
@@ -19,7 +20,9 @@ const DateTime = (
         className={required ? 'required' : ''}
       />
       {errors.map((error, index) => (
-        <div className="error" key={index}>{error.message}</div>
+        <div className="error" key={index}>
+          {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+        </div>
       ))}
       <div className="Inputs">
         <Cleave

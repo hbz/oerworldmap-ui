@@ -7,7 +7,7 @@ import { forOwn, isUndefined, isNull,
 const prune = (current) => {
   forOwn(current, (value, key) => {
     if (isUndefined(value) || isNull(value) || isNaN(value) ||
-      (isString(value) && isEmpty(value)) ||
+      (isString(value) && isEmpty(value.trim())) ||
       (isObject(value) && isEmpty(prune(value)))) {
       delete current[key]
     }

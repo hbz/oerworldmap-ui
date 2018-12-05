@@ -174,7 +174,14 @@ export const getTwitterId = (sameAs) => {
   return /twitter.com\/([a-zA-Z0-9_]{1,15})/.exec(twitterURL)
 }
 
+export const objectMap = (obj, fn) => {
+  return Object.keys(obj).reduce((result, key) => {
+    result[key] = fn(obj[key])
+    return result
+  }, {})
+}
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, getProp, appendOnFocus, formatDate, getTwitterId
+  debounce, getProp, appendOnFocus, formatDate, getTwitterId, objectMap
 }
