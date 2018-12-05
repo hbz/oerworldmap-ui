@@ -72,9 +72,9 @@ class Form extends React.Component {
   getValidationErrors(name) {
     const { formErrors } = this.state
 
-    return formErrors.filter(error => error.keyword === 'required'
+    return formErrors.filter(error => error.keyword !== 'anyOf' && (error.keyword === 'required'
       ? `${error.dataPath}/${error.params.missingProperty}` === name
-      : error.dataPath === name
+      : error.dataPath === name)
     )
   }
 
