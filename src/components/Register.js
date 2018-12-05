@@ -19,11 +19,7 @@ const Register = ({translate, emitter, schema}) => (
         <p>{translate('UserIndex.register.loginMessage')}</p>
         <a
           className="btn"
-          href="/.login"
-          onClick={e => {
-            e.preventDefault()
-            emitter.emit("login", Link.back)
-          }}
+          href={`/.login?continue=${Link.back || '/resource'}`}
         >
           {translate('login')}
         </a>
