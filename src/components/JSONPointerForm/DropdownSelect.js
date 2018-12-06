@@ -52,7 +52,7 @@ class DropdownSelect extends React.Component {
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+        className={`DropdownSelect ${property || ''} ${className}${errors.length ? ' hasErrors' : ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
       >
         <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>

@@ -10,7 +10,7 @@ const DateTime = (
   {name, value, setValue, errors, title, className, translate, formId, required, placeholder}) => {
 
   return (
-    <div className={`DateTime ${className}`}>
+    <div className={`DateTime ${className}${errors.length ? ' hasErrors' : ''}`}>
       <label
         htmlFor={`${formId}-${name}`}
         dangerouslySetInnerHTML={{__html: translate(title) +
