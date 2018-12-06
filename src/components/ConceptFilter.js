@@ -1,6 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
@@ -70,21 +71,50 @@ class ConceptFilter extends React.Component {
                   name={filterName}
                   id={filterName + concept['@id']}
                 />
-                <label
-                  htmlFor={filterName + concept['@id']}
-                  onKeyDown={e => {
-                    if (e.keyCode === 13) {
-                      e.target.click()
+                {concept.scopeNote ? (
+                  <Tooltip
+                    overlay={(
+                      <div className="itemListTooltip">
+                        {translate(concept.scopeNote)}
+                      </div>
+                    )}
+                    placement="left"
+                    mouseEnterDelay={0.2}
+                    overlayClassName="itemListTooltip"
+                  >
+                    <label
+                      htmlFor={filterName + concept['@id']}
+                      onKeyDown={e => {
+                        if (e.keyCode === 13) {
+                          e.target.click()
+                        }
+                      }}
+                      tabIndex="0"
+                      role="button"
+                      className={this.show(concept) ? null: 'hidden'}
+                    >
+                      {`${translate(concept.name)} (${aggregation.buckets.find(
+                        bucket => bucket.key === concept['@id']).doc_count})`
+                      }
+                    </label>
+                  </Tooltip>
+                ) : (
+                  <label
+                    htmlFor={filterName + concept['@id']}
+                    onKeyDown={e => {
+                      if (e.keyCode === 13) {
+                        e.target.click()
+                      }
+                    }}
+                    tabIndex="0"
+                    role="button"
+                    className={this.show(concept) ? null: 'hidden'}
+                  >
+                    {`${translate(concept.name)} (${aggregation.buckets.find(
+                      bucket => bucket.key === concept['@id']).doc_count})`
                     }
-                  }}
-                  tabIndex="0"
-                  role="button"
-                  className={this.show(concept) ? null: 'hidden'}
-                >
-                  {`${translate(concept.name)} (${aggregation.buckets.find(
-                    bucket => bucket.key === concept['@id']).doc_count})`
-                  }
-                </label>
+                  </label>
+                )}
               </React.Fragment>
             ) : (
               <span>
