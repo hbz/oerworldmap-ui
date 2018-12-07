@@ -167,7 +167,7 @@
   "filter.by": "Filtern nach",
   "map.improveThisMap": "Die Karte verbessern",
   "other.imageSource": "Bildquelle",
-  "other.showMore": "Mehr anzeigen",
+  "other.showMore": "More Filter",
   "other.showLess": "Weniger anzeigen",
   "other.wrongUsernameOrPassword": "Falscher Nutzername oder falsches Passwort",
   "other.deleteResource": "Eintrag löschen?",
@@ -325,5 +325,7 @@
   "entry.missing.info.action": "Helfen Sie uns, ergänzen Sie Informationen!",
   "calendar.show.upcoming": "Zukünftig",
   "calendar.show.past": "Vergangen",
-  "form.showOptionalFields": "Optionale Felder für %{title} anzeigen"
+  "form.showOptionalFields": "Optionale Felder für %{title} anzeigen",
+  "Error.required": "Please specify a %{missingProperty}",
+  "Error.format": "The provided format is not valid for the field %{format}"
 }
