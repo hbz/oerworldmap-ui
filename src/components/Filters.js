@@ -292,6 +292,7 @@ class Filters extends React.Component {
               ) && (
                 <button
                   type="button"
+                  className="floatingBtn"
                   onClick={(e) => {
                     e.preventDefault()
                     this.setState({ extended: !extended })
@@ -305,7 +306,7 @@ class Filters extends React.Component {
               )}
 
               {Object.keys(filters).length > 0 && (
-                <div className="clearFilter">
+                <div className="clearFilter floatingBtn">
                   <button type="reset">
                     {translate('ClientTemplates.filter.clear')}
                   </button>
