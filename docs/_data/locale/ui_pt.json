@@ -167,7 +167,7 @@
   "filter.by": "Filtrar por",
   "map.improveThisMap": "Melhorar este mapa",
   "other.imageSource": "Fonte da Imagem",
-  "other.showMore": "Exibir mais",
+  "other.showMore": "More Filter",
   "other.showLess": "Exibir menos",
   "other.wrongUsernameOrPassword": "Nome do usuário ou senha inválido.",
   "other.deleteResource": "Excluir o recurso?",
@@ -325,5 +325,7 @@
   "entry.missing.info.action": "Nos ajude adicionando alguma informação!",
   "calendar.show.upcoming": "Upcoming",
   "calendar.show.past": "Past",
-  "form.showOptionalFields": "Show optional fields for %{title}"
+  "form.showOptionalFields": "Show optional fields for %{title}",
+  "Error.required": "Please specify a %{missingProperty}",
+  "Error.format": "The provided format is not valid for the field %{format}"
 }
