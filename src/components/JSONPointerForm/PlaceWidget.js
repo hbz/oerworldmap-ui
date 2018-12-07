@@ -13,7 +13,7 @@ import withApi from '../withApi'
 
 import regions from '../../json/iso3166-2.json'
 
-import { triggerClick, getProp, mapNominatimResult } from '../../common'
+import { triggerClick, getProp, mapNominatimResult, objectMap } from '../../common'
 
 class PlaceWidget extends React.Component {
 
@@ -87,7 +87,9 @@ class PlaceWidget extends React.Component {
         ref={el => this.wrapper = el}
       >
         {errors.map((error, index) => (
-          <div className="error" key={index}>{error.message}</div>
+          <div className="error" key={index}>
+            {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+          </div>
         ))}
         {collapsed ? (
           <div>

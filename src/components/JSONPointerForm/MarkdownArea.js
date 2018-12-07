@@ -6,6 +6,7 @@ import SimpleMDE from 'react-simplemde-editor'
 import "simplemde/dist/simplemde.min.css"
 
 import withFormData from './withFormData'
+import { objectMap } from '../../common'
 
 const MarkdownArea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
@@ -21,7 +22,9 @@ const MarkdownArea = ({
       {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
     </label>
     {errors.map((error, index) => (
-      <div className="error" key={index}>{error.message}</div>
+      <div className="error" key={index}>
+        {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+      </div>
     ))}
     <SimpleMDE
       name={name}

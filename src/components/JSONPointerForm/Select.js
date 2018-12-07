@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
+import { objectMap } from '../../common'
 
 const Select = ({
   name, value, setValue, errors, options, property, title, className, translate, formId, required
@@ -16,7 +17,9 @@ const Select = ({
       {required ? <span className="asterisk" title="${translate('This is a required field!')}">*</span> : ''}
     </label>
     {errors.map((error, index) => (
-      <div className="error" key={index}>{error.message}</div>
+      <div className="error" key={index}>
+        {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+      </div>
     ))}
     <select
       name={name}

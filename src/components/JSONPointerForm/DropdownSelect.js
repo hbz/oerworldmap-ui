@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
-import { triggerClick } from '../../common'
+import { triggerClick, objectMap } from '../../common'
 
 class DropdownSelect extends React.Component {
 
@@ -52,7 +52,7 @@ class DropdownSelect extends React.Component {
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`DropdownSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+        className={`DropdownSelect ${property || ''} ${className}${errors.length ? ' hasErrors' : ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
       >
         <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
@@ -101,7 +101,7 @@ class DropdownSelect extends React.Component {
             >
               {!errors.length
                 ? translate('select', {name: translate(title)})
-                : errors.map(error => error.message).join(', ')
+                : errors.map(error => translate(`Error.${error.keyword}`, objectMap(error.params, translate))).join(', ')
               }
             </button>
             <div className={dropdown ? 'dropdownList' : 'hidden'}>
