@@ -22,18 +22,22 @@ const withFormData = (BaseComponent) => {
     }
 
     shouldComponentUpdate() {
-      return this.context.shouldFormComponentUpdate(this.name)
+      const { shouldFormComponentUpdate } = this.context
+      return shouldFormComponentUpdate(this.name)
     }
 
     render() {
+
+      const { getValue, formId, setValue, getValidationErrors, shouldFormComponentFocus } = this.context
+
       return (
         <BaseComponent
           name={this.name}
-          value={this.context.getValue(this.name)}
-          formId={this.context.formId}
-          setValue={value => this.context.setValue(this.name, value)}
-          errors={this.context.getValidationErrors(this.name)}
-          shouldFormComponentFocus={this.context.shouldFormComponentFocus(this.name)}
+          value={getValue(this.name)}
+          formId={formId}
+          setValue={value => setValue(this.name, value)}
+          errors={getValidationErrors(this.name)}
+          shouldFormComponentFocus={shouldFormComponentFocus(this.name)}
           {...this.props}
         />
       )
@@ -50,11 +54,11 @@ const withFormData = (BaseComponent) => {
   }
 
   formComponent.childContextTypes = {
-    path: PropTypes.array
+    path: PropTypes.arrayOf(PropTypes.any)
   }
 
   formComponent.contextTypes = {
-    path: PropTypes.array,
+    path: PropTypes.arrayOf(PropTypes.any),
     setValue: PropTypes.func,
     getValue: PropTypes.func,
     getValidationErrors: PropTypes.func,

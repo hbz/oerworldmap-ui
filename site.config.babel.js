@@ -2,7 +2,10 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import safe from 'postcss-safe-parser'
+import cssnano from 'cssnano'
 import i18ns from './src/i18ns'
 
 const ENV = process.env.NODE_ENV
@@ -10,7 +13,7 @@ const ENV = process.env.NODE_ENV
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './site.js'
   ],
   output: {
@@ -21,7 +24,8 @@ let Config = {
   plugins: [
     new webpack.DefinePlugin({
       i18ns: JSON.stringify(i18ns)
-    })
+    }),
+    new webpack.ProgressPlugin()
   ],
   module: {
     exprContextCritical: false,
@@ -60,28 +64,32 @@ let Config = {
 if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("assets/css/styles.css"),
+      new MiniCssExtractPlugin({
+        filename: "assets/css/styles.css"
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessor: cssnano,
+        cssProcessorOptions: {
+          parser: safe,
+          discardComments: { removeAll: true }
+        }
+      })
     ],
     mode: 'production',
     module: {
       rules: [
         {
           test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  minimize: true,
-                  importLoaders: 1,
-                },
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
               },
-              {
-                loader: 'postcss-loader',
-              },
-            ],
-          }),
+            },
+            "postcss-loader"
+          ]
         },
       ]
     }
@@ -89,9 +97,6 @@ if (ENV === 'production') {
 }
 
 if (ENV === 'development') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
   Config = merge(Config, {
     devtool: 'source-map',
     mode: 'development',

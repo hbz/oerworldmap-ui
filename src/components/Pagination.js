@@ -7,33 +7,45 @@ import '../styles/components/Pagination.pcss'
 
 const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
-    size > 0 &&
+    size > 0 && (
       <div className="Pagination">
         {previousPage ?
           (
-            <Link rel="prev" title={translate('Pagination.prevPage')} href={previousPage}><i className="fa fa-arrow-left " /></Link>
+            <Link rel="prev" title={translate('Pagination.prevPage')} href={previousPage}><i aria-hidden="true" className="fa fa-arrow-left " /></Link>
           ) :
           (
             <span>&nbsp;</span>
           )
         }
         <div className="numbers">
-          <span>{from}-{parseInt(from)+parseInt(size) >= totalItems
-            ? totalItems
-            : parseInt(from)+parseInt(size)} {translate('Pagination.of')} {totalItems}
-          </span>
+          <React.Fragment>
+            {from}
+            &ndash;
+            {(parseInt(from) + parseInt(size)) >= totalItems
+              ? totalItems
+              : (
+                <React.Fragment>
+                  {parseInt(from) + parseInt(size)}
+                  &nbsp;
+                  {translate('Pagination.of')}
+                  &nbsp;
+                  {totalItems}
+                </React.Fragment>
+              )
+            }
+
+          </React.Fragment>
         </div>
         {nextPage ?
           (
-            <Link rel="next" title={translate('Pagination.nextPage')} href={nextPage}><i className="fa fa-arrow-right " /></Link>
+            <Link rel="next" title={translate('Pagination.nextPage')} href={nextPage}><i aria-hidden="true" className="fa fa-arrow-right " /></Link>
           ) :
           (
             <span>&nbsp;</span>
           )
         }
-
       </div>
-  )
+    ))
 }
 
 Pagiantion.propTypes = {

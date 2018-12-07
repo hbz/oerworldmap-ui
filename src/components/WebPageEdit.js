@@ -2,6 +2,7 @@
 /* global confirm */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { uniqueId } from 'lodash'
 
 import JsonSchema from './JSONPointerForm/JsonSchema'
 import Form from './JSONPointerForm/Form'
@@ -14,7 +15,7 @@ import Link from './Link'
 
 import expose from '../expose'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink}) => (
+const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink, showOptionalFields}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
@@ -32,7 +33,12 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
     >
       {translate('needHelp')}
     </a>
-    <Builder schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)} config={{mapboxConfig}} />
+    <Builder
+      schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)}
+      config={{mapboxConfig}}
+      key={uniqueId()}
+      showOptionalFields={showOptionalFields}
+    />
     <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
 
     <div className="formButtons">
@@ -42,7 +48,7 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
           Cancel
         </Link>
       </div>
-      {expose('deleteEntry', user, about) &&
+      {expose('deleteEntry', user, about) && (
         <button
           className="btn delete"
           type="button"
@@ -55,7 +61,7 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
         >
           {translate('ResourceIndex.read.delete')}
         </button>
-      }
+      )}
     </div>
 
   </Form>
@@ -75,13 +81,15 @@ WebPageEdit.propTypes = {
   ).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
-  closeLink: PropTypes.string
+  closeLink: PropTypes.string,
+  showOptionalFields: PropTypes.bool
 }
 
 WebPageEdit.defaultProps = {
   action: 'edit',
   user: null,
-  closeLink: null
+  closeLink: null,
+  showOptionalFields: true
 }
 
 export default withI18n(withEmitter(WebPageEdit))

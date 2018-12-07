@@ -5,10 +5,11 @@ import Link from './Link'
 const LinkOverride = ({ children, title, href }) => (
   href.startsWith('#')
     ? <Link href={href} title={title}>{children}</Link>
-    :
-    <a href={href} title={title} target="_blank" rel="noopener noreferrer">
-      {children}
-    </a>
+    : (
+      <a href={href} title={title} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
 )
 
 LinkOverride.propTypes = {

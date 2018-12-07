@@ -28,6 +28,8 @@
   "ClientTemplates.place_widget.selectCountry": "Search Country",
   "ClientTemplates.popoverCountry.champion": "Country Champion",
   "ClientTemplates.resource_typehead.search": "Search",
+  "ClientTemplates.app.countryChampions": "Country Champions",
+  "ClientTemplates.app.oerpolicies": "OER Policy Registry",
   "CountryIndex.read.agreeConditions": "I agree to publish the information above under the conditions of <a href=\"/imprint#cc0\" target=\"_blank\">CC0-License</a>. I assure, that I have all rights necessary to publish the information to grant this license.",
   "CountryIndex.read.countryChampion": "Country Champion",
   "CountryIndex.read.noChampion": "There is no <a href=\"/contribute\">country champion</a> for %{country}, yet. <a href=\"mailto:info@oerworldmap.org\">Contact us</a> if you can jump in!",
@@ -242,6 +244,7 @@
   "filter.about.secondarySector.@id": "Secondary sector",
   "filter.about.award": "Award",
   "filter.about.additionalType.@id": "Category",
+  "filter.about.activityField.@id": "Field of Activity",
   "audience": "Audience",
   "about": "Subject",
   "license": "License",
@@ -289,6 +292,7 @@
   "menu.most_liked": "Most liked",
   "menu.my_entries": "My entries",
   "menu.add": "Add",
+  "menu.hint": "The OER World Map collects data related to Open Educational Resources (OER) and Open Education as described in the <a href='http://www.capetowndeclaration.org/' target='_blank' rel='noopener noreferrer'>Cape Town Declaration</a> and the 2012 <a target='_blank' rel='noopener noreferrer' href='http://www.unesco.org/new/fileadmin/MULTIMEDIA/HQ/CI/CI/pdf/Events/English_Paris_OER_Declaration.pdf'>OER Paris Declaration</a>. Please ad only related data. If not obvious, please outline the reference to OER in the description field.",
   "menu.add.subtitle": "What kind of entry would you like to add?",
   "menu.info": "Info",
   "menu.info.topical": "Topical",
@@ -318,5 +322,8 @@
   "menu.me.events": "Events I'm attending",
   "menu.me.organizations": "My affiliations",
   "entry.missing.info.note": "A description for this entry is missing.",
-  "entry.missing.info.action": "Help us by adding some information!"
+  "entry.missing.info.action": "Help us by adding some information!",
+  "calendar.show.upcoming": "Upcoming",
+  "calendar.show.past": "Past",
+  "form.showOptionalFields": "Show optional fields for %{title}"
 }

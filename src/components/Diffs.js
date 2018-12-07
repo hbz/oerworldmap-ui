@@ -60,9 +60,13 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
       <div className="diffContent">
         <div className="diffList">
           <div className="scroll">
-            <h1>{translate('History for')}: <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a></h1>
+            <h1>
+              {translate('History for')}
+              :&nbsp;
+              <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a>
+            </h1>
 
-            <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)} >
+            <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)}>
               {log.map(l => (
                 <div key={l.commit} className="logBlock">
                   <div>
@@ -74,9 +78,23 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
                       {l.commit}
                     </a>
                     <br />
-                    <span><b>{translate('Author')}:</b> {l.author}</span>
+                    <span>
+                      <b>
+                        {translate('Author')}
+                        :
+                      </b>
+                      &nbsp;
+                      {l.author}
+                    </span>
                     <br />
-                    <span><b>{translate('Date')}:</b> {formatDate(l.date, moment)}</span>
+                    <span>
+                      <b>
+                        {translate('Date')}
+                        :
+                      </b>
+                      &nbsp;
+                      {formatDate(l.date, moment)}
+                    </span>
                   </div>
                   <div>
                     <input

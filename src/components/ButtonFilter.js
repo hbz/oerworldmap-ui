@@ -9,7 +9,7 @@ import { triggerClick } from '../common'
 
 const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, filterName}) => (
   <div className="ButtonFilter">
-    {aggregation.buckets.sort((a, b) => order.indexOf(a.key) > order.indexOf(b.key))
+    {aggregation.buckets.sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key))
       .map((bucket) => {
         return (
           <Tooltip
@@ -17,11 +17,13 @@ const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, f
             overlayStyle={{
               maxWidth: "110px",
             }}
-            overlay={
+            overlay={(
               <span>
-                <b>{translate(bucket.label || bucket.key)}</b>: {translate(`Tip.${bucket.key}`)}
+                <b>{translate(bucket.label || bucket.key)}</b>
+                :&nbsp;
+                {translate(`Tip.${bucket.key}`)}
               </span>
-            }
+            )}
             placement="top"
             align={{
               targetOffset: [0, 5],

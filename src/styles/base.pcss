@@ -147,7 +147,7 @@ textarea {
 
   &:focus {
     outline: none;
-    background-color: color(var(--primary-color) alpha(-90%));
+    background-color: color-mod(var(--primary-color) alpha(-90%));
   }
 }
 
@@ -317,6 +317,7 @@ pre {
     background-color: var(--grey-dark);
     color: var(--white);
     border: none;
+    padding: 15px;
   }
 
   & .rc-tooltip-arrow {
@@ -458,5 +459,9 @@ pre {
 @media print {
   @page {
     margin: 0;
+  }
+
+  .rc-tooltip {
+    display: none;
   }
 }

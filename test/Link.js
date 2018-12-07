@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { render } from 'enzyme'
@@ -13,21 +12,21 @@ describe('<Link />', () => {
   const wrapper = render(
     <EmittProvider emitter={{}}>
       <div>
-        <Link href={id} >Test Link</Link>
-        <Link href={url} >OER WORLD MAP</Link>
+        <Link href={id}>Test Link</Link>
+        <Link href={url}>OER WORLD MAP</Link>
       </div>
     </EmittProvider>
   )
 
-  it(`Creates a link to /resource/${id}`, () => {
+  test(`Creates a link to /resource/${id}`, () => {
     const link = wrapper.find('a')[0]
-    assert.equal(link.attribs.href, `/resource/${id}`)
-    assert.equal(link.children[0].data, 'Test Link')
+    assert.strictEqual(link.attribs.href, `/resource/${id}`)
+    assert.strictEqual(link.children[0].data, 'Test Link')
   })
 
-  it(`Creates a link to ${url}`, () => {
+  test(`Creates a link to ${url}`, () => {
     const link = wrapper.find('a')[1]
-    assert.equal(link.attribs.href, url)
-    assert.equal(link.children[0].data, 'OER WORLD MAP')
+    assert.strictEqual(link.attribs.href, url)
+    assert.strictEqual(link.children[0].data, 'OER WORLD MAP')
   })
 })

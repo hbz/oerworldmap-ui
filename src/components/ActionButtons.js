@@ -35,54 +35,67 @@ class ActionButtons extends React.Component {
   }
 
   render() {
+
+    const { user, translate } = this.props
+    const { showAddMenu } = this.state
+
     return (
       <div className="ActionButtons">
-        {expose('groupAdmin', this.props.user) &&
-          <Link href="/user/groups" title={this.props.translate('ClientTemplates.app.groups')}>
-            <i className="fa fa-gear" />
+        {expose('groupAdmin', user) && (
+          <Link
+            href="/user/groups"
+            title={translate('ClientTemplates.app.groups')}
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-gear"
+            />
           </Link>
-        }
+        )}
 
-        {expose('addEntry', this.props.user) &&
+        {expose('addEntry', user) && (
           <div
-            title={this.props.translate('ClientTemplates.app.add')}
+            title={translate('ClientTemplates.app.add')}
             tabIndex="0"
             role="button"
-            onClick={() => this.setState({showAddMenu:!this.state.showAddMenu})}
+            onClick={() => this.setState({showAddMenu:!showAddMenu})}
             onKeyDown={triggerClick}
             ref={el => this.addBtn = el}
           >
-            <i className="fa fa-plus" />
+            <i aria-hidden="true" className="fa fa-plus" />
 
-            <ul className={this.state.showAddMenu ? '' : 'noDisplay'}>
+            <ul className={showAddMenu ? '' : 'noDisplay'}>
               {['Organization', 'Service', 'Action', 'Article', 'Event', 'WebPage', 'Product'].map(type => (
                 <li key={type}>
                   <Link href={`?add=${type}`}>
-                    + {this.props.translate(type)} <Icon type={type} />
+                    +&nbsp;
+                    {translate(type)}
+                    &nbsp;
+                    <Icon type={type} />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-        }
+        )}
 
-        <Link href="/aggregation/" title={this.props.translate('ClientTemplates.app.statistics')}>
-          <i className="fa fa-pie-chart" />
+        <Link href="/aggregation/" title={translate('ClientTemplates.app.statistics')}>
+          <i aria-hidden="true" className="fa fa-pie-chart" />
         </Link>
 
-        <Link href="/feed/" title={this.props.translate('ClientTemplates.app.recentAdditions')}>
-          <i className="fa fa-rss" />
+        <Link href="/feed/" title={translate('ClientTemplates.app.recentAdditions')}>
+          <i aria-hidden="true" className="fa fa-rss" />
         </Link>
         <Link
           href="?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC"
-          title={this.props.translate('ClientTemplates.app.likes')}
+          title={translate('ClientTemplates.app.likes')}
         >
-          <i className="fa fa-thumbs-up" />
+          <i aria-hidden="true" className="fa fa-thumbs-up" />
         </Link>
         <Link
           className="lighthouse"
           href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC"
-          title={this.props.translate('ClientTemplates.app.lighthouses')}
+          title={translate('ClientTemplates.app.lighthouses')}
         >
           <span>Lighthouse</span>
         </Link>

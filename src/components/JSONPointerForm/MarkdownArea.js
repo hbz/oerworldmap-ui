@@ -16,7 +16,9 @@ const MarkdownArea = ({
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}
     >
-      {translate(title)} {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+      {translate(title)}
+      &nbsp;
+      {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
     </label>
     {errors.map((error, index) => (
       <div className="error" key={index}>{error.message}</div>
@@ -25,7 +27,6 @@ const MarkdownArea = ({
       name={name}
       value={value}
       id={`${formId}-${name}`}
-      placeholder={translate(title)}
       onChange={value => setValue(value)}
       className="SimpleMDE"
       getMdeInstance={instance => {
@@ -49,6 +50,7 @@ const MarkdownArea = ({
         autofocus: shouldFormComponentFocus,
         status: false,
         spellChecker: false,
+        placeholder: translate(title)
       }}
     />
   </div>

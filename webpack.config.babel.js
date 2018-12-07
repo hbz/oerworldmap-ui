@@ -2,7 +2,10 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import safe from 'postcss-safe-parser'
+import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import config, { apiConfig } from './config'
 
@@ -11,7 +14,7 @@ const ENV = process.env.NODE_ENV
 let Config = {
   context: path.join(__dirname, 'src'),
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './client.js',
     './views/index.js'
   ],
@@ -23,7 +26,6 @@ let Config = {
   },
   module: {
     exprContextCritical: false,
-    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/,
@@ -57,6 +59,7 @@ let Config = {
   },
 
   plugins: [
+    new webpack.ProgressPlugin(),
     new CopyWebpackPlugin([
       { from: 'public', to: 'public' },
     ])
@@ -67,28 +70,32 @@ let Config = {
 if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
-      new ExtractTextPlugin("public/styles.css"),
+      new MiniCssExtractPlugin({
+        filename: "public/styles.css"
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessor: cssnano,
+        cssProcessorOptions: {
+          parser: safe,
+          discardComments: { removeAll: true }
+        }
+      })
     ],
     mode: 'production',
     module: {
       rules: [
         {
           test: /\.(css|pcss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  minimize: true,
-                  importLoaders: 1,
-                },
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
               },
-              {
-                loader: 'postcss-loader',
-              },
-            ],
-          }),
+            },
+            "postcss-loader"
+          ]
         },
       ]
     }
@@ -96,9 +103,6 @@ if (ENV === 'production') {
 }
 
 if (ENV === 'development') {
-  Config.module.rules[0].use.query = {
-    presets: ['react-hmre']
-  }
   Config = merge(Config, {
     output: {
       publicPath: `http://${config.host}:${config.port}/`,
@@ -123,9 +127,7 @@ if (ENV === 'development') {
         {
           test: /\.(css|pcss)$/,
           use: [
-            {
-              loader: 'style-loader'
-            },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {

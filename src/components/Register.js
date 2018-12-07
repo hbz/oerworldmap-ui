@@ -17,7 +17,12 @@ const Register = ({translate, emitter, schema}) => (
       <div>
         <h1>{translate('login')}</h1>
         <p>{translate('UserIndex.register.loginMessage')}</p>
-        <a className="btn" href="/.login">{translate('login')}</a>
+        <a
+          className="btn"
+          href={`/.login?continue=${Link.back || '/resource'}`}
+        >
+          {translate('login')}
+        </a>
       </div>
 
       <div className="block forgotPassword">

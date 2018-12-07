@@ -12,10 +12,10 @@ import '../styles/components/ItemList.pcss'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
-
+import ResourcePreview from './ResourcePreview'
 
 const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
-  <ul className={`ItemList linedList ${className}`} >
+  <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
@@ -28,33 +28,12 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         }}
       >
         <Tooltip
-          overlay={
-            <div className="itemListTooltip" >
-              <div className="topWrapper">
-                {listItem.image &&
-                  <img
-                    style={{
-                      display: 'none'
-                    }}
-                    onLoad={e => {
-                      e.target.style.display = 'block'
-                    }}
-                    onError={e => {
-                      e.target.remove()
-                    }}
-                    src={listItem.image}
-                    alt={translate(listItem.name) || listItem['@id']}
-                  />
-                }
-                <div>
-                  <Icon type={listItem['@type']} /> <span>{translate(listItem['@type'])}</span>
-                  <br />
-                  <b>{translate(listItem.name) || listItem['@id']}</b>
-                </div>
-              </div>
+          overlay={(
+            <div className="itemListTooltip">
+              <ResourcePreview about={listItem} />
               <Topline about={listItem} className="inTooltip" />
             </div>
-          }
+          )}
           placement="left"
           mouseEnterDelay={0.2}
           overlayClassName="itemListTooltip"
@@ -63,8 +42,15 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}{(listItem['@type'] === 'Event' && listItem.startDate)
-                  ? <React.Fragment>, <i title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i></React.Fragment>
+                {translate(listItem.name) || listItem['@id']}
+                {listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}
+                {(listItem['@type'] === 'Event' && listItem.startDate)
+                  ? (
+                    <React.Fragment>
+                      ,&nbsp;
+                      <i aria-hidden="true" title={translate('Event.startDate')}>{formatDate(listItem.startDate, moment)}</i>
+                    </React.Fragment>
+                  )
                   : ''}
                 {count && ` (${count(listItem)})`}
               </span>

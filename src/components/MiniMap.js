@@ -20,6 +20,10 @@ class MiniMap extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      zoom: props.zoom
+    }
+
     this.mouseDown = this.mouseDown.bind(this)
     this.mouseMove = this.mouseMove.bind(this)
     this.mouseUp = this.mouseUp.bind(this)
@@ -120,6 +124,8 @@ class MiniMap extends React.Component {
   }
 
   mouseUp(e) {
+    const { onFeatureDrag } = this.props
+
     this.selected = null
     if (!this.isDragging) {
       return
@@ -129,7 +135,9 @@ class MiniMap extends React.Component {
     this.isDragging = false
     this.MiniMap.dragPan.enable()
 
-    this.props.onFeatureDrag && this.props.onFeatureDrag({
+    this.setState({zoom: this.MiniMap.getZoom()})
+
+    onFeatureDrag && onFeatureDrag({
       type: 'Point',
       coordinates: e.lngLat
     })
@@ -156,6 +164,7 @@ class MiniMap extends React.Component {
 
   updateMap(props) {
     const { geometry, draggable, zoomable, center } = props
+    const { zoom } = this.state
 
     this.MiniMap.getSource('points').setData(geometry || emptyGeometry)
 
@@ -163,12 +172,12 @@ class MiniMap extends React.Component {
       if (center || geometry) {
         this.MiniMap.fitBounds((center && bbox(point(center))) || bbox(geometry), {
           padding: 20,
-          maxZoom: 3
+          maxZoom: zoom || 1
         })
       } else {
         this.MiniMap.flyTo({
           center: [0, 0],
-          zoom: 1,
+          zoom: zoom || 1
         })
       }
     }, 0)
@@ -206,7 +215,7 @@ class MiniMap extends React.Component {
           position: 'absolute',
           width: '100%',
           height: '100%',
-          top:0,
+          top: 0,
           left: 0
         }}
       />
@@ -227,7 +236,8 @@ MiniMap.propTypes = {
   draggable: PropTypes.bool,
   zoomable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   onFeatureDrag: PropTypes.func,
-  boxZoom: PropTypes.bool
+  boxZoom: PropTypes.bool,
+  zoom: PropTypes.number
 }
 
 MiniMap.defaultProps = {
@@ -236,7 +246,8 @@ MiniMap.defaultProps = {
   draggable: false,
   zoomable: false,
   onFeatureDrag: null,
-  boxZoom: false
+  boxZoom: false,
+  zoom: null
 }
 
 export default MiniMap

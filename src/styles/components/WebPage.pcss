@@ -80,48 +80,14 @@
       position: relative;
       height: 280px;
 
-      &:hover .image {
-        opacity: 0;
-        transition: opacity 0.5s;
-      }
-
-      & .image {
-        position: relative;
-        float: left;
+      & .ResourceImage {
         width: 200px;
         height: 200px;
-        background: white;
-        border-radius: var(--border-radius);
-        pointer-events: none;
+        max-height: 200px;
         transition: opacity 0.5s;
 
         & img {
           padding: 10px;
-          object-fit: contain;
-          background-color: var(--white);
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-
-          &.Person {
-            padding: 0;
-            object-fit: cover;
-          }
-        }
-
-        & .missingImg {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: var(--grey-light);
-          font-size: 110px;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
         }
       }
     }

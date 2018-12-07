@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 class EmittProvider extends React.Component {
 
   getChildContext() {
-    return { emitter: this.props.emitter }
+    const { emitter } = this.props
+    return { emitter }
   }
 
   render() {
-    return React.Children.only(this.props.children)
+    const { children } = this.props
+    return React.Children.only(children)
   }
 
 }

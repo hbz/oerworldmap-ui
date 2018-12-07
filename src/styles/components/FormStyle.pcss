@@ -27,8 +27,8 @@
     top: 7px;
   }
 
- & .List .LocalizedString .Input.text label,
- & .List.sameAs .Input.text label {
+  & .List .LocalizedString .Input.text label,
+  & .List.sameAs .Input.text label {
     display: none;
   }
 
@@ -260,6 +260,12 @@
 
     & > label {
       display: none;
+    }
+
+    &.citation > label {
+      display: block;
+      font-weight: 600;
+      padding: 10px 0;
     }
 
     & > textarea {
