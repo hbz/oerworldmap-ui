@@ -97,7 +97,6 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                       ))}
                     </TabList>
                   </Tabs>
-
                 ): (
                   <Markdown options={{
                     overrides: {
@@ -136,7 +135,32 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="first description"
                 title=''
               >
-                {about.articleBody && (
+                {about.articleBody.length > 1 ? (
+                  <Tabs>
+                    {about.articleBody.map(article => (
+                      <TabPanel key={`panel-${article["@value"]}`}>
+                        <Markdown options={{
+                          overrides: {
+                            a: {
+                              component: LinkOverride
+                            }
+                          }
+                        }}
+                        >
+                          {article["@value"]}
+                        </Markdown>
+                      </TabPanel>
+                    ))}
+
+                    <TabList>
+                      {about.articleBody.map(article => (
+                        <Tab key={`tab-${article["@value"]}`}>
+                          {translate(article["@language"])}
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </Tabs>
+                ) : (
                   <Markdown options={{
                     overrides: {
                       a: {
