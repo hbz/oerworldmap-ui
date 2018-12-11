@@ -107,21 +107,7 @@ if (ENV === 'development') {
     output: {
       publicPath: `http://${config.host}:${config.port}/`,
     },
-    devtool: 'source-map',
     mode: 'development',
-    entry: ['webpack-hot-middleware/client'],
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new StyleLintPlugin(
-        {
-          emitErrors: false,
-          configFile: '.stylelintrc',
-          context: 'src',
-          files: '**/*.pcss',
-        },
-      ),
-    ],
     module: {
       rules: [
         {
