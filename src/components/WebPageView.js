@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Markdown from 'markdown-to-jsx'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -71,16 +72,44 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <Markdown options={{
-                  overrides: {
-                    a: {
-                      component: LinkOverride
+                about.description.length > 1 ? (
+                  <Tabs>
+                    {about.description.map(description => (
+                      <TabPanel key={`panel-${description["@value"]}`}>
+                        <Markdown options={{
+                          overrides: {
+                            a: {
+                              component: LinkOverride
+                            }
+                          }
+                        }}
+                        >
+                          {description["@value"]}
+                        </Markdown>
+                      </TabPanel>
+                    ))}
+
+                    <TabList>
+                      {about.description.map(description => (
+                        <Tab key={`tab-${description["@value"]}`}>
+                          {translate(description["@language"])}
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </Tabs>
+
+                ): (
+                  <Markdown options={{
+                    overrides: {
+                      a: {
+                        component: LinkOverride
+                      }
                     }
-                  }
-                }}
-                >
-                  {translate(about.description)}
-                </Markdown>
+                  }}
+                  >
+                    {translate(about.description)}
+                  </Markdown>
+                )
               ) : (
                 <p>
                   <i>

@@ -124,4 +124,46 @@
       }
     }
   }
+
+  & .react-tabs {
+    & .react-tabs__tab-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      & .react-tabs__tab {
+        display: inline-block;
+        cursor: pointer;
+        padding: 7px 12px;
+        border-radius: 2px;
+        border-radius: var(--border-radius);
+        color: #1a91e6;
+        color: var(--action-color);
+        font-size: 13px;
+        font-size: var(--font-size-small);
+        line-height: 1.15;
+        line-height: var(--line-height-forms);
+        background-color: #fff;
+        background-color: var(--white);
+        border: 1px solid #1a91e6;
+        border: 1px solid var(--action-color);
+        font-weight: 600;
+        margin-right: 10px;
+        margin-top: 10px;
+
+        &:focus,
+        &:hover,
+        &:active,
+        &.react-tabs__tab--selected {
+          color: var(--white);
+          background-color: var(--action-color);
+          outline: none;
+        }
+      }
+
+      & .react-tabs__tab:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
