@@ -1,7 +1,6 @@
 import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
-import StyleLintPlugin from 'stylelint-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import safe from 'postcss-safe-parser'
