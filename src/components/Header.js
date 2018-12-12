@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick } from '../common'
+import { triggerClick, addParamToURL } from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
@@ -569,27 +569,16 @@ class Header extends React.Component {
               </li>
             )}
             <li className="languageSelector">
-              <form action="/resource/" method="GET">
-                <span>
-                  <i className="fa fa-language" aria-hidden="true" />
-                  <ul>
-                    {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
-                      <li key={lang}>
-                        <input
-                          onChange={(e) => {
-                            e.target.form.submit()
-                          }}
-                          type="radio"
-                          name="language"
-                          value={lang}
-                          id={`language-${lang}`}
-                        />
-                        <label htmlFor={`language-${lang}`}>{translate(lang)}</label>
-                      </li>
-                    ))}
-                  </ul>
-                </span>
-              </form>
+              <span>
+                <i className="fa fa-language" aria-hidden="true" />
+                <ul>
+                  {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
+                    <li key={lang}>
+                      <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
+                    </li>
+                  ))}
+                </ul>
+              </span>
             </li>
           </ul>
 
