@@ -89,10 +89,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                       </TabPanel>
                     ))}
 
+                    <span className="hint">
+                      {translate("Also available in:")}
+                      &nbsp;
+                    </span>
                     <TabList>
-                      {about.description.map(description => (
-                        <Tab key={`tab-${description["@value"]}`}>
-                          {translate(description["@language"])}
+                      {about.description.map((article, i) => (
+                        <Tab key={`tab-${article["@value"]}`}>
+                          <span>{translate(article["@language"])}</span>
+                          {i !== (about.description.length-1) && (
+                            <React.Fragment>
+                              &nbsp;
+                            </React.Fragment>
+                          )}
                         </Tab>
                       ))}
                     </TabList>
@@ -152,10 +161,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                       </TabPanel>
                     ))}
 
+                    <span className="hint">
+                      {translate("Also available in:")}
+                      &nbsp;
+                    </span>
                     <TabList>
-                      {about.articleBody.map(article => (
+                      {about.articleBody.map((article, i) => (
                         <Tab key={`tab-${article["@value"]}`}>
                           {translate(article["@language"])}
+                          {i !== (about.articleBody.length-1) && (
+                            <React.Fragment>
+                              &nbsp;
+                            </React.Fragment>
+                          )}
                         </Tab>
                       ))}
                     </TabList>
