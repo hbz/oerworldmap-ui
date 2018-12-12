@@ -7,12 +7,12 @@ import 'rc-tooltip/assets/bootstrap_white.css'
 import Header from './Header'
 import Loading from './Loading'
 
-const App = ({ user, children }) => (
+const App = ({ user, locales, supportedLanguages, children }) => (
   <div id="wrapper">
 
     <main className="container" data-userroles={user ? user.groups.join(' ') : null}>
 
-      <Header user={user} />
+      <Header user={user} locales={locales} supportedLanguages={supportedLanguages} />
 
       <div className="content">
         {children}
@@ -26,7 +26,9 @@ const App = ({ user, children }) => (
 
 App.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 App.defaultProps = {

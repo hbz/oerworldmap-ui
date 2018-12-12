@@ -61,7 +61,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { translate, user, emitter } = this.props
+    const { translate, user, emitter, locales, supportedLanguages } = this.props
     const { showMobileMenu, dropdowns} = this.state
 
     return (
@@ -568,7 +568,29 @@ class Header extends React.Component {
                 </Link>
               </li>
             )}
-
+            <li className="languageSelector">
+              <form action="/resource/" method="GET">
+                <span>
+                  <i className="fa fa-language" aria-hidden="true" />
+                  <ul>
+                    {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
+                      <li key={lang}>
+                        <input
+                          onChange={(e) => {
+                            e.target.form.submit()
+                          }}
+                          type="radio"
+                          name="language"
+                          value={lang}
+                          id={`language-${lang}`}
+                        />
+                        <label htmlFor={`language-${lang}`}>{translate(lang)}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </span>
+              </form>
+            </li>
           </ul>
 
         </nav>
@@ -583,7 +605,9 @@ class Header extends React.Component {
 Header.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.any)
+  user: PropTypes.objectOf(PropTypes.any),
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 Header.defaultProps = {

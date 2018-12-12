@@ -86,11 +86,13 @@ server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
     : [defaultLanguage]
+  req.query && req.query.language && requestedLanguages.unshift(req.query.language)
   const locales = requestedLanguages.filter(language => supportedLanguages.includes(language))
   if (!locales.includes(defaultLanguage)) {
     locales.push(defaultLanguage)
   }
   req.locales = locales
+  req.supportedLanguages = supportedLanguages
   next()
 })
 
@@ -99,6 +101,7 @@ server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
+  const supportedLanguages = req.supportedLanguages
   if (req.labels) {
     req.labels.results.bindings.forEach(label => {
       i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
@@ -108,14 +111,14 @@ server.get(/^(.*)$/, (req, res) => {
   const phrases = i18ns[locales[0]]
   const schema = req.schema
   const embed = req.query.embed
-  const context = { locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
+  const context = { supportedLanguages, locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err, metadata}) => {
     console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({apiConfig, locales, mapboxConfig, data, user, err, phrases, schema, embed})
+      initialState: JSON.stringify({supportedLanguages, apiConfig, locales, mapboxConfig, data, user, err, phrases, schema, embed})
         .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
       title,
       piwikConfig,

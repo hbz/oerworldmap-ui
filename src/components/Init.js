@@ -5,11 +5,11 @@ import EmittProvider from './EmittProvider'
 import ApiProvider from './ApiProvider'
 import App from './App'
 
-const Init = ({i18n, emitter, user, children, apiConfig}) => (
+const Init = ({i18n, emitter, user, children, apiConfig, supportedLanguages}) => (
   <I18nProvider i18n={i18n}>
     <EmittProvider emitter={emitter}>
       <ApiProvider config={apiConfig}>
-        <App user={user}>
+        <App user={user} locales={i18n.locales} supportedLanguages={supportedLanguages}>
           {children}
         </App>
       </ApiProvider>
@@ -22,7 +22,8 @@ Init.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   children: PropTypes.node.isRequired,
-  apiConfig: PropTypes.objectOf(PropTypes.any).isRequired
+  apiConfig: PropTypes.objectOf(PropTypes.any).isRequired,
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 Init.defaultProps = {
