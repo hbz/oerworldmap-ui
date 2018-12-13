@@ -35,20 +35,37 @@ class ShareExport extends React.Component {
   }
 
   render() {
+
+    const { translate, view, embedValue, _self, _links } = this.props
+    const { showing } = this.state
+
     return (
       <div className="ShareExport dropdownParent">
         <i
+          aria-hidden="true"
           role="button"
           tabIndex="0"
           className="fa fa-gear"
-          onClick={() => {this.setState({showing:!this.state.showing})}}
+          onClick={() => {this.setState({showing:!showing})}}
           onKeyDown={triggerClick}
           ref={el => this.dropdownButton = el}
         />
-        { this.state.showing &&
+        { showing && (
           <ul className="dropdownMenu">
-            <li><a href="#share">{this.props.translate('share')} <i className="fa fa-share-alt" /></a></li>
-            <li><a href="#export">{this.props.translate('export')} <i className="fa fa-share" /></a></li>
+            <li>
+              <a href="#share">
+                {translate('share')}
+                &nbsp;
+                <i aria-hidden="true" className="fa fa-share-alt" />
+              </a>
+            </li>
+            <li>
+              <a href="#export">
+                {translate('export')}
+                &nbsp;
+                <i aria-hidden="true" className="fa fa-share" />
+              </a>
+            </li>
             <li>
               <button
                 type="button"
@@ -56,16 +73,18 @@ class ShareExport extends React.Component {
                   window.print()
                 }}
               >
-                {this.props.translate('print')} <i className="fa fa-print" />
+                {translate('print')}
+                &nbsp;
+                <i aria-hidden="true" className="fa fa-print" />
               </button>
             </li>
           </ul>
+        )}
+        {view === 'share' &&
+          <Share embedValue={embedValue} _self={_self} />
         }
-        {this.props.view === 'share' &&
-          <Share embedValue={this.props.embedValue} _self={this.props._self} />
-        }
-        {this.props.view === 'export' &&
-          <Export _self={this.props._self} _links={this.props._links} />
+        {view === 'export' &&
+          <Export _self={_self} _links={_links} />
         }
       </div>
     )

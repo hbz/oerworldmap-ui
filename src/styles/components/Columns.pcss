@@ -24,9 +24,7 @@
       transition: transform 1s;
     }
 
-    & .secondary,
-    & .selectedFilters,
-    & .filtersControls {
+    & .selectedFilters {
       transform: translate3d(109.6%, 0, 0);
       transition: transform 1s;
     }
@@ -155,6 +153,11 @@
     top: 0;
     height: 100%;
     width: 100%;
+
+    &.country {
+      top: 75px;
+      height: calc(100% - 75px);
+    }
 
     & .column {
       width: 100%;

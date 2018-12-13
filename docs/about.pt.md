@@ -11,11 +11,26 @@ Por mais de uma década a criação e uso de Recursos Educacionais Abertos (REA)
 
 O Mapa Global de REA destina-se a fornecer informações necessárias para o apoio à auto-organização dos processos do movimento REA. Além de mapeamento de serviços, projetos, pessoas e organizações relevantes, a plataforma fornece uma rede social, permite a identificação de coleções de REA e oferece suporte a tomada de decisão. Tomado em conjunto, o Mapa Global REA pode ser visto como uma espécie de "sala de operações" para a comunidade de educação aberta.
 
-![The OER World Map seen as 'operations room' for the open education community](/assets/images/open-control-room.jpg)
+<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="The OER World Map seen as 'operations room' for the open education community" />
 
 O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [ graphthinking GmbH](http://www.graphthinking.com), em associação com [ The Open University (Reino Unido)](http://www.open.ac.uk/), financiado pela [ William e Flora Hewlett Foundation](http://www.hewlett.org/). Mas o Mapa pertence à comunidade global de REA. Com a inserção de dados e a inteligência de fontes locais e uma rede global de parceiros e voluntários, o Mapa Global REA será construído e atualizado – um recurso para todos.
 
 ![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![The Open University](/assets/images/image07.png) ![The William and Flora Hewlett Foundation](/assets/images/image04.jpg)
+
+<div style="clear: both;">
+  <p xmlns:dct="http://purl.org/dc/terms/" >
+    To the extent possible under law,
+    <a rel="dct:publisher"
+      href="https://www.hbz-nrw.de/">
+      <span property="dct:title">hbz</span></a>
+    has waived all copyright and related or neighboring rights to
+    <span property="dct:title">OER World Map data</span>.
+    <a rel="license"
+      href="http://creativecommons.org/publicdomain/zero/1.0/">
+      <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none; float: none; margin: 0; position: relative; top: 10px;" alt="CC0" />
+    </a>
+  </p>
+</div>
 
 * * *
 

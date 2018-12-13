@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { render } from 'enzyme'
@@ -49,12 +48,11 @@ const aggregation = {
 }
 
 describe('<ButtonFilter />', () => {
-  it('creates eight items', () => {
+  test('creates eight items', () => {
     const wrapper = render(
       <I18nProvider i18n={mock.i18n}>
         <EmittProvider emitter={mock.emitter}>
           <ButtonFilter
-            filterName="test"
             filter={[]}
             aggregation={aggregation}
             submit={e => e}
@@ -63,7 +61,7 @@ describe('<ButtonFilter />', () => {
         </EmittProvider>
       </I18nProvider>
     )
-    assert.equal(wrapper.hasClass('ButtonFilter'), true)
-    assert.equal(wrapper.children().length, 8)
+    assert.strictEqual(wrapper.hasClass('ButtonFilter'), true)
+    assert.strictEqual(wrapper.children().length, 8)
   })
 })

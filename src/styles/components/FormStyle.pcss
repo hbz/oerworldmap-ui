@@ -51,6 +51,20 @@
         margin-bottom: 0;
       }
     }
+
+    &.hasError {
+      & .Input.text input[type=text],
+      & .RemoteSelect input[type=text],
+      & .LocalizedString .SimpleMDE .CodeMirror-wrap,
+      & .LocalizedString .SimpleMDE .editor-toolbar {
+        border-color: var(--orange);
+      }
+
+      & .LocalizedString button,
+      & .dropdownContainer button {
+        background-color: var(--orange);
+      }
+    }
   }
 
   & .optionsContainer ul li {
@@ -81,6 +95,17 @@
     }
   }
 
+  & .LocalizedString button,
+  & .dropdownContainer button,
+  & .DateTime .Inputs input[type=text],
+  & .DropdownSelect .Inputs input[type=text] {
+    border-color: var(--orange);
+  }
+
+  & .PlaceWidget .dropdownContainer button {
+    background-color: var(--orange);
+  }
+
   & .toggleDropdown,
   & .selectedContainer {
     border-radius: var(--border-radius);
@@ -108,7 +133,6 @@
       line-height: var(--line-height-forms);
 
       &.error {
-        text-transform: capitalize;
         color: var(--orange);
 
         &::after {
@@ -262,6 +286,12 @@
       display: none;
     }
 
+    &.citation > label {
+      display: block;
+      font-weight: 600;
+      padding: 10px 0;
+    }
+
     & > textarea {
       width: 100%;
       max-width: 100%;
@@ -319,7 +349,6 @@
   }
 
   & .error {
-    text-transform: capitalize;
     color: var(--orange);
 
     & + input {
@@ -603,7 +632,6 @@
     }
 
     & .error {
-      text-transform: capitalize;
       position: absolute;
       top: 0;
       left: 26px;
@@ -636,4 +664,8 @@
       display: none;
     }
   }
+}
+
+div.error {
+  display: none;
 }

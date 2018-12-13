@@ -68,6 +68,7 @@
   "Person.publication": "Publications of this Person",
   "Person.primarySector": "The educational sector you are working for in the first place",
   "Person.secondarySector": "Educational sectors you are also working for",
+  "Person.activityField": "The OER fields the person is focusing their work on",
   "Person.additionalType": "The type of the person",
   "Action": "A temporary undertaking intended to accomplish particular tasks under time constraints.",
   "Action.name": "The project's name",

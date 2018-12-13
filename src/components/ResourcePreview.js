@@ -22,9 +22,10 @@ const ResourcePreview = ({ translate, about }) => {
         <div className="previewHeader">
 
           <div className="previewTypes">
-            <Icon type={about['@type']} />&nbsp;&nbsp;
+            <Icon type={about['@type']} />
+            &nbsp;&nbsp;
             <Link href={`/resource/?filter.about.@type=${about['@type']}&size=20`}>{translate(about['@type'])}</Link>
-            {about.additionalType &&
+            {about.additionalType && (
               <React.Fragment>
                 &nbsp;(
                 {about.additionalType.map((type, i) => (
@@ -37,46 +38,50 @@ const ResourcePreview = ({ translate, about }) => {
                 ))}
                 )
               </React.Fragment>
-            }
+            )}
           </div>
 
-          {/* {(about['comment'] || about.objectIn) &&
+          {(about['comment'] || about.objectIn) && (
             <div className="previewCounters">
               <span>
-                <img className="i" src="/public/lighthouse_16px_grey.svg" alt="Lighthouse" />&nbsp;
+                <img className="i" src="/public/lighthouse_16px_grey.svg" alt="Lighthouse" />
+                &nbsp;
                 {(about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction').length || 0}
               </span>
 
               <span>
-                <i className="fa fa-thumbs-up" />&nbsp;
+                <i aria-hidden="true" className="fa fa-thumbs-up" />
+                &nbsp;
                 {(about.objectIn || []).filter(action => action['@type'] === 'LikeAction').length || 0}
               </span>
 
               <span>
-                <i className="fa fa-comments" />&nbsp;
+                <i aria-hidden="true" className="fa fa-comments" />
+                &nbsp;
                 {(about['comment'] || []).filter(comment => comment.author && comment.text).length || 0}
               </span>
             </div>
-          } */}
+          )}
 
         </div>
 
         <div>
           <Link className="previewTitle" href={`/resource/${about['@id']}`}>
-            {translate(about.name) || about['@id']}{about.alternateName
+            {translate(about.name) || about['@id']}
+            {about.alternateName
               ? ` (${translate(about.alternateName)})`
               : ''}
           </Link>
 
           {about.location &&
-          about.location.address &&
+          about.location.address && (
             <div className="previewLocation">
-              {about.location.address.addressCountry &&
+              {about.location.address.addressCountry && (
                 <Link href={`/country/${about.location.address.addressCountry}`}>
                   {translate(about.location.address.addressCountry)}
                 </Link>
-              }
-              {about.location.address.addressRegion &&
+              )}
+              {about.location.address.addressRegion && (
                 <React.Fragment>
                   ,&nbsp;
                   <Link
@@ -85,9 +90,9 @@ const ResourcePreview = ({ translate, about }) => {
                     {translate(about.location.address.addressRegion)}
                   </Link>
                 </React.Fragment>
-              }
+              )}
             </div>
-          }
+          )}
         </div>
       </div>
 

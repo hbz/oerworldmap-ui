@@ -1,4 +1,3 @@
-import { describe, it } from 'mocha'
 import React from 'react'
 import assert from 'assert'
 import { render } from 'enzyme'
@@ -19,11 +18,11 @@ describe('<Diffs />', () => {
     </I18nProvider>
   )
 
-  it('creates 5 .logBlock items', () => {
-    assert.equal(wrapper.find('.logBlock').length, 5)
+  test('creates 5 .logBlock items', () => {
+    assert.strictEqual(wrapper.find('.logBlock').length, 5)
   })
-  it('creates a <del> and <ins> element', () => {
-    assert.equal(wrapper.find('ins').length, 1)
-    assert.equal(wrapper.find('del').length, 1)
+  test('creates a <del> and <ins> element', () => {
+    assert.strictEqual(wrapper.find('ins').length, 1)
+    assert.strictEqual(wrapper.find('del').length, 1)
   })
 })

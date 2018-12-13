@@ -17,6 +17,7 @@ import Header from './components/Header'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
 import i18n from './i18n'
+import ItemList from './components/ItemList'
 
 import Overview from './components/Overview'
 
@@ -133,12 +134,99 @@ const toggleShow = (() => {
 
 })()
 
+const createAccordeon = (() => {
+
+  const init = () => {
+
+    if (window.location.pathname.includes("FAQ")) {
+
+      const titles = document.querySelectorAll('h2')
+      titles.forEach((title) => {
+        const accordion = document.createElement('div')
+        accordion.classList.add('accordion')
+
+        const accordionContainer = document.createElement("div")
+        accordionContainer.classList.add("accordionContainer")
+
+        let currentChild = title.nextElementSibling
+
+        while (currentChild && currentChild.nodeName !== "H2" && currentChild.nodeName !== "SECTION") {
+          const next = currentChild.nextElementSibling
+          accordionContainer.appendChild(currentChild)
+          currentChild = next
+        }
+
+        title.addEventListener("click", (e) => {
+          document.querySelectorAll('.active').forEach(active => active.classList.remove("active"))
+          e.target.parentElement.classList.toggle("active")
+        })
+
+        title.parentNode.insertBefore(accordion, title)
+
+        accordion.appendChild(title)
+        accordion.appendChild(accordionContainer)
+      })
+    }
+  }
+
+  return { init }
+
+})()
+
+
+const createPoliciesFeed = (() => {
+
+  const init =  async () => {
+
+    if (window.location.pathname.includes("oerpolicies")) {
+
+      // Request data for policies
+      // ADD carry a tag called policy
+      const rawResponse = await fetch(`https://oerworldmap.org/resource.json?q=about.additionalType.@id:"https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy"%20OR%20about.keywords:policy&sort=dateCreated:DESC`, {
+        headers: {
+          'accept': 'application/json'
+        }
+      })
+
+      const content = await rawResponse.json()
+
+      if (content) {
+        const iframe = document.querySelector('iframe')
+        const feedContainer = document.createElement('div')
+        iframe.parentElement.insertBefore(feedContainer, iframe)
+
+        ReactDOM.render(
+          <I18nProvider i18n={
+            i18n(
+              locales,
+              i18ns[locales[0]]
+            )}
+          >
+            <EmittProvider emitter={emitter}>
+              <React.Fragment>
+                <h2>Lastest policies on the map</h2>
+                <ItemList listItems={content.member.map(member => member.about)} />
+                <h2>Policies Statistics</h2>
+              </React.Fragment>
+            </EmittProvider>
+          </I18nProvider>,
+          feedContainer
+        )
+      }
+    }
+  }
+
+  return { init }
+
+})()
 
 $(() => {
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
   toggleShow.init()
+  createAccordeon.init()
+  createPoliciesFeed.init()
 
   $('[data-slick]').slick()
 

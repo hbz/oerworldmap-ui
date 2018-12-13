@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withFormData from './withFormData'
+import { objectMap } from '../../common'
 
 const Fieldset = ({
   name, children, errors, property, title, className, translate, formId, required
@@ -18,7 +19,9 @@ const Fieldset = ({
       {translate(title)}
     </div>
     {errors.map((error, index) => (
-      <div className="error" key={index}>{error.message}</div>
+      <div className="error" key={index}>
+        {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+      </div>
     ))}
     {children}
   </div>

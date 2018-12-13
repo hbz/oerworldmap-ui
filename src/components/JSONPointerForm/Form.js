@@ -7,7 +7,7 @@ import { forOwn, isUndefined, isNull,
 const prune = (current) => {
   forOwn(current, (value, key) => {
     if (isUndefined(value) || isNull(value) || isNaN(value) ||
-      (isString(value) && isEmpty(value)) ||
+      (isString(value) && isEmpty(value.trim())) ||
       (isObject(value) && isEmpty(prune(value)))) {
       delete current[key]
     }
@@ -62,15 +62,19 @@ class Form extends React.Component {
   }
 
   getValue(name) {
-    return jsonPointer.has(this.state.formData, name)
-      ? jsonPointer.get(this.state.formData, name)
+    const { formData } = this.state
+
+    return jsonPointer.has(formData, name)
+      ? jsonPointer.get(formData, name)
       : undefined
   }
 
   getValidationErrors(name) {
-    return this.state.formErrors.filter(error => error.keyword === 'required'
+    const { formErrors } = this.state
+
+    return formErrors.filter(error => error.keyword !== 'anyOf' && (error.keyword === 'required'
       ? `${error.dataPath}/${error.params.missingProperty}` === name
-      : error.dataPath === name
+      : error.dataPath === name)
     )
   }
 
@@ -88,24 +92,29 @@ class Form extends React.Component {
   }
 
   render() {
+
+    const { action, method, validate, onError, onSubmit, children } = this.props
+    const { formData } = this.state
+
     return (
       <form
         className="Form"
-        action={this.props.action}
-        method={this.props.method}
+        action={action}
+        method={method}
         onSubmit={e => {
           e.preventDefault()
           this.lastUpdate = ""
           this.lastOp = null
-          this.props.validate(this.state.formData)
-            ? this.props.onSubmit(this.state.formData)
+          validate(formData)
+            ? onSubmit(formData)
             : this.setState(
-              {formErrors: this.props.validate.errors},
-              () => this.props.onError(this.props.validate.errors)
+              {formErrors: validate.errors},
+              () => console.error(validate.errors)
+                || onError(validate.errors)
             )
         }}
       >
-        {this.props.children}
+        {children}
       </form>
     )
   }

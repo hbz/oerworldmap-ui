@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import ListItem from './ListItem'
 import withFormData from './withFormData'
+import { objectMap } from '../../common'
 
 const List = ({
   name, value, children, errors, property, title, className, translate, maxItems, formId, required
@@ -16,10 +17,14 @@ const List = ({
       className={`label ${required ? 'required' : ''}`.trim()}
       id={`${formId}-${name}-label`}
     >
-      {translate(title)} {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+      {translate(title)}
+      &nbsp;
+      {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
     </div>
     {errors.map((error, index) => (
-      <div className="error" key={index}>{error.message}</div>
+      <div className="error" key={index}>
+        {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+      </div>
     ))}
     <ul>
       {value.map((item, index) => (
@@ -27,7 +32,7 @@ const List = ({
           {React.cloneElement(children)}
         </ListItem>
       ))}
-      {(!value.length || !maxItems || value.length < maxItems) &&
+      {(!value.length || !maxItems || value.length < maxItems) && (
         <ListItem property={value.length.toString()} key={value.length}>
           {value.length && (!maxItems || value.length < maxItems) ? (
             <div className="newItemWrapper">
@@ -46,7 +51,7 @@ const List = ({
             </div>
           ) : React.cloneElement(children)}
         </ListItem>
-      }
+      )}
     </ul>
   </div>
 )

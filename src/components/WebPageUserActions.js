@@ -85,18 +85,18 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
   return (
     <div className="WebPageUserActions">
 
-      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) &&
+      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggleLike()}>
             <button className={`btn ${like ? 'active': ''}`} type="submit" title={translate('Like')}>
-              <i className="fa fa-thumbs-up" />
+              <i aria-hidden="true" className="fa fa-thumbs-up" />
               {translate('Like')}
             </button>
           </form>
         </div>
-      }
+      )}
 
-      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) &&
+      {['Organization', 'Action', 'Service', 'Product', 'Event', 'Article', 'WebPage'].includes(about['@type']) && (
         <div className="action">
           <a href="#addLighthouse" className={`btn ${lighthouse['@id'] ? 'active': ''}`}>
             <img className="i blueLighthouse" src="/public/lighthouse_16px_blue.svg" alt="Lighthouse" />
@@ -104,9 +104,9 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             {translate('Lighthouse')}
           </a>
         </div>
-      }
+      )}
 
-      {view === 'addLighthouse' &&
+      {view === 'addLighthouse' && (
         <FullModal className="Lighthouse" closeLink={`/resource/${about['@id']}`}>
           <Form
             data={lighthouse}
@@ -117,9 +117,14 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
               data
             })}
           >
-            <h2>{translate('ResourceIndex.read.lightHouse')} {translate(about['@type'])}</h2>
+            <h2>
+              {translate('ResourceIndex.read.lightHouse')}
+              &nsbsp;
+              {translate(about['@type'])}
+            </h2>
             <p>
-              <em>{translate('descriptions.LighthouseAction.description')}
+              <em>
+                {translate('descriptions.LighthouseAction.description')}
                 &nbsp;
                 <a
                   href="https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/"
@@ -137,40 +142,40 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
             </div>
           </Form>
         </FullModal>
-      }
+      )}
 
-      {about['@type'] === 'Event' &&
+      {about['@type'] === 'Event' && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('attendee', isAttendee)}>
             <button className={`btn ${isAttendee ? 'active': ''}`} type="submit" title={translate('I\'m attending')}>
-              <i className="fa fa-flag" />
+              <i aria-hidden="true" className="fa fa-flag" />
               {translate('I\'m attending')}
             </button>
           </form>
         </div>
-      }
+      )}
 
-      {about['@type'] === 'Event' &&
+      {about['@type'] === 'Event' && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('performer', isPerformer)}>
             <button className={`btn ${isPerformer ? 'active': ''}`} type="submit" title={translate('I\'m presenting')}>
-              <i className="fa fa-bullhorn" />
+              <i aria-hidden="true" className="fa fa-bullhorn" />
               {translate('I\'m presenting')}
             </button>
           </form>
         </div>
-      }
+      )}
 
-      {(about['@type'] === 'Organization' || about['@type'] === 'Action') &&
+      {(about['@type'] === 'Organization' || about['@type'] === 'Action') && (
         <div className="action">
           <form onSubmit={(e) => e.preventDefault() || toggle('affiliate', isAffiliate)}>
             <button className={`btn ${isAffiliate ? 'active': ''}`} type="submit" title={translate('I\'m a member')}>
-              <i className="fa fa-sitemap" />
+              <i aria-hidden="true" className="fa fa-sitemap" />
               {translate('I\'m a member')}
             </button>
           </form>
         </div>
-      }
+      )}
 
     </div>
   )

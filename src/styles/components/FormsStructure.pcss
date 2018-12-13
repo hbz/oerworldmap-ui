@@ -43,6 +43,7 @@
 
   & div.label,
   & .Input.text > label,
+  & .DateTime > label,
   & .Input.number > label {
     font-weight: 600;
     padding: 10px 0;
@@ -143,5 +144,21 @@
   & input[type=checkbox].formControl:not(:checked) + label,
   & input[type=checkbox].formControl:checked ~ .newItem {
     display: block;
+  }
+
+  & .DateTime .Inputs {
+    display: flex;
+
+    & input:nth-child(2) {
+      margin-left: 15px;
+    }
+  }
+
+  & .Builder.optionalFieldsHidden .optionalFields {
+    display: none;
+  }
+
+  & .Builder .btn {
+    margin-top: 20px;
   }
 }
