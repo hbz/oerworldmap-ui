@@ -22,7 +22,7 @@ const castValue = (target) => {
 
 const Input = ({
   type, name, value, setValue, errors, property, title, className, translate,
-  shouldFormComponentFocus, formId, required, placeholder
+  shouldFormComponentFocus, formId, required, placeholder, description
 }) => (
   <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label
@@ -33,6 +33,13 @@ const Input = ({
           : '') }}
       className={required ? 'required' : ''}
     />
+    <span className="fieldDescription">
+      {(description
+      && translate(description)
+      !== description)
+        ? translate(description)
+        : ''}
+    </span>
     {errors.map((error, index) => (
       <div className="error" key={index}>
         {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -68,7 +75,8 @@ Input.propTypes = {
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  description: PropTypes.string
 }
 
 Input.defaultProps = {
@@ -80,7 +88,8 @@ Input.defaultProps = {
   className: '',
   shouldFormComponentFocus: false,
   required: false,
-  placeholder: undefined
+  placeholder: undefined,
+  description: undefined
 }
 
 export default withFormData(Input)

@@ -7,7 +7,7 @@ import withFormData from './withFormData'
 import { objectMap } from '../../common'
 
 const DateTime = (
-  {name, value, setValue, errors, title, className, translate, formId, required, placeholder}) => {
+  {name, value, setValue, errors, title, className, translate, formId, required, placeholder, description}) => {
 
   return (
     <div className={`DateTime ${className}${errors.length ? ' hasErrors' : ''}`}>
@@ -19,6 +19,13 @@ const DateTime = (
             : '') }}
         className={required ? 'required' : ''}
       />
+      <span className="fieldDescription">
+        {(description
+        && translate(description)
+        !== description)
+          ? translate(description)
+          : ''}
+      </span>
       {errors.map((error, index) => (
         <div className="error" key={index}>
           {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -83,7 +90,8 @@ DateTime.propTypes = {
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  description: PropTypes.string
 }
 
 DateTime.defaultProps = {
@@ -92,7 +100,8 @@ DateTime.defaultProps = {
   title: '',
   className: '',
   required: false,
-  placeholder: undefined
+  placeholder: undefined,
+  description: undefined
 }
 
 export default withFormData(DateTime)

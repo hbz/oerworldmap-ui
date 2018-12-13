@@ -114,7 +114,7 @@ class RemoteSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, setValue, errors, title, translate, className, formId, required, schema
+      name, property, value, setValue, errors, title, translate, className, formId, required, schema, description
     } = this.props
     const { filter, options } = this.state
 
@@ -137,6 +137,13 @@ class RemoteSelect extends React.Component {
         >
           {translate(title)}
         </div>
+        <span className="fieldDescription">
+          {(description
+          && translate(description)
+          !== description)
+            ? translate(description)
+            : ''}
+        </span>
         {errors.map((error, index) => (
           <div className="error" key={index}>
             {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -202,7 +209,8 @@ RemoteSelect.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  description: PropTypes.string
 }
 
 RemoteSelect.defaultProps = {
@@ -211,7 +219,8 @@ RemoteSelect.defaultProps = {
   errors: [],
   title: '',
   className: '',
-  required: false
+  required: false,
+  description: undefined
 }
 
 export default withI18n(withApi(withFormData(RemoteSelect)))

@@ -86,6 +86,13 @@ class PlaceWidget extends React.Component {
         aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
       >
+        <span className="fieldDescription">
+          {(description
+          && translate(description)
+          !== description)
+            ? translate(description)
+            : ''}
+        </span>
         {errors.map((error, index) => (
           <div className="error" key={index}>
             {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -258,17 +265,17 @@ PlaceWidget.propTypes = {
   config: PropTypes.objectOf(PropTypes.any).isRequired,
   description: PropTypes.string,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
 }
 
 PlaceWidget.defaultProps = {
   errors: [],
   property: undefined,
   title: '',
-  description: '',
+  description: undefined,
   className: '',
   value: {},
-  required: false
+  required: false,
 }
 
 export default withApi(withFormData(PlaceWidget))

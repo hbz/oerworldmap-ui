@@ -29,7 +29,7 @@ class KeywordSelect extends React.Component {
 
   render() {
     const {
-      name, value, setValue, property, className, title, translate, errors, formId, required
+      name, value, setValue, property, className, title, translate, errors, formId, required, description
     } = this.props
     const { options } = this.state
 
@@ -47,6 +47,13 @@ class KeywordSelect extends React.Component {
           &nbsp;
           {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
         </div>
+        <span className="fieldDescription">
+          {(description
+          && translate(description)
+          !== description)
+            ? translate(description)
+            : ''}
+        </span>
         {errors.map((error, index) => (
           <div className="error" key={index}>
             {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -80,7 +87,8 @@ KeywordSelect.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  description: PropTypes.string
 }
 
 KeywordSelect.defaultProps = {
@@ -89,7 +97,8 @@ KeywordSelect.defaultProps = {
   title: '',
   className: '',
   value: [],
-  required: false
+  required: false,
+  description: undefined
 }
 
 export default withApi(withFormData(KeywordSelect))

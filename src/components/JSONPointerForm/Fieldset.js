@@ -5,7 +5,7 @@ import withFormData from './withFormData'
 import { objectMap } from '../../common'
 
 const Fieldset = ({
-  name, children, errors, property, title, className, translate, formId, required
+  name, children, errors, property, title, className, translate, formId, required, description
 }) => (
   <div
     className={`Fieldset ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
@@ -18,6 +18,13 @@ const Fieldset = ({
     >
       {translate(title)}
     </div>
+    <span className="fieldDescription">
+      {(description
+      && translate(description)
+      !== description)
+        ? translate(description)
+        : ''}
+    </span>
     {errors.map((error, index) => (
       <div className="error" key={index}>
         {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -36,7 +43,8 @@ Fieldset.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  description: PropTypes.string
 }
 
 Fieldset.defaultProps = {
@@ -44,7 +52,8 @@ Fieldset.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  required: false
+  required: false,
+  description: undefined
 }
 
 export default withFormData(Fieldset)
