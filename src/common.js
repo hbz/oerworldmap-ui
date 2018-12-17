@@ -50,9 +50,13 @@ export const getParams = (qstring) => {
 }
 
 export const addParamToURL = (url, name, value) => {
-  const resURL = new URL(url)
-  resURL.searchParams.set(name, value)
-  return resURL.href
+  try {
+    const resURL = new URL(url)
+    resURL.searchParams.set(name, value)
+    return resURL.href
+  } catch (error) {
+    return url
+  }
 }
 
 export const getURL = (route) => {
