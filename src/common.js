@@ -49,6 +49,12 @@ export const getParams = (qstring) => {
   return params
 }
 
+export const addParamToURL = (url, name, value) => {
+  const resURL = new URL(url)
+  resURL.searchParams.set(name, value)
+  return resURL.href
+}
+
 export const getURL = (route) => {
   let url = route.path
   let params = []
@@ -183,5 +189,5 @@ export const objectMap = (obj, fn) => {
 
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, getProp, appendOnFocus, formatDate, getTwitterId, objectMap
+  debounce, getProp, appendOnFocus, formatDate, getTwitterId, objectMap, addParamToURL
 }
