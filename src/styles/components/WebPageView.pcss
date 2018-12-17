@@ -124,4 +124,33 @@
       }
     }
   }
+
+  & .react-tabs {
+    & .hint {
+      font-size: var(--font-size-small);
+    }
+
+    & .react-tabs__tab-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+
+      & .react-tabs__tab {
+        display: inline-block;
+        cursor: pointer;
+        font-size: var(--font-size-small);
+
+        &.react-tabs__tab--selected {
+          color: var(--blue-dark);
+          display: none;
+        }
+
+        &:hover span {
+          color: var(--orange);
+
+        }
+      }
+    }
+  }
 }
