@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withI18n from './withI18n'
@@ -5,13 +6,25 @@ import Link from './Link'
 
 import '../styles/components/Pagination.pcss'
 
+const scrollUp = () => {
+  const list = document.querySelector(".ItemList")
+  if (list) {
+    list.scroll(0, 0)
+  }
+}
+
 const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate}) => {
   return (
     size > 0 && (
       <div className="Pagination">
         {previousPage ?
           (
-            <Link rel="prev" title={translate('Pagination.prevPage')} href={previousPage}><i aria-hidden="true" className="fa fa-arrow-left " /></Link>
+            <span
+              role="presentation"
+              onClick={scrollUp}
+            >
+              <Link rel="prev" title={translate('Pagination.prevPage')} href={previousPage}><i aria-hidden="true" className="fa fa-arrow-left " /></Link>
+            </span>
           ) :
           (
             <span>&nbsp;</span>
@@ -38,7 +51,12 @@ const Pagiantion = ({totalItems, nextPage, previousPage, from, size, translate})
         </div>
         {nextPage ?
           (
-            <Link rel="next" title={translate('Pagination.nextPage')} href={nextPage}><i aria-hidden="true" className="fa fa-arrow-right " /></Link>
+            <span
+              role="presentation"
+              onClick={scrollUp}
+            >
+              <Link rel="next" title={translate('Pagination.nextPage')} href={nextPage}><i aria-hidden="true" className="fa fa-arrow-right " /></Link>
+            </span>
           ) :
           (
             <span>&nbsp;</span>
