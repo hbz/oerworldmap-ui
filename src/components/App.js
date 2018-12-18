@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { hot } from 'react-hot-loader'
 import 'font-awesome/css/font-awesome.css'
 import 'source-sans-pro/source-sans-pro.css'
 import 'rc-tooltip/assets/bootstrap_white.css'
@@ -35,4 +34,4 @@ App.defaultProps = {
   user: null
 }
 
-export default hot(module)(App)
+export default App
