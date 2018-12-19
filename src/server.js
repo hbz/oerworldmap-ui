@@ -64,13 +64,6 @@ server.use((req, res, next) => {
   }
 })
 
-// Middleware to fetch labels
-server.use((req, res, next) => {
-  api.get('/label')
-    .then(labels => (req.labels = labels) && next())
-    .catch(err => res.status(err.status).send(err.message))
-})
-
 // Middleware to fetch JSON schema
 server.use((req, res, next) => {
   api.get('/assets/json/schema.json')
@@ -81,7 +74,6 @@ server.use((req, res, next) => {
 // Middleware to extract locales
 const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
 const defaultLanguage = i18nConfig.defaultLanguage
-
 server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
     ? req.headers['accept-language'].split(',').map(language => language.split(';')[0])
@@ -96,19 +88,45 @@ server.use((req, res, next) => {
   next()
 })
 
+// Middleware to fetch labels
+server.use((req, res, next) => {
+  api.get('/label')
+    .then(labels => (req.labels = labels) && next())
+    .catch(err => res.status(err.status).send(err.message))
+})
+
+// Middleware to configure i18n
+server.use((req, res, next) => {
+  if (req.labels) {
+    const ids = req.labels.results.bindings
+      .map(binding => binding.uri.value)
+      .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+    req.supportedLanguages.forEach(language => {
+      ids.forEach(id => {
+        const label = req.labels.results.bindings.find(binding => binding.uri.value === id && binding.label['xml:lang'] === language)
+        || req.labels.results.bindings.find(binding => binding.uri.value === id && binding.label['xml:lang'] === defaultLanguage)
+        || req.labels.results.bindings.find(binding => binding.uri.value === id)
+        i18ns[language] || (i18ns[language] = {})
+        i18ns[language][id] = label.label.value
+      })
+    })
+  }
+  req.i18ns = i18ns
+  next()
+})
+
+// Serve i18ns for use in external apps
+server.get('/i18n/strings.js', (req, res) => {
+  res.send(req.i18ns)
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
   const user = req.user
   const locales = req.locales
   const supportedLanguages = req.supportedLanguages
-  if (req.labels) {
-    req.labels.results.bindings.forEach(label => {
-      i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
-      i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
-    })
-  }
-  const phrases = i18ns[locales[0]]
+  const phrases = req.i18ns[locales[0]]
   const schema = req.schema
   const embed = req.query.embed
   const context = { supportedLanguages, locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
