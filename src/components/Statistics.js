@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import { getURL } from '../common'
 import '../styles/components/Statistics.pcss'
 
 // const charts = [
@@ -30,7 +31,10 @@ class Statistics extends React.Component {
     const { emitter } = this.props
     window.addEventListener("message", (msg) => {
       if (msg.data.filter && msg.data.key) {
-        emitter.emit('navigate', `/resource/?filter.${msg.data.filter}=${msg.data.key}`)
+        emitter.emit('navigate', getURL({
+          path: '/resource/',
+          params: {[`filter.${msg.data.filter}`] : msg.data.key}
+        }))
       }
     }, false)
   }
