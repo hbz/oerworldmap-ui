@@ -49,7 +49,8 @@ const subFilters = [
     filter: "filter#feature.properties.location.address.addressCountry",
     type: "dropdown",
     icon: "globe",
-    translate: true
+    translate: true,
+    order: (array, translate) => array.sort((a, b) => translate(a.key).localeCompare(translate(b.key)))
   },
   {
     name: "sterms#feature.properties.location.address.addressRegion",
