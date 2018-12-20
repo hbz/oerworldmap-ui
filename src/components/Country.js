@@ -33,11 +33,11 @@ class Country  extends React.Component {
   listenMessage(msg) {
     const { emitter, iso3166 } = this.props
     if (msg.data.filter && msg.data.key) {
+      this.setState({showStatistics:false})
       emitter.emit('navigate', getURL({
-        path: '/resource/',
+        path: `/country/${iso3166}`,
         params: {
-          [`filter.${msg.data.filter}`] : msg.data.key,
-          ["filter.feature.properties.location.address.addressCountry"]: iso3166
+          [`filter.${msg.data.filter}`] : msg.data.key
         }
       }))
     }
