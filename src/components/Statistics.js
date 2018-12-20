@@ -25,18 +25,25 @@ class Statistics extends React.Component {
 
   constructor(props) {
     super(props)
+    this.listenMessage = this.listenMessage.bind(this)
   }
 
   componentDidMount() {
+    window.addEventListener("message",  this.listenMessage, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("message", this.listenMessage)
+  }
+
+  listenMessage(msg) {
     const { emitter } = this.props
-    window.addEventListener("message", (msg) => {
-      if (msg.data.filter && msg.data.key) {
-        emitter.emit('navigate', getURL({
-          path: '/resource/',
-          params: {[`filter.${msg.data.filter}`] : msg.data.key}
-        }))
-      }
-    }, false)
+    if (msg.data.filter && msg.data.key) {
+      emitter.emit('navigate', getURL({
+        path: '/resource/',
+        params: {[`filter.${msg.data.filter}`] : msg.data.key}
+      }))
+    }
   }
 
   render() {
