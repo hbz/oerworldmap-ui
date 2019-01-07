@@ -231,8 +231,8 @@ export default (api) => {
     {
       path: '/aggregation/',
       get: async (params, context, state) => {
-        const data = state || await api.get('/aggregation/', context.authorization)
-        const component = (data) => <Statistics aggregations={data} />
+        const data = state
+        const component = () => <Statistics />
         const title = context.i18n.translate('ClientTemplates.app.statistics')
         return { title, data, component }
       }
