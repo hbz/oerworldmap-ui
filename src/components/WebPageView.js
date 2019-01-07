@@ -45,7 +45,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
       </div>
 
       <h2>
-        {about.name.length > 1 ? (
+        {about.name && about.name.length > 1 ? (
           <Tabs>
             {about.name.map(name => (
               <TabPanel key={`panel-${name["@value"]}`}>
@@ -171,7 +171,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="first description"
                 title=''
               >
-                {about.articleBody.length > 1 ? (
+                {about.articleBody && about.articleBody.length > 1 ? (
                   <Tabs>
                     {about.articleBody.map(article => (
                       <TabPanel key={`panel-${article["@value"]}`}>
