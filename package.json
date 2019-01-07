@@ -71,7 +71,6 @@
     "@turf/center": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "@turf/invariant": "^6.1.2",
-    "@turf/turf": "^5.1.6",
     "ajv": "^6.6.1",
     "asset-require-hook": "^1.2.0",
     "cleave.js": "^1.4.7",
