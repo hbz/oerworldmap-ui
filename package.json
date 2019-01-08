@@ -8,7 +8,7 @@
     "server:prod": "NODE_ENV=production node src/index.js",
     "build:prod": "NODE_ENV=production webpack-cli",
     "test": "eslint src --quiet && jest",
-    "singleTest": "jest -t ",
+    "singleTest": "node --inspect-brk  node_modules/.bin/jest --verbose=false --runInBand -t ",
     "fix": "eslint src --fix",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint src --ext .jsx,.js --quiet",
