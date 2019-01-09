@@ -12,9 +12,13 @@ const UserBlock = ({id, username, image, countryChampion}) => {
         }
         <h2>{username}</h2>
       </a>
-      {countryChampion &&
-        <h3>Country Champion for <Link href="#none">{countryChampion}</Link></h3>
-      }
+      {countryChampion && (
+        <h3>
+          Country Champion for
+          &nbsp;
+          <Link href="#none">{countryChampion}</Link>
+        </h3>
+      )}
     </div>
   )
 }
