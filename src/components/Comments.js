@@ -12,21 +12,23 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
-import { formatDate } from '../common'
+import { formatDate, sortByProp } from '../common'
 import expose from '../expose'
 
 import '../styles/components/Comments.pcss'
 
+const sortByDate = sortByProp('dateCreated')
+
 const Comments = ({moment, translate, emitter, about, comments, user, schema}) => (
   <div className="Comments">
 
-    {comments.filter(comment => comment.author && comment.text).map(comment => (
+    {comments.filter(comment => comment.author && comment.text).sort(sortByDate).map(comment => (
       <div className="Comment" key={comment['@id']}>
         <div className="head row auto">
           <div className="col">
             {comment.author.map(author => (
               <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                {translate(author.name)}
+                {translate(author["@id"])}
               </Link>)
             )}
             {' '}
