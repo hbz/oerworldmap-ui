@@ -170,7 +170,7 @@ class RemoteSelect extends React.Component {
                 placeholder={
                   translate('ClientTemplates.resource_typehead.search')
                     .concat(' ')
-                    .concat(schema.properties['@type'].enum
+                    .concat((schema.properties['@type'].enum || [])
                       .map(type => translate(type)).join(' or ')
                     )
                 }
