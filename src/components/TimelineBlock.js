@@ -16,37 +16,37 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
 
   if (entry.action.type === 'add' && entry.about['@type'] === 'LighthouseAction') {
     user = entry.user
-    message = 'marked as a lighthouse'
+    message = translate('marked as a lighthouse')
     resource = entry.about.object
   } else if (entry.action.type === 'add' && entry.about['@type'] === 'Person') {
     user = entry.about
-    message = 'joined the OER World Map'
+    message = translate('joined the OER World Map')
     resource = entry.about
   }
   else if (entry.action.type === 'add' && entry.about['@type'] === 'Comment') {
     user = entry.user
-    message = 'commented on'
+    message = translate('commented on')
     resource = entry.about.commentOn
   }
   else if (entry.action.type === 'add' && entry.about['@type'] === 'LikeAction') {
     user = entry.user
-    message = 'liked'
+    message = translate('liked')
     resource = entry.about.object
   } else if (entry.action.type === 'add') {
     user = entry.user
-    message = 'added'
+    message = translate('added')
     resource = entry.about
   } else if (entry.action.type === 'edit' && entry.about['@type'] === 'Person') {
     user = entry.about
-    message = 'updated their profile'
+    message = translate('updated their profile')
     resource = entry.about
   } else if (entry.action.type === 'edit' && entry.about['@type'] === 'LighthouseAction') {
     user = entry.user
-    message = 'updated the lighthouse for'
+    message = translate('updated the lighthouse for')
     resource = entry.about.object
   } else if (entry.action.type === 'edit') {
     user = entry.user
-    message = 'edited'
+    message = translate('edited')
     resource = entry.about
   }
 
