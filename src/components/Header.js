@@ -22,16 +22,16 @@ class Header extends React.Component {
         find: false,
         add: false,
         info: false,
-        me: false,
-        activityCount: 0
-      }
+        me: false
+      },
+      showNotification: false
     }
     this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
   }
 
   componentDidMount() {
-    const { emitter } = this.props
+    const { emitter, user } = this.props
     document.addEventListener("click", this.handleClick)
 
     emitter.on('setLoading', () => {
@@ -41,14 +41,16 @@ class Header extends React.Component {
       }
     })
 
-    this.props.emitter.on('newActivity', (activities) =>  {
+    emitter.on('newActivity', (activities) =>  {
+
       if (location.pathname !== '/activity/') {
-        this.setState({activityCount: activities.length + (this.state.activityCount || 0)})
+        const showNotification = !user || activities.some(activity => activity.user && activity.user["@id"] !== user.id)
+        this.setState({showNotification})
       }
     })
 
-    this.props.emitter.on('clearActivity', () =>  {
-      this.setState({activityCount: 0})
+    emitter.on('clearActivity', () =>  {
+      this.setState({showNotification: false})
     })
 
   }
@@ -75,7 +77,7 @@ class Header extends React.Component {
 
   render() {
     const { translate, user, emitter } = this.props
-    const { showMobileMenu, dropdowns} = this.state
+    const { showMobileMenu, dropdowns, showNotification} = this.state
 
     return (
       <header className="Header">
@@ -104,11 +106,12 @@ class Header extends React.Component {
 
             <li>
               <Link href="/activity/">
-                {this.props.translate('Activity')}
-                {this.state.activityCount > 0 &&
-                  <span className="activityCount">
-                    {this.state.activityCount}
+                {translate('Activity')}
+                {showNotification && (
+                  <span className="showNotification">
+                    <i className="fa fa-bell" aria-hidden="true" />
                   </span>
+                )
                 }
               </Link>
             </li>
