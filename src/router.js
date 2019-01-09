@@ -232,8 +232,8 @@ export default (api) => {
     {
       path: '/aggregation/',
       get: async (params, context, state) => {
-        const data = state || await api.get('/aggregation/', context.authorization)
-        const component = (data) => <Statistics aggregations={data} />
+        const data = state
+        const component = () => <Statistics />
         const title = context.i18n.translate('ClientTemplates.app.statistics')
         return { title, data, component }
       }
@@ -448,7 +448,14 @@ export default (api) => {
         }
         const result = await route[method](...uriParams, params, context, state, body)
         if (result) {
-          result.render = (data) => <Init {...context}>{result.component(data)}</Init>
+          result.render = (data) => {
+            Link.self = (data && data._self) || "resource"
+            return (
+              <Init {...context}>
+                {result.component(data)}
+              </Init>
+            )
+          }
           return result
         }
       }

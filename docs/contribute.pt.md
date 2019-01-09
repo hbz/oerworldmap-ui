@@ -7,7 +7,7 @@ title: Contribuir
 
 As pessoas precisam saber sobre o Mapa Global REA para que ele possa fornecer uma visão abrangente de REA, incluindo pessoas e atividades. Precisamos construir a rede juntos, então por favor fale aos seus amigos e colegas ou use mídias sociais para atingir um público mais amplo (use [ #oerworldmap](https://twitter.com/hashtag/oerworldmap)).
 
-[Register](https://oerworldmap.org/user/register) to the map and create your profile.
+[Cadastre-se](https://oerworldmap.org/user/register) no mapa e crie seu perfil.
 
 ### Torne-se um Embaixador para um país
 

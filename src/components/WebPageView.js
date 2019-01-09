@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Markdown from 'markdown-to-jsx'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -44,7 +45,34 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
       </div>
 
       <h2>
-        {translate(about.name)}
+        {about.name && about.name.length > 1 ? (
+          <Tabs>
+            {about.name.map(name => (
+              <TabPanel key={`panel-${name["@value"]}`}>
+                {name["@value"]}
+              </TabPanel>
+            ))}
+
+            <span className="hint">
+              {translate("Also available in:")}
+              &nbsp;
+            </span>
+            <TabList>
+              {about.name.map((name, i) => (
+                <Tab key={`tab-${name["@value"]}`}>
+                  {translate(name["@language"])}
+                  {i !== (about.name.length-1) && (
+                    <React.Fragment>
+                      &nbsp;
+                    </React.Fragment>
+                  )}
+                </Tab>
+              ))}
+            </TabList>
+          </Tabs>
+        ) : (
+          translate(about.name)
+        )}
         {about.alternateName && (
           <span className="alternate">
             &nbsp;
@@ -71,16 +99,52 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                <Markdown options={{
-                  overrides: {
-                    a: {
-                      component: LinkOverride
+                about.description.length > 1 ? (
+                  <Tabs>
+                    {about.description.map(description => (
+                      <TabPanel key={`panel-${description["@value"]}`}>
+                        <Markdown options={{
+                          overrides: {
+                            a: {
+                              component: LinkOverride
+                            }
+                          }
+                        }}
+                        >
+                          {description["@value"]}
+                        </Markdown>
+                      </TabPanel>
+                    ))}
+
+                    <span className="hint">
+                      {translate("Also available in:")}
+                      &nbsp;
+                    </span>
+                    <TabList>
+                      {about.description.map((article, i) => (
+                        <Tab key={`tab-${article["@value"]}`}>
+                          <span>{translate(article["@language"])}</span>
+                          {i !== (about.description.length-1) && (
+                            <React.Fragment>
+                              &nbsp;
+                            </React.Fragment>
+                          )}
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </Tabs>
+                ): (
+                  <Markdown options={{
+                    overrides: {
+                      a: {
+                        component: LinkOverride
+                      }
                     }
-                  }
-                }}
-                >
-                  {translate(about.description)}
-                </Markdown>
+                  }}
+                  >
+                    {translate(about.description)}
+                  </Markdown>
+                )
               ) : (
                 <p>
                   <i>
@@ -107,7 +171,41 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 className="first description"
                 title=''
               >
-                {about.articleBody && (
+                {about.articleBody && about.articleBody.length > 1 ? (
+                  <Tabs>
+                    {about.articleBody.map(article => (
+                      <TabPanel key={`panel-${article["@value"]}`}>
+                        <Markdown options={{
+                          overrides: {
+                            a: {
+                              component: LinkOverride
+                            }
+                          }
+                        }}
+                        >
+                          {article["@value"]}
+                        </Markdown>
+                      </TabPanel>
+                    ))}
+
+                    <span className="hint">
+                      {translate("Also available in:")}
+                      &nbsp;
+                    </span>
+                    <TabList>
+                      {about.articleBody.map((article, i) => (
+                        <Tab key={`tab-${article["@value"]}`}>
+                          {translate(article["@language"])}
+                          {i !== (about.articleBody.length-1) && (
+                            <React.Fragment>
+                              &nbsp;
+                            </React.Fragment>
+                          )}
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </Tabs>
+                ) : (
                   <Markdown options={{
                     overrides: {
                       a: {

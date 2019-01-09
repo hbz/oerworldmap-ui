@@ -49,6 +49,16 @@ export const getParams = (qstring) => {
   return params
 }
 
+export const addParamToURL = (url, name, value) => {
+  try {
+    const resURL = new URL(url)
+    resURL.searchParams.set(name, value)
+    return resURL.href
+  } catch (error) {
+    return url
+  }
+}
+
 export const getURL = (route) => {
   let url = route.path
   let params = []
@@ -184,6 +194,6 @@ export const objectMap = (obj, fn) => {
 export const sortByProp = prop => (a, b) => (a[prop] < b[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0)
 
 export default {
-  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, getProp, appendOnFocus, formatDate, getTwitterId, objectMap, sortByProp
+  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick, debounce, getProp,
+  appendOnFocus, formatDate, getTwitterId, objectMap, sortByProp, addParamToURL
 }
