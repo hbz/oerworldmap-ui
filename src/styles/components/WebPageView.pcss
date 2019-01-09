@@ -3,7 +3,7 @@
 .WebPageView {
 
   & > h2 {
-    margin: 25px 0 55px 0;
+    margin: 25px 0 25px 0;
     font-size: var(--webpage-heading-font-size);
     font-weight: var(--webpage-heading-font-weight);
     line-height: var(--webpage-heading-line-height);
@@ -121,6 +121,35 @@
         padding: 10px 0;
         margin-bottom: 5px;
         font-size: 1.3rem;
+      }
+    }
+  }
+
+  & .react-tabs {
+    & .hint {
+      font-size: var(--font-size-small);
+    }
+
+    & .react-tabs__tab-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+
+      & .react-tabs__tab {
+        display: inline-block;
+        cursor: pointer;
+        font-size: var(--font-size-small);
+
+        &.react-tabs__tab--selected {
+          color: var(--blue-dark);
+          display: none;
+        }
+
+        &:hover span {
+          color: var(--orange);
+
+        }
       }
     }
   }

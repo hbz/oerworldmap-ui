@@ -256,3 +256,25 @@
     }
   }
 }
+
+
+.countryStatistics {
+  z-index: 5;
+
+  & .modalDialog {
+    max-width: 100%;
+    margin: 20px;
+
+    & a.closeModal {
+      display: none;
+    }
+
+    & iframe {
+      border: none;
+
+      & .filter-bar {
+        display: none;
+      }
+    }
+  }
+}

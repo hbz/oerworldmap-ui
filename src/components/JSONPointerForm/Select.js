@@ -5,7 +5,7 @@ import withFormData from './withFormData'
 import { objectMap } from '../../common'
 
 const Select = ({
-  name, value, setValue, errors, options, property, title, className, translate, formId, required
+  name, value, setValue, errors, options, property, title, className, translate, formId, required, description
 }) => (
   <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label
@@ -16,6 +16,13 @@ const Select = ({
       &nbsp;
       {required ? <span className="asterisk" title="${translate('This is a required field!')}">*</span> : ''}
     </label>
+    <span className="fieldDescription">
+      {(description
+      && translate(description)
+      !== description)
+        ? translate(description)
+        : ''}
+    </span>
     {errors.map((error, index) => (
       <div className="error" key={index}>
         {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -46,7 +53,8 @@ Select.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  description: PropTypes.string
 }
 
 Select.defaultProps = {
@@ -55,7 +63,8 @@ Select.defaultProps = {
   property: undefined,
   title: '',
   className: '',
-  required: false
+  required: false,
+  description: undefined
 }
 
 export default withFormData(Select)

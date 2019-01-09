@@ -10,7 +10,7 @@ import { objectMap } from '../../common'
 
 const MarkdownArea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
-  formId, required
+  formId, required, description
 }) => (
   <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
     <label
@@ -21,6 +21,13 @@ const MarkdownArea = ({
       &nbsp;
       {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
     </label>
+    <span className="fieldDescription">
+      {(description
+      && translate(description)
+      !== description)
+        ? translate(description)
+        : ''}
+    </span>
     {errors.map((error, index) => (
       <div className="error" key={index}>
         {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
@@ -70,7 +77,8 @@ MarkdownArea.propTypes = {
   translate: PropTypes.func.isRequired,
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  description: PropTypes.string
 }
 
 MarkdownArea.defaultProps = {
@@ -80,7 +88,8 @@ MarkdownArea.defaultProps = {
   title: '',
   className: '',
   shouldFormComponentFocus: false,
-  required: false
+  required: false,
+  description: undefined
 }
 
 export default withFormData(MarkdownArea)

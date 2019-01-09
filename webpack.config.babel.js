@@ -1,7 +1,6 @@
 import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
-import StyleLintPlugin from 'stylelint-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import safe from 'postcss-safe-parser'
@@ -107,21 +106,7 @@ if (ENV === 'development') {
     output: {
       publicPath: `http://${config.host}:${config.port}/`,
     },
-    devtool: 'source-map',
     mode: 'development',
-    entry: ['webpack-hot-middleware/client'],
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new StyleLintPlugin(
-        {
-          emitErrors: false,
-          configFile: '.stylelintrc',
-          context: 'src',
-          files: '**/*.pcss',
-        },
-      ),
-    ],
     module: {
       rules: [
         {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick } from '../common'
+import { triggerClick, addParamToURL } from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
@@ -76,7 +76,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { translate, user, emitter } = this.props
+    const { translate, user, emitter, locales, supportedLanguages } = this.props
     const { showMobileMenu, dropdowns, showNotification} = this.state
 
     return (
@@ -594,7 +594,18 @@ class Header extends React.Component {
                 </Link>
               </li>
             )}
-
+            <li className="languageSelector">
+              <span>
+                <i className="fa fa-language" aria-hidden="true" />
+                <ul>
+                  {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
+                    <li key={lang}>
+                      <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
+                    </li>
+                  ))}
+                </ul>
+              </span>
+            </li>
           </ul>
 
         </nav>
@@ -609,7 +620,9 @@ class Header extends React.Component {
 Header.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.any)
+  user: PropTypes.objectOf(PropTypes.any),
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 Header.defaultProps = {
