@@ -111,7 +111,7 @@ class Header extends React.Component {
               </div>
               <div className="dropdown">
                 <div className="inner">
-                  <div className="popular border-bottom">
+                  <div className="popular">
 
                     <ul>
                       <li>
@@ -177,6 +177,25 @@ class Header extends React.Component {
                     )}
 
                   </div>
+
+                  <form action="/resource/">
+                    <div className="headerSearch">
+                      <button type="submit">
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-search"
+                          title="Search"
+                        />
+                      </button>
+
+                      <input
+                        type="search"
+                        name="q"
+                        placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
+                      />
+                    </div>
+                  </form>
+
                   <div className="row text-small stack-700">
                     <div className="col">
                       <ConceptBlock
