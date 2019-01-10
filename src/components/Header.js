@@ -396,7 +396,7 @@ class Header extends React.Component {
                           </a>
                         </li>
                         <li>
-                          <a className="item" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors">
+                          <a className="item" href="editorsFAQ">
                             {translate('menu.info.about.faqeditors')}
                           </a>
                         </li>
@@ -568,18 +568,20 @@ class Header extends React.Component {
                 </Link>
               </li>
             )}
-            <li className="languageSelector">
-              <span>
-                <i className="fa fa-language" aria-hidden="true" />
-                <ul>
-                  {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
-                    <li key={lang}>
-                      <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
-                    </li>
-                  ))}
-                </ul>
-              </span>
-            </li>
+            {supportedLanguages && (
+              <li className="languageSelector">
+                <span>
+                  <i className="fa fa-language" aria-hidden="true" />
+                  <ul>
+                    {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
+                      <li key={lang}>
+                        <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </span>
+              </li>
+            )}
           </ul>
 
         </nav>
