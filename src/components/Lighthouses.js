@@ -20,8 +20,8 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
             {lighthouse.agent.map(author => (
               <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
                 {translate(author["@id"])}
-              </Link>)
-            )}
+              </Link>
+            ))}
             {lighthouse.startTime && (
               <span
                 title={formatDate(lighthouse.startTime, moment)}

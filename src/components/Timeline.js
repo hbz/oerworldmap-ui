@@ -16,19 +16,21 @@ class Timeline extends React.Component {
   }
 
   componentDidMount() {
+    const { emitter } = this.props
+    const { entries } = this.state
 
-    const entries = this.state.entries
     entries.length && localStorage.setItem('lastActivity', entries[0].id)
 
-    this.props.emitter.emit('clearActivity')
-    this.props.emitter.on('newActivity', (activities) => {
+    emitter.emit('clearActivity')
+    emitter.on('newActivity', (activities) => {
       this.setState({entries: activities.concat(entries)})
     })
   }
 
   render() {
-    const entries = this.state.entries
-    const translate = this.props.translate
+    const { translate } = this.props
+    const { entries } = this.state
+
     return (
       <FullModal closeLink={Link.home}>
         <h2 className="title">

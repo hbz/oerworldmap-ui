@@ -41,28 +41,6 @@ const ResourcePreview = ({ translate, about }) => {
             )}
           </div>
 
-          {(about['comment'] || about.objectIn) && (
-            <div className="previewCounters">
-              <span>
-                <img className="i" src="/public/lighthouse_16px_grey.svg" alt="Lighthouse" />
-                &nbsp;
-                {(about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction').length || 0}
-              </span>
-
-              <span>
-                <i aria-hidden="true" className="fa fa-thumbs-up" />
-                &nbsp;
-                {(about.objectIn || []).filter(action => action['@type'] === 'LikeAction').length || 0}
-              </span>
-
-              <span>
-                <i aria-hidden="true" className="fa fa-comments" />
-                &nbsp;
-                {(about['comment'] || []).filter(comment => comment.author && comment.text).length || 0}
-              </span>
-            </div>
-          )}
-
         </div>
 
         <div>

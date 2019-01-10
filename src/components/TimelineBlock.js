@@ -16,37 +16,37 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
 
   if (entry.action.type === 'add' && entry.about['@type'] === 'LighthouseAction') {
     user = entry.user
-    message = 'marked as a lighthouse'
+    message = translate('marked as a lighthouse')
     resource = entry.about.object
   } else if (entry.action.type === 'add' && entry.about['@type'] === 'Person') {
     user = entry.about
-    message = 'joined the OER World Map'
+    message = translate('joined the OER World Map')
     resource = entry.about
   }
   else if (entry.action.type === 'add' && entry.about['@type'] === 'Comment') {
     user = entry.user
-    message = 'commented on'
+    message = translate('commented on')
     resource = entry.about.commentOn
   }
   else if (entry.action.type === 'add' && entry.about['@type'] === 'LikeAction') {
     user = entry.user
-    message = 'liked'
+    message = translate('liked')
     resource = entry.about.object
   } else if (entry.action.type === 'add') {
     user = entry.user
-    message = 'added'
+    message = translate('added')
     resource = entry.about
   } else if (entry.action.type === 'edit' && entry.about['@type'] === 'Person') {
     user = entry.about
-    message = 'updated their profile'
+    message = translate('updated their profile')
     resource = entry.about
   } else if (entry.action.type === 'edit' && entry.about['@type'] === 'LighthouseAction') {
     user = entry.user
-    message = 'updated the lighthouse for'
+    message = translate('updated the lighthouse for')
     resource = entry.about.object
   } else if (entry.action.type === 'edit') {
     user = entry.user
-    message = 'edited'
+    message = translate('edited')
     resource = entry.about
   }
 
@@ -55,13 +55,12 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
 
   return (
     <div className={`TimelineBlock${prominent ? ' prominent': ''}`}>
-      {entry.action.time &&
+      {entry.action.time && (
         <div className="timelineBlockMetadata">
           <div className="timelineBlockMetadataTime">
-            {entry.id}
             {moment(entry.action.time).fromNow()}
           </div>
-          {prominent &&
+          {prominent && (
             <i
               className="fa fa-close"
               role="presentation"
@@ -69,44 +68,52 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
                 e.target.parentElement.parentElement.remove()
               }}
             />
-          }
+          )}
         </div>
+      )
       }
 
       <React.Fragment>
         <div className="timelineBlockTitle">
           <Link href={user['@id']}>{translate(user.name)}</Link>
-          &nbsp;{translate('from')} {(user.location && user.location.address)
+          &nbsp;
+          {translate('from')}
+          &nbsp;
+          {(user.location && user.location.address)
             ? <Link href={user.location.address.addressCountry}>{translate(user.location.address.addressCountry)}</Link>
             : null}
-          &nbsp;{translate(message)}
-          {entry.about['@type'] !== 'Person' &&
-            <Link href={resource['@id']}>&nbsp;{translate(resource.name)}</Link>
-          }
+          &nbsp;
+          {translate(message)}
+          {entry.about['@type'] !== 'Person' && (
+            <Link href={resource['@id']}>
+              &nbsp;
+              {translate(resource.name)}
+            </Link>
+          )}
         </div>
 
         <div className={`timelineBlockContent${withBorder ? ' withBorder': ''}`}>
           <ResourcePreview about={resource} />
 
-          {entry.about['@type'] === 'Comment' &&
-          <div className="comment">
-            <div className="commentMetadata">
-              <Link href={user['@id']}>{translate(user.name)}</Link>
-            </div>
-            <div className="commentText">
-              <Markdown options={{
-                overrides: {
-                  a: {
-                    component: LinkOverride
+          {entry.about['@type'] === 'Comment' && (
+            <div className="comment">
+              <div className="commentMetadata">
+                <Link href={user['@id']}>{translate(user.name)}</Link>
+              </div>
+              <div className="commentText">
+                <Markdown options={{
+                  overrides: {
+                    a: {
+                      component: LinkOverride
+                    }
                   }
-                }
-              }}
-              >
-                {translate(entry.about.text)}
-              </Markdown>
+                }}
+                >
+                  {translate(entry.about.text)}
+                </Markdown>
+              </div>
             </div>
-          </div>
-          }
+          )}
         </div>
 
       </React.Fragment>
