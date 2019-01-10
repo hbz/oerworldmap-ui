@@ -566,6 +566,40 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           )}
 
+          {about.agentIn && about.agentIn.some(item => item['@type'] === 'LighthouseAction') && (
+            <Block
+              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LighthouseAction').length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`Lighthouses`)}
+            >
+              <ItemList
+                listItems={about.agentIn.filter(action => action["@type"]  === "LighthouseAction")
+                  .map(lighthouseAction => lighthouseAction.object)
+                  .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
+                }
+                className="prominent"
+              />
+            </Block>
+          )}
+
+          {about.agentIn && about.agentIn.some(item => item['@type'] === 'LikeAction') && (
+            <Block
+              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LikeAction').length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`Likes`)}
+            >
+              <ItemList
+                listItems={about.agentIn.filter(action => action["@type"]  === "LikeAction")
+                  .map(LikeAction => LikeAction.object)
+                  .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
+                }
+                className="prominent"
+              />
+            </Block>
+          )}
+
           {
             ['participant', 'participantIn'].map(
               prop => (
