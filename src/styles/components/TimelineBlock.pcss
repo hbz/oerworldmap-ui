@@ -3,17 +3,13 @@
 .TimelineBlock {
   padding: 20px 10px;
   background-color: var(--white);
-  margin-bottom: 20px;
   border-radius: var(--border-radius);
 
-  & .timelineBlockMetadata {
-    padding: 0 10px;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 10px;
+  & .timelineBlockMetadataTime {
+    display: inline-block;
 
-    & .timelineBlockMetadataTime {
-      color: var(--grey);
+    &:first-letter {
+      text-transform: uppercase;
     }
   }
 

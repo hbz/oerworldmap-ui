@@ -49,26 +49,15 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
 
   return (
     <div className={`TimelineBlock${prominent ? ' prominent': ''}`}>
-      {entry.action.time && (
-        <div className="timelineBlockMetadata">
-          <div className="timelineBlockMetadataTime">
-            {moment(entry.action.time).fromNow()}
-          </div>
-          {prominent && (
-            <i
-              className="fa fa-close"
-              role="presentation"
-              onClick={e => {
-                e.target.parentElement.parentElement.remove()
-              }}
-            />
-          )}
-        </div>
-      )
-      }
 
       <React.Fragment>
         <div className="timelineBlockTitle">
+          {entry.action.time &&
+            <span className="timelineBlockMetadataTime">
+              {moment(entry.action.time).fromNow()}
+              &nbsp;
+            </span>
+          }
           <Link href={user['@id']}>{translate(user.name)}</Link>
           &nbsp;
           {translate('from')}
