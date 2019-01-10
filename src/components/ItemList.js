@@ -42,7 +42,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
               <Icon type={listItem['@type']} />
               <span>
-                {translate(listItem.name) || listItem['@id']}
+                {translate(listItem.name) || translate(listItem['@id'])}
                 {listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}
                 {(listItem['@type'] === 'Event' && listItem.startDate)
                   ? (
