@@ -1,4 +1,5 @@
 /* global document */
+/* global location */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
@@ -22,14 +23,15 @@ class Header extends React.Component {
         add: false,
         info: false,
         me: false
-      }
+      },
+      showNotification: false
     }
     this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
   }
 
   componentDidMount() {
-    const { emitter } = this.props
+    const { emitter, user } = this.props
     document.addEventListener("click", this.handleClick)
 
     emitter.on('setLoading', () => {
@@ -38,6 +40,19 @@ class Header extends React.Component {
         this.setDropdown('')
       }
     })
+
+    emitter.on('newActivity', (activities) =>  {
+
+      if (location.pathname !== '/activity/') {
+        const showNotification = !user || activities.some(activity => activity.user && activity.user["@id"] !== user.id)
+        this.setState({showNotification})
+      }
+    })
+
+    emitter.on('clearActivity', () =>  {
+      this.setState({showNotification: false})
+    })
+
   }
 
   componentWillUnmount() {
@@ -62,7 +77,7 @@ class Header extends React.Component {
 
   render() {
     const { translate, user, emitter, locales, supportedLanguages } = this.props
-    const { showMobileMenu, dropdowns} = this.state
+    const { showMobileMenu, dropdowns, showNotification} = this.state
 
     return (
       <header className="Header">
@@ -89,6 +104,17 @@ class Header extends React.Component {
         >
           <ul>
 
+            <li>
+              <Link href="/activity/">
+                {translate('Activity')}
+                {showNotification && (
+                  <span className="showNotification">
+                    <i className="fa fa-bell" aria-hidden="true" />
+                  </span>
+                )
+                }
+              </Link>
+            </li>
             <li
               className={`hasDropdown${dropdowns.find ? ' active': ''}`}
               onMouseLeave={() => {

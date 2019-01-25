@@ -21,18 +21,24 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
   ) || []
 
   const lighthouse = lighthouses.find(action =>
-    action.agent.some(agent => user && agent['@id'] === user.id)
+    action.agent && action.agent.some(agent => user && agent['@id'] === user.id)
   ) ||
   ( user ? {
     '@type': 'LighthouseAction',
-    'object': about,
-    'agent': [{ '@id': user.id, '@type': 'Person' }],
     'description': [{'@language': 'en'}],
     'startTime': new Date().toISOString()
   } : null )
 
+  lighthouse && Object.assign(lighthouse, {
+    'object': {
+      '@id': about['@id'],
+      '@type': about['@type']
+    },
+    'agent': [{ '@id': user.id, '@type': 'Person' }]
+  })
+
   const like = likes.find(action =>
-    action.agent.some(agent => user && agent['@id'] === user.id)
+    action.agent && action.agent.some(agent => user && agent['@id'] === user.id)
   )
 
   const isAttendee = (about.attendee || []).some(attendee =>
@@ -119,7 +125,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
           >
             <h2>
               {translate('ResourceIndex.read.lightHouse')}
-              &nsbsp;
+              &nbsp;
               {translate(about['@type'])}
             </h2>
             <p>
