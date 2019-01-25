@@ -52,12 +52,12 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
 
       <React.Fragment>
         <div className="timelineBlockTitle">
-          {entry.action.time &&
+          {entry.action.time && (
             <span className="timelineBlockMetadataTime">
               {moment(entry.action.time).fromNow()}
               &nbsp;
             </span>
-          }
+          )}
           <Link href={user['@id']}>{translate(user.name)}</Link>
           &nbsp;
           {translate('from')}
