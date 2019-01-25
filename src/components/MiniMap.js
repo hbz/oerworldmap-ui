@@ -5,7 +5,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { bbox } from '@turf/turf'
+import bbox from '@turf/bbox'
 import { point } from '@turf/helpers'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
