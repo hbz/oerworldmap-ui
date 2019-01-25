@@ -139,7 +139,7 @@ require('formdata-polyfill');
           emitter.emit('newActivity', response)
         }
       })
-    }, 5000)
+    }, 60000)
 
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
