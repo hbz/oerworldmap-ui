@@ -46,7 +46,7 @@ export default (api) => {
             '@type': params.add
           },
           _self: url
-        } : state || await api.get(url, context.authorization)
+        } : state || await api.get(url, new Headers(context.headers))
         const component = (data) => params.add ? (
           <WebPage
             user={user}
@@ -92,7 +92,7 @@ export default (api) => {
       },
       post: async (params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
-        const data = await api.post('/resource/', body, context.authorization)
+        const data = await api.post('/resource/', body, new Headers(context.headers))
         const component = (data) => (
           <WebPage
             {...data}
@@ -114,7 +114,7 @@ export default (api) => {
       get: async (id, params, context, state) => {
         const { user, mapboxConfig, schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
         const component = (data) => (
           <WebPage
             {...data}
@@ -138,7 +138,7 @@ export default (api) => {
       },
       post: async (id, params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
-        const data = await api.post(`/resource/${id}`, body, context.authorization)
+        const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
         const component = (data) => (
           <WebPage
             {...data}
@@ -154,7 +154,7 @@ export default (api) => {
         return { title, data, component }
       },
       delete: async (id, params, context) => {
-        const data = await api.delete(`/resource/${id}`, context.authorization)
+        const data = await api.delete(`/resource/${id}`, new Headers(context.headers))
         const component = (data) => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -170,7 +170,7 @@ export default (api) => {
       path: '/resource/:id/comment',
       post: async (id, params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
-        const data = await api.post(`/resource/${id}/comment`, body, context.authorization)
+        const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
         const component = (data) => (
           <WebPage
             {...data}
@@ -195,7 +195,7 @@ export default (api) => {
           params: Object.assign(params, {features: true})
         })
         Link.home = url
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
         const component = (data) => (
           <ResourceIndex
             {...data}
@@ -240,7 +240,7 @@ export default (api) => {
     {
       path: '/feed/',
       get: async (params, context, state) => {
-        const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
+        const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
         const component = (data) => <Feed {...data} />
         const title = context.i18n.translate('ClientTemplates.app.recentAdditions')
         return { title, data, component }
@@ -258,7 +258,7 @@ export default (api) => {
       },
       post: async (params, context, state, body) => {
         const { i18n } = context
-        const data = await api.post('/user/register', body, context.authorization)
+        const data = await api.post('/user/register', body, new Headers(context.headers))
         const component = (data) => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -307,7 +307,7 @@ export default (api) => {
       path: '/user/password/reset',
       post: async (params, context, state, body) => {
         const { i18n } = context
-        const data = await api.post('/user/password/reset', body, context.authorization)
+        const data = await api.post('/user/password/reset', body, new Headers(context.headers))
         const component = () => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -323,7 +323,7 @@ export default (api) => {
       path: '/user/password/change',
       post: async (params, context, state, body) => {
         const { i18n } = context
-        const data = await api.post('/user/password/change', body, context.authorization)
+        const data = await api.post('/user/password/change', body, new Headers(context.headers))
 
         setTimeout(()=> {
           const request = new XMLHttpRequest()
@@ -347,7 +347,7 @@ export default (api) => {
     {
       path: '/user/groups',
       get: async (params, context, state) => {
-        const data = state || await api.get('/user/groups', context.authorization)
+        const data = state || await api.get('/user/groups', new Headers(context.headers))
         const component = (data) => (
           <Groups {...data} />
         )
@@ -355,7 +355,7 @@ export default (api) => {
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
-        const data = await api.post('/user/groups', body, context.authorization)
+        const data = await api.post('/user/groups', body, new Headers(context.headers))
         const component = (data) => (
           <Groups {...data} confirm />
         )
@@ -368,7 +368,7 @@ export default (api) => {
       get: async (params, context, state) => {
         const { i18n } = context
         const url = getURL({path: '/user/verify', params})
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
         const component = (user) => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -388,7 +388,7 @@ export default (api) => {
       path: '/log/',
       get: async (params, context, state) => {
         const { i18n } = context
-        const data = state || await api.get('/log/', context.authorization)
+        const data = state || await api.get('/log/', new Headers(context.headers))
         const component = (data) => (
           <Log entries={data} />
         )
@@ -404,7 +404,7 @@ export default (api) => {
         const url = params.compare && params.to
           ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
           : getURL({ path: `/log/${id}`})
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
         const component = (data) => (
           <Diffs {...data} phrases={phrases} schema={schema} />
         )

@@ -75,6 +75,7 @@
     "asset-require-hook": "^1.2.0",
     "cleave.js": "^1.4.7",
     "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
     "d3": "^5.7.0",
     "deepmerge": "^3.0.0",
     "dotenv": "^6.2.0",

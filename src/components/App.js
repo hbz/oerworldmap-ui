@@ -9,7 +9,7 @@ import Loading from './Loading'
 const App = ({ user, locales, supportedLanguages, children }) => (
   <div id="wrapper">
 
-    <main className="container" data-userroles={user ? user.groups.join(' ') : null}>
+    <main className="container" data-userroles={user && user.groups ? user.groups.join(' ') : null}>
 
       <Header user={user} locales={locales} supportedLanguages={supportedLanguages} />
 

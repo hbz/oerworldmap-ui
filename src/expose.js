@@ -3,12 +3,12 @@ export default (action, user, context) => {
   case 'deleteEntry':
     return context['@id'] && user && user.groups.includes('admin')
   case 'editEntry':
-    return user
+    return user && user.groups
       && (user.groups.includes('admin')
         || (context['@type'] !== 'Person' || context['@id'] === user.id)
       )
   case 'logEntry':
-    return user && user.groups.includes('admin')
+    return user && user.groups && user.groups.includes('admin')
   case 'userActions':
     return !!user
   case 'userMenu':
@@ -16,6 +16,6 @@ export default (action, user, context) => {
   case 'addEntry':
     return !!user
   case 'groupAdmin':
-    return user && user.groups.includes('admin')
+    return user && user.groups && user.groups.includes('admin')
   }
 }

@@ -6,6 +6,7 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import userAgent from 'express-useragent'
+import cookieParser from 'cookie-parser'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
@@ -25,6 +26,7 @@ server.use(function(req, res, next) {
 })
 
 server.use(compression())
+server.use(cookieParser())
 
 if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)
@@ -49,12 +51,9 @@ server.use((req, res, next) => {
 
 // Middleware to fetch user profile
 server.use((req, res, next) => {
-  const authorization = req.get('authorization')
-  const [user] = authorization
-    ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
-  if (user) {
-    api.get('/user/profile', authorization)
-      .then(user => (req.user = user) && next())
+  if (req.cookies.mod_auth_openidc_session) {
+    api.get('/user/profile', new Headers(req.headers))
+      .then(user => console.log(user) || (req.user = user) && next())
       .catch(err => err.status === 401
         ? res.redirect(`${apiConfig.scheme}://logout@${apiConfig.host}/.logout`)
         : res.status(err.status).send(err.message)
@@ -98,7 +97,7 @@ server.use((req, res, next) => {
 
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const authorization = req.get('authorization')
+  const headers = new Headers(req.headers)
   const user = req.user
   const locales = req.locales
   const supportedLanguages = req.supportedLanguages
@@ -111,7 +110,7 @@ server.get(/^(.*)$/, (req, res) => {
   const phrases = i18ns[locales[0]]
   const schema = req.schema
   const embed = req.query.embed
-  const context = { supportedLanguages, locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
+  const context = { supportedLanguages, locales, headers, user, mapboxConfig, phrases, apiConfig, schema, embed }
   //TODO: use actual request method
   router(api).route(req.path, context).get(req.query).then(({title, data, render, err, metadata}) => {
     console.info('Render from Server:', req.url)

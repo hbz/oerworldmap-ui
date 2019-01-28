@@ -49,14 +49,9 @@ class Api {
     return fetch(url, options).then(checkStatus).then(toJson)
   }
 
-  post (url, data, authorization) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    })
-    if (authorization) {
-      headers.append('Authorization', authorization)
-    }
+  post (url, data, headers = new Headers()) {
+    headers.set('Content-Type', 'application/json')
+    headers.set('Accept', 'application/json')
     return fetch(`${this.scheme}://${this.host}:${this.port}${url}`, {
       headers,
       method: 'POST',
@@ -67,13 +62,8 @@ class Api {
       .then(toJson)
   }
 
-  get (url, authorization) {
-    const headers = new Headers({
-      'Accept': 'application/json'
-    })
-    if (authorization) {
-      headers.append('Authorization', authorization)
-    }
+  get (url, headers = new Headers()) {
+    headers.set('Accept', 'application/json')
     return fetch(`${this.scheme}://${this.host}:${this.port}${url}`, {
       headers,
       method: 'GET',
@@ -83,13 +73,8 @@ class Api {
       .then(toJson)
   }
 
-  delete (url, authorization) {
-    const headers = new Headers({
-      'Accept': 'application/json'
-    })
-    if (authorization) {
-      headers.append('Authorization', authorization)
-    }
+  delete (url, headers = new Headers()) {
+    headers.set('Accept', 'application/json')
     return fetch(`${this.scheme}://${this.host}:${this.port}${url}`, {
       headers,
       method: 'DELETE',
