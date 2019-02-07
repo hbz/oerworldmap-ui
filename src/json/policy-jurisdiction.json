@@ -1,0 +1,207 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#multiNational",
+      "@type": "Concept",
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      },
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Multi-national"
+        },
+        {
+          "@language": "de",
+          "@value": "Multinational"
+        }
+      ],
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      }
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#national",
+      "@type": "Concept",
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      },
+      "name": [
+        {
+          "@language": "en",
+          "@value": "National"
+        },
+        {
+          "@language": "de",
+          "@value": "National"
+        }
+      ],
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      }
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#multiState",
+      "@type": "Concept",
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      },
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Multi-state"
+        },
+        {
+          "@language": "de",
+          "@value": "Länderübergreifend"
+        }
+      ],
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      }
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#state",
+      "@type": "Concept",
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      },
+      "name": [
+        {
+          "@language": "en",
+          "@value": "State"
+        },
+        {
+          "@language": "de",
+          "@value": "Bundesland"
+        }
+      ],
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      }
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#multiRegional",
+      "@type": "Concept",
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      },
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Multi-regional"
+        },
+        {
+          "@language": "de",
+          "@value": "Multiregional"
+        }
+      ],
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      }
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#regionalLocal",
+      "@type": "Concept",
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      },
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Regional/Local"
+        },
+        {
+          "@language": "de",
+          "@value": "Regional/Lokal"
+        }
+      ],
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+      }
+    },
+		{
+			"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#multiInstitutional",
+			"@type": "Concept",
+			"inScheme": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			},
+			"name": [
+				{
+					"@language": "en",
+					"@value": "Multi-institutional"
+				},
+				{
+					"@language": "de",
+					"@value": "Institutionenübergreifend"
+				}
+			],
+			"topConceptOf": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			}
+		},
+		{
+			"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#institutional",
+			"@type": "Concept",
+			"inScheme": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			},
+			"name": [
+				{
+					"@language": "en",
+					"@value": "Institutional"
+				},
+				{
+					"@language": "de",
+					"@value": "Institutionell"
+				}
+			],
+			"topConceptOf": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			}
+		},
+		{
+			"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#multiDepartmental",
+			"@type": "Concept",
+			"inScheme": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			},
+			"name": [
+				{
+					"@language": "en",
+					"@value": "Multi-departmental"
+				},
+				{
+					"@language": "de",
+					"@value": "Abteilungsübergreifend"
+				}
+			],
+			"topConceptOf": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			}
+		},
+		{
+			"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json#departmental",
+			"@type": "Concept",
+			"inScheme": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			},
+			"name": [
+				{
+					"@language": "en",
+					"@value": "Departmental"
+				},
+				{
+					"@language": "de",
+					"@value": "Fachbereich"
+				}
+			],
+			"topConceptOf": {
+				"@id": "https://oerworldmap.org/assets/json/policy-jurisdiction.json"
+			}
+		}
+  ]
+}
