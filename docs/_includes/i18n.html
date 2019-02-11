@@ -3,3 +3,4 @@
 {% capture filename %}{{ include.bundle }}{% if slugsize == '2' %}_{{ slug | split: '.' | last }}{% endif %}{% endcapture %}
 {% assign i18n_strings = site.data.locale[filename] %}
 {% capture i18n_lang %}{% if slugsize == '2' %}{{ slug | split: '.' | last }}{% else %}en{% endif %}{% endcapture %}
+{% assign supported_languages = "en,de,pt" %}
