@@ -541,11 +541,24 @@
         border-color: var(--blue-dark);
         opacity: 1;
 
-        & a {
+        & button {
           font-size: var(--font-size);
           color: var(--blue-dark) !important;
           width: 25px;
           height: 25px;
+          border: none;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: var(--border-radius);
+
+          &:hover {
+            border: 1px solid var(--grey);
+
+            & i {
+              color: var(--orange);
+            }
+          }
 
           &::before {
             line-height: 25px;
