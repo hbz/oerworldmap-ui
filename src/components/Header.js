@@ -574,13 +574,13 @@ class Header extends React.Component {
               </li>
             ) : (
               <li>
-                <Link
+                <a
                   title={translate('login')}
-                  href="/user/register"
+                  href={`/.login${Link.self && "?continue=" + Link.self}`}
                   className="loginLink"
                 >
                   {translate('login')}
-                </Link>
+                </a>
               </li>
             )}
             {supportedLanguages && (
