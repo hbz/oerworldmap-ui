@@ -439,7 +439,7 @@ export default (api) => {
         const result = await route[method](...uriParams, params, context, state, body)
         if (result) {
           result.render = (data) => {
-            Link.self = (data && data._self) || "resource"
+            Link.self = (data && data._self) || "/resource/"
             return (
               <Init {...context}>
                 {result.component(data)}

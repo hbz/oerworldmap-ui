@@ -523,11 +523,7 @@ class Header extends React.Component {
                           <li>
                             <a
                               className="item"
-                              href="/.logout"
-                              onClick={(e) => {
-                                e.preventDefault()
-                                emitter.emit('logout')
-                              }}
+                              href={`/.logout${Link.self && "?continue=" + Link.self}`}
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>

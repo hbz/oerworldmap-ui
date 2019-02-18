@@ -72,24 +72,6 @@ require('formdata-polyfill');
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
-    // Log in
-    emitter.on('login', (back) => {
-      const request = new XMLHttpRequest()
-      request.open('GET', '/.login', false)
-      request.send(null)
-      window.location.href = back || '/resource'
-    })
-    // Log out
-    emitter.on('logout', () => {
-      if (!document.execCommand("ClearAuthenticationCache")) {
-        const request = new XMLHttpRequest()
-        const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
-        request.open('GET', url, false)
-        request.send(null)
-      }
-      localStorage.removeItem('user')
-      window.location.reload()
-    })
     // Form submission
     emitter.on('submit', ({url, data, redirect}) => {
       emitter.emit('setLoading', true)
