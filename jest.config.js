@@ -1,7 +1,7 @@
 
 module.exports = {
   "testRegex": "test/.*\\.(js|jsx)$",
-  "setupTestFrameworkScriptFile": "<rootDir>test/helpers/browser.js",
+  "setupFilesAfterEnv": ["<rootDir>test/helpers/browser.js"],
   "testPathIgnorePatterns": [
     "<rootDir>/test/resources/",
     "<rootDir>/test/helpers/"

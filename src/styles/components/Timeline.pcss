@@ -1,0 +1,49 @@
+@import '../variables.pcss';
+
+.Timeline {
+  padding: 20px;
+  padding-top: 40px;
+  background-color: var(--grey-lightest);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  & .timelineContainer {
+    margin: 0 auto;
+    max-width: 1000px;
+    display: flex;
+
+    & .timelineContainerMain {
+      flex: 2;
+    }
+
+    & .timelineContainerAside {
+      margin: 0 20px;
+      flex: 1;
+    }
+
+    & .nearBy {
+      & img {
+        width: 100%;
+        border: 1px solid var(--blue-dark);
+        border-radius: var(--border-radius);
+      }
+    }
+
+    & .more {
+      display: inline-block;
+      background-color: var(--white);
+      font-weight: bold;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+      margin-bottom: 20px;
+      border-radius: var(--border-radius);
+
+      & a {
+        display: block;
+        padding: 10px 20px;
+      }
+    }
+  }
+}
+

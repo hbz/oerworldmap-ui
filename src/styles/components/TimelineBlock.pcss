@@ -1,0 +1,59 @@
+@import '../variables.pcss';
+
+.TimelineBlock {
+  padding: 20px 10px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+
+  & .timelineBlockMetadataTime {
+    display: inline-block;
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  & .timelineBlockTitle {
+    padding: 0 10px;
+    padding-bottom: 10px;
+  }
+
+  & .timelineBlockContent {
+    padding: 10px;
+
+    & .comment {
+      margin-top: 10px;
+      border: 1px solid var(--grey);
+      padding: 15px;
+      color: var(--grey-dark);
+      border-radius: var(--border-radius);
+
+      & .commentMetadata a {
+        color: var(--grey-dark);
+      }
+
+      & .commentText {
+        margin-top: 10px;
+        font-size: var(--font-size-large);
+      }
+    }
+
+    &.withBorder {
+      border: 1px solid var(--blue-dark);
+    }
+  }
+
+  &.prominent {
+    color: var(--white);
+    background-color: #59bdec;
+
+    & .timelineBlockMetadataTime {
+      color: var(--white);
+    }
+
+    & .timelineBlockTitle {
+      font-size: var(--font-size-xl);
+      font-weight: bold;
+    }
+  }
+}

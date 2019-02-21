@@ -9,6 +9,7 @@ import Init from './components/Init'
 import WebPage from './components/WebPage'
 import Country from './components/Country'
 import Feed from './components/Feed'
+import Timeline from './components/Timeline'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
 import Feedback from './components/Feedback'
@@ -240,6 +241,15 @@ export default (api) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
         const component = (data) => <Feed {...data} />
         const title = context.i18n.translate('ClientTemplates.app.recentAdditions')
+        return { title, data, component }
+      }
+    },
+    {
+      path: '/activity/',
+      get: async (params, context, state) => {
+        const data = state || await api.get('/activity/', context.authorization)
+        const component = (data) =>  <Timeline entries={data} />
+        const title = context.i18n.translate('Activity')
         return { title, data, component }
       }
     },
