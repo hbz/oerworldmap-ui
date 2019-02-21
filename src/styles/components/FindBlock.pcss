@@ -1,0 +1,33 @@
+@import '../variables.pcss';
+
+.FindBlock {
+
+  & ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    & li a {
+      padding: 15px;
+      border-top: 2px solid var(--grey-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--blue-dark);
+
+      & span {
+        font-weight: bold;
+        padding-left: 20px;
+        flex: 1;
+      }
+
+      &:hover {
+        color: var(--orange);
+      }
+    }
+
+    & li:last-child a {
+      border-bottom: 2px solid var(--grey-light);
+    }
+  }
+}

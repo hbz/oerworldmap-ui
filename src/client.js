@@ -1,5 +1,6 @@
 /* global document */
 /* global window */
+/* global location */
 /* global XMLHttpRequest */
 /* global localStorage */
 
@@ -128,6 +129,17 @@ require('formdata-polyfill');
           }
         })
     })
+
+    let lastActivity = (location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
+    setInterval(() => {
+      const until = lastActivity ? `?until=${lastActivity}` : ''
+      api.get(`/activity/${until}`).then(response => {
+        if (response.length) {
+          lastActivity = response[0].id
+          emitter.emit('newActivity', response)
+        }
+      })
+    }, 60000)
 
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)

@@ -191,7 +191,9 @@ export const objectMap = (obj, fn) => {
   }, {})
 }
 
+export const sortByProp = prop => (a, b) => (a[prop] < b[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0)
+
 export default {
-  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick,
-  debounce, getProp, appendOnFocus, formatDate, getTwitterId, objectMap, addParamToURL
+  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick, debounce, getProp,
+  appendOnFocus, formatDate, getTwitterId, objectMap, sortByProp, addParamToURL
 }

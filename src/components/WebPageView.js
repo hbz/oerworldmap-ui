@@ -48,11 +48,21 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
         {about.name && about.name.length > 1 ? (
           <Tabs>
             {about.name.map(name => (
-              <TabPanel key={`panel-${name["@value"]}`}>
+              <TabPanel className="inline" key={`panel-${name["@value"]}`}>
                 {name["@value"]}
               </TabPanel>
             ))}
 
+            {about.alternateName && (
+              <span className="alternate">
+                &nbsp;
+                (
+                {translate(about.alternateName)}
+                )
+              </span>
+            )}
+
+            <br />
             <span className="hint">
               {translate("Also available in:")}
               &nbsp;
@@ -71,15 +81,18 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </TabList>
           </Tabs>
         ) : (
-          translate(about.name)
-        )}
-        {about.alternateName && (
-          <span className="alternate">
-            &nbsp;
-            (
-            {translate(about.alternateName)}
-            )
-          </span>
+          <React.Fragment>
+            {translate(about.name)}
+
+            {about.alternateName && (
+              <span className="alternate">
+                &nbsp;
+                (
+                {translate(about.alternateName)}
+                )
+              </span>
+            )}
+          </React.Fragment>
         )}
       </h2>
 
@@ -561,6 +574,40 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               <ItemList
                 listItems={about.agentIn.filter(item => item['@type'] === 'Action')
                   .sort((a, b) => translate(a.name) > translate(b.name))}
+                className="prominent"
+              />
+            </Block>
+          )}
+
+          {about.agentIn && about.agentIn.some(item => item['@type'] === 'LighthouseAction') && (
+            <Block
+              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LighthouseAction').length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`Lighthouses`)}
+            >
+              <ItemList
+                listItems={about.agentIn.filter(action => action["@type"]  === "LighthouseAction")
+                  .map(lighthouseAction => lighthouseAction.object)
+                  .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
+                }
+                className="prominent"
+              />
+            </Block>
+          )}
+
+          {about.agentIn && about.agentIn.some(item => item['@type'] === 'LikeAction') && (
+            <Block
+              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LikeAction').length > 3}
+              collapsibleType="show-all"
+              className="list"
+              title={translate(`Likes`)}
+            >
+              <ItemList
+                listItems={about.agentIn.filter(action => action["@type"]  === "LikeAction")
+                  .map(LikeAction => LikeAction.object)
+                  .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
+                }
                 className="prominent"
               />
             </Block>
