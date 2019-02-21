@@ -1,5 +1,7 @@
+/* global window */
 /* global document */
 /* global location */
+/* global SUPPORTED_LANGUAGES */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
@@ -76,8 +78,13 @@ class Header extends React.Component {
   }
 
   render() {
-    const { translate, user, emitter, locales, supportedLanguages } = this.props
+    const { translate, user, emitter, locales } = this.props
     const { showMobileMenu, dropdowns, showNotification} = this.state
+
+    let { supportedLanguages } = this.props
+    if (!supportedLanguages) {
+      supportedLanguages = SUPPORTED_LANGUAGES
+    }
 
     return (
       <header className="Header">
@@ -620,7 +627,7 @@ class Header extends React.Component {
                   <ul>
                     {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
                       <li key={lang}>
-                        <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
+                        <a href={addParamToURL(Link.self || (window.location && window.location.href), "language", lang)}>{translate(lang)}</a>
                       </li>
                     ))}
                   </ul>
