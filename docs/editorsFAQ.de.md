@@ -3,7 +3,7 @@ title: FAQ
 layout: page
 class: faq
 ---
-# FAQs for OER World Map editors
+# FAQs für OER World Map Editoren
 
 ## How do I log in?
 
