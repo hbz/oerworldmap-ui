@@ -708,7 +708,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
           {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
             'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
-            'isRelatedTo'].map(prop => (
+            'isRelatedTo', 'isBasedOn', 'isBasisFor'].map(prop => (
             about[prop] &&  (
               <Block
                 key={prop}
