@@ -57,20 +57,20 @@ Tippen Sie die Adresse in das Feld ein, das sich öffnet, wenn Sie auf "Adresse 
 
 Services und Projekten einen Ort zuordnen, geht anders: Unserer Meinung nach ist der Ort von Services eigentlich im Web. Deshalb sagen wir, dass einem Service selbst kein Ort zugewiesen werden kann. Der Punkt auf der Karte kann sich nur auf die Organisation beziehen, die den Service zur Verfügung stellt. *Der korrekte Weg einem Service (bzw. einem Projekt) einen Ort auf der Karte zuzuweisen, ist folglich die zugehörige Organisation hinzuzufügen und den Service mit der Organisation über das "Anbieter"-Feld zu verlinken (bzw. das Projekt über das "Betreiber"-Feld).*
 
-Allerdings kann es in einigen Ausnahmefällen notwendig sein, die Adresse doch direkt einem Service oder einem Projekt zuzuordnen, dafür gibt es das Adressfeld auch in den Eingabeformularen von Services und Projekten. Wenn dort eine Adresse eingetragen ist, wird diese anstelle der Adresse der zugehörigen Organisation für die Platzierung auf der Karte verwendet. This allows to locate e.g. a project, which focuses on the use of OER in Africa, in Africa, even if the driving organizations are located in different parts of the world.
+Allerdings kann es in einigen Ausnahmefällen notwendig sein, die Adresse doch direkt einem Service oder einem Projekt zuzuordnen, dafür gibt es das Adressfeld auch in den Eingabeformularen von Services und Projekten. Wenn dort eine Adresse eingetragen ist, wird diese anstelle der Adresse der zugehörigen Organisation für die Platzierung auf der Karte verwendet. Auf diese Weise kann z. B. ein Projekt, das sich mit OER in Afrika beschäftigt, auf der Karte in Afrika angezeigt weren, obwohl sich die durchführende Organisation in einem anderen Teil der Welt befindet.
 
-## How to add levels and subjects of education?
+## Wie füge ich Fächer und Bildungsstufen hinzu?
 
-We are using ISCED levels and ISCED based fields of education to describe services. We believe that this will make it much easier for users to find the contents they need. Nevertheless it has to be admitted, that ISCED is a science of its own. Deciding on the levels and especially on the subjects of education can be time-consuming, especially if you are recording a service, which provides resources from different educational fields. In this case it can be helpful to start with the top level of the hierarchy, leaving out level 2-4. [More information on ISCED can be found here](http://www.uis.unesco.org/Education/Pages/international-standard-classification-of-education.aspx).
+Da es sich bei der OER World Map um eine Weltkarte handelt, verwenden wir die internationalen Standards (ISCED) der UNESCO zu Fächern und Bildungsstufen. Damit sollten alle Nutzer schnell finden, was sie suchen. ISCED ist allerdings für die Beschreibung eines Service relativ komplex. Es kann sehr aufwendig sein, Fächer und Bildungsstufen für Services einzutragen, besonders wenn diese Materialien für viele verschiedene Bereiche anbieten. In diesem Fall kann es sinnvoll sein, sich auf die erste Ebene zu beschränken und die folgenden Ebenen auszulassen. [Weitere Informationen zu ISCED](http://www.uis.unesco.org/Education/Pages/international-standard-classification-of-education.aspx).
 
-## How can I include formatting to texts?
+## Wie kann ich Text formatieren?
 
-The "description" field for organisations, services and projects as well as the "teaser" and "body" field for stories can be formatted using common html tags or markdown syntax.
+Die Beschreibungen für Organisationen, Projekte und Services können ebenso wie Teaser und Text von Storys mit HTML-Tags oder über die Markdown-Syntax formatiert werden.
 
-## How do I provide feedback to the developing team?
+## Wie kann ich dem Entwickler-Team Feedback geben?
 
-If you are registered on Github, you can easily provide feedback by opening an issue at https://github.com/hbz/oerworldmap/issues/new. If you prefer contacting us by mail, we invite you to send your request to info [at] oerworldmap[dot]org.
+Wenn Sie bei Github registriert sind, können Sie Feedback geben, indem sie ein Ticket öffnen unter https://github.com/hbz/oerworldmap/issues/new. Oder Sie schicken uns ihr Feedback an info [at] oerworldmap[dot]org.
 
-## How can I delete entries?
+## Wie kann ich Einträge löschen?
 
-At the moment users cannot delete entries. If you created a data set by error and want to delete it, please send us a mail to info [at]oerworldmap[dot]org.
+Im Moment können Nutzer keine Einträge löschen. Wenn Sie aus Versehen einen Datensatz angelegt haben und ihn löschen wollen, schicken Sie uns eine Mail an info [at]oerworldmap[dot]org.
