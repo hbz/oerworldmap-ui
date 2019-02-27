@@ -5,25 +5,25 @@ class: faq
 ---
 # FAQs für OER World Map Editoren
 
-## How do I log in?
+## Wie logge ich mich ein?
 
-Please register and choose a personal password. The registration and login mask can be found in the upper right corner of the screen. The registration includes getting editing rights for the OER World Map.
+Um sich zu registrieren und später einzuloggen verwenden Sie den Login-Button oben rechts. Bitte registrieren Sie sich und wählen Sie ein Passwort. Wenn Sie registriert sind, haben Sie automatisch Schreibrechte auf der OER World Map.
 
-## What do I have to consider before I enter new data?
+## Was muss ich beachten, bevor ich neue Daten eingebe?
 
-Before you enter new data, please make sure, that the data set is not yet included in the world map. In order to do so, please use the search function of the world map.
+Bevor Sie neue Daten eingeben, prüfen Sie bitte, ob der Eintrag, den Sie anlegen möchten, auf der OER World Map bereits vorhanden ist. Verwenden Sie dazu bitte die Suchfunktion der Map.
 
-## How can I add or modify entries?
+## Wie kann ich Einträge hinzufügen oder verändern?
 
-As soon as you are logged in you can see a small orange button in the left upper corner with a plus sign on it. Clicking on it opens a pull down menu, which allows you to add following data types: - Add Organization - Add Service - Add Project - Add Story - Add Event - Add Publication - Add Tool
+Sobald Sie eingeloggt sind, sehen Sie links oben eine orangene Schaltfläche mit einem Plus-Zeichen darauf. Wenn Sie auf diese Schaltfläche klicken, öffnet sich ein Menü, über das Sie die folgenden Datentypen eingeben können: - Organisation - Service - Projekt - Story - Veranstaltung - Veröffentlichung - Tool
 
-More information on our data types can be found on the [FAQ page](https://oerworldmap.org/FAQ) under "What belongs on the OER World Map?"
+Informationen zu unseren Datentypen finden Sie auf der [FAQ-Seite](https://oerworldmap.org/FAQ) unter "Was gehört auf die OER World Map?"
 
-Clicking on one of the fields will open the corresponding template. After entering the data, please make sure that you click on "save data" at the lower end of the template.
+Wenn Sie auf einen der Punkte klicken, öffnet sich das zugehörige Eingabe-Formular. After entering the data, please make sure that you click on "save data" at the lower end of the template.
 
-In order to modify an existing data set, please navigate to the data set and click on the pen icon in the upper right.
+Um einen bereits vorhandenen Datensatz zu bearbeiten, navigieren Sie zu diesem Datensatz und klicken Sie auf das kleine Stift-Icon rechts oben.
 
-## Which data can I add or modify?
+## Welche Daten kann ich hinzufügen oder ändern?
 
 All registered users are allowed to input all data types for all countries. The "country champions" are not restricted to entries from "their" country. Actually we would like to encourage "country champions" to input data from other countries as well, since many countries are still lacking a world map champion!
 
