@@ -19,37 +19,37 @@ Sobald Sie eingeloggt sind, sehen Sie links oben eine orangene Schaltfläche mit
 
 Informationen zu unseren Datentypen finden Sie auf der [FAQ-Seite](https://oerworldmap.org/FAQ) unter "Was gehört auf die OER World Map?"
 
-Wenn Sie auf einen der Punkte klicken, öffnet sich das zugehörige Eingabe-Formular. After entering the data, please make sure that you click on "save data" at the lower end of the template.
+Wenn Sie auf einen der Punkte klicken, öffnet sich das zugehörige Eingabe-Formular. Bitte stellen Sie sicher, nach der Dateneingabe am unteren Ende des Formulars auf "Veröffentlichen" zu klicken.
 
 Um einen bereits vorhandenen Datensatz zu bearbeiten, navigieren Sie zu diesem Datensatz und klicken Sie auf das kleine Stift-Icon rechts oben.
 
 ## Welche Daten kann ich hinzufügen oder ändern?
 
-All registered users are allowed to input all data types for all countries. The "country champions" are not restricted to entries from "their" country. Actually we would like to encourage "country champions" to input data from other countries as well, since many countries are still lacking a world map champion!
+Alle registrierten Nutzer dürfen alle Datentypen für alle Länder anlegen und ändern. Die Country Champions sind nicht auf "ihr" Land beschränkt. Im Gegenteil, wir möchten besonders die Country Champions ermutigen, auch Daten für andere Länder einzugeben, da nicht alle Länder Country Champions haben.
 
-All registered users can also add "stories". If you are pretty sure about the story you would like to publish, you can do so. But we also offer editorial support, so in doubt do not hesitate to contact us!
+Alle registrierten Nutzer können auch Stories veröffentlichen. Wenn Sie bereits genau wissen, was Sie mit der Community teilen möchten, schreiben Sie Ihre Story direkt. Wir unterstützen Sie aber auch gerne dabei, schreiben einfach an info@oerworldmap.org.
 
-## Service, Organization or Project?
+## Service, Organisation oder Projekt?
 
-One lessons learned from our experience so far with mapping the world of OER is, that it is sometimes difficult to decide on the data type on an entry. Especially it can be hard to say if something is a service, an organization or a project.
+Unsere Erfahrung beim Eingeben von Daten in die OER World Map hat uns gelehrt, dass es oft schwierig ist zu entscheiden, welchem Datentyp ein Eintrag zugeordnet werden soll. Besonders schwierig ist es manchmal zu unterscheiden, ob etwas als Service, als Organisation oder als Projekt eingetragen werden sollte.
 
-The logical relation is as following: A service is an online offer that provides OER-related contents or functionalities (e.g. it helps finding, assessing, creating or publishing OER). The most important subsection of services are OER repositories. But there are many other kinds of services available (or thinkable) like authoring tools, search engines, community platforms, etc. A service is often run by a providing organization or in the case of grassroots by a person or a group of persons. Normally the service has been developed within a project, which is often run by the same organization, which later on provided the service. So if you aim at completeness, it can be necessary to record all three types.
+Die Logik hinter dieser Unterteilung ist die Folgende: Ein Service ist ein Web-Angebot, das OER-Inhalte oder OER-bezogene Funktionalitäten bereit stellt (z.B. hilft es OER zu finden, zu bewerten, zu erstellen oder zu veröffentlichen). Die wichtigsten Typen von Services sind OER-Repositorien. Aber es gibt noch viele andere Arten von Services wie Autorentools, Suchmaschinen, Community-Plattformen etc. Ein Service wird oft betrieben von einer Organisation (oder bei Graswurzel-Projekten von einer Person oder einer Gruppe von Personen). Normalerweise wurde ein Service während eines Projektes entwickelt, das von der gleichen Organisation durchgeführt wurde, die später den Service zur Verfügung stellt. Deshalb ist es häufig im Sinne der Vollständigkeit notwendig, alle drei Datentypen einzugeben.
 
-Example: hbz drives a project called "OER World Map". The project aims at developing the service "OER World Map". Since the launch of Version 1.0 the service "OER World Map" is provided by hbz.
+Als Beispiel: Das hbz führt das Projekt "OER World Map" durch. Das Projekt zielt darauf ab, den Service "OER World Map" zu entwickeln. Seit dem Launch von Version 1.0 wird der Service "OER World Map" vom hbz bereit gestellt.
 
-Nevertheless we believe that this is not always necessary. Rather it is preferable, to decide from case to case, which "degree of resolution" makes most sense. Indicators are:
+Allerdings glauben wir nicht, dass alle drei Datentypen in jedem Falle notwendig sind. Entscheiden Sie von Fall zu Fall was sinnvoll ist. Indikatoren sind:
 
-We believe that services are the most important data types, because services provide direct value to users. So in most cases, it will be most important to record the service.
+Wir halten Services für den wichtigsten Datentyp, weil sie für die meisten Besucher direkt von Nutzen sind. In den meisten Fällen ist es folglich am wichtigsten, einen Service einzutragen.
 
-In most cases it will also make sense to capture the providing organization as well. This is especially true, if the organization is a major OER agent, which offers several services and/or runs multiple projects. As a rule, locations should be added to organizations. Once a service (or a project) is connected to an organization (via the "provider" field) the service is displayed on the map at the location of the providing organization.
+In den meisten Fällen wird es sinnvoll sein, die zugehörige Organisation ebenfalls einzutragen. Das ist besonders dann der Fall, wenn die Organisation eine der großen OER-Organisationen ist, die verschiedene Services anbieten bzw. mehrere Projekte durchführen. Eine wichtige Regel ist, die Adresse sollte bei der Organisation eingegeben werden. Once a service (or a project) is connected to an organization (via the "provider" field) the service is displayed on the map at the location of the providing organization.
 
-Including the project makes special sense if either the project does not aim at delivering a service or has not delivered the service yet. It can also make sense to add a project, if you want to provide additional information, which is related specifically to the project, like its start and end date, special lessons learned, its budget or its funder.
+Es ist dann besonders sinnvoll ein Projekt einzutragen, wenn das Projekt entweder nicht darauf abzielt, einen Service zur Verfügung zustellen, oder wenn es den Service noch nicht bereit stellt. Außerdem kann es sinnvoll sein, ein Projekt einzutragen, wenn projektspezifische Informationen dokumentiert werden sollen wie Projektstart und -ende, das Budget, der Förderer oder "Lessons learned".
 
-If you find it hard to decide on how to model a special constellation, as always, please do not hesitate to contact us at info [at] oerworldmap.org!
+Wenn Sie Schwierigkeiten haben, eine bestimmte Konstellation auf der OER World Map abzubilden, zögern Sie nicht, sich an uns zu wenden unter info [at] oerworldmap.org.
 
 ## Should this service be put on the map?
 
-Sometimes it is difficult to decide if a service should be put on the map. To support your decision ask yourself following questions: - Are the available resources explicitly designed for education? - How many resources are available? - Does the site offer an search function for it`s resources? Is it possible to search for education specific qualities, e.g. related curricula? - Are the materials openly licensed? - Does the service have a name and a dedicated URL, or is is just a general portal with some resources on it? - How up-to-date are the materials and the website? Does it look like the centre of a community, or does it look rather inactive? All this questions serve only as indicators. If in doubt, please contact us!
+Manchmal ist es schwierig zu entscheiden, ob ein Service auf der OER World Map eingetragen werden sollte oder nicht. Stellen Sie sich die folgenden Fragen, um sich die Entscheidung zu erleichtern: - Sind die zur Verfügung gestellten Ressourcen explizit für die Bildung entwickelt worden? - How many resources are available? - Does the site offer an search function for it`s resources? Is it possible to search for education specific qualities, e.g. related curricula? - Are the materials openly licensed? - Does the service have a name and a dedicated URL, or is is just a general portal with some resources on it? - How up-to-date are the materials and the website? Does it look like the centre of a community, or does it look rather inactive? All this questions serve only as indicators. If in doubt, please contact us!
 
 ## How to add locations?
 
