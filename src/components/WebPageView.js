@@ -605,6 +605,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             >
               <ItemList
                 listItems={about.agentIn.filter(action => action["@type"]  === "LikeAction")
+                  .filter(LikeAction => !!LikeAction.object)
                   .map(LikeAction => LikeAction.object)
                   .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
                 }
