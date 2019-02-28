@@ -25,7 +25,6 @@ import Overview from './components/Overview'
 import './styles/main.pcss'
 import './styles/static.pcss'
 import './styles/components/Header.pcss'
-import { async } from 'q';
 
 const user = JSON.parse(localStorage.getItem('user'))
 const locales = [LANG]
