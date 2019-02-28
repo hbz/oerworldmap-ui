@@ -13,6 +13,7 @@ import fetch from 'isomorphic-fetch'
 import mitt from 'mitt'
 import 'normalize.css'
 
+import { getURL } from './common'
 import Header from './components/Header'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
@@ -173,6 +174,21 @@ const createAccordeon = (() => {
 
 })()
 
+const createKibanaListener = (() => {
+  const init = () => {
+    window.addEventListener("message", (msg) => {
+
+      if (msg.data.filter && msg.data.key) {
+        window.location.href = getURL({
+          path: '/resource/',
+          params: {[`filter.${msg.data.filter}`] : msg.data.key}
+        })
+      }
+    })
+  }
+  return { init }
+})()
+
 
 const createPoliciesFeed = (() => {
 
@@ -225,6 +241,7 @@ $(() => {
   injectHeader.init()
   injectStats.init()
   toggleShow.init()
+  createKibanaListener.init()
   createAccordeon.init()
   createPoliciesFeed.init()
 
