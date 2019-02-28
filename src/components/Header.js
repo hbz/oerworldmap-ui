@@ -539,19 +539,11 @@ class Header extends React.Component {
                               <span>{translate('menu.me.profile')}</span>
                             </Link>
                           </li>
-                          {expose('groupAdmin', user) && (
-                            <li>
-                              <Link className="item" href="/user/groups">
-                                <i aria-hidden="true" className="fa fa-gear" />
-                                <span>{translate('menu.me.groups')}</span>
-                              </Link>
-                            </li>
-                          )}
                           <li>
-                            <Link className="item" href="/user/password">
+                            <a className="item" href="/auth/realms/oerworldmap/account/password">
                               <i aria-hidden="true" className="fa fa-lock" />
                               <span>{translate('menu.me.password')}</span>
-                            </Link>
+                            </a>
                           </li>
                           <li>
                             <a
