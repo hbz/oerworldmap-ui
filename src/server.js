@@ -108,7 +108,7 @@ server.get(/^(.*)$/, (req, res) => {
       i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
     })
   }
-  const phrases = i18ns[locales[0]]
+  const phrases = locales.slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
   const schema = req.schema
   const embed = req.query.embed
   const context = { supportedLanguages, locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
