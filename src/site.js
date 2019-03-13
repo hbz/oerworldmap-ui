@@ -177,12 +177,9 @@ const createAccordeon = (() => {
 const createKibanaListener = (() => {
   const init = () => {
 
-    const iframe = document.querySelector("iframe")
-    const link = document.createElement("a")
-    link.innerHTML = "Open in a new window"
-    iframe.parentNode.insertBefore(link, iframe.nextSibling)
+    const newWindowLink = document.querySelector('[data-inject-newWindowLink]')
 
-    link.addEventListener("click", (e) => {
+    newWindowLink.addEventListener("click", (e) => {
       e.preventDefault()
 
       const documentBody = `
@@ -279,9 +276,8 @@ const createPoliciesFeed = (() => {
       const content = await rawResponse.json()
 
       if (content) {
-        const iframe = document.querySelector('iframe')
-        const feedContainer = document.createElement('div')
-        iframe.parentElement.insertBefore(feedContainer, iframe)
+
+        const feedContainer = document.querySelector('[data-inject-feed]')
 
         ReactDOM.render(
           <I18nProvider i18n={
@@ -291,11 +287,7 @@ const createPoliciesFeed = (() => {
             )}
           >
             <EmittProvider emitter={emitter}>
-              <React.Fragment>
-                <h2>Lastest policies on the map</h2>
-                <ItemList listItems={content.member.map(member => member.about)} />
-                <h2>Policies Statistics</h2>
-              </React.Fragment>
+              <ItemList listItems={content.member.map(member => member.about)} />
             </EmittProvider>
           </I18nProvider>,
           feedContainer
@@ -308,14 +300,14 @@ const createPoliciesFeed = (() => {
 
 })()
 
-$(() => {
+$(()  => {
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
   toggleShow.init()
-  createKibanaListener.init()
   createAccordeon.init()
   createPoliciesFeed.init()
+  createKibanaListener.init()
 
   $('[data-slick]').slick()
 
