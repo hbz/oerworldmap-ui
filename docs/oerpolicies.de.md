@@ -16,4 +16,13 @@ Wir sammeln auch [verwandte Ressourcen](https://oerworldmap.org/resource/?filter
 
 Das Projekt wurde erst kürzlich begonnen und wird in den nächsten Wochen und Monaten weiter ausgearbeitet. Jeder ist eingeladen mitzuhelfen. Helfen Sie uns, indem Sie weitere Policys eintragen oder bereits vorhandenen bearbeiten (lesen Sie hier unsere kurze [Anleitung](https://github.com/hbz/oerworldmap/issues/1615)). Policys, die Sie für wichtig halten, können Sie [liken oder mit einem Leuchtturm markieren](https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/). Sagen Sie uns, welche neuen Funktionen Sie auf der OER-Policy-Ebene sehen möchten, indem Sie [unser Arbeitsdokument](https://docs.google.com/document/d/1qDb1jfGXWQQwjLTFX9myfqS7DbHYD3YzlgoGiHQgfhc/edit?usp=sharing) kommentieren oder Issues direkt auf [GitHub](https://github.com/hbz/oerworldmap/milestone/23) kommentieren oder hinzufügen.
 
+## Lastest policies on the map
+
+<div data-inject-feed>
+</div>
+
+## Policies Statistics
+
+<a data-inject-newwindowlink> Open in a new window </a>
+
 <iframe src="https://oerworldmap.org/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()" height="750" width="800" style="border:0; width: 100%; margin: 0 auto;"></iframe>
