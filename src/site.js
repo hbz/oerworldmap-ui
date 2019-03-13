@@ -176,6 +176,75 @@ const createAccordeon = (() => {
 
 const createKibanaListener = (() => {
   const init = () => {
+
+    const newWindowLink = document.querySelector('[data-inject-newWindowLink]')
+
+    newWindowLink.addEventListener("click", (e) => {
+      e.preventDefault()
+
+      const documentBody = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          <title>Document</title>
+        </head>
+        <body>
+          <iframe
+            src="https://oerworldmap.org/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
+            height="750"
+            width="800"
+            style="border:0; width: 100%; margin: 0 auto;"
+          >
+          </iframe>
+          <script>
+
+          const getURL = (route) => {
+            let url = route.path
+            let params = []
+            for (const param in route.params) {
+              const value = route.params[param]
+              if (Array.isArray(value)) {
+                value && (params = params.concat(value.map(value => param + '=' + encodeURIComponent(value))))
+              } else {
+                value && params.push(param + '=' + encodeURIComponent(value))
+              }
+            }
+            if (params) {
+              url += '?' + params.join('&')
+            }
+            if (route.hash) {
+              url += '#' + route.hash
+            }
+            return url
+          }
+
+          window.addEventListener("message", (msg) => {
+
+            if (msg.data.filter && msg.data.key) {
+
+              const info = {
+                filter: msg.data.filter,
+                key: msg.data.key,
+              }
+              console.log(msg)
+              window.opener.postMessage(info, "*")
+            }
+
+          })
+
+          </script>
+        </body>
+        </html>
+      `
+      const options = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes,width=800,height=750"
+      const newWindow = window.open("", 'OER Policies', options)
+      newWindow.document.write(documentBody)
+      newWindow.document.close()
+    })
+
     window.addEventListener("message", (msg) => {
 
       if (msg.data.filter && msg.data.key) {
@@ -207,9 +276,8 @@ const createPoliciesFeed = (() => {
       const content = await rawResponse.json()
 
       if (content) {
-        const iframe = document.querySelector('iframe')
-        const feedContainer = document.createElement('div')
-        iframe.parentElement.insertBefore(feedContainer, iframe)
+
+        const feedContainer = document.querySelector('[data-inject-feed]')
 
         ReactDOM.render(
           <I18nProvider i18n={
@@ -219,11 +287,7 @@ const createPoliciesFeed = (() => {
             )}
           >
             <EmittProvider emitter={emitter}>
-              <React.Fragment>
-                <h2>Lastest policies on the map</h2>
-                <ItemList listItems={content.member.map(member => member.about)} />
-                <h2>Policies Statistics</h2>
-              </React.Fragment>
+              <ItemList listItems={content.member.map(member => member.about)} />
             </EmittProvider>
           </I18nProvider>,
           feedContainer
@@ -236,14 +300,14 @@ const createPoliciesFeed = (() => {
 
 })()
 
-$(() => {
+$(()  => {
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
   toggleShow.init()
-  createKibanaListener.init()
   createAccordeon.init()
   createPoliciesFeed.init()
+  createKibanaListener.init()
 
   $('[data-slick]').slick()
 
