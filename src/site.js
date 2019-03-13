@@ -227,10 +227,13 @@ const createKibanaListener = (() => {
           window.addEventListener("message", (msg) => {
 
             if (msg.data.filter && msg.data.key) {
-              window.opener.location.href = getURL({
-                path: '/resource/',
-                params: {['filter.' + msg.data.filter] : msg.data.key}
-              })
+
+              const info = {
+                filter: msg.data.filter,
+                key: msg.data.key,
+              }
+              console.log(msg)
+              window.opener.postMessage(info, "*")
             }
 
           })
