@@ -175,7 +175,7 @@
   "WebPage.inLanguage": "Language",
   "WebPage.license": "License",
   "WebPage.location": "Location",
-  "WebPage.spatialCoverage": "Coverage",
+  "WebPage.spatialCoverage": "Level",
   "WebPage.status": "Status",
   "WebPage.primarySector": "Primary educational sector",
   "WebPage.secondarySector": "Secondary educational sector",
