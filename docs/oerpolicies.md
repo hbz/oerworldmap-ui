@@ -21,6 +21,10 @@ The project has started just recently and will be elaborated in the next weeks a
 
 <div data-inject-feed></div>
 
+## Latest policy related entries
+
+<div data-inject-policy-related></div>
+
 ## Policies Statistics
 
 <a data-inject-newWindowLink>
