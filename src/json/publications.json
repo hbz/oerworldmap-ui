@@ -4,24 +4,6 @@
   "@type": "ConceptScheme",
   "hasTopConcept": [
     {
-      "@id": "https://oerworldmap.org/assets/json/publications.json#policy",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Policy"
-        },
-        {
-          "@language": "pt",
-          "@value": "Policy"
-        },
-        {
-          "@language": "de",
-          "@value": "Policy"
-        }
-      ]
-    },
-    {
       "@id": "https://oerworldmap.org/assets/json/publications.json#oer",
       "@type": "Concept",
       "name": [
