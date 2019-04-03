@@ -38,7 +38,7 @@ const primaryFilters = [
     name: "sterms#about.@type",
     filter: "filter#about.@type",
     type: "button",
-    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage'],
+    order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy'],
     translate: true
   }
 ]
