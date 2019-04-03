@@ -141,6 +141,10 @@ class Api {
       return Promise.resolve({
         member: require('./json/activities.json').hasTopConcept.map(entry => {return {about: entry}})
       })
+    case 'https://oerworldmap.org/assets/json/policies.json':
+      return Promise.resolve({
+        member: require('./json/policies.json').hasTopConcept.map(entry => {return {about: entry}})
+      })
     default:
       return Promise.resolve({
         member: []
