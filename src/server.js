@@ -52,15 +52,14 @@ server.use((req, res, next) => {
 // Middleware to fetch user profile
 server.use((req, res, next) => {
   if (req.cookies.mod_auth_openidc_session) {
-    api.get('/user/profile', new Headers(req.headers))
-      .then(user => console.log(user) || (req.user = user) && next())
-      .catch(err => err.status === 401
-        ? res.redirect(`${apiConfig.scheme}://logout@${apiConfig.host}/.logout`)
-        : res.status(err.status).send(err.message)
-      )
-  } else {
-    next()
+    const headers = new Headers(req.headers)
+    headers.delete('Host')
+    headers.delete('If-None-Match')
+    api.get('/user/profile', headers)
+      .then(user => (req.user = user) && console.log(user))
+      .catch(err => console.error(err))
   }
+  next()
 })
 
 // Middleware to fetch labels
@@ -98,6 +97,8 @@ server.use((req, res, next) => {
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const headers = new Headers(req.headers)
+  headers.delete('Host')
+  headers.delete('If-None-Match')
   const user = req.user
   const locales = req.locales
   const supportedLanguages = req.supportedLanguages
