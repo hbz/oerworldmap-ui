@@ -248,9 +248,21 @@ const createKibanaListener = (() => {
     window.addEventListener("message", (msg) => {
 
       if (msg.data.filter && msg.data.key) {
+
+        const iframe = document.querySelector('iframe')
+        const { scope } = iframe && iframe.dataset
+
+        const params = {
+          [`filter.${msg.data.filter}`] : msg.data.key,
+        }
+
+        if (scope) {
+          params[scope.split('=')[0]] = scope.split('=')[1]
+        }
+
         window.location.href = getURL({
           path: '/resource/',
-          params: {[`filter.${msg.data.filter}`] : msg.data.key}
+          params
         })
       }
     })
