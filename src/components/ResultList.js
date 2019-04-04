@@ -29,14 +29,16 @@ const ResultList = ({ translate, emitter, listItems }) => {
                 listItem.location.address.streetAddress
               }
               &nbsp;
-              {listItem.location.address.addressLocality}
+              {listItem.location.address.addressLocality &&
+                [listItem.location.address.addressLocality, ","]
+              }
               &nbsp;
               {listItem.location.address.addressCountry && (
                 <Link href={`/country/${listItem.location.address.addressCountry}`}>
                   <span>
-                    (
+
                     {translate(listItem.location.address.addressCountry)}
-                    )
+
                   </span>
                 </Link>
               )}
