@@ -33,7 +33,7 @@ The project has started just recently and will be elaborated in the next weeks a
 
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
-  data-scope="filter.about.additionalType.@id=https://oerworldmap.org/assets/json/publications.json#policy"
+  data-scope="filter.about.@type=Policy"
   height="750"
   width="800"
   style="border:0; width: 100%; margin: 0 auto;"

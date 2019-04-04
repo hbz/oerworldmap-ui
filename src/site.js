@@ -198,7 +198,7 @@ const createKibanaListener = (() => {
             height="750"
             width="800"
             style="border:0; width: 100%; margin: 0 auto;"
-            data-scope="filter.about.additionalType.@id=https://oerworldmap.org/assets/json/publications.json#policy"
+            data-scope="filter.about.@type=Policy"
           >
           </iframe>
           <script>
@@ -255,7 +255,7 @@ const createKibanaListener = (() => {
       if (msg.data.filter && msg.data.key) {
 
         const iframe = document.querySelector('iframe')
-        const { scope } = msg.data || (iframe && iframe.dataset)
+        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
 
         const params = {
           [`filter.${msg.data.filter}`] : msg.data.key,

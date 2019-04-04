@@ -145,7 +145,7 @@ require('formdata-polyfill');
       if (msg.data.filter && msg.data.key) {
 
         const iframe = document.querySelector('iframe')
-        const { scope } = msg.data || (iframe && iframe.dataset)
+        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
 
         const params = {
           [`filter.${msg.data.filter}`] : msg.data.key,
