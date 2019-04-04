@@ -21,7 +21,7 @@ const ResultList = ({ translate, emitter, listItems }) => {
             emitter.emit('hoverPoint', { id: '' })
           }}
         >
-          {listItem.location &&(
+          {listItem.location && listItem.location.address && (
             <div>
               <i aria-hidden="true" className="fa fa-map-marker" />
               &nbsp;
