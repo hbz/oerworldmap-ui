@@ -32,7 +32,7 @@ The project has started just recently and will be elaborated in the next weeks a
 </a>
 
 <iframe
-  src="https://oerworldmap.org/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
+  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
   data-scope="filter.about.additionalType.@id=https://oerworldmap.org/assets/json/publications.json#policy"
   height="750"
   width="800"
