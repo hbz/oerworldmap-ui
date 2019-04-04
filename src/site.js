@@ -284,7 +284,7 @@ const createPoliciesFeed = (() => {
 
       // Request data for policies
       // ADD carry a tag called policy
-      const rawResponse = await fetch(`${baseURL}resource.json?q=about.additionalType.@id:"https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy"%20&sort=dateCreated:DESC`, {
+      const rawResponse = await fetch(`${baseURL}resource.json?q=about.@type:Policy&sort=dateCreated:DESC`, {
         headers: {
           'accept': 'application/json'
         }
@@ -323,7 +323,7 @@ const createPolicyRelated = (() => {
 
     if (window.location.pathname.includes("oerpolicies")) {
 
-      const rawResponse = await fetch(`${baseURL}/resource.json?/?q=%20NOT%20about.@type:Policy%20AND%20about.keywords:policy&sort=dateCreated:DESC`, {
+      const rawResponse = await fetch(`${baseURL}resource.json?q=NOT%20about.@type:Policy%20AND%20about.keywords:policy&sort=dateCreated:DESC`, {
         headers: {
           'accept': 'application/json'
         }
