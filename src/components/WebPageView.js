@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Markdown from 'markdown-to-jsx'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import urlTemplate from 'url-template'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -364,6 +365,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 )}
               </ul>
             </div>
+          )}
+
+          {about.additionalType && (
+            <Block title={translate(`${about['@type']}.additionalType`)}>
+              {about.additionalType.map(type => (
+                <React.Fragment key={type['@id']}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
+                    {translate(type.name)}
+                  </Link>
+                  <br />
+                </React.Fragment>
+              ))}
+            </Block>
           )}
 
           {about.award && (

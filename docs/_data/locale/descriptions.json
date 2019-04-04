@@ -146,5 +146,6 @@
   "WebPage.publisher": "By whom the publication was published",
   "WebPage.award": "An award this Publication won",
   "WebPage.additionalType": "The type of the publication",
+  "Policy": "A policy related to OER",
   "LighthouseAction.description": "Tell us what makes this entry a lighthouse. Please set lighthouses only in case you are not affiliated with the entry in any way!"
 }

@@ -257,6 +257,11 @@ class Header extends React.Component {
                         conceptScheme={require('../json/publications.json').hasTopConcept}
                         linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
                       />
+                      <ConceptBlock
+                        type="Policy"
+                        conceptScheme={require('../json/policies.json').hasTopConcept}
+                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                      />
                     </div>
                     <div className="col">
                       <ConceptBlock
@@ -374,6 +379,15 @@ class Header extends React.Component {
                             {translate('Product')}
                           </h3>
                           <p className="text-small">{translate('descriptions.Product')}</p>
+                        </Link>
+                      </div>
+                      <div className="col one-fourth">
+                        <Link href="/resource/?add=Policy" className="addBox">
+                          <h3 className="iconItem">
+                            <Icon type="Policy" />
+                            {translate('Policy')}
+                          </h3>
+                          <p className="text-small">{translate('descriptions.Policy')}</p>
                         </Link>
                       </div>
                     </div>
@@ -627,7 +641,7 @@ class Header extends React.Component {
                   <ul>
                     {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
                       <li key={lang}>
-                        <a href={addParamToURL(Link.self || (window.location && window.location.href), "language", lang)}>{translate(lang)}</a>
+                        <a href={addParamToURL(Link.self || (typeof window !== 'undefined' && window.location && window.location.href) || '/resource/', "language", lang)}>{translate(lang)}</a>
                       </li>
                     ))}
                   </ul>
