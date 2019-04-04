@@ -7,7 +7,7 @@ import Link from './Link'
 import '../styles/components/Pagination.pcss'
 
 const scrollUp = () => {
-  const list = document.querySelector(".ItemList")
+  const list = document.querySelector(".ItemList") || document.querySelector(".ResultList")
   if (list) {
     list.scroll(0, 0)
   }
