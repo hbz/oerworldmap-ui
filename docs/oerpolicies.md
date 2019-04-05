@@ -5,6 +5,8 @@ class: oerPolicies
 
 ## Hier kann getestet werden.
 
+<div class="primaryButtons"><button class="btn prominent" type="submit">Veröffentlichen</button><a class="btn" href="/resource/?features=true">Cancel</a></div>
+
 ## Welcome to the new OER Policy Layer of the OER World Map!
 We are currently working on moving [Creative Commons](https://creativecommons.org/) OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides.
 
