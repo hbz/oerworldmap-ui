@@ -5,7 +5,9 @@ class: oerPolicies
 
 ## OER Policy Registry - hosted by OER World Map
 
-<img style="width:100%;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
+<div style="width:100%;background-color:#00558E;text-align:center;">
+<img style="width:auto;margin:0 auto;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
+</div>
 
 Status: We are currently working on moving [Creative Commons](https://creativecommons.org/) OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides.
 Gratitude to [Creative Commons](https://creativecommons.org/) for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
