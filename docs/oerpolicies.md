@@ -35,7 +35,7 @@ class: oerPolicies
 ## FAQ
 ### Add a policy
 
-Any registered OER world map user can add a policy to the OER policy registry: <a href="/resource/?add=Policy" target="_blank">Add a policy</a>. If you're not registered yet, you can <a href="https://oerworldmap.org/user/register" target="_blank">join here</a>. See the Policy Registry Manual for a detailed description of all fields: <b><a href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a></b>
+Any registered OER world map user can add a policy to the OER policy registry: <a href="/resource/?add=Policy" target="_blank">Add a policy</a>. If you're not registered yet, you can <a href="https://oerworldmap.org/user/register" target="_blank">join here</a>. See the Policy Registry Manual for a detailed description of all fields: <a href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a>
 
 <a href="/resource/?add=Policy" class="btn" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a> <a href="https://kurzelinks.de/yuge" target="_blank" class="btn"><i class="fa fa-book" aria-hidden="true"></i> Editors guide (beta)</a>
 
