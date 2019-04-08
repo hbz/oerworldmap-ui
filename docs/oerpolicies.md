@@ -12,10 +12,8 @@ class: oerPolicies
 
 
 ## Explore the OER Policy Registry
-
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20">All Policies</a> | <a class="btn" href="/resource/?add=Policy">Add</a> <a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide</a>
-
-<div style="font-size:12px;"The statistics are interactive, you can click on it to get to the list of filtered policies!</div>
+<div style="font-size:12px;">The statistics are interactive, you can click on it to get to the list of filtered policies!</div>
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
   data-scope="filter.about.@type=Policy"
