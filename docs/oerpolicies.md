@@ -8,7 +8,7 @@ class: oerPolicies
 </div>
 <div style="width:100%;text-align:center;margin-top:4px;"><a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="#add" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
 
-<div style="text-align:center;font-size:12px;margin-bottom:6px;margin-top:4px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
+<div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
 ## Statistic explorer
 <div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
