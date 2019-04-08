@@ -259,7 +259,7 @@ class Header extends React.Component {
                       />
                       <ConceptBlock
                         type="Policy"
-                        conceptScheme={require('../json/policies.json').hasTopConcept}
+                        conceptScheme={require('../json/policyTypes.json').hasTopConcept}
                         linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
                       />
                     </div>

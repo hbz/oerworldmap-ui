@@ -1,0 +1,97 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/policyTypes.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/policyTypes.json#legislation",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Legislation"
+        },
+        {
+          "@language": "pt",
+          "@value": "Legislation"
+        },
+        {
+          "@language": "de",
+          "@value": "Legislation"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policyTypes.json#policyDocument",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Policy document"
+        },
+        {
+          "@language": "pt",
+          "@value": "Policy document"
+        },
+        {
+          "@language": "de",
+          "@value": "Policy document"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policyTypes.json#strategyDocument",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Strategy document"
+        },
+        {
+          "@language": "pt",
+          "@value": "Strategy document"
+        },
+        {
+          "@language": "de",
+          "@value": "Strategy document"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policyTypes.json#callForTender",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Call for tender"
+        },
+        {
+          "@language": "pt",
+          "@value": "Call for tender"
+        },
+        {
+          "@language": "de",
+          "@value": "Call for tender"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policyTypes.json#other",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Other"
+        },
+        {
+          "@language": "pt",
+          "@value": "Other"
+        },
+        {
+          "@language": "de",
+          "@value": "Other"
+        }
+      ]
+    }
+  ]
+}
