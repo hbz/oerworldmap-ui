@@ -6,7 +6,7 @@ class: oerPolicies
 <img style="width:auto;margin:0 auto;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
 <div style="font-size:12px;background: #f5f5f5;border:1px solid #999;padding:10px;margin-top:20px;">Status: Beta. We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map!</div>
-<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank">All Policies</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="/resource/?add=Policy" target="_blank">Add</a> <a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide</a>
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank">All Policies</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="/resource/?add=Policy" target="_blank">Add</a> <a class="btn" href="#editors-guide">Editors guide</a> <a class="btn" href="#faq">FAQ</a>
 <div style="font-size:12px;">The statistics are interactive, you can click on it to get to the list of filtered policies!</div>
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
@@ -35,6 +35,14 @@ class: oerPolicies
 Open education policies are formal regulations regarding support, funding, adoption, and use of open educational resources (OER) and/or open education practices (OEP). Such policies are designed to support the creation, adoption, and sharing of OER and the design and integration of OEP into programs of study.” (7 Things You Should Know About... Open Education: Policy)
 
 ## Explore the OER Policy Registry
+
+## Editors guide
+
+See the Policy Registry Manual for a detailed description:
+
+<a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a>
+
+https://kurzelinks.de/yuge
 
 ## Information about the policy registry
 
