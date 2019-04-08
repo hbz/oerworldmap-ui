@@ -30,7 +30,7 @@ class: oerPolicies
 
 ## Latest policy related entries
 <div data-inject-policy-related></div>
-<a class="btn" href="" target="_blank">All related entries (list)</a>
+<div style="display:none;"><a class="btn" href="" target="_blank">All related entries (list)</a></div>
 
 ## FAQ
 ### Add a policy
