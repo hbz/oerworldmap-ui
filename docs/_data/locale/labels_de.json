@@ -180,6 +180,7 @@
   "WebPage.citation": "Weitere Autoren",
   "WebPage.isBasedOn": "Basiert auf",
   "WebPage.isBasisFor": "Basis für",
+  "WebPage.mentions": "Entries mentioned",
   "Policy.name": "Title",
   "Policy.url": "URL",
   "Policy.description": "Description",
@@ -187,6 +188,7 @@
   "Policy.publisher": "Published by",
   "Policy.award": "Awards",
   "Policy.additionalType": "Policy type",
+  "Policy.scope": "Scope",
   "Policy.creator": "Authored by",
   "Policy.datePublished": "Date published",
   "Policy.inLanguage": "Language",
@@ -235,5 +237,5 @@
   "Tip.WebPage": "Die besten im Internet verfügbaren Informationen über OER finden",
   "Tip.Article": "Von den Erfahrungen anderer Personen mit OER lernen",
   "Tip.showList": "Liste anzeigen",
-  "Tip.Policy": "Find OER related policies"
+  "Tip.Policy": "OER related policies (OER Policy Registry)"
 }
