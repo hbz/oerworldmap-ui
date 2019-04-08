@@ -17,12 +17,20 @@ import { triggerClick, clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
+  const current = e.target.htmlFor
   e.preventDefault()
   const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
-  const parameters = [...formData.entries()]
+  let parameters = [...formData.entries()]
     .filter(p => !!p[1])
+
+  if (current) {
+    parameters = parameters.filter(p => !p.includes(current.split(':')[1]))
+  }
+
+  parameters = parameters
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
+
   emitter.emit('navigate', '?' + parameters)
 }
 
