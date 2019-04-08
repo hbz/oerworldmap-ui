@@ -2,7 +2,7 @@
 title: OER Policy registry
 class: oerPolicies
 ---
-<div style="text-align:center;font-size:12px;margin-bottom:4px;">Status: Beta. <i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
+<div style="text-align:center;font-size:12px;margin-bottom:6px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
 <div style="width:100%;text-align:center;">
 <img style="width:auto;margin:0 auto;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
