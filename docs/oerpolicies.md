@@ -9,12 +9,11 @@ Status: We are currently working on moving [Creative Commons](https://creativeco
 Gratitude to [Creative Commons](https://creativecommons.org/) for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
 
 More information on the state of the project can be found [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map).
-
-[Click here to see all policies available](https://oerworldmap.org/resource/?filter.about.%40type=Policy&size=20) on the map so far.
-
 ## Policies Statistics
 
 The statistics are interactive, you can click on it!
+
+[Click here to see all policies available](https://oerworldmap.org/resource/?filter.about.%40type=Policy&size=20) on the map so far.
 
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
