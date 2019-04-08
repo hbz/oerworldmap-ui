@@ -243,7 +243,7 @@ class Filters extends React.Component {
               </button>
 
               <input
-                type="search"
+                type="text"
                 name="q"
                 defaultValue={query}
                 key={query}
