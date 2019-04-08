@@ -25,7 +25,8 @@ class: oerPolicies
 ## Latest policies added
 
 <div data-inject-feed></div>
-<a class="btn" href="/resource/?add=Policy" target="_blank">Add</a>
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
+
 
 ## Latest policy related entries
 
