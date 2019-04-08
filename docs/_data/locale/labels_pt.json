@@ -180,6 +180,7 @@
   "WebPage.citation": "Autores adicionais",
   "WebPage.isBasedOn": "Based on",
   "WebPage.isBasisFor": "Basis for",
+  "WebPage.mentions": "Entries mentioned",
   "Policy.name": "Title",
   "Policy.url": "URL",
   "Policy.description": "Description",
@@ -187,6 +188,7 @@
   "Policy.publisher": "Published by",
   "Policy.award": "Awards",
   "Policy.additionalType": "Policy type",
+  "Policy.scope": "Scope",
   "Policy.creator": "Authored by",
   "Policy.datePublished": "Date published",
   "Policy.inLanguage": "Language",
@@ -235,5 +237,5 @@
   "Tip.WebPage": "Encontrar a melhor informação sobre REA disponível na web",
   "Tip.Article": "Aprenda através da experiência dos outros com REA",
   "Tip.showList": "Exibir Lista",
-  "Tip.Policy": "Find OER related policies"
+  "Tip.Policy": "OER related policies (OER Policy Registry)"
 }
