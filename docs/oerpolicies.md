@@ -7,14 +7,15 @@ class: oerPolicies
 <img style="width:auto;margin:0 auto;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
 
-<div style="font-size:12px;background:grey;border:1px solid #999;padding:3px;">Status: Beta. We moved the [Creative Commons](https://creativecommons.org/) OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Gratitude to [Creative Commons](https://creativecommons.org/) for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy maker and open education activists and initiatives.</div>
+<div style="font-size:12px;background: #f5f5f5;border:1px solid #999;padding:10px;margin-top:20px;">Status: Beta. We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map.</div>
 
-*Update April 2019: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!*
+The OER policy registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy makers, open education activists and initiatives. **Update April 2019: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!**
+
 ## Policies Statistics
-The statistics are interactive, you can click on it!
 
-[Click here to see all policies available](https://oerworldmap.org/resource/?filter.about.%40type=Policy&size=20) on the map so far.
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20">All Policies</a> | <a class="btn" href="/resource/?add=Policy">Add</a> <a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide</a>
 
+<div style="font-size:12px;"The statistics are interactive, you can click on it to get to the list of filtered policies!</div>
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
   data-scope="filter.about.@type=Policy"
@@ -22,7 +23,6 @@ The statistics are interactive, you can click on it!
   width="800"
   style="border:0; width: 100%; margin: 0 auto;"
 ></iframe>
-
 <a data-inject-newWindowLink>
   Open in a new window
 </a>
@@ -35,7 +35,13 @@ The statistics are interactive, you can click on it!
 
 <div data-inject-policy-related></div>
 
+## Example usage
+
+
+
 ## Information about the policy registry
+
+[Click here to see all policies available](https://oerworldmap.org/resource/?filter.about.%40type=Policy&size=20) on the map so far.
 
 We are also collecting [additional ressources on policy making](https://oerworldmap.org/resource/?filter.about.keywords=policy&size=20).
 
@@ -48,3 +54,9 @@ More information on the state of the project can be found [on our blog](https://
 <div class="primaryButtons"><button class="btn prominent" type="submit">All Policies</button></div>
 
 <a class="btn" href="/resource/?features=true">Cancel</a>
+
+## Mentioned by:
+
+Screenshots
+
+Screencast - iframe!
