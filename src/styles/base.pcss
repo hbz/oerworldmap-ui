@@ -287,6 +287,29 @@ pre {
   }
 }
 
+a.item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  & > i,
+  & > .i {
+    line-height: inherit;
+    display: block;
+    width: 2.5em;
+
+    & img {
+      position: relative;
+      top: 0.15em;
+    }
+  }
+
+  & > span {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 .iconItem {
   & i,
   & .i {
