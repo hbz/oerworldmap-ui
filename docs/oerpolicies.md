@@ -1,4 +1,3 @@
-
 ---
 title: OER Policy registry
 class: oerPolicies
