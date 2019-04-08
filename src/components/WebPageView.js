@@ -326,9 +326,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
           <hr style={{marginBottom: '0px'}} />
 
-          {(lighthouses.length > 0 || likes.length > 0 ) && (
+          {(lighthouses.length > 0 || likes.length > 0 || about["@type"] === "Policy" ) && (
             <div className="Block" style={{marginTop: '0px'}}>
               <ul className="ItemList prominent">
+                {about["@type"] === "Policy" && (
+                  <li>
+                    <a className="item" href="/oerpolicies">
+                      <i aria-hidden="true" className="fa fa-balance-scale bg-highlight-color bg-important" />
+                      <span>
+                        {translate('This policy is part of the OER policy registry')}
+                      </span>
+                    </a>
+                  </li>
+                )}
                 {lighthouses.length > 0 && (
                   <li>
                     <div className="item lighthouses">
