@@ -6,9 +6,9 @@ class: oerPolicies
 <img style="width:auto;margin:0 auto;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
 <div style="font-size:12px;background: #f5f5f5;border:1px solid #999;padding:10px;margin-top:20px;">Status: Beta. We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map!</div>
-<a class="btn" href="#explore-the-registry-with-Policy-registry-statistics">Explore statistics</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="/resource/?add=Policy" target="_blank">Add</a> <a class="btn" href="#editors-guide">Editors guide</a> |<a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a>
-## Explore the registry with Policy Registry statistics
-<div style="font-size:14px; text-align:center;"><i class="fa fa-info-circle" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of filtered policies!</div>
+<a class="btn" href="#statistic-explorer">Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="#add" target="_blank">Add</a> |<a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
+## Statistic explorer
+<div style="font-size:18px; text-align:center;padding-bottom:10px;"<i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of filtered policies!</div>
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
   data-scope="filter.about.@type=Policy"
@@ -30,6 +30,17 @@ class: oerPolicies
 ## Latest policy related entries
 
 <div data-inject-policy-related></div>
+
+## FAQ
+### Add a policy
+
+Anyone registered OER world map user can add a policy to the OER policy registry:
+
+<a class="btn" href="/resource/?add=Policy" target="_blank">Editors guide (beta)</a>
+
+See the Policy Registry Manual for a detailed description:
+
+<a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a>
 
 
 ## Example usage
