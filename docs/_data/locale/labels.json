@@ -180,6 +180,7 @@
   "WebPage.citation": "Additional authors",
   "WebPage.isBasedOn": "Based on",
   "WebPage.isBasisFor": "Basis for",
+  "WebPage.mentions": "Entries mentioned",
   "Policy.name": "Title",
   "Policy.url": "URL",
   "Policy.description": "Description",
@@ -187,10 +188,11 @@
   "Policy.publisher": "Published by",
   "Policy.award": "Awards",
   "Policy.additionalType": "Policy type",
+  "Policy.scope": "Scope",
   "Policy.creator": "Authored by",
   "Policy.datePublished": "Date published",
   "Policy.inLanguage": "Language",
-  "Policy.license": "License",
+  "Policy.license": "License of policy document",
   "Policy.location": "Location",
   "Policy.spatialCoverage": "Level",
   "Policy.status": "Status",
@@ -235,5 +237,5 @@
   "Tip.WebPage": "Find the best information on OER available on the web",
   "Tip.Article": "Learn from other peoples OER experiences",
   "Tip.showList": "Show List",
-  "Tip.Policy": "Find OER related policies"
+  "Tip.Policy": "OER related policies (OER Policy Registry)"
 }

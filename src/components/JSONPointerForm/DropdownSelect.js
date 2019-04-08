@@ -44,7 +44,7 @@ class DropdownSelect extends React.Component {
   render() {
     const {
       name, property, value, options, setValue, errors, title, translate, className, formId,
-      required
+      required, description
     } = this.props
 
     const { dropdown, filter } = this.state
@@ -60,6 +60,13 @@ class DropdownSelect extends React.Component {
           &nbsp;
           {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
         </div>
+        <span className="fieldDescription">
+          {(description
+          && translate(description)
+          !== description)
+            ? translate(description)
+            : ''}
+        </span>
         {value ? (
           <div
             className="selectedContainer"
@@ -161,6 +168,7 @@ DropdownSelect.propTypes = {
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
+  description: PropTypes.string
 }
 
 DropdownSelect.defaultProps = {
@@ -170,6 +178,7 @@ DropdownSelect.defaultProps = {
   title: '',
   className: '',
   required: false,
+  description: undefined
 }
 
 export default withFormData(DropdownSelect)

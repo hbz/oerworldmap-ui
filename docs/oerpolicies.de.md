@@ -21,8 +21,17 @@ Das Projekt wurde erst kürzlich begonnen und wird in den nächsten Wochen und M
 <div data-inject-feed>
 </div>
 
+## Latest policy related entries
+
+<div data-inject-policy-related>
+</div>
+
 ## Policies Statistics
 
-<a data-inject-newwindowlink> Open in a new window </a>
-
-<iframe src="https://oerworldmap.org/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()" height="750" width="800" style="border:0; width: 100%; margin: 0 auto;"></iframe>
+<a data-inject-newwindowlink> Open in a new window </a> <iframe
+  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
+  data-scope="filter.about.@type=Policy"
+  height="750"
+  width="800"
+  style="border:0; width: 100%; margin: 0 auto;"
+></iframe>
