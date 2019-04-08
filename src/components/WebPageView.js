@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Markdown from 'markdown-to-jsx'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import urlTemplate from 'url-template'
 
 import withI18n from './withI18n'
 import Block from './Block'
@@ -325,9 +326,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
 
           <hr style={{marginBottom: '0px'}} />
 
-          {(lighthouses.length > 0 || likes.length > 0 ) && (
+          {(lighthouses.length > 0 || likes.length > 0 || about["@type"] === "Policy" ) && (
             <div className="Block" style={{marginTop: '0px'}}>
               <ul className="ItemList prominent">
+                {about["@type"] === "Policy" && (
+                  <li>
+                    <a className="item" href="/oerpolicies">
+                      <i aria-hidden="true" className="fa fa-balance-scale bg-highlight-color bg-important" />
+                      <span>
+                        {translate('This policy is part of the OER policy registry')}
+                      </span>
+                    </a>
+                  </li>
+                )}
                 {lighthouses.length > 0 && (
                   <li>
                     <div className="item lighthouses">
@@ -364,6 +375,32 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 )}
               </ul>
             </div>
+          )}
+
+          {about.additionalType && (
+            <Block title={translate(`${about['@type']}.additionalType`)}>
+              {about.additionalType.map(type => (
+                <React.Fragment key={type['@id']}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
+                    {translate(type.name)}
+                  </Link>
+                  <br />
+                </React.Fragment>
+              ))}
+            </Block>
+          )}
+
+          {about.scope && (
+            <Block title={translate(`${about['@type']}.scope`)}>
+              {about.scope.map(scope => (
+                <React.Fragment key={scope['@id']}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.scope.@id={@id}').expand(scope)}>
+                    {translate(scope.name)}
+                  </Link>
+                  <br />
+                </React.Fragment>
+              ))}
+            </Block>
           )}
 
           {about.award && (
@@ -605,6 +642,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             >
               <ItemList
                 listItems={about.agentIn.filter(action => action["@type"]  === "LikeAction")
+                  .filter(LikeAction => !!LikeAction.object)
                   .map(LikeAction => LikeAction.object)
                   .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
                 }
@@ -708,7 +746,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
           {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
             'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
-            'isRelatedTo'].map(prop => (
+            'isRelatedTo', 'isBasedOn', 'isBasisFor'].map(prop => (
             about[prop] &&  (
               <Block
                 key={prop}

@@ -16,4 +16,22 @@ We are also collecting [additional ressources on policy making](https://oerworld
 
 The project has started just recently and will be elaborated in the next weeks and months. Everybody is invited to contribute. You can do so by adding and editing policies ([read our short manual here](https://github.com/hbz/oerworldmap/issues/1615)), [setting lighthouses and likes](https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/) to policies you consider important or by telling us which cool new features you would like to see on the new policy layer by commenting either our [working document](https://docs.google.com/document/d/1qDb1jfGXWQQwjLTFX9myfqS7DbHYD3YzlgoGiHQgfhc/edit?usp=sharing), or by commenting/adding [issues directly on github](https://github.com/hbz/oerworldmap/milestone/23).
 
-<iframe src="https://oerworldmap.org/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()" height="750" width="800" style="border:0; width: 100%; margin: 0 auto;"></iframe>
+## Últimas políticas disponíveis no mapa
+
+<div data-inject-feed>
+</div>
+
+## Latest policy related entries
+
+<div data-inject-policy-related>
+</div>
+
+## Policies Statistics
+
+<a data-inject-newwindowlink> Abrir em uma nova janela </a> <iframe
+  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
+  data-scope="filter.about.@type=Policy"
+  height="750"
+  width="800"
+  style="border:0; width: 100%; margin: 0 auto;"
+></iframe>

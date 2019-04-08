@@ -1,0 +1,97 @@
+{
+  "@context": "https://oerworldmap.org/assets/json/context.json",
+  "@id": "https://oerworldmap.org/assets/json/policies.json",
+  "@type": "ConceptScheme",
+  "hasTopConcept": [
+    {
+      "@id": "https://oerworldmap.org/assets/json/policies.json#dedicated",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Dedicated OE/OER policy"
+        },
+        {
+          "@language": "pt",
+          "@value": "Dedicated OE/OER policy"
+        },
+        {
+          "@language": "de",
+          "@value": "Dedicated OE/OER policy"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policies.json#ict",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "ICT policy with OE/OER component"
+        },
+        {
+          "@language": "pt",
+          "@value": "ICT policy with OE/OER component"
+        },
+        {
+          "@language": "de",
+          "@value": "ICT policy with OE/OER component"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policies.json#educational",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Educational policy with OE/OER component"
+        },
+        {
+          "@language": "pt",
+          "@value": "Educational policy with OE/OER component"
+        },
+        {
+          "@language": "de",
+          "@value": "Educational policy with OE/OER component"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policies.json#openness",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Openness policy with educational component"
+        },
+        {
+          "@language": "pt",
+          "@value": "Openness policy with educational component"
+        },
+        {
+          "@language": "de",
+          "@value": "Openness policy with educational component"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/policies.json#labourmarket",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Labour market policy with OE/OER component"
+        },
+        {
+          "@language": "pt",
+          "@value": "Labour market policy with OE/OER component"
+        },
+        {
+          "@language": "de",
+          "@value": "Labour market policy with OE/OER component"
+        }
+      ]
+    }
+  ]
+}

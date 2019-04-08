@@ -12,7 +12,8 @@ const icons = {
   ConceptScheme: 'sitemap',
   Event: 'calendar',
   WebPage: 'file',
-  Product: 'wrench'
+  Product: 'wrench',
+  Policy: 'balance-scale'
 }
 
 const Icon = ({ type }) => (

@@ -5,7 +5,7 @@ import Map from './Map'
 import Filters from './Filters'
 import Columns from './Columns'
 import Column from './Column'
-import ItemList from './ItemList'
+import ResultList from './ResultList'
 import Pagination from './Pagination'
 import Calendar from './Calendar'
 
@@ -38,9 +38,6 @@ const ResourceIndex = ({
   embedValue,
   phrases
 }) => {
-  const countProp = ('about.objectIn.@type' in filters)
-    ? filters['about.objectIn.@type'][0]
-    : undefined
 
   const home = _self.endsWith('/resource/?features=true')
 
@@ -68,14 +65,10 @@ const ResourceIndex = ({
             </div>
           ) : (
             <div className="wrapper-ItemList-Pagination">
-              <ItemList
-                searchTerm={query}
+              <ResultList
                 listItems={member.map(member => member.about)}
-                count={countProp
-                  ? entry => entry.objectIn.filter(objectIn => objectIn['@type'] === countProp).length
-                  : undefined
-                }
               />
+
               <Pagination
                 totalItems={totalItems}
                 currentPage={currentPage}

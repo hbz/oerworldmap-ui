@@ -1,0 +1,27 @@
+@import '../variables.pcss';
+
+.ResultList {
+  margin: 0;
+  padding: 10px 0;
+  list-style: none;
+  overflow: auto;
+  flex: 1;
+  margin-bottom: 42px;
+
+  & li {
+    margin: 20px 0;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--grey-light);
+    padding-bottom: 15px;
+
+    & .resultListTitle {
+      color: tan;
+      margin: 15px 0;
+      font-size: var(--font-size-large);
+    }
+  }
+
+  & li:last-child {
+    border-bottom: none;
+  }
+}

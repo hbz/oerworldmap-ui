@@ -9,7 +9,7 @@ import 'normalize.css'
 import mitt from 'mitt'
 
 import router from './router'
-import { getParams } from './common'
+import { getParams, getURL } from './common'
 import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
@@ -122,6 +122,27 @@ require('formdata-polyfill');
         }
       })
     }, 60000)
+
+    window.addEventListener("message",  (msg) => {
+      if (msg.data.filter && msg.data.key) {
+
+        const iframe = document.querySelector('iframe')
+        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
+
+        const params = {
+          [`filter.${msg.data.filter}`] : msg.data.key,
+        }
+
+        if (scope) {
+          params[scope.split('=')[0]] = scope.split('=')[1]
+        }
+
+        emitter.emit('navigate', getURL({
+          path: '/resource/',
+          params
+        }))
+      }
+    })
 
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)

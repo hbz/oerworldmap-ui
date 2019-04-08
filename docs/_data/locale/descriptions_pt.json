@@ -146,5 +146,6 @@
   "WebPage.publisher": "Por quem a publicação foi publicada",
   "WebPage.award": "Um prêmio que essa publicação recebeu",
   "WebPage.additionalType": "O tipo de publicação",
+  "Policy": "A policy related to OER",
   "LighthouseAction.description": "Por favor nos diga porque essa submissão é um farol"
 }

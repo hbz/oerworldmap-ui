@@ -556,7 +556,7 @@ class Map extends React.Component {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
       if (e.features[0].properties.iso_a2 !== '-99') {
-        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
       }
     }
   }
