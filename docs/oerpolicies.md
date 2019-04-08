@@ -8,7 +8,7 @@ class: oerPolicies
 <div style="font-size:12px;background: #f5f5f5;border:1px solid #999;padding:10px;margin-top:20px;">Status: Beta. We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map!</div>
 <a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="#add" target="_blank">Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
 ## Statistic explorer
-<div style="font-size:18px; text-align:center;padding-bottom:10px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
+<div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
 <iframe
   src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
   data-scope="filter.about.@type=Policy"
