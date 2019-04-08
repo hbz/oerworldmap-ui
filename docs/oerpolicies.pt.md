@@ -2,9 +2,9 @@
 title: OER Policy registry
 class: oerPolicies
 ---
-## OER Policy Registry - hosted by OER World Map
+## Registro de Políticas REA - hospedado pelo Mapa Global REA
 
-Status: We are currently working on moving [Creative Commons](https://creativecommons.org/) OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Gratitude to [Creative Commons](https://creativecommons.org/) for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
+Status: Estamos trabalhando em mover o Registro de Políticas REA do [Creative Commons](https://creativecommons.org/) para o Mapa Global REA. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Gratidão ao [Creative Commons](https://creativecommons.org/) por criar, manter e contribuir seu Registro de Políticas REA para o Mapa Global REA. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
 
 More information on the state of the project can be found [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map). *Update: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!*
 
