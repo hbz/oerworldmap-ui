@@ -48,12 +48,11 @@ The OER Policy Registry allows anybody to easily share, update, and browse open 
 ### What was the origin of the OER policy registry @ OER World Map?
 We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map! We documented the conversion process [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map). 
 
-## Mentioned by:
+## Mentioned / used by:
 
-<blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">This new <a href="https://twitter.com/hashtag/OER?src=hash&amp;ref_src=twsrc%5Etfw">#OER</a> policy registry delights me to no end. Ingenious idea to build in with the <a href="https://twitter.com/oerworldmap?ref_src=twsrc%5Etfw">@oerworldmap</a><a href="https://t.co/z3RtSH97kx">https://t.co/z3RtSH97kx</a></p>&mdash; jennιғer englυnd (@jmenglund03) <a href="https://twitter.com/jmenglund03/status/1070334983624146944?ref_src=twsrc%5Etfw">5. Dezember 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr"><a href="https://twitter.com/creativecommons?ref_src=twsrc%5Etfw">@creativecommons</a> was happy to move the OER Policy Registry from CC to the <a href="https://twitter.com/oerworldmap?ref_src=twsrc%5Etfw">@oerworldmap</a> - we can accomplish more and provide greater value and utility when we collaborate!</p>&mdash; Cable Green (@cgreen) <a href="https://twitter.com/cgreen/status/1070343155000709120?ref_src=twsrc%5Etfw">5. Dezember 2018</a></blockquote>
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="de"><p lang="en" dir="ltr"><a href="https://twitter.com/creativecommons?ref_src=twsrc%5Etfw">@creativecommons</a> was happy to move the OER Policy Registry from CC to the <a href="https://twitter.com/oerworldmap?ref_src=twsrc%5Etfw">@oerworldmap</a> - we can accomplish more and provide greater value and utility when we collaborate!</p>&mdash; Cable Green (@cgreen) <a href="https://twitter.com/cgreen/status/1070343155000709120?ref_src=twsrc%5Etfw">5. Dezember 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <div style="display:none;"><a data-inject-newWindowLink>Open statistic in a new window</a></div>
+
+<div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons and thanks for everyone participating!</div>
