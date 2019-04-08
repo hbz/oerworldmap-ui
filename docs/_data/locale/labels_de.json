@@ -192,7 +192,7 @@
   "Policy.creator": "Authored by",
   "Policy.datePublished": "Date published",
   "Policy.inLanguage": "Language",
-  "Policy.license": "License",
+  "Policy.license": "License of policy document",
   "Policy.location": "Location",
   "Policy.spatialCoverage": "Level",
   "Policy.status": "Status",
