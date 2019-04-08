@@ -380,6 +380,19 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           )}
 
+          {about.scope && (
+            <Block title={translate(`${about['@type']}.scope`)}>
+              {about.scope.map(scope => (
+                <React.Fragment key={scope['@id']}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.scope.@id={@id}').expand(scope)}>
+                    {translate(scope.name)}
+                  </Link>
+                  <br />
+                </React.Fragment>
+              ))}
+            </Block>
+          )}
+
           {about.award && (
             <Block className="list" title={translate(`${about['@type']}.award`)}>
               <ul className="ItemList award">
