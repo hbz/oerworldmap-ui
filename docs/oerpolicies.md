@@ -50,10 +50,10 @@ We moved the OER Policy Registry from Creative Commons to the OER World Map in f
 
 ## Mentioned by:
 
-Screenshots
+<blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">This new <a href="https://twitter.com/hashtag/OER?src=hash&amp;ref_src=twsrc%5Etfw">#OER</a> policy registry delights me to no end. Ingenious idea to build in with the <a href="https://twitter.com/oerworldmap?ref_src=twsrc%5Etfw">@oerworldmap</a><a href="https://t.co/z3RtSH97kx">https://t.co/z3RtSH97kx</a></p>&mdash; jennιғer englυnd (@jmenglund03) <a href="https://twitter.com/jmenglund03/status/1070334983624146944?ref_src=twsrc%5Etfw">5. Dezember 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Screencast - iframe!
+<blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr"><a href="https://twitter.com/creativecommons?ref_src=twsrc%5Etfw">@creativecommons</a> was happy to move the OER Policy Registry from CC to the <a href="https://twitter.com/oerworldmap?ref_src=twsrc%5Etfw">@oerworldmap</a> - we can accomplish more and provide greater value and utility when we collaborate!</p>&mdash; Cable Green (@cgreen) <a href="https://twitter.com/cgreen/status/1070343155000709120?ref_src=twsrc%5Etfw">5. Dezember 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
- **Update April 2019: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!**
-
-<a data-inject-newWindowLink>Open statistic in a new window</a>
+<div style="display:none;"><a data-inject-newWindowLink>Open statistic in a new window</a></div>
