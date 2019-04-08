@@ -9,7 +9,7 @@ class: oerPolicies
 
 <div style="font-size:12px;background: #f5f5f5;border:1px solid #999;padding:10px;margin-top:20px;">Status: Beta. We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map!</div>
 
-The OER Policy Registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy makers, open education activists and initiatives. **Update April 2019: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!**
+
 
 ## Explore the OER Policy Registry
 
@@ -37,6 +37,9 @@ The OER Policy Registry allows anybody to easily share, update, and browse open 
 
 ## Example usage
 
+## What is a policy exactly?
+Open education policies are formal regulations regarding support, funding, adoption, and use of open educational resources (OER) and/or open education practices (OEP). Such policies are designed to support the creation, adoption, and sharing of OER and the design and integration of OEP into programs of study.” (7 Things You Should Know About... Open Education: Policy)
+
 
 
 ## Information about the policy registry
@@ -60,3 +63,5 @@ More information on the state of the project can be found [on our blog](https://
 Screenshots
 
 Screencast - iframe!
+
+The OER Policy Registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy makers, open education activists and initiatives. **Update April 2019: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!**
