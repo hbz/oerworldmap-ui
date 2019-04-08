@@ -2,11 +2,12 @@
 title: OER Policy registry
 class: oerPolicies
 ---
-<div style="text-align:center"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
+<div style="text-align:center">Status: Beta. <i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
 <div style="width:100%;text-align:center;">
 <img style="width:auto;margin:0 auto;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
-<a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a></div>
+<a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a>
+</div>
 <div style="width:100%;text-align:center;margin-top:4px;">
   <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="#add" target="_blank">Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
 ## Statistic explorer
