@@ -6,7 +6,7 @@ class: oerPolicies
 <div style="width:100%;text-align:center;">
 <img style="width:auto;margin:0 auto;border:0px solid transparent;border-radius:10px;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
-<div style="width:100%;text-align:center;margin-top:4px;"><a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="#add"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
+<div style="width:100%;text-align:center;margin-top:4px;"><a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> | <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
 
 <div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
@@ -25,27 +25,20 @@ class: oerPolicies
 ## Latest policies added
 
 <div data-inject-feed></div>
-<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add-a-policy" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
 
 
 ## Latest policy related entries
-
 <div data-inject-policy-related></div>
 
-
-<div style="font-size:12px;background: #f5f5f5;border:1px solid #999;padding:10px;margin-top:20px;">Status: Beta. We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map!</div>
 
 
 ## FAQ
 ### Add a policy
 
-Anyone registered OER world map user can add a policy to the OER policy registry:
+Any registered OER world map user can add a policy to the OER policy registry: <a href="/resource/?add=Policy" target="_blank">Add a policy</a>. If you're not registered yet, you can <a href="https://oerworldmap.org/user/register" target="_blank">join here</a>.
 
-<a class="btn" href="/resource/?add=Policy" target="_blank">Editors guide (beta)</a>
-
-See the Policy Registry Manual for a detailed description:
-
-<a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a>
+See the Policy Registry Manual for a detailed description of all fields: <b><a href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a></b>
 
 
 ## Example usage
