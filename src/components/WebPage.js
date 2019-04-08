@@ -60,7 +60,9 @@ const WebPage = ({
           embedValue={embedValue}
         />
 
-        <WebPageCover about={about} feature={feature} mapboxConfig={mapboxConfig} />
+        {about["@type"] !== 'Policy' &&
+          <WebPageCover about={about} feature={feature} mapboxConfig={mapboxConfig} />
+        }
 
         <div className="webPageContent">
 
