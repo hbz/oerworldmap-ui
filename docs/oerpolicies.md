@@ -11,7 +11,7 @@ class: oerPolicies
 
 The OER policy registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy makers, open education activists and initiatives. **Update April 2019: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!**
 
-## Policies Statistics
+## Explore the OER Policy Registry
 
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20">All Policies</a> | <a class="btn" href="/resource/?add=Policy">Add</a> <a class="btn" href="https://kurzelinks.de/yuge" target="_blank">Editors guide</a>
 
