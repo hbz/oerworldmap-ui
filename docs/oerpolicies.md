@@ -5,12 +5,10 @@ class: oerPolicies
 
 ## OER Policy Registry - hosted by OER World Map
 Status: We are currently working on moving [Creative Commons](https://creativecommons.org/) OER Policy Registry to the OER World Map. The registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides.
-
 Gratitude to [Creative Commons](https://creativecommons.org/) for creating, maintaining and contributing its OER Policy Registry to the OER World Map. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular country or region.
 
-More information on the state of the project can be found [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map).
+More information on the state of the project can be found [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map). *Update: We're hosting the [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/)!*
 ## Policies Statistics
-
 The statistics are interactive, you can click on it!
 
 [Click here to see all policies available](https://oerworldmap.org/resource/?filter.about.%40type=Policy&size=20) on the map so far.
