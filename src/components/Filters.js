@@ -3,7 +3,6 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
@@ -13,7 +12,7 @@ import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
 
-import { triggerClick, clearForm } from '../common'
+import { clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
