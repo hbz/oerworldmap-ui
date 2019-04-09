@@ -211,7 +211,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -250,7 +250,9 @@ class Filters extends React.Component {
                 name="q"
                 defaultValue={query}
                 key={query}
-                placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
+                placeholder={country
+                  ? translate("search.entries.country", {country: translate(country)})
+                  : translate("search.entries")}
               />
 
               <Tooltip
@@ -441,13 +443,15 @@ Filters.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   sort: PropTypes.string,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
+  country: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
   sort: "",
-  embedValue: null
+  embedValue: null,
+  country: null
 }
 
 export default withEmitter(withI18n(Filters))

@@ -328,5 +328,7 @@
   "calendar.show.past": "Past",
   "form.showOptionalFields": "Show optional fields for %{title}",
   "Error.required": "Please specify a %{missingProperty}",
-  "Error.format": "The provided format is not valid for the field %{format}"
+  "Error.format": "The provided format is not valid for the field %{format}",
+  "search.entries":  "Search entries",
+  "search.entries.country": "Search entries in %{country}"
 }
