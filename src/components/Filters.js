@@ -216,6 +216,18 @@ class Filters extends React.Component {
 
     const filter = filters && filters['about.@type'] || false
 
+    let searchPlaceholder = translate("search.entries")
+    if (country) {
+      (filters && Object.keys(filters).includes("about.@type"))
+        ? searchPlaceholder = translate("search.entries.country.filter", {
+          country: translate(country),
+          filter: translate(filters["about.@type"][0]).toLowerCase()
+        })
+        : searchPlaceholder = translate("search.entries.country", {country: translate(country)})
+    } else if (filters && Object.keys(filters).includes("about.@type")) {
+      searchPlaceholder = `Search in ${translate(filters["about.@type"][0]).toLowerCase()} entries`
+    }
+
     let sortSize
     if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
       sortSize = translate('ClientTemplates.filter.alphabetical').length
@@ -250,9 +262,7 @@ class Filters extends React.Component {
                 name="q"
                 defaultValue={query}
                 key={query}
-                placeholder={country
-                  ? translate("search.entries.country", {country: translate(country)})
-                  : translate("search.entries")}
+                placeholder={searchPlaceholder}
               />
 
               <Tooltip
