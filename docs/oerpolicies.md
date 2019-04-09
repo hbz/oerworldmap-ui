@@ -19,6 +19,9 @@ class: oerPolicies
   width="800"
   style="border:0; width: 100%; margin: 0 auto;"
 ></iframe>
+<a data-inject-newWindowLink>
+  Open in a new window
+</a>
 
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
 
