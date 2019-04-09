@@ -3,7 +3,6 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
@@ -13,7 +12,7 @@ import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
 
-import { triggerClick, clearForm } from '../common'
+import { clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -32,7 +31,7 @@ const onSubmit = (e, emitter) => {
 const onReset = e => {
   const form = e.target.parentElement.form || e.target.form || e.target
   e.preventDefault()
-  clearForm(form, ['q'])
+  clearForm(form)
   form.dispatchEvent(new Event('submit'))
 }
 
@@ -253,21 +252,15 @@ class Filters extends React.Component {
                 placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
               />
 
-              <Tooltip
-                overlay={translate('Tip.showList')}
-                placement="top"
-                mouseEnterDelay={0.2}
-                overlayClassName="tooltipDisableEvents"
-              >
-                <i
-                  aria-hidden="true"
-                  className="fa fa-th-list"
-                  tabIndex="0"
-                  role="button"
-                  onClick={() => {emitter.emit('toggleColumns')}}
-                  onKeyDown={triggerClick}
-                />
-              </Tooltip>
+              {((Object.keys(filters).length > 0) || query) && (
+                <button
+                  type="reset"
+                  className="clearFilter"
+                  title={translate('ClientTemplates.filter.clear')}
+                >
+                  &times;
+                </button>
+              )}
 
               <noscript>
                 <div className="search-bar">
@@ -307,14 +300,6 @@ class Filters extends React.Component {
                     : translate('ClientTemplates.filter.show')
                   }
                 </button>
-              )}
-
-              {Object.keys(filters).length > 0 && (
-                <div className="clearFilter floatingBtn">
-                  <button type="reset">
-                    {translate('ClientTemplates.filter.clear')}
-                  </button>
-                </div>
               )}
 
             </div>
