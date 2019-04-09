@@ -21,7 +21,7 @@ import ErrorPage from './components/ErrorPage'
 import Log from './components/Log'
 import Diffs from './components/Diffs'
 import Link from './components/Link'
-import { getURL } from './common'
+import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
 
@@ -127,12 +127,13 @@ export default (api) => {
           />
         )
         const title = context.i18n.translate(data.about.name)
+        const twitterId = getTwitterId(data.about.sameAs)
         const metadata = {
           description: data.about
             && data.about.description
             && removeMd(context.i18n.translate(data.about.description)).slice(0, 300),
           url: data._self,
-          image: data.about && data.about.image
+          image: (data.about && data.about.image) || (twitterId && twitterId[1] && `https://avatars.io/twitter/${twitterId[1]}`)
         }
 
         return { title, data, component, metadata }
