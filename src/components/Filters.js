@@ -250,22 +250,6 @@ class Filters extends React.Component {
                 placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
               />
 
-              <Tooltip
-                overlay={translate('Tip.showList')}
-                placement="top"
-                mouseEnterDelay={0.2}
-                overlayClassName="tooltipDisableEvents"
-              >
-                <i
-                  aria-hidden="true"
-                  className="fa fa-th-list"
-                  tabIndex="0"
-                  role="button"
-                  onClick={() => {emitter.emit('toggleColumns')}}
-                  onKeyDown={triggerClick}
-                />
-              </Tooltip>
-
               <noscript>
                 <div className="search-bar">
                   <input type="submit" className="btn" />
