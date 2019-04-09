@@ -331,5 +331,6 @@
   "Error.format": "The provided format is not valid for the field %{format}",
   "search.entries":  "Search entries",
   "search.entries.country": "Search entries in %{country}",
-  "search.entries.country.filter": "Search %{filter} entries in %{country}"
+  "search.entries.country.filter": "Search %{filter} entries in %{country}",
+  "search.entries.filter": "Search in %{filter} entries"
 }
