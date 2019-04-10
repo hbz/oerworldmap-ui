@@ -210,11 +210,25 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
     const hasFilters = (Object.keys(filters).length > 0) || query
+
+    let searchPlaceholder = translate("search.entries")
+    if (country) {
+      (filters && Object.keys(filters).includes("about.@type"))
+        ? searchPlaceholder = translate("search.entries.country.filter", {
+          country: translate(country),
+          filter: translate(filters["about.@type"][0]).toLowerCase()
+        })
+        : searchPlaceholder = translate("search.entries.country", {country: translate(country)})
+    } else if (filters && Object.keys(filters).includes("about.@type")) {
+      searchPlaceholder = translate("search.entries.filter", {
+        filter: translate(filters["about.@type"][0]).toLowerCase()
+      })
+    }
 
     let sortSize
     if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
@@ -242,7 +256,7 @@ class Filters extends React.Component {
                 name="q"
                 defaultValue={query}
                 key={query}
-                placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
+                placeholder={searchPlaceholder}
               />
 
               <button
@@ -431,13 +445,15 @@ Filters.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   sort: PropTypes.string,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
+  country: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
   sort: "",
-  embedValue: null
+  embedValue: null,
+  country: null
 }
 
 export default withEmitter(withI18n(Filters))

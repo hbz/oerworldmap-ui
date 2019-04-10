@@ -58,6 +58,7 @@ const ResourceIndex = ({
             _links={_links}
             view={view}
             embedValue={embedValue}
+            country={iso3166}
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
