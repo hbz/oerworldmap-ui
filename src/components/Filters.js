@@ -31,7 +31,7 @@ const onSubmit = (e, emitter) => {
 const onReset = e => {
   const form = e.target.parentElement.form || e.target.form || e.target
   e.preventDefault()
-  clearForm(form, ['q'])
+  clearForm(form)
   form.dispatchEvent(new Event('submit'))
 }
 
@@ -214,6 +214,7 @@ class Filters extends React.Component {
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
+    const hasFilters = (Object.keys(filters).length > 0) || query
 
     let sortSize
     if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
@@ -236,14 +237,6 @@ class Filters extends React.Component {
           <div className="FiltersControls">
             <div className="filterSearch">
 
-              <button type="submit">
-                <i
-                  aria-hidden="true"
-                  className="fa fa-search"
-                  title="Search"
-                />
-              </button>
-
               <input
                 type="text"
                 name="q"
@@ -252,12 +245,34 @@ class Filters extends React.Component {
                 placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
               />
 
+              <button
+                type="submit"
+                className={!hasFilters ? `withoutFilters` : null}
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa fa-search"
+                  title="Search"
+                />
+              </button>
+
+              {hasFilters && (
+                <button
+                  type="reset"
+                  className="clearFilter"
+                  title={translate('ClientTemplates.filter.clear')}
+                >
+                  &times;
+                </button>
+              )}
+
               <noscript>
                 <div className="search-bar">
                   <input type="submit" className="btn" />
                 </div>
               </noscript>
             </div>
+
 
             <div className="filterType primary">
               {primaryFilters.map(filterDef => this.getFilter(filterDef))}
@@ -290,14 +305,6 @@ class Filters extends React.Component {
                     : translate('ClientTemplates.filter.show')
                   }
                 </button>
-              )}
-
-              {Object.keys(filters).length > 0 && (
-                <div className="clearFilter floatingBtn">
-                  <button type="reset">
-                    {translate('ClientTemplates.filter.clear')}
-                  </button>
-                </div>
               )}
 
             </div>
