@@ -148,10 +148,6 @@
       width: 100%;
       border: none;
 
-      & .toggleColumn {
-        display: none;
-      }
-
       & .columnContent {
         display: block;
       }
@@ -168,13 +164,23 @@
       height: calc(100% - 75px);
     }
 
+    &:not(.hideColumns) {
+
+      & .filterSearch {
+        margin-left: 25px;
+      }
+
+      & .toggleColumns {
+        right: unset;
+        left: -33px;
+        top: 35px;
+        z-index: 5;
+      }
+    }
+
     & .column {
       width: 100%;
       max-width: auto;
-
-      & .toggleColumn {
-        display: none;
-      }
     }
   }
 }
