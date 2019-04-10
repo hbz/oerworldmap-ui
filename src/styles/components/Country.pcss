@@ -3,7 +3,7 @@
 .Country {
   background-color: var(--blue-dark);
   position: absolute;
-  left: 20px;
+  right: 20px;
   top: 20px;
   z-index: 5;
   border: 1px solid var(--white);
@@ -253,6 +253,22 @@
       & tbody a {
         display: none;
       }
+    }
+  }
+
+  & .closePage {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--white);
+    position: relative;
+    top: 4px;
+    position: absolute;
+    right: 15px;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: var(--orange);
     }
   }
 }

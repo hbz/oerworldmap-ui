@@ -655,14 +655,6 @@ class Map extends React.Component {
           </div>
         )}
 
-        {aggregations['sterms#feature.properties.location.address.addressRegion'] && (
-          <div className='goToMap'>
-            <Link href='/resource/'>
-              <i aria-hidden="true" className='fa fa-globe' />
-            </Link>
-          </div>
-        )}
-
         <a className="imprintLink" href="/imprint">{translate('main.imprintPrivacy')}</a>
 
       </div>
