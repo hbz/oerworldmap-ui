@@ -2,7 +2,7 @@
 
 .Columns {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   height: 100%;
   display: flex;
@@ -17,15 +17,10 @@
   }
 
   &.hideColumns {
-    transform: translate3d(100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
 
     & .FiltersControls {
-      transform: translate3d(calc(-100% - 40px), 0, 0);
-      transition: transform 1s;
-    }
-
-    & .selectedFilters {
-      transform: translate3d(109.6%, 0, 0);
+      transform: translate3d(calc(100% + 40px), 0, 0);
       transition: transform 1s;
     }
   }
