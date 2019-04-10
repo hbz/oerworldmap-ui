@@ -554,9 +554,9 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <a className="item" href="/auth/realms/oerworldmap/account/password">
-                              <i aria-hidden="true" className="fa fa-lock" />
-                              <span>{translate('menu.me.password')}</span>
+                            <a className="item" href="/auth/realms/oerworldmap/account/">
+                              <i aria-hidden="true" className="fa fa-cogs" />
+                              <span>{translate('menu.me.settings')}</span>
                             </a>
                           </li>
                           <li>
@@ -615,7 +615,7 @@ class Header extends React.Component {
               <li>
                 <a
                   title={translate('login')}
-                  href={`/.login${Link.self && "?continue=" + Link.self}`}
+                  href={`/.login${Link.self && "?continue=" + Link.self || ""}`}
                   className="loginLink"
                 >
                   {translate('login')}
