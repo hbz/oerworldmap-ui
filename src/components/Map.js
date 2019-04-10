@@ -61,7 +61,7 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-50, 42],
       zoom: center.zoom || 1,
       maxBounds: bounds,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1
@@ -556,7 +556,7 @@ class Map extends React.Component {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
       if (e.features[0].properties.iso_a2 !== '-99') {
-        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
       }
     }
   }
