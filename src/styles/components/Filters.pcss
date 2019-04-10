@@ -20,8 +20,15 @@
       position: absolute;
       background-color: transparent;
       border: none;
-      padding: 7px;
+      padding: 7px 10px;
       z-index: 1;
+      right: 33px;
+      border-right: 1px solid var(--blue-light);
+
+      &.withoutFilters {
+        right: 0;
+        border: 0;
+      }
 
       & > i {
         color: var(--blue);
@@ -65,8 +72,8 @@
     }
 
     & input {
-      padding-left: 30px;
-      padding-right: 30px;
+      padding-left: 10px;
+      padding-right: 60px;
       flex: 1;
       position: relative;
       background-color: white;

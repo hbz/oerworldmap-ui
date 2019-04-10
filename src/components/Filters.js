@@ -214,6 +214,7 @@ class Filters extends React.Component {
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
+    const hasFilters = (Object.keys(filters).length > 0) || query
 
     let sortSize
     if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
@@ -236,14 +237,6 @@ class Filters extends React.Component {
           <div className="FiltersControls">
             <div className="filterSearch">
 
-              <button type="submit">
-                <i
-                  aria-hidden="true"
-                  className="fa fa-search"
-                  title="Search"
-                />
-              </button>
-
               <input
                 type="search"
                 name="q"
@@ -252,7 +245,18 @@ class Filters extends React.Component {
                 placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
               />
 
-              {((Object.keys(filters).length > 0) || query) && (
+              <button
+                type="submit"
+                className={!hasFilters ? `withoutFilters` : null}
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa fa-search"
+                  title="Search"
+                />
+              </button>
+
+              {hasFilters && (
                 <button
                   type="reset"
                   className="clearFilter"
@@ -268,6 +272,7 @@ class Filters extends React.Component {
                 </div>
               </noscript>
             </div>
+
 
             <div className="filterType primary">
               {primaryFilters.map(filterDef => this.getFilter(filterDef))}
