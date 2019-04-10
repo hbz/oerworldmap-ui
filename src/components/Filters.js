@@ -3,7 +3,6 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
@@ -13,7 +12,7 @@ import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
 
-import { triggerClick, clearForm } from '../common'
+import { clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -246,28 +245,12 @@ class Filters extends React.Component {
               </button>
 
               <input
-                type="search"
+                type="text"
                 name="q"
                 defaultValue={query}
                 key={query}
                 placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
               />
-
-              <Tooltip
-                overlay={translate('Tip.showList')}
-                placement="top"
-                mouseEnterDelay={0.2}
-                overlayClassName="tooltipDisableEvents"
-              >
-                <i
-                  aria-hidden="true"
-                  className="fa fa-th-list"
-                  tabIndex="0"
-                  role="button"
-                  onClick={() => {emitter.emit('toggleColumns')}}
-                  onKeyDown={triggerClick}
-                />
-              </Tooltip>
 
               <noscript>
                 <div className="search-bar">

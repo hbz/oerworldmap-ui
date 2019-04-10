@@ -132,7 +132,7 @@ class Map extends React.Component {
 
       // Add mapbox controls
       const nav = new mapboxgl.NavigationControl({showCompass: false})
-      this.map.addControl(nav, 'bottom-left')
+      this.map.addControl(nav, 'bottom-right')
 
       // Receive event from Filters
       emitter.on('hideOverlay', () => {
