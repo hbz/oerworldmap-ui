@@ -328,5 +328,10 @@
   "calendar.show.past": "Passados",
   "form.showOptionalFields": "Mostrar campos opcionais para %{title}",
   "Error.required": "Por favor, especifique um %{missingProperty}",
-  "Error.format": "O formato fornecido não é válido para o campo %{format}"
+  "Error.format": "O formato fornecido não é válido para o campo %{format}",
+  "search.entries": "Search the OER World Map",
+  "search.entries.country": "Search entries in %{country}",
+  "search.entries.country.filter": "Search %{filter} entries in %{country}",
+  "search.entries.filter": "Search in %{filter} entries",
+  "search.entries.filter.policy": "Search in Policy Registry"
 }
