@@ -3,9 +3,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import SimpleMDE from 'react-simplemde-editor'
+import Markdown from 'markdown-to-jsx'
+import ReactDOMServer from "react-dom/server"
+
 import "simplemde/dist/simplemde.min.css"
 
 import withFormData from './withFormData'
+import LinkOverride from '../LinkOverride'
 import { objectMap } from '../../common'
 
 const MarkdownArea = ({
@@ -60,7 +64,21 @@ const MarkdownArea = ({
         autofocus: shouldFormComponentFocus,
         status: false,
         spellChecker: false,
-        placeholder: translate(title)
+        placeholder: translate(title),
+        previewRender(value) {
+          return ReactDOMServer.renderToString (
+            <Markdown options={{
+              overrides: {
+                a: {
+                  component: LinkOverride
+                }
+              }
+            }}
+            >
+              {value}
+            </Markdown>
+          )
+        }
       }}
     />
   </div>
