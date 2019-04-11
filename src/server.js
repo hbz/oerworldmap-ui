@@ -55,6 +55,8 @@ server.use((req, res, next) => {
     const headers = new Headers(req.headers)
     headers.delete('Host')
     headers.delete('If-None-Match')
+    // This will log a FetchError: invalid json response body
+    // if for some reason mod_auth_openidc_session is not valid
     api.get('/user/profile', headers)
       .then(user => (req.user = user) && console.log(user))
       .catch(err => console.error(err))
@@ -92,6 +94,15 @@ server.use((req, res, next) => {
   req.locales = locales
   req.supportedLanguages = supportedLanguages
   next()
+})
+
+// Handle login
+server.get('/.login', (req, res) => {
+  if (req.headers.oidc_claim_profile_id) {
+    res.redirect(req.query.continue ? req.query.continue : '/resource/')
+  } else {
+    res.redirect('/user/profile#edit')
+  }
 })
 
 // Server-side render request
