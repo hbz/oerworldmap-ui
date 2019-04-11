@@ -3,7 +3,6 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
@@ -13,7 +12,7 @@ import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
 
-import { triggerClick, clearForm } from '../common'
+import { clearForm } from '../common'
 
 const onSubmit = (e, emitter) => {
   emitter.emit('hideOverlay')
@@ -32,7 +31,7 @@ const onSubmit = (e, emitter) => {
 const onReset = e => {
   const form = e.target.parentElement.form || e.target.form || e.target
   e.preventDefault()
-  clearForm(form, ['q'])
+  clearForm(form)
   form.dispatchEvent(new Event('submit'))
 }
 
@@ -211,10 +210,29 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
+    const hasFilters = (Object.keys(filters).length > 0) || query
+
+    let searchPlaceholder = translate("search.entries")
+    if (country) {
+      (filters && Object.keys(filters).includes("about.@type"))
+        ? searchPlaceholder = translate("search.entries.country.filter", {
+          country: translate(country),
+          filter: translate(filters["about.@type"][0]).toLowerCase()
+        })
+        : searchPlaceholder = translate("search.entries.country", {country: translate(country)})
+    } else if (filters && Object.keys(filters).includes("about.@type")) {
+      if (filters["about.@type"][0] === "Policy") {
+        searchPlaceholder = translate("search.entries.filter.policy")
+      } else {
+        searchPlaceholder = translate("search.entries.filter", {
+          filter: translate(filters["about.@type"][0]).toLowerCase()
+        })
+      }
+    }
 
     let sortSize
     if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
@@ -237,7 +255,18 @@ class Filters extends React.Component {
           <div className="FiltersControls">
             <div className="filterSearch">
 
-              <button type="submit">
+              <input
+                type="text"
+                name="q"
+                defaultValue={query}
+                key={query}
+                placeholder={searchPlaceholder}
+              />
+
+              <button
+                type="submit"
+                className={!hasFilters ? `withoutFilters` : null}
+              >
                 <i
                   aria-hidden="true"
                   className="fa fa-search"
@@ -245,29 +274,15 @@ class Filters extends React.Component {
                 />
               </button>
 
-              <input
-                type="search"
-                name="q"
-                defaultValue={query}
-                key={query}
-                placeholder={`${translate('ResourceIndex.index.searchMap')}...`}
-              />
-
-              <Tooltip
-                overlay={translate('Tip.showList')}
-                placement="top"
-                mouseEnterDelay={0.2}
-                overlayClassName="tooltipDisableEvents"
-              >
-                <i
-                  aria-hidden="true"
-                  className="fa fa-th-list"
-                  tabIndex="0"
-                  role="button"
-                  onClick={() => {emitter.emit('toggleColumns')}}
-                  onKeyDown={triggerClick}
-                />
-              </Tooltip>
+              {hasFilters && (
+                <button
+                  type="reset"
+                  className="clearFilter"
+                  title={translate('ClientTemplates.filter.clear')}
+                >
+                  &times;
+                </button>
+              )}
 
               <noscript>
                 <div className="search-bar">
@@ -275,6 +290,7 @@ class Filters extends React.Component {
                 </div>
               </noscript>
             </div>
+
 
             <div className="filterType primary">
               {primaryFilters.map(filterDef => this.getFilter(filterDef))}
@@ -307,14 +323,6 @@ class Filters extends React.Component {
                     : translate('ClientTemplates.filter.show')
                   }
                 </button>
-              )}
-
-              {Object.keys(filters).length > 0 && (
-                <div className="clearFilter floatingBtn">
-                  <button type="reset">
-                    {translate('ClientTemplates.filter.clear')}
-                  </button>
-                </div>
               )}
 
             </div>
@@ -441,13 +449,15 @@ Filters.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   sort: PropTypes.string,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
+  country: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
   sort: "",
-  embedValue: null
+  embedValue: null,
+  country: null
 }
 
 export default withEmitter(withI18n(Filters))

@@ -263,7 +263,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                 <ul className="spaceSeparatedList">
                   {about.keywords.sort((a,b) => a > b).map(keyword => (
                     <li key={keyword}>
-                      <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
+                      <Link href={`/resource/?filter.about.keywords=${encodeURIComponent(keyword.toLowerCase())}`}>
                         {keyword}
                       </Link>
                     </li>

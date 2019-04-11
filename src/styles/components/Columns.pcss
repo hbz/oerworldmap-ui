@@ -2,30 +2,25 @@
 
 .Columns {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   height: 100%;
   display: flex;
   transition: transform 1s;
   pointer-events: none;
   z-index: 4;
+  border-right: 1px solid var(--blue-light);
 
   & .secondary,
-  & .selectedFilters,
-  & .clearFilter {
+  & .selectedFilters {
     transition: transform 1s, max-height 0.5s ease-in;
   }
 
   &.hideColumns {
-    transform: translate3d(100%, 0, 0);
+    transform: translate3d(calc(-100% + 10px), 0, 0);
 
     & .FiltersControls {
-      transform: translate3d(calc(-100% - 40px), 0, 0);
-      transition: transform 1s;
-    }
-
-    & .selectedFilters {
-      transform: translate3d(109.6%, 0, 0);
+      transform: translate3d(calc(100% + 31px), 0, 0);
       transition: transform 1s;
     }
   }
@@ -128,6 +123,19 @@
     }
   }
 
+  & .toggleColumns {
+    background-color: var(--white);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 10px;
+    transform: translateX(100%) translateY(-50%);
+    border-radius: 0 50% 50% 0;
+    pointer-events: all;
+    border: 1px solid var(--blue-light);
+    border-left: none;
+  }
+
   @media print {
     position: relative;
 
@@ -138,10 +146,6 @@
     & .column {
       width: 100%;
       border: none;
-
-      & .toggleColumn {
-        display: none;
-      }
 
       & .columnContent {
         display: block;
@@ -155,17 +159,27 @@
     width: 100%;
 
     &.country {
-      top: 75px;
-      height: calc(100% - 75px);
+      top: 42px;
+      height: calc(100% - 42px);
+    }
+
+    &:not(.hideColumns) {
+
+      & .filterSearch {
+        margin-left: 25px;
+      }
+
+      & .toggleColumns {
+        right: unset;
+        left: -33px;
+        top: 35px;
+        z-index: 5;
+      }
     }
 
     & .column {
       width: 100%;
       max-width: auto;
-
-      & .toggleColumn {
-        display: none;
-      }
     }
   }
 }
