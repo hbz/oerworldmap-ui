@@ -328,5 +328,10 @@
   "calendar.show.past": "Vergangen",
   "form.showOptionalFields": "Optionale Felder für %{title} anzeigen",
   "Error.required": "Bitte geben Sie %{missingProperty} genauer an",
-  "Error.format": "Das gelieferte Format ist nicht zulässig für das Feld %{format}"
+  "Error.format": "Das gelieferte Format ist nicht zulässig für das Feld %{format}",
+  "search.entries": "Search the OER World Map",
+  "search.entries.country": "Search entries in %{country}",
+  "search.entries.country.filter": "Search %{filter} entries in %{country}",
+  "search.entries.filter": "Search in %{filter} entries",
+  "search.entries.filter.policy": "Search in Policy Registry"
 }
