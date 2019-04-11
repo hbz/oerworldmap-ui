@@ -61,7 +61,7 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-50, 42],
       zoom: center.zoom || 1,
       maxBounds: bounds,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1
@@ -409,8 +409,9 @@ class Map extends React.Component {
             }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
-              padding: 20,
-              maxZoom: 6.9
+              padding: 40,
+              maxZoom: 6.9,
+              offset: [60, 0]
             })
           }
         }

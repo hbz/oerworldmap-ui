@@ -147,10 +147,6 @@
       width: 100%;
       border: none;
 
-      & .toggleColumn {
-        display: none;
-      }
-
       & .columnContent {
         display: block;
       }
@@ -163,17 +159,27 @@
     width: 100%;
 
     &.country {
-      top: 75px;
-      height: calc(100% - 75px);
+      top: 42px;
+      height: calc(100% - 42px);
+    }
+
+    &:not(.hideColumns) {
+
+      & .filterSearch {
+        margin-left: 25px;
+      }
+
+      & .toggleColumns {
+        right: unset;
+        left: -33px;
+        top: 35px;
+        z-index: 5;
+      }
     }
 
     & .column {
       width: 100%;
       max-width: auto;
-
-      & .toggleColumn {
-        display: none;
-      }
     }
   }
 }
