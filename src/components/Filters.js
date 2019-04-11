@@ -225,9 +225,13 @@ class Filters extends React.Component {
         })
         : searchPlaceholder = translate("search.entries.country", {country: translate(country)})
     } else if (filters && Object.keys(filters).includes("about.@type")) {
-      searchPlaceholder = translate("search.entries.filter", {
-        filter: translate(filters["about.@type"][0]).toLowerCase()
-      })
+      if (filters["about.@type"][0] === "Policy") {
+        searchPlaceholder = translate("search.entries.filter.policy")
+      } else {
+        searchPlaceholder = translate("search.entries.filter", {
+          filter: translate(filters["about.@type"][0]).toLowerCase()
+        })
+      }
     }
 
     let sortSize
