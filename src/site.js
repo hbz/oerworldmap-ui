@@ -40,17 +40,6 @@ emitter.on('navigate', url => {
   window.open(url, "_self")
 })
 
-emitter.on('logout', () => {
-  if (!document.execCommand("ClearAuthenticationCache")) {
-    const request = new XMLHttpRequest()
-    const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
-    request.open('GET', url, false)
-    request.send(null)
-  }
-  localStorage.removeItem('user')
-  window.location.reload()
-})
-
 const injectHeader = (() => {
 
   function init() {
