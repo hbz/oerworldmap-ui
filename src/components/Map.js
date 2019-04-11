@@ -409,8 +409,9 @@ class Map extends React.Component {
             }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
-              padding: 20,
-              maxZoom: 6.9
+              padding: 40,
+              maxZoom: 6.9,
+              offset: [60, 0]
             })
           }
         }
