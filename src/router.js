@@ -22,7 +22,7 @@ import { getURL } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
 
-export default (api) => {
+export default (api, emitter) => {
 
   Link.home = '/resource/'
   Link.back = '/resource/'
@@ -53,6 +53,7 @@ export default (api) => {
             view="edit"
             schema={schema}
             showOptionalFields={false}
+            onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
           />
         ) : (
           <ResourceIndex
@@ -98,6 +99,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
           />
         )
 
@@ -121,6 +123,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             embedValue="true"
+            onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
           />
         )
         const title = context.i18n.translate(data.about.name)
@@ -144,6 +147,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -176,6 +180,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -278,6 +283,43 @@ export default (api) => {
           <Diffs {...data} phrases={phrases} schema={schema} />
         )
         const title = context.i18n.translate('ResourceIndex.log.logFor', {id})
+        return { title, data, component }
+      }
+    },
+    {
+      path: '/user/profile',
+      get: async (params, context, state) => {
+        const { user, mapboxConfig, schema } = context
+        const component = (data) => (
+          <WebPage
+            {...data}
+            _self={user._self}
+            mapboxConfig={mapboxConfig}
+            user={user}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            schema={schema}
+            embedValue="true"
+            onSubmit={data => emitter.emit('submit', {url: '/user/profile', data})}
+          />
+        )
+        const title = context.i18n.translate(user.profile.about.name)
+        return { title, data: user['profile'], component }
+      },
+      post: async (params, context, state, body) => {
+        const { user, mapboxConfig, schema } = context
+        const data = await api.post('/user/profile', body, new Headers(context.headers))
+        const component = (data) => (
+          <WebPage
+            {...data}
+            user={user}
+            schema={schema}
+            mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', {url: '/user/profile', data})}
+          />
+        )
+        const title = context.i18n.translate('updated.updated', {
+          name: context.i18n.translate(data.about.name)
+        })
         return { title, data, component }
       }
     }

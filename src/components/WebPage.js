@@ -30,7 +30,8 @@ const WebPage = ({
   embedValue,
   showOptionalFields,
   emitter,
-  translate
+  translate,
+  onSubmit
 }) => {
   return (
     <div
@@ -65,7 +66,6 @@ const WebPage = ({
         }
 
         <div className="webPageContent">
-
           {expose('editEntry', user, about) && (
             <div id="edit" className={view === 'edit' ? '' : 'hidden'}>
               <WebPageEdit
@@ -76,6 +76,7 @@ const WebPage = ({
                 schema={schema}
                 closeLink={about['@id'] ? _self : undefined}
                 showOptionalFields={showOptionalFields}
+                onSubmit={onSubmit}
               />
             </div>
           )}
@@ -110,7 +111,8 @@ WebPage.propTypes = {
   embedValue: PropTypes.string,
   showOptionalFields: PropTypes.bool,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func
 }
 
 WebPage.defaultProps = {
@@ -120,7 +122,8 @@ WebPage.defaultProps = {
   dateModified: null,
   _links: { refs: [] },
   embedValue: null,
-  showOptionalFields: true
+  showOptionalFields: true,
+  onSubmit: formdata => console.log(formdata)
 }
 
 export default withEmitter(withI18n(WebPage))

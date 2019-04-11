@@ -15,11 +15,22 @@ import Link from './Link'
 
 import expose from '../expose'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink, showOptionalFields}) => (
+const WebPageEdit = ({
+  about,
+  emitter,
+  translate,
+  action,
+  mapboxConfig,
+  user,
+  schema,
+  closeLink,
+  showOptionalFields,
+  onSubmit
+}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
-    onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
+    onSubmit={onSubmit}
     onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
       .scrollTop = document.querySelector('.hasError').offsetTop
     )}
@@ -82,14 +93,16 @@ WebPageEdit.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   closeLink: PropTypes.string,
-  showOptionalFields: PropTypes.bool
+  showOptionalFields: PropTypes.bool,
+  onSubmit: PropTypes.func
 }
 
 WebPageEdit.defaultProps = {
   action: 'edit',
   user: null,
   closeLink: null,
-  showOptionalFields: true
+  showOptionalFields: true,
+  onSubmit: formData => console.log(formData)
 }
 
 export default withI18n(withEmitter(WebPageEdit))
