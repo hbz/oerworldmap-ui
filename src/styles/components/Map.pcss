@@ -77,76 +77,13 @@
     }
   }
 
-  & .mapboxgl-control-container .mapboxgl-ctrl-bottom-right {
-    left: 100px;
-    bottom: 7px;
-    right: unset;
-
-    & .mapboxgl-ctrl-attrib {
-      background-color: transparent;
-
-      & a {
-        color: var(--white);
-      }
-    }
-  }
-
-  & .mapboxgl-ctrl-bottom-left {
-    width: 100%;
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 39px;
-      border-top: 1px solid var(--white);
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      background-color: color-mod(var(--blue-light) a(70%));
-    }
-  }
-
-  & .mapboxgl-ctrl {
+  & .mapboxgl-ctrl.mapboxgl-ctrl-group {
+    display: flex;
+    right: 20px;
+    position: relative;
+    top: -15px;
     background-color: transparent;
     box-shadow: none;
-    position: relative;
-
-    &.mapboxgl-ctrl-group {
-      display: flex;
-      flex-wrap: wrap;
-      background-color: transparent;
-      margin: 0 0 15px 10px;
-    }
-
-    & .mapboxgl-ctrl-icon {
-      border-radius: 2px;
-      border: 2px solid var(--blue);
-      background-color: var(--white);
-      position: relative;
-      color: var(--blue);
-      background-image: none;
-      margin-right: 10px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &:focus,
-      &:hover {
-        color: var(--white);
-        background-color: var(--blue-dark);
-      }
-    }
-
-    & button:last-child {
-      border: 2px solid var(--blue);
-    }
-
-    & .mapboxgl-ctrl-icon > .mapboxgl-ctrl-compass-arrow {
-      position: relative;
-      background-image: none;
-    }
 
     & .mapboxgl-ctrl-zoom-in::after,
     & .mapboxgl-ctrl-compass-arrow::after,
@@ -170,6 +107,35 @@
       top: 22%;
       left: 22%;
     }
+
+    & .mapboxgl-ctrl-icon {
+      border-radius: 2px;
+      border: 2px solid var(--blue);
+      background-color: var(--white);
+      position: relative;
+      color: var(--blue);
+      background-image: none;
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        color: var(--white);
+        background-color: var(--blue-dark);
+      }
+    }
+  }
+
+  & .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    position: relative;
+    left: -15px;
+  }
+
+  & .mapboxgl-ctrl-logo {
+    position: relative;
+    left: 10px;
   }
 
   & .overlayList {
@@ -192,7 +158,7 @@
     height: 30px;
     background-color: #fff;
     position: absolute;
-    left: 90px;
+    right: 120px;
     bottom: 43px;
     border-radius: 2px;
     border: 2px solid var(--blue);
@@ -370,10 +336,12 @@
 
   & .imprintLink {
     position: absolute;
-    right: 20px;
-    bottom: 5px;
-    color: var(--white);
+    right: 300px;
+    bottom: 0;
     z-index: 3;
+    padding: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.75);
   }
 
   @media print {
@@ -411,6 +379,10 @@
       & i {
         font-size: 2rem;
       }
+    }
+
+    & .mapLeyend {
+      left: 17px;
     }
 
     & .imprintLink {

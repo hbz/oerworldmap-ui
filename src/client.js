@@ -143,11 +143,21 @@ require('formdata-polyfill');
 
     window.addEventListener("message",  (msg) => {
       if (msg.data.filter && msg.data.key) {
+
+        const iframe = document.querySelector('iframe')
+        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
+
+        const params = {
+          [`filter.${msg.data.filter}`] : msg.data.key,
+        }
+
+        if (scope) {
+          params[scope.split('=')[0]] = scope.split('=')[1]
+        }
+
         emitter.emit('navigate', getURL({
           path: '/resource/',
-          params: {
-            [`filter.${msg.data.filter}`] : msg.data.key
-          }
+          params
         }))
       }
     })

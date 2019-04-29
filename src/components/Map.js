@@ -61,7 +61,7 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-50, 42],
       zoom: center.zoom || 1,
       maxBounds: bounds,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1
@@ -132,7 +132,7 @@ class Map extends React.Component {
 
       // Add mapbox controls
       const nav = new mapboxgl.NavigationControl({showCompass: false})
-      this.map.addControl(nav, 'bottom-left')
+      this.map.addControl(nav, 'bottom-right')
 
       // Receive event from Filters
       emitter.on('hideOverlay', () => {
@@ -409,8 +409,9 @@ class Map extends React.Component {
             }, new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
-              padding: 20,
-              maxZoom: 6.9
+              padding: 40,
+              maxZoom: 6.9,
+              offset: [60, 0]
             })
           }
         }
@@ -556,7 +557,7 @@ class Map extends React.Component {
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
       if (e.features[0].properties.iso_a2 !== '-99') {
-        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}`)
+        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
       }
     }
   }
@@ -652,14 +653,6 @@ class Map extends React.Component {
                 <div key={color} style={{backgroundColor: color}} className="step" />
               ))}
             </div>
-          </div>
-        )}
-
-        {aggregations['sterms#feature.properties.location.address.addressRegion'] && (
-          <div className='goToMap'>
-            <Link href='/resource/'>
-              <i aria-hidden="true" className='fa fa-globe' />
-            </Link>
           </div>
         )}
 

@@ -146,5 +146,6 @@
   "WebPage.publisher": "Von wem die Veröffentlichung veröffentlicht wurde",
   "WebPage.award": "Preis, mit dem diese Veröffentlichung ausgezeichnet wurde",
   "WebPage.additionalType": "Die Art der Veröffentlichung",
+  "Policy": "A policy related to OER",
   "LighthouseAction.description": "Bitte beschreiben Sie, was diesen Eintrag zu einem \"Leuchtturm\" macht."
 }

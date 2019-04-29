@@ -30,6 +30,10 @@ const user = JSON.parse(localStorage.getItem('user'))
 const locales = [LANG]
 const emitter = mitt()
 
+const baseURL = ENVIRONMENT === 'development'
+  ? 'https://oerworldmap.org/'
+  : '/'
+
 emitter.on('navigate', url => {
   const parser = document.createElement('a')
   parser.href = url
@@ -105,10 +109,7 @@ const injectStats = (() => {
   function init() {
     const target = document.querySelector('[data-inject-stats]')
     if (target) {
-      const url = ENVIRONMENT === 'development'
-        ? 'https://oerworldmap.org/resource.json?size=0'
-        : '/resource.json?size=0'
-      fetch(url)
+      fetch(`${baseURL}resource.json?size=0`)
         .then(response => response.json())
         .then(json => {ReactDOM.render(
           <Overview buckets={json.aggregations['sterms#about.@type'].buckets} />, target)
@@ -193,10 +194,11 @@ const createKibanaListener = (() => {
         </head>
         <body>
           <iframe
-            src="https://oerworldmap.org/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
+            src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
             height="750"
             width="800"
             style="border:0; width: 100%; margin: 0 auto;"
+            data-scope="filter.about.@type=Policy"
           >
           </iframe>
           <script>
@@ -225,11 +227,14 @@ const createKibanaListener = (() => {
 
             if (msg.data.filter && msg.data.key) {
 
+              const iframe = document.querySelector('iframe')
+              const { scope } = iframe && iframe.dataset
+
               const info = {
                 filter: msg.data.filter,
                 key: msg.data.key,
+                scope
               }
-              console.log(msg)
               window.opener.postMessage(info, "*")
             }
 
@@ -248,9 +253,21 @@ const createKibanaListener = (() => {
     window.addEventListener("message", (msg) => {
 
       if (msg.data.filter && msg.data.key) {
+
+        const iframe = document.querySelector('iframe')
+        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
+
+        const params = {
+          [`filter.${msg.data.filter}`] : msg.data.key,
+        }
+
+        if (scope) {
+          params[scope.split('=')[0]] = scope.split('=')[1]
+        }
+
         window.location.href = getURL({
           path: '/resource/',
-          params: {[`filter.${msg.data.filter}`] : msg.data.key}
+          params
         })
       }
     })
@@ -267,7 +284,7 @@ const createPoliciesFeed = (() => {
 
       // Request data for policies
       // ADD carry a tag called policy
-      const rawResponse = await fetch(`https://oerworldmap.org/resource.json?q=about.additionalType.@id:"https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy"%20OR%20about.keywords:policy&sort=dateCreated:DESC`, {
+      const rawResponse = await fetch(`${baseURL}resource.json?q=about.@type:Policy&sort=dateCreated:DESC`, {
         headers: {
           'accept': 'application/json'
         }
@@ -300,6 +317,45 @@ const createPoliciesFeed = (() => {
 
 })()
 
+const createPolicyRelated = (() => {
+
+  const init =  async () => {
+
+    if (window.location.pathname.includes("oerpolicies")) {
+
+      const rawResponse = await fetch(`${baseURL}resource.json?q=NOT%20about.@type:Policy%20AND%20about.keywords:policy&sort=dateCreated:DESC`, {
+        headers: {
+          'accept': 'application/json'
+        }
+      })
+
+      const content = await rawResponse.json()
+
+      if (content) {
+
+        const feedContainer = document.querySelector('[data-inject-policy-related]')
+
+        ReactDOM.render(
+          <I18nProvider i18n={
+            i18n(
+              locales,
+              i18ns[locales[0]]
+            )}
+          >
+            <EmittProvider emitter={emitter}>
+              <ItemList listItems={content.member.map(member => member.about)} />
+            </EmittProvider>
+          </I18nProvider>,
+          feedContainer
+        )
+      }
+    }
+  }
+
+  return { init }
+
+})()
+
 $(()  => {
   animateScrollToFragment.init()
   injectHeader.init()
@@ -307,6 +363,7 @@ $(()  => {
   toggleShow.init()
   createAccordeon.init()
   createPoliciesFeed.init()
+  createPolicyRelated.init()
   createKibanaListener.init()
 
   $('[data-slick]').slick()

@@ -197,6 +197,7 @@
   "Concept": "Concept",
   "ConceptScheme": "Concept scheme",
   "WebPage": "Publication",
+  "Policy": "Policy",
   "Product": "Tool",
   "share": "Share",
   "embed": "Embed",
@@ -327,5 +328,10 @@
   "calendar.show.past": "Past",
   "form.showOptionalFields": "Show optional fields for %{title}",
   "Error.required": "Please specify a %{missingProperty}",
-  "Error.format": "The provided format is not valid for the field %{format}"
+  "Error.format": "The provided format is not valid for the field %{format}",
+  "search.entries":  "Search the OER World Map",
+  "search.entries.country": "Search entries in %{country}",
+  "search.entries.country.filter": "Search %{filter} entries in %{country}",
+  "search.entries.filter": "Search in %{filter} entries",
+  "search.entries.filter.policy": "Search in Policy Registry"
 }
