@@ -1,5 +1,6 @@
-import i18ns from '../src/i18ns'
+import path from 'path'
 import webpack from 'webpack'
+import i18ns from '../src/i18ns'
 
 module.exports = {
   plugins: [
@@ -16,6 +17,14 @@ module.exports = {
       },
       {
         test: /\.(css|pcss)$/,
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules/normalize.css'),
+          path.resolve(__dirname, 'node_modules/font-awesome'),
+          path.resolve(__dirname, 'node_modules/source-sans-pro'),
+          path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
+          path.resolve(__dirname, '..')
+        ],
         use: [
           'style-loader',
           {
@@ -32,6 +41,15 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            outputPath: 'public/'
+          }
+        }
       }
     ]
   }
