@@ -12888,16 +12888,11 @@ const entries = [
   }
 ]
 
-// storiesOf('Calendar', module)
-//   .add('Render', () => (
-//     <WithStrings lang="en">
-//       <Calendar
-//         entries={entries}
-//       />
-//     </WithStrings>
-//   ))
-
-// DETELE AFTER
-storiesOf('aaa', module)
-  .add("Render", () => <div>AAA</div>)
-
+storiesOf('Calendar', module)
+  .add('Render', () => (
+    <WithStrings lang="en">
+      <Calendar
+        entries={entries}
+      />
+    </WithStrings>
+  ))
