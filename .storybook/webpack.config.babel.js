@@ -2,9 +2,12 @@ import path from 'path'
 import webpack from 'webpack'
 import i18ns from '../src/i18ns'
 
+import { mapboxConfig } from '../config'
+
 module.exports = {
   plugins: [
     new webpack.DefinePlugin({
+      mapboxConfig: JSON.stringify(mapboxConfig),
       i18ns: JSON.stringify(i18ns)
     })
   ],
