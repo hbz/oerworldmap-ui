@@ -53,7 +53,7 @@ export default (api, emitter) => {
             view="edit"
             schema={schema}
             showOptionalFields={false}
-            onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
+            onSubmit={data => emitter.emit('submit', {url: '/resource/', data})}
           />
         ) : (
           <ResourceIndex
@@ -92,6 +92,7 @@ export default (api, emitter) => {
       post: async (params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
         const data = await api.post('/resource/', body, new Headers(context.headers))
+        const { about } = data
         const component = (data) => (
           <WebPage
             {...data}
@@ -115,6 +116,7 @@ export default (api, emitter) => {
         const { user, mapboxConfig, schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, new Headers(context.headers))
+        const { about } = data
         const component = (data) => (
           <WebPage
             {...data}
@@ -140,6 +142,7 @@ export default (api, emitter) => {
       post: async (id, params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
+        const { about } = data
         const component = (data) => (
           <WebPage
             {...data}
@@ -173,6 +176,7 @@ export default (api, emitter) => {
       post: async (id, params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
+        const { about } = data
         const component = (data) => (
           <WebPage
             {...data}
