@@ -3,7 +3,6 @@
 /* global ENVIRONMENT */
 /* global LANG */
 /* global $ */
-/* global XMLHttpRequest */
 /* global localStorage */
 /* global i18ns */
 

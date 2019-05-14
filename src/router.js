@@ -1,5 +1,5 @@
 /* global window */
-/* global XMLHttpRequest */
+/* global Headers */
 
 import React from 'react'
 import toRegExp from 'path-to-regexp'
@@ -293,7 +293,7 @@ export default (api, emitter) => {
     },
     {
       path: '/user/profile',
-      get: async (params, context, state) => {
+      get: async (params, context) => {
         const { user, mapboxConfig, schema } = context
         const component = (data) => (
           <WebPage

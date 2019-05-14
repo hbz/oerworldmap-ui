@@ -78,7 +78,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { translate, user, emitter, locales } = this.props
+    const { translate, user, locales } = this.props
     const { showMobileMenu, dropdowns, showNotification} = this.state
 
     let { supportedLanguages } = this.props

@@ -1,7 +1,6 @@
 /* global document */
 /* global window */
 /* global location */
-/* global XMLHttpRequest */
 /* global localStorage */
 
 import ReactDOM from 'react-dom'

@@ -1,3 +1,5 @@
+/* global Headers */
+
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
