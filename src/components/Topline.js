@@ -201,7 +201,7 @@ const Topline = ({translate, moment, about, className}) => {
             <ul className="spaceSeparatedList">
               {about.keywords.sort((a,b) => a > b).map(keyword => (
                 <li key={keyword}>
-                  <Link href={`/resource/?filter.about.keywords=${keyword.toLowerCase()}`}>
+                  <Link href={`/resource/?filter.about.keywords=${encodeURIComponent(keyword.toLowerCase())}`}>
                     {keyword}
                   </Link>
                 </li>

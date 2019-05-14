@@ -49,14 +49,21 @@ export const getParams = (qstring) => {
   return params
 }
 
-export const addParamToURL = (url, name, value) => {
-  try {
-    const resURL = new URL(url)
-    resURL.searchParams.set(name, value)
-    return resURL.href
-  } catch (error) {
-    return url
+export const addParamToURL = (search, key, val) => {
+  const newParam = key + '=' + val
+  let params = '?' + newParam
+
+  // If the "search" string exists, then build params from it
+  if (search) {
+    // Try to replace an existance instance
+    params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam)
+
+    // If nothing was replaced, then add the new param to the end
+    if (params === search) {
+      params += '&' + newParam
+    }
   }
+  return params
 }
 
 export const getURL = (route) => {
