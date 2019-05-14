@@ -1,9 +1,25 @@
 --- Done ---
 TimelineBlock
 Link
+Feed
 Feedback
-
 Statistics
+ConceptFilter
+ConceptTree
+Log
+MiniMap
+FullModal
+Icon
+Columns
+Pagination
+ResultList
+Loading
+Block
+LinkOverride
+
+ShareExport
+  Refactor styles to component
+
 DropdownFilter
   Maybe pass the translated texts
 
@@ -28,8 +44,6 @@ ResourcePreview
 ConceptBlock
   Refactor styles to component
 
-ConceptFilter
-ConceptTree
 WebPageCover
   Refactor styles to component
 
@@ -39,19 +53,16 @@ Comments
 Lighthouses
   Refactor styles to component
 
-Log
-MiniMap
 ItemList
   Make the tooltip optional by default
 
 Map
+  Make parameters toggable
+
 Metadata
   Remove author and contributor for test
 
 Share
-  Decuple the full modal
-
-Feed
   Decuple the full modal
 
 Calendar
@@ -69,19 +80,8 @@ ResourceImage
 SocialLinks
   Wrong icons
 
-ShareExport
-
 ButtonFilter
   Move button filter Styles
-
-FullModal
-Icon
-Columns
-Pagination
-ResultList
-Loading
-Block
-LinkOverride
 
 -- No need of story --
 
@@ -95,7 +95,7 @@ Column
 EmittProvider
 withI18n
 ApiProvider
-JSONPointerForm
+JSONPointerFormExport
 Init
 App
 withApi
