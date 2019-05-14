@@ -1,38 +1,50 @@
-App
-Comments
+--- Done ---
+TimelineBlock
+Link
+Feedback
+
+Statistics
+DropdownFilter
+  Maybe pass the translated texts
+
+Header
+  Interior component not propperly styled
+
+Export
+  Extract from FullModal
+
+Timeline
+  Extract from FullModal
+
+WebPageHeader
+  Refactor styles to component
+
+WebPageUserActions
+  Refactor styles to component
+
+ResourcePreview
+  Refactor styles to component
+
 ConceptBlock
+  Refactor styles to component
+
 ConceptFilter
 ConceptTree
-Diffs
-DropdownFilter
-Export
-Feedback
-Filters
-FindBlock
-Header
-
-ItemList
-Lighthouses
-Link
-Log
-Map
-MiniMap
-Overview
-RepositoryStatistics
-ResourceIndex
-ResourcePreview
-ResourceTable
-Statistics
-TimelineBlock
-Timeline
 WebPageCover
-WebPageEdit
-WebPageHeader
-WebPage
-WebPageUserActions
-WebPageView
+  Refactor styles to component
 
---- Done ---
+Comments
+  Refactor styles to component
+
+Lighthouses
+  Refactor styles to component
+
+Log
+MiniMap
+ItemList
+  Make the tooltip optional by default
+
+Map
 Metadata
   Remove author and contributor for test
 
@@ -68,27 +80,38 @@ Columns
 Pagination
 ResultList
 Loading
-LinkOverride
 Block
-withApi
-withEmitter
+LinkOverride
 
 -- No need of story --
 
+ResourceIndex
+Diffs
+Filters
+WebPageEdit
 I18nProvider
-Register
+
 Column
 EmittProvider
 withI18n
 ApiProvider
 JSONPointerForm
 Init
+App
+withApi
+withEmitter
+Overview
+WebPage
+WebPageView
 
 --- Disabled ---
 
+Register
+Password
+
+ResourceTable
 ActionButtons
 UserBlock
-Password
 RepositoryStatistics
 ErrorPage
 Groups
