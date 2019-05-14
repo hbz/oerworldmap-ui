@@ -10,7 +10,7 @@ export default (action, user, context) => {
   case 'logEntry':
     return user && user.groups && user.groups.includes('admin')
   case 'userActions':
-    return !!user
+    return user && user.persistent
   case 'userMenu':
     return !!user
   case 'addEntry':

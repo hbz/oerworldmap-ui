@@ -313,6 +313,7 @@ export default (api, emitter) => {
       post: async (params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
         const data = await api.post('/user/profile', body, new Headers(context.headers))
+        user.persistent = true
         const component = (data) => (
           <WebPage
             {...data}
