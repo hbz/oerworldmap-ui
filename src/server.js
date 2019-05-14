@@ -7,6 +7,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import userAgent from 'express-useragent'
 import cookieParser from 'cookie-parser'
+import url from 'url'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
@@ -93,6 +94,15 @@ server.use((req, res, next) => {
   }
   req.locales = locales
   req.supportedLanguages = supportedLanguages
+  next()
+})
+
+// Middleware to set public host
+server.use((req, res, next) => {
+  req.publicHost = url.format({
+    protocol: req.get('x-forwarded-proto') || req.protocol,
+    host: req.get('x-forwarded-host') || req.get('host')
+  })
   next()
 })
 
