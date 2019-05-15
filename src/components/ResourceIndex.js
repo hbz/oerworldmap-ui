@@ -38,7 +38,8 @@ const ResourceIndex = ({
   sort,
   embedValue,
   phrases,
-  isEmbed
+  isEmbed,
+  translate
 }) => {
 
   const home = _self.endsWith('/resource/?features=true')
@@ -99,7 +100,7 @@ const ResourceIndex = ({
       />
 
       <Switch
-        title="Country View"
+        title={translate("ResourceIndex.view.country")}
         onChange={(checked) => {
           emitter.emit("showFeatures", checked)
         }}
@@ -134,7 +135,8 @@ ResourceIndex.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-  isEmbed: PropTypes.bool.isRequired
+  isEmbed: PropTypes.bool.isRequired,
+  translate: PropTypes.func.isRequired
 }
 
 ResourceIndex.defaultProps = {
