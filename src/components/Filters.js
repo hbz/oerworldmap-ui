@@ -47,21 +47,6 @@ const primaryFilters = [
 
 const subFilters = [
   {
-    name: "sterms#feature.properties.location.address.addressCountry",
-    filter: "filter#feature.properties.location.address.addressCountry",
-    type: "dropdown",
-    icon: "globe",
-    translate: true,
-    order: (array, translate) => array.sort((a, b) => translate(a.key).localeCompare(translate(b.key)))
-  },
-  {
-    name: "sterms#feature.properties.location.address.addressRegion",
-    filter: "filter#feature.properties.location.address.addressRegion",
-    type: "dropdown",
-    icon: "globe",
-    translate: true
-  },
-  {
     name: "sterms#about.keywords",
     filter: "filter#about.keywords",
     type: "dropdown",
