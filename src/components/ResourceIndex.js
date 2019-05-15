@@ -8,6 +8,7 @@ import Column from './Column'
 import ResultList from './ResultList'
 import Pagination from './Pagination'
 import Calendar from './Calendar'
+import Switch from './Switch'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
@@ -95,6 +96,13 @@ const ResourceIndex = ({
         home={home}
       />
 
+      <Switch
+        title="Country View"
+        onChange={(checked) => {
+          emitter.emit("showFeatures", checked)
+        }}
+        checked
+      />
     </div>
   )
 }

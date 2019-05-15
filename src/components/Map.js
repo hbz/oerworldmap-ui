@@ -130,6 +130,16 @@ class Map extends React.Component {
         this.map.setFilter('points-hover', [ 'in', '@id' ].concat(e.id))
       })
 
+      emitter.on('showFeatures', (show) => {
+        pointsLayers.forEach(layer => {
+          if (show) {
+            this.map.setLayoutProperty(layer, 'visibility', 'visible')
+          } else {
+            this.map.setLayoutProperty(layer, 'visibility', 'none')
+          }
+        })
+      })
+
       // Add mapbox controls
       const nav = new mapboxgl.NavigationControl({showCompass: false})
       this.map.addControl(nav, 'bottom-right')
