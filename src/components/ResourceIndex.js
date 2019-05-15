@@ -37,7 +37,8 @@ const ResourceIndex = ({
   className,
   sort,
   embedValue,
-  phrases
+  phrases,
+  isEmbed
 }) => {
 
   const home = _self.endsWith('/resource/?features=true')
@@ -94,6 +95,7 @@ const ResourceIndex = ({
         iso3166={iso3166}
         map={map}
         home={home}
+        isEmbed={isEmbed}
       />
 
       <Switch
@@ -101,7 +103,7 @@ const ResourceIndex = ({
         onChange={(checked) => {
           emitter.emit("showFeatures", checked)
         }}
-        checked
+        checked={isEmbed}
       />
     </div>
   )
@@ -132,7 +134,7 @@ ResourceIndex.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-
+  isEmbed: PropTypes.bool.isRequired
 }
 
 ResourceIndex.defaultProps = {

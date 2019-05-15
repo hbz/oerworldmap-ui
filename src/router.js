@@ -34,7 +34,7 @@ export default (api) => {
     {
       path: '/resource/',
       get: async (params, context, state) => {
-        const { user, mapboxConfig, schema, phrases } = context
+        const { user, mapboxConfig, schema, phrases, embed } = context
         const url = getURL({
           path: '/resource/',
           params: Object.assign(params, {features: true})
@@ -65,6 +65,7 @@ export default (api) => {
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
+            isEmbed={embed === "true" || embed ===  "country"}
           />
         )
 
@@ -191,7 +192,7 @@ export default (api) => {
     {
       path: '/country/:id',
       get: async (id, params, context, state) => {
-        const { phrases, mapboxConfig } = context
+        const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${id}`,
           params: Object.assign(params, {features: true})
@@ -206,6 +207,7 @@ export default (api) => {
             mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
+            isEmbed={embed === "true" || embed ===  "country"}
           >
             <Country
               iso3166={data.iso3166}
