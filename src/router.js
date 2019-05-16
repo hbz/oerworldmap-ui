@@ -313,11 +313,11 @@ export default (api, emitter, location) => {
       },
       post: async (params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
-        const data = state || await api.post('/user/profile', body, new Headers(context.headers))
+        const data = await api.post('/user/profile', body, new Headers(context.headers))
         user.persistent = true
         const component = (data) => (
           <WebPage
-            {...data}
+            {...data.profile}
             _self={user._self}
             mapboxConfig={mapboxConfig}
             user={user}
@@ -327,7 +327,7 @@ export default (api, emitter, location) => {
           />
         )
         const title = context.i18n.translate('updated.updated', {
-          name: context.i18n.translate(data.about.name)
+          name: context.i18n.translate(data.profile.about.name)
         })
         return { title, data, component }
       }
