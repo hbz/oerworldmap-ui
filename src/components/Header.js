@@ -562,7 +562,10 @@ class Header extends React.Component {
                           <li>
                             <a
                               className="item"
-                              href={`/oauth2callback?logout=${Link.self || '/resource/'}`}
+                              // FIXME: This works to log out after editing a profile
+                              // href={`/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri=${Link.self}`}
+                              // FIXME: This works in all cases except after editing a profile
+                              href={`/oauth2callback?logout=${Link.self}`}
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>
@@ -615,7 +618,7 @@ class Header extends React.Component {
               <li>
                 <a
                   title={translate('login')}
-                  href={`/.login${Link.self && "?continue=" + Link.self || ""}`}
+                  href={`/.login?continue=${Link.self}`}
                   className="loginLink"
                 >
                   {translate('login')}
@@ -629,7 +632,7 @@ class Header extends React.Component {
                   <ul>
                     {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
                       <li key={lang}>
-                        <a href={addParamToURL(Link.self || (typeof window !== 'undefined' && window.location && window.location.href) || '/resource/', "language", lang)}>{translate(lang)}</a>
+                        <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
                       </li>
                     ))}
                   </ul>

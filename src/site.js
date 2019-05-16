@@ -14,6 +14,7 @@ import 'normalize.css'
 
 import { getURL } from './common'
 import Header from './components/Header'
+import Link from './components/Link'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
 import i18n from './i18n'
@@ -42,6 +43,7 @@ emitter.on('navigate', url => {
 const injectHeader = (() => {
 
   function init() {
+    Link.self = window.location.href
     const target = document.querySelector('[data-inject-header]')
 
     if (target) {
