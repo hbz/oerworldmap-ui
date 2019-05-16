@@ -1,4 +1,3 @@
-/* global window */
 /* global document */
 /* global location */
 /* global SUPPORTED_LANGUAGES */

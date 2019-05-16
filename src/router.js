@@ -294,12 +294,12 @@ export default (api, emitter, location) => {
     },
     {
       path: '/user/profile',
-      get: async (params, context) => {
+      get: async (params, context, state) => {
         const { user, mapboxConfig, schema } = context
-        const { profile } = await api.get('/user/profile', new Headers(context.headers))
+        const data = state || await api.get('/user/profile', new Headers(context.headers))
         const component = (data) => (
           <WebPage
-            {...data}
+            {...data.profile}
             _self={user._self}
             mapboxConfig={mapboxConfig}
             user={user}
@@ -308,12 +308,12 @@ export default (api, emitter, location) => {
             onSubmit={data => emitter.emit('submit', {url: '/user/profile', data})}
           />
         )
-        const title = context.i18n.translate(profile.about.name)
-        return { title, data: profile, component }
+        const title = context.i18n.translate(data.profile.about.name)
+        return { title, data, component }
       },
       post: async (params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
-        const data = await api.post('/user/profile', body, new Headers(context.headers))
+        const data = state || await api.post('/user/profile', body, new Headers(context.headers))
         user.persistent = true
         const component = (data) => (
           <WebPage
