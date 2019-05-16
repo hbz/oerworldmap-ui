@@ -22,10 +22,11 @@ import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
 
-export default (api, emitter) => {
+export default (api, emitter, location) => {
 
   Link.home = '/resource/'
   Link.back = '/resource/'
+  Link.self = location.href
 
   const routes = [
     {
@@ -43,7 +44,7 @@ export default (api, emitter) => {
           about: {
             '@type': params.add
           },
-          _self: url
+          _self: location.href
         } : state || await api.get(url, new Headers(context.headers))
         const component = (data) => params.add ? (
           <WebPage
@@ -358,7 +359,7 @@ export default (api, emitter) => {
         const result = await route[method](...uriParams, params, context, state, body)
         if (result) {
           result.render = (data) => {
-            Link.self = (data && data._self) || "/resource/"
+            Link.self = (data && data._self) || Link.self
             return (
               <Init {...context}>
                 {result.component(data)}

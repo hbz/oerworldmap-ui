@@ -30,7 +30,7 @@ require('formdata-polyfill');
       : localStorage.removeItem('user')
 
     const api = new Api(context.apiConfig)
-    const routes = router(api, emitter)
+    const routes = router(api, emitter, window.location)
 
     let referrer = window.location.href
     Link.back = '/resource/'
