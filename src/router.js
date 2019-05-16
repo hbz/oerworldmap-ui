@@ -295,6 +295,7 @@ export default (api, emitter) => {
       path: '/user/profile',
       get: async (params, context) => {
         const { user, mapboxConfig, schema } = context
+        const { profile } = await api.get('/user/profile', new Headers(context.headers))
         const component = (data) => (
           <WebPage
             {...data}
@@ -303,12 +304,11 @@ export default (api, emitter) => {
             user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            embedValue="true"
             onSubmit={data => emitter.emit('submit', {url: '/user/profile', data})}
           />
         )
-        const title = context.i18n.translate(user.profile.about.name)
-        return { title, data: user['profile'], component }
+        const title = context.i18n.translate(profile.about.name)
+        return { title, data: profile, component }
       },
       post: async (params, context, state, body) => {
         const { user, mapboxConfig, schema } = context
@@ -317,9 +317,11 @@ export default (api, emitter) => {
         const component = (data) => (
           <WebPage
             {...data}
-            user={user}
-            schema={schema}
+            _self={user._self}
             mapboxConfig={mapboxConfig}
+            user={user}
+            view="view"
+            schema={schema}
             onSubmit={data => emitter.emit('submit', {url: '/user/profile', data})}
           />
         )
