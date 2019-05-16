@@ -82,7 +82,6 @@ class Map extends React.Component {
 
       this.Map.addEventListener('mouseleave', ()=> {
         this.hoverPopup.remove()
-        this.setState({hoveredFeatures:null})
       })
 
       // Set data source for points layers
@@ -207,133 +206,132 @@ class Map extends React.Component {
   }
 
   mouseMove(e) {
-    const { translate, iso3166, aggregations, phrases, locales, emitter } = this.props
-    // const { translate, iso3166, phrases, locales, emitter  } = this.props
-    // const { bucket, overlayList, hoveredFeatures } = this.state
-    // const hoveredCountry = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-    // const hoveredRegion = this.map.queryRenderedFeatures(e.point, {layers: ['Regions']})
+    const { overlayList } = this.state
 
-    const hoveredPoints = this.map.queryRenderedFeatures(e.point, {layers: ['points']})
-    const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-    const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
+    if (!overlayList) {
+      const { translate, iso3166, aggregations, phrases, locales, emitter } = this.props
+      const hoveredPoints = this.map.queryRenderedFeatures(e.point, {layers: ['points']})
+      const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
+      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
 
-    const currentCountry = (hoveredCountries.length && hoveredCountries[0].properties.iso_a2) || null
-    const currentRegion = (hoveredRegions.length && hoveredRegions[0].properties.code_hasc) || null
+      const currentCountry = (hoveredCountries.length && hoveredCountries[0].properties.iso_a2) || null
+      const currentRegion = (hoveredRegions.length && hoveredRegions[0].properties.code_hasc) || null
 
-    if (!currentCountry) {
-      // Water since there is no country
-      this.hoverPopup.remove()
-      this.map.getCanvas().style.cursor = ''
-    } else {
-      this.hoverPopup.setLngLat(e.lngLat)
-      this.map.getCanvas().style.cursor = 'pointer'
-
-      let popupContent
-
-      if (hoveredPoints.length) {
-
-        if (hoveredPoints.length > 6) {
-          popupContent = (
-            <ul>
-              <li>
-                {this.calculateTypes(hoveredPoints)}
-              </li>
-            </ul>
-          )
-          // More than 6 points
-        } else if (hoveredPoints.length > 1 && hoveredPoints.length <= 6) {
-        // More than 1 point, less than 6
-          popupContent = (
-            <ul className="list">
-              {hoveredPoints.map(point => (
-                <li key={point.properties['@id']}>
-                  <Icon type={point.properties['@type']} />
-                  &nbsp;
-                  {translate(JSON.parse(point.properties.name))}
-                </li>
-              ))}
-            </ul>
-          )
-        } else {
-          // Single point
-          popupContent = (
-            <ul className="list">
-              <li>
-                <I18nProvider i18n={i18n(locales, phrases)}>
-                  <EmittProvider emitter={emitter}>
-                    <ResourcePreview
-                      about={Object.assign(hoveredPoints[0].properties, {
-                        name: JSON.parse(hoveredPoints[0].properties.name),
-                        location: JSON.parse(hoveredPoints[0].properties.location),
-                        additionalType: hoveredPoints[0].properties.additionalType
-                          && JSON.parse(hoveredPoints[0].properties.additionalType)
-                          || undefined,
-                        alternateName: hoveredPoints[0].properties.alternateName
-                          && JSON.parse(hoveredPoints[0].properties.alternateName)
-                          || undefined,
-                      })}
-                    />
-                  </EmittProvider>
-                </I18nProvider>
-              </li>
-            </ul>
-          )
-        }
-
-      } else if (currentRegion) {
-        // Hove a region
-        popupContent = (
-          <ul>
-            <li>{translate(currentRegion)}</li>
-          </ul>
-        )
+      if (!currentCountry) {
+        // Water since there is no country
+        this.hoverPopup.remove()
+        this.map.getCanvas().style.cursor = ''
       } else {
-        if (iso3166 && currentCountry !== iso3166) {
-          // Not the country that is selected
+        this.hoverPopup.setLngLat(e.lngLat)
+        this.map.getCanvas().style.cursor = 'pointer'
+
+        let popupContent
+
+        if (hoveredPoints.length) {
+
+          if (hoveredPoints.length > 6) {
+            popupContent = (
+              <ul>
+                <li style={{display: "flex", justifyContent: "space-evenly"}}>
+                  {this.calculateTypes(hoveredPoints)}
+                </li>
+              </ul>
+            )
+            // More than 6 points
+          } else if (hoveredPoints.length > 1 && hoveredPoints.length <= 6) {
+          // More than 1 point, less than 6
+            popupContent = (
+              <ul className="list">
+                {hoveredPoints.map(point => (
+                  <li key={point.properties['@id']}>
+                    <Icon type={point.properties['@type']} />
+                    &nbsp;
+                    {translate(JSON.parse(point.properties.name))}
+                  </li>
+                ))}
+              </ul>
+            )
+          } else {
+            // Single point
+            popupContent = (
+              <ul className="list">
+                <li>
+                  <I18nProvider i18n={i18n(locales, phrases)}>
+                    <EmittProvider emitter={emitter}>
+                      <ResourcePreview
+                        about={Object.assign(hoveredPoints[0].properties, {
+                          name: JSON.parse(hoveredPoints[0].properties.name),
+                          location: JSON.parse(hoveredPoints[0].properties.location),
+                          additionalType: hoveredPoints[0].properties.additionalType
+                            && JSON.parse(hoveredPoints[0].properties.additionalType)
+                            || undefined,
+                          alternateName: hoveredPoints[0].properties.alternateName
+                            && JSON.parse(hoveredPoints[0].properties.alternateName)
+                            || undefined,
+                        })}
+                      />
+                    </EmittProvider>
+                  </I18nProvider>
+                </li>
+              </ul>
+            )
+          }
+
+        } else if (currentRegion) {
+          // Hove a region
           popupContent = (
             <ul>
-              <li>{translate(currentCountry)}</li>
+              <li>{translate(currentRegion)}</li>
             </ul>
           )
         } else {
-          // Hover a country
-          const bucket = this.getBucket(currentCountry)
-          popupContent = (
-            <ul>
-              <li>
-                <b>
-                  {translate(currentCountry)}
-                  <br />
-                  {bucket &&
-                    <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
-                  }
-                </b>
-              </li>
-              {bucket && aggregations["global#champions"]["sterms#about.countryChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
-                <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
-              ) : (
-                !iso3166
-                  ? <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-                  : null
-              )
-              }
-            </ul>
-          )
+          if (iso3166 && currentCountry !== iso3166) {
+            // Not the country that is selected
+            popupContent = (
+              <ul>
+                <li>{translate(currentCountry)}</li>
+              </ul>
+            )
+          } else {
+            // Hover a country
+            const bucket = this.getBucket(currentCountry)
+            popupContent = (
+              <ul>
+                <li>
+                  <b>
+                    {translate(currentCountry)}
+                    <br />
+                    {bucket &&
+                      <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
+                    }
+                  </b>
+                </li>
+                {bucket && aggregations["global#champions"]["sterms#about.countryChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
+                  <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
+                ) : (
+                  !iso3166
+                    ? <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+                    : null
+                )
+                }
+              </ul>
+            )
+          }
         }
-      }
 
-      this.hoverPopup.setDOMContent(ReactDOM.render(
-        <div
-          className="tooltip"
-          style={
-            { zIndex: 9,
-              pointerEvents: 'none',
-            }}
-        >
-          {popupContent}
-        </div>, document.createElement('div')))
-        .addTo(this.map)
-        ._content.classList.add('noEvents')
+        this.hoverPopup.setDOMContent(ReactDOM.render(
+          <div
+            className="tooltip"
+            style={
+              { zIndex: 9,
+                pointerEvents: 'none',
+              }}
+          >
+            {popupContent}
+          </div>, document.createElement('div')))
+          .addTo(this.map)
+          ._content.classList.add('noEvents')
+      }
     }
   }
 
@@ -529,8 +527,7 @@ class Map extends React.Component {
         })
 
         this.setState({
-          overlayList:true,
-          hoveredFeatures:null
+          overlayList:true
         })
       }
     }
@@ -650,10 +647,6 @@ class Map extends React.Component {
         )}
 
         <a className="imprintLink" href="/imprint">{translate('main.imprintPrivacy')}</a>
-
-        {/* <pre className="debug" style={{position: 'fixed', widht: "100%", height: "100%", bottom: 0, left: 0, color: "tomato", zIndex: 99, pointerEvents: "none", fontWeight: "bold"}}>
-          {JSON.stringify(this.state.hoveredFeatures, null, 2)}
-        </pre> */}
 
       </div>
     )
