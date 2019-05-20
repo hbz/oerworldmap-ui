@@ -36,7 +36,8 @@ const ResourceIndex = ({
   className,
   sort,
   embedValue,
-  phrases
+  phrases,
+  region
 }) => {
 
   const home = _self.endsWith('/resource/?features=true')
@@ -93,6 +94,7 @@ const ResourceIndex = ({
         iso3166={iso3166}
         map={map}
         home={home}
+        region={region}
       />
 
     </div>
@@ -124,6 +126,7 @@ ResourceIndex.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
+  region: PropTypes.string
 
 }
 
@@ -137,7 +140,8 @@ ResourceIndex.defaultProps = {
   className: null,
   sort: "",
   embedValue: null,
-  children: null
+  children: null,
+  region: null
 }
 
 export default withEmitter(withI18n(ResourceIndex))
