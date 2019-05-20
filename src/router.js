@@ -248,6 +248,7 @@ export default (api) => {
             mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
+            region={region.toUpperCase()}
           />
         )
         const title = `${context.i18n.translate((country + "." + region).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`
