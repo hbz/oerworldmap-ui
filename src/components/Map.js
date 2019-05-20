@@ -176,17 +176,11 @@ class Map extends React.Component {
     this.map.off('click', 'countries', this.clickCountries)
   }
 
-  getBucket(country) {
-    const { features, iso3166, aggregations} = this.props
+  getBucket(location, aggregation) {
+    const { aggregations} = this.props
 
-    return features ? (
-      country === iso3166
-      && Object.assign(aggregations["global#facets"]["filter#filtered"]["filter#country"], {key: country})
-    ) || (
-      aggregations["sterms#feature.properties.location.address.addressCountry"]
-      && aggregations["sterms#feature.properties.location.address.addressCountry"]
-        .buckets.find(e => e.key === country)
-    ) : null
+    return(aggregations && aggregations[aggregation] && aggregations[aggregation].buckets.find(agg => agg.key === location))
+      || null
   }
 
   zoom(e) {
@@ -279,9 +273,23 @@ class Map extends React.Component {
 
         } else if (currentRegion) {
           // Hove a region
+          const bucket = this.getBucket(currentRegion, "sterms#feature.properties.location.address.addressRegion")
           popupContent = (
             <ul>
-              <li>{translate(currentRegion)}</li>
+              <li>
+                <b>
+                  {translate(currentRegion)}
+                  &nbsp;(
+                  {translate(currentCountry)}
+                  )
+                  {bucket && (
+                    <>
+                      <br />
+                      <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
+                    </>
+                  )}
+                </b>
+              </li>
             </ul>
           )
         } else {
@@ -294,16 +302,18 @@ class Map extends React.Component {
             )
           } else {
             // Hover a country
-            const bucket = this.getBucket(currentCountry)
+            const bucket = this.getBucket(currentCountry, "sterms#feature.properties.location.address.addressCountry")
             popupContent = (
               <ul>
                 <li>
                   <b>
                     {translate(currentCountry)}
-                    <br />
-                    {bucket &&
-                      <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
-                    }
+                    {bucket && (
+                      <>
+                        <br />
+                        <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
+                      </>
+                    )}
                   </b>
                 </li>
                 {bucket && aggregations["global#champions"]["sterms#about.countryChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
