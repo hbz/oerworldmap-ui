@@ -37,6 +37,7 @@ class Map extends React.Component {
     this.mouseLeave = this.mouseLeave.bind(this)
     this.clickPoints = this.clickPoints.bind(this)
     this.clickCountries = this.clickCountries.bind(this)
+    this.clickRegions = this.clickRegions.bind(this)
     this.choroplethStopsFromBuckets = this.choroplethStopsFromBuckets.bind(this)
   }
 
@@ -124,6 +125,8 @@ class Map extends React.Component {
 
       this.map.on('click', 'countries', this.clickCountries)
 
+      this.map.on('click', 'Regions', this.clickRegions)
+
       // Receive event from ItemList
       emitter.on('hoverPoint', (e) => {
         this.map.setFilter('points-hover', [ 'in', '@id' ].concat(e.id))
@@ -172,8 +175,9 @@ class Map extends React.Component {
     this.map.off('mousemove', this.mouseMove)
     this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
-    this.map.off('click', 'points', this.clickPoints)
+    this.map.off('click', 'points', this.clickCountries)
     this.map.off('click', 'countries', this.clickCountries)
+    this.map.off('click', 'Regions', this.clickRegions)
   }
 
   getBucket(location, aggregation) {
@@ -554,10 +558,24 @@ class Map extends React.Component {
     const { emitter } = this.props
     if (this.popup && this.popup.isOpen()) return
     // Check if a point is clicked too and do nothing in that case
+    const points = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+    const regions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
+    if (!points.length && !regions.length) {
+      if (e.features[0].properties.iso_a2 !== '-99') {
+        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
+      }
+    }
+  }
+
+  clickRegions(e) {
+    const { emitter } = this.props
+    const [country, region] = e.features[0].properties.code_hasc.toLowerCase().split(".")
+
+    if (this.popup && this.popup.isOpen()) return
     const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     if (!features.length) {
       if (e.features[0].properties.iso_a2 !== '-99') {
-        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
+        emitter.emit('navigate', `/country/${country}/${region}`)
       }
     }
   }
