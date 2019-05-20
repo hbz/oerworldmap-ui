@@ -43,7 +43,7 @@ class Map extends React.Component {
 
   componentDidMount() {
 
-    const { mapboxConfig, map, locales, features, aggregations, iso3166, home, emitter } = this.props
+    const { mapboxConfig, map, locales, features, aggregations, iso3166, home, emitter, region} = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')
@@ -103,10 +103,17 @@ class Map extends React.Component {
         this.map.addLayer(pointsLayer)
       })
 
+      // Clone Regions layer and set the style of countries-inactive
+      const RegionsLayer = this.map.getStyle().layers.find(l => { return l.id === 'Regions'})
+      RegionsLayer.id = 'regions-inactive'
+      const countriesInactive = this.map.getStyle().layers.find(l => { return l.id === 'countries-inactive'})
+      RegionsLayer.paint = countriesInactive.paint
+      this.map.addLayer(RegionsLayer, 'Regions')
+
       // Initialize choropleth layers
       this.updateChoropleth(aggregations)
       this.updateZoom(iso3166, home, map)
-      this.updateActiveCountry(iso3166)
+      this.updateActiveCountry(iso3166, region)
 
       // Update URL values
       this.map.on("moveend", this.moveEnd)
@@ -126,6 +133,7 @@ class Map extends React.Component {
       this.map.on('click', 'countries', this.clickCountries)
 
       this.map.on('click', 'Regions', this.clickRegions)
+      this.map.on('click', 'regions-inactive', this.clickRegions)
 
       // Receive event from ItemList
       emitter.on('hoverPoint', (e) => {
@@ -165,7 +173,7 @@ class Map extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
-    this.updateActiveCountry(nextProps.iso3166)
+    this.updateActiveCountry(nextProps.iso3166, nextProps.region)
     this.updatePoints(nextProps.features)
   }
 
@@ -366,17 +374,19 @@ class Map extends React.Component {
     }
   }
 
-  deg2rad(deg) {
-    return deg * (Math.PI / 180)
-  }
-
-  updateActiveCountry(iso3166) {
-    if (iso3166) {
+  updateActiveCountry(iso3166, region) {
+    if (region) {
+      this.map.setFilter('regions-inactive', ['==', 'iso_a2', iso3166])
+      this.map.setFilter('countries-inactive', ['all'])
+      this.map.setFilter('Regions', ['==', 'code_hasc', `${iso3166}.${region}`])
+    } else if (iso3166) {
       this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
       this.map.setFilter('Regions', ['==', 'iso_a2', iso3166])
+      this.map.setFilter('regions-inactive', ['==', 'code_hasc', 'null'])
     } else {
       this.map.setFilter('countries-inactive', ["!has", "iso_a2"])
       this.map.setFilter('Regions', ["!has", "iso_a2"])
+      this.map.setFilter('regions-inactive', ['==', 'code_hasc', 'null'])
     }
   }
 
@@ -560,7 +570,9 @@ class Map extends React.Component {
     // Check if a point is clicked too and do nothing in that case
     const points = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
     const regions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
-    if (!points.length && !regions.length) {
+    const regionsInactive = this.map.queryRenderedFeatures(e.point, { layers: ['regions-inactive'] })
+
+    if (!points.length && !regions.length && !regionsInactive.length) {
       if (e.features[0].properties.iso_a2 !== '-99') {
         emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
       }
@@ -698,11 +710,13 @@ Map.propTypes = {
   map: PropTypes.string,
   home: PropTypes.bool.isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
+  region: PropTypes.string
 }
 
 Map.defaultProps = {
   iso3166: null,
   map: null,
+  region: null
 }
 
 export default withEmitter(withI18n(Map))
