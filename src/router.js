@@ -209,7 +209,7 @@ export default (api) => {
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['global#facets']['filter#filtered']['filter#country']}
+              countryData={data.aggregations['global#facets']['filter#country']}
             />
           </ResourceIndex>
         )
@@ -253,7 +253,7 @@ export default (api) => {
             <Country
               iso3166={data.iso3166}
               region={region.toUpperCase()}
-              countryData={data.aggregations['global#facets']['filter#filtered']['filter#country']}
+              countryData={data.aggregations['global#facets']['filter#country']}
             />
           </ResourceIndex>
         )
