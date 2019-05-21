@@ -352,7 +352,6 @@ class Map extends React.Component {
             {popupContent}
           </div>, document.createElement('div')))
           .addTo(this.map)
-          ._content.classList.add('noEvents')
       }
     }
   }
