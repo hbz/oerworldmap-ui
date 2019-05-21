@@ -218,7 +218,7 @@ class Map extends React.Component {
       const { translate, iso3166, aggregations, phrases, locales, emitter } = this.props
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, {layers: ['points']})
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
+      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions', 'regions-inactive'] })
 
       const currentCountry = (hoveredCountries.length && hoveredCountries[0].properties.iso_a2) || null
       const currentRegion = (hoveredRegions.length && hoveredRegions[0].properties.code_hasc) || null
