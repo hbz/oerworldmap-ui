@@ -249,7 +249,13 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
             region={region.toUpperCase()}
-          />
+          >
+            <Country
+              iso3166={data.iso3166}
+              region={region.toUpperCase()}
+              countryData={data.aggregations['global#facets']['filter#filtered']['filter#country']}
+            />
+          </ResourceIndex>
         )
         const title = `${context.i18n.translate((country + "." + region).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`
         const metadata = {
