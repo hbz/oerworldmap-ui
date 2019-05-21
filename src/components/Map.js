@@ -223,7 +223,7 @@ class Map extends React.Component {
       const currentCountry = (hoveredCountries.length && hoveredCountries[0].properties.iso_a2) || null
       const currentRegion = (hoveredRegions.length && hoveredRegions[0].properties.code_hasc) || null
 
-      if (!currentCountry) {
+      if (!currentCountry && !hoveredPoints.length ) {
         // Water since there is no country
         this.hoverPopup.remove()
         this.map.getCanvas().style.cursor = ''
