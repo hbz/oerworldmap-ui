@@ -152,7 +152,7 @@ class Map extends React.Component {
 
     })
 
-    // Create and hide popup for hover
+    // Create popup for hover
     this.popupOffsets = {
       'top': [0, 20],
       'bottom': [0, -20],
@@ -161,14 +161,13 @@ class Map extends React.Component {
       'top-left': [0, 20],
       'top-right': [0, 20],
       'bottom-left': [0, -20],
-      'bottom-right': [0, -20],
+      'bottom-right': [0, -20]
     }
     this.hoverPopup = new mapboxgl.Popup(
       {
         closeButton:false,
         offset:this.popupOffsets
       })
-      .remove()
   }
 
   componentWillReceiveProps(nextProps) {
