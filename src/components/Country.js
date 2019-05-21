@@ -44,7 +44,7 @@ class Country  extends React.Component {
   }
 
   render() {
-    const { countryData, iso3166, translate } = this.props
+    const { countryData, iso3166, translate, region } = this.props
     const { showCountryChampion, showReports, showStatistics } = this.state
 
     return (
@@ -56,7 +56,7 @@ class Country  extends React.Component {
               src={`https://lipis.github.io/flag-icon-css/flags/4x3/${iso3166.toLowerCase()}.svg`}
               alt={`Flag for ${translate(iso3166)}`}
             />
-            <h2>{translate(iso3166)}</h2>
+            {region ? <h2>{translate(iso3166 + '.' + region)}</h2> : <h2>{translate(iso3166)}</h2>}
           </div>
 
           {countryData &&
