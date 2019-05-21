@@ -108,6 +108,7 @@ class Map extends React.Component {
       RegionsLayer.id = 'regions-inactive'
       const countriesInactive = this.map.getStyle().layers.find(l => { return l.id === 'countries-inactive'})
       RegionsLayer.paint = countriesInactive.paint
+      RegionsLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
       this.map.addLayer(RegionsLayer, 'Regions')
 
       // Initialize choropleth layers
