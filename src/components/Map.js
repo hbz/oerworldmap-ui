@@ -218,10 +218,12 @@ class Map extends React.Component {
       const { translate, iso3166, aggregations, phrases, locales, emitter } = this.props
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, {layers: ['points']})
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions', 'regions-inactive'] })
+      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
+      const hoveredRegionsInactive = this.map.queryRenderedFeatures(e.point, { layers: ['regions-inactive'] })
 
       const currentCountry = (hoveredCountries.length && hoveredCountries[0].properties.iso_a2) || null
       const currentRegion = (hoveredRegions.length && hoveredRegions[0].properties.code_hasc) || null
+      const currentRegionInactive = (hoveredRegionsInactive.length && hoveredRegionsInactive[0].properties.code_hasc) || null
 
       if (!currentCountry && !hoveredPoints.length ) {
         // Water since there is no country
@@ -300,6 +302,18 @@ class Map extends React.Component {
                       <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
                     </>
                   )}
+                </b>
+              </li>
+            </ul>
+          )
+        } else if (currentRegionInactive) {
+          popupContent = (
+            <ul>
+              <li>
+                <b>
+                  {translate(currentRegionInactive)}
+                  &nbsp;(
+                  {translate(currentCountry)}
                 </b>
               </li>
             </ul>
