@@ -200,9 +200,15 @@ class Country  extends React.Component {
             </div>
           )}
 
-          <Link href="/resource/" className="closePage">
-            &times;
-          </Link>
+          {region ? (
+            <Link href={`/country/${iso3166}`} className="closePage">
+              &times;
+            </Link>
+          ) : (
+            <Link href="/resource/" className="closePage">
+              &times;
+            </Link>
+          )}
 
         </div>
         <FullModal className={`countryStatistics${showStatistics ? '' : ' hidden'}`}>
