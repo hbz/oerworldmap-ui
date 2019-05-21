@@ -392,14 +392,21 @@ class Map extends React.Component {
       this.map.setFilter('regions-inactive', ['==', 'iso_a2', iso3166])
       this.map.setFilter('countries-inactive', ['all'])
       this.map.setFilter('Regions', ['==', 'code_hasc', `${iso3166}.${region}`])
+      this.map.once('moveend', () => {
+        this.map.setPaintProperty('countries', 'fill-opacity', 0)
+      })
     } else if (iso3166) {
       this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
       this.map.setFilter('Regions', ['==', 'iso_a2', iso3166])
       this.map.setFilter('regions-inactive', ['==', 'code_hasc', 'null'])
+      this.map.once('moveend', () => {
+        this.map.setPaintProperty('countries', 'fill-opacity', 0)
+      })
     } else {
       this.map.setFilter('countries-inactive', ["!has", "iso_a2"])
       this.map.setFilter('Regions', ["!has", "iso_a2"])
       this.map.setFilter('regions-inactive', ['==', 'code_hasc', 'null'])
+      this.map.setPaintProperty('countries', 'fill-opacity', 1)
     }
   }
 
