@@ -39,6 +39,7 @@ class Map extends React.Component {
     this.clickCountries = this.clickCountries.bind(this)
     this.clickRegions = this.clickRegions.bind(this)
     this.choroplethStopsFromBuckets = this.choroplethStopsFromBuckets.bind(this)
+    this.zoom = this.zoom.bind(this)
   }
 
   componentDidMount() {
@@ -189,17 +190,27 @@ class Map extends React.Component {
   }
 
   getBucket(location, aggregation) {
-    const { aggregations} = this.props
+    const { aggregations } = this.props
 
     return(aggregations && aggregations[aggregation] && aggregations[aggregation].buckets.find(agg => agg.key === location))
       || null
   }
 
   zoom(e) {
-    if (e.target.getZoom() >= 7) {
+    const { iso3166 } = this.props
+
+    const zoom = e.target.getZoom()
+
+    if (zoom >= 7) {
       e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
     } else {
       e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+    }
+
+    if (zoom < 2 && iso3166) {
+      iso3166 && this.map.setPaintProperty('countries', 'fill-opacity', 1)
+    } else if (iso3166) {
+      iso3166 && this.map.setPaintProperty('countries', 'fill-opacity', 0)
     }
   }
 
