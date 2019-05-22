@@ -17,7 +17,6 @@ const Export = ({_links, translate}) => (
 )
 
 Export.propTypes = {
-  _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired
 }
