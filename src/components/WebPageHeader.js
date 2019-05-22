@@ -7,6 +7,8 @@ import Metadata from './Metadata'
 
 import expose from '../expose'
 
+import '../styles/components/WebPageHeader.pcss'
+
 const WebPageHeader = ({
   user, about, author, contributor, dateModified, view, _self, _links, embedValue
 }) => {
