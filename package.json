@@ -30,8 +30,8 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -110,7 +110,7 @@
     "simplemde": "^1.11.2",
     "source-sans-pro": "^2.45.0",
     "url-template": "^2.0.8",
-    "webpack": "^4.32.0",
+    "webpack": "^4.32.1",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-dev-server": "^3.4.1",
     "webpack-hot-middleware": "^2.25.0"
