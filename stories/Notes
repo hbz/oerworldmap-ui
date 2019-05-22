@@ -1,4 +1,8 @@
 --- Done ---
+SocialLinks
+Topline
+Calendar
+Timeline
 TimelineBlock
 Link
 Feed
@@ -16,27 +20,18 @@ ResultList
 Loading
 Block
 LinkOverride
-
+Share
+Export
+WebPageHeader
+WebPageUserActions
+Header
 ShareExport
-  Refactor styles to component
+ButtonFilter
+Map
+  Make parameters toggable for story
 
 DropdownFilter
   Maybe pass the translated texts
-
-Header
-  Interior component not propperly styled
-
-Export
-  Extract from FullModal
-
-Timeline
-  Extract from FullModal
-
-WebPageHeader
-  Refactor styles to component
-
-WebPageUserActions
-  Refactor styles to component
 
 ResourcePreview
   Refactor styles to component
@@ -56,32 +51,14 @@ Lighthouses
 ItemList
   Make the tooltip optional by default
 
-Map
-  Make parameters toggable
-
 Metadata
   Remove author and contributor for test
-
-Share
-  Decuple the full modal
-
-Calendar
-  Not working toggle upcomming
 
 Country
   Move showStatistics to country style
 
-Topline
-  Separate Topline Styles from WebPageView
-
 ResourceImage
   Simplify twitter(SameAs) pass only needed props
-
-SocialLinks
-  Wrong icons
-
-ButtonFilter
-  Move button filter Styles
 
 -- No need of story --
 
