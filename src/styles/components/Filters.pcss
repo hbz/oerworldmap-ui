@@ -110,47 +110,10 @@
       }
     }
 
-    & .ButtonFilter,
     & .DropdownFilter {
       padding: 0 5px;
       margin-bottom: 10px;
       top: 1px;
-    }
-
-    & .ButtonFilter {
-      width: 100%;
-      display: flex;
-      flex-wrap: nowrap;
-
-      & .filterBox {
-        padding: 0 2px;
-        flex-grow: 1;
-
-        & .btn {
-          text-align: center;
-        }
-      }
-
-      & .filterBox:first-child {
-        padding-left: 0;
-      }
-
-      & .filterBox:last-child {
-        padding-right: 0;
-      }
-    }
-
-    & input[type="radio"] {
-      display: none;
-
-      &:checked + label {
-        color: var(--white);
-        background: var(--primary-color);
-
-        & i {
-          pointer-events: none;
-        }
-      }
     }
 
     & .btn {
