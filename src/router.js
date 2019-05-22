@@ -200,7 +200,6 @@ export default (api) => {
         const data = state || await api.get(url, context.authorization)
         const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
           .buckets.find(bucket => bucket.key === data.iso3166)
-        console.log(data.aggregations)
         const component = (data) => (
           <ResourceIndex
             {...data}
@@ -248,7 +247,6 @@ export default (api) => {
           .buckets.find(bucket => bucket.key === data.iso3166)
         const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
           .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
-        console.log(data.aggregations)
         const component = (data) => (
           <ResourceIndex
             {...data}
