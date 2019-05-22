@@ -315,6 +315,11 @@ class Map extends React.Component {
                   )}
                 </b>
               </li>
+              {bucket && aggregations["global#champions"]["sterms#about.regionalChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
+                <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
+              ) : (
+                <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+              )}
             </ul>
           )
         } else if (currentRegionInactive) {
@@ -356,11 +361,8 @@ class Map extends React.Component {
                 {bucket && aggregations["global#champions"]["sterms#about.countryChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
                   <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
                 ) : (
-                  !iso3166
-                    ? <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-                    : null
-                )
-                }
+                  <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+                )}
               </ul>
             )
           }
