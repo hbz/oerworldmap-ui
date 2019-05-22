@@ -330,6 +330,7 @@ class Map extends React.Component {
                   {translate(currentRegionInactive)}
                   &nbsp;(
                   {translate(currentCountry)}
+                  )
                 </b>
               </li>
             </ul>
