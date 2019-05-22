@@ -62,3 +62,18 @@ storiesOf('WebPageHeader', module)
       />
     </WithStrings>
   ))
+  .add('In edit view', () => (
+    <WithStrings lang={["en"]}>
+      <WebPageHeader
+        user={user}
+        about={about}
+        author={null}
+        contributor={contributor}
+        dateModified={dateModified}
+        view="edit"
+        _self={_self}
+        _links={_links}
+        embedValue
+      />
+    </WithStrings>
+  ))
