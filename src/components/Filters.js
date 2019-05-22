@@ -211,7 +211,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed, region } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -256,9 +256,7 @@ class Filters extends React.Component {
           <div className="FiltersControls">
             <div className="mapOptions">
 
-              {!country &&
-                <span>{translate("Click a country to explore...")}</span>
-              }
+              <span>{translate(`Click a ${(region || country) ? 'region' : 'country'} to explore...`)}</span>
 
               <Switch
                 title={{
@@ -472,13 +470,15 @@ Filters.propTypes = {
   embedValue: PropTypes.string,
   country: PropTypes.string,
   isEmbed: PropTypes.bool.isRequired,
+  region: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
   sort: "",
   embedValue: null,
-  country: null
+  country: null,
+  region: null
 }
 
 export default withEmitter(withI18n(Filters))
