@@ -11,6 +11,7 @@ import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
+import Switch from './Switch'
 
 import { clearForm } from '../common'
 
@@ -210,7 +211,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -253,7 +254,26 @@ class Filters extends React.Component {
           onReset={(evt) => onReset(evt)}
         >
           <div className="FiltersControls">
+            <div className="mapOptions">
+
+              {!country &&
+                <span>{translate("Click a country to explore...")}</span>
+              }
+
+              <Switch
+                title={{
+                  checked: translate("ResourceIndex.view.pins.hide"),
+                  unchecked: translate("ResourceIndex.view.pins.show")
+                }}
+                onChange={(checked) => {
+                  emitter.emit("showFeatures", checked)
+                }}
+                checked={isEmbed}
+              />
+            </div>
+
             <div className="filterSearch">
+
 
               <input
                 type="text"
@@ -450,7 +470,8 @@ Filters.propTypes = {
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   sort: PropTypes.string,
   embedValue: PropTypes.string,
-  country: PropTypes.string
+  country: PropTypes.string,
+  isEmbed: PropTypes.bool.isRequired,
 }
 
 Filters.defaultProps = {

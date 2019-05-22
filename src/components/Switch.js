@@ -14,7 +14,7 @@ const Switch = ({title, onChange, checked}) => {
   return (
     <div className="Switch">
       <span className="switchTitle">
-        {title}
+        {isChecked ? title.checked : title.unchecked}
       </span>
       <label>
         <input
@@ -31,9 +31,14 @@ const Switch = ({title, onChange, checked}) => {
 }
 
 Switch.propTypes = {
-  title: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  checked: PropTypes.bool
+  checked: PropTypes.bool,
+  title: PropTypes.shape(
+    {
+      checked: PropTypes.string,
+      unchecked: PropTypes.string,
+    }
+  ).isRequired,
 }
 
 Switch.defaultProps = {

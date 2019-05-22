@@ -8,9 +8,7 @@ import Column from './Column'
 import ResultList from './ResultList'
 import Pagination from './Pagination'
 import Calendar from './Calendar'
-import Switch from './Switch'
 
-import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 const ResourceIndex = ({
@@ -38,8 +36,7 @@ const ResourceIndex = ({
   sort,
   embedValue,
   phrases,
-  isEmbed,
-  translate
+  isEmbed
 }) => {
 
   const home = _self.endsWith('/resource/?features=true')
@@ -62,6 +59,7 @@ const ResourceIndex = ({
             view={view}
             embedValue={embedValue}
             country={iso3166}
+            isEmbed={isEmbed}
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
@@ -99,13 +97,6 @@ const ResourceIndex = ({
         isEmbed={isEmbed}
       />
 
-      <Switch
-        title={translate("ResourceIndex.view.country")}
-        onChange={(checked) => {
-          emitter.emit("showFeatures", checked)
-        }}
-        checked={isEmbed}
-      />
     </div>
   )
 }
@@ -136,7 +127,6 @@ ResourceIndex.propTypes = {
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
-  translate: PropTypes.func.isRequired
 }
 
 ResourceIndex.defaultProps = {
@@ -152,4 +142,4 @@ ResourceIndex.defaultProps = {
   children: null
 }
 
-export default withEmitter(withI18n(ResourceIndex))
+export default withEmitter(ResourceIndex)
