@@ -256,7 +256,11 @@ export default (api) => {
       path: '/activity/',
       get: async (params, context, state) => {
         const data = state || await api.get('/activity/', context.authorization)
-        const component = (data) =>  <Timeline entries={data} />
+        const component = (data) =>  (
+          <FullModal closeLink={Link.home}>
+            <Timeline entries={data} />
+          </FullModal>
+        )
         const title = context.i18n.translate('Activity')
         return { title, data, component }
       }
