@@ -34,7 +34,7 @@ export default (api) => {
     {
       path: '/resource/',
       get: async (params, context, state) => {
-        const { user, mapboxConfig, schema, phrases } = context
+        const { user, mapboxConfig, schema, phrases, embed } = context
         const url = getURL({
           path: '/resource/',
           params: Object.assign(params, {features: true})
@@ -65,6 +65,7 @@ export default (api) => {
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
+            isEmbed={embed === "true" || embed ===  "country"}
           />
         )
 
@@ -191,7 +192,7 @@ export default (api) => {
     {
       path: '/country/:id',
       get: async (id, params, context, state) => {
-        const { phrases, mapboxConfig } = context
+        const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${id}`,
           params: Object.assign(params, {features: true})
@@ -206,14 +207,60 @@ export default (api) => {
             mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
+            isEmbed={embed === "true" || embed ===  "country"}
           >
             <Country
               iso3166={data.iso3166}
-              countryData={data.aggregations['global#facets']['filter#filtered']['filter#country']}
+              countryData={data.aggregations['global#facets']['filter#country']}
             />
           </ResourceIndex>
         )
         const title = context.i18n.translate(id.toUpperCase())
+        const metadata = {
+          description: context.i18n.translate('CountryIndex.description', {
+            countryName: context.i18n.translate(data.iso3166)
+          }),
+          url: data._self,
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png'
+        }
+
+        if (data && (data.query || Object.keys(data.filters).length > 0))  {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
+        }
+
+        return { title, data, component, metadata }
+      }
+    },
+    {
+      path: '/country/:country/:region',
+      get: async (country, region, params, context, state) => {
+        const { phrases, mapboxConfig, embed } = context
+        const url = getURL({
+          path: `/country/${country}/${region}`,
+          params: Object.assign(params, {features: true})
+        })
+        Link.home = url
+        const data = state || await api.get(url, context.authorization)
+        const component = (data) => (
+          <ResourceIndex
+            {...data}
+            className="regionView"
+            phrases={phrases}
+            mapboxConfig={mapboxConfig}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            embedValue="country"
+            region={region.toUpperCase()}
+            isEmbed={embed === "true" || embed ===  "country"}
+          >
+            <Country
+              iso3166={data.iso3166}
+              region={region.toUpperCase()}
+              countryData={data.aggregations['global#facets']['filter#country']}
+            />
+          </ResourceIndex>
+        )
+        const title = `${context.i18n.translate((country + "." + region).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`
         const metadata = {
           description: context.i18n.translate('CountryIndex.description', {
             countryName: context.i18n.translate(data.iso3166)

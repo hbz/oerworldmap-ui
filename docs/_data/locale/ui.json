@@ -93,6 +93,8 @@
   "ResourceIndex.read.lighthouses.text": "Read why this entry is considered to be a lighthouse...",
   "ResourceIndex.read.lighthouses.hint": "You have to be logged in to add a lighthouse",
   "ResourceIndex.read.like.hint": "You have to be logged in to like an entry",
+  "ResourceIndex.view.pins.show": "Show pins",
+  "ResourceIndex.view.pins.hide": "Hide pins",
   "Sparql.query.query": "Query",
   "Sparql.update.update": "Update",
   "Sparql.update.delete": "Delete",

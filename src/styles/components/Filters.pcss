@@ -16,7 +16,7 @@
     padding-bottom: 15px;
     position: relative;
     margin-left: 0;
-    transition: .2s margin-left;
+    transition: 0.2s margin-left;
 
     & button[type=submit] {
       position: absolute;
@@ -375,4 +375,15 @@
   &:hover::after {
     color: var(--orange);
   }
+}
+
+.mapOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  transition: background-color 1s, border-color 1s;
 }

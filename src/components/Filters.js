@@ -1,5 +1,6 @@
 /* global FormData */
 /* global Event */
+/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -11,6 +12,7 @@ import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
+import Switch from './Switch'
 
 import { clearForm } from '../common'
 
@@ -210,7 +212,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed, region } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -223,7 +225,7 @@ class Filters extends React.Component {
           country: translate(country),
           filter: translate(filters["about.@type"][0]).toLowerCase()
         })
-        : searchPlaceholder = translate("search.entries.country", {country: translate(country)})
+        : searchPlaceholder = translate("search.entries.country", {country: translate(region ? `${country}.${region}` : country)})
     } else if (filters && Object.keys(filters).includes("about.@type")) {
       if (filters["about.@type"][0] === "Policy") {
         searchPlaceholder = translate("search.entries.filter.policy")
@@ -253,7 +255,25 @@ class Filters extends React.Component {
           onReset={(evt) => onReset(evt)}
         >
           <div className="FiltersControls">
+            <div className="mapOptions">
+
+              <span>{translate(`Click a ${(region || country) ? 'region' : 'country'} to explore...`)}</span>
+
+              <Switch
+                title={{
+                  checked: translate("ResourceIndex.view.pins.hide"),
+                  unchecked: translate("ResourceIndex.view.pins.show")
+                }}
+                onChange={(checked) => {
+                  localStorage.setItem('showPins', checked)
+                  emitter.emit("showFeatures", checked)
+                }}
+                checked={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
+              />
+            </div>
+
             <div className="filterSearch">
+
 
               <input
                 type="text"
@@ -450,14 +470,17 @@ Filters.propTypes = {
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   sort: PropTypes.string,
   embedValue: PropTypes.string,
-  country: PropTypes.string
+  country: PropTypes.string,
+  isEmbed: PropTypes.bool.isRequired,
+  region: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
   sort: "",
   embedValue: null,
-  country: null
+  country: null,
+  region: null
 }
 
 export default withEmitter(withI18n(Filters))
