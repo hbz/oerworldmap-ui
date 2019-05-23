@@ -1,4 +1,6 @@
 --- Done ---
+
+Metadata
 SocialLinks
 Topline
 Calendar
@@ -50,9 +52,6 @@ Lighthouses
 
 ItemList
   Make the tooltip optional by default
-
-Metadata
-  Remove author and contributor for test
 
 Country
   Move showStatistics to country style
