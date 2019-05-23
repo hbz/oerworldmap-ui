@@ -327,8 +327,7 @@
   "menu.me.organizations": "My affiliations",
   "entry.missing.info.note": "A description for this entry is missing.",
   "entry.missing.info.action": "Help us by adding some information!",
-  "calendar.show.upcoming": "Upcoming",
-  "calendar.show.past": "Past",
+  "calendar.show.past": "Include past events",
   "form.showOptionalFields": "Show optional fields for %{title}",
   "Error.required": "Please specify a %{missingProperty}",
   "Error.format": "The provided format is not valid for the field %{format}",
@@ -336,5 +335,10 @@
   "search.entries.country": "Search entries in %{country}",
   "search.entries.country.filter": "Search %{filter} entries in %{country}",
   "search.entries.filter": "Search in %{filter} entries",
-  "search.entries.filter.policy": "Search in Policy Registry"
+  "search.entries.filter.policy": "Search in Policy Registry",
+  "Diffs.historyFor": "History for",
+  "Diffs.description": "Choose the left and right checkbox to select two versions which will be compared to each other.",
+  "Diffs.author": "Author",
+  "Diffs.date": "Date",
+  "Diffs.terms": "Terms of Use & Privacy Policy"
 }

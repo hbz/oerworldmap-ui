@@ -22,6 +22,9 @@ const onSubmit = (e, emitter) => {
   e.preventDefault()
   const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
+  if (formData.get('filter.about.@type') !== 'Event') {
+    formData.delete('filter.about.startDate.GTE')
+  }
   const parameters = [...formData.entries()]
     .filter(p => !!p[1])
     .filter(p => !p.includes(current && current.split(':')[1]))
@@ -48,21 +51,6 @@ const primaryFilters = [
 ]
 
 const subFilters = [
-  {
-    name: "sterms#feature.properties.location.address.addressCountry",
-    filter: "filter#feature.properties.location.address.addressCountry",
-    type: "dropdown",
-    icon: "globe",
-    translate: true,
-    order: (array, translate) => array.sort((a, b) => translate(a.key).localeCompare(translate(b.key)))
-  },
-  {
-    name: "sterms#feature.properties.location.address.addressRegion",
-    filter: "filter#feature.properties.location.address.addressRegion",
-    type: "dropdown",
-    icon: "globe",
-    translate: true
-  },
   {
     name: "sterms#about.keywords",
     filter: "filter#about.keywords",
@@ -347,10 +335,10 @@ class Filters extends React.Component {
 
             </div>
 
-            {Object.keys(filters).some(name => name !== 'about.@type') && (
+            {Object.keys(filters).some(name => name !== 'about.@type' && name !== 'about.startDate.GTE') && (
               <div className="selectedFilters">
                 <hr />
-                {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
+                {Object.keys(filters).filter(name => name !== 'about.@type' && name !== 'about.startDate.GTE').map(filterGroup => (
                   filters[filterGroup].map(filter => (
                     <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
                       <input
@@ -439,6 +427,19 @@ class Filters extends React.Component {
                       </select>
                     </span>
                   </span>
+                ) || (
+                  <div>
+                    <input
+                      type="checkbox"
+                      name="filter.about.startDate.GTE"
+                      value="1970"
+                      id="filter.about.startDate.GTE"
+                      checked={filters['about.startDate.GTE'] && filters['about.startDate.GTE'].includes('1970')}
+                      onChange={e => onSubmit(e, emitter)}
+                    />
+                    &nbsp;
+                    {translate('calendar.show.past')}
+                  </div>
                 )}
               </div>
               <ShareExport
