@@ -87,6 +87,42 @@
     }
   }
 
+  & .statisticsContainer {
+    & .buckets {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      margin-right: 2px;
+
+      & li {
+        padding: 0.35em 0;
+        display: flex;
+        justify-content: space-between;
+
+        & .icon {
+          width: 25px;
+          text-align: center;
+        }
+
+        & .type {
+          flex: 1;
+        }
+      }
+
+    }
+
+    & .more {
+      text-align: right;
+
+      & button {
+        border: none;
+        background-color: transparent;
+        color: var(--white);
+        padding: 0;
+      }
+    }
+  }
+
   & .countryChampion,
   & .countryReports {
     padding-bottom: 5px;

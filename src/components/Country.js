@@ -17,7 +17,8 @@ class Country  extends React.Component {
     this.state = {
       showCountryChampion: true,
       showReports: false,
-      showStatistics: false,
+      showStatistics: true,
+      showKibanaStatistics: false
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
@@ -33,7 +34,7 @@ class Country  extends React.Component {
   listenMessage(msg) {
     const { emitter, iso3166 } = this.props
     if (msg.data.filter && msg.data.key) {
-      this.setState({showStatistics:false})
+      this.setState({showKibanaStatistics:false})
       emitter.emit('navigate', getURL({
         path: `/country/${iso3166}`,
         params: {
@@ -44,8 +45,12 @@ class Country  extends React.Component {
   }
 
   render() {
-    const { countryData, iso3166, translate, region } = this.props
-    const { showCountryChampion, showReports, showStatistics } = this.state
+    const {
+      countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region
+    } = this.props
+    const {
+      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics
+    } = this.state
 
     return (
       <React.Fragment>
@@ -59,10 +64,7 @@ class Country  extends React.Component {
             {region ? <h2>{translate(iso3166 + '.' + region)}</h2> : <h2>{translate(iso3166)}</h2>}
           </div>
 
-          {countryData &&
-          countryData["filter#champions"] &&
-          countryData["filter#champions"]["top_hits#country_champions"] &&
-          countryData["filter#champions"]["top_hits#country_champions"].hits.hits.length > 0 ?
+          {countryChampions ?
             (
               <div className="countryChampion">
                 <h3
@@ -77,7 +79,7 @@ class Country  extends React.Component {
                 </h3>
 
                 <div className={`countryChampionContainer ${showCountryChampion ? '' : 'collapsed'}`}>
-                  {countryData["filter#champions"]["top_hits#country_champions"].hits.hits.map(champion => (
+                  {countryChampions.map(champion => (
                     <div className="user" key={champion._source.about['@id']}>
                       {champion._source.about.image ? (
                         <Link href={`/resource/${champion._source.about['@id']}`}>
@@ -146,6 +148,95 @@ class Country  extends React.Component {
             )
           }
 
+          {region && (
+            <div className="countryChampion">
+
+              {regionalChampions ?
+                (
+                  <React.Fragment>
+                    <h3
+                      onKeyDown={triggerClick}
+                      tabIndex="0"
+                      role="button"
+                      onClick={() => this.setState({showRegionalChampion:!showRegionalChampion})}
+                    >
+                      <span>{translate('CountryIndex.read.regionalChampion')}</span>
+                      &nbsp;
+                      <i aria-hidden="true" className={`fa fa-${showRegionalChampion ? 'minus' : 'plus'}`} />
+                    </h3>
+
+                    <div className={`countryChampionContainer ${showRegionalChampion ? '' : 'collapsed'}`}>
+                      {regionalChampions.map(champion => (
+                        <div className="user" key={champion._source.about['@id']}>
+                          {champion._source.about.image ? (
+                            <Link href={`/resource/${champion._source.about['@id']}`}>
+                              <div className="frame">
+                                <img
+                                  className={champion._source.about['@type']}
+                                  src={champion._source.about.image}
+                                  alt={translate(champion._source.about.name)}
+                                  onLoad={e => {
+                                    if (e.target.complete) {
+                                      e.target.classList.add('visible')
+                                    }}}
+                                />
+                                <Icon type={champion._source.about['@type']} />
+                              </div>
+                            </Link>
+                          ) :(
+                            <div className="frame">
+                              <Icon type={champion._source.about['@type']} />
+                            </div>
+                          )}
+                          <div className="text">
+                            <Link href={`/resource/${champion._source.about['@id']}`}>
+                              {translate(champion._source.about.name)}
+                            </Link>
+                            <br />
+                            {champion._source.about.email && (
+                              <a href={`mailto:${champion._source.about.email}`}>
+                                {champion._source.about.email}
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <h3
+                      onKeyDown={triggerClick}
+                      tabIndex="0"
+                      role="button"
+                      onClick={() => this.setState({showRegionalChampion: !showRegionalChampion})}
+                    >
+                      <span>{translate('CountryIndex.read.regionalChampion')}</span>
+                      &nbsp;
+                      <i aria-hidden="true" className={`fa fa-${showRegionalChampion ? 'minus' : 'plus'}`} />
+                    </h3>
+
+                    <div className={`countryChampionContainer ${showRegionalChampion ? '' : 'collapsed'}`}>
+                      <div className="user">
+                        <div className="frame">
+                          <i aria-hidden="true" className="fa fa-user" />
+                        </div>
+                        <div
+                          className="text"
+                          dangerouslySetInnerHTML={{
+                            __html: translate('CountryIndex.read.noChampion', {
+                              country: translate(iso3166 + '.' + region)
+                            })
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </React.Fragment>
+                )
+              }
+            </div>
+          )}
+
           {countryData &&
           countryData["filter#reports"]["top_hits#country_reports"] &&
           countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 && (
@@ -179,9 +270,14 @@ class Country  extends React.Component {
             </div>
           )}
 
-          {countryData &&
+          {((!region && countryData &&
           countryData['sterms#by_type'] &&
-          countryData['sterms#by_type'].buckets && (
+          countryData['sterms#by_type'].buckets &&
+          countryData['sterms#by_type'].buckets.length)
+          || (region && regionData &&
+          regionData['sterms#by_type'] &&
+          regionData['sterms#by_type'].buckets &&
+          regionData['sterms#by_type'].buckets.length)) && (
             <div className="statistics">
               <h3
                 onKeyDown={triggerClick}
@@ -192,11 +288,39 @@ class Country  extends React.Component {
                 <span>{translate('CountryIndex.read.statistics')}</span>
                 &nbsp;
                 <i
-                  onClick={() => this.setState({showStatistics: false})}
+                  onClick={() => this.setState({showStatistics: !showStatistics})}
                   aria-hidden="true"
                   className={`fa fa-${showStatistics ? 'minus' : 'plus'}`}
                 />
               </h3>
+
+              <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
+                <ul className="buckets">
+                  {(region ?
+                    regionData['sterms#by_type'].buckets
+                    : countryData['sterms#by_type'].buckets).map(type =>
+                    (
+                      <li key={type.key}>
+                        <span className="icon">
+                          <Icon type={type.key} />
+                        </span>
+                        <span className="type">
+                          {translate(type.key)}
+                        </span>
+                        <span>{type.doc_count}</span>
+                      </li>
+                    ))}
+                </ul>
+                <div className="more">
+                  <button
+                    onKeyDown={triggerClick}
+                    onClick={() => this.setState({showKibanaStatistics: !showKibanaStatistics})}
+                  >
+                    More
+                  </button>
+                </div>
+              </div>
+
             </div>
           )}
 
@@ -211,11 +335,11 @@ class Country  extends React.Component {
           )}
 
         </div>
-        <FullModal className={`countryStatistics${showStatistics ? '' : ' hidden'}`}>
+        <FullModal className={`countryStatistics${showKibanaStatistics ? '' : ' hidden'}`}>
           <span
             className="closeModal"
             role="presentation"
-            onClick={() => this.setState({showStatistics: false})}
+            onClick={() => this.setState({showKibanaStatistics: false})}
           >
             ×
           </span>
@@ -239,12 +363,18 @@ Country.propTypes = {
   translate: PropTypes.func.isRequired,
   iso3166: PropTypes.string.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  region: PropTypes.string
+  region: PropTypes.string,
+  countryChampions: PropTypes.arrayOf(PropTypes.object),
+  regionalChampions: PropTypes.arrayOf(PropTypes.object),
+  regionData: PropTypes.objectOf(PropTypes.any)
 }
 
 Country.defaultProps = {
   countryData: null,
-  region: null
+  region: null,
+  countryChampions: null,
+  regionalChampions: null,
+  regionData: null,
 }
 
 export default withEmitter(withI18n(Country))
