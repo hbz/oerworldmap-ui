@@ -44,7 +44,7 @@ class Map extends React.Component {
 
   componentDidMount() {
 
-    const { mapboxConfig, map, locales, features, aggregations, iso3166, home, emitter, isEmbed, region} = this.props
+    const { mapboxConfig, map, locales, features, aggregations, iso3166, home, emitter, initPins, region} = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')
@@ -102,7 +102,7 @@ class Map extends React.Component {
         pointsLayer.paint['circle-opacity'] = 1
         pointsLayer.paint['circle-stroke-opacity'] = 1
         this.map.addLayer(pointsLayer)
-        isEmbed
+        initPins
           ? this.map.setLayoutProperty(layer, 'visibility', 'visible')
           : this.map.setLayoutProperty(layer, 'visibility', 'none')
       })
@@ -754,7 +754,7 @@ Map.propTypes = {
   map: PropTypes.string,
   home: PropTypes.bool.isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-  isEmbed: PropTypes.bool.isRequired,
+  initPins: PropTypes.bool.isRequired,
   region: PropTypes.string
 }
 

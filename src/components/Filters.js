@@ -264,9 +264,10 @@ class Filters extends React.Component {
                   unchecked: translate("ResourceIndex.view.pins.show")
                 }}
                 onChange={(checked) => {
+                  localStorage.setItem('showPins', checked)
                   emitter.emit("showFeatures", checked)
                 }}
-                checked={isEmbed}
+                checked={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
               />
             </div>
 

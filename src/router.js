@@ -235,7 +235,7 @@ export default (api) => {
     {
       path: '/country/:country/:region',
       get: async (country, region, params, context, state) => {
-        const { phrases, mapboxConfig } = context
+        const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
           params: Object.assign(params, {features: true})
@@ -251,6 +251,7 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
             region={region.toUpperCase()}
+            isEmbed={embed === "true" || embed ===  "country"}
           >
             <Country
               iso3166={data.iso3166}

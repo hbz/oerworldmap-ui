@@ -96,7 +96,7 @@ const ResourceIndex = ({
         iso3166={iso3166}
         map={map}
         home={home}
-        isEmbed={isEmbed}
+        initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
         region={region}
       />
 
