@@ -3,7 +3,6 @@ title: OER Policy registry
 class: oerPolicies
 ---
 
-
 <div style="width:100%;text-align:center;">
 <img style="width:auto;margin:0 auto;border:0px solid transparent;border-radius:10px;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
