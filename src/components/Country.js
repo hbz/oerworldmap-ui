@@ -17,7 +17,8 @@ class Country  extends React.Component {
     this.state = {
       showCountryChampion: true,
       showReports: false,
-      showStatistics: false,
+      showStatistics: true,
+      showKibanaStatistics: false
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
@@ -33,7 +34,7 @@ class Country  extends React.Component {
   listenMessage(msg) {
     const { emitter, iso3166 } = this.props
     if (msg.data.filter && msg.data.key) {
-      this.setState({showStatistics:false})
+      this.setState({showKibanaStatistics:false})
       emitter.emit('navigate', getURL({
         path: `/country/${iso3166}`,
         params: {
@@ -48,7 +49,7 @@ class Country  extends React.Component {
       countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region
     } = this.props
     const {
-      showCountryChampion, showRegionalChampion, showReports, showStatistics
+      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics
     } = this.state
 
     return (
@@ -63,9 +64,6 @@ class Country  extends React.Component {
             {region ? <h2>{translate(iso3166 + '.' + region)}</h2> : <h2>{translate(iso3166)}</h2>}
           </div>
 
-          <div>
-            <pre>{this.props.countryData && JSON.stringify(this.props.countryData['sterms#by_type'])}</pre>
-          </div>
           {countryChampions ?
             (
               <div className="countryChampion">
@@ -152,9 +150,7 @@ class Country  extends React.Component {
 
           {region && (
             <div className="countryChampion">
-              <div>
-                <pre>{this.props.regionData && JSON.stringify(this.props.regionData['sterms#by_type'])}</pre>
-              </div>
+
               {regionalChampions ?
                 (
                   <React.Fragment>
@@ -274,9 +270,14 @@ class Country  extends React.Component {
             </div>
           )}
 
-          {countryData &&
+          {((!region && countryData &&
           countryData['sterms#by_type'] &&
-          countryData['sterms#by_type'].buckets && (
+          countryData['sterms#by_type'].buckets &&
+          countryData['sterms#by_type'].buckets.length)
+          || (region && regionData &&
+          regionData['sterms#by_type'] &&
+          regionData['sterms#by_type'].buckets &&
+          regionData['sterms#by_type'].buckets.length)) && (
             <div className="statistics">
               <h3
                 onKeyDown={triggerClick}
@@ -287,11 +288,39 @@ class Country  extends React.Component {
                 <span>{translate('CountryIndex.read.statistics')}</span>
                 &nbsp;
                 <i
-                  onClick={() => this.setState({showStatistics: false})}
+                  onClick={() => this.setState({showStatistics: !showStatistics})}
                   aria-hidden="true"
                   className={`fa fa-${showStatistics ? 'minus' : 'plus'}`}
                 />
               </h3>
+
+              <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
+                <ul className="buckets">
+                  {(region ?
+                    regionData['sterms#by_type'].buckets
+                    : countryData['sterms#by_type'].buckets).map(type =>
+                    (
+                      <li key={type.key}>
+                        <span className="icon">
+                          <Icon type={type.key} />
+                        </span>
+                        <span className="type">
+                          {translate(type.key)}
+                        </span>
+                        <span>{type.doc_count}</span>
+                      </li>
+                    ))}
+                </ul>
+                <div className="more">
+                  <button
+                    onKeyDown={triggerClick}
+                    onClick={() => this.setState({showKibanaStatistics: !showKibanaStatistics})}
+                  >
+                    More
+                  </button>
+                </div>
+              </div>
+
             </div>
           )}
 
@@ -306,11 +335,11 @@ class Country  extends React.Component {
           )}
 
         </div>
-        <FullModal className={`countryStatistics${showStatistics ? '' : ' hidden'}`}>
+        <FullModal className={`countryStatistics${showKibanaStatistics ? '' : ' hidden'}`}>
           <span
             className="closeModal"
             role="presentation"
-            onClick={() => this.setState({showStatistics: false})}
+            onClick={() => this.setState({showKibanaStatistics: false})}
           >
             ×
           </span>
