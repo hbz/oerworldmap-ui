@@ -239,7 +239,7 @@ class Map extends React.Component {
     const { overlayList } = this.state
 
     if (!overlayList) {
-      const { translate, iso3166, aggregations, phrases, locales, emitter } = this.props
+      const { translate, iso3166, aggregations, phrases, locales, emitter, region } = this.props
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, {layers: ['points']})
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
       const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
@@ -320,7 +320,7 @@ class Map extends React.Component {
                   &nbsp;(
                   {translate(currentCountry)}
                   )
-                  {bucket && (
+                  {(bucket && !region) && (
                     <>
                       <br />
                       <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
