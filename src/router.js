@@ -200,6 +200,7 @@ export default (api) => {
         const data = state || await api.get(url, context.authorization)
         const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
           .buckets.find(bucket => bucket.key === data.iso3166)
+        const countryData = data.aggregations['global#facets']['filter#country']
         const component = (data) => (
           <ResourceIndex
             {...data}
@@ -212,7 +213,7 @@ export default (api) => {
             <Country
               iso3166={data.iso3166}
               countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
-              countryData={data.aggregations['global#facets']['filter#country']}
+              countryData={countryData}
             />
           </ResourceIndex>
         )
@@ -245,7 +246,10 @@ export default (api) => {
         const data = state || await api.get(url, context.authorization)
         const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
           .buckets.find(bucket => bucket.key === data.iso3166)
+        const countryData = data.aggregations['global#facets']['filter#country']
         const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
+          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+        const regionData = data.aggregations['global#facets']['filter#feature.properties.location.address.addressRegion']['sterms#feature.properties.location.address.addressRegion']
           .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
         const component = (data) => (
           <ResourceIndex
@@ -262,7 +266,8 @@ export default (api) => {
               region={region.toUpperCase()}
               countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
               regionalChampions={regionalChampions && regionalChampions['top_hits#regional_champions'].hits.hits}
-              countryData={data.aggregations['global#facets']['filter#country']}
+              countryData={countryData}
+              regionData={regionData}
             />
           </ResourceIndex>
         )

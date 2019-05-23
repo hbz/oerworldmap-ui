@@ -44,8 +44,12 @@ class Country  extends React.Component {
   }
 
   render() {
-    const { countryData, countryChampions, regionalChampions, iso3166, translate, region } = this.props
-    const { showCountryChampion, showRegionalChampion, showReports, showStatistics } = this.state
+    const {
+      countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region
+    } = this.props
+    const {
+      showCountryChampion, showRegionalChampion, showReports, showStatistics
+    } = this.state
 
     return (
       <React.Fragment>
@@ -59,6 +63,9 @@ class Country  extends React.Component {
             {region ? <h2>{translate(iso3166 + '.' + region)}</h2> : <h2>{translate(iso3166)}</h2>}
           </div>
 
+          <div>
+            <pre>{this.props.countryData && JSON.stringify(this.props.countryData['sterms#by_type'])}</pre>
+          </div>
           {countryChampions ?
             (
               <div className="countryChampion">
@@ -145,6 +152,9 @@ class Country  extends React.Component {
 
           {region && (
             <div className="countryChampion">
+              <div>
+                <pre>{this.props.regionData && JSON.stringify(this.props.regionData['sterms#by_type'])}</pre>
+              </div>
               {regionalChampions ?
                 (
                   <React.Fragment>
@@ -326,14 +336,16 @@ Country.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   region: PropTypes.string,
   countryChampions: PropTypes.arrayOf(PropTypes.object),
-  regionalChampions: PropTypes.arrayOf(PropTypes.object)
+  regionalChampions: PropTypes.arrayOf(PropTypes.object),
+  regionData: PropTypes.objectOf(PropTypes.any)
 }
 
 Country.defaultProps = {
   countryData: null,
   region: null,
   countryChampions: null,
-  regionalChampions: null
+  regionalChampions: null,
+  regionData: null,
 }
 
 export default withEmitter(withI18n(Country))
