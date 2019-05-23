@@ -70,6 +70,7 @@
   "Person.email": "O seu endereço de email",
   "Person.description": "Uma pequena biografia de si mesmo com foco em atividades REA",
   "Person.countryChampionFor": "Um país para o qual você é embaixador no Mapa Global REA",
+  "Person.regionalChampionFor": "Regional champion for",
   "Person.image": "Uma foto ou avatar seu",
   "Person.location": "Seu principal local de residência",
   "Person.affiliation": "Organizações, Serviços e Projetos que o qual você está associado",
