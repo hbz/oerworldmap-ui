@@ -404,7 +404,7 @@ class Map extends React.Component {
   updateActiveCountry(iso3166, region) {
     if (region) {
       this.map.setFilter('regions-inactive', ['==', 'iso_a2', iso3166])
-      this.map.setFilter('countries-inactive', ['all'])
+      this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
       this.map.setFilter('Regions', ['==', 'code_hasc', `${iso3166}.${region}`])
       this.map.once('moveend', () => {
         this.map.setPaintProperty('countries', 'fill-opacity', 0)
