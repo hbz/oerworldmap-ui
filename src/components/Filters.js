@@ -411,9 +411,9 @@ class Filters extends React.Component {
                   <div>
                     <input
                       type="checkbox"
-                      name={`filter.about.startDate.GTE`}
+                      name="filter.about.startDate.GTE"
                       value="1970"
-                      id={`filter.about.startDate.GTE`}
+                      id="filter.about.startDate.GTE"
                       checked={filters['about.startDate.GTE'] && filters['about.startDate.GTE'].includes('1970')}
                       onChange={e => onSubmit(e, emitter)}
                     />
