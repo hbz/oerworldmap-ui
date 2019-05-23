@@ -1,5 +1,5 @@
 --- Done ---
-
+ResourceImage
 Metadata
 SocialLinks
 Topline
@@ -29,35 +29,24 @@ WebPageUserActions
 Header
 ShareExport
 ButtonFilter
+Comments
+Lighthouses
+ResourcePreview
+ConceptBlock
+WebPageCover
+
 Map
   Make parameters toggable for story
 
 DropdownFilter
   Maybe pass the translated texts
 
-ResourcePreview
-  Refactor styles to component
-
-ConceptBlock
-  Refactor styles to component
-
-WebPageCover
-  Refactor styles to component
-
-Comments
-  Refactor styles to component
-
-Lighthouses
-  Refactor styles to component
 
 ItemList
   Make the tooltip optional by default
 
 Country
   Move showStatistics to country style
-
-ResourceImage
-  Simplify twitter(SameAs) pass only needed props
 
 -- No need of story --
 

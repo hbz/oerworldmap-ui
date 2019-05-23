@@ -4,6 +4,8 @@ import MiniMap from './MiniMap'
 import centroids from '../json/centroids.json'
 import ResourceImage from './ResourceImage'
 
+import '../styles/components/WebPageCover.pcss'
+
 const WebPageCover = ({feature, about, mapboxConfig}) => {
 
   const country = (about
