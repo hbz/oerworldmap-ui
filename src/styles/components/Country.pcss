@@ -60,7 +60,17 @@
 
     & i {
       text-decoration: none;
+      position: relative;
+      right: 2px;
     }
+  }
+
+  & h3:first-child {
+    margin-bottom: 5px;
+  }
+
+  & h3:last-child {
+    margin-bottom: 0;
   }
 
   & .resourcesContainer,
@@ -77,6 +87,42 @@
     }
   }
 
+  & .statisticsContainer {
+    & .buckets {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      margin-right: 2px;
+
+      & li {
+        padding: 0.35em 0;
+        display: flex;
+        justify-content: space-between;
+
+        & .icon {
+          width: 25px;
+          text-align: center;
+        }
+
+        & .type {
+          flex: 1;
+        }
+      }
+
+    }
+
+    & .more {
+      text-align: right;
+
+      & button {
+        border: none;
+        background-color: transparent;
+        color: var(--white);
+        padding: 0;
+      }
+    }
+  }
+
   & .countryChampion,
   & .countryReports {
     padding-bottom: 5px;
@@ -87,7 +133,8 @@
       display: flex;
       align-items: flex-start;
       font-size: 0.8rem;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
+      margin-top: 5px;
 
       & i {
         margin-right: 10px;
@@ -221,6 +268,7 @@
       & h3 {
         padding-top: 0;
         margin: 0;
+        margin-bottom: 5px;
       }
 
       & .countryChampionContainer {

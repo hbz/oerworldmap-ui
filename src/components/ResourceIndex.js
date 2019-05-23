@@ -1,3 +1,5 @@
+/* global localStorage */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -9,7 +11,6 @@ import ResultList from './ResultList'
 import Pagination from './Pagination'
 import Calendar from './Calendar'
 
-import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
 const ResourceIndex = ({
@@ -36,7 +37,9 @@ const ResourceIndex = ({
   className,
   sort,
   embedValue,
-  phrases
+  phrases,
+  isEmbed,
+  region
 }) => {
 
   const home = _self.endsWith('/resource/?features=true')
@@ -59,6 +62,8 @@ const ResourceIndex = ({
             view={view}
             embedValue={embedValue}
             country={iso3166}
+            isEmbed={isEmbed}
+            region={region}
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
@@ -93,6 +98,8 @@ const ResourceIndex = ({
         iso3166={iso3166}
         map={map}
         home={home}
+        initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
+        region={region}
       />
 
     </div>
@@ -124,7 +131,8 @@ ResourceIndex.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-
+  isEmbed: PropTypes.bool.isRequired,
+  region: PropTypes.string
 }
 
 ResourceIndex.defaultProps = {
@@ -137,7 +145,8 @@ ResourceIndex.defaultProps = {
   className: null,
   sort: "",
   embedValue: null,
-  children: null
+  children: null,
+  region: null
 }
 
-export default withEmitter(withI18n(ResourceIndex))
+export default withEmitter(ResourceIndex)

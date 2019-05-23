@@ -70,6 +70,7 @@
   "Person.email": "Email",
   "Person.description": "Bio",
   "Person.countryChampionFor": "Country champion for",
+  "Person.regionalChampionFor": "Regional champion for",
   "Person.image": "Profile picture",
   "Person.location": "Location",
   "Person.affiliation": "Affiliation",

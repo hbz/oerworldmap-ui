@@ -1,5 +1,6 @@
 /* global FormData */
 /* global Event */
+/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -11,6 +12,7 @@ import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
+import Switch from './Switch'
 
 import { clearForm } from '../common'
 
@@ -20,6 +22,9 @@ const onSubmit = (e, emitter) => {
   e.preventDefault()
   const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
+  if (formData.get('filter.about.@type') !== 'Event') {
+    formData.delete('filter.about.startDate.GTE')
+  }
   const parameters = [...formData.entries()]
     .filter(p => !!p[1])
     .filter(p => !p.includes(current && current.split(':')[1]))
@@ -46,21 +51,6 @@ const primaryFilters = [
 ]
 
 const subFilters = [
-  {
-    name: "sterms#feature.properties.location.address.addressCountry",
-    filter: "filter#feature.properties.location.address.addressCountry",
-    type: "dropdown",
-    icon: "globe",
-    translate: true,
-    order: (array, translate) => array.sort((a, b) => translate(a.key).localeCompare(translate(b.key)))
-  },
-  {
-    name: "sterms#feature.properties.location.address.addressRegion",
-    filter: "filter#feature.properties.location.address.addressRegion",
-    type: "dropdown",
-    icon: "globe",
-    translate: true
-  },
   {
     name: "sterms#about.keywords",
     filter: "filter#about.keywords",
@@ -210,7 +200,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed, region } = this.props
     const { extended } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -220,10 +210,10 @@ class Filters extends React.Component {
     if (country) {
       (filters && Object.keys(filters).includes("about.@type"))
         ? searchPlaceholder = translate("search.entries.country.filter", {
-          country: translate(country),
+          country: translate(region ? `${country}.${region}` : country),
           filter: translate(filters["about.@type"][0]).toLowerCase()
         })
-        : searchPlaceholder = translate("search.entries.country", {country: translate(country)})
+        : searchPlaceholder = translate("search.entries.country", {country: translate(region ? `${country}.${region}` : country)})
     } else if (filters && Object.keys(filters).includes("about.@type")) {
       if (filters["about.@type"][0] === "Policy") {
         searchPlaceholder = translate("search.entries.filter.policy")
@@ -253,7 +243,25 @@ class Filters extends React.Component {
           onReset={(evt) => onReset(evt)}
         >
           <div className="FiltersControls">
+            <div className="mapOptions">
+
+              <span>{translate(`Click a ${(region || country) ? 'region' : 'country'} to explore...`)}</span>
+
+              <Switch
+                title={{
+                  checked: translate("ResourceIndex.view.pins.hide"),
+                  unchecked: translate("ResourceIndex.view.pins.show")
+                }}
+                onChange={(checked) => {
+                  localStorage.setItem('showPins', checked)
+                  emitter.emit("showFeatures", checked)
+                }}
+                checked={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
+              />
+            </div>
+
             <div className="filterSearch">
+
 
               <input
                 type="text"
@@ -327,10 +335,10 @@ class Filters extends React.Component {
 
             </div>
 
-            {Object.keys(filters).some(name => name !== 'about.@type') && (
+            {Object.keys(filters).some(name => name !== 'about.@type' && name !== 'about.startDate.GTE') && (
               <div className="selectedFilters">
                 <hr />
-                {Object.keys(filters).filter(name => name !== 'about.@type').map(filterGroup => (
+                {Object.keys(filters).filter(name => name !== 'about.@type' && name !== 'about.startDate.GTE').map(filterGroup => (
                   filters[filterGroup].map(filter => (
                     <div key={`filterSelected.${filterGroup}.${filter}`} className="tagFilter">
                       <input
@@ -419,6 +427,19 @@ class Filters extends React.Component {
                       </select>
                     </span>
                   </span>
+                ) || (
+                  <div>
+                    <input
+                      type="checkbox"
+                      name="filter.about.startDate.GTE"
+                      value="1970"
+                      id="filter.about.startDate.GTE"
+                      checked={filters['about.startDate.GTE'] && filters['about.startDate.GTE'].includes('1970')}
+                      onChange={e => onSubmit(e, emitter)}
+                    />
+                    &nbsp;
+                    {translate('calendar.show.past')}
+                  </div>
                 )}
               </div>
               <ShareExport
@@ -450,14 +471,17 @@ Filters.propTypes = {
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   sort: PropTypes.string,
   embedValue: PropTypes.string,
-  country: PropTypes.string
+  country: PropTypes.string,
+  isEmbed: PropTypes.bool.isRequired,
+  region: PropTypes.string
 }
 
 Filters.defaultProps = {
   view: null,
   sort: "",
   embedValue: null,
-  country: null
+  country: null,
+  region: null
 }
 
 export default withEmitter(withI18n(Filters))
