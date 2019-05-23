@@ -1,6 +1,7 @@
 ---
 title: Sobre
 ---
+
 ## A Visão
 
 Por mais de uma década a criação e uso de Recursos Educacionais Abertos (REA) tem aumentado em todo o mundo. O Mapa Global REA coleta e apresenta dados sobre o crescente número de atores e atividades no campo da educação aberta em todo o mundo. O objetivo é acelerar a evolução do ecossistema global de REA, oferecendo um retrato abrangente e ágil do movimento REA. A informação fornecida pode ser usada para uma ampla gama de propósitos, incluindo:
