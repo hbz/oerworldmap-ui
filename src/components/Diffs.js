@@ -60,11 +60,14 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
       <div className="diffContent">
         <div className="diffList">
           <div className="scroll">
-            <h1>
-              {translate('History for')}
-              :&nbsp;
-              <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a>
-            </h1>
+            <div>
+              <h1>
+                {translate('Diffs.historyFor')}
+                :&nbsp;
+                <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a>
+              </h1>
+              <p>{translate('Diffs.description')}</p>
+            </div>
 
             <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)}>
               {log.map(l => (
@@ -80,7 +83,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
                     <br />
                     <span>
                       <b>
-                        {translate('Author')}
+                        {translate('Diffs.author')}
                         :
                       </b>
                       &nbsp;
@@ -89,7 +92,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
                     <br />
                     <span>
                       <b>
-                        {translate('Date')}
+                        {translate('Diffs.date')}
                         :
                       </b>
                       &nbsp;
@@ -130,7 +133,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
 
       </div>
       <div className="footer">
-        <a href="https://beta.oerworldmap.org/imprint">{translate('Terms of Use & Privacy Policy')}</a>
+        <a href="https://beta.oerworldmap.org/imprint">{translate('Diffs.terms')}</a>
       </div>
     </div>
   )
