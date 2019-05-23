@@ -221,7 +221,7 @@ class Filters extends React.Component {
     if (country) {
       (filters && Object.keys(filters).includes("about.@type"))
         ? searchPlaceholder = translate("search.entries.country.filter", {
-          country: translate(country),
+          country: translate(region ? `${country}.${region}` : country),
           filter: translate(filters["about.@type"][0]).toLowerCase()
         })
         : searchPlaceholder = translate("search.entries.country", {country: translate(region ? `${country}.${region}` : country)})
