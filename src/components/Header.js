@@ -89,9 +89,9 @@ class Header extends React.Component {
     return (
       <header className="Header">
 
-        <Link href="/">
+        <a href="/">
           <h1>{translate('OER World Map')}</h1>
-        </Link>
+        </a>
 
         <button
           className="menuToggle visible-mobile-block"
