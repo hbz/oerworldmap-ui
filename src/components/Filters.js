@@ -123,7 +123,8 @@ class Filters extends React.Component {
     this.state = {
       extended: Object.keys(props.filters).some(
         v => secondaryFilters.map(f => f.name).includes(v)
-      )
+      ),
+      filtersCollapsed: false
     }
 
     this.sizes = [20,50,100,200]
@@ -201,7 +202,7 @@ class Filters extends React.Component {
   render() {
     const { filters, sort, translate, query, emitter,
       aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed, region } = this.props
-    const { extended } = this.state
+    const { extended, filtersCollapsed } = this.state
 
     const filter = filters && filters['about.@type'] || false
     const hasFilters = (Object.keys(filters).length > 0) || query
@@ -242,7 +243,7 @@ class Filters extends React.Component {
           onSubmit={(evt) => onSubmit(evt, emitter)}
           onReset={(evt) => onReset(evt)}
         >
-          <div className="FiltersControls">
+          <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed': ''}`}>
             <div className="mapOptions">
 
               <span>{translate(`Click a ${(region || country) ? 'region' : 'country'} to explore...`)}</span>
@@ -372,7 +373,15 @@ class Filters extends React.Component {
 
           </div>
 
-          <hr />
+          <div className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed': ''}`}>
+            <i
+              aria-hidden="true"
+              className={`fa fa-${!filtersCollapsed ? 'chevron-up' : 'chevron-down'}`}
+              onClick={() => this.setState({filtersCollapsed:!filtersCollapsed})}
+            />
+            <hr />
+
+          </div>
 
           <div className="sortContainer">
             <section className="listOptions">
