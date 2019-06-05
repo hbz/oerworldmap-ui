@@ -89,7 +89,7 @@ class Header extends React.Component {
     return (
       <header className="Header">
 
-        <Link href="/resource/">
+        <Link href="/">
           <h1>{translate('OER World Map')}</h1>
         </Link>
 
