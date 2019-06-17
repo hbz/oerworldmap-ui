@@ -27,15 +27,33 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Article"
+          "@value": "Informal online article"
         },
         {
           "@language": "pt",
-          "@value": "Article"
+          "@value": "Informal online article"
         },
         {
           "@language": "de",
-          "@value": "Artikel"
+          "@value": "Informeller Online-Artikel"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#peerReviewedArticle",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Peer-reviewed journal article"
+        },
+        {
+          "@language": "pt",
+          "@value": "Peer-reviewed journal article"
+        },
+        {
+          "@language": "de",
+          "@value": "Peer-reviewter Zeitschriftenartikel"
         }
       ]
     },
@@ -90,6 +108,42 @@
         {
           "@language": "de",
           "@value": "Interview"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#book",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Book"
+        },
+        {
+          "@language": "pt",
+          "@value": "Book"
+        },
+        {
+          "@language": "de",
+          "@value": "Buch"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/publications.json#presentation",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Presentation"
+        },
+        {
+          "@language": "pt",
+          "@value": "Presentation"
+        },
+        {
+          "@language": "de",
+          "@value": "Präsentation"
         }
       ]
     },
