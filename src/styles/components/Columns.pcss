@@ -33,6 +33,15 @@
       transform: translate3d(calc(-100% + -31px), 0, 0);
       transition: transform 1s;
     }
+
+    & .toggleColumns span {
+      border: none;
+
+      & i {
+        position: relative;
+        left: 7px;
+      }
+    }
   }
 
   & .column {
@@ -137,13 +146,31 @@
     background-color: var(--white);
     position: absolute;
     top: 50%;
-    right: 0;
-    padding: 10px;
+    right: 23px;
     transform: translateX(100%) translateY(-50%);
-    border-radius: 0 50% 50% 0;
+    border-radius: 50%;
     pointer-events: all;
-    border: 1px solid var(--blue-light);
+    border-right: 1px solid var(--blue-light);
     border-left: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    padding-left: 0px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--white) 30%, var(--white) 100%);
+
+
+    & span {
+      width: 30px;
+      height: 30px;
+      color: var(--blue-dark);
+      border: 1px solid var(--blue-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
   }
 
   @media print {
@@ -167,6 +194,7 @@
     top: 0;
     height: 100%;
     width: 100%;
+    border-right: none;
 
     &.country {
       top: 42px;
@@ -175,7 +203,9 @@
 
     &:not(.hideColumns) {
 
-      & .filterSearch {
+      & .mapOptions {
+        padding-left: 0;
+        padding-right: 0;
         margin-left: 25px;
       }
 

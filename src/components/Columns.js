@@ -34,13 +34,15 @@ class Columns extends React.Component {
           className="toggleColumns"
           tabIndex="0"
           role="button"
-          title={translate('Tip.showList')}
+          title={show ? translate('Hide list') : translate('Tip.showList')}
           onKeyDown={triggerClick}
           onClick={
             () => this.setState({show: !show})
           }
         >
-          <i className={`fa fa-chevron-${show ? "left" : "right"}`} />
+          <span>
+            <i className={`fa fa-chevron-${show ? "left" : "right"}`} />
+          </span>
         </div>
       </aside>
     )
