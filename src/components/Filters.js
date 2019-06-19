@@ -1,10 +1,10 @@
 /* global FormData */
 /* global Event */
-/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import '../styles/components/Filters.pcss'
+import Tooltip from 'rc-tooltip'
 
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
@@ -12,7 +12,6 @@ import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
-import Switch from './Switch'
 
 import { clearForm } from '../common'
 
@@ -244,11 +243,9 @@ class Filters extends React.Component {
           onReset={(evt) => onReset(evt)}
         >
           <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed': ''}`}>
-            <div className="mapOptions">
+            {/* <div className="mapOptions"> */}
 
-              <span>{translate(`Click a ${(region || country) ? 'region' : 'country'} to explore...`)}</span>
-
-              <Switch
+              {/* <Switch
                 title={{
                   checked: translate("ResourceIndex.view.pins.hide"),
                   unchecked: translate("ResourceIndex.view.pins.show")
@@ -258,8 +255,8 @@ class Filters extends React.Component {
                   emitter.emit("showFeatures", checked)
                 }}
                 checked={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
-              />
-            </div>
+              /> */}
+            {/* </div> */}
 
             <div className="filterSearch">
 

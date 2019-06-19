@@ -1,6 +1,7 @@
 /* global document */
 /* global window */
 /* global navigator */
+/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -28,7 +29,9 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showPins: props.initPins
+    }
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -45,7 +48,8 @@ class Map extends React.Component {
 
   componentDidMount() {
 
-    const { mapboxConfig, map, locales, features, aggregations, iso3166, home, emitter, initPins, region} = this.props
+    const { mapboxConfig, map, locales, features,
+      aggregations, iso3166, home, emitter, initPins, region} = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')
@@ -682,7 +686,7 @@ class Map extends React.Component {
   render() {
 
     const { iso3166, emitter, translate, aggregations } = this.props
-    const { overlayList, colors } = this.state
+    const { overlayList, colors, showPins} = this.state
 
     return (
       <div
@@ -701,6 +705,18 @@ class Map extends React.Component {
         }}
         role="presentation"
       >
+        <button
+          className={`togglePins ${showPins ? 'checked' : ''}`}
+          onClick={() => {
+            localStorage.setItem('showPins', !showPins)
+            emitter.emit("showFeatures", !showPins)
+            this.setState({showPins: !showPins})
+          }}
+          title={translate(showPins ? "Hide pins": "Show pins")}
+        >
+          <i aria-hidden="true" className="fa fa-map-marker" />
+        </button>
+
         {overlayList &&
           <div className="overlayList" />
         }
