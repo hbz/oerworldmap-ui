@@ -373,7 +373,10 @@ class Filters extends React.Component {
 
           </div>
 
-          <div className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed': ''}`}>
+          <div
+            className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed': ''}`}
+            title={filtersCollapsed ? translate(`Show filters`) : translate("Hide filters")}
+          >
             <i
               aria-hidden="true"
               className={`fa fa-${!filtersCollapsed ? 'chevron-up' : 'chevron-down'}`}
