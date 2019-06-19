@@ -8,7 +8,7 @@
   z-index: 4;
   border: 1px solid var(--white);
   padding: 15px;
-  width: 230px;
+  width: 300px;
   color: var(--white);
 
   & .countryHeader {
@@ -19,7 +19,8 @@
 
     & h2 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: var(--font-size-large);
+      font-weight: normal;
       line-height: 1.2rem;
       padding-right: 18px;
       display: inline-block;
@@ -45,9 +46,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: var(--font-size);
     padding-top: 10px;
     color: var(--white);
+    font-weight: normal;
 
     &:hover span {
       color: var(--white);
@@ -92,7 +94,8 @@
       margin: 0;
       padding: 0;
       list-style-type: none;
-      margin-right: 2px;
+      margin-right: 1px;
+      font-size: var(--font-size-small);
 
       & li {
         padding: 0.35em 0;
@@ -100,7 +103,8 @@
         justify-content: space-between;
 
         & .icon {
-          width: 25px;
+          width: 20px;
+          margin-right:10px;
           text-align: center;
         }
 
@@ -108,11 +112,11 @@
           flex: 1;
         }
       }
-
     }
 
     & .more {
-      text-align: right;
+      font-size: var(--font-size-small);
+      margin-top: 10px;
 
       & button {
         border: none;
@@ -134,7 +138,7 @@
       align-items: flex-start;
       font-size: 0.8rem;
       margin-bottom: 5px;
-      margin-top: 5px;
+      margin-top: 10px;
 
       & i {
         margin-right: 10px;
@@ -237,8 +241,21 @@
     align-items: stretch;
     padding: 0;
     flex-wrap: wrap;
+    z-index: 5;
 
-    & .countryHeader {
+    & .countryHeader,
+    & .countryChampion,
+    & .statistics {
+      width: 100%;
+      padding: 10px;
+    }
+
+    & h3:first-child {
+      margin: 0;
+      padding: 0;
+    }
+
+    /*& .countryHeader {
       display: inline-block;
       border-bottom: 0;
       padding: 0;
@@ -253,13 +270,13 @@
       & h2 {
         display: none;
       }
-    }
+    }*/
 
     & .countryReports {
       display: none;
     }
 
-    & .countryChampion {
+    /*& .countryChampion {
       display: inline-block;
       border-bottom: 0;
       padding: 0 10px;
@@ -278,9 +295,9 @@
           visibility: hidden;
         }
       }
-    }
+    }*/
 
-    & .statistics {
+    /*& .statistics {
       border-bottom: 0;
       padding: 0;
       display: block;
@@ -303,7 +320,7 @@
       & tbody a {
         display: none;
       }
-    }
+    }*/
   }
 
   & .closePage {
@@ -313,7 +330,7 @@
     position: relative;
     top: 4px;
     position: absolute;
-    right: 15px;
+    right: 16px;
 
     &:hover,
     &:focus {
