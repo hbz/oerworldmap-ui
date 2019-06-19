@@ -17,7 +17,7 @@ class Country  extends React.Component {
     this.state = {
       showCountryChampion: true,
       showReports: false,
-      showStatistics: true,
+      showStatistics: false,
       showKibanaStatistics: false
     }
     this.listenMessage = this.listenMessage.bind(this)
