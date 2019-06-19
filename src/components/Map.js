@@ -269,7 +269,7 @@ class Map extends React.Component {
           if (hoveredPoints.length > 6) {
             popupContent = (
               <ul>
-                <li style={{display: "flex", justifyContent: "space-evenly"}}>
+                <li style={{display: "flex", justifyContent: "space-evenly", fontSize: "var(--font-size-xs)"}}>
                   {this.calculateTypes(hoveredPoints)}
                 </li>
               </ul>
@@ -282,7 +282,6 @@ class Map extends React.Component {
                 {hoveredPoints.map(point => (
                   <li key={point.properties['@id']}>
                     <Icon type={point.properties['@type']} />
-                    &nbsp;
                     {translate(JSON.parse(point.properties.name))}
                   </li>
                 ))}
@@ -321,17 +320,28 @@ class Map extends React.Component {
             <ul>
               <li>
                 <b>
-                  {translate(currentRegion)}
-                  &nbsp;(
-                  {translate(currentCountry)}
-                  )
-                  {(bucket && !region) && (
-                    <>
-                      <br />
-                      <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
-                    </>
-                  )}
+                  <span className="tooltipTitle">
+                    {translate(currentRegion)}
+                    &nbsp;(
+                    {translate(currentCountry)}
+                    )
+                  </span>
                 </b>
+                {(region && currentRegion !== `${currentCountry}.${region}`) && (
+                  <>
+                    <br />
+                    <span className="tip">
+                      {translate(`Click this region to explore`)}
+                    </span>
+                  </>
+                )
+                }
+                {(bucket && !region) && (
+                  <>
+                    <br />
+                    <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
+                  </>
+                )}
               </li>
               {bucket && aggregations["global#champions"]["sterms#about.regionalChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
                 <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
@@ -345,11 +355,17 @@ class Map extends React.Component {
             <ul>
               <li>
                 <b>
-                  {translate(currentRegionInactive)}
-                  &nbsp;(
-                  {translate(currentCountry)}
-                  )
+                  <span className="tooltipTitle">
+                    {translate(currentRegionInactive)}
+                    &nbsp;(
+                    {translate(currentCountry)}
+                    )
+                  </span>
                 </b>
+                <br />
+                <span className="tip">
+                  {translate(`Click this region to explore`)}
+                </span>
               </li>
             </ul>
           )
@@ -358,7 +374,17 @@ class Map extends React.Component {
             // Not the country that is selected
             popupContent = (
               <ul>
-                <li>{translate(currentCountry)}</li>
+                <li>
+                  <b>
+                    <span className="tooltipTitle">
+                      {translate(currentCountry)}
+                    </span>
+                  </b>
+                  <br />
+                  <span className="tip">
+                    {translate(`Click this country to explore`)}
+                  </span>
+                </li>
               </ul>
             )
           } else {
@@ -368,14 +394,20 @@ class Map extends React.Component {
               <ul>
                 <li>
                   <b>
-                    {translate(currentCountry)}
-                    {bucket && (
-                      <>
-                        <br />
-                        <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
-                      </>
-                    )}
+                    <span className="tooltipTitle">
+                      {translate(currentCountry)}
+                    </span>
+                    <br />
                   </b>
+                  <span className="tip">
+                    {translate(`Click this country to explore`)}
+                  </span>
+                  {bucket && (
+                    <>
+                      <br />
+                      <div className="buckets">{this.renderTypes(bucket['sterms#by_type'].buckets)}</div>
+                    </>
+                  )}
                 </li>
                 {bucket && aggregations["global#champions"]["sterms#about.countryChampionFor.keyword"].buckets.some(b => b.key === bucket.key) ? (
                   <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
@@ -389,7 +421,7 @@ class Map extends React.Component {
 
         this.hoverPopup.setDOMContent(ReactDOM.render(
           <div
-            className="tooltip"
+            className="tooltip noEvents"
             style={
               { zIndex: 9,
                 pointerEvents: 'none',
@@ -572,7 +604,6 @@ class Map extends React.Component {
           <li key={feature.properties['@id']}>
             <Link href={feature.properties['@id']}>
               <Icon type={feature.properties['@type']} />
-              &nbsp;
               {translate(JSON.parse(feature.properties.name))}
             </Link>
           </li>
