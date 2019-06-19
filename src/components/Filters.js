@@ -4,7 +4,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import '../styles/components/Filters.pcss'
-import Tooltip from 'rc-tooltip'
 
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
@@ -243,24 +242,8 @@ class Filters extends React.Component {
           onReset={(evt) => onReset(evt)}
         >
           <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed': ''}`}>
-            {/* <div className="mapOptions"> */}
-
-              {/* <Switch
-                title={{
-                  checked: translate("ResourceIndex.view.pins.hide"),
-                  unchecked: translate("ResourceIndex.view.pins.show")
-                }}
-                onChange={(checked) => {
-                  localStorage.setItem('showPins', checked)
-                  emitter.emit("showFeatures", checked)
-                }}
-                checked={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
-              /> */}
-            {/* </div> */}
 
             <div className="filterSearch">
-
-
               <input
                 type="text"
                 name="q"
@@ -304,33 +287,33 @@ class Filters extends React.Component {
 
             <div className="subFilters">
               {subFilters.map(filterDef => this.getFilter(filterDef))}
+
+              {secondaryFilters.map(f => f.name).some(
+                v => aggregations[v] && aggregations[v].buckets.length
+              ) && (
+                <div className="showMore">
+                  <button
+                    type="button"
+                    className={`btn expand${extended ?  ' active': ''}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      this.setState({ extended: !extended })
+                    }}
+                  >
+                    {extended
+                      ? translate('ClientTemplates.filter.hide')
+                      : translate('ClientTemplates.filter.show')
+                    }
+                  </button>
+                </div>
+              )}
+
             </div>
 
             <div
               className={`filterType secondary${extended ? '' : ' collapsed'}`}
             >
               {secondaryFilters.map(filterDef => this.getFilter(filterDef))}
-            </div>
-
-            <div className="filtersControls">
-              {secondaryFilters.map(f => f.name).some(
-                v => aggregations[v] && aggregations[v].buckets.length
-              ) && (
-                <button
-                  type="button"
-                  className="floatingBtn"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    this.setState({ extended: !extended })
-                  }}
-                >
-                  {extended
-                    ? translate('ClientTemplates.filter.hide')
-                    : translate('ClientTemplates.filter.show')
-                  }
-                </button>
-              )}
-
             </div>
 
             {Object.keys(filters).some(name => name !== 'about.@type' && name !== 'about.startDate.GTE') && (
