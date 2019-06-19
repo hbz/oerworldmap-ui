@@ -316,7 +316,7 @@ class Country  extends React.Component {
                     onKeyDown={triggerClick}
                     onClick={() => this.setState({showKibanaStatistics: !showKibanaStatistics})}
                   >
-                    More
+                    {translate("Show detailed statistics")}
                   </button>
                 </div>
               </div>
