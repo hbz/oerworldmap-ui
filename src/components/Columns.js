@@ -40,7 +40,7 @@ class Columns extends React.Component {
             () => this.setState({show: !show})
           }
         >
-          <i className={`fa fa-arrow-${show ? "left" : "right"}`} />
+          <i className={`fa fa-chevron-${show ? "left" : "right"}`} />
         </div>
       </aside>
     )
