@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import withI18n from './withI18n'
 import { triggerClick } from '../common'
+import withEmitter from './withEmitter'
 
 import '../styles/components/Columns.pcss'
 
@@ -14,6 +15,13 @@ class Columns extends React.Component {
     this.state = {
       show: props.show
     }
+  }
+
+  componentDidMount() {
+    const { emitter } = this.props
+    emitter.on('toggleColumns', show => {
+      this.setState({show})
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +62,8 @@ Columns.propTypes = {
   children: PropTypes.node.isRequired,
   show: PropTypes.bool.isRequired,
   country: PropTypes.string.isRequired,
-  translate: PropTypes.string.isRequired
+  translate: PropTypes.string.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default withI18n(Columns)
+export default withEmitter(withI18n(Columns))

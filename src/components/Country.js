@@ -18,13 +18,20 @@ class Country  extends React.Component {
       showCountryChampion: true,
       showReports: false,
       showStatistics: false,
-      showKibanaStatistics: false
+      showKibanaStatistics: false,
+      showCountry: true
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
 
   componentDidMount() {
+
+    const { emitter } = this.props
     window.addEventListener("message",  this.listenMessage, false)
+
+    emitter.on('showCountry', showCountry => {
+      this.setState({showCountry})
+    })
   }
 
   componentWillUnmount() {
@@ -49,12 +56,12 @@ class Country  extends React.Component {
       countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region
     } = this.props
     const {
-      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics
+      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics, showCountry
     } = this.state
 
     return (
       <React.Fragment>
-        <div className="Country">
+        <div className={`Country${showCountry ? ' showCountry': ''}`}>
           <div className="countryHeader">
             <img
               className="countryFlag"
