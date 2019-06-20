@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
+import Link from './Link'
 
 import '../styles/components/MobileNavigation.pcss'
 
@@ -16,7 +17,6 @@ class MobileNavigation extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log({nextProps})
     const { current } = nextProps
     this.setCurrent(current)
   }
@@ -44,35 +44,47 @@ class MobileNavigation extends React.Component {
   }
 
   render() {
-    const { hasCountry } = this.props
+    const { country, region } = this.props
     const { current } = this.state
     const { setCurrent } = this
 
     return (
       <div className="MobileNavigation">
-        <i
-          className={`fa fa-list${current === "list" ? " active": ''}`}
-          aria-hidden="true"
-          onClick={() => {
-            setCurrent("list", true, false)
-          }}
-        />
-        <i
-          className={`fa fa-globe${current === "map" ? " active": ''}`}
-          aria-hidden="true"
-          onClick={() => {
-            setCurrent("map", false, false)
-          }}
-        />
-        {hasCountry && (
+
+        {country && (
+          <Link href={region ? `/country/${country}` : '/resource/'}>
+            <i
+              className="fa fa-arrow-left"
+              aria-hidden="true"
+            />
+          </Link>
+        )}
+
+        <div className="mobileNavigationMain">
           <i
-            className={`fa fa-flag${current === "country" ? " active": ''}`}
+            className={`fa fa-list${current === "list" ? " active": ''}`}
             aria-hidden="true"
             onClick={() => {
-              setCurrent("country", false, true)
+              setCurrent("list", true, false)
             }}
           />
-        )}
+          <i
+            className={`fa fa-globe${current === "map" ? " active": ''}`}
+            aria-hidden="true"
+            onClick={() => {
+              setCurrent("map", false, false)
+            }}
+          />
+          {country && (
+            <i
+              className={`fa fa-flag${current === "country" ? " active": ''}`}
+              aria-hidden="true"
+              onClick={() => {
+                setCurrent("country", false, true)
+              }}
+            />
+          )}
+        </div>
       </div>
     )
   }
@@ -80,12 +92,14 @@ class MobileNavigation extends React.Component {
 
 MobileNavigation.propTypes = {
   current: PropTypes.string.isRequired,
-  hasCountry: PropTypes.bool,
+  country: PropTypes.string,
+  region: PropTypes.string,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 MobileNavigation.defaultProps = {
-  hasCountry: false
+  country: undefined,
+  region: undefined
 }
 
 export default withEmitter(MobileNavigation)

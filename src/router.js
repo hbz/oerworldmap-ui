@@ -222,7 +222,7 @@ export default (api) => {
           >
             <MobileNavigation
               current="list"
-              hasCountry
+              country={data.iso3166}
             />
             <Country
               iso3166={data.iso3166}
@@ -278,7 +278,8 @@ export default (api) => {
           >
             <MobileNavigation
               current="list"
-              hasCountry
+              country={data.iso3166}
+              region={region.toUpperCase()}
             />
             <Country
               iso3166={data.iso3166}

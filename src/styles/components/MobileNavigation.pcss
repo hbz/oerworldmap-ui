@@ -4,11 +4,17 @@
   background-color: var(--white);
   height: 30px;
   border-bottom: 1px solid var(--blue-light);
-  justify-content: space-evenly;
   align-items: center;
   padding: 0 10px;
   display: none;
   z-index: 2;
+  justify-content: space-between;
+
+  & .mobileNavigationMain {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+  }
 
   & i.active {
     color: var(--orange);
