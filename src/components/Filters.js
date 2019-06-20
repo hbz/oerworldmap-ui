@@ -199,7 +199,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed, region } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, region } = this.props
     const { extended, filtersCollapsed } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -464,7 +464,6 @@ Filters.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   country: PropTypes.string,
-  isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string
 }
 

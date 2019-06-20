@@ -68,10 +68,9 @@
           border-top: 1px solid var(--blue-dark);
           display: flex;
           flex-wrap: wrap;
-          padding-top: 10px;
           flex: 1;
           justify-content: center;
-          padding: 0px 5px;
+          padding: 0 5px;
           padding-top: 15px;
           margin-top: 15px;
 
@@ -83,7 +82,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin: 0px;
+            margin: 0;
             font-size: var(--font-size-xs);
 
             & > span {
@@ -387,19 +386,18 @@
     position: absolute;
     bottom: 43px;
     right: 360px;
-    z-index: 5;
     border: 1px solid var(--blue);
     width: 30px;
     height: 30px;
     background-color: var(--white);
     color: var(--blue);
     font-size: var(--font-size);
+    z-index: 3;
 
     &.checked {
       background-color: var(--blue);
       color: var(--white);
     }
-
   }
 
   @media print {
