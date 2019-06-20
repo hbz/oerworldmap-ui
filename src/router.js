@@ -69,7 +69,10 @@ export default (api) => {
             isEmbed={embed === "true" || embed ===  "country"}
           >
             <MobileNavigation
-              current="list"
+              current={
+                !url.endsWith('/resource/?features=true')
+                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
+                  ? "list" : "map"}
             />
           </ResourceIndex>
         )
@@ -218,7 +221,7 @@ export default (api) => {
             isEmbed={embed === "true" || embed ===  "country"}
           >
             <MobileNavigation
-              current="country"
+              current="list"
               hasCountry
             />
             <Country
@@ -274,7 +277,7 @@ export default (api) => {
             isEmbed={embed === "true" || embed ===  "country"}
           >
             <MobileNavigation
-              current="country"
+              current="list"
               hasCountry
             />
             <Country

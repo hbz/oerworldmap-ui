@@ -19,7 +19,7 @@ class Country  extends React.Component {
       showReports: false,
       showStatistics: false,
       showKibanaStatistics: false,
-      showCountry: true
+      showCountry: false
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
