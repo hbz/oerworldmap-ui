@@ -369,12 +369,36 @@
             font-size: var(--font-size);
             font-weight: 400;
             width: 100%;
-            border-bottom: 1px solid var(--blue-lightest);
             display: block;
           }
 
-          &.languageSelector {
-            display: none;
+          &.languageSelector span {
+            & > i {
+              display: none;
+            }
+
+            & > ul {
+              display: block;
+              position: unset;
+              display: flex;
+              justify-content: space-evenly;
+
+              & li {
+                flex: 1;
+
+                & a {
+                  background-color: var(--blue-dark);
+                  color: var(--white);
+                  padding: 10px;
+                  border-right: 1px solid var(--white);
+                }
+              }
+
+              & li:last-child a {
+                border-right: none;
+              }
+
+            }
           }
 
           & .dropdown {
