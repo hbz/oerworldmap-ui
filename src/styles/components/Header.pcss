@@ -56,6 +56,7 @@
         & div.btnHover {
           position: relative;
           color: white;
+          pointer-events: none;
         }
 
         &:hover div.btnHover {
@@ -358,9 +359,11 @@
         & > li {
           display: block;
           padding: 0;
+          border-bottom: 1px solid var(--white);
 
           & > a,
-          & > button {
+          & > button,
+          & > .btnHover {
             padding: 10px var(--column-padding);
             text-align: left;
             font-size: var(--font-size);
@@ -368,6 +371,10 @@
             width: 100%;
             border-bottom: 1px solid var(--blue-lightest);
             display: block;
+          }
+
+          &.languageSelector {
+            display: none;
           }
 
           & .dropdown {
