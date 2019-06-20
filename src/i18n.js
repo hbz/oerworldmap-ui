@@ -14,8 +14,10 @@ export default (locales, phrases) => {
   const translate = (key, interpolationOptions) => {
     if (typeof key === 'string') {
       return polyglot.t(key, interpolationOptions)
-    } else if (Array.isArray(key)) {
+    } else if (key instanceof Array) {
       return getEntryByLocales(locales, key)
+    } else if (key instanceof Object) {
+      return key[locales[0]] || key[Object.keys(key).pop()]
     }
   }
 

@@ -6,9 +6,10 @@ import MarkdownArea from './MarkdownArea'
 import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
 
-const LocalizedString = ({schema, translate, value, setValue, shouldFormComponentFocus, description}) => {
-  const TextInput = schema.properties['@value']._display
-    && schema.properties['@value']._display.rows > 1 ? MarkdownArea : Input
+const LocalizedString = ({
+  schema, translate, value, setValue, shouldFormComponentFocus, description
+}) => {
+  const TextInput = schema._display && schema._display.rows > 1 ? MarkdownArea : Input
   return (
     <div className="LocalizedString">
       <span className="fieldDescription">
@@ -18,21 +19,22 @@ const LocalizedString = ({schema, translate, value, setValue, shouldFormComponen
           ? translate(description)
           : ''}
       </span>
-      <TextInput
-        property="@value"
-        translate={translate}
-        shouldFormComponentFocus={shouldFormComponentFocus}
-        setValue={string => setValue({
-          '@value': string,
-          '@language': string ? value && value['@language'] || 'en' : undefined
-        })}
-      />
-      <DropdownSelect
-        property="@language"
-        title="LocalizedText.@language"
-        options={schema.properties['@language'].enum}
-        translate={translate}
-      />
+      {Object.keys(schema.properties)
+        .filter(lang => (schema.required && schema.required.includes(lang))
+          || (value && value[lang] != null)).map(lang => (
+        <TextInput
+          property={lang}
+          translate={translate}
+          shouldFormComponentFocus={shouldFormComponentFocus}
+        />
+      ))}
+      {Object.keys(schema.properties)
+        .filter(lang => !(schema.required && schema.required.includes(lang))
+          && !(value && value[lang] != null)).map(lang => (
+        <button type="button" onClick={() => setValue(Object.assign(value || {}, {[lang]: ''}), false)}>
+          {translate('add', {type: translate(lang)})}
+        </button>
+      ))}
     </div>
   )
 }

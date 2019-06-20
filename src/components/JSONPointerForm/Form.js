@@ -49,15 +49,14 @@ class Form extends React.Component {
     })
   }
 
-  setValue(name, value) {
+  setValue(name, value, _prune = true) {
     this.setState(prevState => {
       this.lastOp = value && jsonPointer.has(prevState.formData, name)
         ? 'changed' : value ? 'added' : 'removed'
       this.lastUpdate = name
       jsonPointer.set(prevState.formData, name, value)
-      return {
-        formData: prune(prevState.formData)
-      }
+      const formData = _prune ? prune(prevState.formData) : prevState.formData
+      return { formData }
     })
   }
 
