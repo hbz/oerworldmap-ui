@@ -62,7 +62,7 @@ Columns.propTypes = {
   children: PropTypes.node.isRequired,
   show: PropTypes.bool.isRequired,
   country: PropTypes.string.isRequired,
-  translate: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
