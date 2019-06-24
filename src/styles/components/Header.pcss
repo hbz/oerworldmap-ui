@@ -13,17 +13,19 @@
     color: var(--white);
   }
 
-  & h1 {
-    margin: 0;
-    padding: 10px 0;
+  & .headerTitle {
+    display: flex;
+    align-items: center;
     font-size: var(--font-size);
     font-weight: 600;
+    padding: 10px 0;
     letter-spacing: 0.15em;
     text-transform: uppercase;
 
-    &:focus,
-    &:hover {
-      color: var(--white);
+    &  h1 {
+      font-size: var(--font-size);
+      margin: 0;
+      margin-right: 10px;
     }
   }
 
@@ -336,6 +338,10 @@
       width: 100%;
       border-left: none;
       border-right: none;
+    }
+
+    & .headerTitle a:last-child {
+      display: none;
     }
 
     & .mainNav {
