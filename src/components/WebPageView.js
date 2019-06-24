@@ -466,6 +466,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           )))}
 
+          {about.spatial && (
+            <Block title={translate(`${about['@type']}.spatial`)}>
+              {translate(about.spatial.name)}
+            </Block>
+          )}
+
           {about.activityField && (
             <Block className="list" title={translate(`${about['@type']}.activityField`)}>
               <ConceptTree
