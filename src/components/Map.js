@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom'
 
 import {scaleLog, quantile, interpolateHcl} from 'd3'
 
+import Tooltip from 'rc-tooltip'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import centroids from '../json/centroids.json'
 
@@ -736,17 +737,25 @@ class Map extends React.Component {
         }}
         role="presentation"
       >
-        <button
-          className={`togglePins ${showPins ? 'checked' : ''}`}
-          onClick={() => {
-            localStorage.setItem('showPins', !showPins)
-            emitter.emit("showFeatures", !showPins)
-            this.setState({showPins: !showPins})
-          }}
-          title={translate(showPins ? "Hide pins": "Show pins")}
+        <Tooltip
+          overlay={(
+            showPins ? translate("Hide pins") : translate("Show pins")
+          )}
+          placement="top"
+          mouseEnterDelay={0.2}
         >
-          <i aria-hidden="true" className="fa fa-map-marker" />
-        </button>
+          <button
+            className={`togglePins${showPins ? ' checked' : ''}`}
+            onClick={() => {
+              localStorage.setItem('showPins', !showPins)
+              emitter.emit("showFeatures", !showPins)
+              this.setState({showPins: !showPins})
+            }}
+            title={translate(showPins ? "Hide pins": "Show pins")}
+          >
+            <i aria-hidden="true" className="fa fa-map-marker" />
+          </button>
+        </Tooltip>
 
         {overlayList &&
           <div className="overlayList" />
