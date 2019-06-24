@@ -33,11 +33,11 @@
       "@value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
       "@language": "en"
     }],
-    "location": {
+    "location": [{
       "address": {
         "addressCountry": "DE"
       }
-    },
+    }],
     "@id": "urn:uuid:08c4aac8-acb5-4f3f-9b45-a90555b3a14c",
     "startDate": "2017"
   },
@@ -58,11 +58,11 @@
       "@value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
       "@language": "en"
     }],
-    "location": {
+    "location": [{
       "address": {
         "addressCountry": "DE"
       }
-    },
+    }],
     "@id": "urn:uuid:384b93a2-4012-4a3f-8bfe-be67e99e52af"
   },
   "dateModified": "2017-07-11T15:44:38.404+02:00",
@@ -79,11 +79,11 @@
         "@value": "Test Organization",
         "@language": "en"
       }],
-      "location": {
+      "location": [{
         "address": {
           "addressCountry": "DE"
         }
-      },
+      }],
       "@id": "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294"
     }],
     "@type": "Action",
@@ -107,11 +107,11 @@
         "@value": "Test Organization",
         "@language": "en"
       }],
-      "location": {
+      "location": [{
         "address": {
           "addressCountry": "DE"
         }
-      },
+      }],
       "@id": "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294"
     }],
     "@type": "Service",
@@ -138,11 +138,11 @@
       "@value": "Test Organization",
       "@language": "en"
     }],
-    "location": {
+    "location": [{
       "address": {
         "addressCountry": "DE"
       }
-    },
+    }],
     "@id": "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294"
   },
   "dateModified": "2017-07-11T15:43:45.411+02:00",
