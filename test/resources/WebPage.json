@@ -13,11 +13,11 @@
           "@value" : "Test Organization",
           "@language" : "en"
         } ],
-        "location" : {
+        "location" : [{
           "address" : {
             "addressCountry" : "DE"
           }
-        },
+        }],
         "@id" : "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294"
       } ],
       "@type" : "Grant"
@@ -46,11 +46,11 @@
       "@value" : "Test Organisation",
       "@language" : "de"
     } ],
-    "location" : {
+    "location" : [{
       "address" : {
         "addressCountry" : "DE"
       }
-    },
+    }],
     "@id" : "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294",
     "@context" : "https://oerworldmap.org/assets/json/context.json"
   },

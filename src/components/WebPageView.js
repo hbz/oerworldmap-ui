@@ -440,29 +440,35 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           )}
 
-          {about.location && about.location.address && (
-            <Block title={translate(`${about['@type']}.location`)}>
+          {(about.location && about.location.filter(location => !!location.address).map((location, i) => (
+            <Block title={translate(`${about['@type']}.location`)} key={i}>
               <p>
-                {about.location.address.streetAddress &&
-                  [about.location.address.streetAddress, <br key="br" />]
+                {location.address.streetAddress &&
+                  [location.address.streetAddress, <br key="br" />]
                 }
-                {about.location.address.postalCode}
-                {about.location.address.postalCode && about.location.address.addressLocality &&
+                {location.address.postalCode}
+                {location.address.postalCode && location.address.addressLocality &&
                   <span>,&nbsp;</span>
                 }
-                {about.location.address.addressLocality}
-                {(about.location.address.postalCode || about.location.address.addressLocality) &&
+                {location.address.addressLocality}
+                {(location.address.postalCode || location.address.addressLocality) &&
                   <br />
                 }
-                {about.location.address.addressRegion &&
-                  [translate(about.location.address.addressRegion), <br key="br" />]
+                {location.address.addressRegion &&
+                  [translate(location.address.addressRegion), <br key="br" />]
                 }
-                {about.location.address.addressCountry && (
-                  <Link href={`/country/${about.location.address.addressCountry}`}>
-                    {translate(about.location.address.addressCountry)}
+                {location.address.addressCountry && (
+                  <Link href={`/country/${location.address.addressCountry}`}>
+                    {translate(location.address.addressCountry)}
                   </Link>
                 )}
               </p>
+            </Block>
+          )))}
+
+          {about.spatial && (
+            <Block title={translate(`${about['@type']}.spatial`)}>
+              {translate(about.spatial.name)}
             </Block>
           )}
 

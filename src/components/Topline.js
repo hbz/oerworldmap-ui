@@ -80,7 +80,8 @@ const Topline = ({translate, moment, about, className}) => {
 
       {about['@type'] === 'Event' &&
       about.location &&
-      about.location.address && (
+      about.location[0] &&
+      about.location[0].address && (
         <React.Fragment>
           <hr />
           <div className="toplineEntry">
@@ -90,12 +91,12 @@ const Topline = ({translate, moment, about, className}) => {
             </span>
             <ul className="commaSeparatedList">
               <li>
-                {about.location.address.addressLocality}
-                {about.location.address.addressLocality &&
-                about.location.address.addressCountry &&
+                {about.location[0].address.addressLocality}
+                {about.location[0].address.addressLocality &&
+                about.location[0].address.addressCountry &&
                   <span>,&nbsp;</span>
                 }
-                {translate(about.location.address.addressCountry)}
+                {translate(about.location[0].address.addressCountry)}
               </li>
             </ul>
           </div>
