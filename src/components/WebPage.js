@@ -76,6 +76,7 @@ const WebPage = ({
                 schema={schema}
                 closeLink={about['@id'] ? _self : undefined}
                 showOptionalFields={showOptionalFields}
+                _self={_self}
               />
             </div>
           )}
