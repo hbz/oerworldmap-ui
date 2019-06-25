@@ -10,31 +10,40 @@ const LocalizedString = ({
   schema, translate, value, setValue, shouldFormComponentFocus, description
 }) => {
   const TextInput = schema._display && schema._display.rows > 1 ? MarkdownArea : Input
+  const languagesPresent = Object.keys(schema.properties)
+    .filter(lang => (schema.required && schema.required.includes(lang))
+      || (value && value[lang] != null))
+  const languagesAvailable = Object.keys(schema.properties)
+    .filter(lang => !(schema.required && schema.required.includes(lang))
+      && !(value && value[lang] != null))
   return (
     <div className="LocalizedString">
       <span className="fieldDescription">
-        {(description
-        && translate(description)
-        !== description)
+        {(description && translate(description) !== description)
           ? translate(description)
-          : ''}
+          : ''
+        }
       </span>
-      {Object.keys(schema.properties)
-        .filter(lang => (schema.required && schema.required.includes(lang))
-          || (value && value[lang] != null)).map(lang => (
+      {languagesPresent.map(lang => (
         <TextInput
           property={lang}
           translate={translate}
           shouldFormComponentFocus={shouldFormComponentFocus}
+          title={lang}
+          key={lang}
         />
       ))}
-      {Object.keys(schema.properties)
-        .filter(lang => !(schema.required && schema.required.includes(lang))
-          && !(value && value[lang] != null)).map(lang => (
-        <button type="button" onClick={() => setValue(Object.assign(value || {}, {[lang]: ''}), false)}>
-          {translate('add', {type: translate(lang)})}
-        </button>
-      ))}
+      {languagesAvailable.length > 0 &&
+        <select onChange={e => {
+          const lang = event.target.options[event.target.selectedIndex].value
+          lang && setValue(Object.assign(value || {}, {[lang]: ''}), false)
+        }}>
+          <option value="">{translate('add', {type: translate('Language')})}</option>
+          {languagesAvailable.map(lang => (
+            <option value={lang} key={lang}>{translate('add', {type: translate(lang)})}</option>
+          ))}
+        </select>
+      }
     </div>
   )
 }
