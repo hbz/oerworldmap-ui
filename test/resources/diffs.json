@@ -39,7 +39,7 @@
                   "@language": "en"
               }
           ],
-          "location": {
+          "location": [{
               "geo": {
                   "lon": -122.813699,
                   "lat": 53.892381
@@ -51,7 +51,7 @@
                   "addressLocality": "Prince George",
                   "addressRegion": "CA.BC"
               }
-          },
+          }],
           "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
           "@context": "https://oerworldmap.org/assets/json/context.json",
           "email": "gpotter@unbc.ca",
@@ -104,7 +104,7 @@
                   "@language": "en"
               }
           ],
-          "location": {
+          "location": [{
               "geo": {
                   "lon": -122.813699,
                   "lat": 53.892381
@@ -116,7 +116,7 @@
                   "addressLocality": "Prince George",
                   "addressRegion": "CA.BC"
               }
-          },
+          }],
           "@id": "urn:uuid:d941e12a-e77d-42f1-9c82-737aec21ef1e",
           "@context": "https://oerworldmap.org/assets/json/context.json",
           "email": "gpotter@unbc.ca",
