@@ -355,6 +355,33 @@
       }
     },
     {
+      "@id": "https://oerworldmap.org/assets/json/licenses.json#other-open",
+      "@type": "Concept",
+      "name": [
+        {
+          "@value": "Non-CC open license",
+          "@language": "en"
+        },
+        {
+          "@value": "Non-CC open license",
+          "@language": "de"
+        }
+      ],
+      "alternateName": [
+        {
+          "@value": "Non-CC open license",
+          "@language": "en"
+        }
+      ],
+      "image": "https://cdn0.iconfinder.com/data/icons/glyphpack/34/question-circle-64.png",
+      "topConceptOf": {
+        "@id": "https://oerworldmap.org/assets/json/licenses.json"
+      },
+      "inScheme": {
+        "@id": "https://oerworldmap.org/assets/json/licenses.json"
+      }
+    },
+    {
       "@id": "https://oerworldmap.org/assets/json/licenses.json#unspecified",
       "@type": "Concept",
       "name": [

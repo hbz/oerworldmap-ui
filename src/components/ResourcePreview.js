@@ -51,26 +51,25 @@ const ResourcePreview = ({ translate, about }) => {
               : ''}
           </Link>
 
-          {about.location &&
-          about.location.address && (
-            <div className="previewLocation">
-              {about.location.address.addressCountry && (
-                <Link href={`/country/${about.location.address.addressCountry}`}>
-                  {translate(about.location.address.addressCountry)}
+          {about.location && about.location.filter(location => !!location.address).map((location, index) => (
+            <div className="previewLocation" key={index}>
+              {location.address.addressCountry && (
+                <Link href={`/country/${location.address.addressCountry}`}>
+                  {translate(location.address.addressCountry)}
                 </Link>
               )}
-              {about.location.address.addressRegion && (
+              {location.address.addressRegion && (
                 <React.Fragment>
                   ,&nbsp;
                   <Link
-                    href={`/resource/?filter.feature.properties.location.address.addressRegion=${about.location.address.addressRegion}`}
+                    href={`/resource/?filter.feature.properties.location.address.addressRegion=${location.address.addressRegion}`}
                   >
-                    {translate(about.location.address.addressRegion)}
+                    {translate(location.address.addressRegion)}
                   </Link>
                 </React.Fragment>
               )}
             </div>
-          )}
+          ))}
         </div>
       </div>
 
