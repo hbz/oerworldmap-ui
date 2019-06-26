@@ -49,15 +49,50 @@ export default (api) => {
           },
           _self: url
         } : state || await api.get(url, context.authorization)
+        const { translate } = context.i18n
         const component = (data) => params.add ? (
-          <WebPage
-            user={user}
-            mapboxConfig={mapboxConfig}
-            {...data}
-            view="edit"
-            schema={schema}
-            showOptionalFields={false}
-          />
+          user ? (
+            <WebPage
+              user={user}
+              mapboxConfig={mapboxConfig}
+              {...data}
+              view="edit"
+              schema={schema}
+              showOptionalFields={false}
+            />
+          ) : (
+            <FullModal>
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: "var(--font-size-large)"
+                }}
+              >
+                {translate("Please login to add a new")}
+                &nbsp;
+                {translate(params.add).toLowerCase()}
+                <br />
+                <br />
+                <a href={`/.login?continue=${url}`}>
+                  <button
+                    className="btn"
+                  >
+                    Login
+                  </button>
+                </a>
+                <a
+                  style={{marginLeft: "10px"}}
+                  href="/user/register"
+                >
+                  <button
+                    className="btn"
+                  >
+                    Register
+                  </button>
+                </a>
+              </div>
+            </FullModal>
+          )
         ) : (
           <ResourceIndex
             {...data}
