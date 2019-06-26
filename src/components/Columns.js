@@ -52,7 +52,7 @@ Columns.propTypes = {
   children: PropTypes.node.isRequired,
   show: PropTypes.bool.isRequired,
   country: PropTypes.string.isRequired,
-  translate: PropTypes.string.isRequired
+  translate: PropTypes.func.isRequired
 }
 
 export default withI18n(Columns)

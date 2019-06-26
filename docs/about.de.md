@@ -1,6 +1,7 @@
 ---
 title: Über uns
 ---
+
 ## Die Vision
 
 Seit mehr als 10 Jahren werden stetig mehr und mehr Open Educational Resources (OER) geschaffen und verwendet. Die OER World Map sammelt und veranschaulicht Daten zur wachsenden Zahl der Akteure und Aktivitäten im Bereich der offenen Bildung weltweit. Ihr Ziel ist es, die Entwicklung des OER-Ökosystems zu beschleunigen, indem sie ein möglichst umfassendes und aktuelles Bild der OER-Bewegung zeigt. Die dargestellten Informationen können für ganz verschiedene Zwecken verwendet werden, beispielsweise:

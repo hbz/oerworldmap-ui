@@ -6,8 +6,45 @@
     transition: all 1s;
     left: 0;
 
+    &.filtersCollapsed {
+      max-height: 0;
+      overflow: hidden;
+    }
+
     @media print {
       display: none;
+    }
+  }
+
+  & .filtersCollapsedButton {
+    position: relative;
+
+    &.collapsed {
+      & hr {
+        margin-top: 0;
+      }
+    }
+
+    & i {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -14px;
+      cursor: pointer;
+      background-color: var(--white);
+      border-radius: 50%;
+      border: 1px solid var(--blue-dark);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover,
+      &:focus {
+        color: var(--orange);
+        border-color: var(--orange);
+      }
     }
   }
 

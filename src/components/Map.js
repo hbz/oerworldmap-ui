@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom'
 import {scaleLog, quantile, interpolateHcl} from 'd3'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+import centroids from '../json/centroids.json'
 
 import Icon from './Icon'
 import Link from './Link'
@@ -441,23 +442,20 @@ class Map extends React.Component {
     const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
-
       if (this.map.isStyleLoaded()) {
-        const coutryFeatures = this.map.queryRenderedFeatures({
-          layers:['countries'],
-          filter: ['in', 'iso_a2', iso3166]
-        })
-
-        if (coutryFeatures.length) {
-
-          if (iso3166 in bounds) {
-            const bound = bounds[iso3166]
-            this.map.flyTo(
-              {center: [bound[0],bound[1]],
-                zoom: [bound[2]]
-              }
-            )
-          } else {
+        if (iso3166 in bounds) {
+          const bound = bounds[iso3166]
+          this.map.flyTo(
+            {center: [bound[0],bound[1]],
+              zoom: [bound[2]]
+            }
+          )
+        } else {
+          const coutryFeatures = this.map.queryRenderedFeatures({
+            layers:['countries'],
+            filter: ['in', 'iso_a2', iso3166]
+          })
+          if (coutryFeatures.length) {
             const sumCoords = []
 
             coutryFeatures.forEach(feature => {
@@ -475,6 +473,13 @@ class Map extends React.Component {
               maxZoom: 6.9,
               offset: [60, 0]
             })
+          } else {
+            const center = centroids[iso3166]
+            this.map.flyTo(
+              {center: [center[0], center[1]],
+                zoom: 6.9
+              }
+            )
           }
         }
       } else {
