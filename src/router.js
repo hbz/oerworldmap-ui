@@ -24,6 +24,7 @@ import Link from './components/Link'
 import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
+import MobileNavigation from './components/MobileNavigation'
 
 export default (api) => {
 
@@ -66,7 +67,14 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
             isEmbed={embed === "true" || embed ===  "country"}
-          />
+          >
+            <MobileNavigation
+              current={
+                !url.endsWith('/resource/?features=true')
+                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
+                  ? "list" : "map"}
+            />
+          </ResourceIndex>
         )
 
         const title = params.add
@@ -212,6 +220,10 @@ export default (api) => {
             embedValue="country"
             isEmbed={embed === "true" || embed ===  "country"}
           >
+            <MobileNavigation
+              current="list"
+              country={data.iso3166}
+            />
             <Country
               iso3166={data.iso3166}
               countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
@@ -264,6 +276,11 @@ export default (api) => {
             region={region.toUpperCase()}
             isEmbed={embed === "true" || embed ===  "country"}
           >
+            <MobileNavigation
+              current="list"
+              country={data.iso3166}
+              region={region.toUpperCase()}
+            />
             <Country
               iso3166={data.iso3166}
               region={region.toUpperCase()}

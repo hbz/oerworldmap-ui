@@ -14,7 +14,7 @@ import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 import ResourcePreview from './ResourcePreview'
 
-const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment}) => (
+const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment, tooltip}) => (
   <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
@@ -28,6 +28,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         }}
       >
         <Tooltip
+          trigger={tooltip  === false ? [] : ['hover']}
           overlay={(
             <div className="itemListTooltip">
               <ResourcePreview about={listItem} />
@@ -70,13 +71,15 @@ ItemList.propTypes = {
   linkTemplate: PropTypes.string,
   className: PropTypes.string,
   moment: PropTypes.func.isRequired,
-  count: PropTypes.func
+  count: PropTypes.func,
+  tooltip: PropTypes.bool
 }
 
 ItemList.defaultProps = {
   linkTemplate: '/resource/{@id}',
   className: '',
-  count: undefined
+  count: undefined,
+  tooltip: true
 }
 
 export default withEmitter(withI18n(ItemList))

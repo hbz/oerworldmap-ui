@@ -33,7 +33,6 @@
       cursor: pointer;
       background-color: var(--white);
       border-radius: 50%;
-      border: 1px solid var(--blue-dark);
       width: 30px;
       height: 30px;
       display: flex;
@@ -44,6 +43,11 @@
       &:focus {
         color: var(--orange);
         border-color: var(--orange);
+      }
+
+      &::before {
+        position: relative;
+        top: -1px;
       }
     }
   }
@@ -175,7 +179,7 @@
 
       &:focus {
         -moz-outline-radius: var(--border-radius);
-        outline: 1px solid var(--primary-color);
+        outline: 1px dotted var(--primary-color);
       }
 
       &:hover,
@@ -191,6 +195,7 @@
 
     & .DropdownFilter {
       flex: 1;
+      max-width: calc(100% / 3);
 
       & .btn.expand {
         max-width: 100%;
@@ -198,6 +203,29 @@
 
         & i {
           padding-right: 10px;
+        }
+      }
+    }
+
+    & .showMore {
+      flex: 1;
+      max-width: calc(100% / 3);
+      padding: 0 5px;
+
+      & > .btn {
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid var(--blue);
+        background-color: var(--white);
+        color: var(--blue);
+
+        &.active::before {
+          content: "\f077";
+        }
+
+        &:hover {
+          border-color: var(--orange);
+          color: var(--orange);
         }
       }
     }

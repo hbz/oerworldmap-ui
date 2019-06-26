@@ -10,7 +10,7 @@ const Feed = ({translate, member}) => (
     <h2 className="title">
       {translate('ResourceIndex.feed.recentAdditions')}
     </h2>
-    <ItemList listItems={member.map(member => member.about)} />
+    <ItemList listItems={member.map(member => member.about)} tooltip={false} />
     <div className="more">
       <Link href="/resource/?size=20&sort=dateCreated:desc">
         {translate('ResourceIndex.feed.more')}

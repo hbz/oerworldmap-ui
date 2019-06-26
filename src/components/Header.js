@@ -89,9 +89,15 @@ class Header extends React.Component {
     return (
       <header className="Header">
 
-        <a href="/">
-          <h1>{translate('OER World Map')}</h1>
-        </a>
+        <div className="headerTitle">
+          <a href="/">
+            <h1>{translate('OER World Map')}</h1>
+          </a>
+
+          <a title={translate("main.map")} href="/resource/">
+            <i aria-hidden="true" className="fa fa-globe" />
+          </a>
+        </div>
 
         <button
           className="menuToggle visible-mobile-block"
