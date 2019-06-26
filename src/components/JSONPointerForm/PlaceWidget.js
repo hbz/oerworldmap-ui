@@ -13,16 +13,17 @@ import withApi from '../withApi'
 
 import regions from '../../json/iso3166-2.json'
 
-import { triggerClick, getProp, mapNominatimResult, objectMap } from '../../common'
+import {
+  triggerClick, getProp, mapNominatimResult, objectMap,
+} from '../../common'
 
 class PlaceWidget extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      filter: "",
+      filter: '',
       options: [],
-      collapsed: props.schema._display && props.schema._display.collapsed
+      collapsed: props.schema._display && props.schema._display.collapsed,
     }
     this.handleChange = this.handleChange.bind(this)
     this.updateOptions = debounce(this.updateOptions.bind(this), 200)
@@ -30,28 +31,28 @@ class PlaceWidget extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleClick)
+    document.addEventListener('click', this.handleClick)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
+    document.removeEventListener('click', this.handleClick)
   }
 
   handleClick(e) {
     const { options } = this.state
 
     if (options.length && !this.wrapper.contains(e.target)) {
-      this.setState({options: []})
+      this.setState({ options: [] })
     }
   }
 
   handleChange(e) {
-    this.setState({filter: e.target.value})
-    e.target.value ? this.updateOptions() : this.setState({options: []})
+    this.setState({ filter: e.target.value })
+    e.target.value ? this.updateOptions() : this.setState({ options: [] })
   }
 
   updateOptions() {
-    const {value, api, translate} = this.props
+    const { value, api, translate } = this.props
     const { filter } = this.state
 
     const url = 'https://nominatim.openstreetmap.org/search'
@@ -59,29 +60,29 @@ class PlaceWidget extends React.Component {
       'format=json',
       'addressdetails=1',
       'limit=10',
-      `countrycodes=${getProp(['address', 'addressCountry'], value)}`
+      `countrycodes=${getProp(['address', 'addressCountry'], value)}`,
     ]
     api.fetch(`${url}/${filter} ${translate(getProp(['address', 'addressRegion'], value)) || ''}?${params.join('&')}`).then(
-      result => this.setState({options: result.map(result => mapNominatimResult(result))})
+      result => this.setState({ options: result.map(result => mapNominatimResult(result)) }),
     )
   }
 
   render() {
     const {
       name, value, errors, property, title, className, translate, schema,
-      setValue, config, description, formId, required
+      setValue, config, description, formId, required,
     } = this.props
     const { collapsed, filter, options } = this.state
 
     const geometry = value.geo && value.geo.lon && value.geo.lat
       ? {
-        "type": "Point",
-        "coordinates": [value.geo.lon, value.geo.lat]
+        type: 'Point',
+        coordinates: [value.geo.lon, value.geo.lat],
       } : null
 
     return (
       <div
-        className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+        className={`PlaceWidget ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}
         role="group"
         aria-labelledby={`${formId}-${name}-label`}
         ref={el => this.wrapper = el}
@@ -110,7 +111,7 @@ class PlaceWidget extends React.Component {
             <button
               className="btn btn-default"
               type="button"
-              onClick={() => this.setState({collapsed: false})}
+              onClick={() => this.setState({ collapsed: false })}
             >
               {translate('show')}
             </button>
@@ -123,7 +124,7 @@ class PlaceWidget extends React.Component {
                 translate={translate}
                 options={schema.properties.address.properties.addressCountry.enum}
                 title={schema.properties.address.properties.addressCountry.title}
-                setValue={country => setValue({address: {addressCountry: country}})}
+                setValue={country => setValue({ address: { addressCountry: country } })}
                 required
               />
               {getProp(['address', 'addressCountry'], value) && (
@@ -165,16 +166,19 @@ class PlaceWidget extends React.Component {
                                     Object.assign(address, {
                                       streetAddress: option.address.streetAddress,
                                       postalCode: option.address.postalCode,
-                                      addressLocality: option.address.addressLocality
+                                      addressLocality: option.address.addressLocality,
                                     })
                                     setValue(Object.assign(
                                       value ? JSON.parse(JSON.stringify(value)) : {},
-                                      {address, geo: {
-                                        lat: option.geo.lat,
-                                        lon: option.geo.lon
-                                      }}
+                                      {
+                                        address,
+                                        geo: {
+                                          lat: option.geo.lat,
+                                          lon: option.geo.lon,
+                                        },
+                                      },
                                     ))
-                                    this.setState({options: [], filter: ""})
+                                    this.setState({ options: [], filter: '' })
                                   }}
                                 />
                                 <label
@@ -221,7 +225,7 @@ class PlaceWidget extends React.Component {
                         className="mapContainer"
                         style={{
                           position: 'relative',
-                          height: '300px'
+                          height: '300px',
                         }}
                       >
                         <MiniMap
@@ -232,10 +236,12 @@ class PlaceWidget extends React.Component {
                           boxZoom
                           onFeatureDrag={geometry => setValue(Object.assign(
                             value ? JSON.parse(JSON.stringify(value)) : {},
-                            {geo: {
-                              lat: geometry.coordinates.lat,
-                              lon: geometry.coordinates.lng,
-                            }}
+                            {
+                              geo: {
+                                lat: geometry.coordinates.lat,
+                                lon: geometry.coordinates.lng,
+                              },
+                            },
                           ))}
                         />
                       </div>

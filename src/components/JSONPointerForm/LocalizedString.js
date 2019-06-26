@@ -6,7 +6,9 @@ import MarkdownArea from './MarkdownArea'
 import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
 
-const LocalizedString = ({schema, translate, value, setValue, shouldFormComponentFocus, description}) => {
+const LocalizedString = ({
+  schema, translate, value, setValue, shouldFormComponentFocus, description,
+}) => {
   const TextInput = schema.properties['@value']._display
     && schema.properties['@value']._display.rows > 1 ? MarkdownArea : Input
   return (
@@ -24,7 +26,7 @@ const LocalizedString = ({schema, translate, value, setValue, shouldFormComponen
         shouldFormComponentFocus={shouldFormComponentFocus}
         setValue={string => setValue({
           '@value': string,
-          '@language': string ? value && value['@language'] || 'en' : undefined
+          '@language': string ? value && value['@language'] || 'en' : undefined,
         })}
       />
       <DropdownSelect
@@ -43,12 +45,12 @@ LocalizedString.propTypes = {
   value: PropTypes.objectOf(PropTypes.any),
   setValue: PropTypes.func.isRequired,
   shouldFormComponentFocus: PropTypes.bool.isRequired,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 LocalizedString.defaultProps = {
   value: undefined,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(LocalizedString)

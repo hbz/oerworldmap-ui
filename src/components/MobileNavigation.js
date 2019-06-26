@@ -6,12 +6,11 @@ import Link from './Link'
 import '../styles/components/MobileNavigation.pcss'
 
 class MobileNavigation extends React.Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
-      current: props.current
+      current: props.current,
     }
     this.setCurrent = this.setCurrent.bind(this)
   }
@@ -24,23 +23,21 @@ class MobileNavigation extends React.Component {
   setCurrent(current) {
     const { emitter } = this.props
 
-    this.setState({current})
+    this.setState({ current })
 
     switch (current) {
-    case "list":
-      emitter.emit("toggleColumns", true)
-      emitter.emit("showCountry", false)
+    case 'list':
+      emitter.emit('toggleColumns', true)
+      emitter.emit('showCountry', false)
       break
-    case "map":
-      emitter.emit("toggleColumns", false)
-      emitter.emit("showCountry", false)
+    case 'country':
+      emitter.emit('toggleColumns', false)
+      emitter.emit('showCountry', true)
       break
-    case "country":
-      emitter.emit("toggleColumns", false)
-      emitter.emit("showCountry", true)
-      break
+    default:
+      emitter.emit('toggleColumns', false)
+      emitter.emit('showCountry', false)
     }
-
   }
 
   render() {
@@ -62,25 +59,25 @@ class MobileNavigation extends React.Component {
 
         <div className="mobileNavigationMain">
           <i
-            className={`fa fa-list${current === "list" ? " active": ''}`}
+            className={`fa fa-list${current === 'list' ? ' active' : ''}`}
             aria-hidden="true"
             onClick={() => {
-              setCurrent("list", true, false)
+              setCurrent('list', true, false)
             }}
           />
           <i
-            className={`fa fa-globe${current === "map" ? " active": ''}`}
+            className={`fa fa-globe${current === 'map' ? ' active' : ''}`}
             aria-hidden="true"
             onClick={() => {
-              setCurrent("map", false, false)
+              setCurrent('map', false, false)
             }}
           />
           {country && (
             <i
-              className={`fa fa-flag${current === "country" ? " active": ''}`}
+              className={`fa fa-flag${current === 'country' ? ' active' : ''}`}
               aria-hidden="true"
               onClick={() => {
-                setCurrent("country", false, true)
+                setCurrent('country', false, true)
               }}
             />
           )}
@@ -94,12 +91,12 @@ MobileNavigation.propTypes = {
   current: PropTypes.string.isRequired,
   country: PropTypes.string,
   region: PropTypes.string,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 MobileNavigation.defaultProps = {
   country: undefined,
-  region: undefined
+  region: undefined,
 }
 
 export default withEmitter(MobileNavigation)

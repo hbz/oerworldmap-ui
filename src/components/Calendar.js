@@ -8,17 +8,12 @@ import withI18n from './withI18n'
 import '../styles/components/Calendar.pcss'
 
 class Calendar extends React.Component {
-
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { translate, moment, entries } = this.props
     return (
       <ul ref={node => this.calendarRef = node} className="Calendar">
         {entries.map(month => (
-          <li key={month.key} className='monthBlock'>
+          <li key={month.key} className="monthBlock">
             <h4>{moment(month.key_as_string).format('MMMM YYYY')}</h4>
             <ul>
               {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).map(event => (
@@ -34,7 +29,7 @@ class Calendar extends React.Component {
                     </div>
                     <span>
                       {translate(event.name)}
-                      {event.alternateName ? ` (${translate(event.alternateName)})`: ''}
+                      {event.alternateName ? ` (${translate(event.alternateName)})` : ''}
                       <br />
                       {event.location && event.location.address && (
                         <span className="subtitle">
@@ -45,8 +40,8 @@ class Calendar extends React.Component {
                           &nbsp;&ndash;&nbsp;
                           {moment(event.endDate).format('D MMM')}
                           &nbsp;&mdash;&nbsp;
-                          {event.location.address.addressLocality &&
-                            event.location.address.addressLocality.concat(',')
+                          {event.location.address.addressLocality
+                            && event.location.address.addressLocality.concat(',')
                           }
                           &nbsp;
                           {event.location.address.addressCountry}
@@ -68,7 +63,7 @@ class Calendar extends React.Component {
 Calendar.propTypes = {
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
-  entries: PropTypes.arrayOf(PropTypes.any).isRequired
+  entries: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 export default withI18n(Calendar)

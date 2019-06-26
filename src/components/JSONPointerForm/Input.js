@@ -1,5 +1,3 @@
-/* global parseFloat */
-/* global parseInt */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -14,7 +12,7 @@ const castValue = (target) => {
   case 'number':
     return parseFloat(target.value)
   case 'integer':
-    return parseInt(target.value)
+    return parseInt(target.value, 10)
   default:
     return target.value
   }
@@ -22,15 +20,18 @@ const castValue = (target) => {
 
 const Input = ({
   type, name, value, setValue, errors, property, title, className, translate,
-  shouldFormComponentFocus, formId, required, placeholder, description
+  shouldFormComponentFocus, formId, required, placeholder, description,
 }) => (
-  <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Input ${type} ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
-      dangerouslySetInnerHTML={{__html: translate(title) +
-        (required
-          ? `<span class="asterisk" title="${translate('This is a required field!')}">*</span>`
-          : '') }}
+      dangerouslySetInnerHTML={
+        {
+          __html: translate(title)
+              + (required
+                ? `<span class="asterisk" title="${translate('This is a required field!')}">*</span>`
+                : ''),
+        }}
       className={required ? 'required' : ''}
     />
     <span className="fieldDescription">
@@ -64,7 +65,7 @@ Input.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.bool
+    PropTypes.bool,
   ]),
   setValue: PropTypes.func.isRequired,
   errors: PropTypes.arrayOf(PropTypes.object),
@@ -76,7 +77,7 @@ Input.propTypes = {
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 Input.defaultProps = {
@@ -89,7 +90,7 @@ Input.defaultProps = {
   shouldFormComponentFocus: false,
   required: false,
   placeholder: undefined,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(Input)

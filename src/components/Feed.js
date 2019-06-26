@@ -5,7 +5,7 @@ import withI18n from './withI18n'
 import '../styles/components/Feed.pcss'
 import ItemList from './ItemList'
 
-const Feed = ({translate, member}) => (
+const Feed = ({ translate, member }) => (
   <div className="Feed">
     <h2 className="title">
       {translate('ResourceIndex.feed.recentAdditions')}

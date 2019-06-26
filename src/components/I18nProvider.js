@@ -7,7 +7,7 @@ class I18nProvider extends React.Component {
     return {
       locales: i18n.locales,
       translate: i18n.translate,
-      moment: i18n.moment
+      moment: i18n.moment,
     }
   }
 
@@ -25,7 +25,7 @@ I18nProvider.childContextTypes = {
 
 I18nProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  i18n: PropTypes.objectOf(PropTypes.any).isRequired
+  i18n: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default I18nProvider

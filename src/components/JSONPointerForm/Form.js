@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import jsonPointer from 'json-pointer'
-import { forOwn, isUndefined, isNull,
-  isNaN, isString, isEmpty, isObject, isArray, pull, uniqueId } from 'lodash'
+import {
+  forOwn, isUndefined, isNull,
+  isNaN, isString, isEmpty, isObject, isArray, pull, uniqueId,
+} from 'lodash'
 
 const prune = (current) => {
   forOwn(current, (value, key) => {
-    if (isUndefined(value) || isNull(value) || isNaN(value) ||
-      (isString(value) && isEmpty(value.trim())) ||
-      (isObject(value) && isEmpty(prune(value)))) {
+    if (isUndefined(value) || isNull(value) || isNaN(value)
+      || (isString(value) && isEmpty(value.trim()))
+      || (isObject(value) && isEmpty(prune(value)))) {
       delete current[key]
     }
   })
@@ -19,15 +21,14 @@ const prune = (current) => {
 }
 
 class Form extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
       formData: props.data,
-      formErrors: []
+      formErrors: [],
     }
     this.id = props.id || uniqueId()
-    this.lastUpdate = ""
+    this.lastUpdate = ''
     this.lastOp = null
   }
 
@@ -38,25 +39,25 @@ class Form extends React.Component {
       getValue: this.getValue.bind(this),
       getValidationErrors: this.getValidationErrors.bind(this),
       shouldFormComponentUpdate: this.shouldFormComponentUpdate.bind(this),
-      shouldFormComponentFocus: this.shouldFormComponentFocus.bind(this)
+      shouldFormComponentFocus: this.shouldFormComponentFocus.bind(this),
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       formData: nextProps.data,
-      formErrors: []
+      formErrors: [],
     })
   }
 
   setValue(name, value) {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       this.lastOp = value && jsonPointer.has(prevState.formData, name)
         ? 'changed' : value ? 'added' : 'removed'
       this.lastUpdate = name
       jsonPointer.set(prevState.formData, name, value)
       return {
-        formData: prune(prevState.formData)
+        formData: prune(prevState.formData),
       }
     })
   }
@@ -74,8 +75,7 @@ class Form extends React.Component {
 
     return formErrors.filter(error => error.keyword !== 'anyOf' && (error.keyword === 'required'
       ? `${error.dataPath}/${error.params.missingProperty}` === name
-      : error.dataPath === name)
-    )
+      : error.dataPath === name))
   }
 
   shouldFormComponentUpdate(name) {
@@ -92,8 +92,9 @@ class Form extends React.Component {
   }
 
   render() {
-
-    const { action, method, validate, onError, onSubmit, children } = this.props
+    const {
+      action, method, validate, onError, onSubmit, children,
+    } = this.props
     const { formData } = this.state
 
     return (
@@ -101,16 +102,16 @@ class Form extends React.Component {
         className="Form"
         action={action}
         method={method}
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault()
-          this.lastUpdate = ""
+          this.lastUpdate = ''
           this.lastOp = null
           validate(formData)
             ? onSubmit(formData)
             : this.setState(
-              {formErrors: validate.errors},
+              { formErrors: validate.errors },
               () => console.error(validate.errors)
-                || onError(validate.errors)
+                || onError(validate.errors),
             )
         }}
       >
@@ -118,7 +119,6 @@ class Form extends React.Component {
       </form>
     )
   }
-
 }
 
 Form.propTypes = {
@@ -129,7 +129,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func,
   onError: PropTypes.func,
   validate: PropTypes.func,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
 Form.defaultProps = {
@@ -139,7 +139,7 @@ Form.defaultProps = {
   id: undefined,
   onSubmit: formData => console.log(formData),
   onError: formErrors => console.error(formErrors),
-  validate: () => true
+  validate: () => true,
 }
 
 Form.childContextTypes = {
@@ -148,7 +148,7 @@ Form.childContextTypes = {
   getValue: PropTypes.func,
   getValidationErrors: PropTypes.func,
   shouldFormComponentUpdate: PropTypes.func,
-  shouldFormComponentFocus: PropTypes.func
+  shouldFormComponentFocus: PropTypes.func,
 }
 
 export default Form

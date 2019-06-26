@@ -6,7 +6,9 @@ import Link from './Link'
 import Icon from './Icon'
 import withI18n from './withI18n'
 
-const ConceptBlock = ({type, conceptScheme, linkTemplate, translate}) => (
+const ConceptBlock = ({
+  type, conceptScheme, linkTemplate, translate,
+}) => (
   <div className="ConceptBlock">
     <h3 className="border-bottom">
       <Link className="iconItem" href={`/resource/?filter.about.@type=${type}`}>
@@ -32,12 +34,12 @@ ConceptBlock.propTypes = {
   type: PropTypes.string.isRequired,
   conceptScheme: PropTypes.arrayOf(PropTypes.any),
   linkTemplate: PropTypes.string,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
 }
 
 ConceptBlock.defaultProps = {
   conceptScheme: undefined,
-  linkTemplate: undefined
+  linkTemplate: undefined,
 }
 
 export default withI18n(ConceptBlock)

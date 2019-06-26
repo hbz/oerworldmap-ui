@@ -34,14 +34,14 @@ const baseURL = ENVIRONMENT === 'development'
   ? 'https://oerworldmap.org/'
   : '/'
 
-emitter.on('navigate', url => {
+emitter.on('navigate', (url) => {
   const parser = document.createElement('a')
   parser.href = url
-  window.open(url, "_self")
+  window.open(url, '_self')
 })
 
 emitter.on('logout', () => {
-  if (!document.execCommand("ClearAuthenticationCache")) {
+  if (!document.execCommand('ClearAuthenticationCache')) {
     const request = new XMLHttpRequest()
     const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
     request.open('GET', url, false)
@@ -52,7 +52,6 @@ emitter.on('logout', () => {
 })
 
 const injectHeader = (() => {
-
   function init() {
     const target = document.querySelector('[data-inject-header]')
 
@@ -61,33 +60,31 @@ const injectHeader = (() => {
         <I18nProvider i18n={
           i18n(
             locales,
-            i18ns[locales[0]]
+            i18ns[locales[0]],
           )}
         >
           <EmittProvider emitter={emitter}>
             <Header user={user} />
           </EmittProvider>
         </I18nProvider>,
-        target
+        target,
       )
     }
   }
 
   return { init }
-
 })()
 
 
 const animateScrollToFragment = (() => {
-
-  const init_one = one => {
-    one.addEventListener('click', event => {
+  const initOne = (one) => {
+    one.addEventListener('click', (event) => {
       event.preventDefault()
       const id = one.hash.substr(1)
       const element = document.getElementById(id)
       element.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       })
       // See https://stackoverflow.com/a/1489802
       element.id = ''
@@ -96,71 +93,63 @@ const animateScrollToFragment = (() => {
     })
   }
 
-  const init = () =>
-    document.querySelectorAll('[data-animate-scroll-to-fragment]').forEach(el => init_one(el))
+  const init = () => document.querySelectorAll('[data-animate-scroll-to-fragment]').forEach(el => initOne(el))
 
   return { init }
-
 })()
 
 
 const injectStats = (() => {
-
   function init() {
     const target = document.querySelector('[data-inject-stats]')
     if (target) {
       fetch(`${baseURL}resource.json?size=0`)
         .then(response => response.json())
-        .then(json => {ReactDOM.render(
-          <Overview buckets={json.aggregations['sterms#about.@type'].buckets} />, target)
+        .then((json) => {
+          ReactDOM.render(
+            <Overview buckets={json.aggregations['sterms#about.@type'].buckets} />, target,
+          )
         })
     }
   }
 
   return { init }
-
 })()
 
 
 const toggleShow = (() => {
-
-  const init_one = one => {
+  const initOne = (one) => {
     const target = document.querySelector(one.dataset.toggleShow)
     one.addEventListener('click', () => target && target.classList.toggle('show'))
   }
 
-  const init = () =>
-    document.querySelectorAll('[data-toggle-show]').forEach(el => init_one(el))
+  const init = () => document.querySelectorAll('[data-toggle-show]').forEach(el => initOne(el))
 
   return { init }
-
 })()
 
 const createAccordeon = (() => {
-
   const init = () => {
-
-    if (window.location.pathname.includes("FAQ")) {
-
+    if (window.location.pathname.includes('FAQ')) {
       const titles = document.querySelectorAll('h2')
       titles.forEach((title) => {
         const accordion = document.createElement('div')
         accordion.classList.add('accordion')
 
-        const accordionContainer = document.createElement("div")
-        accordionContainer.classList.add("accordionContainer")
+        const accordionContainer = document.createElement('div')
+        accordionContainer.classList.add('accordionContainer')
 
         let currentChild = title.nextElementSibling
 
-        while (currentChild && currentChild.nodeName !== "H2" && currentChild.nodeName !== "SECTION") {
+        while (currentChild && currentChild.nodeName !== 'H2' && currentChild.nodeName !== 'SECTION') {
           const next = currentChild.nextElementSibling
           accordionContainer.appendChild(currentChild)
           currentChild = next
         }
 
-        title.addEventListener("click", (e) => {
-          document.querySelectorAll('.active').forEach(active => active.classList.remove("active"))
-          e.target.parentElement.classList.toggle("active")
+        title.addEventListener('click', (e) => {
+          document.querySelectorAll('.active').forEach(active => active.classList.remove('active'))
+          e.target.parentElement.classList.toggle('active')
         })
 
         title.parentNode.insertBefore(accordion, title)
@@ -172,15 +161,13 @@ const createAccordeon = (() => {
   }
 
   return { init }
-
 })()
 
 const createKibanaListener = (() => {
   const init = () => {
-
     const newWindowLink = document.querySelector('[data-inject-newWindowLink]')
 
-    newWindowLink.addEventListener("click", (e) => {
+    newWindowLink.addEventListener('click', (e) => {
       e.preventDefault()
 
       const documentBody = `
@@ -244,30 +231,29 @@ const createKibanaListener = (() => {
         </body>
         </html>
       `
-      const options = "menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes,width=800,height=750"
-      const newWindow = window.open("", 'OER Policies', options)
+      const options = 'menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes,width=800,height=750'
+      const newWindow = window.open('', 'OER Policies', options)
       newWindow.document.write(documentBody)
       newWindow.document.close()
     })
 
-    window.addEventListener("message", (msg) => {
-
+    window.addEventListener('message', (msg) => {
       if (msg.data.filter && msg.data.key) {
-
         const iframe = document.querySelector('iframe')
         const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
 
         const params = {
-          [`filter.${msg.data.filter}`] : msg.data.key,
+          [`filter.${msg.data.filter}`]: msg.data.key,
         }
 
         if (scope) {
-          params[scope.split('=')[0]] = scope.split('=')[1]
+          const [key, value] = scope.split('=')
+          params[key] = value
         }
 
         window.location.href = getURL({
           path: '/resource/',
-          params
+          params,
         })
       }
     })
@@ -277,86 +263,76 @@ const createKibanaListener = (() => {
 
 
 const createPoliciesFeed = (() => {
-
-  const init =  async () => {
-
-    if (window.location.pathname.includes("oerpolicies")) {
-
+  const init = async () => {
+    if (window.location.pathname.includes('oerpolicies')) {
       // Request data for policies
       // ADD carry a tag called policy
       const rawResponse = await fetch(`${baseURL}resource.json?q=about.@type:Policy&sort=dateCreated:DESC`, {
         headers: {
-          'accept': 'application/json'
-        }
+          accept: 'application/json',
+        },
       })
 
       const content = await rawResponse.json()
 
       if (content) {
-
         const feedContainer = document.querySelector('[data-inject-feed]')
 
         ReactDOM.render(
           <I18nProvider i18n={
             i18n(
               locales,
-              i18ns[locales[0]]
+              i18ns[locales[0]],
             )}
           >
             <EmittProvider emitter={emitter}>
               <ItemList listItems={content.member.map(member => member.about)} />
             </EmittProvider>
           </I18nProvider>,
-          feedContainer
+          feedContainer,
         )
       }
     }
   }
 
   return { init }
-
 })()
 
 const createPolicyRelated = (() => {
-
-  const init =  async () => {
-
-    if (window.location.pathname.includes("oerpolicies")) {
-
+  const init = async () => {
+    if (window.location.pathname.includes('oerpolicies')) {
       const rawResponse = await fetch(`${baseURL}resource.json?q=NOT%20about.@type:Policy%20AND%20about.keywords:policy&sort=dateCreated:DESC`, {
         headers: {
-          'accept': 'application/json'
-        }
+          accept: 'application/json',
+        },
       })
 
       const content = await rawResponse.json()
 
       if (content) {
-
         const feedContainer = document.querySelector('[data-inject-policy-related]')
 
         ReactDOM.render(
           <I18nProvider i18n={
             i18n(
               locales,
-              i18ns[locales[0]]
+              i18ns[locales[0]],
             )}
           >
             <EmittProvider emitter={emitter}>
               <ItemList listItems={content.member.map(member => member.about)} />
             </EmittProvider>
           </I18nProvider>,
-          feedContainer
+          feedContainer,
         )
       }
     }
   }
 
   return { init }
-
 })()
 
-$(()  => {
+$(() => {
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
@@ -367,5 +343,4 @@ $(()  => {
   createKibanaListener.init()
 
   $('[data-slick]').slick()
-
 })

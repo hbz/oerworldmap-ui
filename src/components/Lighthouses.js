@@ -10,16 +10,19 @@ import LinkOverride from './LinkOverride'
 import { formatDate } from '../common'
 import expose from '../expose'
 
-const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => (
+const Lighthouses = ({
+  moment, translate, emitter, lighthouses, user, about,
+}) => (
   <div className="Lighthouses">
 
-    {lighthouses.filter(lighthouse => lighthouse.agent && lighthouse.description).map(lighthouse => (
+    {lighthouses.filter(lighthouse => lighthouse.agent
+    && lighthouse.description).map(lighthouse => (
       <div className="Comment" key={lighthouse['@id']}>
         <div className="head row auto">
           <div className="col">
             {lighthouse.agent.map(author => (
-              <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                {translate(author["@id"])}
+              <Link key={author['@id']} href={`/resource/${author['@id']}`}>
+                {translate(author['@id'])}
               </Link>
             ))}
             {lighthouse.startTime && (
@@ -37,8 +40,9 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
                 e.preventDefault()
                 emitter.emit('delete', {
                   url: `/resource/${lighthouse['@id']}`,
-                  redirect: {url: `/resource/${about['@id']}`}
-                })}}
+                  redirect: { url: `/resource/${about['@id']}` },
+                })
+              }}
               >
                 <button className="btn icon" type="submit" title="Delete">
                   <i aria-hidden="true" className="fa fa-fw fa-trash" />
@@ -50,9 +54,9 @@ const Lighthouses = ({moment, translate, emitter, lighthouses, user, about}) => 
         <Markdown options={{
           overrides: {
             a: {
-              component: LinkOverride
-            }
-          }
+              component: LinkOverride,
+            },
+          },
         }}
         >
           {translate(lighthouse.description)}

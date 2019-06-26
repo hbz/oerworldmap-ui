@@ -26,12 +26,12 @@ const onSubmit = (e, emitter) => {
   const parameters = [...formData.entries()]
     .filter(p => !!p[1])
     .filter(p => !p.includes(current && current.split(':')[1]))
-    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
+    .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`).join('&')
 
-  emitter.emit('navigate', '?' + parameters)
+  emitter.emit('navigate', `?${parameters}`)
 }
 
-const onReset = e => {
+const onReset = (e) => {
   const form = e.target.parentElement.form || e.target.form || e.target
   e.preventDefault()
   clearForm(form)
@@ -40,92 +40,92 @@ const onReset = e => {
 
 const primaryFilters = [
   {
-    name: "sterms#about.@type",
-    filter: "filter#about.@type",
-    type: "button",
+    name: 'sterms#about.@type',
+    filter: 'filter#about.@type',
+    type: 'button',
     order: ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy'],
-    translate: true
-  }
+    translate: true,
+  },
 ]
 
 const subFilters = [
   {
-    name: "sterms#about.keywords",
-    filter: "filter#about.keywords",
-    type: "dropdown",
-    icon: "tag"
+    name: 'sterms#about.keywords',
+    filter: 'filter#about.keywords',
+    type: 'dropdown',
+    icon: 'tag',
   },
   {
-    name: "sterms#about.award",
-    filter: "filter#about.award",
+    name: 'sterms#about.award',
+    filter: 'filter#about.award',
     translate: true,
-    icon: "trophy",
-    order: (array, translate) => array.sort((a, b) => translate(a.key).localeCompare(translate(b.key)))
-  }
+    icon: 'trophy',
+    order: (array, translate) => array
+      .sort((a, b) => translate(a.key).localeCompare(translate(b.key))),
+  },
 ]
 
 const secondaryFilters = [
   {
-    name: "sterms#about.availableChannel.availableLanguage",
-    filter: "filter#about.availableChannel.availableLanguage",
-    translate: true
+    name: 'sterms#about.availableChannel.availableLanguage',
+    filter: 'filter#about.availableChannel.availableLanguage',
+    translate: true,
   },
   {
-    name: "sterms#about.primarySector.@id",
-    filter: "filter#about.primarySector.@id",
-    type: "concepts",
+    name: 'sterms#about.primarySector.@id',
+    filter: 'filter#about.primarySector.@id',
+    type: 'concepts',
     scheme: require('../json/sectors.json'),
-    translate: true
+    translate: true,
   },
   {
-    name: "sterms#about.secondarySector.@id",
-    filter: "filter#about.secondarySector.@id",
-    type: "concepts",
+    name: 'sterms#about.secondarySector.@id',
+    filter: 'filter#about.secondarySector.@id',
+    type: 'concepts',
     scheme: require('../json/sectors.json'),
-    translate: true
+    translate: true,
   },
   {
-    name: "sterms#about.audience.@id",
-    filter: "filter#about.audience.@id",
-    type: "concepts",
+    name: 'sterms#about.audience.@id',
+    filter: 'filter#about.audience.@id',
+    type: 'concepts',
     scheme: require('../json/isced-1997.json'),
-    translate: true
+    translate: true,
   },
   {
-    name: "sterms#about.about.@id",
-    filter: "filter#about.about.@id",
-    type: "concepts",
+    name: 'sterms#about.about.@id',
+    filter: 'filter#about.about.@id',
+    type: 'concepts',
     scheme: require('../json/esc.json'),
-    translate: true
+    translate: true,
   },
   {
-    name: "sterms#about.license.@id",
-    filter: "filter#about.license.@id",
-    type: "concepts",
+    name: 'sterms#about.license.@id',
+    filter: 'filter#about.license.@id',
+    type: 'concepts',
     scheme: require('../json/licenses.json'),
-    translate: true
+    translate: true,
   },
   {
-    name: "sterms#about.activityField.@id",
-    filter: "filter#about.activityField.@id",
-    type: "concepts",
+    name: 'sterms#about.activityField.@id',
+    filter: 'filter#about.activityField.@id',
+    type: 'concepts',
     scheme: require('../json/activities.json'),
-    translate: true
+    translate: true,
   },
 ]
 
 class Filters extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
       extended: Object.keys(props.filters).some(
-        v => secondaryFilters.map(f => f.name).includes(v)
+        v => secondaryFilters.map(f => f.name).includes(v),
       ),
-      filtersCollapsed: false
+      filtersCollapsed: false,
     }
 
-    this.sizes = [20,50,100,200]
+    this.sizes = [20, 50, 100, 200]
 
     if (!this.sizes.includes(props.size) && props.size > -1) {
       this.sizes.push(props.size)
@@ -138,24 +138,26 @@ class Filters extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { extended } = this.state
 
-    this.setState({extended: Object.keys(nextProps.filters).some(
-      v => secondaryFilters.map(f => f.name).includes(v)) || extended
+    this.setState({
+      extended: Object.keys(nextProps.filters).some(
+        v => secondaryFilters.map(f => f.name).includes(v),
+      ) || extended,
     })
   }
 
   getFilter(filterDef) {
     const { aggregations, filters, translate } = this.props
 
-    const [, agg_field] = filterDef.name.split('#')
+    const [, aggField] = filterDef.name.split('#')
     const aggregation = aggregations['global#facets']['filter#filtered'][filterDef.filter]
       && aggregations['global#facets']['filter#filtered'][filterDef.filter][filterDef.name]
       && aggregations['global#facets']['filter#filtered'][filterDef.filter][filterDef.name].buckets.length
       ? aggregations['global#facets']['filter#filtered'][filterDef.filter][filterDef.name] : null
-    const filter = filters[agg_field] || []
+    const filter = filters[aggField] || []
     if (!aggregation) {
       return
     }
-    switch(filterDef.type) {
+    switch (filterDef.type) {
     case 'button':
       return (
         <ButtonFilter
@@ -164,7 +166,7 @@ class Filters extends React.Component {
           filter={filter}
           submit={onSubmit}
           order={filterDef.order}
-          filterName={`filter.${agg_field}`}
+          filterName={`filter.${aggField}`}
         />
       )
     case 'concepts':
@@ -174,7 +176,7 @@ class Filters extends React.Component {
           concepts={filterDef.scheme.hasTopConcept}
           aggregation={aggregation}
           filter={filter}
-          filterName={`filter.${agg_field}`}
+          filterName={`filter.${aggField}`}
           submit={onSubmit}
         />
       )
@@ -184,11 +186,11 @@ class Filters extends React.Component {
         <DropdownFilter
           key={filterDef.name}
           icon={filterDef.icon}
-          buckets={filterDef.hasOwnProperty('order')
+          buckets={Object.prototype.hasOwnProperty.call(filterDef, 'order')
             ? filterDef.order(aggregation.buckets, translate)
             : aggregation.buckets}
           filter={filter}
-          filterName={`filter.${agg_field}`}
+          filterName={`filter.${aggField}`}
           submit={onSubmit}
           translate={translate}
           translateItems={filterDef.translate ? translate : undefined}
@@ -198,27 +200,29 @@ class Filters extends React.Component {
   }
 
   render() {
-    const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country, region } = this.props
+    const {
+      filters, sort, translate, query, emitter,
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, region,
+    } = this.props
     const { extended, filtersCollapsed } = this.state
 
     const filter = filters && filters['about.@type'] || false
     const hasFilters = (Object.keys(filters).length > 0) || query
 
-    let searchPlaceholder = translate("search.entries")
+    let searchPlaceholder = translate('search.entries')
     if (country) {
-      (filters && Object.keys(filters).includes("about.@type"))
-        ? searchPlaceholder = translate("search.entries.country.filter", {
+      (filters && Object.keys(filters).includes('about.@type'))
+        ? searchPlaceholder = translate('search.entries.country.filter', {
           country: translate(region ? `${country}.${region}` : country),
-          filter: translate(filters["about.@type"][0]).toLowerCase()
+          filter: translate(filters['about.@type'][0]).toLowerCase(),
         })
-        : searchPlaceholder = translate("search.entries.country", {country: translate(region ? `${country}.${region}` : country)})
-    } else if (filters && Object.keys(filters).includes("about.@type")) {
-      if (filters["about.@type"][0] === "Policy") {
-        searchPlaceholder = translate("search.entries.filter.policy")
+        : searchPlaceholder = translate('search.entries.country', { country: translate(region ? `${country}.${region}` : country) })
+    } else if (filters && Object.keys(filters).includes('about.@type')) {
+      if (filters['about.@type'][0] === 'Policy') {
+        searchPlaceholder = translate('search.entries.filter.policy')
       } else {
-        searchPlaceholder = translate("search.entries.filter", {
-          filter: translate(filters["about.@type"][0]).toLowerCase()
+        searchPlaceholder = translate('search.entries.filter', {
+          filter: translate(filters['about.@type'][0]).toLowerCase(),
         })
       }
     }
@@ -238,10 +242,10 @@ class Filters extends React.Component {
       <nav className="Filters">
 
         <form
-          onSubmit={(evt) => onSubmit(evt, emitter)}
-          onReset={(evt) => onReset(evt)}
+          onSubmit={evt => onSubmit(evt, emitter)}
+          onReset={evt => onReset(evt)}
         >
-          <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed': ''}`}>
+          <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed' : ''}`}>
 
             <div className="filterSearch">
               <input
@@ -254,7 +258,7 @@ class Filters extends React.Component {
 
               <button
                 type="submit"
-                className={!hasFilters ? `withoutFilters` : null}
+                className={!hasFilters ? 'withoutFilters' : null}
               >
                 <i
                   aria-hidden="true"
@@ -289,12 +293,12 @@ class Filters extends React.Component {
               {subFilters.map(filterDef => this.getFilter(filterDef))}
 
               {secondaryFilters.map(f => f.name).some(
-                v => aggregations[v] && aggregations[v].buckets.length
+                v => aggregations[v] && aggregations[v].buckets.length,
               ) && (
                 <div className="showMore">
                   <button
                     type="button"
-                    className={`btn expand${extended ?  ' active': ''}`}
+                    className={`btn expand${extended ? ' active' : ''}`}
                     onClick={(e) => {
                       e.preventDefault()
                       this.setState({ extended: !extended })
@@ -326,7 +330,7 @@ class Filters extends React.Component {
                         type="checkbox"
                         name={`filter.${filterGroup}`}
                         id={`filterSelected.${filterGroup}${filter}`}
-                        onChange={e => {
+                        onChange={(e) => {
                           onSubmit(e, emitter)
                         }}
                         value={filter}
@@ -334,7 +338,7 @@ class Filters extends React.Component {
                       />
                       <label
                         htmlFor={`filterSelected.${filterGroup}${filter}`}
-                        onKeyDown={e => {
+                        onKeyDown={(e) => {
                           if (e.keyCode === 13) {
                             e.target.click()
                           }
@@ -354,13 +358,13 @@ class Filters extends React.Component {
           </div>
 
           <div
-            className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed': ''}`}
-            title={filtersCollapsed ? translate(`Show filters`) : translate("Hide filters")}
+            className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed' : ''}`}
+            title={filtersCollapsed ? translate('Show filters') : translate('Hide filters')}
           >
             <i
               aria-hidden="true"
               className={`fa fa-${!filtersCollapsed ? 'chevron-up' : 'chevron-down'}`}
-              onClick={() => this.setState({filtersCollapsed:!filtersCollapsed})}
+              onClick={() => this.setState({ filtersCollapsed: !filtersCollapsed })}
             />
             <hr />
 
@@ -374,8 +378,8 @@ class Filters extends React.Component {
                     <span className="arrowWrapper">
                       <select onChange={e => onSubmit(e, emitter)} className="styledSelect totalSelect" name="size" value={size}>
                         {this.sizes.map(number => (
-                          number >= 0 &&
-                          <option key={number} value={number}>{number}</option>
+                          number >= 0
+                          && <option key={number} value={number}>{number}</option>
                         ))}
                         <option value="-1">{translate('Pagination.all')}</option>
                       </select>
@@ -399,11 +403,11 @@ class Filters extends React.Component {
                         value={sort}
                         className="styledSelect"
                         style={{
-                          width: sortSize * 1.4 + 'ex',
-                          minWidth: '70px'
+                          width: `${sortSize * 1.4}ex`,
+                          minWidth: '70px',
                         }}
                         onChange={(evt) => {
-                          evt.target.style.width = (evt.target.options[evt.target.selectedIndex].text.length * 1.4) + 'ex'
+                          evt.target.style.width = `${evt.target.options[evt.target.selectedIndex].text.length * 1.4}ex`
                           onSubmit(evt, emitter)
                         }}
                       >
@@ -412,8 +416,8 @@ class Filters extends React.Component {
                         ) : (
                           <option value="">{translate('ClientTemplates.filter.dateCreated')}</option>
                         )}
-                        {query &&
-                          <option value="dateCreated:DESC">{translate('ClientTemplates.filter.dateCreated')}</option>
+                        {query
+                          && <option value="dateCreated:DESC">{translate('ClientTemplates.filter.dateCreated')}</option>
                         }
                         <option value="about.name.@value.sort:ASC">{translate('ClientTemplates.filter.alphabetical')}</option>
                       </select>
@@ -464,15 +468,15 @@ Filters.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   country: PropTypes.string,
-  region: PropTypes.string
+  region: PropTypes.string,
 }
 
 Filters.defaultProps = {
   view: null,
-  sort: "",
+  sort: '',
   embedValue: null,
   country: null,
-  region: null
+  region: null,
 }
 
 export default withEmitter(withI18n(Filters))

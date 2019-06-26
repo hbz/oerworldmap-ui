@@ -7,13 +7,12 @@ import { triggerClick } from '../common'
 import '../styles/components/DropdownFilter.pcss'
 
 class DropdownFilter extends React.Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
       showContent: false,
-      search: ''
+      search: '',
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -23,16 +22,16 @@ class DropdownFilter extends React.Component {
     const { showContent } = this.state
 
     if (e.target !== this.DropdownFilter && !this.DropdownFilter.contains(e.target)) {
-      this.setState({showContent: false})
-    } else {
-      if (!this.dropdownContent.contains(e.target)) {
-        this.setState({showContent: !showContent})
-      }
+      this.setState({ showContent: false })
+    } else if (!this.dropdownContent.contains(e.target)) {
+      this.setState({ showContent: !showContent })
     }
   }
 
   render() {
-    const { buckets, filter, filterName, translateItems, icon, translate, submit, emitter } = this.props
+    const {
+      buckets, filter, filterName, translateItems, icon, translate, submit, emitter,
+    } = this.props
     const { search, showContent } = this.state
 
     const list = buckets.map((bucket, i) => (
@@ -43,20 +42,21 @@ class DropdownFilter extends React.Component {
               type="checkbox"
               value={bucket.key}
               name={filterName}
-              id={filterName+i}
+              id={filterName + i}
               defaultChecked={filter.includes(bucket.key)}
             />
             <label
               style={{
-                display: (search.length === 0) ||
-                  (
-                    translateItems(bucket.label || bucket.key).toLowerCase().includes(search.toLowerCase())
+                display: (search.length === 0)
+                  || (
+                    translateItems(bucket.label
+                      || bucket.key).toLowerCase().includes(search.toLowerCase())
                     || bucket.key.toLowerCase() === search.toLowerCase()
                   )
-                  ? 'block' : 'none'
+                  ? 'block' : 'none',
               }}
-              htmlFor={filterName+i}
-              onKeyDown={e => {
+              htmlFor={filterName + i}
+              onKeyDown={(e) => {
                 if (e.keyCode === 13) {
                   e.target.click()
                 }
@@ -78,11 +78,11 @@ class DropdownFilter extends React.Component {
 
     return (
       <div
-        ref={DropdownFilter => {
+        ref={(DropdownFilter) => {
           if (DropdownFilter) {
-            document.addEventListener("click", this.handleClick)
+            document.addEventListener('click', this.handleClick)
           } else {
-            document.removeEventListener("click", this.handleClick)
+            document.removeEventListener('click', this.handleClick)
           }
           this.DropdownFilter = DropdownFilter
         }}
@@ -115,18 +115,18 @@ class DropdownFilter extends React.Component {
             <input
               type="submit"
               value={translate('ClientTemplates.filter-dropdown.applyFilter')}
-              onClick={evt => {
+              onClick={(evt) => {
                 evt.preventDefault()
-                this.setState({search: ''})
+                this.setState({ search: '' })
                 submit(evt, emitter)
-                this.setState({showContent: false})
+                this.setState({ showContent: false })
               }}
             />
             <input
               type="text"
               placeholder="..."
               value={search}
-              onChange={e => this.setState({search: e.target.value})}
+              onChange={e => this.setState({ search: e.target.value })}
             />
           </div>
           <ul>
@@ -154,7 +154,7 @@ DropdownFilter.propTypes = {
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 DropdownFilter.defaultProps = {

@@ -9,33 +9,33 @@ import withApi from '../withApi'
 import { objectMap } from '../../common'
 
 class KeywordSelect extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      options: []
+      options: [],
     }
   }
 
   componentDidMount() {
     const { api } = this.props
 
-    api.get('/resource/?size=0').then(response => {
+    api.get('/resource/?size=0').then((response) => {
       const options = response.aggregations['sterms#about.keywords'].buckets
-        .map(keyword => ({value: keyword.key, label: keyword.key}))
-      this.setState({options})
+        .map(keyword => ({ value: keyword.key, label: keyword.key }))
+      this.setState({ options })
     })
   }
 
   render() {
     const {
-      name, value, setValue, property, className, title, translate, errors, formId, required, description
+      name, value, setValue, property, className, title,
+      translate, errors, formId, required, description,
     } = this.props
     const { options } = this.state
 
     return (
       <div
-        className={`KeywordSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+        className={`KeywordSelect ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}
         role="group"
         aria-labelledby={`${formId}-${name}-label`}
       >
@@ -61,19 +61,18 @@ class KeywordSelect extends React.Component {
         ))}
         <Select.Creatable
           name={name}
-          value={value.map(value => ({value, label:value}))}
+          value={value.map(value => ({ value, label: value }))}
           options={options}
           onChange={selected => setValue(selected.map(option => option.value))}
           placeholder={`${translate('ClientTemplates.resource_typehead.search')} ${translate(title)}`}
           arrowRenderer={() => <i aria-hidden="true" className="fa fa-chevron-down" />}
           clearable={false}
-          promptTextCreator={(label) => `${translate('create')} "${label}"`}
+          promptTextCreator={label => `${translate('create')} "${label}"`}
           multi
         />
       </div>
     )
   }
-
 }
 
 KeywordSelect.propTypes = {
@@ -88,7 +87,7 @@ KeywordSelect.propTypes = {
   setValue: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 KeywordSelect.defaultProps = {
@@ -98,7 +97,7 @@ KeywordSelect.defaultProps = {
   className: '',
   value: [],
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withApi(withFormData(KeywordSelect))
