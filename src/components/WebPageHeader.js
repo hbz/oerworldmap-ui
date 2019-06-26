@@ -1,3 +1,4 @@
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -36,14 +37,29 @@ const WebPageHeader = ({
                     &times;
                   </Link>
                 ) : (
-                  <Link href="#edit"><i aria-hidden="true" className="fa fa-pencil" /></Link>
+                  <Link
+                    href="#edit"
+                    additional={() => {
+                      typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EntryDetailOverlay', 'ButtonClick', 'Edit'])
+                    }}
+                  >
+                    <i aria-hidden="true" className="fa fa-pencil" />
+                  </Link>
                 )}
               </div>
             )]}
 
           {(view !== 'edit' || !about['@id']) &&(
             <div className="action">
-              <Link href={Link.back && Link.back.includes("/feed/") ? Link.back : Link.home} className="closePage">
+              <Link
+                href={Link.back && Link.back.includes("/feed/") ? Link.back : Link.home}
+                className="closePage"
+                additional={() => {
+                  if (_self && _self.includes("?add")) {
+                    typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', "ExitClick"])
+                  }
+                }}
+              >
                 &times;
               </Link>
             </div>
