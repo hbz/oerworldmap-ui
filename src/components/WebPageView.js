@@ -21,7 +21,7 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) => {
+const WebPageView = ({translate, moment, about, user, view, expandAll, schema, _self}) => {
 
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
 
@@ -36,6 +36,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
           <Topline about={about} />
 
         </div>
+
+        {!user && (
+          <a href={`http://oerworldmap.local/.login?continue=${_self}`}>
+            {translate('Please login if you want to edit this entry')}
+          </a>
+        )}
+
         <div className="col">
 
           {about.sameAs &&
@@ -795,7 +802,8 @@ WebPageView.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   view: PropTypes.string.isRequired,
   expandAll: PropTypes.bool,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  _self: PropTypes.string.isRequired,
 }
 
 WebPageView.defaultProps = {
