@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import Export from './Export'
 import Share from './Share'
 import withI18n from './withI18n'
+import FullModal from './FullModal'
 
 import '../styles/components/ShareExport.pcss'
 
@@ -80,12 +81,16 @@ class ShareExport extends React.Component {
             </li>
           </ul>
         )}
-        {view === 'share' &&
-          <Share embedValue={embedValue} _self={_self} />
-        }
-        {view === 'export' &&
-          <Export _self={_self} _links={_links} />
-        }
+        {view === 'share' && (
+          <FullModal closeLink={_self}>
+            <Share embedValue={embedValue} _self={_self} />
+          </FullModal>
+        )}
+        {view === 'export' && (
+          <FullModal closeLink={_self}>
+            <Export _self={_self} _links={_links} />
+          </FullModal>
+        )}
       </div>
     )
   }

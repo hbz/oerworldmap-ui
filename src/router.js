@@ -304,7 +304,11 @@ export default (api) => {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
-        const component = (data) => <Feed {...data} />
+        const component = (data) => (
+          <FullModal closeLink={Link.home}>
+            <Feed {...data} />
+          </FullModal>
+        )
         const title = context.i18n.translate('ClientTemplates.app.recentAdditions')
         return { title, data, component }
       }
@@ -313,7 +317,11 @@ export default (api) => {
       path: '/activity/',
       get: async (params, context, state) => {
         const data = state || await api.get('/activity/', context.authorization)
-        const component = (data) =>  <Timeline entries={data} />
+        const component = (data) =>  (
+          <FullModal closeLink={Link.home}>
+            <Timeline entries={data} />
+          </FullModal>
+        )
         const title = context.i18n.translate('Activity')
         return { title, data, component }
       }
