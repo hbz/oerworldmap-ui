@@ -291,116 +291,114 @@ class Header extends React.Component {
 
             </li>
 
-            {expose('addEntry', user) && (
-              <li
-                className={`hasDropdown${dropdowns.add ? ' active': ''}`}
-                onMouseLeave={() => {
-                  this.setDropdown('')
-                }}
-                onMouseEnter={() => {
+            <li
+              className={`hasDropdown${dropdowns.add ? ' active': ''}`}
+              onMouseLeave={() => {
+                this.setDropdown('')
+              }}
+              onMouseEnter={() => {
+                this.setDropdown('add')
+              }}
+            >
+              <div
+                tabIndex="0"
+                className="btnHover"
+                onKeyDown={triggerClick}
+                role="button"
+                onClick={() => {
                   this.setDropdown('add')
                 }}
               >
-                <div
-                  tabIndex="0"
-                  className="btnHover"
-                  onKeyDown={triggerClick}
-                  role="button"
-                  onClick={() => {
-                    this.setDropdown('add')
-                  }}
-                >
-                  {translate('menu.add')}
-                </div>
-                <div className="dropdown">
-                  <div className="inner">
-                    <div className="popular">
-                      <div style={{maxWidth: '80%'}}>
-                        {translate('menu.add.subtitle')}
-                        <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
-                      </div>
-                      <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                        {translate('needHelp')}
+                {translate('menu.add')}
+              </div>
+              <div className="dropdown">
+                <div className="inner">
+                  <div className="popular">
+                    <div style={{maxWidth: '80%'}}>
+                      {translate('menu.add.subtitle')}
+                      <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
+                    </div>
+                    <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
+                      {translate('needHelp')}
+                    </Link>
+                  </div>
+                  <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Organization" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Organization" />
+                          {translate('Organization')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Organization')}</p>
                       </Link>
                     </div>
-                    <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Organization" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Organization" />
-                            {translate('Organization')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Organization')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Action" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Action" />
-                            {translate('Action')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Action')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Service" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Service" />
-                            {translate('Service')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Service')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Event" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Event" />
-                            {translate('Event')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Event')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Article" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Article" />
-                            {translate('Article')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Article')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=WebPage" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="WebPage" />
-                            {translate('WebPage')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.WebPage')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Product" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Product" />
-                            {translate('Product')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Product')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Policy" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Policy" />
-                            {translate('Policy')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Policy')}</p>
-                        </Link>
-                      </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Action" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Action" />
+                          {translate('Action')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Action')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Service" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Service" />
+                          {translate('Service')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Service')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Event" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Event" />
+                          {translate('Event')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Event')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Article" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Article" />
+                          {translate('Article')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Article')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=WebPage" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="WebPage" />
+                          {translate('WebPage')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.WebPage')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Product" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Product" />
+                          {translate('Product')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Product')}</p>
+                      </Link>
+                    </div>
+                    <div className="col one-fourth">
+                      <Link href="/resource/?add=Policy" className="addBox">
+                        <h3 className="iconItem">
+                          <Icon type="Policy" />
+                          {translate('Policy')}
+                        </h3>
+                        <p className="text-small">{translate('descriptions.Policy')}</p>
+                      </Link>
                     </div>
                   </div>
                 </div>
-              </li>
-            )}
+              </div>
+            </li>
 
             <li
               className={`hasDropdown${dropdowns.info ? ' active': ''}`}
