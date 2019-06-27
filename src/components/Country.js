@@ -17,14 +17,21 @@ class Country  extends React.Component {
     this.state = {
       showCountryChampion: true,
       showReports: false,
-      showStatistics: true,
-      showKibanaStatistics: false
+      showStatistics: false,
+      showKibanaStatistics: false,
+      showCountry: false
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
 
   componentDidMount() {
+
+    const { emitter } = this.props
     window.addEventListener("message",  this.listenMessage, false)
+
+    emitter.on('showCountry', showCountry => {
+      this.setState({showCountry})
+    })
   }
 
   componentWillUnmount() {
@@ -49,12 +56,12 @@ class Country  extends React.Component {
       countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region
     } = this.props
     const {
-      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics
+      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics, showCountry
     } = this.state
 
     return (
       <React.Fragment>
-        <div className="Country">
+        <div className={`Country${showCountry ? ' showCountry': ''}`}>
           <div className="countryHeader">
             <img
               className="countryFlag"
@@ -316,7 +323,7 @@ class Country  extends React.Component {
                     onKeyDown={triggerClick}
                     onClick={() => this.setState({showKibanaStatistics: !showKibanaStatistics})}
                   >
-                    More
+                    {translate("Show detailed statistics")}
                   </button>
                 </div>
               </div>
@@ -347,7 +354,7 @@ class Country  extends React.Component {
             title="countryStatistics"
             src={
               region
-                ? `https://oerworldmap.org/kibana/app/kibana#/dashboard/2f3f5ce0-7b07-11e9-a87c-776689b2b49d?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:${iso3166}),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressRegion,negate:!f,params:(query:${iso3166+'.'+region},type:phrase),type:phrase,value:${iso3166+'.'+region}),query:(match:(feature.properties.location.address.addressRegion:(query:${iso3166+'.'+region},type:phrase))))))`
+                ? `https://oerworldmap.org/kibana/app/kibana#/dashboard/026c73e0-0444-11e9-b10a-2128e9354d61?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:${iso3166}),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressRegion,negate:!f,params:(query:${iso3166+'.'+region},type:phrase),type:phrase,value:${iso3166+'.'+region}),query:(match:(feature.properties.location.address.addressRegion:(query:${iso3166+'.'+region},type:phrase))))))`
                 : `https://oerworldmap.org/kibana/app/kibana#/dashboard/026c73e0-0444-11e9-b10a-2128e9354d61?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:Germany),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase))))))`
             }
             height="800"

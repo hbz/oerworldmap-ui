@@ -21,19 +21,7 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const sortByArray = sortBy => {
-  return (a, b) => {
-    if (sortBy.indexOf(a) > sortBy.indexOf(b)) {
-      return 1
-    } else if (sortBy.indexOf(a) < sortBy.indexOf(b)) {
-      return -1
-    } else {
-      return 0
-    }
-  }
-}
-
-const WebPageView = ({translate, moment, about, user, view, expandAll, schema, locales}) => {
+const WebPageView = ({translate, moment, about, user, view, expandAll, schema, locales, _self}) => {
 
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -57,6 +45,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
           <Topline about={about} />
 
         </div>
+
+        {!user && (
+          <a href={`http://oerworldmap.local/.login?continue=${_self}`}>
+            {translate('Please login if you want to edit this entry')}
+          </a>
+        )}
+
         <div className="col">
 
           {about.sameAs &&
@@ -816,7 +811,8 @@ WebPageView.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   view: PropTypes.string.isRequired,
   expandAll: PropTypes.bool,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  _self: PropTypes.string.isRequired,
 }
 
 WebPageView.defaultProps = {

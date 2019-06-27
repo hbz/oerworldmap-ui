@@ -76,12 +76,13 @@ const WebPage = ({
                 schema={schema}
                 closeLink={about['@id'] ? _self : undefined}
                 showOptionalFields={showOptionalFields}
+                _self={_self}
               />
             </div>
           )}
 
           <div id="view" className={!user || view !== 'edit' ? '' : 'hidden'}>
-            <WebPageView id="view" about={about} user={user} view={view} schema={schema} />
+            <WebPageView id="view" about={about} user={user} view={view} schema={schema} _self={_self} />
           </div>
 
         </div>

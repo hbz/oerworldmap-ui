@@ -1,3 +1,4 @@
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 import merge from 'deepmerge'
@@ -124,9 +125,10 @@ class Builder extends React.Component {
         {!showOptionalFields && (
           <button
             className="btn"
-            onClick={event =>
+            onClick={event => {
+              typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', 'ShowOptionalFieldsClick'])
               event.preventDefault() || this.setState({showOptionalFields: true})
-            }
+            }}
           >
             {translate('form.showOptionalFields', {title: translate(schema.title)})}
           </button>

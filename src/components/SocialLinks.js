@@ -30,17 +30,17 @@ const SocialLinks = ({links}) => (
       } else if (link.includes('reddit')) {
         icon = 'reddit-alien'
       } else if (link.includes('slack')) {
-        icon = 'slack-hash'
+        icon = 'slack'
       } else if (link.includes('soundcloud')) {
         icon = 'soundcloud'
       } else if (link.includes('stack-overflow')) {
         icon = 'stack-overflow'
       } else if (link.includes('vimeo')) {
-        icon = 'vimeo-v'
+        icon = 'vimeo'
       } else if (link.includes('wikipedia')) {
         icon = 'wikipedia-w'
       } else if (link.includes('wordpress')) {
-        icon = 'wordpress-simple'
+        icon = 'wordpress'
       } else if (link.includes('slideshare')) {
         icon = 'slideshare'
       } else if (link.includes('pinterest')) {

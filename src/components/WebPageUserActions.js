@@ -10,6 +10,8 @@ import FullModal from './FullModal'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 
+import '../styles/components/WebPageUserActions.pcss'
+
 const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => {
 
   const lighthouses = (about.objectIn || []).filter(action =>

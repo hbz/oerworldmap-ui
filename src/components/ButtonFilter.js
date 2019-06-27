@@ -7,6 +7,8 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { triggerClick } from '../common'
 
+import '../styles/components/ButtonFilter.pcss'
+
 const ButtonFilter = ({aggregation, filter, submit, emitter, translate, order, filterName}) => (
   <div className="ButtonFilter">
     {aggregation.buckets.sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key))

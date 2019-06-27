@@ -1,4 +1,4 @@
-@import '../variables.pcss';
+
 
 .ResultList {
   margin: 0;
@@ -8,6 +8,13 @@
   flex: 1 1 100px;
   margin-bottom: 42px;
 
+  & .centerIcon {
+    text-align: center;
+    width: 20px;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
   & li {
     margin: 20px 0;
     padding: 0 10px;
@@ -16,26 +23,31 @@
 
     & .resultListTitle {
       margin-bottom: 5px;
-      font-size: var(--font-size-large);
+      font-size: var(--font-size);
       display: flex;
       align-items: center;
 
+      & a {
+        color: var(--blue-dark);
+      }
+
       & i {
         color: var(--blue-dark);
-        margin-right: 5px;
       }
     }
 
     & .resultListLocation {
       font-size: var(--font-size-small);
+
       & i {
-        padding-right: 5px;
+        font-size: var(--font-size);
+        color: var(--blue);
       }
     }
 
     & .resultListDescription {
       margin-top: 15px;
-      font-size: var(--font-size);
+      font-size: var(--font-size-small);
     }
   }
 
