@@ -23,7 +23,9 @@ const ResultList = ({ translate, emitter, listItems }) => {
           }}
         >
           <div className="resultListTitle">
-            <Icon type={listItem['@type']} />
+            <span className="centerIcon">
+              <Icon type={listItem['@type']} />
+            </span>
             &nbsp;
             <Link href={`/resource/${listItem['@id']}`}>
               {translate(listItem.name) || listItem['@id']}
@@ -34,12 +36,11 @@ const ResultList = ({ translate, emitter, listItems }) => {
           </div>
           {listItem.location && listItem.location.address && (
             <div className="resultListLocation">
-              <i aria-hidden="true" className="fa fa-map-marker" />
+              <span className="centerIcon">
+                <i aria-hidden="true" className="fa fa-map-marker" />
+              </span>
               {listItem.location.address.streetAddress && (
-                <>
-                  &nbsp;
-                  {listItem.location.address.streetAddress}
-                </>
+                listItem.location.address.streetAddress
               )}
               {listItem.location.address.addressLocality && (
                 <>
@@ -61,7 +62,7 @@ const ResultList = ({ translate, emitter, listItems }) => {
           )}
           {listItem.description && (
             <div className="resultListDescription">
-              {removeMd(translate(listItem.description)).slice(0, 300)}
+              {removeMd(translate(listItem.description)).slice(0, 200)}
               ...&nbsp;
               <Link href={`/resource/${listItem['@id']}`}>
                 {translate("ResourceIndex.feed.more")}
