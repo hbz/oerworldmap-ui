@@ -2,7 +2,7 @@ module.exports = {
   plugins: {
     'postcss-import': {},
     'postcss-preset-env': {
-      browsers: 'last 2 versions',
+      importFrom: 'src/styles/variables.css',
       features: {
         'nesting-rules': true,
         'custom-media-queries': true,

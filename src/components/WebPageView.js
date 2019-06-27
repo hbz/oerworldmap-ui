@@ -21,7 +21,7 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) => {
+const WebPageView = ({translate, moment, about, user, view, expandAll, schema, _self}) => {
 
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
 
@@ -36,6 +36,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
           <Topline about={about} />
 
         </div>
+
+        {!user && (
+          <a href={`http://oerworldmap.local/.login?continue=${_self}`}>
+            {translate('Please login if you want to edit this entry')}
+          </a>
+        )}
+
         <div className="col">
 
           {about.sameAs &&
@@ -440,29 +447,35 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
             </Block>
           )}
 
-          {about.location && about.location.address && (
-            <Block title={translate(`${about['@type']}.location`)}>
+          {(about.location && about.location.filter(location => !!location.address).map((location, i) => (
+            <Block title={translate(`${about['@type']}.location`)} key={i}>
               <p>
-                {about.location.address.streetAddress &&
-                  [about.location.address.streetAddress, <br key="br" />]
+                {location.address.streetAddress &&
+                  [location.address.streetAddress, <br key="br" />]
                 }
-                {about.location.address.postalCode}
-                {about.location.address.postalCode && about.location.address.addressLocality &&
+                {location.address.postalCode}
+                {location.address.postalCode && location.address.addressLocality &&
                   <span>,&nbsp;</span>
                 }
-                {about.location.address.addressLocality}
-                {(about.location.address.postalCode || about.location.address.addressLocality) &&
+                {location.address.addressLocality}
+                {(location.address.postalCode || location.address.addressLocality) &&
                   <br />
                 }
-                {about.location.address.addressRegion &&
-                  [translate(about.location.address.addressRegion), <br key="br" />]
+                {location.address.addressRegion &&
+                  [translate(location.address.addressRegion), <br key="br" />]
                 }
-                {about.location.address.addressCountry && (
-                  <Link href={`/country/${about.location.address.addressCountry}`}>
-                    {translate(about.location.address.addressCountry)}
+                {location.address.addressCountry && (
+                  <Link href={`/country/${location.address.addressCountry}`}>
+                    {translate(location.address.addressCountry)}
                   </Link>
                 )}
               </p>
+            </Block>
+          )))}
+
+          {about.spatial && (
+            <Block title={translate(`${about['@type']}.spatial`)}>
+              {translate(about.spatial.name)}
             </Block>
           )}
 
@@ -789,7 +802,8 @@ WebPageView.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   view: PropTypes.string.isRequired,
   expandAll: PropTypes.bool,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  _self: PropTypes.string.isRequired,
 }
 
 WebPageView.defaultProps = {

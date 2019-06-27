@@ -1,5 +1,6 @@
 /* global document */
 /* global confirm */
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
@@ -15,11 +16,19 @@ import Link from './Link'
 
 import expose from '../expose'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink, showOptionalFields}) => (
+const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink, showOptionalFields, _self}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
-    onSubmit={data => emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})}
+    onSubmit={data => {
+      if (_self && _self.includes("?add")) {
+        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', "SubmitButtonClick"])
+      } else {
+        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', "SubmitButtonClick"])
+      }
+
+      emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})
+    }}
     onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
       .scrollTop = document.querySelector('.hasError').offsetTop
     )}
@@ -82,7 +91,8 @@ WebPageEdit.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   closeLink: PropTypes.string,
-  showOptionalFields: PropTypes.bool
+  showOptionalFields: PropTypes.bool,
+  _self: PropTypes.string.isRequired
 }
 
 WebPageEdit.defaultProps = {

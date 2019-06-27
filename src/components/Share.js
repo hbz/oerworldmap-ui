@@ -3,7 +3,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FullModal from './FullModal'
 import withI18n from './withI18n'
 
 import '../styles/components/Share.pcss'
@@ -14,7 +13,7 @@ const Share = ({_self, translate, embedValue}) => {
   embedValue && embed.searchParams.set('embed', embedValue)
 
   return (
-    <FullModal className="Share" closeLink={_self}>
+    <div className="Share">
       <h2>{translate('share.shareResource')}</h2>
       <div className="shareContent">
         <span className="title">{translate('share.permalink')}</span>
@@ -45,7 +44,7 @@ const Share = ({_self, translate, embedValue}) => {
         </a>
 
       </div>
-    </FullModal>
+    </div>
   )
 }
 

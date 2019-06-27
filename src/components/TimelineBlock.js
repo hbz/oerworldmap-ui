@@ -62,8 +62,8 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
           &nbsp;
           {translate('from')}
           &nbsp;
-          {(user.location && user.location.address)
-            ? <Link href={user.location.address.addressCountry}>{translate(user.location.address.addressCountry)}</Link>
+          {(user.location && user.location[0] && user.location[0].address)
+            ? <Link href={user.location[0].address.addressCountry}>{translate(user.location[0].address.addressCountry)}</Link>
             : null}
           &nbsp;
           {translate(message)}
