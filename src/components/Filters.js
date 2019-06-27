@@ -226,7 +226,7 @@ class Filters extends React.Component {
     }
 
     let sortSize
-    if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
+    if (sort && sort.split(':').shift() === 'about.name.en.sort') {
       sortSize = translate('ClientTemplates.filter.alphabetical').length
     } else if (sort) {
       sortSize = translate(`ClientTemplates.filter.${sort.split(':').shift()}`).length
@@ -432,7 +432,7 @@ class Filters extends React.Component {
                         {query &&
                           <option value="dateCreated:DESC">{translate('ClientTemplates.filter.dateCreated')}</option>
                         }
-                        <option value="about.name.@value.sort:ASC">{translate('ClientTemplates.filter.alphabetical')}</option>
+                        <option value="about.name.en.sort:ASC">{translate('ClientTemplates.filter.alphabetical')}</option>
                       </select>
                     </span>
                   </span>
