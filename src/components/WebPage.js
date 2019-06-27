@@ -81,7 +81,7 @@ const WebPage = ({
           )}
 
           <div id="view" className={!user || view !== 'edit' ? '' : 'hidden'}>
-            <WebPageView id="view" about={about} user={user} view={view} schema={schema} />
+            <WebPageView id="view" about={about} user={user} view={view} schema={schema} _self={_self} />
           </div>
 
         </div>
