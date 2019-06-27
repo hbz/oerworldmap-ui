@@ -25,7 +25,7 @@ const WebPageUserActions = ({user, about, emitter, view, translate, schema}) => 
   ) ||
   ( user ? {
     '@type': 'LighthouseAction',
-    'description': [{'@language': 'en'}],
+    'description': {'en': ''},
     'startTime': new Date().toISOString()
   } : null )
 

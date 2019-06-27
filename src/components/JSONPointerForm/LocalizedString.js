@@ -7,7 +7,7 @@ import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
 
 const LocalizedString = ({
-  schema, translate, value, setValue, shouldFormComponentFocus, description
+  schema, translate, value, setValue, shouldFormComponentFocus, description, title, required, formId, name
 }) => {
   const TextInput = schema._display && schema._display.rows > 1 ? MarkdownArea : Input
   const languagesPresent = Object.keys(schema.properties)
@@ -18,6 +18,14 @@ const LocalizedString = ({
       && !(value && value[lang] != null))
   return (
     <div className="LocalizedString">
+      <div
+        className={`label ${required ? 'required' : ''}`.trim()}
+        id={`${formId}-${name}-label`}
+      >
+        {translate(title)}
+        &nbsp;
+        {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+      </div>
       <span className="fieldDescription">
         {(description && translate(description) !== description)
           ? translate(description)

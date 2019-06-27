@@ -21,11 +21,32 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) => {
+const sortByArray = sortBy => {
+  return (a, b) => {
+    if (sortBy.indexOf(a) > sortBy.indexOf(b)) {
+      return 1
+    } else if (sortBy.indexOf(a) < sortBy.indexOf(b)) {
+      return -1
+    } else {
+      return 0
+    }
+  }
+}
+
+const WebPageView = ({translate, moment, about, user, view, expandAll, schema, locales}) => {
 
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
-
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
+
+  const sortedNames = about.name ? [
+    ...Object.keys(about.name).filter(n => locales.includes(n)).sort((a,b) => locales.indexOf(a) - locales.indexOf(b)),
+    ...Object.keys(about.name).filter(n => !locales.includes(n))
+  ] : []
+
+  const sortedDescriptions = about.description ? [
+    ...Object.keys(about.description).filter(n => locales.includes(n)).sort((a,b) => locales.indexOf(a) - locales.indexOf(b)),
+    ...Object.keys(about.description).filter(n => !locales.includes(n))
+  ] : []
 
   return (
     <div className={`WebPageView ${about['@type']}`}>
@@ -46,11 +67,11 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
       </div>
 
       <h2>
-        {about.name && about.name.length > 1 ? (
+        {about.name && Object.keys(about.name).length > 1 ? (
           <Tabs>
-            {about.name.map(name => (
-              <TabPanel className="inline" key={`panel-${name["@value"]}`}>
-                {name["@value"]}
+            {sortedNames.map(lang => (
+              <TabPanel className="inline" key={`panel-${lang}`}>
+                {about.name[lang]}
               </TabPanel>
             ))}
 
@@ -69,10 +90,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               &nbsp;
             </span>
             <TabList>
-              {about.name.map((name, i) => (
-                <Tab key={`tab-${name["@value"]}`}>
-                  {translate(name["@language"])}
-                  {i !== (about.name.length-1) && (
+              {sortedNames.map((lang, i) => (
+                <Tab key={`tab-${lang}`}>
+                  {translate(lang)}
+                  {i !== (Object.keys(about.name).length-1) && (
                     <React.Fragment>
                       &nbsp;
                     </React.Fragment>
@@ -113,10 +134,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
               type={about['@type']}
             >
               {about.description ? (
-                about.description.length > 1 ? (
+                Object.keys(about.description).length > 1 ? (
                   <Tabs>
-                    {about.description.map(description => (
-                      <TabPanel key={`panel-${description["@value"]}`}>
+                    {sortedDescriptions.map(lang => (
+                      <TabPanel key={`panel-${lang}`}>
                         <Markdown options={{
                           overrides: {
                             a: {
@@ -125,7 +146,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                           }
                         }}
                         >
-                          {description["@value"]}
+                          {about.description[lang]}
                         </Markdown>
                       </TabPanel>
                     ))}
@@ -135,10 +156,10 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema}) 
                       &nbsp;
                     </span>
                     <TabList>
-                      {about.description.map((article, i) => (
-                        <Tab key={`tab-${article["@value"]}`}>
-                          <span>{translate(article["@language"])}</span>
-                          {i !== (about.description.length-1) && (
+                      {sortedDescriptions.map((lang, i) => (
+                        <Tab key={`tab-${lang}`}>
+                          <span>{translate(lang)}</span>
+                          {i !== (Object.keys(about.description).length-1) && (
                             <React.Fragment>
                               &nbsp;
                             </React.Fragment>
