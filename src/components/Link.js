@@ -32,7 +32,7 @@ class Link extends React.Component {
 
   render() {
 
-    const { rel, title, className, dataShow, target, children } = this.props
+    const { rel, title, className, dataShow, target, children, additional } = this.props
 
     return (
       <a
@@ -40,7 +40,10 @@ class Link extends React.Component {
         title={title}
         className={className}
         href={this.getRef()}
-        onClick={this.onClick}
+        onClick={(e) => {
+          additional && additional()
+          this.onClick(e)
+        }}
         data-show={dataShow}
         target={target}
       >
@@ -61,7 +64,8 @@ Link.propTypes = {
   dataShow: PropTypes.string,
   title: PropTypes.string,
   target: PropTypes.string,
-  rel: PropTypes.string
+  rel: PropTypes.string,
+  additional: PropTypes.func
 }
 
 Link.defaultProps = {
@@ -70,7 +74,8 @@ Link.defaultProps = {
   dataShow: null,
   target: null,
   href: '',
-  rel: null
+  rel: null,
+  additional: null
 }
 
 export default withEmitter(Link)
