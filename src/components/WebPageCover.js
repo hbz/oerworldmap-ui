@@ -4,12 +4,15 @@ import MiniMap from './MiniMap'
 import centroids from '../json/centroids.json'
 import ResourceImage from './ResourceImage'
 
+import '../styles/components/WebPageCover.pcss'
+
 const WebPageCover = ({feature, about, mapboxConfig}) => {
 
   const country = (about
     && about.location
-    && about.location.address
-    && about.location.address.addressCountry) || null
+    && about.location[0]
+    && about.location[0].address
+    && about.location[0].address.addressCountry) || null
 
   const geometry = feature && feature.geometry
 

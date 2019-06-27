@@ -1,3 +1,4 @@
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -7,16 +8,16 @@ import Metadata from './Metadata'
 
 import expose from '../expose'
 
+import '../styles/components/WebPageHeader.pcss'
+
 const WebPageHeader = ({
-  user, about, author, contributor, dateModified, view, _self, _links, embedValue
+  user, about, dateModified, view, _self, _links, embedValue
 }) => {
   return (
     <div className="WebPageHeader">
       <Metadata
         type={about['@type']}
         about={about}
-        author={author}
-        contributor={contributor}
         dateModified={dateModified}
         user={user}
       />
@@ -36,14 +37,29 @@ const WebPageHeader = ({
                     &times;
                   </Link>
                 ) : (
-                  <Link href="#edit"><i aria-hidden="true" className="fa fa-pencil" /></Link>
+                  <Link
+                    href="#edit"
+                    additional={() => {
+                      typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EntryDetailOverlay', 'ButtonClick', 'Edit'])
+                    }}
+                  >
+                    <i aria-hidden="true" className="fa fa-pencil" />
+                  </Link>
                 )}
               </div>
             )]}
 
           {(view !== 'edit' || !about['@id']) &&(
             <div className="action">
-              <Link href={Link.back && Link.back.includes("/feed/") ? Link.back : Link.home} className="closePage">
+              <Link
+                href={Link.back && Link.back.includes("/feed/") ? Link.back : Link.home}
+                className="closePage"
+                additional={() => {
+                  if (_self && _self.includes("?add")) {
+                    typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', "ExitClick"])
+                  }
+                }}
+              >
                 &times;
               </Link>
             </div>
@@ -57,11 +73,9 @@ const WebPageHeader = ({
 
 WebPageHeader.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  contributor: PropTypes.string,
   dateModified: PropTypes.string,
   view: PropTypes.string.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
-  author: PropTypes.string,
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   embedValue: PropTypes.string
@@ -69,9 +83,7 @@ WebPageHeader.propTypes = {
 
 WebPageHeader.defaultProps = {
   user: null,
-  contributor: null,
   dateModified: null,
-  author: null,
   embedValue: null
 }
 

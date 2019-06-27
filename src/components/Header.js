@@ -2,6 +2,7 @@
 /* global document */
 /* global location */
 /* global SUPPORTED_LANGUAGES */
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
@@ -14,6 +15,8 @@ import Icon from './Icon'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
+
+const types = ["Organization", "Action", "Service", "Event", "Article", "WebPage", "Product", "Policy"]
 
 class Header extends React.Component {
 
@@ -291,6 +294,7 @@ class Header extends React.Component {
                 this.setDropdown('')
               }}
               onMouseEnter={() => {
+                typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
                 this.setDropdown('add')
               }}
             >
@@ -300,6 +304,7 @@ class Header extends React.Component {
                 onKeyDown={triggerClick}
                 role="button"
                 onClick={() => {
+                  typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
                   this.setDropdown('add')
                 }}
               >
@@ -317,78 +322,25 @@ class Header extends React.Component {
                     </Link>
                   </div>
                   <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Organization" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Organization" />
-                          {translate('Organization')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Organization')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Action" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Action" />
-                          {translate('Action')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Action')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Service" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Service" />
-                          {translate('Service')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Service')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Event" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Event" />
-                          {translate('Event')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Event')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Article" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Article" />
-                          {translate('Article')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Article')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=WebPage" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="WebPage" />
-                          {translate('WebPage')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.WebPage')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Product" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Product" />
-                          {translate('Product')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Product')}</p>
-                      </Link>
-                    </div>
-                    <div className="col one-fourth">
-                      <Link href="/resource/?add=Policy" className="addBox">
-                        <h3 className="iconItem">
-                          <Icon type="Policy" />
-                          {translate('Policy')}
-                        </h3>
-                        <p className="text-small">{translate('descriptions.Policy')}</p>
-                      </Link>
-                    </div>
+
+                    {types.map(type => (
+                      <div key={type} className="col one-fourth">
+                        <Link
+                          className="addBox"
+                          href={`/resource/?add=${type}`}
+                          additional={() => {
+                            typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddMenu', 'TypeClick', type])
+                          }}
+                        >
+                          <h3 className="iconItem">
+                            <Icon type={type} />
+                            {translate(type)}
+                          </h3>
+                          <p className="text-small">{translate(`descriptions.${type}`)}</p>
+                        </Link>
+                      </div>
+                    ))}
+
                   </div>
                 </div>
               </div>
