@@ -26,6 +26,8 @@ import i18n from '../i18n'
 
 import '../styles/components/Map.pcss'
 
+let resizeTimer
+const pointsLayers = ['points', 'points-hover', 'points-select']
 
 const calculateTypes = (features) => {
   const types = []
@@ -73,6 +75,7 @@ class Map extends React.Component {
     this.clickRegions = this.clickRegions.bind(this)
     this.choroplethStopsFromBuckets = this.choroplethStopsFromBuckets.bind(this)
     this.zoom = this.zoom.bind(this)
+    this.setPinSize = this.setPinSize.bind(this)
   }
 
   componentDidMount() {
@@ -127,7 +130,6 @@ class Map extends React.Component {
       })
 
       // Hack to use Mapbox studio styles with local data (source)
-      const pointsLayers = ['points', 'points-hover', 'points-select']
       pointsLayers.forEach((layer) => {
         const pointsLayer = this.map.getStyle().layers.find(l => l.id === layer)
         delete pointsLayer['source-layer']
@@ -153,6 +155,12 @@ class Map extends React.Component {
       this.updateChoropleth(aggregations)
       this.updateZoom(iso3166, home, map)
       this.updateActiveCountry(iso3166, region)
+      this.setPinSize()
+
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer)
+        resizeTimer = setTimeout(this.setPinSize, 250)
+      })
 
       // Update URL values
       this.map.on('moveend', this.moveEnd)
@@ -242,6 +250,12 @@ class Map extends React.Component {
     return (aggregations && aggregations[aggregation]
       && aggregations[aggregation].buckets.find(agg => agg.key === location))
       || null
+  }
+
+  setPinSize() {
+    pointsLayers.forEach((layer) => {
+      this.map.setPaintProperty(layer, 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
+    })
   }
 
   zoom(e) {
