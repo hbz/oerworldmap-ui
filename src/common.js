@@ -67,14 +67,15 @@ export const addParamToURL = (search, key, val) => {
 export const getURL = (route) => {
   let url = route.path
   let params = []
-  Object.keys(route.params).forEach((param) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const param in route.params) {
     const value = route.params[param]
     if (Array.isArray(value)) {
       value && (params = params.concat(value.map(value => `${param}=${encodeURIComponent(value)}`)))
     } else {
       value && params.push(`${param}=${encodeURIComponent(value)}`)
     }
-  })
+  }
   if (params) {
     url += `?${params.join('&')}`
   }
