@@ -38,7 +38,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, _
         </div>
 
         {!user && (
-          <a href={`http://oerworldmap.local/.login?continue=${_self}`}>
+          <a href={`/.login?continue=${_self}`}>
             {translate('Please login if you want to edit this entry')}
           </a>
         )}
