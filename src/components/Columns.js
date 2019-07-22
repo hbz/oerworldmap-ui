@@ -1,5 +1,7 @@
+/* global localStorage */
 import React from 'react'
 import PropTypes from 'prop-types'
+import Joyride from 'react-joyride'
 
 import withI18n from './withI18n'
 import { triggerClick } from '../common'
@@ -13,7 +15,8 @@ class Columns extends React.Component {
     super(props)
 
     this.state = {
-      show: props.show
+      show: props.show,
+      tourDone: false
     }
   }
 
@@ -21,6 +24,10 @@ class Columns extends React.Component {
     const { emitter } = this.props
     emitter.on('toggleColumns', show => {
       this.setState({show})
+    })
+
+    this.setState({
+      tourDone: localStorage.getItem('tourDone')
     })
   }
 
@@ -30,7 +37,7 @@ class Columns extends React.Component {
 
   render() {
     const { country, children, translate } = this.props
-    const { show } = this.state
+    const { show, tourDone } = this.state
 
     return (
       <aside
@@ -52,6 +59,57 @@ class Columns extends React.Component {
             <i className={`fa fa-chevron-${show ? "left" : "right"}`} />
           </span>
         </div>
+
+        {!tourDone && (
+          <Joyride
+            run
+            continuous
+            showSkipButton
+            callback={(e) => {
+              const { action } = e
+              if (action === 'close' || action === 'reset') {
+                localStorage.setItem('tourDone', true)
+              }
+            }}
+            styles={{
+              options: {
+                primaryColor: '#ff8000',
+                border: '1px solid tomato'
+              }
+            }}
+            steps={[
+              {
+                target: 'body',
+                content: translate('Would you like to do a tour'),
+                placement: 'center'
+              },
+              {
+                target: '.togglePins',
+                content: translate('This is the button to toggle the map pins.'),
+              },
+              {
+                target: '.FiltersControls',
+                content: translate('This makes cool filters!'),
+              },
+              {
+                target: '.toggleColumns',
+                content: translate('Show or hide the columns with this button.'),
+              },
+              {
+                target: '#Map',
+                content: translate('Click the countries and regions to navigate the map'),
+              },
+            ]}
+            showProgress
+            locale={{
+              close: translate('close'),
+              back: translate('Pagination.prevPage'),
+              next: translate('Pagination.nextPage'),
+              last: translate('Last'),
+              skip: translate('Skip')
+            }}
+          />
+        )}
       </aside>
     )
   }
