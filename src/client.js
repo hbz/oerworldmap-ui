@@ -3,6 +3,7 @@
 /* global location */
 /* global XMLHttpRequest */
 /* global localStorage */
+/* global _paq */
 
 import ReactDOM from 'react-dom'
 import 'normalize.css'
@@ -72,6 +73,7 @@ require('formdata-polyfill');
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
+      typeof _paq !== 'undefined' && _paq.push(['trackPageView'])
     })
     // Log in
     emitter.on('login', (back) => {
