@@ -24,6 +24,7 @@ import Link from './components/Link'
 import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
+import MobileNavigation from './components/MobileNavigation'
 
 export default (api) => {
 
@@ -48,15 +49,50 @@ export default (api) => {
           },
           _self: url
         } : state || await api.get(url, context.authorization)
+        const { translate } = context.i18n
         const component = (data) => params.add ? (
-          <WebPage
-            user={user}
-            mapboxConfig={mapboxConfig}
-            {...data}
-            view="edit"
-            schema={schema}
-            showOptionalFields={false}
-          />
+          user ? (
+            <WebPage
+              user={user}
+              mapboxConfig={mapboxConfig}
+              {...data}
+              view="edit"
+              schema={schema}
+              showOptionalFields={false}
+            />
+          ) : (
+            <FullModal>
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: "var(--font-size-large)"
+                }}
+              >
+                {translate("Please login to add a new")}
+                &nbsp;
+                {translate(params.add).toLowerCase()}
+                <br />
+                <br />
+                <a href={`/.login?continue=${url}`}>
+                  <button
+                    className="btn"
+                  >
+                    Login
+                  </button>
+                </a>
+                <a
+                  style={{marginLeft: "10px"}}
+                  href="/user/register"
+                >
+                  <button
+                    className="btn"
+                  >
+                    Register
+                  </button>
+                </a>
+              </div>
+            </FullModal>
+          )
         ) : (
           <ResourceIndex
             {...data}
@@ -66,7 +102,14 @@ export default (api) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
             isEmbed={embed === "true" || embed ===  "country"}
-          />
+          >
+            <MobileNavigation
+              current={
+                !url.endsWith('/resource/?features=true')
+                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
+                  ? "list" : "map"}
+            />
+          </ResourceIndex>
         )
 
         const title = params.add
@@ -212,6 +255,10 @@ export default (api) => {
             embedValue="country"
             isEmbed={embed === "true" || embed ===  "country"}
           >
+            <MobileNavigation
+              current="list"
+              country={data.iso3166}
+            />
             <Country
               iso3166={data.iso3166}
               countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
@@ -264,6 +311,11 @@ export default (api) => {
             region={region.toUpperCase()}
             isEmbed={embed === "true" || embed ===  "country"}
           >
+            <MobileNavigation
+              current="list"
+              country={data.iso3166}
+              region={region.toUpperCase()}
+            />
             <Country
               iso3166={data.iso3166}
               region={region.toUpperCase()}
@@ -304,7 +356,11 @@ export default (api) => {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
-        const component = (data) => <Feed {...data} />
+        const component = (data) => (
+          <FullModal closeLink={Link.home}>
+            <Feed {...data} />
+          </FullModal>
+        )
         const title = context.i18n.translate('ClientTemplates.app.recentAdditions')
         return { title, data, component }
       }
@@ -313,7 +369,11 @@ export default (api) => {
       path: '/activity/',
       get: async (params, context, state) => {
         const data = state || await api.get('/activity/', context.authorization)
-        const component = (data) =>  <Timeline entries={data} />
+        const component = (data) =>  (
+          <FullModal closeLink={Link.home}>
+            <Timeline entries={data} />
+          </FullModal>
+        )
         const title = context.i18n.translate('Activity')
         return { title, data, component }
       }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import withI18n from './withI18n'
 import { triggerClick } from '../common'
+import withEmitter from './withEmitter'
 
 import '../styles/components/Columns.pcss'
 
@@ -14,6 +15,13 @@ class Columns extends React.Component {
     this.state = {
       show: props.show
     }
+  }
+
+  componentDidMount() {
+    const { emitter } = this.props
+    emitter.on('toggleColumns', show => {
+      this.setState({show})
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,13 +42,15 @@ class Columns extends React.Component {
           className="toggleColumns"
           tabIndex="0"
           role="button"
-          title={translate('Tip.showList')}
+          title={show ? translate('Hide list') : translate('Tip.showList')}
           onKeyDown={triggerClick}
           onClick={
             () => this.setState({show: !show})
           }
         >
-          <i className={`fa fa-arrow-${show ? "left" : "right"}`} />
+          <span>
+            <i className={`fa fa-chevron-${show ? "left" : "right"}`} />
+          </span>
         </div>
       </aside>
     )
@@ -52,7 +62,8 @@ Columns.propTypes = {
   children: PropTypes.node.isRequired,
   show: PropTypes.bool.isRequired,
   country: PropTypes.string.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default withI18n(Columns)
+export default withEmitter(withI18n(Columns))

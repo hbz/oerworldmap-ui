@@ -1,6 +1,5 @@
 /* global FormData */
 /* global Event */
-/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -12,7 +11,6 @@ import DropdownFilter from './DropdownFilter'
 import ButtonFilter from './ButtonFilter'
 import ConceptFilter from './ConceptFilter'
 import ShareExport from './ShareExport'
-import Switch from './Switch'
 
 import { clearForm } from '../common'
 
@@ -201,7 +199,7 @@ class Filters extends React.Component {
 
   render() {
     const { filters, sort, translate, query, emitter,
-      aggregations, totalItems, size, _self, _links, view, embedValue, country, isEmbed, region } = this.props
+      aggregations, totalItems, size, _self, _links, view, embedValue, country, region } = this.props
     const { extended, filtersCollapsed } = this.state
 
     const filter = filters && filters['about.@type'] || false
@@ -244,26 +242,8 @@ class Filters extends React.Component {
           onReset={(evt) => onReset(evt)}
         >
           <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed': ''}`}>
-            <div className="mapOptions">
-
-              <span>{translate(`Click a ${(region || country) ? 'region' : 'country'} to explore...`)}</span>
-
-              <Switch
-                title={{
-                  checked: translate("ResourceIndex.view.pins.hide"),
-                  unchecked: translate("ResourceIndex.view.pins.show")
-                }}
-                onChange={(checked) => {
-                  localStorage.setItem('showPins', checked)
-                  emitter.emit("showFeatures", checked)
-                }}
-                checked={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
-              />
-            </div>
 
             <div className="filterSearch">
-
-
               <input
                 type="text"
                 name="q"
@@ -307,33 +287,33 @@ class Filters extends React.Component {
 
             <div className="subFilters">
               {subFilters.map(filterDef => this.getFilter(filterDef))}
+
+              {secondaryFilters.map(f => f.name).some(
+                v => aggregations[v] && aggregations[v].buckets.length
+              ) && (
+                <div className="showMore">
+                  <button
+                    type="button"
+                    className={`btn expand${extended ?  ' active': ''}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      this.setState({ extended: !extended })
+                    }}
+                  >
+                    {extended
+                      ? translate('ClientTemplates.filter.hide')
+                      : translate('ClientTemplates.filter.show')
+                    }
+                  </button>
+                </div>
+              )}
+
             </div>
 
             <div
               className={`filterType secondary${extended ? '' : ' collapsed'}`}
             >
               {secondaryFilters.map(filterDef => this.getFilter(filterDef))}
-            </div>
-
-            <div className="filtersControls">
-              {secondaryFilters.map(f => f.name).some(
-                v => aggregations[v] && aggregations[v].buckets.length
-              ) && (
-                <button
-                  type="button"
-                  className="floatingBtn"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    this.setState({ extended: !extended })
-                  }}
-                >
-                  {extended
-                    ? translate('ClientTemplates.filter.hide')
-                    : translate('ClientTemplates.filter.show')
-                  }
-                </button>
-              )}
-
             </div>
 
             {Object.keys(filters).some(name => name !== 'about.@type' && name !== 'about.startDate.GTE') && (
@@ -373,7 +353,10 @@ class Filters extends React.Component {
 
           </div>
 
-          <div className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed': ''}`}>
+          <div
+            className={`filtersCollapsedButton ${filtersCollapsed ? 'collapsed': ''}`}
+            title={filtersCollapsed ? translate(`Show filters`) : translate("Hide filters")}
+          >
             <i
               aria-hidden="true"
               className={`fa fa-${!filtersCollapsed ? 'chevron-up' : 'chevron-down'}`}
@@ -481,7 +464,6 @@ Filters.propTypes = {
   sort: PropTypes.string,
   embedValue: PropTypes.string,
   country: PropTypes.string,
-  isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string
 }
 

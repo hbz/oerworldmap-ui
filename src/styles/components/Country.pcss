@@ -1,4 +1,4 @@
-@import '../variables.pcss';
+
 
 .Country {
   background-color: var(--blue-dark);
@@ -8,7 +8,7 @@
   z-index: 4;
   border: 1px solid var(--white);
   padding: 15px;
-  width: 230px;
+  width: 300px;
   color: var(--white);
 
   & .countryHeader {
@@ -19,7 +19,8 @@
 
     & h2 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: var(--font-size-large);
+      font-weight: normal;
       line-height: 1.2rem;
       padding-right: 18px;
       display: inline-block;
@@ -45,9 +46,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: var(--font-size);
     padding-top: 10px;
     color: var(--white);
+    font-weight: normal;
 
     &:hover span {
       color: var(--white);
@@ -92,7 +94,8 @@
       margin: 0;
       padding: 0;
       list-style-type: none;
-      margin-right: 2px;
+      margin-right: 1px;
+      font-size: var(--font-size-small);
 
       & li {
         padding: 0.35em 0;
@@ -100,7 +103,8 @@
         justify-content: space-between;
 
         & .icon {
-          width: 25px;
+          width: 20px;
+          margin-right: 10px;
           text-align: center;
         }
 
@@ -108,11 +112,11 @@
           flex: 1;
         }
       }
-
     }
 
     & .more {
-      text-align: right;
+      font-size: var(--font-size-small);
+      margin-top: 10px;
 
       & button {
         border: none;
@@ -134,7 +138,7 @@
       align-items: flex-start;
       font-size: 0.8rem;
       margin-bottom: 5px;
-      margin-top: 5px;
+      margin-top: 10px;
 
       & i {
         margin-right: 10px;
@@ -201,6 +205,21 @@
     }
   }
 
+  & .closePage {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--white);
+    top: 4px;
+    position: absolute;
+    right: 16px;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: var(--orange);
+    }
+  }
+
   @media print {
     position: relative;
     border: none;
@@ -225,100 +244,25 @@
   }
 
   @media screen and (--mobile-breakpoint) {
-    top: 0;
+    top: 30px;
     left: 0;
-    border: none;
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    height: calc(100% - 30px);
+    z-index: 5;
     width: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: stretch;
-    padding: 0;
-    flex-wrap: wrap;
+    border: none;
+    overflow: scroll;
+    display: none;
 
-    & .countryHeader {
-      display: inline-block;
-      border-bottom: 0;
-      padding: 0;
-      padding-top: 10px;
-
-      & .countryFlag {
-        display: flex;
-        position: absolute;
-        top: 9px;
-      }
-
-      & h2 {
-        display: none;
-      }
+    &.showCountry {
+      display: block;
     }
 
-    & .countryReports {
+    & .closePage {
       display: none;
     }
 
-    & .countryChampion {
-      display: inline-block;
-      border-bottom: 0;
-      padding: 0 10px;
-      padding-top: 10px;
-
-      & h3 {
-        padding-top: 0;
-        margin: 0;
-        margin-bottom: 5px;
-      }
-
-      & .countryChampionContainer {
-        padding-top: 10px;
-
-        & .collapsed {
-          visibility: hidden;
-        }
-      }
-    }
-
-    & .statistics {
-      border-bottom: 0;
-      padding: 0;
-      display: block;
-      width: 100%;
-      text-align: center;
-
-      & h3 {
-        display: none;
-      }
-
-      & .statisticsContainer {
-        display: block;
-        max-height: 100%;
-      }
-
-      & tbody tr {
-        display: inline-block;
-      }
-
-      & tbody a {
-        display: none;
-      }
-    }
-  }
-
-  & .closePage {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--white);
-    position: relative;
-    top: 4px;
-    position: absolute;
-    right: 15px;
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-      color: var(--orange);
+    & .more {
+      display: none;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import '../variables.pcss';
+
 
 .WebPageView {
 
@@ -7,63 +7,6 @@
     font-size: var(--webpage-heading-font-size);
     font-weight: var(--webpage-heading-font-weight);
     line-height: var(--webpage-heading-line-height);
-  }
-
-  & .WebPageUserActions {
-    display: flex;
-    margin-bottom: 20px;
-
-    & .action {
-      margin-right: 10px;
-
-      & .btn {
-        font-size: var(--font-size-xs);
-        letter-spacing: 1px;
-        text-transform: uppercase;
-
-        &[href='#addLighthouse'] {
-          &:hover .whiteLighthouse {
-            display: inline-block;
-          }
-
-          &:hover .blueLighthouse {
-            display: none;
-          }
-
-          & .whiteLighthouse {
-            display: none;
-          }
-
-          &.active .blueLighthouse {
-            display: none;
-          }
-
-          &.active .whiteLighthouse {
-            display: inline-block;
-          }
-        }
-
-        &:focus:not(:hover) {
-          outline: 1px dotted gray;
-
-          &:not(.active) {
-            background-color: var(--white);
-            color: var(--blue);
-          }
-        }
-
-        & i,
-        & .i {
-          font-size: 14px;
-          margin-right: 0.5em;
-          vertical-align: text-bottom;
-        }
-
-        & .i {
-          height: 14px;
-        }
-      }
-    }
   }
 
   & .FullModal.Lighthouse .Form .List.description .newItemWrapper,

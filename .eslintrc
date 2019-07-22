@@ -2,7 +2,7 @@
   "env": {"es6": true},
   "parserOptions": {"ecmaVersion": 2017},
   "rules": {
-    "react/button-has-type": ["on", {
+    "react/button-has-type": [1, {
       "reset": true
     }],
     "jsx-a11y/label-has-for": "off",

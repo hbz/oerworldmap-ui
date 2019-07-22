@@ -92,9 +92,15 @@ class Header extends React.Component {
     return (
       <header className="Header">
 
-        <a href="/">
-          <h1>{translate('OER World Map')}</h1>
-        </a>
+        <div className="headerTitle">
+          <a href="/">
+            <h1>{translate('OER World Map')}</h1>
+          </a>
+
+          <a title={translate("main.map")} href="/resource/">
+            <i aria-hidden="true" className="fa fa-globe" />
+          </a>
+        </div>
 
         <button
           className="menuToggle visible-mobile-block"
@@ -288,65 +294,63 @@ class Header extends React.Component {
 
             </li>
 
-            {expose('addEntry', user) && (
-              <li
-                className={`hasDropdown${dropdowns.add ? ' active': ''}`}
-                onMouseLeave={() => {
-                  this.setDropdown('')
-                }}
-                onMouseEnter={() => {
+            <li
+              className={`hasDropdown${dropdowns.add ? ' active': ''}`}
+              onMouseLeave={() => {
+                this.setDropdown('')
+              }}
+              onMouseEnter={() => {
+                typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
+                this.setDropdown('add')
+              }}
+            >
+              <div
+                tabIndex="0"
+                className="btnHover"
+                onKeyDown={triggerClick}
+                role="button"
+                onClick={() => {
                   typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
                   this.setDropdown('add')
                 }}
               >
-                <div
-                  tabIndex="0"
-                  className="btnHover"
-                  onKeyDown={triggerClick}
-                  role="button"
-                  onClick={() => {
-                    typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
-                    this.setDropdown('add')
-                  }}
-                >
-                  {translate('menu.add')}
-                </div>
-                <div className="dropdown">
-                  <div className="inner">
-                    <div className="popular">
-                      <div style={{maxWidth: '80%'}}>
-                        {translate('menu.add.subtitle')}
-                        <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
+                {translate('menu.add')}
+              </div>
+              <div className="dropdown">
+                <div className="inner">
+                  <div className="popular">
+                    <div style={{maxWidth: '80%'}}>
+                      {translate('menu.add.subtitle')}
+                      <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
+                    </div>
+                    <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
+                      {translate('needHelp')}
+                    </Link>
+                  </div>
+                  <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
+
+                    {types.map(type => (
+                      <div key={type} className="col one-fourth">
+                        <Link
+                          className="addBox"
+                          href={`/resource/?add=${type}`}
+                          additional={() => {
+                            typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddMenu', 'TypeClick', type])
+                          }}
+                        >
+                          <h3 className="iconItem">
+                            <Icon type={type} />
+                            {translate(type)}
+                          </h3>
+                          <p className="text-small">{translate(`descriptions.${type}`)}</p>
+                        </Link>
                       </div>
-                      <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                        {translate('needHelp')}
-                      </Link>
-                    </div>
-                    <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
+                    ))}
 
-                      {types.map(type => (
-                        <div key={type} className="col one-fourth">
-                          <Link
-                            className="addBox"
-                            href={`/resource/?add=${type}`}
-                            additional={() => {
-                              typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddMenu', 'TypeClick', type])
-                            }}
-                          >
-                            <h3 className="iconItem">
-                              <Icon type={type} />
-                              {translate(type)}
-                            </h3>
-                            <p className="text-small">{translate(`descriptions.${type}`)}</p>
-                          </Link>
-                        </div>
-                      ))}
-
-                    </div>
                   </div>
                 </div>
-              </li>
-            )}
+              </div>
+            </li>
 
             <li
               className={`hasDropdown${dropdowns.info ? ' active': ''}`}
