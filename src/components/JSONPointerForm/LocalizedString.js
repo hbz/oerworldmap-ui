@@ -42,15 +42,19 @@ const LocalizedString = ({
         />
       ))}
       {languagesAvailable.length > 0 && (
-        <select onChange={event => {
-          const lang = event.target.options[event.target.selectedIndex].value
-          lang && setValue(Object.assign(value || {}, {[lang]: ''}), false)}}
-        >
-          <option value="">{translate('add', {type: translate('Language')})}</option>
-          {languagesAvailable.map(lang => (
-            <option value={lang} key={lang}>{translate('add', {type: translate(lang)})}</option>
-          ))}
-        </select>
+        <label>
+          {translate('resourceFormWidgets.localizedTextarea.addLanguage')}:
+          &nbsp;
+          <select onChange={event => {
+            const lang = event.target.options[event.target.selectedIndex].value
+            lang && setValue(Object.assign(value || {}, {[lang]: ''}), false)}}
+          >
+            <option value="">&nbsp;</option>
+            {languagesAvailable.map(lang => (
+              <option value={lang} key={lang}>{translate(lang)}</option>
+            ))}
+          </select>
+        </label>
       )}
     </div>
   )
