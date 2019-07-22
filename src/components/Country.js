@@ -334,12 +334,13 @@ class Country  extends React.Component {
           )}
 
           <i
-            role="presentational"
+            role="presentation"
             className={`minimizeCountryBtn fa fa-${minimizeCountry ? 'plus' : 'minus'}`}
-            onClick={(el) => {
+            onClick={() => {
               this.setState({minimizeCountry: !minimizeCountry})
               console.log('minimize')
             }}
+            onKeyDown={triggerClick}
           />
 
           {region ? (
