@@ -813,6 +813,7 @@ WebPageView.propTypes = {
   expandAll: PropTypes.bool,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   _self: PropTypes.string.isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 WebPageView.defaultProps = {
