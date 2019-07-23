@@ -7,8 +7,13 @@
     line-height: var(--webpage-heading-line-height);
   }
 
-  & .FullModal.Lighthouse .Form .Textarea + select,
-  & .Comments .Form .Textarea + select {
+  & .FullModal.Lighthouse .Form .Textarea + label,
+  & .Comments .Form .Textarea + label {
+    display: none;
+  }
+
+  & .FullModal.Lighthouse .Form .Textarea:not(.en),
+  & .Comments .Form .Textarea:not(.en) {
     display: none;
   }
 
