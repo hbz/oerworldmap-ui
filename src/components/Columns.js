@@ -1,7 +1,7 @@
 /* global localStorage */
 import React from 'react'
 import PropTypes from 'prop-types'
-import Joyride from 'react-joyride'
+import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride'
 
 import withI18n from './withI18n'
 import { triggerClick } from '../common'
@@ -16,8 +16,10 @@ class Columns extends React.Component {
 
     this.state = {
       show: props.show,
-      tourDone: false
+      run: true,
+      stepIndex: 0,
     }
+    this.handleJoyrideCallback = this.handleJoyrideCallback.bind(this)
   }
 
   componentDidMount() {
@@ -26,8 +28,15 @@ class Columns extends React.Component {
       this.setState({show})
     })
 
+    emitter.on('resetTour', () => {
+      this.setState({
+        stepIndex: 0,
+        run: true
+      })
+    })
+
     this.setState({
-      tourDone: localStorage.getItem('tourDone')
+      run: !localStorage.getItem('tourDone')
     })
   }
 
@@ -35,9 +44,24 @@ class Columns extends React.Component {
     this.setState({show: nextProps.show})
   }
 
+  handleJoyrideCallback(data) {
+    const { action, index, status, type } = data
+
+    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
+      this.setState({ stepIndex: index + (action === ACTIONS.PREV ? -1 : 1) })
+    }
+    else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      this.setState({ run: false })
+      localStorage.setItem('tourDone', true)
+    } else if (action === 'close') {
+      this.setState({ run: false })
+      localStorage.setItem('tourDone', true)
+    }
+  }
+
   render() {
     const { country, children, translate } = this.props
-    const { show, tourDone } = this.state
+    const { show, run, stepIndex } = this.state
 
     return (
       <aside
@@ -60,56 +84,51 @@ class Columns extends React.Component {
           </span>
         </div>
 
-        {!tourDone && (
-          <Joyride
-            run
-            continuous
-            showSkipButton
-            callback={(e) => {
-              const { action } = e
-              if (action === 'close' || action === 'reset') {
-                localStorage.setItem('tourDone', true)
-              }
-            }}
-            styles={{
-              options: {
-                primaryColor: '#ff8000',
-                border: '1px solid tomato'
-              }
-            }}
-            steps={[
-              {
-                target: 'body',
-                content: translate('Would you like to do a tour'),
-                placement: 'center'
-              },
-              {
-                target: '.togglePins',
-                content: translate('This is the button to toggle the map pins.'),
-              },
-              {
-                target: '.FiltersControls',
-                content: translate('This makes cool filters!'),
-              },
-              {
-                target: '.toggleColumns',
-                content: translate('Show or hide the columns with this button.'),
-              },
-              {
-                target: '#Map',
-                content: translate('Click the countries and regions to navigate the map'),
-              },
-            ]}
-            showProgress
-            locale={{
-              close: translate('close'),
-              back: translate('Pagination.prevPage'),
-              next: translate('Pagination.nextPage'),
-              last: translate('Last'),
-              skip: translate('Skip')
-            }}
-          />
-        )}
+        <Joyride
+          continuous
+          showSkipButton
+          showProgress
+          run={run}
+          stepIndex={stepIndex}
+          callback={this.handleJoyrideCallback}
+          debug
+          styles={{
+            options: {
+              primaryColor: '#ff8000',
+              border: '1px solid tomato'
+            }
+          }}
+          steps={[
+            {
+              target: 'body',
+              content: translate('Welcome to the OER WORLD MAP'),
+              placement: 'center',
+            },
+            {
+              target: '.togglePins',
+              content: translate('This is the button to toggle the map pins.'),
+            },
+            {
+              target: '.FiltersControls',
+              content: translate('This makes cool filters!'),
+            },
+            {
+              target: '.toggleColumns',
+              content: translate('Show or hide the columns with this button.'),
+            },
+            {
+              target: '#Map',
+              content: translate('Click the countries and regions to navigate the map'),
+            },
+          ]}
+          locale={{
+            close: translate('close'),
+            back: translate('Pagination.prevPage'),
+            next: translate('Pagination.nextPage'),
+            last: translate('Last'),
+            skip: translate('Skip')
+          }}
+        />
       </aside>
     )
   }

@@ -100,6 +100,18 @@ class Header extends React.Component {
           <a title={translate("main.map")} href="/resource/">
             <i aria-hidden="true" className="fa fa-globe" />
           </a>
+
+          <a
+            href="#tour"
+            className="tour"
+            onClick={e => {
+              e.preventDefault()
+              emitter.emit('resetTour')
+            }}
+          >
+            {translate("Take a tour")}
+          </a>
+
         </div>
 
         <button
