@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick, addParamToURL } from '../common'
+import { triggerClick, addParamToURL, urlParse } from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
@@ -83,6 +83,7 @@ class Header extends React.Component {
   render() {
     const { translate, user, emitter, locales } = this.props
     const { showMobileMenu, dropdowns, showNotification} = this.state
+    const pathname = urlParse(Link.self).pathname
 
     let { supportedLanguages } = this.props
     if (!supportedLanguages) {
@@ -101,16 +102,18 @@ class Header extends React.Component {
             <i aria-hidden="true" className="fa fa-globe" />
           </a>
 
-          <a
-            href="#tour"
-            className="tour"
-            onClick={e => {
-              e.preventDefault()
-              emitter.emit('resetTour')
-            }}
-          >
-            {translate("Take a tour")}
-          </a>
+          {(pathname === '/resource/' || pathname.startsWith('/country/')) && (
+            <a
+              href="#tour"
+              className="tour"
+              onClick={e => {
+                e.preventDefault()
+                emitter.emit('resetTour')
+              }}
+            >
+              {translate("Take a tour")}
+            </a>
+          )}
 
         </div>
 

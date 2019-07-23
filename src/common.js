@@ -200,7 +200,17 @@ export const objectMap = (obj, fn) => {
 
 export const sortByProp = prop => (a, b) => (a[prop] < b[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0)
 
+export const urlParse = (urlString) => {
+  if (typeof window === 'undefined') {
+    const { URL } = require('url')
+    return new URL(urlString)
+  }
+  else {
+    return new URL(urlString)
+  }
+}
+
 export default {
   getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick, debounce, getProp,
-  appendOnFocus, formatDate, getTwitterId, objectMap, sortByProp, addParamToURL
+  appendOnFocus, formatDate, getTwitterId, objectMap, sortByProp, addParamToURL, urlParse
 }
