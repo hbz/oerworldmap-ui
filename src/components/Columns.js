@@ -91,7 +91,6 @@ class Columns extends React.Component {
           run={run}
           stepIndex={stepIndex}
           callback={this.handleJoyrideCallback}
-          debug
           styles={{
             options: {
               primaryColor: '#ff8000',
