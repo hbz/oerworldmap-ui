@@ -94,7 +94,6 @@ class Columns extends React.Component {
           styles={{
             options: {
               primaryColor: '#ff8000',
-              border: '1px solid tomato'
             }
           }}
           steps={[
