@@ -3,21 +3,24 @@ import PropTypes from 'prop-types'
 
 import Input from './Input'
 import MarkdownArea from './MarkdownArea'
-// import DropdownSelect from './DropdownSelect'
 import withFormData from './withFormData'
+import { objectMap } from '../../common'
 
 const LocalizedString = ({
-  schema, translate, value, setValue, shouldFormComponentFocus, description, title, required, formId, name
+  schema, translate, value, setValue, shouldFormComponentFocus, description, title, required,
+  formId, name, locales, errors
 }) => {
   const TextInput = schema._display && schema._display.rows > 1 ? MarkdownArea : Input
   const languagesPresent = Object.keys(schema.properties)
     .filter(lang => (schema.required && schema.required.includes(lang))
+      || (schema.suggested && schema.suggested.includes(lang))
+      || (locales.length && locales[0] === lang)
       || (value && value[lang] != null))
   const languagesAvailable = Object.keys(schema.properties)
     .filter(lang => !(schema.required && schema.required.includes(lang))
       && !(value && value[lang] != null))
   return (
-    <div className="LocalizedString">
+    <div className={`LocalizedString ${errors.length ? 'hasError': ''}`.trim()}>
       <div
         className={`label ${required ? 'required' : ''}`.trim()}
         id={`${formId}-${name}-label`}
@@ -32,6 +35,11 @@ const LocalizedString = ({
           : ''
         }
       </span>
+      {errors.map((error, index) => (
+        <div className="error" key={index}>
+          {translate(`Error.${error.keyword}`, objectMap(error.params, translate))}
+        </div>
+      ))}
       {languagesPresent.map(lang => (
         <TextInput
           property={lang}
@@ -71,6 +79,8 @@ LocalizedString.propTypes = {
   required: PropTypes.bool,
   formId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  errors: PropTypes.arrayOf(PropTypes.object),
 }
 
 LocalizedString.defaultProps = {
@@ -78,6 +88,7 @@ LocalizedString.defaultProps = {
   description: undefined,
   title: '',
   required: false,
+  errors: [],
 }
 
 export default withFormData(LocalizedString)
