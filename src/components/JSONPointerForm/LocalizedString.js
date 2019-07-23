@@ -43,8 +43,8 @@ const LocalizedString = ({
       ))}
       {languagesAvailable.length > 0 && (
         <label>
-          {translate('resourceFormWidgets.localizedTextarea.addLanguage')}:
-          &nbsp;
+          {translate('resourceFormWidgets.localizedTextarea.addLanguage')}
+          :&nbsp;
           <select onChange={event => {
             const lang = event.target.options[event.target.selectedIndex].value
             lang && setValue(Object.assign(value || {}, {[lang]: ''}), false)}}
