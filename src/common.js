@@ -95,12 +95,9 @@ export const triggerClick = (e, code) => {
 export const mapNominatimResult = (result) => ({
   '@id': `info:${result.place_id}`,
   '@type': 'Place',
-  name: [
-    {
-      '@language': 'en',
-      '@value': result.display_name
-    }
-  ],
+  name: {
+    en: result.display_name
+  },
   geo: {
     lat: +result.lat,
     lon: +result.lon

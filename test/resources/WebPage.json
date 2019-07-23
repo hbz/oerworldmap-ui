@@ -1,59 +1,64 @@
 {
   "_self": "http://oerworldmap.local/resource/urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294",
-  "contributor" : "user@localhost",
-  "dateCreated" : "2017-07-11T15:42:33.657+02:00",
-  "@type" : "WebPage",
-  "author" : "user@localhost",
-  "about" : {
-    "@type" : "Organization",
-    "awards" : [ {
-      "isAwardedBy" : [ {
-        "@type" : "Organization",
-        "name" : [ {
-          "@value" : "Test Organization",
-          "@language" : "en"
-        } ],
-        "location" : [{
-          "address" : {
-            "addressCountry" : "DE"
+  "contributor": "user@localhost",
+  "dateCreated": "2017-07-11T15:42:33.657+02:00",
+  "@type": "WebPage",
+  "author": "user@localhost",
+  "about": {
+    "@type": "Organization",
+    "awards": [
+      {
+        "isAwardedBy": [
+          {
+            "@type": "Organization",
+            "name": {
+              "en": "Test Organization"
+            },
+            "location": [
+              {
+                "address": {
+                  "addressCountry": "DE"
+                }
+              }
+            ],
+            "@id": "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294"
           }
-        }],
-        "@id" : "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294"
-      } ],
-      "@type" : "Grant"
-    } ],
-    "provides" : [ {
-      "@type" : "Service",
-      "name" : [ {
-        "@value" : "Test Service",
-        "@language" : "en"
-      } ],
-      "@id" : "urn:uuid:cd68de41-8f31-415c-8688-809cd32056ea"
-    } ],
-    "agentIn" : [ {
-      "@type" : "Action",
-      "name" : [ {
-        "@value" : "Test Project",
-        "@language" : "en"
-      } ],
-      "@id" : "urn:uuid:60bd7eb8-3dda-4676-88fa-e9bce49d2a19"
-    } ],
-    "name" : [ {
-      "@value" : "Test Organization",
-      "@language" : "en"
-    },
-    {
-      "@value" : "Test Organisation",
-      "@language" : "de"
-    } ],
-    "location" : [{
-      "address" : {
-        "addressCountry" : "DE"
+        ],
+        "@type": "Grant"
       }
-    }],
-    "@id" : "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294",
-    "@context" : "https://oerworldmap.org/assets/json/context.json"
+    ],
+    "provides": [
+      {
+        "@type": "Service",
+        "name": {
+          "en": "Test Service"
+        },
+        "@id": "urn:uuid:cd68de41-8f31-415c-8688-809cd32056ea"
+      }
+    ],
+    "agentIn": [
+      {
+        "@type": "Action",
+        "name": {
+          "en": "Test Project"
+        },
+        "@id": "urn:uuid:60bd7eb8-3dda-4676-88fa-e9bce49d2a19"
+      }
+    ],
+    "name": {
+      "en": "Test Organization",
+      "de": "Test Organisation"
+    },
+    "location": [
+      {
+        "address": {
+          "addressCountry": "DE"
+        }
+      }
+    ],
+    "@id": "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294",
+    "@context": "https://oerworldmap.org/assets/json/context.json"
   },
-  "dateModified" : "2017-07-11T15:43:45.411+02:00",
-  "@id" : "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294.about"
+  "dateModified": "2017-07-11T15:43:45.411+02:00",
+  "@id": "urn:uuid:ba4b5522-a3ac-4579-8eed-5f13724a5294.about"
 }
