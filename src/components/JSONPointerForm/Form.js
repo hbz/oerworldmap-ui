@@ -104,7 +104,7 @@ class Form extends React.Component {
           e.preventDefault()
           this.lastUpdate = ""
           this.lastOp = null
-          validate(formData)
+          validate(prune(formData))
             ? onSubmit(formData)
             : this.setState(
               {formErrors: validate.errors},
