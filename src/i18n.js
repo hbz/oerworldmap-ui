@@ -11,12 +11,15 @@ export default (locales, phrases) => {
   })
 
   const translate = (key, interpolationOptions) => {
+    let result = key
     if (typeof key === 'string') {
-      return polyglot.t(key, interpolationOptions)
+      result = polyglot.t(key, interpolationOptions)
+    } else if (key instanceof Array) {
+      result = getEntryByLocales(locales, key)
+    } else if (key instanceof Object) {
+      result = key[locales[0]] || key[Object.keys(key).pop()]
     }
-    if (Array.isArray(key)) {
-      return getEntryByLocales(locales, key)
-    }
+    return result
   }
 
   moment.locale(locales[0])

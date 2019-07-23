@@ -345,7 +345,7 @@ class Map extends React.Component {
                       <ResourcePreview
                         about={Object.assign(hoveredPoints[0].properties, {
                           name: JSON.parse(hoveredPoints[0].properties.name),
-                          location: JSON.parse(hoveredPoints[0].properties.location),
+                          location: [JSON.parse(hoveredPoints[0].properties.location)],
                           additionalType: hoveredPoints[0].properties.additionalType
                             && JSON.parse(hoveredPoints[0].properties.additionalType)
                             || undefined,

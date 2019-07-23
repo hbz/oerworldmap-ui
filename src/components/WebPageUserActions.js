@@ -22,7 +22,7 @@ const WebPageUserActions = ({
   const lighthouse = lighthouses.find(action => action.agent && action.agent.some(agent => user && agent['@id'] === user.id))
   || (user ? {
     '@type': 'LighthouseAction',
-    description: [{ '@language': 'en' }],
+    description: { en: '' },
     startTime: new Date().toISOString(),
   } : null)
 

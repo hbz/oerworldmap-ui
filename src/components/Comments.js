@@ -75,7 +75,7 @@ const Comments = ({
         <Form
           data={{
             '@type': 'Comment',
-            text: [{ '@language': 'en' }],
+            text: { en: '' },
           }}
           validate={validate(JsonSchema(schema).get('#/definitions/Comment'))}
           onSubmit={data => emitter.emit('submit', {

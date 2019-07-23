@@ -203,6 +203,31 @@
     }
   }
 
+  &.minimizeCountry {
+    & .countryHeader {
+      border: none;
+      padding: 0;
+    }
+
+    & .countryChampion,
+    & .countryReports,
+    & .statistics {
+      display: none;
+    }
+  }
+
+  & .minimizeCountryBtn {
+    position: absolute;
+    right: 40px;
+    top: 17px;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: var(--orange);
+    }
+  }
+
   & .closePage {
     font-size: 28px;
     font-weight: 600;
@@ -253,6 +278,10 @@
 
     &.showCountry {
       display: block;
+    }
+
+    & .minimizeCountryBtn {
+      right: 17px;
     }
 
     & .closePage {
