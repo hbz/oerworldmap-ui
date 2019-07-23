@@ -39,13 +39,12 @@ const ResourceIndex = ({
   embedValue,
   phrases,
   isEmbed,
-  region
+  region,
 }) => {
-
   const home = _self.endsWith('/resource/?features=true')
 
   return (
-    <div className={`ResourceIndex ${className ? className:''}`}>
+    <div className={`ResourceIndex ${className || ''}`}>
       {children}
 
       <Columns show={!home || view.length > 0} country={iso3166}>
@@ -132,7 +131,7 @@ ResourceIndex.propTypes = {
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
-  region: PropTypes.string
+  region: PropTypes.string,
 }
 
 ResourceIndex.defaultProps = {
@@ -143,10 +142,10 @@ ResourceIndex.defaultProps = {
   iso3166: '',
   view: '',
   className: null,
-  sort: "",
+  sort: '',
   embedValue: null,
   children: null,
-  region: null
+  region: null,
 }
 
 export default withEmitter(ResourceIndex)

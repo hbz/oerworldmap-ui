@@ -5,16 +5,17 @@ import withFormData from './withFormData'
 import { objectMap } from '../../common'
 
 const Select = ({
-  name, value, setValue, errors, options, property, title, className, translate, formId, required, description
+  name, value, setValue, errors, options, property,
+  title, className, translate, formId, required, description,
 }) => (
-  <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Select ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}
     >
       {translate(title)}
       &nbsp;
-      {required ? <span className="asterisk" title="${translate('This is a required field!')}">*</span> : ''}
+      {required ? <span className="asterisk" title={`${translate('This is a required field!')}`}>*</span> : ''}
     </label>
     <span className="fieldDescription">
       {(description
@@ -32,10 +33,10 @@ const Select = ({
       name={name}
       value={value}
       id={`${formId}-${name}`}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={e => setValue(e.target.value)}
     >
       <option value={null} />
-      {options.map((option) => (
+      {options.map(option => (
         <option key={option} value={option}>{translate(option)}</option>
       ))}
     </select>
@@ -54,7 +55,7 @@ Select.propTypes = {
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 Select.defaultProps = {
@@ -64,7 +65,7 @@ Select.defaultProps = {
   title: '',
   className: '',
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(Select)

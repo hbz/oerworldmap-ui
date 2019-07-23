@@ -19,7 +19,9 @@ import '../styles/components/Comments.pcss'
 
 const sortByDate = sortByProp('dateCreated')
 
-const Comments = ({moment, translate, emitter, about, comments, user, schema}) => (
+const Comments = ({
+  moment, translate, emitter, about, comments, user, schema,
+}) => (
   <div className="Comments">
 
     {comments.filter(comment => comment.author && comment.text).sort(sortByDate).map(comment => (
@@ -27,8 +29,8 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
         <div className="head row auto">
           <div className="col">
             {comment.author.map(author => (
-              <Link key={author["@id"]} href={`/resource/${author["@id"]}`}>
-                {translate(author["@id"])}
+              <Link key={author['@id']} href={`/resource/${author['@id']}`}>
+                {translate(author['@id'])}
               </Link>
             ))}
             {' '}
@@ -40,12 +42,14 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
           </div>
           {expose('deleteEntry', user, comment) && (
             <div className="col">
-              <form onSubmit={(e) => {
-                e.preventDefault()
-                emitter.emit('delete', {
-                  url: `/resource/${comment['@id']}`,
-                  redirect: {url: `/resource/${about['@id']}`}
-                })}}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  emitter.emit('delete', {
+                    url: `/resource/${comment['@id']}`,
+                    redirect: { url: `/resource/${about['@id']}` },
+                  })
+                }}
               >
                 <button className="btn icon" type="submit" title="Delete">
                   <i aria-hidden="true" className="fa fa-fw fa-trash" />
@@ -57,9 +61,9 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
         <Markdown options={{
           overrides: {
             a: {
-              component: LinkOverride
-            }
-          }
+              component: LinkOverride,
+            },
+          },
         }}
         >
           {translate(comment.text)}
@@ -71,13 +75,13 @@ const Comments = ({moment, translate, emitter, about, comments, user, schema}) =
         <Form
           data={{
             '@type': 'Comment',
-            'text': {'en': ''}
+            text: { en: '' },
           }}
           validate={validate(JsonSchema(schema).get('#/definitions/Comment'))}
           onSubmit={data => emitter.emit('submit', {
             url: `/resource/${about['@id']}/comment`,
-            redirect: {url: `/resource/${about['@id']}`},
-            data
+            redirect: { url: `/resource/${about['@id']}` },
+            data,
           })}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/Comment')} />
@@ -105,7 +109,7 @@ Comments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any),
   about: PropTypes.objectOf(PropTypes.any).isRequired,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 Comments.defaultProps = {

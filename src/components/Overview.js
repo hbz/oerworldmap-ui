@@ -4,17 +4,17 @@ import PropTypes from 'prop-types'
 import Icon from './Icon'
 
 const labels = {
-  'Organization': 'Organizations',
-  'Service': 'Services',
-  'Action': 'Projects',
-  'Person': 'People',
-  'Event': 'Events',
-  'Article': 'Stories',
-  'WebPage': 'Publications',
-  'Product': 'Tools'
+  Organization: 'Organizations',
+  Service: 'Services',
+  Action: 'Projects',
+  Person: 'People',
+  Event: 'Events',
+  Article: 'Stories',
+  WebPage: 'Publications',
+  Product: 'Tools',
 }
 
-const Overview = ({buckets}) => buckets.map(bucket => (
+const Overview = ({ buckets }) => buckets.map(bucket => (
   <div className="col" key={bucket.key}>
     <a href={`/resource/?filter.about.@type=${bucket.key}`}>
       <Icon type={bucket.key} />
@@ -27,7 +27,7 @@ const Overview = ({buckets}) => buckets.map(bucket => (
 ))
 
 Overview.propTypes = {
-  buckets: PropTypes.arrayOf(PropTypes.any).isRequired
+  buckets: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 export default Overview

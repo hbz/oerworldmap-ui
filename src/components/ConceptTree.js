@@ -11,10 +11,10 @@ import { triggerClick } from '../common'
 const filterConcepts = (concepts, include) => {
   concepts = JSON.parse(JSON.stringify(concepts))
   const res = []
-  concepts.forEach(node => {
+  concepts.forEach((node) => {
     if (include.indexOf(node['@id']) !== -1) {
-      if (node['narrower']) {
-        node['narrower'] = filterConcepts(node['narrower'], include)
+      if (node.narrower) {
+        node.narrower = filterConcepts(node.narrower, include)
       }
       res.push(node)
     }
@@ -22,16 +22,18 @@ const filterConcepts = (concepts, include) => {
   return res
 }
 
-const ConceptTree = ({concepts, translate, include, className, linkTemplate, nested, noIcon}) => (
+const ConceptTree = ({
+  concepts, translate, include, className, linkTemplate, nested, noIcon,
+}) => (
   <ul className={`${className}${noIcon ? ' noIcon' : ''}`}>
     {(include ? filterConcepts(concepts, include) : concepts).map(concept => (
       <li
         key={concept['@id']}
-        className={!nested && (concept.narrower && concept.narrower.length > 0) ? 'expandable': ''}
+        className={!nested && (concept.narrower && concept.narrower.length > 0) ? 'expandable' : ''}
       >
         <Link className="item" href={urlTemplate.parse(linkTemplate).expand(concept)}>
-          {!noIcon &&
-            <Icon type={concept['@type']} />
+          {!noIcon
+            && <Icon type={concept['@type']} />
           }
           <span>{translate(concept.name)}</span>
         </Link>
@@ -42,7 +44,7 @@ const ConceptTree = ({concepts, translate, include, className, linkTemplate, nes
             onKeyDown={triggerClick}
             tabIndex="0"
             role="button"
-            onClick={e => {
+            onClick={(e) => {
               if (e.target.classList.contains('fa-plus')) {
                 e.target.classList.remove('fa-plus')
                 e.target.classList.add('fa-minus')
@@ -74,7 +76,7 @@ ConceptTree.propTypes = {
   className: PropTypes.string,
   linkTemplate: PropTypes.string,
   nested: PropTypes.bool,
-  noIcon: PropTypes.bool
+  noIcon: PropTypes.bool,
 }
 
 ConceptTree.defaultProps = {
@@ -82,7 +84,7 @@ ConceptTree.defaultProps = {
   className: null,
   linkTemplate: '/resource/{@id}',
   nested: false,
-  noIcon: false
+  noIcon: false,
 }
 
 export default withI18n(ConceptTree)

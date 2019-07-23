@@ -14,7 +14,9 @@ import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 import ResourcePreview from './ResourcePreview'
 
-const ItemList = ({ translate, emitter, listItems, linkTemplate, className, count, moment, tooltip}) => (
+const ItemList = ({
+  translate, emitter, listItems, linkTemplate, className, count, moment, tooltip,
+}) => (
   <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
@@ -28,7 +30,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
         }}
       >
         <Tooltip
-          trigger={tooltip  === false ? [] : ['hover']}
+          trigger={tooltip === false ? [] : ['hover']}
           overlay={(
             <div className="itemListTooltip">
               <ResourcePreview about={listItem} />
@@ -44,7 +46,7 @@ const ItemList = ({ translate, emitter, listItems, linkTemplate, className, coun
               <Icon type={listItem['@type']} />
               <span>
                 {translate(listItem.name) || translate(listItem['@id'])}
-                {listItem.alternateName ? ` (${translate(listItem.alternateName)})`: ''}
+                {listItem.alternateName ? ` (${translate(listItem.alternateName)})` : ''}
                 {(listItem['@type'] === 'Event' && listItem.startDate)
                   ? (
                     <React.Fragment>
@@ -72,14 +74,14 @@ ItemList.propTypes = {
   className: PropTypes.string,
   moment: PropTypes.func.isRequired,
   count: PropTypes.func,
-  tooltip: PropTypes.bool
+  tooltip: PropTypes.bool,
 }
 
 ItemList.defaultProps = {
   linkTemplate: '/resource/{@id}',
   className: '',
   count: undefined,
-  tooltip: true
+  tooltip: true,
 }
 
 export default withEmitter(withI18n(ItemList))

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import '../styles/components/Switch.pcss'
 
-const Switch = ({title, onChange, checked}) => {
-
+const Switch = ({ title, onChange, checked }) => {
   const [isChecked, setIsChecked] = useState(checked)
 
   useEffect(() => {
@@ -37,12 +36,12 @@ Switch.propTypes = {
     {
       checked: PropTypes.string,
       unchecked: PropTypes.string,
-    }
+    },
   ).isRequired,
 }
 
 Switch.defaultProps = {
-  checked: false
+  checked: false,
 }
 
 export default Switch

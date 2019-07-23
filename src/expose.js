@@ -17,5 +17,7 @@ export default (action, user, context) => {
     return !!user
   case 'groupAdmin':
     return user && user.groups.includes('admin')
+  default:
+    return !!user
   }
 }

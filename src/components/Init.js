@@ -5,7 +5,9 @@ import EmittProvider from './EmittProvider'
 import ApiProvider from './ApiProvider'
 import App from './App'
 
-const Init = ({i18n, emitter, user, children, apiConfig, supportedLanguages}) => (
+const Init = ({
+  i18n, emitter, user, children, apiConfig, supportedLanguages,
+}) => (
   <I18nProvider i18n={i18n}>
     <EmittProvider emitter={emitter}>
       <ApiProvider config={apiConfig}>
@@ -23,16 +25,16 @@ Init.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   children: PropTypes.node.isRequired,
   apiConfig: PropTypes.objectOf(PropTypes.any).isRequired,
-  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 Init.defaultProps = {
   user: null,
   emitter: {
-    on: (event, handler) => console.log("Registered", event, handler),
-    off: (event, handler) => console.log("Unregistered", event, handler),
-    emit: (event, payload) => console.log("Triggered", event, payload)
-  }
+    on: (event, handler) => console.log('Registered', event, handler),
+    off: (event, handler) => console.log('Unregistered', event, handler),
+    emit: (event, payload) => console.log('Triggered', event, payload),
+  },
 }
 
 export default Init

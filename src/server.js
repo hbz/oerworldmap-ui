@@ -13,29 +13,31 @@ import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
 
-import Config, { mapboxConfig, apiConfig, piwikConfig, i18nConfig } from '../config'
+import Config, {
+  mapboxConfig, apiConfig, piwikConfig, i18nConfig,
+} from '../config'
 
 const server = express()
 const api = new Api(apiConfig)
 
-server.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
 
 server.use(compression())
 
-if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)
 
   server.use([
     webpackDevMiddleware(compiler, {
       noInfo: true,
       publicPath: webpackConfig.output.publicPath,
-      stats: 'minimal'
+      stats: 'minimal',
     }),
-    webpackHotMiddleware(compiler)
+    webpackHotMiddleware(compiler),
   ])
 }
 
@@ -51,14 +53,13 @@ server.use((req, res, next) => {
 server.use((req, res, next) => {
   const authorization = req.get('authorization')
   const [user] = authorization
-    ? Buffer.from(authorization.split(" ").pop(), "base64").toString("ascii").split(":") : []
+    ? Buffer.from(authorization.split(' ').pop(), 'base64').toString('ascii').split(':') : []
   if (user) {
     api.get('/user/profile', authorization)
       .then(user => (req.user = user) && next())
-      .catch(err => err.status === 401
+      .catch(err => (err.status === 401
         ? res.redirect(`${apiConfig.scheme}://logout@${apiConfig.host}/.logout`)
-        : res.status(err.status).send(err.message)
-      )
+        : res.status(err.status).send(err.message)))
   } else {
     next()
   }
@@ -80,7 +81,7 @@ server.use((req, res, next) => {
 
 // Middleware to extract locales
 const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
-const defaultLanguage = i18nConfig.defaultLanguage
+const { defaultLanguage } = i18nConfig.defaultLanguage
 
 server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
@@ -99,32 +100,53 @@ server.use((req, res, next) => {
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
-  const user = req.user
-  const locales = req.locales
-  const supportedLanguages = req.supportedLanguages
+  const { user, locales, supportedLanguages } = req
   if (req.labels) {
-    req.labels.results.bindings.forEach(label => {
+    req.labels.results.bindings.forEach((label) => {
       i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
       i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
     })
   }
-  const phrases = locales.slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
-  const schema = req.schema
-  const embed = req.query.embed
-  const context = { supportedLanguages, locales, authorization, user, mapboxConfig, phrases, apiConfig, schema, embed }
-  //TODO: use actual request method
-  router(api).route(req.path, context).get(req.query).then(({title, data, render, err, metadata}) => {
+  const phrases = locales
+    .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
+  const { schema, embed } = req
+  const context = {
+    supportedLanguages,
+    locales,
+    authorization,
+    user,
+    mapboxConfig,
+    phrases,
+    apiConfig,
+    schema,
+    embed,
+  }
+  // TODO: use actual request method
+  router(api).route(req.path, context).get(req.query).then(({
+    title, data, render, err, metadata,
+  }) => {
     console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({supportedLanguages, apiConfig, locales, mapboxConfig, data, user, err, phrases, schema, embed})
-        .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
+      initialState: JSON.stringify({
+        supportedLanguages,
+        apiConfig,
+        locales,
+        mapboxConfig,
+        data,
+        user,
+        err,
+        phrases,
+        schema,
+        embed,
+      })
+        .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029'),
       title,
       piwikConfig,
       embed,
       metadata,
-      locales
+      locales,
     }))
   })
 })

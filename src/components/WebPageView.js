@@ -1,8 +1,10 @@
-/* global btoa*/
+/* global btoa */
 import React from 'react'
 import PropTypes from 'prop-types'
 import Markdown from 'markdown-to-jsx'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import {
+  Tab, Tabs, TabList, TabPanel,
+} from 'react-tabs'
 import urlTemplate from 'url-template'
 
 import withI18n from './withI18n'
@@ -21,19 +23,24 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const WebPageView = ({translate, moment, about, user, view, expandAll, schema, locales, _self}) => {
-
+const WebPageView = ({
+  translate, moment, about, user, view, expandAll, schema, locales, _self,
+}) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
 
   const sortedNames = about.name ? [
-    ...Object.keys(about.name).filter(n => locales.includes(n)).sort((a,b) => locales.indexOf(a) - locales.indexOf(b)),
-    ...Object.keys(about.name).filter(n => !locales.includes(n))
+    ...Object.keys(about.name)
+      .filter(n => locales.includes(n)).sort((a, b) => locales.indexOf(a) - locales.indexOf(b)),
+    ...Object.keys(about.name)
+      .filter(n => !locales.includes(n)),
   ] : []
 
   const sortedDescriptions = about.description ? [
-    ...Object.keys(about.description).filter(n => locales.includes(n)).sort((a,b) => locales.indexOf(a) - locales.indexOf(b)),
-    ...Object.keys(about.description).filter(n => !locales.includes(n))
+    ...Object.keys(about.description)
+      .filter(n => locales.includes(n)).sort((a, b) => locales.indexOf(a) - locales.indexOf(b)),
+    ...Object.keys(about.description)
+      .filter(n => !locales.includes(n)),
   ] : []
 
   return (
@@ -54,8 +61,8 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
 
         <div className="col">
 
-          {about.sameAs &&
-            <SocialLinks links={about.sameAs} />
+          {about.sameAs
+            && <SocialLinks links={about.sameAs} />
           }
 
         </div>
@@ -81,14 +88,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
 
             <br />
             <span className="hint">
-              {translate("Also available in:")}
+              {translate('Also available in:')}
               &nbsp;
             </span>
             <TabList>
               {sortedNames.map((lang, i) => (
                 <Tab key={`tab-${lang}`}>
                   {translate(lang)}
-                  {i !== (Object.keys(about.name).length-1) && (
+                  {i !== (Object.keys(about.name).length - 1) && (
                     <React.Fragment>
                       &nbsp;
                     </React.Fragment>
@@ -113,15 +120,15 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
         )}
       </h2>
 
-      {expose('userActions', user) &&
-        <WebPageUserActions about={about} user={user} view={view} schema={schema} />
+      {expose('userActions', user)
+        && <WebPageUserActions about={about} user={user} view={view} schema={schema} />
       }
 
       <div className="row stack-700 stack-gutter-2em">
 
         <div className="col two-third">
 
-          <div className="border-top text-large" style={{paddingTop: '2em'}}>
+          <div className="border-top text-large" style={{ paddingTop: '2em' }}>
 
             <Block
               className="first description"
@@ -136,9 +143,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
                         <Markdown options={{
                           overrides: {
                             a: {
-                              component: LinkOverride
-                            }
-                          }
+                              component: LinkOverride,
+                            },
+                          },
                         }}
                         >
                           {about.description[lang]}
@@ -147,86 +154,14 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
                     ))}
 
                     <span className="hint">
-                      {translate("Also available in:")}
+                      {translate('Also available in:')}
                       &nbsp;
                     </span>
                     <TabList>
                       {sortedDescriptions.map((lang, i) => (
                         <Tab key={`tab-${lang}`}>
                           <span>{translate(lang)}</span>
-                          {i !== (Object.keys(about.description).length-1) && (
-                            <React.Fragment>
-                              &nbsp;
-                            </React.Fragment>
-                          )}
-                        </Tab>
-                      ))}
-                    </TabList>
-                  </Tabs>
-                ): (
-                  <Markdown options={{
-                    overrides: {
-                      a: {
-                        component: LinkOverride
-                      }
-                    }
-                  }}
-                  >
-                    {translate(about.description)}
-                  </Markdown>
-                )
-              ) : (
-                <p>
-                  <i>
-                    {translate('A description for this entry is missing.')}
-                    {expose('editEntry', user, about) && (
-                      <Link href='#edit'>
-                        &nbsp;
-                        {translate('Help us by adding some information!')}
-                      </Link>
-                    )}
-                    {!user && about['@type'] !== 'Person' && (
-                      <Link href='/user/register'>
-                        &nbsp;
-                        {translate('Help us by adding some information!')}
-                      </Link>
-                    )}
-                  </i>
-                </p>
-              )}
-            </Block>
-
-            {about.articleBody && (
-              <Block
-                className="first description"
-                title=''
-              >
-                {about.articleBody && about.articleBody.length > 1 ? (
-                  <Tabs>
-                    {about.articleBody.map(article => (
-                      <TabPanel key={`panel-${article["@value"]}`}>
-                        <Markdown options={{
-                          overrides: {
-                            a: {
-                              component: LinkOverride
-                            }
-                          }
-                        }}
-                        >
-                          {article["@value"]}
-                        </Markdown>
-                      </TabPanel>
-                    ))}
-
-                    <span className="hint">
-                      {translate("Also available in:")}
-                      &nbsp;
-                    </span>
-                    <TabList>
-                      {about.articleBody.map((article, i) => (
-                        <Tab key={`tab-${article["@value"]}`}>
-                          {translate(article["@language"])}
-                          {i !== (about.articleBody.length-1) && (
+                          {i !== (Object.keys(about.description).length - 1) && (
                             <React.Fragment>
                               &nbsp;
                             </React.Fragment>
@@ -239,9 +174,81 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
                   <Markdown options={{
                     overrides: {
                       a: {
-                        component: LinkOverride
-                      }
-                    }
+                        component: LinkOverride,
+                      },
+                    },
+                  }}
+                  >
+                    {translate(about.description)}
+                  </Markdown>
+                )
+              ) : (
+                <p>
+                  <i>
+                    {translate('A description for this entry is missing.')}
+                    {expose('editEntry', user, about) && (
+                      <Link href="#edit">
+                        &nbsp;
+                        {translate('Help us by adding some information!')}
+                      </Link>
+                    )}
+                    {!user && about['@type'] !== 'Person' && (
+                      <Link href="/user/register">
+                        &nbsp;
+                        {translate('Help us by adding some information!')}
+                      </Link>
+                    )}
+                  </i>
+                </p>
+              )}
+            </Block>
+
+            {about.articleBody && (
+              <Block
+                className="first description"
+                title=""
+              >
+                {about.articleBody && about.articleBody.length > 1 ? (
+                  <Tabs>
+                    {about.articleBody.map(article => (
+                      <TabPanel key={`panel-${article['@value']}`}>
+                        <Markdown options={{
+                          overrides: {
+                            a: {
+                              component: LinkOverride,
+                            },
+                          },
+                        }}
+                        >
+                          {article['@value']}
+                        </Markdown>
+                      </TabPanel>
+                    ))}
+
+                    <span className="hint">
+                      {translate('Also available in:')}
+                      &nbsp;
+                    </span>
+                    <TabList>
+                      {about.articleBody.map((article, i) => (
+                        <Tab key={`tab-${article['@value']}`}>
+                          {translate(article['@language'])}
+                          {i !== (about.articleBody.length - 1) && (
+                            <React.Fragment>
+                              &nbsp;
+                            </React.Fragment>
+                          )}
+                        </Tab>
+                      ))}
+                    </TabList>
+                  </Tabs>
+                ) : (
+                  <Markdown options={{
+                    overrides: {
+                      a: {
+                        component: LinkOverride,
+                      },
+                    },
                   }}
                   >
                     {translate(about.articleBody)}
@@ -264,8 +271,8 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
               </p>
             )}
 
-            {about.availableChannel &&
-              about.availableChannel.map(link => (
+            {about.availableChannel
+              && about.availableChannel.map(link => (
                 <a key={link.serviceUrl} href={link.serviceUrl} target="_blank" rel="noopener noreferrer">
                   {formatURL(link.serviceUrl)}
                 </a>
@@ -277,7 +284,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
             {about.keywords && (
               <Block title={translate(`${about['@type']}.keywords`)}>
                 <ul className="spaceSeparatedList">
-                  {about.keywords.sort((a,b) => a > b).map(keyword => (
+                  {about.keywords.sort((a, b) => a > b).map(keyword => (
                     <li key={keyword}>
                       <Link href={`/resource/?filter.about.keywords=${encodeURIComponent(keyword.toLowerCase())}`}>
                         {keyword}
@@ -330,7 +337,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
 
             {about['@id'] && about['@type'] !== 'Person' && (
               <Block title={translate('ResourceIndex.read.comments')}>
-                <Comments comments={about['comment']} about={about} user={user} schema={schema} />
+                <Comments comments={about.comment} about={about} user={user} schema={schema} />
               </Block>
             )}
 
@@ -340,12 +347,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
 
         <aside className="col one-third">
 
-          <hr style={{marginBottom: '0px'}} />
+          <hr style={{ marginBottom: '0px' }} />
 
-          {(lighthouses.length > 0 || likes.length > 0 || about["@type"] === "Policy" ) && (
-            <div className="Block" style={{marginTop: '0px'}}>
+          {(lighthouses.length > 0 || likes.length > 0 || about['@type'] === 'Policy') && (
+            <div className="Block" style={{ marginTop: '0px' }}>
               <ul className="ItemList prominent">
-                {about["@type"] === "Policy" && (
+                {about['@type'] === 'Policy' && (
                   <li>
                     <a className="item" href="/oerpolicies">
                       <i aria-hidden="true" className="fa fa-balance-scale bg-highlight-color bg-important" />
@@ -358,9 +365,9 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
                 {lighthouses.length > 0 && (
                   <li>
                     <div className="item lighthouses">
-                      <i aria-hidden="true" className="bg-highlight-color bg-important" style={{'padding': '6px 12px'}}>
+                      <i aria-hidden="true" className="bg-highlight-color bg-important" style={{ padding: '6px 12px' }}>
                         <img
-                          style={{'position': 'relative', 'top': '2px'}}
+                          style={{ position: 'relative', top: '2px' }}
                           src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />
@@ -438,8 +445,8 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
               <p>
                 <a
                   href={`mailto:${Buffer ? Buffer.from(about.email).toString('base64') : btoa(about.email)}`}
-                  onClick={e => {
-                    e.target.href = "mailto:" + about.email
+                  onClick={(e) => {
+                    e.target.href = `mailto:${about.email}`
                   }}
                 >
                   {about.email}
@@ -456,22 +463,23 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
             </Block>
           )}
 
-          {(about.location && about.location.filter(location => !!location.address).map((location, i) => (
+          {(about.location
+          && about.location.filter(location => !!location.address).map((location, i) => (
             <Block title={translate(`${about['@type']}.location`)} key={i}>
               <p>
-                {location.address.streetAddress &&
-                  [location.address.streetAddress, <br key="br" />]
+                {location.address.streetAddress
+                  && [location.address.streetAddress, <br key="br" />]
                 }
                 {location.address.postalCode}
-                {location.address.postalCode && location.address.addressLocality &&
-                  <span>,&nbsp;</span>
+                {location.address.postalCode && location.address.addressLocality
+                  && <span>,&nbsp;</span>
                 }
                 {location.address.addressLocality}
-                {(location.address.postalCode || location.address.addressLocality) &&
-                  <br />
+                {(location.address.postalCode || location.address.addressLocality)
+                  && <br />
                 }
-                {location.address.addressRegion &&
-                  [translate(location.address.addressRegion), <br key="br" />]
+                {location.address.addressRegion
+                  && [translate(location.address.addressRegion), <br key="br" />]
                 }
                 {location.address.addressCountry && (
                   <Link href={`/country/${location.address.addressCountry}`}>
@@ -561,17 +569,18 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
             </Block>
           )}
 
-          {about.availableChannel &&
-          about.availableChannel.some(channel => channel.availableLanguage) && (
+          {about.availableChannel
+          && about.availableChannel.some(channel => channel.availableLanguage) && (
             <Block title={translate(`${about['@type']}.availableChannel.availableLanguage`)}>
               <ul className="commaSeparatedList">
-                {[].concat.apply([], about.availableChannel.map(channel => channel.availableLanguage)).map(lang => (
-                  <li key={lang}>
-                    <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
-                      {translate(lang)}
-                    </Link>
-                  </li>
-                ))}
+                {[].concat(...about.availableChannel.map(channel => channel.availableLanguage))
+                  .map(lang => (
+                    <li key={lang}>
+                      <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
+                        {translate(lang)}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </Block>
           )}
@@ -605,7 +614,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
           {
             ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
               prop => (
-                about[prop] &&(
+                about[prop] && (
                   <Block
                     key={prop}
                     collapsible={!expandAll && about[prop].length > 3}
@@ -619,7 +628,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
                       className="prominent"
                     />
                   </Block>
-                ))
+                )),
             )
           }
 
@@ -643,12 +652,12 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
               collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LighthouseAction').length > 3}
               collapsibleType="show-all"
               className="list"
-              title={translate(`Lighthouses`)}
+              title={translate('Lighthouses')}
             >
               <ItemList
-                listItems={about.agentIn.filter(action => action["@type"]  === "LighthouseAction")
+                listItems={about.agentIn.filter(action => action['@type'] === 'LighthouseAction')
                   .map(lighthouseAction => lighthouseAction.object)
-                  .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
+                  .sort((a, b) => translate(a['@id']) > translate(b['@id']))
                 }
                 className="prominent"
               />
@@ -660,13 +669,13 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
               collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LikeAction').length > 3}
               collapsibleType="show-all"
               className="list"
-              title={translate(`Likes`)}
+              title={translate('Likes')}
             >
               <ItemList
-                listItems={about.agentIn.filter(action => action["@type"]  === "LikeAction")
+                listItems={about.agentIn.filter(action => action['@type'] === 'LikeAction')
                   .filter(LikeAction => !!LikeAction.object)
                   .map(LikeAction => LikeAction.object)
-                  .sort((a, b) => translate(a["@id"]) > translate(b["@id"]))
+                  .sort((a, b) => translate(a['@id']) > translate(b['@id']))
                 }
                 className="prominent"
               />
@@ -690,20 +699,23 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
                       className="prominent"
                     />
                   </Block>
-                ))
+                )),
             )
           }
 
           {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) && (
             <Block
-              collapsible={!expandAll && [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy)).length > 3}
+              collapsible={!expandAll
+                && [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
+                  .map(grant => grant.isAwardedBy)).length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.isFundedBy`)}
             >
               <ItemList
                 listItems={
-                  [].concat.apply([], about.isFundedBy.filter(grant => grant.isAwardedBy).map(grant => grant.isAwardedBy))
+                  [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
+                    .map(grant => grant.isAwardedBy))
                     .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
@@ -725,14 +737,16 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
 
           {about.awards && about.awards.some(grant => grant.funds) && (
             <Block
-              collapsible={!expandAll && [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds)).length > 3}
+              collapsible={!expandAll
+                && [].concat(...about.awards.filter(grant => grant.funds)
+                  .map(grant => grant.funds)).length > 3}
               collapsibleType="show-all"
               className="list"
               title={translate(`${about['@type']}.funds`)}
             >
               <ItemList
                 listItems={
-                  [].concat.apply([], about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+                  [].concat(...about.awards.filter(grant => grant.funds).map(grant => grant.funds))
                     .sort((a, b) => translate(a.name) > translate(b.name))
                 }
                 className="prominent"
@@ -769,7 +783,7 @@ const WebPageView = ({translate, moment, about, user, view, expandAll, schema, l
             'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
             'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
             'isRelatedTo', 'isBasedOn', 'isBasisFor'].map(prop => (
-            about[prop] &&  (
+            about[prop] && (
               <Block
                 key={prop}
                 collapsible={!expandAll && about[prop].length > 3}
@@ -818,7 +832,7 @@ WebPageView.propTypes = {
 
 WebPageView.defaultProps = {
   user: null,
-  expandAll: false
+  expandAll: false,
 }
 
 export default withI18n(WebPageView)

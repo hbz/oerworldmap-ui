@@ -4,9 +4,9 @@ import Link from './Link'
 import withI18n from './withI18n'
 import '../styles/components/Statistics.pcss'
 
-const Statistics = ({translate}) => (
+const Statistics = ({ translate }) => (
   <div className="Statistics">
-    <h1 className="title">{translate("Global Statistics")}</h1>
+    <h1 className="title">{translate('Global Statistics')}</h1>
     <iframe
       title="aggregations"
       src="https://oerworldmap.org/kibana/app/kibana#/dashboard/1d8ea400-f246-11e8-84be-cde38ed05345?embed=true&_g=()"
@@ -23,6 +23,3 @@ Statistics.propTypes = {
 }
 
 export default withI18n(Statistics)
-
-
-

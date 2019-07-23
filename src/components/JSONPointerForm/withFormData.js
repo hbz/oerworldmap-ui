@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import jsonPointer from 'json-pointer'
 
 const withFormData = (BaseComponent) => {
-
   const formComponent = class FormComponent extends React.Component {
-
     constructor(props, context) {
       super(props)
       const parents = context.path || []
@@ -17,7 +15,7 @@ const withFormData = (BaseComponent) => {
 
     getChildContext() {
       return {
-        path: this.path
+        path: this.path,
       }
     }
 
@@ -27,8 +25,9 @@ const withFormData = (BaseComponent) => {
     }
 
     render() {
-
-      const { getValue, formId, setValue, getValidationErrors, shouldFormComponentFocus } = this.context
+      const {
+        getValue, formId, setValue, getValidationErrors, shouldFormComponentFocus,
+      } = this.context
 
       return (
         <BaseComponent
@@ -42,19 +41,18 @@ const withFormData = (BaseComponent) => {
         />
       )
     }
-
   }
 
   formComponent.propTypes = {
-    property: PropTypes.string
+    property: PropTypes.string,
   }
 
   formComponent.defaultProps = {
-    property: undefined
+    property: undefined,
   }
 
   formComponent.childContextTypes = {
-    path: PropTypes.arrayOf(PropTypes.any)
+    path: PropTypes.arrayOf(PropTypes.any),
   }
 
   formComponent.contextTypes = {
@@ -64,11 +62,10 @@ const withFormData = (BaseComponent) => {
     getValidationErrors: PropTypes.func,
     shouldFormComponentUpdate: PropTypes.func,
     shouldFormComponentFocus: PropTypes.func,
-    formId: PropTypes.string
+    formId: PropTypes.string,
   }
 
   return formComponent
-
 }
 
 export default withFormData

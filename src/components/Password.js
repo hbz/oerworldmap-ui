@@ -12,13 +12,13 @@ import FullModal from './FullModal'
 import Link from './Link'
 import '../styles/components/Password.pcss'
 
-const Password = ({translate, emitter, schema}) => (
+const Password = ({ translate, emitter, schema }) => (
   <div className="Password">
     <FullModal closeLink={Link.back}>
       <Form
-        data={{'@type': 'ChangePasswordAction'}}
+        data={{ '@type': 'ChangePasswordAction' }}
         validate={validate(JsonSchema(schema).get('#/definitions/ChangePasswordAction'))}
-        onSubmit={data => emitter.emit('submit', {url: '/user/password/change', data})}
+        onSubmit={data => emitter.emit('submit', { url: '/user/password/change', data })}
       >
         <Builder schema={JsonSchema(schema).get('#/definitions/ChangePasswordAction')} />
         <div className="buttons">
@@ -32,7 +32,7 @@ const Password = ({translate, emitter, schema}) => (
 Password.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(withI18n(Password))

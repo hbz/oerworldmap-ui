@@ -8,7 +8,7 @@ import { objectMap } from '../../common'
 
 const LocalizedString = ({
   schema, translate, value, setValue, shouldFormComponentFocus, description, title, required,
-  formId, name, locales, errors
+  formId, name, locales, errors,
 }) => {
   const TextInput = schema._display && schema._display.rows > 1 ? MarkdownArea : Input
   const languagesPresent = Object.keys(schema.properties)
@@ -20,7 +20,7 @@ const LocalizedString = ({
     .filter(lang => !(schema.required && schema.required.includes(lang))
       && !(value && value[lang] != null))
   return (
-    <div className={`LocalizedString ${errors.length ? 'hasError': ''}`.trim()}>
+    <div className={`LocalizedString ${errors.length ? 'hasError' : ''}`.trim()}>
       <div
         className={`label ${required ? 'required' : ''}`.trim()}
         id={`${formId}-${name}-label`}
@@ -53,9 +53,10 @@ const LocalizedString = ({
         <label>
           {translate('resourceFormWidgets.localizedTextarea.addLanguage')}
           :&nbsp;
-          <select onChange={event => {
+          <select onChange={(event) => {
             const lang = event.target.options[event.target.selectedIndex].value
-            lang && setValue(Object.assign(value || {}, {[lang]: ''}), false)}}
+            lang && setValue(Object.assign(value || {}, { [lang]: '' }), false)
+          }}
           >
             <option value="">&nbsp;</option>
             {languagesAvailable.map(lang => (

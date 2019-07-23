@@ -6,8 +6,7 @@ import ResourceImage from './ResourceImage'
 
 import '../styles/components/WebPageCover.pcss'
 
-const WebPageCover = ({feature, about, mapboxConfig}) => {
-
+const WebPageCover = ({ feature, about, mapboxConfig }) => {
   const country = (about
     && about.location
     && about.location[0]
@@ -27,7 +26,8 @@ const WebPageCover = ({feature, about, mapboxConfig}) => {
 
       <ResourceImage about={about} className="webPageCoverImage" />
     </div>
-  )}
+  )
+}
 
 WebPageCover.propTypes = {
   feature: PropTypes.objectOf(PropTypes.any),
@@ -37,12 +37,12 @@ WebPageCover.propTypes = {
       token: PropTypes.string,
       style: PropTypes.string,
       miniMapStyle: PropTypes.string,
-    }
-  ).isRequired
+    },
+  ).isRequired,
 }
 
 WebPageCover.defaultProps = {
-  feature: null
+  feature: null,
 }
 
 export default WebPageCover

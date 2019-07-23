@@ -4,25 +4,25 @@ import moment from 'moment'
 import { getEntryByLocales } from './common'
 
 export default (locales, phrases) => {
-
   const polyglot = new Polyglot({
     locale: locales[0],
     phrases,
-    warn: () => {}
+    warn: () => {},
   })
 
   const translate = (key, interpolationOptions) => {
+    let result = key
     if (typeof key === 'string') {
-      return polyglot.t(key, interpolationOptions)
+      result = polyglot.t(key, interpolationOptions)
     } else if (key instanceof Array) {
-      return getEntryByLocales(locales, key)
+      result = getEntryByLocales(locales, key)
     } else if (key instanceof Object) {
-      return key[locales[0]] || key[Object.keys(key).pop()]
+      result = key[locales[0]] || key[Object.keys(key).pop()]
     }
+    return result
   }
 
   moment.locale(locales[0])
 
-  return {translate, locales, moment}
-
+  return { translate, locales, moment }
 }
