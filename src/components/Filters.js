@@ -228,7 +228,7 @@ class Filters extends React.Component {
     }
 
     let sortSize
-    if (sort && sort.split(':').shift() === 'about.name.@value.sort') {
+    if (sort && sort.split(':').shift() === 'about.name.en.sort') {
       sortSize = translate('ClientTemplates.filter.alphabetical').length
     } else if (sort) {
       sortSize = translate(`ClientTemplates.filter.${sort.split(':').shift()}`).length
@@ -374,19 +374,21 @@ class Filters extends React.Component {
             <section className="listOptions">
               <div>
                 {(filter === false || !filter.includes('Event')) && (
-                  <span>
-                    <span className="arrowWrapper">
-                      <select onChange={e => onSubmit(e, emitter)} className="styledSelect totalSelect" name="size" value={size}>
-                        {this.sizes.map(number => (
-                          number >= 0
-                          && <option key={number} value={number}>{number}</option>
-                        ))}
-                        <option value="-1">{translate('Pagination.all')}</option>
-                      </select>
+                  totalItems >= 20 && (
+                    <span>
+                      <span className="arrowWrapper">
+                        <select onChange={e => onSubmit(e, emitter)} className="styledSelect totalSelect" name="size" value={size}>
+                          {this.sizes.map(number => (
+                            number >= 0
+                            && <option key={number} value={number}>{number}</option>
+                          ))}
+                          <option value="-1">{translate('Pagination.all')}</option>
+                        </select>
+                      </span>
+                      {translate('Pagination.of')}
+                      &nbsp;
                     </span>
-                    {translate('Pagination.of')}
-                    &nbsp;
-                  </span>
+                  )
                 )}
                 <span className="counter">
                   <span>{totalItems}</span>
@@ -419,7 +421,7 @@ class Filters extends React.Component {
                         {query
                           && <option value="dateCreated:DESC">{translate('ClientTemplates.filter.dateCreated')}</option>
                         }
-                        <option value="about.name.@value.sort:ASC">{translate('ClientTemplates.filter.alphabetical')}</option>
+                        <option value="about.name.en.sort:ASC">{translate('ClientTemplates.filter.alphabetical')}</option>
                       </select>
                     </span>
                   </span>

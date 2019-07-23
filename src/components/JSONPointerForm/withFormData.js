@@ -34,7 +34,7 @@ const withFormData = (BaseComponent) => {
           name={this.name}
           value={getValue(this.name)}
           formId={formId}
-          setValue={value => setValue(this.name, value)}
+          setValue={(value, prune) => setValue(this.name, value, prune)}
           errors={getValidationErrors(this.name)}
           shouldFormComponentFocus={shouldFormComponentFocus(this.name)}
           {...this.props}

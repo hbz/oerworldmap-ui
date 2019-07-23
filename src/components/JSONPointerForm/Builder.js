@@ -30,7 +30,9 @@ class Builder extends React.Component {
     schema.anyOf && (schema = merge.all(schema.anyOf.concat(schema))) && (delete schema.anyOf)
     schema.oneOf && (schema = merge.all(schema.oneOf.concat(schema))) && (delete schema.oneOf)
 
-    const { translate, config, widgets } = this.props
+    const {
+      translate, config, widgets, locales,
+    } = this.props
     const widgetsObj = Object.assign(
       {
         Fieldset,
@@ -62,6 +64,7 @@ class Builder extends React.Component {
       config,
       className,
       translate,
+      locales,
     }
 
     if (schema._widget && widgetsObj[schema._widget]) {
@@ -150,6 +153,7 @@ Builder.propTypes = {
   widgets: PropTypes.objectOf(PropTypes.any),
   config: PropTypes.objectOf(PropTypes.any),
   showOptionalFields: PropTypes.bool,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 Builder.defaultProps = {

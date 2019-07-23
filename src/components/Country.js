@@ -19,6 +19,7 @@ class Country extends React.Component {
       showStatistics: false,
       showKibanaStatistics: false,
       showCountry: false,
+      minimizeCountry: false,
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
@@ -54,13 +55,13 @@ class Country extends React.Component {
       countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region,
     } = this.props
     const {
-      showCountryChampion, showRegionalChampion,
-      showReports, showStatistics, showKibanaStatistics, showCountry,
+      showCountryChampion, showRegionalChampion, showReports, showStatistics,
+      showKibanaStatistics, showCountry, minimizeCountry,
     } = this.state
 
     return (
       <React.Fragment>
-        <div className={`Country${showCountry ? ' showCountry' : ''}`}>
+        <div className={`Country${showCountry ? ' showCountry' : ''}${minimizeCountry ? ' minimizeCountry' : ''}`}>
           <div className="countryHeader">
             <img
               className="countryFlag"
@@ -332,6 +333,16 @@ class Country extends React.Component {
 
             </div>
           )}
+
+          <i
+            role="presentation"
+            className={`minimizeCountryBtn fa fa-${minimizeCountry ? 'plus' : 'minus'}`}
+            onClick={() => {
+              this.setState({ minimizeCountry: !minimizeCountry })
+              console.log('minimize')
+            }}
+            onKeyDown={triggerClick}
+          />
 
           {region ? (
             <Link href={`/country/${iso3166}`} className="closePage">

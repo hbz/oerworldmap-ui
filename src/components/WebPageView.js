@@ -24,11 +24,24 @@ import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({
-  translate, moment, about, user, view, expandAll, schema, _self,
+  translate, moment, about, user, view, expandAll, schema, locales, _self,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
-
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
+
+  const sortedNames = about.name ? [
+    ...Object.keys(about.name)
+      .filter(n => locales.includes(n)).sort((a, b) => locales.indexOf(a) - locales.indexOf(b)),
+    ...Object.keys(about.name)
+      .filter(n => !locales.includes(n)),
+  ] : []
+
+  const sortedDescriptions = about.description ? [
+    ...Object.keys(about.description)
+      .filter(n => locales.includes(n)).sort((a, b) => locales.indexOf(a) - locales.indexOf(b)),
+    ...Object.keys(about.description)
+      .filter(n => !locales.includes(n)),
+  ] : []
 
   return (
     <div className={`WebPageView ${about['@type']}`}>
@@ -41,7 +54,7 @@ const WebPageView = ({
         </div>
 
         {!user && (
-          <a href={`http://oerworldmap.local/.login?continue=${_self}`}>
+          <a href={`/.login?continue=${_self}`}>
             {translate('Please login if you want to edit this entry')}
           </a>
         )}
@@ -56,11 +69,11 @@ const WebPageView = ({
       </div>
 
       <h2>
-        {about.name && about.name.length > 1 ? (
+        {about.name && Object.keys(about.name).length > 1 ? (
           <Tabs>
-            {about.name.map(name => (
-              <TabPanel className="inline" key={`panel-${name['@value']}`}>
-                {name['@value']}
+            {sortedNames.map(lang => (
+              <TabPanel className="inline" key={`panel-${lang}`}>
+                {about.name[lang]}
               </TabPanel>
             ))}
 
@@ -79,10 +92,10 @@ const WebPageView = ({
               &nbsp;
             </span>
             <TabList>
-              {about.name.map((name, i) => (
-                <Tab key={`tab-${name['@value']}`}>
-                  {translate(name['@language'])}
-                  {i !== (about.name.length - 1) && (
+              {sortedNames.map((lang, i) => (
+                <Tab key={`tab-${lang}`}>
+                  {translate(lang)}
+                  {i !== (Object.keys(about.name).length - 1) && (
                     <React.Fragment>
                       &nbsp;
                     </React.Fragment>
@@ -123,10 +136,10 @@ const WebPageView = ({
               type={about['@type']}
             >
               {about.description ? (
-                about.description.length > 1 ? (
+                Object.keys(about.description).length > 1 ? (
                   <Tabs>
-                    {about.description.map(description => (
-                      <TabPanel key={`panel-${description['@value']}`}>
+                    {sortedDescriptions.map(lang => (
+                      <TabPanel key={`panel-${lang}`}>
                         <Markdown options={{
                           overrides: {
                             a: {
@@ -135,7 +148,7 @@ const WebPageView = ({
                           },
                         }}
                         >
-                          {description['@value']}
+                          {about.description[lang]}
                         </Markdown>
                       </TabPanel>
                     ))}
@@ -145,10 +158,10 @@ const WebPageView = ({
                       &nbsp;
                     </span>
                     <TabList>
-                      {about.description.map((article, i) => (
-                        <Tab key={`tab-${article['@value']}`}>
-                          <span>{translate(article['@language'])}</span>
-                          {i !== (about.description.length - 1) && (
+                      {sortedDescriptions.map((lang, i) => (
+                        <Tab key={`tab-${lang}`}>
+                          <span>{translate(lang)}</span>
+                          {i !== (Object.keys(about.description).length - 1) && (
                             <React.Fragment>
                               &nbsp;
                             </React.Fragment>
@@ -814,6 +827,7 @@ WebPageView.propTypes = {
   expandAll: PropTypes.bool,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   _self: PropTypes.string.isRequired,
+  locales: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 WebPageView.defaultProps = {
