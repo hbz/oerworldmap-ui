@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,7 +9,7 @@ import Link from './Link'
 
 import '../styles/components/ResourceImage.pcss'
 
-const ResourceImage = ({ about, translate, className }) => {
+const ResourceImage = ({ about, translate, className, view }) => {
   const twitterId = getTwitterId(about.sameAs)
 
   const images = (
@@ -52,9 +53,28 @@ const ResourceImage = ({ about, translate, className }) => {
           {images}
         </a>
       ) : (
-        <Link href={`/resource/${about['@id']}`}>
-          {images}
-        </Link>
+        view !== 'edit' ? (
+          <Link href={`/resource/${about['@id']}`}>
+            {images}
+          </Link>
+        ) : (
+          <a
+            href="#edit"
+            onClick={(e) => {
+              e.preventDefault()
+              setTimeout(() => {
+                const showOptional = document.querySelector('.showOptional')
+                showOptional && showOptional.click()
+                document.querySelector('.Input.image').scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                })
+              }, 500)
+            }}
+          >
+            {images}
+          </a>
+        )
       )}
     </div>
   )
@@ -64,6 +84,7 @@ ResourceImage.propTypes = {
   translate: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
+  view: PropTypes.string.isRequired,
 }
 
 ResourceImage.defaultProps = {

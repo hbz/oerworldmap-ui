@@ -60,7 +60,7 @@ const WebPage = ({
       />
 
       {about['@type'] !== 'Policy'
-        && <WebPageCover about={about} feature={feature} mapboxConfig={mapboxConfig} />
+        && <WebPageCover about={about} feature={feature} mapboxConfig={mapboxConfig} view={view} />
       }
 
       <div className="webPageContent">

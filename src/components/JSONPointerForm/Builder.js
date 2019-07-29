@@ -133,7 +133,7 @@ class Builder extends React.Component {
         {this.getComponent(schema)}
         {!showOptionalFields && (
           <button
-            className="btn"
+            className="showOptional btn"
             onClick={(event) => {
               typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', 'ShowOptionalFieldsClick'])
               event.preventDefault() || this.setState({ showOptionalFields: true })
