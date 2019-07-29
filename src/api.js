@@ -40,7 +40,8 @@ class Api {
     this.scheme = apiConfig.scheme
   }
 
-  static fetch(url, options) {
+  // eslint-disable-next-line class-methods-use-this
+  fetch(url, options) {
     return fetch(url, options).then(checkStatus).then(toJson)
   }
 
@@ -94,7 +95,8 @@ class Api {
       .then(toJson)
   }
 
-  static vocab(url) {
+  // eslint-disable-next-line class-methods-use-this
+  vocab(url) {
     switch (url) {
     case 'https://w3id.org/class/esc/scheme':
       return Promise.resolve({
