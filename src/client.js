@@ -67,10 +67,21 @@ const client = () => {
         window.open(parser.href, '_blank')
       } else if (parser.href !== window.location.href) {
         Link.back = referrer
+
+        if (typeof _paq !== 'undefined') {
+          _paq.push(['setReferrerUrl', referrer])
+          _paq.push(['setCustomUrl', parser.href])
+          _paq.push(['setDocumentTitle', document.title])
+
+          _paq.push(['deleteCustomVariables', 'page'])
+          _paq.push(['setGenerationTimeMs', 0])
+          _paq.push(['trackPageView'])
+          _paq.push(['enableLinkTracking'])
+        }
+
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
-      typeof _paq !== 'undefined' && _paq.push(['trackPageView'])
     })
     // Log in
     emitter.on('login', (back) => {
