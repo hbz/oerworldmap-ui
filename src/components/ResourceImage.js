@@ -9,7 +9,9 @@ import Link from './Link'
 
 import '../styles/components/ResourceImage.pcss'
 
-const ResourceImage = ({ about, translate, className, view }) => {
+const ResourceImage = ({
+  about, translate, className, view,
+}) => {
   const twitterId = getTwitterId(about.sameAs)
 
   const images = (

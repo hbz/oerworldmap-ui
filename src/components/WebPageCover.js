@@ -6,7 +6,9 @@ import ResourceImage from './ResourceImage'
 
 import '../styles/components/WebPageCover.pcss'
 
-const WebPageCover = ({ feature, about, mapboxConfig, view }) => {
+const WebPageCover = ({
+  feature, about, mapboxConfig, view,
+}) => {
   const country = (about
     && about.location
     && about.location[0]
