@@ -7,11 +7,10 @@ import Link from './Link'
 import Icon from './Icon'
 import FullModal from './FullModal'
 import withEmitter from './withEmitter'
-import { triggerClick,getURL } from '../common'
+import { triggerClick, getURL } from '../common'
 import '../styles/components/Country.pcss'
 
-class Country  extends React.Component {
-
+class Country extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -19,66 +18,67 @@ class Country  extends React.Component {
       showReports: false,
       showStatistics: false,
       showKibanaStatistics: false,
-      showCountry: false
+      showCountry: false,
+      minimizeCountry: false,
     }
     this.listenMessage = this.listenMessage.bind(this)
   }
 
   componentDidMount() {
-
     const { emitter } = this.props
-    window.addEventListener("message",  this.listenMessage, false)
+    window.addEventListener('message', this.listenMessage, false)
 
-    emitter.on('showCountry', showCountry => {
-      this.setState({showCountry})
+    emitter.on('showCountry', (showCountry) => {
+      this.setState({ showCountry })
     })
   }
 
   componentWillUnmount() {
-    window.removeEventListener("message", this.listenMessage)
+    window.removeEventListener('message', this.listenMessage)
   }
 
   listenMessage(msg) {
     const { emitter, iso3166 } = this.props
     if (msg.data.filter && msg.data.key) {
-      this.setState({showKibanaStatistics:false})
+      this.setState({ showKibanaStatistics: false })
       emitter.emit('navigate', getURL({
         path: `/country/${iso3166}`,
         params: {
-          [`filter.${msg.data.filter}`] : msg.data.key
-        }
+          [`filter.${msg.data.filter}`]: msg.data.key,
+        },
       }))
     }
   }
 
   render() {
     const {
-      countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region
+      countryData, countryChampions, regionData, regionalChampions, iso3166, translate, region,
     } = this.props
     const {
-      showCountryChampion, showRegionalChampion, showReports, showStatistics, showKibanaStatistics, showCountry
+      showCountryChampion, showRegionalChampion, showReports, showStatistics,
+      showKibanaStatistics, showCountry, minimizeCountry,
     } = this.state
 
     return (
       <React.Fragment>
-        <div className={`Country${showCountry ? ' showCountry': ''}`}>
+        <div className={`Country${showCountry ? ' showCountry' : ''}${minimizeCountry ? ' minimizeCountry' : ''}`}>
           <div className="countryHeader">
             <img
               className="countryFlag"
               src={`https://lipis.github.io/flag-icon-css/flags/4x3/${iso3166.toLowerCase()}.svg`}
               alt={`Flag for ${translate(iso3166)}`}
             />
-            {region ? <h2>{translate(iso3166 + '.' + region)}</h2> : <h2>{translate(iso3166)}</h2>}
+            {region ? <h2>{translate(`${iso3166}.${region}`)}</h2> : <h2>{translate(iso3166)}</h2>}
           </div>
 
-          {countryChampions ?
-            (
+          {countryChampions
+            ? (
               <div className="countryChampion">
                 <h3
                   onKeyDown={triggerClick}
                   tabIndex="0"
                   role="button"
-                  onClick={() => this.setState({showCountryChampion:!showCountryChampion})}
+                  onClick={() => this.setState({ showCountryChampion: !showCountryChampion })}
                 >
                   <span>{translate('CountryIndex.read.countryChampion')}</span>
                   &nbsp;
@@ -95,15 +95,16 @@ class Country  extends React.Component {
                               className={champion._source.about['@type']}
                               src={champion._source.about.image}
                               alt={translate(champion._source.about.name)}
-                              onLoad={e => {
+                              onLoad={(e) => {
                                 if (e.target.complete) {
                                   e.target.classList.add('visible')
-                                }}}
+                                }
+                              }}
                             />
                             <Icon type={champion._source.about['@type']} />
                           </div>
                         </Link>
-                      ) :(
+                      ) : (
                         <div className="frame">
                           <Icon type={champion._source.about['@type']} />
                         </div>
@@ -129,7 +130,7 @@ class Country  extends React.Component {
                   onKeyDown={triggerClick}
                   tabIndex="0"
                   role="button"
-                  onClick={() => this.setState({showCountryChampion: !showCountryChampion})}
+                  onClick={() => this.setState({ showCountryChampion: !showCountryChampion })}
                 >
                   <span>{translate('CountryIndex.read.countryChampion')}</span>
                   &nbsp;
@@ -145,8 +146,8 @@ class Country  extends React.Component {
                       className="text"
                       dangerouslySetInnerHTML={{
                         __html: translate('CountryIndex.read.noChampion', {
-                          country: translate(iso3166)
-                        })
+                          country: translate(iso3166),
+                        }),
                       }}
                     />
                   </div>
@@ -158,14 +159,14 @@ class Country  extends React.Component {
           {region && (
             <div className="countryChampion">
 
-              {regionalChampions ?
-                (
+              {regionalChampions
+                ? (
                   <React.Fragment>
                     <h3
                       onKeyDown={triggerClick}
                       tabIndex="0"
                       role="button"
-                      onClick={() => this.setState({showRegionalChampion:!showRegionalChampion})}
+                      onClick={() => this.setState({ showRegionalChampion: !showRegionalChampion })}
                     >
                       <span>{translate('CountryIndex.read.regionalChampion')}</span>
                       &nbsp;
@@ -182,15 +183,16 @@ class Country  extends React.Component {
                                   className={champion._source.about['@type']}
                                   src={champion._source.about.image}
                                   alt={translate(champion._source.about.name)}
-                                  onLoad={e => {
+                                  onLoad={(e) => {
                                     if (e.target.complete) {
                                       e.target.classList.add('visible')
-                                    }}}
+                                    }
+                                  }}
                                 />
                                 <Icon type={champion._source.about['@type']} />
                               </div>
                             </Link>
-                          ) :(
+                          ) : (
                             <div className="frame">
                               <Icon type={champion._source.about['@type']} />
                             </div>
@@ -216,7 +218,7 @@ class Country  extends React.Component {
                       onKeyDown={triggerClick}
                       tabIndex="0"
                       role="button"
-                      onClick={() => this.setState({showRegionalChampion: !showRegionalChampion})}
+                      onClick={() => this.setState({ showRegionalChampion: !showRegionalChampion })}
                     >
                       <span>{translate('CountryIndex.read.regionalChampion')}</span>
                       &nbsp;
@@ -232,8 +234,8 @@ class Country  extends React.Component {
                           className="text"
                           dangerouslySetInnerHTML={{
                             __html: translate('CountryIndex.read.noChampion', {
-                              country: translate(iso3166 + '.' + region)
-                            })
+                              country: translate(`${iso3166}.${region}`),
+                            }),
                           }}
                         />
                       </div>
@@ -244,15 +246,15 @@ class Country  extends React.Component {
             </div>
           )}
 
-          {countryData &&
-          countryData["filter#reports"]["top_hits#country_reports"] &&
-          countryData["filter#reports"]["top_hits#country_reports"].hits.hits.length > 0 && (
+          {countryData
+          && countryData['filter#reports']['top_hits#country_reports']
+          && countryData['filter#reports']['top_hits#country_reports'].hits.hits.length > 0 && (
             <div className="countryReports">
               <h3
                 onKeyDown={triggerClick}
                 tabIndex="0"
                 role="button"
-                onClick={() => this.setState({showReports:!showReports})}
+                onClick={() => this.setState({ showReports: !showReports })}
               >
                 <span>{translate('CountryIndex.read.countryReports')}</span>
                 &nbsp;
@@ -260,8 +262,8 @@ class Country  extends React.Component {
               </h3>
 
               <div className={`resourcesContainer ${showReports ? '' : 'collapsed'}`}>
-                {countryData["filter#reports"]["top_hits#country_reports"].hits.hits
-                  .sort((a,b) => a._source.about.dateCreated < b._source.about.dateCreated)
+                {countryData['filter#reports']['top_hits#country_reports'].hits.hits
+                  .sort((a, b) => a._source.about.dateCreated < b._source.about.dateCreated)
                   .map(report => (
                     <div className="resource" key={report._source.about['@id']}>
                       <i aria-hidden="true" className="fa fa-book" />
@@ -277,25 +279,25 @@ class Country  extends React.Component {
             </div>
           )}
 
-          {((!region && countryData &&
-          countryData['sterms#by_type'] &&
-          countryData['sterms#by_type'].buckets &&
-          countryData['sterms#by_type'].buckets.length)
-          || (region && regionData &&
-          regionData['sterms#by_type'] &&
-          regionData['sterms#by_type'].buckets &&
-          regionData['sterms#by_type'].buckets.length)) && (
+          {((!region && countryData
+          && countryData['sterms#by_type']
+          && countryData['sterms#by_type'].buckets
+          && countryData['sterms#by_type'].buckets.length)
+          || (region && regionData
+          && regionData['sterms#by_type']
+          && regionData['sterms#by_type'].buckets
+          && regionData['sterms#by_type'].buckets.length)) && (
             <div className="statistics">
               <h3
                 onKeyDown={triggerClick}
                 tabIndex="0"
                 role="button"
-                onClick={() => this.setState({showStatistics:!showStatistics})}
+                onClick={() => this.setState({ showStatistics: !showStatistics })}
               >
                 <span>{translate('CountryIndex.read.statistics')}</span>
                 &nbsp;
                 <i
-                  onClick={() => this.setState({showStatistics: !showStatistics})}
+                  onClick={() => this.setState({ showStatistics: !showStatistics })}
                   aria-hidden="true"
                   className={`fa fa-${showStatistics ? 'minus' : 'plus'}`}
                 />
@@ -303,10 +305,10 @@ class Country  extends React.Component {
 
               <div className={`statisticsContainer ${showStatistics ? '' : 'collapsed'}`}>
                 <ul className="buckets">
-                  {(region ?
-                    regionData['sterms#by_type'].buckets
-                    : countryData['sterms#by_type'].buckets).map(type =>
-                    (
+                  {(region
+                    ? regionData['sterms#by_type'].buckets
+                    : countryData['sterms#by_type'].buckets)
+                    .map(type => (
                       <li key={type.key}>
                         <span className="icon">
                           <Icon type={type.key} />
@@ -316,20 +318,31 @@ class Country  extends React.Component {
                         </span>
                         <span>{type.doc_count}</span>
                       </li>
-                    ))}
+                    ))
+                  }
                 </ul>
                 <div className="more">
                   <button
                     onKeyDown={triggerClick}
-                    onClick={() => this.setState({showKibanaStatistics: !showKibanaStatistics})}
+                    onClick={() => this.setState({ showKibanaStatistics: !showKibanaStatistics })}
                   >
-                    {translate("Show detailed statistics")}
+                    {translate('Show detailed statistics')}
                   </button>
                 </div>
               </div>
 
             </div>
           )}
+
+          <i
+            role="presentation"
+            className={`minimizeCountryBtn fa fa-${minimizeCountry ? 'plus' : 'minus'}`}
+            onClick={() => {
+              this.setState({ minimizeCountry: !minimizeCountry })
+              console.log('minimize')
+            }}
+            onKeyDown={triggerClick}
+          />
 
           {region ? (
             <Link href={`/country/${iso3166}`} className="closePage">
@@ -346,7 +359,7 @@ class Country  extends React.Component {
           <span
             className="closeModal"
             role="presentation"
-            onClick={() => this.setState({showKibanaStatistics: false})}
+            onClick={() => this.setState({ showKibanaStatistics: false })}
           >
             ×
           </span>
@@ -354,7 +367,7 @@ class Country  extends React.Component {
             title="countryStatistics"
             src={
               region
-                ? `https://oerworldmap.org/kibana/app/kibana#/dashboard/026c73e0-0444-11e9-b10a-2128e9354d61?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:${iso3166}),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressRegion,negate:!f,params:(query:${iso3166+'.'+region},type:phrase),type:phrase,value:${iso3166+'.'+region}),query:(match:(feature.properties.location.address.addressRegion:(query:${iso3166+'.'+region},type:phrase))))))`
+                ? `https://oerworldmap.org/kibana/app/kibana#/dashboard/2f3f5ce0-7b07-11e9-a87c-776689b2b49d?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:${iso3166}),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressRegion,negate:!f,params:(query:${`${iso3166}.${region}`},type:phrase),type:phrase,value:${`${iso3166}.${region}`}),query:(match:(feature.properties.location.address.addressRegion:(query:${`${iso3166}.${region}`},type:phrase))))))`
                 : `https://oerworldmap.org/kibana/app/kibana#/dashboard/026c73e0-0444-11e9-b10a-2128e9354d61?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:Germany),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase))))))`
             }
             height="800"
@@ -362,7 +375,8 @@ class Country  extends React.Component {
           />
         </FullModal>
       </React.Fragment>
-    )}
+    )
+  }
 }
 
 Country.propTypes = {
@@ -373,7 +387,7 @@ Country.propTypes = {
   region: PropTypes.string,
   countryChampions: PropTypes.arrayOf(PropTypes.object),
   regionalChampions: PropTypes.arrayOf(PropTypes.object),
-  regionData: PropTypes.objectOf(PropTypes.any)
+  regionData: PropTypes.objectOf(PropTypes.any),
 }
 
 Country.defaultProps = {

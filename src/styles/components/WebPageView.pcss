@@ -1,5 +1,3 @@
-
-
 .WebPageView {
 
   & > h2 {
@@ -9,8 +7,13 @@
     line-height: var(--webpage-heading-line-height);
   }
 
-  & .FullModal.Lighthouse .Form .List.description .newItemWrapper,
-  & .Comments .Form .List.text .newItemWrapper {
+  & .FullModal.Lighthouse .Form .Textarea + label,
+  & .Comments .Form .Textarea + label {
+    display: none;
+  }
+
+  & .FullModal.Lighthouse .Form .Textarea:not(.en),
+  & .Comments .Form .Textarea:not(.en) {
     display: none;
   }
 

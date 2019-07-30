@@ -10,12 +10,11 @@ import withI18n from '../withI18n'
 import { getURL, triggerClick, objectMap } from '../../common'
 
 class RemoteSelect extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      filter: "",
-      options: []
+      filter: '',
+      options: [],
     }
     this.handleChange = this.handleChange.bind(this)
     this.updateOptions = debounce(this.updateOptions.bind(this), 200)
@@ -25,26 +24,26 @@ class RemoteSelect extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleClick)
+    document.addEventListener('click', this.handleClick)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
+    document.removeEventListener('click', this.handleClick)
   }
 
   handleClick(e) {
     if (!this.wrapper.contains(e.target)) {
-      this.setState({options: []})
+      this.setState({ options: [] })
     }
   }
 
   handleChange(e) {
     const { schema } = this.props
 
-    this.setState({filter: e.target.value})
+    this.setState({ filter: e.target.value })
     e.target.value || schema.properties.inScheme
       ? this.updateOptions()
-      : this.setState({options: []})
+      : this.setState({ options: [] })
   }
 
   updateOptions() {
@@ -58,19 +57,18 @@ class RemoteSelect extends React.Component {
     } else {
       const params = {
         q: `${filter}*`,
-        'filter.about.@type': schema.properties['@type'].enum
+        'filter.about.@type': schema.properties['@type'].enum,
       }
       const url = getURL({
         path: '/resource/',
-        params
+        params,
       })
       apiCall = api.get(url)
     }
-    apiCall.then(result => this.setState({options: result.member.map(member => member.about)}))
+    apiCall.then(result => this.setState({ options: result.member.map(member => member.about) }))
   }
 
   showOption(option) {
-
     const { schema, translate } = this.props
     const { filter } = this.state
 
@@ -80,7 +78,9 @@ class RemoteSelect extends React.Component {
   }
 
   optionList(options) {
-    const {name, translate, setValue, formId} = this.props
+    const {
+      name, translate, setValue, formId,
+    } = this.props
 
     return (
       <ul>
@@ -100,10 +100,10 @@ class RemoteSelect extends React.Component {
               className={this.showOption(option) ? null : 'hidden'}
               onKeyDown={e => triggerClick(e, 13)}
             >
-              <Icon type={option["@type"]} />
+              <Icon type={option['@type']} />
               &nbsp;
               {translate(option.name)}
-              {option.alternateName ? ` (${translate(option.alternateName)})`: ''}
+              {option.alternateName ? ` (${translate(option.alternateName)})` : ''}
             </label>
             {option.narrower && this.optionList(option.narrower)}
           </li>
@@ -114,18 +114,19 @@ class RemoteSelect extends React.Component {
 
   render() {
     const {
-      name, property, value, setValue, errors, title, translate, className, formId, required, schema, description
+      name, property, value, setValue, errors, title,
+      translate, className, formId, required, schema, description,
     } = this.props
     const { filter, options } = this.state
 
     return (
       <div
         ref={el => this.wrapper = el}
-        className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+        className={`RemoteSelect ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}
         aria-labelledby={`${formId}-${name}-label`}
         onKeyDown={(e) => {
           if (e.keyCode === 27) {
-            this.setState({options: []})
+            this.setState({ options: [] })
           }
         }}
         role="button"
@@ -160,7 +161,7 @@ class RemoteSelect extends React.Component {
               onChange={e => setValue(e.target.checked ? value : undefined)}
             />
             <label htmlFor={`${formId}-${name}-${value['@id']}`} tabIndex="0" role="button">
-              <Icon type={value["@type"]} />
+              <Icon type={value['@type']} />
               &nbsp;
               {translate(value.name)}
             </label>
@@ -178,8 +179,7 @@ class RemoteSelect extends React.Component {
                   translate('ClientTemplates.resource_typehead.search')
                     .concat(' ')
                     .concat((schema.properties['@type'].enum || [])
-                      .map(type => translate(type)).join(' or ')
-                    )
+                      .map(type => translate(type)).join(' or '))
                 }
                 onChange={this.handleChange}
               />
@@ -194,7 +194,6 @@ class RemoteSelect extends React.Component {
       </div>
     )
   }
-
 }
 
 RemoteSelect.propTypes = {
@@ -210,7 +209,7 @@ RemoteSelect.propTypes = {
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 RemoteSelect.defaultProps = {
@@ -220,7 +219,7 @@ RemoteSelect.defaultProps = {
   title: '',
   className: '',
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withI18n(withApi(withFormData(RemoteSelect)))

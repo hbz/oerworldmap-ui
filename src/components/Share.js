@@ -1,5 +1,3 @@
-/* global URL */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -7,8 +5,9 @@ import withI18n from './withI18n'
 
 import '../styles/components/Share.pcss'
 
-const Share = ({_self, translate, embedValue}) => {
-
+const Share = ({
+  _self, translate, embedValue,
+}) => {
   const embed = new URL(_self)
   embedValue && embed.searchParams.set('embed', embedValue)
 
@@ -51,11 +50,11 @@ const Share = ({_self, translate, embedValue}) => {
 Share.propTypes = {
   _self: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
 }
 
 Share.defaultProps = {
-  embedValue: null
+  embedValue: null,
 }
 
 export default withI18n(Share)

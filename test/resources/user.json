@@ -5,12 +5,9 @@
     "admin"
   ],
   "id": "FAKE-ID",
-  "name": [
-    {
-      "@value": "Fake User",
-      "@language": "en"
-    }
-  ],
+  "name": {
+    "en": "Fake User"
+  },
   "_self": "http://oerworldmap.local:80/user/profile",
   "_status": "OK"
 }

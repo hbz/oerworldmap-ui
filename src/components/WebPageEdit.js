@@ -16,24 +16,27 @@ import Link from './Link'
 
 import expose from '../expose'
 
-const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, schema, closeLink, showOptionalFields, _self}) => (
+const WebPageEdit = ({
+  about, emitter, translate, action, mapboxConfig,
+  user, schema, closeLink, showOptionalFields, _self,
+}) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
-    onSubmit={data => {
-      if (_self && _self.includes("?add")) {
-        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', "SubmitButtonClick"])
+    onSubmit={(data) => {
+      if (_self && _self.includes('?add')) {
+        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', 'SubmitButtonClick'])
       } else {
-        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', "SubmitButtonClick"])
+        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', 'SubmitButtonClick'])
       }
 
-      emitter.emit('submit', {url: `/resource/${about['@id'] || ''}`, data})
+      emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })
     }}
     onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
       .scrollTop = document.querySelector('.hasError').offsetTop
     )}
   >
-    <h2>{translate(action, {type: translate(about['@type'])})}</h2>
+    <h2>{translate(action, { type: translate(about['@type']) })}</h2>
     <a
       href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
       target="_blank"
@@ -44,11 +47,11 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
     </a>
     <Builder
       schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)}
-      config={{mapboxConfig}}
+      config={{ mapboxConfig }}
       key={uniqueId()}
       showOptionalFields={showOptionalFields}
     />
-    <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
+    <p className="agree" dangerouslySetInnerHTML={{ __html: translate('ResourceIndex.index.agreeMessage') }} />
 
     <div className="formButtons">
       <div className="primaryButtons">
@@ -61,10 +64,10 @@ const WebPageEdit = ({about, emitter, translate, action, mapboxConfig, user, sch
         <button
           className="btn delete"
           type="button"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault()
             confirm(translate('other.deleteResource')) && emitter.emit('delete', {
-              url: `/resource/${about['@id']}`
+              url: `/resource/${about['@id']}`,
             })
           }}
         >
@@ -86,20 +89,20 @@ WebPageEdit.propTypes = {
       token: PropTypes.string,
       style: PropTypes.string,
       miniMapStyle: PropTypes.string,
-    }
+    },
   ).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   closeLink: PropTypes.string,
   showOptionalFields: PropTypes.bool,
-  _self: PropTypes.string.isRequired
+  _self: PropTypes.string.isRequired,
 }
 
 WebPageEdit.defaultProps = {
   action: 'edit',
   user: null,
   closeLink: null,
-  showOptionalFields: true
+  showOptionalFields: true,
 }
 
 export default withI18n(withEmitter(WebPageEdit))

@@ -1,11 +1,8 @@
-@import '../variables.pcss';
-
 .MobileNavigation {
   background-color: var(--white);
   height: 30px;
   border-bottom: 1px solid var(--blue-light);
   align-items: center;
-  padding: 0 10px;
   display: none;
   z-index: 2;
   justify-content: space-between;
@@ -16,8 +13,14 @@
     flex: 1;
   }
 
-  & i.active {
-    color: var(--orange);
+  & i {
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+
+    &.active {
+      color: var(--orange);
+    }
   }
 
   @media screen and (--mobile-breakpoint) {

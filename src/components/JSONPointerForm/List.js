@@ -6,10 +6,11 @@ import withFormData from './withFormData'
 import { objectMap } from '../../common'
 
 const List = ({
-  name, value, children, errors, property, title, className, translate, maxItems, formId, required, description
+  name, value, children, errors, property, title,
+  className, translate, maxItems, formId, required, description,
 }) => (
   <div
-    className={`List ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+    className={`List ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}
     role="group"
     aria-labelledby={`${formId}-${name}-label`}
   >
@@ -50,7 +51,7 @@ const List = ({
                 id={`${formId}-${name}-toggle`}
               />
               <label htmlFor={`${formId}-${name}-toggle`}>
-                {translate('add', {type: translate(title)})}
+                {translate('add', { type: translate(title) })}
               </label>
               <div className="newItem">
                 {React.cloneElement(children)}
@@ -75,7 +76,7 @@ List.propTypes = {
   maxItems: PropTypes.number,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 List.defaultProps = {
@@ -86,7 +87,7 @@ List.defaultProps = {
   className: '',
   maxItems: undefined,
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(List)

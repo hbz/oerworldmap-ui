@@ -5,11 +5,10 @@ import withEmitter from './withEmitter'
 import '../styles/components/Loading.pcss'
 
 class Loading extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      loading: true
+      loading: true,
     }
   }
 
@@ -17,7 +16,7 @@ class Loading extends React.Component {
     const { emitter } = this.props
 
     emitter.on('setLoading', (state) => {
-      this.setState({loading: state})
+      this.setState({ loading: state })
     })
   }
 
@@ -37,7 +36,7 @@ class Loading extends React.Component {
 }
 
 Loading.propTypes = {
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(Loading)

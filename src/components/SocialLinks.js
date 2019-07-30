@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 
 import '../styles/components/SocialLinks.pcss'
 
-const SocialLinks = ({links}) => (
+const SocialLinks = ({ links }) => (
   <div className="SocialLinks">
-    {links.map(link => {
-
+    {links.map((link) => {
       let icon = 'external-link-square'
 
       if (link.includes('facebook')) {
@@ -57,7 +56,7 @@ const SocialLinks = ({links}) => (
 )
 
 SocialLinks.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.string).isRequired
+  links: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default SocialLinks

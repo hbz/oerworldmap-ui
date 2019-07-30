@@ -11,7 +11,7 @@ import withEmitter from './withEmitter'
 import FullModal from './FullModal'
 import Link from './Link'
 
-const Register = ({translate, emitter, schema}) => (
+const Register = ({ translate, emitter, schema }) => (
   <div className="Register">
     <FullModal closeLink={Link.back}>
       <div>
@@ -27,9 +27,9 @@ const Register = ({translate, emitter, schema}) => (
 
       <div className="block forgotPassword">
         <Form
-          data={{'@type': 'ResetPasswordAction'}}
+          data={{ '@type': 'ResetPasswordAction' }}
           validate={validate(JsonSchema(schema).get('#/definitions/ResetPasswordAction'))}
-          onSubmit={data => emitter.emit('submit', {url: '/user/password/reset', data})}
+          onSubmit={data => emitter.emit('submit', { url: '/user/password/reset', data })}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/ResetPasswordAction')} />
           <div className="buttons">
@@ -40,9 +40,9 @@ const Register = ({translate, emitter, schema}) => (
 
       <div className="block registerForm newRegister">
         <Form
-          data={{'@type': 'RegisterAction'}}
+          data={{ '@type': 'RegisterAction' }}
           validate={validate(JsonSchema(schema).get('#/definitions/RegisterAction'))}
-          onSubmit={data => emitter.emit('submit', {url: '/user/register', data})}
+          onSubmit={data => emitter.emit('submit', { url: '/user/register', data })}
         >
           <Builder schema={JsonSchema(schema).get('#/definitions/RegisterAction')} />
           <div className="buttons">
@@ -58,7 +58,7 @@ const Register = ({translate, emitter, schema}) => (
 Register.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(withI18n(Register))

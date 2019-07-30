@@ -5,7 +5,7 @@ import withI18n from './withI18n'
 
 import '../styles/components/Export.pcss'
 
-const Export = ({_links, translate}) => (
+const Export = ({ _links, translate }) => (
   <div className="Export">
     <h2>{translate('export.export')}</h2>
     <div className="exportContent">
@@ -18,7 +18,7 @@ const Export = ({_links, translate}) => (
 
 Export.propTypes = {
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
 }
 
 export default withI18n(Export)

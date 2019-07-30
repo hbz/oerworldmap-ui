@@ -6,36 +6,35 @@ import withFormData from './withFormData'
 import { triggerClick, objectMap } from '../../common'
 
 class DropdownSelect extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      filter: "",
+      filter: '',
       dropdown: false,
-      labels: props.options.reduce((acc, curr) => {
-        return Object.assign(acc, {[curr]: props.translate(curr).toLowerCase()})
-      }, {})
+      labels: props.options
+        .reduce((acc, curr) => Object
+          .assign(acc, { [curr]: props.translate(curr).toLowerCase() }), {}),
     }
     this.optionFilter = this.optionFilter.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleClick)
+    document.addEventListener('click', this.handleClick)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
+    document.removeEventListener('click', this.handleClick)
   }
 
   handleClick(e) {
     if (!this.wrapper.contains(e.target)) {
-      this.setState({dropdown:false})
+      this.setState({ dropdown: false })
     }
   }
 
   optionFilter() {
-    const { filter, labels} = this.state
+    const { filter, labels } = this.state
     return option => !filter
       || option.toLowerCase().search(filter.trim().toLowerCase()) !== -1
       || labels[option].search(filter.trim().toLowerCase()) !== -1
@@ -44,7 +43,7 @@ class DropdownSelect extends React.Component {
   render() {
     const {
       name, property, value, options, setValue, errors, title, translate, className, formId,
-      required, description
+      required, description,
     } = this.props
 
     const { dropdown, filter } = this.state
@@ -93,7 +92,7 @@ class DropdownSelect extends React.Component {
             className="dropdownContainer"
             onKeyDown={(e) => {
               if (e.keyCode === 27) {
-                this.setState({dropdown: false})
+                this.setState({ dropdown: false })
               }
             }}
             role="presentation"
@@ -101,13 +100,13 @@ class DropdownSelect extends React.Component {
             <button
               type="button"
               className={`toggleDropdown ${errors.length ? 'error' : ''}`.trim()}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault()
-                this.setState({dropdown: !dropdown})
+                this.setState({ dropdown: !dropdown })
               }}
             >
               {!errors.length
-                ? translate('select', {name: translate(title)})
+                ? translate('select', { name: translate(title) })
                 : errors.map(error => translate(`Error.${error.keyword}`, objectMap(error.params, translate))).join(', ')
               }
             </button>
@@ -117,7 +116,7 @@ class DropdownSelect extends React.Component {
                   type="text"
                   className="filter"
                   placeholder="..."
-                  onChange={e => this.setState({filter: e.target.value})}
+                  onChange={e => this.setState({ filter: e.target.value })}
                   value={filter}
                   ref={el => dropdown && el && el.focus()}
                 />
@@ -131,9 +130,9 @@ class DropdownSelect extends React.Component {
                       value={option}
                       id={`${formId}-${name}-${option}`}
                       checked={value === option}
-                      onChange={e => {
+                      onChange={(e) => {
                         setValue(e.target.checked ? e.target.value : undefined)
-                        this.setState({filter: "", dropdown: false})
+                        this.setState({ filter: '', dropdown: false })
                       }}
                     />
                     <label
@@ -153,7 +152,6 @@ class DropdownSelect extends React.Component {
       </div>
     )
   }
-
 }
 
 DropdownSelect.propTypes = {
@@ -168,7 +166,7 @@ DropdownSelect.propTypes = {
   className: PropTypes.string,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 DropdownSelect.defaultProps = {
@@ -178,7 +176,7 @@ DropdownSelect.defaultProps = {
   title: '',
   className: '',
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(DropdownSelect)

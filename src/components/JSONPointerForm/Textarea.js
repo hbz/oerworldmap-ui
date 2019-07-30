@@ -7,9 +7,9 @@ import { appendOnFocus, objectMap } from '../../common'
 
 const Textarea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
-  formId, required, description
+  formId, required, description,
 }) => (
-  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}
@@ -54,7 +54,7 @@ Textarea.propTypes = {
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 Textarea.defaultProps = {
@@ -65,7 +65,7 @@ Textarea.defaultProps = {
   className: '',
   shouldFormComponentFocus: false,
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(Textarea)
