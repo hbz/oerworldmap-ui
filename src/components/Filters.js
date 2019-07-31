@@ -1,8 +1,11 @@
 /* global FormData */
 /* global Event */
+/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import Tooltip from 'rc-tooltip'
+
 import '../styles/components/Filters.pcss'
 
 import withEmitter from './withEmitter'
@@ -123,6 +126,7 @@ class Filters extends React.Component {
         v => secondaryFilters.map(f => f.name).includes(v),
       ),
       filtersCollapsed: false,
+      showPins: props.initPins,
     }
 
     this.sizes = [20, 50, 100, 200]
@@ -204,7 +208,7 @@ class Filters extends React.Component {
       filters, sort, translate, query, emitter,
       aggregations, totalItems, size, _self, _links, view, embedValue, country, region,
     } = this.props
-    const { extended, filtersCollapsed } = this.state
+    const { extended, filtersCollapsed, showPins } = this.state
 
     const filter = filters && filters['about.@type'] || false
     const hasFilters = (Object.keys(filters).length > 0) || query
@@ -247,43 +251,64 @@ class Filters extends React.Component {
         >
           <div className={`FiltersControls ${filtersCollapsed ? ' filtersCollapsed' : ''}`}>
 
-            <div className="filterSearch">
-              <input
-                type="text"
-                name="q"
-                defaultValue={query}
-                key={query}
-                placeholder={searchPlaceholder}
-              />
-
-              <button
-                type="submit"
-                className={!hasFilters ? 'withoutFilters' : null}
-              >
-                <i
-                  aria-hidden="true"
-                  className="fa fa-search"
-                  title="Search"
+            <div className="firstRow">
+              <div className="filterSearch">
+                <input
+                  type="text"
+                  name="q"
+                  defaultValue={query}
+                  key={query}
+                  placeholder={searchPlaceholder}
                 />
-              </button>
 
-              {hasFilters && (
                 <button
-                  type="reset"
-                  className="clearFilter"
-                  title={translate('ClientTemplates.filter.clear')}
+                  type="submit"
+                  className={!hasFilters ? 'withoutFilters' : null}
                 >
-                  &times;
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-search"
+                    title="Search"
+                  />
                 </button>
-              )}
 
-              <noscript>
-                <div className="search-bar">
-                  <input type="submit" className="btn" />
-                </div>
-              </noscript>
+                {hasFilters && (
+                  <button
+                    type="reset"
+                    className="clearFilter"
+                    title={translate('ClientTemplates.filter.clear')}
+                  >
+                    &times;
+                  </button>
+                )}
+
+                <noscript>
+                  <div className="search-bar">
+                    <input type="submit" className="btn" />
+                  </div>
+                </noscript>
+              </div>
+
+              <Tooltip
+                overlay={(
+                  showPins ? translate('Hide pins') : translate('Show pins')
+                )}
+                placement="top"
+                mouseEnterDelay={0.2}
+              >
+                <button
+                  className={`togglePins${showPins ? ' checked' : ''}`}
+                  onClick={() => {
+                    localStorage.setItem('showPins', !showPins)
+                    emitter.emit('showFeatures', !showPins)
+                    this.setState({ showPins: !showPins })
+                  }}
+                  title={translate(showPins ? 'Hide pins' : 'Show pins')}
+                >
+                  <i aria-hidden="true" className="fa fa-map-marker" />
+                </button>
+              </Tooltip>
             </div>
-
 
             <div className="filterType primary">
               {primaryFilters.map(filterDef => this.getFilter(filterDef))}
@@ -471,6 +496,7 @@ Filters.propTypes = {
   embedValue: PropTypes.string,
   country: PropTypes.string,
   region: PropTypes.string,
+  initPins: PropTypes.bool.isRequired,
 }
 
 Filters.defaultProps = {

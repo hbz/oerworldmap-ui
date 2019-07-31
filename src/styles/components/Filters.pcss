@@ -50,9 +50,14 @@
     }
   }
 
-  & .filterSearch {
+  & .firstRow {
     display: flex;
     padding-bottom: 15px;
+  }
+
+  & .filterSearch {
+    flex: 1;
+    display: flex;
     position: relative;
     margin-left: 0;
     transition: 0.2s margin-left;
@@ -403,13 +408,18 @@
   }
 }
 
-.mapOptions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid transparent;
-  margin-bottom: 10px;
-  padding: 5px;
+.togglePins {
   border-radius: var(--border-radius);
-  transition: background-color 1s, border-color 1s;
+  border: 1px solid var(--blue-light);
+  background-color: var(--white);
+  color: var(--blue);
+  font-size: var(--font-size);
+  margin-left: 5px;
+  padding: 0 15px;
+
+  &.checked {
+    background-color: var(--blue-dark);
+    border-color: var(--blue-dark);
+    color: var(--white);
+  }
 }
