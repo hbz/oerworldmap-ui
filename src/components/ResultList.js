@@ -59,7 +59,7 @@ const ResultList = ({ translate, emitter, listItems }) => (
             )}
           </div>
         )}
-        {listItem.description && (
+        {listItem.description && typeof translate(listItem.description) === 'string' && (
           <div className="resultListDescription">
             {removeMd(translate(listItem.description)).slice(0, 200)}
             ...&nbsp;
