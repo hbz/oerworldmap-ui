@@ -34,7 +34,7 @@ class DropdownFilter extends React.Component {
     } = this.props
     const { search, showContent } = this.state
 
-    const list = buckets.map((bucket, i) => (
+    const list = showContent ? buckets.map((bucket, i) => (
       <li key={bucket.key}>
         {!filter.includes(bucket.key) ? (
           <React.Fragment>
@@ -74,7 +74,7 @@ class DropdownFilter extends React.Component {
         )}
 
       </li>
-    ))
+    )) : []
 
     return (
       <div
