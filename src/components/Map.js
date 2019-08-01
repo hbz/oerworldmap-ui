@@ -1,7 +1,6 @@
 /* global document */
 /* global window */
 /* global navigator */
-/* global localStorage */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -9,7 +8,6 @@ import ReactDOM from 'react-dom'
 
 import { scaleLog, quantile, interpolateHcl } from 'd3'
 
-import Tooltip from 'rc-tooltip'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import centroids from '../json/centroids.json'
 
@@ -60,9 +58,7 @@ const renderTypes = types => (
 class Map extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      showPins: props.initPins,
-    }
+    this.state = {}
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -733,7 +729,7 @@ class Map extends React.Component {
     const {
       iso3166, emitter, translate, aggregations,
     } = this.props
-    const { overlayList, colors, showPins } = this.state
+    const { overlayList, colors } = this.state
 
     return (
       <div
@@ -754,26 +750,6 @@ class Map extends React.Component {
         }}
         role="presentation"
       >
-        <Tooltip
-          overlay={(
-            showPins ? translate('Hide pins') : translate('Show pins')
-          )}
-          placement="top"
-          mouseEnterDelay={0.2}
-        >
-          <button
-            className={`togglePins${showPins ? ' checked' : ''}`}
-            onClick={() => {
-              localStorage.setItem('showPins', !showPins)
-              emitter.emit('showFeatures', !showPins)
-              this.setState({ showPins: !showPins })
-            }}
-            title={translate(showPins ? 'Hide pins' : 'Show pins')}
-          >
-            <i aria-hidden="true" className="fa fa-map-marker" />
-          </button>
-        </Tooltip>
-
         {overlayList && <div className="overlayList" />}
 
         {colors && (

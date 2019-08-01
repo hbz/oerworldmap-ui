@@ -63,6 +63,7 @@ const ResourceIndex = ({
             country={iso3166}
             isEmbed={isEmbed}
             region={region}
+            initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
