@@ -45,8 +45,8 @@ server.use(express.static(path.join(__dirname, '/../dist')))
 
 // Middleware to check browser support
 server.use((req, res, next) => {
-  const ua = userAgent.parse(req.headers['user-agent'])
-  ua.isIE && res.send('Sorry, your browser is not supported') || next()
+  const ua = req.headers['user-agent'] && userAgent.parse(req.headers['user-agent'])
+  ua && ua.isIE && res.send('Sorry, your browser is not supported') || next()
 })
 
 // Middleware to fetch user profile
