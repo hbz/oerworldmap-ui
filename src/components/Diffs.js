@@ -24,7 +24,6 @@ const Diffs = ({
         <WebPageView
           view="view"
           id="view"
-          _self="http://foo.bar/"
           about={compare.about}
           schema={schema}
           expandAll
@@ -39,7 +38,6 @@ const Diffs = ({
         <WebPageView
           view="view"
           id="view"
-          _self="http://foo.bar/"
           about={to.about}
           schema={schema}
           expandAll
