@@ -6,7 +6,9 @@ import ResourceImage from './ResourceImage'
 
 import '../styles/components/WebPageCover.pcss'
 
-const WebPageCover = ({ feature, about, mapboxConfig }) => {
+const WebPageCover = ({
+  feature, about, mapboxConfig, view,
+}) => {
   const country = (about
     && about.location
     && about.location[0]
@@ -24,7 +26,7 @@ const WebPageCover = ({ feature, about, mapboxConfig }) => {
         center={geometry ? undefined : (country && centroids[country])}
       />
 
-      <ResourceImage about={about} className="webPageCoverImage" />
+      <ResourceImage about={about} className="webPageCoverImage" view={view} />
     </div>
   )
 }
@@ -39,6 +41,7 @@ WebPageCover.propTypes = {
       miniMapStyle: PropTypes.string,
     },
   ).isRequired,
+  view: PropTypes.string.isRequired,
 }
 
 WebPageCover.defaultProps = {
