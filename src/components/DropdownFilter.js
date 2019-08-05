@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
-import { triggerClick } from '../common'
+import { triggerClick, debounce } from '../common'
 
 import '../styles/components/DropdownFilter.pcss'
 
@@ -13,9 +13,14 @@ class DropdownFilter extends React.Component {
     this.state = {
       showContent: false,
       search: '',
+      total: 100,
     }
 
     this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ total: 100 })
   }
 
   handleClick(e) {
@@ -32,9 +37,13 @@ class DropdownFilter extends React.Component {
     const {
       buckets, filter, filterName, translateItems, icon, translate, submit, emitter,
     } = this.props
-    const { search, showContent } = this.state
+    const { search, showContent, total } = this.state
 
-    const list = buckets.map((bucket, i) => (
+    const elements = showContent ? (buckets.filter(bucket => translateItems(bucket.label
+      || bucket.key).toLowerCase().includes(search.toLowerCase())
+      || bucket.key.toLowerCase() === search.toLowerCase())) : []
+
+    const list = showContent ? elements.slice(0, total || elements.length).map((bucket, i) => (
       <li key={bucket.key}>
         {!filter.includes(bucket.key) ? (
           <React.Fragment>
@@ -43,18 +52,8 @@ class DropdownFilter extends React.Component {
               value={bucket.key}
               name={filterName}
               id={filterName + i}
-              defaultChecked={filter.includes(bucket.key)}
             />
             <label
-              style={{
-                display: (search.length === 0)
-                  || (
-                    translateItems(bucket.label
-                      || bucket.key).toLowerCase().includes(search.toLowerCase())
-                    || bucket.key.toLowerCase() === search.toLowerCase()
-                  )
-                  ? 'block' : 'none',
-              }}
               htmlFor={filterName + i}
               onKeyDown={(e) => {
                 if (e.keyCode === 13) {
@@ -74,7 +73,7 @@ class DropdownFilter extends React.Component {
         )}
 
       </li>
-    ))
+    )) : []
 
     return (
       <div
@@ -126,12 +125,30 @@ class DropdownFilter extends React.Component {
               type="text"
               placeholder="..."
               value={search}
-              onChange={e => this.setState({ search: e.target.value })}
+              onChange={(e) => {
+                debounce(this.setState({ search: e.target.value }), 500)
+              }}
             />
           </div>
           <ul>
             {list.length
-              ? list
+              ? (
+                <>
+                  { list }
+                  {total <= elements.length && (
+                    <li
+                      role="button"
+                      onKeyDown={triggerClick}
+                      className="loadMore"
+                      onClick={() => {
+                        this.setState({ total: total + 200 })
+                      }}
+                    >
+                      Load More
+                    </li>
+                  )}
+                </>
+              )
               : (
                 <li>
                   <label>

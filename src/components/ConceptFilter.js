@@ -153,7 +153,9 @@ class ConceptFilter extends React.Component {
               onChange={e => this.setState({ search: e.target.value })}
             />
           </div>
-          {this.buildTree(filterConcepts(concepts, aggregation.buckets.map(bucket => bucket.key)))}
+          {showContent && (
+            this.buildTree(filterConcepts(concepts, aggregation.buckets.map(bucket => bucket.key)))
+          )}
         </div>
       </div>
     )
