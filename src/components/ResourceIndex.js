@@ -27,7 +27,6 @@ const ResourceIndex = ({
   nextPage,
   previousPage,
   from,
-  features,
   iso3166,
   map,
   view,
@@ -77,8 +76,6 @@ const ResourceIndex = ({
 
               <Pagination
                 totalItems={totalItems}
-                currentPage={currentPage}
-                pages={pages}
                 nextPage={nextPage}
                 previousPage={previousPage}
                 from={from}
@@ -94,10 +91,10 @@ const ResourceIndex = ({
         aggregations={aggregations}
         emitter={emitter}
         mapboxConfig={mapboxConfig}
-        features={features}
         iso3166={iso3166}
         map={map}
         home={home}
+        _links={_links}
         initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
         region={region}
       />
@@ -118,7 +115,6 @@ ResourceIndex.propTypes = {
   nextPage: PropTypes.string,
   previousPage: PropTypes.string,
   from: PropTypes.string.isRequired,
-  features: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   query: PropTypes.string,

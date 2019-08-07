@@ -1,10 +1,14 @@
 /* global document */
 /* global window */
 /* global navigator */
+/* global localStorage */
+/* global requestAnimationFrame */
+/* global Headers */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
+import fetch from 'isomorphic-fetch'
 
 import { scaleLog, quantile, interpolateHcl } from 'd3'
 
@@ -72,12 +76,36 @@ class Map extends React.Component {
     this.choroplethStopsFromBuckets = this.choroplethStopsFromBuckets.bind(this)
     this.zoom = this.zoom.bind(this)
     this.setPinSize = this.setPinSize.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+
+    this.layersOrder = [
+      {
+        name: 'Events',
+        handler: this.clickPoints,
+      },
+      {
+        name: 'points',
+        handler: this.clickPoints,
+      },
+      {
+        name: 'Regions',
+        handler: this.clickRegions,
+      },
+      {
+        name: 'regions-inactive',
+        handler: this.clickRegions,
+      },
+      {
+        name: 'countries',
+        handler: this.clickCountries,
+      },
+    ]
   }
 
   componentDidMount() {
     const {
-      mapboxConfig, map, locales, features,
-      aggregations, iso3166, home, emitter, initPins, region,
+      mapboxConfig, map, locales,
+      aggregations, iso3166, home, emitter, initPins, region, _links,
     } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
@@ -103,7 +131,7 @@ class Map extends React.Component {
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1,
     })
 
-    this.map.once('load', () => {
+    this.map.once('load', async () => {
       this.map.dragRotate.disable()
       this.map.touchZoomRotate.disableRotation()
 
@@ -119,15 +147,27 @@ class Map extends React.Component {
         this.hoverPopup.remove()
       })
 
-      // Set data source for points layers
+      // Set data sources as empty for points layers
       this.map.addSource('pointsSource', {
         type: 'geojson',
-        data: features,
+        data: {
+          type: 'FeatureCollection',
+          features: [],
+        },
+      })
+
+      this.map.addSource('eventsSource', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [],
+        },
       })
 
       // Hack to use Mapbox studio styles with local data (source)
+      const allLayers = this.map.getStyle().layers
       pointsLayers.forEach((layer) => {
-        const pointsLayer = this.map.getStyle().layers.find(l => l.id === layer)
+        const pointsLayer = allLayers.find(l => l.id === layer)
         delete pointsLayer['source-layer']
         this.map.removeLayer(layer)
         pointsLayer.source = 'pointsSource'
@@ -138,6 +178,56 @@ class Map extends React.Component {
           ? this.map.setLayoutProperty(layer, 'visibility', 'visible')
           : this.map.setLayoutProperty(layer, 'visibility', 'none')
       })
+
+      const framesPerSecond = 15
+      const initialOpacity = 0.9
+      let opacity = initialOpacity
+      const initialRadius = window.innerWidth <= 700 ? 10 : 5
+      let radius = initialRadius
+      const maxRadius = 18
+
+      this.map.addLayer({
+        id: 'EventsGlow',
+        source: 'eventsSource',
+        type: 'circle',
+        paint: {
+          'circle-radius': initialRadius,
+          'circle-radius-transition': { duration: 0 },
+          'circle-opacity-transition': { duration: 0 },
+          'circle-color': '#f93',
+        },
+      })
+
+      this.map.addLayer({
+        id: 'Events',
+        source: 'eventsSource',
+        type: 'circle',
+        paint: {
+          'circle-radius': initialRadius,
+          'circle-stroke-color': 'hsl(0, 0%, 100%)',
+          'circle-stroke-width': 1,
+          'circle-color': '#f93',
+        },
+      })
+
+      const animateMarker = () => {
+        setTimeout(() => {
+          requestAnimationFrame(animateMarker)
+
+          radius += (maxRadius - radius) / framesPerSecond
+          opacity -= (0.9 / framesPerSecond)
+
+          this.map.setPaintProperty('EventsGlow', 'circle-radius', radius)
+          this.map.setPaintProperty('EventsGlow', 'circle-opacity', opacity)
+
+          if (opacity <= 0.1) {
+            radius = initialRadius
+            opacity = initialOpacity
+          }
+        }, 1000 / framesPerSecond)
+      }
+
+      this.updatePoints(_links)
 
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
@@ -171,12 +261,7 @@ class Map extends React.Component {
       // Reset the point hover layer's filter when the mouse leaves the layer.
       this.map.on('mouseleave', 'points', this.mouseLeave)
 
-      this.map.on('click', 'points', this.clickPoints)
-
-      this.map.on('click', 'countries', this.clickCountries)
-
-      this.map.on('click', 'Regions', this.clickRegions)
-      this.map.on('click', 'regions-inactive', this.clickRegions)
+      this.map.on('click', this.handleClick)
 
       // Receive event from ItemList
       emitter.on('hoverPoint', (e) => {
@@ -201,6 +286,9 @@ class Map extends React.Component {
       emitter.on('hideOverlay', () => {
         this.popup ? this.popup.remove() : null
       })
+
+      // Start the animation for events
+      animateMarker()
     })
 
     // Create popup for hover
@@ -226,7 +314,7 @@ class Map extends React.Component {
     this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
-    this.updatePoints(nextProps.features)
+    this.updatePoints(nextProps._links)
   }
 
   componentWillUnmount() {
@@ -252,6 +340,7 @@ class Map extends React.Component {
     pointsLayers.forEach((layer) => {
       this.map.setPaintProperty(layer, 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
     })
+    this.map.setPaintProperty('Events', 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
   }
 
   zoom(e) {
@@ -287,6 +376,7 @@ class Map extends React.Component {
       const {
         translate, iso3166, aggregations, phrases, locales, emitter, region,
       } = this.props
+      const hoveredEvents = this.map.queryRenderedFeatures(e.point, { layers: ['Events'] })
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
       const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
@@ -309,7 +399,30 @@ class Map extends React.Component {
 
         let popupContent
 
-        if (hoveredPoints.length) {
+        if (hoveredEvents.length) {
+          popupContent = (
+            <ul className="list">
+              <li>
+                <I18nProvider i18n={i18n(locales, phrases)}>
+                  <EmittProvider emitter={emitter}>
+                    <ResourcePreview
+                      about={Object.assign(hoveredEvents[0].properties, {
+                        name: JSON.parse(hoveredEvents[0].properties.name),
+                        location: [JSON.parse(hoveredEvents[0].properties.location)],
+                        additionalType: hoveredEvents[0].properties.additionalType
+                          && JSON.parse(hoveredEvents[0].properties.additionalType)
+                          || undefined,
+                        alternateName: hoveredEvents[0].properties.alternateName
+                          && JSON.parse(hoveredEvents[0].properties.alternateName)
+                          || undefined,
+                      })}
+                    />
+                  </EmittProvider>
+                </I18nProvider>
+              </li>
+            </ul>
+          )
+        } else if (hoveredPoints.length) {
           if (hoveredPoints.length > 6) {
             popupContent = (
               <ul>
@@ -635,15 +748,15 @@ class Map extends React.Component {
     this.map.getCanvas().style.cursor = ''
   }
 
-  clickPoints(e) {
+  clickPoints(e, features) {
     const { translate, emitter } = this.props
-    if (e.features.length > 6 && this.map.getZoom() !== this.map.getMaxZoom()) {
+    if (features.length > 6 && this.map.getZoom() !== this.map.getMaxZoom()) {
       this.map.flyTo({
         center: e.lngLat,
         zoom: this.map.getZoom() + 5,
       })
-    } else if (e.features.length > 1) {
-      const list = e.features.map(feature => (
+    } else if (features.length > 1) {
+      const list = features.map(feature => (
         <li key={feature.properties['@id']}>
           <Link href={feature.properties['@id']}>
             <Icon type={feature.properties['@type']} />
@@ -656,7 +769,14 @@ class Map extends React.Component {
       const popupDOM = document.createElement('div')
       ReactDOM.render(
         <EmittProvider emitter={emitter}>
-          <div className="tooltip">
+          <div
+            className="tooltip"
+            style={
+              {
+                zIndex: 9,
+                pointerEvents: 'all',
+              }}
+          >
             <ul className="list">{list}</ul>
           </div>
         </EmittProvider>,
@@ -673,7 +793,7 @@ class Map extends React.Component {
             offset: this.popupOffsets,
           },
         )
-          .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : e.features[0].geometry.coordinates)
+          .setLngLat(this.hoverPopup ? this.hoverPopup._lngLat : features[0].geometry.coordinates)
           .setDOMContent(popupDOM)
           .addTo(this.map)
 
@@ -686,43 +806,78 @@ class Map extends React.Component {
         })
       }
     } else {
-      this.map.setFilter('points-select', ['in', '@id'].concat(e.features[0].properties['@id']))
       // Click on a single resource
-      const url = `/resource/${e.features[0].properties['@id']}`
+      const url = `/resource/${features[0].properties['@id']}`
       emitter.emit('navigate', url)
     }
   }
 
-  clickCountries(e) {
-    const { emitter } = this.props
+  clickCountries(e, features) {
     if (this.popup && this.popup.isOpen()) return
-    // Check if a point is clicked too and do nothing in that case
-    const points = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
-    const regions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
-    const regionsInactive = this.map.queryRenderedFeatures(e.point, { layers: ['regions-inactive'] })
 
-    if (!points.length && !regions.length && !regionsInactive.length) {
-      if (e.features[0].properties.iso_a2 !== '-99') {
-        emitter.emit('navigate', `/country/${e.features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
-      }
+    const { emitter } = this.props
+
+    if (features[0].properties.iso_a2 !== '-99') {
+      emitter.emit('navigate', `/country/${features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
     }
   }
 
-  clickRegions(e) {
-    const { emitter } = this.props
-    const [country, region] = e.features[0].properties.code_hasc.toLowerCase().split('.')
-
+  clickRegions(e, features) {
     if (this.popup && this.popup.isOpen()) return
-    const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
-    if (!features.length) {
-      if (e.features[0].properties.iso_a2 !== '-99') {
-        emitter.emit('navigate', `/country/${country}/${region}`)
-      }
+
+    const { emitter } = this.props
+    const [country, region] = features[0].properties.code_hasc.toLowerCase().split('.')
+    if (features[0].properties.iso_a2 !== '-99') {
+      emitter.emit('navigate', `/country/${country}/${region}`)
     }
   }
 
-  updatePoints(features) {
-    this.map.getSource('pointsSource').setData(features)
+  async updatePoints(_links) {
+    this.map.setPaintProperty('points', 'circle-radius', 0)
+    this.map.setPaintProperty('points', 'circle-opacity', 0)
+    this.map.setPaintProperty('points', 'circle-stroke-opacity', 0)
+
+    const { uri } = _links.refs.find(link => link.type === 'application/geo+json') || {}
+
+    const response = await fetch(uri)
+    const json = await response.json()
+
+    // const events = json.features.filter(feature => feature.properties['@type'] === 'Event')
+    this.map.getSource('pointsSource').setData(json)
+
+    const headers = new Headers({
+      Accept: 'application/geo+json',
+    })
+
+    const eventsURL = new URL(uri)
+    const date = new Date().toJSON().split('T').shift()
+    eventsURL.searchParams.set('filter.about.@type', 'Event')
+    // eventsURL.searchParams.set('filter.about.startDate.GTE', '1970')
+    eventsURL.searchParams.set('q', `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`)
+
+    console.log(eventsURL)
+
+    const eventsResponse = await fetch(eventsURL.href, { headers })
+    const events = await eventsResponse.json()
+    console.log(events)
+
+    this.map.getSource('eventsSource').setData(events)
+
+    this.map.setPaintProperty('points', 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
+    this.map.setPaintProperty('points', 'circle-opacity', 1)
+    this.map.setPaintProperty('points', 'circle-stroke-opacity', 1)
+  }
+
+  handleClick(e) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const layer of this.layersOrder) {
+      const features = this.map.queryRenderedFeatures(e.point, { layers: [layer.name] })
+      if (features.length) {
+        console.log(layer.name, features)
+        layer.handler(e, features)
+        return
+      }
+    }
   }
 
   render() {
@@ -800,7 +955,7 @@ Map.propTypes = {
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  features: PropTypes.objectOf(PropTypes.any).isRequired,
+  _links: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
