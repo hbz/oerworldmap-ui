@@ -184,7 +184,7 @@ class Map extends React.Component {
       let opacity = initialOpacity
       const initialRadius = window.innerWidth <= 700 ? 10 : 5
       let radius = initialRadius
-      const maxRadius = 18
+      const maxRadius = 50
 
       this.map.addLayer({
         id: 'EventsGlow',
