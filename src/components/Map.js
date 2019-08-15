@@ -1,7 +1,6 @@
 /* global document */
 /* global window */
 /* global navigator */
-/* global localStorage */
 /* global requestAnimationFrame */
 /* global Headers */
 
@@ -77,6 +76,7 @@ class Map extends React.Component {
     this.zoom = this.zoom.bind(this)
     this.setPinSize = this.setPinSize.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.animateCircleLayer = this.animateCircleLayer.bind(this)
 
     this.layersOrder = [
       {
@@ -323,9 +323,7 @@ class Map extends React.Component {
     this.map.off('mousemove', this.mouseMove)
     this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
-    this.map.off('click', 'points', this.clickCountries)
-    this.map.off('click', 'countries', this.clickCountries)
-    this.map.off('click', 'Regions', this.clickRegions)
+    this.map.off('click', this.handleClick)
   }
 
   getBucket(location, aggregation) {
@@ -833,16 +831,14 @@ class Map extends React.Component {
   }
 
   async updatePoints(_links) {
-    this.map.setPaintProperty('points', 'circle-radius', 0)
-    this.map.setPaintProperty('points', 'circle-opacity', 0)
-    this.map.setPaintProperty('points', 'circle-stroke-opacity', 0)
+    const layers = ['points', 'Events', 'EventsGlow']
+    layers.map(layerName => this.animateCircleLayer(layerName, false))
 
     const { uri } = _links.refs.find(link => link.type === 'application/geo+json') || {}
 
     const response = await fetch(uri)
     const json = await response.json()
 
-    // const events = json.features.filter(feature => feature.properties['@type'] === 'Event')
     this.map.getSource('pointsSource').setData(json)
 
     const headers = new Headers({
@@ -852,20 +848,26 @@ class Map extends React.Component {
     const eventsURL = new URL(uri)
     const date = new Date().toJSON().split('T').shift()
     eventsURL.searchParams.set('filter.about.@type', 'Event')
-    // eventsURL.searchParams.set('filter.about.startDate.GTE', '1970')
     eventsURL.searchParams.set('q', `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`)
-
-    console.log(eventsURL)
 
     const eventsResponse = await fetch(eventsURL.href, { headers })
     const events = await eventsResponse.json()
-    console.log(events)
 
     this.map.getSource('eventsSource').setData(events)
 
-    this.map.setPaintProperty('points', 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
-    this.map.setPaintProperty('points', 'circle-opacity', 1)
-    this.map.setPaintProperty('points', 'circle-stroke-opacity', 1)
+    layers.map(layerName => this.animateCircleLayer(layerName, true))
+  }
+
+  animateCircleLayer(layerName, show) {
+    if (show) {
+      this.map.setPaintProperty(layerName, 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
+      this.map.setPaintProperty(layerName, 'circle-opacity', 1)
+      this.map.setPaintProperty(layerName, 'circle-stroke-opacity', 1)
+    } else {
+      this.map.setPaintProperty(layerName, 'circle-radius', 0)
+      this.map.setPaintProperty(layerName, 'circle-opacity', 0)
+      this.map.setPaintProperty(layerName, 'circle-stroke-opacity', 0)
+    }
   }
 
   handleClick(e) {
