@@ -1,42 +1,40 @@
-export const formatURL = (url) =>  {
+export const formatURL = (url) => {
   const re = /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/
   const result = re.exec(url)
   return result[1].split('.').pop() === result.input.split('.').pop().replace(/\//g, '')
     ? re.exec(url)[1]
-    : re.exec(url)[1] + '...'
+    : `${re.exec(url)[1]}...`
 }
 
 export const getEntryByLocales = (locales, key) => {
   if (Array.isArray(key)) {
     let localesString = false
-    for (const i in locales) {
-      localesString = key.find(value =>
-        value['@language'] === locales[i]
-      )
+    locales.forEach((locale) => {
+      localesString = key.find(value => value['@language'] === locales[locale])
       if (localesString) {
         return localesString['@value']
       }
-    }
+    })
     return key[0]['@value']
   }
 }
 
-export const getTitle = (data, locales=['en']) => (
+export const getTitle = (data, locales = ['en']) => (
   data.about && (data.about.name || data.about['@id'])
     ? getEntryByLocales(locales, data.about.name) || data.about['@id']
-    : data.totalItems + " Entries"
+    : `${data.totalItems} Entries`
 )
 
 export const getParams = (qstring) => {
   const params = {}
   if (qstring) {
     const q = qstring.replace('?', '').split('&')
-    for (let i = 0; i < q.length; ++i) {
+    for (let i = 0; i < q.length; i += 1) {
       const [param, val] = q[i].split('=', 2).map(
-        s => decodeURIComponent(s).replace(/\+/g, " ")
+        s => decodeURIComponent(s).replace(/\+/g, ' '),
       )
       if (!val) {
-        params[param] = ""
+        params[param] = ''
       } else if (params[param] instanceof Array) {
         params[param].push(val)
       } else if (params[param]) {
@@ -50,17 +48,17 @@ export const getParams = (qstring) => {
 }
 
 export const addParamToURL = (search, key, val) => {
-  const newParam = key + '=' + val
-  let params = '?' + newParam
+  const newParam = `${key}=${val}`
+  let params = `?${newParam}`
 
   // If the "search" string exists, then build params from it
   if (search) {
     // Try to replace an existance instance
-    params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam)
+    params = search.replace(new RegExp(`([?&])${key}[^&]*`), `$1${newParam}`)
 
     // If nothing was replaced, then add the new param to the end
     if (params === search) {
-      params += '&' + newParam
+      params += `&${newParam}`
     }
   }
   return params
@@ -69,6 +67,7 @@ export const addParamToURL = (search, key, val) => {
 export const getURL = (route) => {
   let url = route.path
   let params = []
+  // eslint-disable-next-line no-restricted-syntax
   for (const param in route.params) {
     const value = route.params[param]
     if (Array.isArray(value)) {
@@ -92,33 +91,30 @@ export const triggerClick = (e, code) => {
   }
 }
 
-export const mapNominatimResult = (result) => ({
+export const mapNominatimResult = result => ({
   '@id': `info:${result.place_id}`,
   '@type': 'Place',
-  name: [
-    {
-      '@language': 'en',
-      '@value': result.display_name
-    }
-  ],
+  name: {
+    en: result.display_name,
+  },
   geo: {
     lat: +result.lat,
-    lon: +result.lon
+    lon: +result.lon,
   },
   address: {
     streetAddress: `${result.address.road || ''} ${result.address.house_number || ''}`.trim(),
     postalCode: result.address.postcode,
     addressLocality: result.address.city || result.address.state,
-    addressCountry: (result.address.country_code || '').toUpperCase()
-  }
+    addressCountry: (result.address.country_code || '').toUpperCase(),
+  },
 })
 
 export const debounce = (func, wait, immediate) => {
   let timeout
-  return function executedFunction() {
+  return function executedFunction(...args) {
+    console.log('debounce')
     const context = this
-    const args = arguments
-    const later = function() {
+    const later = () => {
       timeout = null
       if (!immediate) func.apply(context, args)
     }
@@ -129,13 +125,13 @@ export const debounce = (func, wait, immediate) => {
   }
 }
 
-export const getProp = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+export const getProp = (p, o) => p.reduce((xs, x) => ((xs && xs[x]) ? xs[x] : null), o)
 
 export const clearForm = (form, exclude = []) => {
   // clearing inputs
   const inputs = [...form.getElementsByTagName('input')]
     .filter(input => !exclude.includes(input.name))
-  for (let i = 0; i<inputs.length; i++) {
+  for (let i = 0; i < inputs.length; i += 1) {
     switch (inputs[i].type) {
     case 'radio':
     case 'checkbox':
@@ -150,19 +146,19 @@ export const clearForm = (form, exclude = []) => {
   // clearing selects
   const selects = [...form.getElementsByTagName('select')]
     .filter(select => !exclude.includes(select.name))
-  for (let i = 0; i<selects.length; i++) {
+  for (let i = 0; i < selects.length; i += 1) {
     selects[i].selectedIndex = 0
   }
 
   // clearing textarea
   const textareas = [...form.getElementsByTagName('textarea')]
     .filter(textarea => !exclude.includes(textarea.name))
-  for (let i = 0; i<textareas.length; i++) {
-    textareas[i].innerHTML= ''
+  for (let i = 0; i < textareas.length; i += 1) {
+    textareas[i].innerHTML = ''
   }
 }
 
-export const appendOnFocus = e => {
+export const appendOnFocus = (e) => {
   const tmp = e.target.value
   e.target.value = ''
   e.target.value = tmp
@@ -191,26 +187,38 @@ export const getTwitterId = (sameAs) => {
   return /twitter.com\/([a-zA-Z0-9_]{1,15})/.exec(twitterURL)
 }
 
-export const objectMap = (obj, fn) => {
-  return Object.keys(obj).reduce((result, key) => {
+export const objectMap = (obj, fn) => (
+  Object.keys(obj).reduce((result, key) => {
     result[key] = fn(obj[key])
     return result
   }, {})
-}
+)
 
-export const sortByProp = prop => (a, b) => (a[prop] < b[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0)
+export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
+  ? 1 : ((b[prop] < a[prop]) ? -1 : 0))
 
 export const urlParse = (urlString) => {
   if (typeof window === 'undefined') {
     const { URL } = require('url')
     return new URL(urlString)
   }
-  else {
-    return new URL(urlString)
-  }
+  return new URL(urlString)
 }
 
 export default {
-  getTitle, formatURL, getParams, getURL, getEntryByLocales, triggerClick, debounce, getProp,
-  appendOnFocus, formatDate, getTwitterId, objectMap, sortByProp, addParamToURL, urlParse
+  getTitle,
+  formatURL,
+  getParams,
+  getURL,
+  getEntryByLocales,
+  triggerClick,
+  debounce,
+  getProp,
+  appendOnFocus,
+  formatDate,
+  getTwitterId,
+  objectMap,
+  sortByProp,
+  addParamToURL,
+  urlParse,
 }

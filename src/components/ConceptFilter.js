@@ -9,10 +9,10 @@ import '../styles/components/DropdownFilter.pcss'
 
 const filterConcepts = (concepts, include) => {
   const res = []
-  concepts.forEach(node => {
+  concepts.forEach((node) => {
     if (include.indexOf(node['@id']) !== -1) {
-      if (node['narrower']) {
-        node['narrower'] = filterConcepts(node['narrower'], include)
+      if (node.narrower) {
+        node.narrower = filterConcepts(node.narrower, include)
       }
       res.push(node)
     }
@@ -21,13 +21,12 @@ const filterConcepts = (concepts, include) => {
 }
 
 class ConceptFilter extends React.Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
       showContent: false,
-      search: ''
+      search: '',
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -38,25 +37,22 @@ class ConceptFilter extends React.Component {
     const { showContent } = this.state
 
     if (e.target !== this.ConceptFilter && !this.ConceptFilter.contains(e.target)) {
-      this.setState({showContent: false})
-    } else {
-      if (!this.dropdownContent.contains(e.target)) {
-        this.setState({showContent: !showContent})
-      }
+      this.setState({ showContent: false })
+    } else if (!this.dropdownContent.contains(e.target)) {
+      this.setState({ showContent: !showContent })
     }
   }
 
   show(concept) {
     const { search } = this.state
 
-    return (!search) || concept.name.some(name =>
-      name['@value'].toLowerCase().search(search.trim().toLowerCase()) !== -1
-    )
+    return (!search) || concept.name.some(name => name['@value'].toLowerCase().search(search.trim().toLowerCase()) !== -1)
   }
 
   buildTree(concepts) {
-
-    const { filter, translate, aggregation, filterName } = this.props
+    const {
+      filter, translate, aggregation, filterName,
+    } = this.props
 
     return (
       <ul>
@@ -72,24 +68,26 @@ class ConceptFilter extends React.Component {
                 />
                 <label
                   htmlFor={filterName + concept['@id']}
-                  onKeyDown={e => {
+                  onKeyDown={(e) => {
                     if (e.keyCode === 13) {
                       e.target.click()
                     }
                   }}
                   tabIndex="0"
                   role="button"
-                  className={this.show(concept) ? null: 'hidden'}
+                  className={this.show(concept) ? null : 'hidden'}
                 >
                   {`${translate(concept.name)} (${aggregation.buckets.find(
-                    bucket => bucket.key === concept['@id']).doc_count})`
+                    bucket => bucket.key === concept['@id'],
+                  ).doc_count})`
                   }
                 </label>
               </React.Fragment>
             ) : (
               <span>
                 {`${translate(concept.name)} (${aggregation.buckets.find(
-                  bucket => bucket.key === concept['@id']).doc_count})`
+                  bucket => bucket.key === concept['@id'],
+                ).doc_count})`
                 }
               </span>
             )}
@@ -101,17 +99,18 @@ class ConceptFilter extends React.Component {
   }
 
   render() {
-
-    const { filter, icon, filterName, translate, emitter, submit, concepts, aggregation } = this.props
+    const {
+      filter, icon, filterName, translate, emitter, submit, concepts, aggregation,
+    } = this.props
     const { showContent, search } = this.state
 
     return (
       <div
-        ref={ConceptFilter => {
+        ref={(ConceptFilter) => {
           if (ConceptFilter) {
-            document.addEventListener("click", this.handleClick)
+            document.addEventListener('click', this.handleClick)
           } else {
-            document.removeEventListener("click", this.handleClick)
+            document.removeEventListener('click', this.handleClick)
           }
           this.ConceptFilter = ConceptFilter
         }}
@@ -140,21 +139,23 @@ class ConceptFilter extends React.Component {
             <input
               type="submit"
               value={translate('ClientTemplates.filter-dropdown.applyFilter')}
-              onClick={evt => {
+              onClick={(evt) => {
                 evt.preventDefault()
-                this.setState({search: ''})
+                this.setState({ search: '' })
                 submit(evt, emitter)
-                this.setState({showContent: false})
+                this.setState({ showContent: false })
               }}
             />
             <input
               type="text"
               placeholder="..."
               value={search}
-              onChange={e => this.setState({search: e.target.value})}
+              onChange={e => this.setState({ search: e.target.value })}
             />
           </div>
-          {this.buildTree(filterConcepts(concepts, aggregation.buckets.map(bucket => bucket.key)))}
+          {showContent && (
+            this.buildTree(filterConcepts(concepts, aggregation.buckets.map(bucket => bucket.key)))
+          )}
         </div>
       </div>
     )
@@ -169,7 +170,7 @@ ConceptFilter.propTypes = {
   icon: PropTypes.string,
   submit: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 ConceptFilter.defaultProps = {

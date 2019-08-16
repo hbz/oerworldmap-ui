@@ -1,6 +1,5 @@
 /* global window */
 /* global document */
-/* global location */
 /* global SUPPORTED_LANGUAGES */
 /* global _paq */
 import React from 'react'
@@ -16,10 +15,9 @@ import Icon from './Icon'
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
 
-const types = ["Organization", "Action", "Service", "Event", "Article", "WebPage", "Product", "Policy"]
+const types = ['Organization', 'Action', 'Service', 'Event', 'Article', 'WebPage', 'Product', 'Policy']
 
 class Header extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -27,9 +25,9 @@ class Header extends React.Component {
         find: false,
         add: false,
         info: false,
-        me: false
+        me: false,
       },
-      showNotification: false
+      showNotification: false,
     }
     this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
@@ -37,53 +35,55 @@ class Header extends React.Component {
 
   componentDidMount() {
     const { emitter, user } = this.props
-    document.addEventListener("click", this.handleClick)
+    document.addEventListener('click', this.handleClick)
 
     emitter.on('setLoading', () => {
       if (this.dropDown) {
-        this.setState({showMobileMenu:false})
+        this.setState({ showMobileMenu: false })
         this.setDropdown('')
       }
     })
 
-    emitter.on('newActivity', (activities) =>  {
-
-      if (location.pathname !== '/activity/') {
-        const showNotification = !user || activities.some(activity => activity.user && activity.user["@id"] !== user.id)
-        this.setState({showNotification})
+    emitter.on('newActivity', (activities) => {
+      if (window.location.pathname !== '/activity/') {
+        const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
+        this.setState({ showNotification })
       }
     })
 
-    emitter.on('clearActivity', () =>  {
-      this.setState({showNotification: false})
+    emitter.on('clearActivity', () => {
+      this.setState({ showNotification: false })
     })
-
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
+    document.removeEventListener('click', this.handleClick)
   }
 
   setDropdown(name) {
     const { dropdowns } = this.state
     const dropdownsState = {}
 
-    Object.keys(dropdowns).forEach(key =>  {
+    Object.keys(dropdowns).forEach((key) => {
       dropdownsState[key] = key === name && dropdowns[key] !== true
     })
 
-    this.setState({dropdowns: dropdownsState})
+    this.setState({ dropdowns: dropdownsState })
   }
 
   handleClick(e) {
-    if (e.target !== this.menuToggle && (this.secondaryNav && !this.secondaryNav.contains(e.target)))
-      this.setState({showMobileMenu:false})
+    if (e.target !== this.menuToggle
+      && (this.secondaryNav && !this.secondaryNav.contains(e.target))) {
+      this.setState({ showMobileMenu: false })
+    }
   }
 
   render() {
-    const { translate, user, emitter, locales } = this.props
-    const { showMobileMenu, dropdowns, showNotification} = this.state
-    const pathname = urlParse(Link.self).pathname
+    const {
+      translate, user, emitter, locales,
+    } = this.props
+    const { showMobileMenu, dropdowns, showNotification } = this.state
+    const { pathname } = urlParse(Link.self)
 
     let { supportedLanguages } = this.props
     if (!supportedLanguages) {
@@ -98,29 +98,28 @@ class Header extends React.Component {
             <h1>{translate('OER World Map')}</h1>
           </a>
 
-          <a title={translate("main.map")} href="/resource/">
+          <Link title={translate('main.map')} href="/resource/">
             <i aria-hidden="true" className="fa fa-globe" />
-          </a>
+          </Link>
 
           {(pathname === '/resource/' || pathname.startsWith('/country/')) && (
             <a
               href="#tour"
               className="tour"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault()
                 emitter.emit('resetTour')
               }}
             >
-              {translate("Take a tour")}
+              {translate('Take a tour')}
             </a>
           )}
-
         </div>
 
         <button
           className="menuToggle visible-mobile-block"
           onClick={() => {
-            this.setState({showMobileMenu:!showMobileMenu})
+            this.setState({ showMobileMenu: !showMobileMenu })
             this.setDropdown('')
           }}
           onKeyDown={triggerClick}
@@ -130,7 +129,7 @@ class Header extends React.Component {
         </button>
 
         <nav
-          className={`secondaryNav${showMobileMenu ? ' show' : '' }`}
+          className={`secondaryNav${showMobileMenu ? ' show' : ''}`}
           ref={secondaryNav => this.secondaryNav = secondaryNav}
         >
           <ul>
@@ -147,7 +146,7 @@ class Header extends React.Component {
               </Link>
             </li>
             <li
-              className={`hasDropdown${dropdowns.find ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.find ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -310,7 +309,7 @@ class Header extends React.Component {
             </li>
 
             <li
-              className={`hasDropdown${dropdowns.add ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.add ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -334,15 +333,15 @@ class Header extends React.Component {
               <div className="dropdown">
                 <div className="inner">
                   <div className="popular">
-                    <div style={{maxWidth: '80%'}}>
+                    <div style={{ maxWidth: '80%' }}>
                       {translate('menu.add.subtitle')}
-                      <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
+                      <p dangerouslySetInnerHTML={{ __html: translate('menu.hint') }} />
                     </div>
                     <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
                       {translate('needHelp')}
                     </Link>
                   </div>
-                  <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
+                  <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
 
                     {types.map(type => (
                       <div key={type} className="col one-fourth">
@@ -368,7 +367,7 @@ class Header extends React.Component {
             </li>
 
             <li
-              className={`hasDropdown${dropdowns.info ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.info ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -485,7 +484,7 @@ class Header extends React.Component {
 
             {user ? (
               <li
-                className={`hasDropdown${dropdowns.me ? ' active': ''}`}
+                className={`hasDropdown${dropdowns.me ? ' active' : ''}`}
                 onMouseLeave={() => {
                   this.setDropdown('')
                 }}
@@ -612,7 +611,7 @@ class Header extends React.Component {
                   <ul>
                     {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
                       <li key={lang}>
-                        <a href={addParamToURL(Link.self || (typeof window !== 'undefined' && window.location && window.location.href) || '/resource/', "language", lang)}>{translate(lang)}</a>
+                        <a href={addParamToURL(Link.self || (typeof window !== 'undefined' && window.location && window.location.href) || '/resource/', 'language', lang)}>{translate(lang)}</a>
                       </li>
                     ))}
                   </ul>
@@ -622,8 +621,6 @@ class Header extends React.Component {
           </ul>
 
         </nav>
-
-
 
       </header>
     )
@@ -635,7 +632,7 @@ Header.propTypes = {
   translate: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 Header.defaultProps = {

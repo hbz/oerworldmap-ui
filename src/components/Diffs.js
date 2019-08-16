@@ -15,7 +15,9 @@ import { formatDate } from '../common'
 
 import '../styles/components/Diff.pcss'
 
-const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, schema}) => {
+const Diffs = ({
+  translate, locales, phrases, moment, emitter, log, compare, to, schema,
+}) => {
   const v1 = renderToString(
     <I18nProvider i18n={i18n(locales, phrases)}>
       <EmittProvider emitter={emitter}>
@@ -27,7 +29,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
           expandAll
         />
       </EmittProvider>
-    </I18nProvider>
+    </I18nProvider>,
   )
 
   const v2 = renderToString(
@@ -41,7 +43,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
           expandAll
         />
       </EmittProvider>
-    </I18nProvider>
+    </I18nProvider>,
   )
   const diff = htmldiff(v2, v1)
 
@@ -51,8 +53,8 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
     const formData = new FormData(form)
     const parameters = [...formData.entries()]
       .filter(p => !!p[1])
-      .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
-    emitter.emit('navigate', `/log/${compare.about["@id"]}?` + parameters)
+      .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`).join('&')
+    emitter.emit('navigate', `/log/${compare.about['@id']}?${parameters}`)
   }
 
   return (
@@ -64,17 +66,17 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
               <h1>
                 {translate('Diffs.historyFor')}
                 :&nbsp;
-                <a href={`/resource/${compare.about["@id"]}`}>{translate(compare.about.name)}</a>
+                <a href={`/resource/${compare.about['@id']}`}>{translate(compare.about.name)}</a>
               </h1>
               <p>{translate('Diffs.description')}</p>
             </div>
 
-            <form action={`/log/${compare.about["@id"]}?`} onSubmit={(evt) => onSubmit(evt)}>
+            <form action={`/log/${compare.about['@id']}?`} onSubmit={evt => onSubmit(evt)}>
               {log.map(l => (
                 <div key={l.commit} className="logBlock">
                   <div>
                     <a
-                      href={`/resource/${compare.about["@id"]}?version=${l.commit}`}
+                      href={`/resource/${compare.about['@id']}?version=${l.commit}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -127,7 +129,7 @@ const Diffs = ({translate, locales, phrases, moment, emitter, log, compare, to, 
         <div className="diffView">
 
           <div className="scroll">
-            <div dangerouslySetInnerHTML={{__html: diff}} />
+            <div dangerouslySetInnerHTML={{ __html: diff }} />
           </div>
         </div>
 
@@ -149,7 +151,7 @@ Diffs.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-  schema: PropTypes.objectOf(PropTypes.any).isRequired
+  schema: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(withI18n(Diffs))

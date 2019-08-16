@@ -1,8 +1,9 @@
 import favicon from '../public/favicon.png'
 import piwik from './piwik'
 
-export default ({body, title, initialState, env, piwikConfig, embed, metadata, locales}) => {
-
+export default ({
+  body, title, initialState, env, piwikConfig, embed, metadata, locales,
+}) => {
   const piwikEmbed = env === 'production' && (piwikConfig.id && piwikConfig.url)
     ? piwik(piwikConfig)
     : ''
@@ -39,7 +40,7 @@ export default ({body, title, initialState, env, piwikConfig, embed, metadata, l
         <link rel="shortcut icon" href="/public/${favicon}" type="image/x-icon" />
         ${env !== 'development' ? '<link rel="stylesheet" href="/public/styles.css">' : ''}
       </head>
-      ${embed === undefined ? '<body>': `<body data-embed="${embed}">`}
+      ${embed === undefined ? '<body>' : `<body data-embed="${embed}">`}
         <div id="root"><div>${body}</div></div>
         ${piwikEmbed}
       </body>

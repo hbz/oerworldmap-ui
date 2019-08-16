@@ -1,5 +1,3 @@
-
-
 #Map {
   font-family: var(--font-family);
 
@@ -382,24 +380,6 @@
     color: rgba(0, 0, 0, 0.75);
   }
 
-  & .togglePins {
-    position: absolute;
-    bottom: 43px;
-    right: 360px;
-    border: 1px solid var(--blue);
-    width: 30px;
-    height: 30px;
-    background-color: var(--white);
-    color: var(--blue);
-    font-size: var(--font-size);
-    z-index: 3;
-
-    &.checked {
-      background-color: var(--blue);
-      color: var(--white);
-    }
-  }
-
   @media print {
     position: relative !important;
     max-height: 700px;
@@ -439,12 +419,6 @@
         font-size: 2rem;
       }
     }
-
-    & .togglePins {
-      bottom: 63px;
-      right: 338px;
-    }
-
     & .mapLeyend {
       right: 82px;
       bottom: 63px;

@@ -5,12 +5,12 @@ import withI18n from './withI18n'
 import '../styles/components/Feed.pcss'
 import ItemList from './ItemList'
 
-const Feed = ({translate, member}) => (
+const Feed = ({ translate, member }) => (
   <div className="Feed">
     <h2 className="title">
       {translate('ResourceIndex.feed.recentAdditions')}
     </h2>
-    <ItemList listItems={member.map(member => member.about)} />
+    <ItemList listItems={member.map(member => member.about)} tooltip={false} />
     <div className="more">
       <Link href="/resource/?size=20&sort=dateCreated:desc">
         {translate('ResourceIndex.feed.more')}

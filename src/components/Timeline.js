@@ -9,7 +9,7 @@ class Timeline extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: props.entries
+      entries: props.entries,
     }
   }
 
@@ -21,7 +21,7 @@ class Timeline extends React.Component {
 
     emitter.emit('clearActivity')
     emitter.on('newActivity', (activities) => {
-      this.setState({entries: activities.concat(entries)})
+      this.setState({ entries: activities.concat(entries) })
     })
   }
 
@@ -44,7 +44,7 @@ class Timeline extends React.Component {
               />
             ))
           ) : (
-            translate("No entries")
+            translate('No entries')
           )}
         </div>
       </div>

@@ -9,7 +9,9 @@ import Link from './Link'
 import { formatDate } from '../common'
 import expose from '../expose'
 
-const Metadata = ({type, about, dateModified, moment, translate, user}) => (
+const Metadata = ({
+  type, about, dateModified, moment, translate, user,
+}) => (
   <div className="Metadata">
     <Icon type={type} />
     <Link href={`/resource/?filter.about.@type=${type}&size=20`}>{translate(type)}</Link>
@@ -18,7 +20,7 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
         &nbsp;(
         {about.additionalType.map((type, i) => (
           <React.Fragment key={type}>
-            {!!i && ", "}
+            {!!i && ', '}
             <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
               {translate(type.name)}
             </Link>
@@ -32,12 +34,12 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
       expose('logEntry', user, about) ? (
         <Link
           target="_blank"
-          href={`/log/${about["@id"]}`}
+          href={`/log/${about['@id']}`}
           title={formatDate(dateModified, moment)}
         >
           {translate(
             'ResourceIndex.read.lastModified',
-            {dateModified : moment(dateModified).fromNow()}
+            { dateModified: moment(dateModified).fromNow() },
           )}
         </Link>
       ) : (
@@ -46,7 +48,7 @@ const Metadata = ({type, about, dateModified, moment, translate, user}) => (
         >
           {translate(
             'ResourceIndex.read.lastModified',
-            {dateModified : moment(dateModified).fromNow()}
+            { dateModified: moment(dateModified).fromNow() },
           )}
         </span>
       )
@@ -60,12 +62,12 @@ Metadata.propTypes = {
   type: PropTypes.string.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   dateModified: PropTypes.string,
-  user: PropTypes.objectOf(PropTypes.any)
+  user: PropTypes.objectOf(PropTypes.any),
 }
 
 Metadata.defaultProps = {
   dateModified: null,
-  user: null
+  user: null,
 }
 
 export default withI18n(Metadata)

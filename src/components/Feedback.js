@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import '../styles/components/Feedback.pcss'
 
-const Feedback = ({children}) => (
+const Feedback = ({ children }) => (
   <div className="Feedback">
     {children}
   </div>

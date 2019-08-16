@@ -5,10 +5,10 @@ import withFormData from './withFormData'
 import { objectMap } from '../../common'
 
 const Fieldset = ({
-  name, children, errors, property, title, className, translate, formId, required, description
+  name, children, errors, property, title, className, translate, formId, required, description,
 }) => (
   <div
-    className={`Fieldset ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}
+    className={`Fieldset ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}
     role="group"
     aria-labelledby={`${formId}-${name}-label`}
   >
@@ -44,7 +44,7 @@ Fieldset.propTypes = {
   translate: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 Fieldset.defaultProps = {
@@ -53,7 +53,7 @@ Fieldset.defaultProps = {
   title: '',
   className: '',
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(Fieldset)

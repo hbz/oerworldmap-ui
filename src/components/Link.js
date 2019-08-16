@@ -26,13 +26,14 @@ class Link extends React.Component {
   getRef() {
     const { href } = this.props
 
-    return href.startsWith('urn:uuid') ?
-      `/resource/${href}` : href
+    return href.startsWith('urn:uuid')
+      ? `/resource/${href}` : href
   }
 
   render() {
-
-    const { rel, title, className, dataShow, target, children, additional } = this.props
+    const {
+      rel, title, className, dataShow, target, children, additional,
+    } = this.props
 
     return (
       <a
@@ -57,7 +58,7 @@ Link.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+    PropTypes.node,
   ]).isRequired,
   href: PropTypes.string,
   className: PropTypes.string,
@@ -65,7 +66,7 @@ Link.propTypes = {
   title: PropTypes.string,
   target: PropTypes.string,
   rel: PropTypes.string,
-  additional: PropTypes.func
+  additional: PropTypes.func,
 }
 
 Link.defaultProps = {
@@ -75,7 +76,7 @@ Link.defaultProps = {
   target: null,
   href: '',
   rel: null,
-  additional: null
+  additional: null,
 }
 
 export default withEmitter(Link)

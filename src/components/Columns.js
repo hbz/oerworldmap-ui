@@ -10,7 +10,6 @@ import withEmitter from './withEmitter'
 import '../styles/components/Columns.pcss'
 
 class Columns extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -24,8 +23,8 @@ class Columns extends React.Component {
 
   componentDidMount() {
     const { emitter } = this.props
-    emitter.on('toggleColumns', show => {
-      this.setState({show})
+    emitter.on('toggleColumns', (show) => {
+      this.setState({ show })
     })
 
     emitter.on('resetTour', () => {
@@ -41,7 +40,7 @@ class Columns extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({show: nextProps.show})
+    this.setState({ show: nextProps.show })
   }
 
   handleJoyrideCallback(data) {
@@ -65,7 +64,7 @@ class Columns extends React.Component {
 
     return (
       <aside
-        className={`Columns${show ? '' : ' hideColumns'}${country ? ' country': ''}`}
+        className={`Columns${show ? '' : ' hideColumns'}${country ? ' country' : ''}`}
       >
         {children}
 
@@ -76,11 +75,11 @@ class Columns extends React.Component {
           title={show ? translate('Hide list') : translate('Tip.showList')}
           onKeyDown={triggerClick}
           onClick={
-            () => this.setState({show: !show})
+            () => this.setState({ show: !show })
           }
         >
           <span>
-            <i className={`fa fa-chevron-${show ? "left" : "right"}`} />
+            <i className={`fa fa-chevron-${show ? 'left' : 'right'}`} />
           </span>
         </div>
 
@@ -130,7 +129,6 @@ class Columns extends React.Component {
       </aside>
     )
   }
-
 }
 
 Columns.propTypes = {
@@ -138,7 +136,7 @@ Columns.propTypes = {
   show: PropTypes.bool.isRequired,
   country: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default withEmitter(withI18n(Columns))

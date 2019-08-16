@@ -39,13 +39,12 @@ const ResourceIndex = ({
   embedValue,
   phrases,
   isEmbed,
-  region
+  region,
 }) => {
-
   const home = _self.endsWith('/resource/?features=true')
 
   return (
-    <div className={`ResourceIndex ${className ? className:''}`}>
+    <div className={`ResourceIndex ${className || ''}`}>
       {children}
 
       <Columns show={!home || view.length > 0} country={iso3166}>
@@ -64,6 +63,7 @@ const ResourceIndex = ({
             country={iso3166}
             isEmbed={isEmbed}
             region={region}
+            initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
           />
           {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
             <div className="wrapper-Calendar">
@@ -132,7 +132,7 @@ ResourceIndex.propTypes = {
   embedValue: PropTypes.string,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
-  region: PropTypes.string
+  region: PropTypes.string,
 }
 
 ResourceIndex.defaultProps = {
@@ -143,10 +143,10 @@ ResourceIndex.defaultProps = {
   iso3166: '',
   view: '',
   className: null,
-  sort: "",
+  sort: '',
   embedValue: null,
   children: null,
-  region: null
+  region: null,
 }
 
 export default withEmitter(ResourceIndex)

@@ -15,11 +15,11 @@ const LinkOverride = ({ children, title, href }) => (
 LinkOverride.propTypes = {
   children: PropTypes.node.isRequired,
   href: PropTypes.string.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 LinkOverride.defaultProps = {
-  title: null
+  title: null,
 }
 
 

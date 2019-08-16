@@ -1,8 +1,8 @@
 /* global document */
 /* global window */
-/* global location */
 /* global XMLHttpRequest */
 /* global localStorage */
+/* global _paq */
 
 import ReactDOM from 'react-dom'
 import 'normalize.css'
@@ -14,12 +14,10 @@ import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
 
-require('formdata-polyfill');
+require('formdata-polyfill')
 
-(function () {
-
+const client = () => {
   document.addEventListener('DOMContentLoaded', () => {
-
     let state = window.__APP_INITIAL_STATE__.data
     const emitter = mitt()
     const context = {}
@@ -51,11 +49,11 @@ require('formdata-polyfill');
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
-    emitter.on('navigate', url => {
+    emitter.on('navigate', (url) => {
       const parser = document.createElement('a')
       parser.href = url
 
-      const newWindow = context.embed === "true" || (
+      const newWindow = context.embed === 'true' || (
         context.embed === 'country' && (
           parser.pathname === '/resource/' || (
             !window.location.pathname.startsWith('/resource/urn') && (
@@ -69,6 +67,18 @@ require('formdata-polyfill');
         window.open(parser.href, '_blank')
       } else if (parser.href !== window.location.href) {
         Link.back = referrer
+
+        if (typeof _paq !== 'undefined') {
+          _paq.push(['setReferrerUrl', referrer])
+          _paq.push(['setCustomUrl', parser.href])
+          _paq.push(['setDocumentTitle', document.title])
+
+          _paq.push(['deleteCustomVariables', 'page'])
+          _paq.push(['setGenerationTimeMs', 0])
+          _paq.push(['trackPageView'])
+          _paq.push(['enableLinkTracking'])
+        }
+
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
@@ -82,7 +92,7 @@ require('formdata-polyfill');
     })
     // Log out
     emitter.on('logout', () => {
-      if (!document.execCommand("ClearAuthenticationCache")) {
+      if (!document.execCommand('ClearAuthenticationCache')) {
         const request = new XMLHttpRequest()
         const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
         request.open('GET', url, false)
@@ -92,13 +102,13 @@ require('formdata-polyfill');
       window.location.reload()
     })
     // Form submission
-    emitter.on('submit', ({url, data, redirect}) => {
+    emitter.on('submit', ({ url, data, redirect }) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).post(data)
-        .then(({title, data, render}) => {
+        .then(({ title, data, render }) => {
           if (redirect) {
             routes.route(redirect.url, context).get(redirect.params)
-              .then(({title, data, render}) => {
+              .then(({ title, data, render }) => {
                 window.history.replaceState(null, null, redirect.url)
                 state = data
                 renderApp(title, render(data))
@@ -111,13 +121,13 @@ require('formdata-polyfill');
         })
     })
     // Deletion
-    emitter.on('delete', ({url, redirect}) => {
+    emitter.on('delete', ({ url, redirect }) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).delete()
-        .then(({title, data, render}) => {
+        .then(({ title, data, render }) => {
           if (redirect) {
             routes.route(redirect.url, context).get(redirect.params)
-              .then(({title, data, render}) => {
+              .then(({ title, data, render }) => {
                 window.history.replaceState(null, null, redirect.url)
                 state = data
                 renderApp(title, render(data))
@@ -130,10 +140,10 @@ require('formdata-polyfill');
         })
     })
 
-    let lastActivity = (location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
+    let lastActivity = (window.location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
     setInterval(() => {
       const until = lastActivity ? `?until=${lastActivity}` : ''
-      api.get(`/activity/${until}`).then(response => {
+      api.get(`/activity/${until}`).then((response) => {
         if (response.length) {
           lastActivity = response[0].id
           emitter.emit('newActivity', response)
@@ -141,23 +151,23 @@ require('formdata-polyfill');
       })
     }, 60000)
 
-    window.addEventListener("message",  (msg) => {
+    window.addEventListener('message', (msg) => {
       if (msg.data.filter && msg.data.key) {
-
         const iframe = document.querySelector('iframe')
         const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
 
         const params = {
-          [`filter.${msg.data.filter}`] : msg.data.key,
+          [`filter.${msg.data.filter}`]: msg.data.key,
         }
 
         if (scope) {
-          params[scope.split('=')[0]] = scope.split('=')[1]
+          const [key, value] = scope.split('=')
+          params[key] = value
         }
 
         emitter.emit('navigate', getURL({
           path: '/resource/',
-          params
+          params,
         }))
       }
     })
@@ -168,7 +178,7 @@ require('formdata-polyfill');
       const params = getParams(window.location.search)
       const load = referrer.split('#')[0] !== window.location.href.split('#')[0]
       routes.route(url, context, load ? null : state).get(params)
-        .then(({title, data, render}) => {
+        .then(({ title, data, render }) => {
           state = data
           renderApp(title, render(data))
         })
@@ -177,9 +187,10 @@ require('formdata-polyfill');
     const url = window.location.pathname
     const params = getParams(window.location.search)
     routes.route(url, context, state).get(params)
-      .then(({title, data, render}) => {
+      .then(({ title, data, render }) => {
         renderApp(title, render(data))
       })
-
   })
-})()
+}
+
+client()

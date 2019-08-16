@@ -7,7 +7,6 @@ import { triggerClick } from '../common'
 import '../styles/components/Block.pcss'
 
 class Block extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -16,8 +15,9 @@ class Block extends React.Component {
   }
 
   render() {
-
-    const { className, title, collapsible, collapsibleType, type, children, translate } = this.props
+    const {
+      className, title, collapsible, collapsibleType, type, children, translate,
+    } = this.props
     const { collapsed } = this.state
 
     return (
@@ -32,7 +32,7 @@ class Block extends React.Component {
               tabIndex="0"
               onKeyDown={triggerClick}
               className="plus"
-              onClick={() => this.setState({collapsed: !collapsed})}
+              onClick={() => this.setState({ collapsed: !collapsed })}
             >
               <i aria-hidden="true" className={`fa fa-${collapsed ? 'plus' : 'minus'}`} />
             </span>
@@ -47,7 +47,7 @@ class Block extends React.Component {
             tabIndex="0"
             onKeyDown={triggerClick}
             className="show-all"
-            onClick={() => this.setState({collapsed: !collapsed})}
+            onClick={() => this.setState({ collapsed: !collapsed })}
           >
             {translate(collapsed ? 'Show all' : 'Show less')}
           </div>
@@ -55,7 +55,6 @@ class Block extends React.Component {
       </div>
     )
   }
-
 }
 
 Block.propTypes = {
@@ -66,7 +65,7 @@ Block.propTypes = {
   collapsible: PropTypes.bool,
   collapsibleType: PropTypes.string,
   collapsed: PropTypes.bool,
-  type: PropTypes.string
+  type: PropTypes.string,
 }
 
 
@@ -75,7 +74,7 @@ Block.defaultProps = {
   collapsible: false,
   collapsibleType: 'plus',
   collapsed: true,
-  type: ''
+  type: '',
 }
 
 export default withI18n(Block)

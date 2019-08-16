@@ -13,7 +13,7 @@ const icons = {
   Event: 'calendar',
   WebPage: 'file',
   Product: 'wrench',
-  Policy: 'balance-scale'
+  Policy: 'balance-scale',
 }
 
 const Icon = ({ type }) => (
@@ -21,7 +21,7 @@ const Icon = ({ type }) => (
 )
 
 Icon.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 }
 
 export default Icon
