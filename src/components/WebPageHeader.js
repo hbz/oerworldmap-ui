@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import withI18n from './withI18n'
 import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
@@ -10,8 +11,10 @@ import expose from '../expose'
 
 import '../styles/components/WebPageHeader.pcss'
 
+const date = new Date().toJSON().split('T').shift()
+
 const WebPageHeader = ({
-  user, about, dateModified, view, _self, _links, embedValue,
+  user, about, dateModified, view, _self, _links, embedValue, translate,
 }) => (
   <div className="WebPageHeader">
     <Metadata
@@ -22,6 +25,25 @@ const WebPageHeader = ({
     />
     <div className="webPageActions print-display-none">
       <div>
+
+        {((about.startDate && about.startDate <= date)
+          && (about.endDate && about.endDate >= date) && about.hashtag) && (
+          <>
+            <a
+              href={`https://twitter.com/search?q=${about.hashtag}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="btn">
+                <i className="fa fa-external-link" />
+                &nbsp;
+                {translate('Live')}
+              </button>
+            </a>
+          &nbsp;
+          &nbsp;
+          </>
+        )}
 
         {about['@id'] && [
           view !== 'edit' && (
@@ -77,6 +99,7 @@ WebPageHeader.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   embedValue: PropTypes.string,
+  translate: PropTypes.func.isRequired,
 }
 
 WebPageHeader.defaultProps = {
@@ -85,4 +108,4 @@ WebPageHeader.defaultProps = {
   embedValue: null,
 }
 
-export default WebPageHeader
+export default withI18n(WebPageHeader)
