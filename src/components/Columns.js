@@ -30,12 +30,12 @@ class Columns extends React.Component {
     emitter.on('resetTour', () => {
       this.setState({
         stepIndex: 0,
-        run: true
+        run: true,
       })
     })
 
     this.setState({
-      run: !localStorage.getItem('tourDone')
+      run: !localStorage.getItem('tourDone'),
     })
   }
 
@@ -44,12 +44,13 @@ class Columns extends React.Component {
   }
 
   handleJoyrideCallback(data) {
-    const { action, index, status, type } = data
+    const {
+      action, index, status, type,
+    } = data
 
     if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
       this.setState({ stepIndex: index + (action === ACTIONS.PREV ? -1 : 1) })
-    }
-    else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+    } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
       this.setState({ run: false })
       localStorage.setItem('tourDone', true)
     } else if (action === 'close') {
@@ -93,7 +94,7 @@ class Columns extends React.Component {
           styles={{
             options: {
               primaryColor: '#ff8000',
-            }
+            },
           }}
           steps={[
             {
@@ -123,7 +124,7 @@ class Columns extends React.Component {
             back: translate('Pagination.prevPage'),
             next: translate('Pagination.nextPage'),
             last: translate('Last'),
-            skip: translate('Skip')
+            skip: translate('Skip'),
           }}
         />
       </aside>
