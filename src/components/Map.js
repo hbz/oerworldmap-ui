@@ -2,6 +2,7 @@
 /* global window */
 /* global navigator */
 /* global requestAnimationFrame */
+/* global cancelAnimationFrame */
 /* global Headers */
 
 import React from 'react'
@@ -77,6 +78,7 @@ class Map extends React.Component {
     this.setPinSize = this.setPinSize.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
+    this.animateMarker = this.animateMarker.bind(this)
 
     this.layersOrder = [
       {
@@ -132,6 +134,15 @@ class Map extends React.Component {
     })
 
     this.map.once('load', async () => {
+      // Set circle layers properties
+      this.initialRadius = window.innerWidth <= 700 ? 10 : 5
+      this.radius = this.initialRadius
+      this.framesPerSecond = 15
+      this.initialOpacity = 0.9
+      this.opacity = this.initialOpacity
+      this.maxRadius = this.initialRadius * 10
+      this.animatingMarkers = false
+
       this.map.dragRotate.disable()
       this.map.touchZoomRotate.disableRotation()
 
@@ -173,25 +184,20 @@ class Map extends React.Component {
         pointsLayer.source = 'pointsSource'
         pointsLayer.paint['circle-opacity'] = 1
         pointsLayer.paint['circle-stroke-opacity'] = 1
+        pointsLayer.paint['circle-radius'] = this.initialRadius
+
         this.map.addLayer(pointsLayer)
         initPins
           ? this.map.setLayoutProperty(layer, 'visibility', 'visible')
           : this.map.setLayoutProperty(layer, 'visibility', 'none')
       })
 
-      const framesPerSecond = 15
-      const initialOpacity = 0.9
-      let opacity = initialOpacity
-      const initialRadius = window.innerWidth <= 700 ? 10 : 5
-      let radius = initialRadius
-      const maxRadius = 50
-
       this.map.addLayer({
         id: 'EventsGlow',
         source: 'eventsSource',
         type: 'circle',
         paint: {
-          'circle-radius': initialRadius,
+          'circle-radius': this.initialRadius,
           'circle-radius-transition': { duration: 0 },
           'circle-opacity-transition': { duration: 0 },
           'circle-color': '#f93',
@@ -203,29 +209,12 @@ class Map extends React.Component {
         source: 'eventsSource',
         type: 'circle',
         paint: {
-          'circle-radius': initialRadius,
+          'circle-radius': this.initialRadius,
           'circle-stroke-color': 'hsl(0, 0%, 100%)',
           'circle-stroke-width': 1,
           'circle-color': '#f93',
         },
       })
-
-      const animateMarker = () => {
-        setTimeout(() => {
-          requestAnimationFrame(animateMarker)
-
-          radius += (maxRadius - radius) / framesPerSecond
-          opacity -= (0.9 / framesPerSecond)
-
-          this.map.setPaintProperty('EventsGlow', 'circle-radius', radius)
-          this.map.setPaintProperty('EventsGlow', 'circle-opacity', opacity)
-
-          if (opacity <= 0.1) {
-            radius = initialRadius
-            opacity = initialOpacity
-          }
-        }, 1000 / framesPerSecond)
-      }
 
       this.updatePoints(_links)
 
@@ -241,7 +230,6 @@ class Map extends React.Component {
       this.updateChoropleth(aggregations)
       this.updateZoom(iso3166, home, map)
       this.updateActiveCountry(iso3166, region)
-      this.setPinSize()
 
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer)
@@ -286,9 +274,6 @@ class Map extends React.Component {
       emitter.on('hideOverlay', () => {
         this.popup ? this.popup.remove() : null
       })
-
-      // Start the animation for events
-      animateMarker()
     })
 
     // Create popup for hover
@@ -335,10 +320,28 @@ class Map extends React.Component {
   }
 
   setPinSize() {
+    this.initialRadius = window.innerWidth <= 700 ? 10 : 5
+    this.maxRadius = this.initialRadius * 10
     pointsLayers.forEach((layer) => {
-      this.map.setPaintProperty(layer, 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
+      this.map.setPaintProperty(layer, 'circle-radius', this.initialRadius)
     })
-    this.map.setPaintProperty('Events', 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
+    this.map.setPaintProperty('Events', 'circle-radius', this.initialRadius)
+  }
+
+  animateMarker() {
+    setTimeout(() => {
+      this.radius += (this.maxRadius - this.radius) / (1000 / this.framesPerSecond)
+      this.opacity -= (0.9 / this.framesPerSecond)
+
+      this.map.setPaintProperty('EventsGlow', 'circle-radius', this.radius)
+      this.map.setPaintProperty('EventsGlow', 'circle-opacity', this.opacity)
+
+      if (this.opacity <= 0.1) {
+        this.radius = this.initialRadius
+        this.opacity = this.initialOpacity
+      }
+      requestAnimationFrame(this.animateMarker)
+    }, 1000 / this.framesPerSecond)
   }
 
   zoom(e) {
@@ -853,14 +856,21 @@ class Map extends React.Component {
     const eventsResponse = await fetch(eventsURL.href, { headers })
     const events = await eventsResponse.json()
 
-    this.map.getSource('eventsSource').setData(events)
+    if (events.features && events.features.length) {
+      this.map.getSource('eventsSource').setData(events)
+      if (this.animatingMarkers === false) {
+        this.animatingMarkers = requestAnimationFrame(this.animateMarker)
+      }
+    } else {
+      cancelAnimationFrame(this.animatingMarkers)
+    }
 
     layers.map(layerName => this.animateCircleLayer(layerName, true))
   }
 
   animateCircleLayer(layerName, show) {
     if (show) {
-      this.map.setPaintProperty(layerName, 'circle-radius', window.innerWidth <= 700 ? 10 : 5)
+      this.map.setPaintProperty(layerName, 'circle-radius', this.initialRadius)
       this.map.setPaintProperty(layerName, 'circle-opacity', 1)
       this.map.setPaintProperty(layerName, 'circle-stroke-opacity', 1)
     } else {
@@ -875,7 +885,6 @@ class Map extends React.Component {
     for (const layer of this.layersOrder) {
       const features = this.map.queryRenderedFeatures(e.point, { layers: [layer.name] })
       if (features.length) {
-        console.log(layer.name, features)
         layer.handler(e, features)
         return
       }
