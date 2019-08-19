@@ -170,5 +170,6 @@
   "Policy.isBasisFor": "Please use this field to link to either to policies, which have been triggered by / derived from the policy in focus or to projects or services, which were triggered by the policy in focus. This field could become very important since it allows to document achieved outcomes of the policy. Having triggered e.g. a project or a service could be an indicator for the success of a policy.",
   "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web).",
   "Policy.focus": "Please indicate here which topics are addressed by the policy.",
-  "Policy.contact": "Please add here the name and or an e-mail address of the person responsible for the policy."
+  "Policy.contact": "Please add here the name and or an e-mail address of the person responsible for the policy.",
+  "Policy.affiliate": "Please add yourself here, if you have special knowledge about or are somehow affilliated to this policy."
 }
