@@ -23,6 +23,8 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
+const date = new Date().toJSON().split('T').shift()
+
 const WebPageView = ({
   translate, moment, about, user, view, expandAll, schema, locales, _self,
 }) => {
@@ -119,6 +121,22 @@ const WebPageView = ({
           </React.Fragment>
         )}
       </h2>
+
+      {((about.startDate && about.startDate <= date)
+        && (about.endDate && about.endDate >= date) && about.hashtag) && (
+        <a
+          href={`https://twitter.com/search?q=${about.hashtag}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="liveBtn"
+        >
+          <button className="btn">
+            <i className="fa fa-external-link" />
+            &nbsp;
+            {translate('Currently taking place: Follow the discussion on Social Media!')}
+          </button>
+        </a>
+      )}
 
       {expose('userActions', user)
         && <WebPageUserActions about={about} user={user} view={view} schema={schema} />

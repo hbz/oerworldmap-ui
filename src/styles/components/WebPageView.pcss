@@ -7,6 +7,24 @@
     line-height: var(--webpage-heading-line-height);
   }
 
+  & .liveBtn {
+    margin-top: -20px;
+    display: block;
+
+    & .btn {
+      border-color: var(--orange);
+      color: var(--orange);
+      margin-bottom: 20px;
+      width: 100%;
+
+      &:hover,
+      &:focus {
+        color: var(--white);
+        background-color: var(--orange);
+      }
+    }
+  }
+
   & .FullModal.Lighthouse .Form .Textarea + label,
   & .Comments .Form .Textarea + label {
     display: none;

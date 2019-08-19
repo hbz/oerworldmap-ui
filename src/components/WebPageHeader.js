@@ -11,8 +11,6 @@ import expose from '../expose'
 
 import '../styles/components/WebPageHeader.pcss'
 
-const date = new Date().toJSON().split('T').shift()
-
 const WebPageHeader = ({
   user, about, dateModified, view, _self, _links, embedValue, translate,
 }) => (
@@ -25,25 +23,6 @@ const WebPageHeader = ({
     />
     <div className="webPageActions print-display-none">
       <div>
-
-        {((about.startDate && about.startDate <= date)
-          && (about.endDate && about.endDate >= date) && about.hashtag) && (
-          <>
-            <a
-              href={`https://twitter.com/search?q=${about.hashtag}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="btn">
-                <i className="fa fa-external-link" />
-                &nbsp;
-                {translate('Live')}
-              </button>
-            </a>
-          &nbsp;
-          &nbsp;
-          </>
-        )}
 
         {about['@id'] && [
           view !== 'edit' && (
