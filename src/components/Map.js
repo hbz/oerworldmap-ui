@@ -140,7 +140,7 @@ class Map extends React.Component {
       this.framesPerSecond = 15
       this.initialOpacity = 0.9
       this.opacity = this.initialOpacity
-      this.maxRadius = this.initialRadius * 10
+      this.maxRadius = this.initialRadius * 20
       this.animatingMarkers = false
 
       this.map.dragRotate.disable()
@@ -321,7 +321,7 @@ class Map extends React.Component {
 
   setPinSize() {
     this.initialRadius = window.innerWidth <= 700 ? 10 : 5
-    this.maxRadius = this.initialRadius * 10
+    this.maxRadius = this.initialRadius * 20
     pointsLayers.forEach((layer) => {
       this.map.setPaintProperty(layer, 'circle-radius', this.initialRadius)
     })
@@ -851,6 +851,7 @@ class Map extends React.Component {
     const eventsURL = new URL(uri)
     const date = new Date().toJSON().split('T').shift()
     eventsURL.searchParams.set('filter.about.@type', 'Event')
+    eventsURL.searchParams.set('filter.about.startDate.GTE', '1970')
     eventsURL.searchParams.set('q', `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`)
 
     const eventsResponse = await fetch(eventsURL.href, { headers })
