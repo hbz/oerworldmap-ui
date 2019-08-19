@@ -468,6 +468,14 @@ const WebPageView = ({
             </Block>
           )}
 
+          {about.contact && (
+            <Block title={translate(`${about['@type']}.contact`)}>
+              <p>
+                {about.contact}
+              </p>
+            </Block>
+          )}
+
           {about.status && (
             <Block title={translate(`${about['@type']}.status`)}>
               <Link href={`/resource/?filter.about.status=${about.status}`}>
