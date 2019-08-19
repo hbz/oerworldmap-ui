@@ -426,6 +426,19 @@ const WebPageView = ({
             </Block>
           )}
 
+          {about.focus && (
+            <Block title={translate(`${about['@type']}.focus`)}>
+              {about.focus.map(focus => (
+                <React.Fragment key={focus}>
+                  <Link href={`/resource/?filter.about.focus.keyword=${focus}`}>
+                    {translate(focus)}
+                  </Link>
+                  <br />
+                </React.Fragment>
+              ))}
+            </Block>
+          )}
+
           {about.award && (
             <Block className="list" title={translate(`${about['@type']}.award`)}>
               <ul className="ItemList award">

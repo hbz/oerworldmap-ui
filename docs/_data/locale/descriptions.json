@@ -154,7 +154,7 @@
   "Policy.keywords": "Should be added in English. Tags specific to the Policy Registry should follow following format: policy:tag. This allows to find all related tags easily",
   "Policy.publisher": "Expected normal case will be to link to the profile of the institution, which published the policy.",
   "Policy.award": "Awards",
-  "Policy.additionalType":"The type of this policy, just click the field to see all options.", 
+  "Policy.additionalType":"The type of this policy, just click the field to see all options.",
   "Policy.scope":"Based on classification taken from JRC report: Policy Approaches to Open Education, the scope of the policy",
   "Policy.creator": "Field requires that the linked person or organisation has an OER World Map profile (Unfortunately creating a new one right here is not possible, please create it in another tab). If the authoring organisation is already is at the same time the publisher of the policy this field can be left clear.",
   "Policy.citation": "Allows to link to authors, which do not have an OER World Map profile",
@@ -168,5 +168,6 @@
   "Policy.secondarySector": "Please enter additional educational sectors, the policy addresses. If a policy addresses all educational sectors, this field can be left empty. Please check out the policy registry manual for more information.",
   "Policy.isBasedOn": "Please use this field to link to a policy which either triggered the policy (example: OER Morocco Declaration was based on 2012 Paris Declaration and Scottish Open Declaration) or was reused/adopted to create the policy in focus (example: University of Edinburgh OER Policy was based on University of Leeds Open Educational Resources Policy?)",
   "Policy.isBasisFor": "Please use this field to link to either to policies, which have been triggered by / derived from the policy in focus or to projects or services, which were triggered by the policy in focus. This field could become very important since it allows to document achieved outcomes of the policy. Having triggered e.g. a project or a service could be an indicator for the success of a policy.",
-  "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web)."
+  "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web).",
+  "Policy.focus": "Please indicate here which topics are addressed by the policy."
 }
