@@ -20,7 +20,9 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getParams, getURL, getProp } from '../common'
+import {
+  getParams, getURL, getProp, emptyGeometry,
+} from '../common'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
@@ -141,7 +143,8 @@ class Map extends React.Component {
       this.initialOpacity = 0.9
       this.opacity = this.initialOpacity
       this.maxRadius = this.initialRadius * 20
-      this.animatingMarkers = false
+      this.animatingMarkers = null
+      this.start = null
 
       this.map.dragRotate.disable()
       this.map.touchZoomRotate.disableRotation()
@@ -328,8 +331,12 @@ class Map extends React.Component {
     this.map.setPaintProperty('Events', 'circle-radius', this.initialRadius)
   }
 
-  animateMarker() {
-    setTimeout(() => {
+  animateMarker(timestamp) {
+    console.log('Animate')
+    if (!this.start) this.start = timestamp
+    const progress = timestamp - this.start
+
+    if (progress > 1000 / this.framesPerSecond) {
       this.radius += (this.maxRadius - this.radius) / (1000 / this.framesPerSecond)
       this.opacity -= (0.9 / this.framesPerSecond)
 
@@ -340,8 +347,10 @@ class Map extends React.Component {
         this.radius = this.initialRadius
         this.opacity = this.initialOpacity
       }
-      requestAnimationFrame(this.animateMarker)
-    }, 1000 / this.framesPerSecond)
+      this.start = null
+    }
+
+    this.animatingMarkers = requestAnimationFrame(this.animateMarker)
   }
 
   zoom(e) {
@@ -836,6 +845,8 @@ class Map extends React.Component {
   async updatePoints(_links) {
     const layers = ['points', 'Events', 'EventsGlow']
     layers.map(layerName => this.animateCircleLayer(layerName, false))
+    this.map.getSource('eventsSource').setData(emptyGeometry)
+    cancelAnimationFrame(this.animatingMarkers)
 
     const { uri } = _links.refs.find(link => link.type === 'application/geo+json') || {}
 
@@ -859,11 +870,7 @@ class Map extends React.Component {
 
     if (events.features && events.features.length) {
       this.map.getSource('eventsSource').setData(events)
-      if (this.animatingMarkers === false) {
-        this.animatingMarkers = requestAnimationFrame(this.animateMarker)
-      }
-    } else {
-      cancelAnimationFrame(this.animatingMarkers)
+      this.animatingMarkers = requestAnimationFrame(this.animateMarker)
     }
 
     layers.map(layerName => this.animateCircleLayer(layerName, true))

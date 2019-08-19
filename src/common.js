@@ -197,6 +197,11 @@ export const objectMap = (obj, fn) => (
 export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
   ? 1 : ((b[prop] < a[prop]) ? -1 : 0))
 
+export const emptyGeometry = {
+  type: 'FeatureCollection',
+  features: [],
+}
+
 export default {
   getTitle,
   formatURL,
@@ -212,4 +217,5 @@ export default {
   objectMap,
   sortByProp,
   addParamToURL,
+  emptyGeometry,
 }

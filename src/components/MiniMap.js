@@ -9,13 +9,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import bbox from '@turf/bbox'
 import { point } from '@turf/helpers'
+import { emptyGeometry } from '../common'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
-
-const emptyGeometry = {
-  type: 'FeatureCollection',
-  features: [],
-}
 
 class MiniMap extends React.Component {
   constructor(props) {
