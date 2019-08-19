@@ -332,7 +332,6 @@ class Map extends React.Component {
   }
 
   animateMarker(timestamp) {
-    console.log('Animate')
     if (!this.start) this.start = timestamp
     const progress = timestamp - this.start
 
