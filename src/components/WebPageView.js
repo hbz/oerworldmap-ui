@@ -23,10 +23,8 @@ import { formatURL, formatDate } from '../common'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
-const date = new Date().toJSON().split('T').shift()
-
 const WebPageView = ({
-  translate, moment, about, user, view, expandAll, schema, locales, _self,
+  translate, moment, about, user, view, expandAll, schema, locales, _self, isLiveEvent,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -122,8 +120,7 @@ const WebPageView = ({
         )}
       </h2>
 
-      {((about.startDate && about.startDate <= date)
-        && (about.endDate && about.endDate >= date) && about.hashtag) && (
+      {isLiveEvent && (
         <a
           href={`https://twitter.com/search?q=${about.hashtag}`}
           target="_blank"
@@ -846,11 +843,13 @@ WebPageView.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   _self: PropTypes.string.isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  isLiveEvent: PropTypes.bool,
 }
 
 WebPageView.defaultProps = {
   user: null,
   expandAll: false,
+  isLiveEvent: undefined,
 }
 
 export default withI18n(WebPageView)

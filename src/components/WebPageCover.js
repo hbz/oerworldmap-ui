@@ -7,7 +7,7 @@ import ResourceImage from './ResourceImage'
 import '../styles/components/WebPageCover.pcss'
 
 const WebPageCover = ({
-  feature, about, mapboxConfig, view,
+  feature, about, mapboxConfig, view, isLiveEvent,
 }) => {
   const country = (about
     && about.location
@@ -24,6 +24,7 @@ const WebPageCover = ({
         mapboxConfig={mapboxConfig}
         geometry={geometry}
         center={geometry ? undefined : (country && centroids[country])}
+        isLiveEvent={isLiveEvent}
       />
 
       <ResourceImage about={about} className="webPageCoverImage" view={view} />
@@ -42,10 +43,12 @@ WebPageCover.propTypes = {
     },
   ).isRequired,
   view: PropTypes.string.isRequired,
+  isLiveEvent: PropTypes.bool,
 }
 
 WebPageCover.defaultProps = {
   feature: null,
+  isLiveEvent: undefined,
 }
 
 export default WebPageCover

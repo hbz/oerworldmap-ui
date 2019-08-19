@@ -2,7 +2,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import withI18n from './withI18n'
 import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
@@ -12,7 +11,7 @@ import expose from '../expose'
 import '../styles/components/WebPageHeader.pcss'
 
 const WebPageHeader = ({
-  user, about, dateModified, view, _self, _links, embedValue, translate,
+  user, about, dateModified, view, _self, _links, embedValue,
 }) => (
   <div className="WebPageHeader">
     <Metadata
@@ -78,7 +77,6 @@ WebPageHeader.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   embedValue: PropTypes.string,
-  translate: PropTypes.func.isRequired,
 }
 
 WebPageHeader.defaultProps = {
@@ -87,4 +85,4 @@ WebPageHeader.defaultProps = {
   embedValue: null,
 }
 
-export default withI18n(WebPageHeader)
+export default WebPageHeader
