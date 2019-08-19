@@ -1,21 +1,22 @@
 /* global document */
-/* global location */
+/* global window */
 /* global SUPPORTED_LANGUAGES */
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
 import { triggerClick, addParamToURL } from '../common'
-import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
 
-class Header extends React.Component {
+const types = ['Organization', 'Action', 'Service', 'Event', 'Article', 'WebPage', 'Product', 'Policy']
 
+class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -23,9 +24,9 @@ class Header extends React.Component {
         find: false,
         add: false,
         info: false,
-        me: false
+        me: false,
       },
-      showNotification: false
+      showNotification: false,
     }
     this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
@@ -33,52 +34,54 @@ class Header extends React.Component {
 
   componentDidMount() {
     const { emitter, user } = this.props
-    document.addEventListener("click", this.handleClick)
+    document.addEventListener('click', this.handleClick)
 
     emitter.on('setLoading', () => {
       if (this.dropDown) {
-        this.setState({showMobileMenu:false})
+        this.setState({ showMobileMenu: false })
         this.setDropdown('')
       }
     })
 
-    emitter.on('newActivity', (activities) =>  {
-
-      if (location.pathname !== '/activity/') {
-        const showNotification = !user || activities.some(activity => activity.user && activity.user["@id"] !== user.id)
-        this.setState({showNotification})
+    emitter.on('newActivity', (activities) => {
+      if (window.location.pathname !== '/activity/') {
+        const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
+        this.setState({ showNotification })
       }
     })
 
-    emitter.on('clearActivity', () =>  {
-      this.setState({showNotification: false})
+    emitter.on('clearActivity', () => {
+      this.setState({ showNotification: false })
     })
-
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
+    document.removeEventListener('click', this.handleClick)
   }
 
   setDropdown(name) {
     const { dropdowns } = this.state
     const dropdownsState = {}
 
-    Object.keys(dropdowns).forEach(key =>  {
+    Object.keys(dropdowns).forEach((key) => {
       dropdownsState[key] = key === name && dropdowns[key] !== true
     })
 
-    this.setState({dropdowns: dropdownsState})
+    this.setState({ dropdowns: dropdownsState })
   }
 
   handleClick(e) {
-    if (e.target !== this.menuToggle && (this.secondaryNav && !this.secondaryNav.contains(e.target)))
-      this.setState({showMobileMenu:false})
+    if (e.target !== this.menuToggle
+      && (this.secondaryNav && !this.secondaryNav.contains(e.target))) {
+      this.setState({ showMobileMenu: false })
+    }
   }
 
   render() {
-    const { translate, user, locales } = this.props
-    const { showMobileMenu, dropdowns, showNotification} = this.state
+    const {
+      translate, user, locales,
+    } = this.props
+    const { showMobileMenu, dropdowns, showNotification } = this.state
 
     let { supportedLanguages } = this.props
     if (!supportedLanguages) {
@@ -88,14 +91,20 @@ class Header extends React.Component {
     return (
       <header className="Header">
 
-        <Link href="/resource/">
-          <h1>{translate('OER World Map')}</h1>
-        </Link>
+        <div className="headerTitle">
+          <a href="/">
+            <h1>{translate('OER World Map')}</h1>
+          </a>
+
+          <Link title={translate('main.map')} href="/resource/">
+            <i aria-hidden="true" className="fa fa-globe" />
+          </Link>
+        </div>
 
         <button
           className="menuToggle visible-mobile-block"
           onClick={() => {
-            this.setState({showMobileMenu:!showMobileMenu})
+            this.setState({ showMobileMenu: !showMobileMenu })
             this.setDropdown('')
           }}
           onKeyDown={triggerClick}
@@ -105,7 +114,7 @@ class Header extends React.Component {
         </button>
 
         <nav
-          className={`secondaryNav${showMobileMenu ? ' show' : '' }`}
+          className={`secondaryNav${showMobileMenu ? ' show' : ''}`}
           ref={secondaryNav => this.secondaryNav = secondaryNav}
         >
           <ul>
@@ -122,7 +131,7 @@ class Header extends React.Component {
               </Link>
             </li>
             <li
-              className={`hasDropdown${dropdowns.find ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.find ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -284,119 +293,66 @@ class Header extends React.Component {
 
             </li>
 
-            {expose('addEntry', user) && (
-              <li
-                className={`hasDropdown${dropdowns.add ? ' active': ''}`}
-                onMouseLeave={() => {
-                  this.setDropdown('')
-                }}
-                onMouseEnter={() => {
+            <li
+              className={`hasDropdown${dropdowns.add ? ' active' : ''}`}
+              onMouseLeave={() => {
+                this.setDropdown('')
+              }}
+              onMouseEnter={() => {
+                typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
+                this.setDropdown('add')
+              }}
+            >
+              <div
+                tabIndex="0"
+                className="btnHover"
+                onKeyDown={triggerClick}
+                role="button"
+                onClick={() => {
+                  typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'MainMenu', 'MenuEntryClick', 'Add'])
                   this.setDropdown('add')
                 }}
               >
-                <div
-                  tabIndex="0"
-                  className="btnHover"
-                  onKeyDown={triggerClick}
-                  role="button"
-                  onClick={() => {
-                    this.setDropdown('add')
-                  }}
-                >
-                  {translate('menu.add')}
-                </div>
-                <div className="dropdown">
-                  <div className="inner">
-                    <div className="popular">
-                      <div style={{maxWidth: '80%'}}>
-                        {translate('menu.add.subtitle')}
-                        <p dangerouslySetInnerHTML={{__html: translate('menu.hint')}} />
-                      </div>
-                      <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
-                        {translate('needHelp')}
-                      </Link>
+                {translate('menu.add')}
+              </div>
+              <div className="dropdown">
+                <div className="inner">
+                  <div className="popular">
+                    <div style={{ maxWidth: '80%' }}>
+                      {translate('menu.add.subtitle')}
+                      <p dangerouslySetInnerHTML={{ __html: translate('menu.hint') }} />
                     </div>
-                    <div className="row vertical-guttered stack-700" style={{justifyContent: "start"}}>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Organization" className="addBox">
+                    <Link className="link-grey" rel="noopener noreferrer" target="_blank" href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#service-organization-or-project">
+                      {translate('needHelp')}
+                    </Link>
+                  </div>
+                  <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
+
+                    {types.map(type => (
+                      <div key={type} className="col one-fourth">
+                        <Link
+                          className="addBox"
+                          href={`/resource/?add=${type}`}
+                          additional={() => {
+                            typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddMenu', 'TypeClick', type])
+                          }}
+                        >
                           <h3 className="iconItem">
-                            <Icon type="Organization" />
-                            {translate('Organization')}
+                            <Icon type={type} />
+                            {translate(type)}
                           </h3>
-                          <p className="text-small">{translate('descriptions.Organization')}</p>
+                          <p className="text-small">{translate(`descriptions.${type}`)}</p>
                         </Link>
                       </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Action" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Action" />
-                            {translate('Action')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Action')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Service" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Service" />
-                            {translate('Service')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Service')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Event" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Event" />
-                            {translate('Event')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Event')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Article" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Article" />
-                            {translate('Article')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Article')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=WebPage" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="WebPage" />
-                            {translate('WebPage')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.WebPage')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Product" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Product" />
-                            {translate('Product')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Product')}</p>
-                        </Link>
-                      </div>
-                      <div className="col one-fourth">
-                        <Link href="/resource/?add=Policy" className="addBox">
-                          <h3 className="iconItem">
-                            <Icon type="Policy" />
-                            {translate('Policy')}
-                          </h3>
-                          <p className="text-small">{translate('descriptions.Policy')}</p>
-                        </Link>
-                      </div>
-                    </div>
+                    ))}
+
                   </div>
                 </div>
-              </li>
-            )}
+              </div>
+            </li>
 
             <li
-              className={`hasDropdown${dropdowns.info ? ' active': ''}`}
+              className={`hasDropdown${dropdowns.info ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -513,7 +469,7 @@ class Header extends React.Component {
 
             {user ? (
               <li
-                className={`hasDropdown${dropdowns.me ? ' active': ''}`}
+                className={`hasDropdown${dropdowns.me ? ' active' : ''}`}
                 onMouseLeave={() => {
                   this.setDropdown('')
                 }}
@@ -562,6 +518,7 @@ class Header extends React.Component {
                             <a
                               className="item"
                               // FIXME: This works to log out after editing a profile
+                              // eslint-disable-next-line max-len
                               // href={`/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri=${Link.self}`}
                               // FIXME: This works in all cases except after editing a profile
                               href={`/oauth2callback?logout=${Link.self}`}
@@ -631,7 +588,7 @@ class Header extends React.Component {
                   <ul>
                     {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
                       <li key={lang}>
-                        <a href={addParamToURL(Link.self, "language", lang)}>{translate(lang)}</a>
+                        <a href={addParamToURL(Link.self, 'language', lang)}>{translate(lang)}</a>
                       </li>
                     ))}
                   </ul>
@@ -641,8 +598,6 @@ class Header extends React.Component {
           </ul>
 
         </nav>
-
-
 
       </header>
     )
@@ -654,7 +609,7 @@ Header.propTypes = {
   translate: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired
+  supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 Header.defaultProps = {

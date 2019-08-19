@@ -1,20 +1,18 @@
-/* global URL */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FullModal from './FullModal'
 import withI18n from './withI18n'
 
 import '../styles/components/Share.pcss'
 
-const Share = ({_self, translate, embedValue}) => {
-
+const Share = ({
+  _self, translate, embedValue,
+}) => {
   const embed = new URL(_self)
   embedValue && embed.searchParams.set('embed', embedValue)
 
   return (
-    <FullModal className="Share" closeLink={_self}>
+    <div className="Share">
       <h2>{translate('share.shareResource')}</h2>
       <div className="shareContent">
         <span className="title">{translate('share.permalink')}</span>
@@ -45,18 +43,18 @@ const Share = ({_self, translate, embedValue}) => {
         </a>
 
       </div>
-    </FullModal>
+    </div>
   )
 }
 
 Share.propTypes = {
   _self: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
 }
 
 Share.defaultProps = {
-  embedValue: null
+  embedValue: null,
 }
 
 export default withI18n(Share)

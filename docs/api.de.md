@@ -1,6 +1,7 @@
 ---
 title: API-Dokumentation
 ---
+
 <p xmlns:dct="http://purl.org/dc/terms/">
   Soweit rechtlich möglich überträgt das <a rel="dct:publisher"
       href="https://www.hbz-nrw.de/"> <span property="dct:title">hbz</span></a> jedwedes Copyright, sowie verwandte Rechte <span property="dct:title">an den OER-World-Map-Daten</span>. <a rel="license"

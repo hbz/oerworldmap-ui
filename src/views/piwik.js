@@ -1,5 +1,4 @@
-export default ({id, url}) => {
-  return `
+export default ({ id, url }) => `
     <script type="text/javascript">
       var _paq = _paq || [];
       _paq.push(['trackPageView']);
@@ -14,4 +13,3 @@ export default ({id, url}) => {
     </script>
     <noscript><p><img src="//${url}piwik.php?idsite=${id}" style="border:0;" alt="Piwik Url" /></p></noscript>
   `
-}

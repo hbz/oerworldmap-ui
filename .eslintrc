@@ -2,9 +2,11 @@
   "env": {"es6": true},
   "parserOptions": {"ecmaVersion": 2017},
   "rules": {
-    "react/button-has-type": ["on", {
+    "react/button-has-type": [1, {
       "reset": true
     }],
+    "no-alert": "warn",
+    "no-restricted-globals": "warn",
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "node/no-unsupported-features/es-syntax": "off",
@@ -17,6 +19,16 @@
     "import/no-dynamic-require": "off",
     "no-console": "warn",
     "jsx-a11y/no-autofocus": "off",
+    "no-nested-ternary": "off",
+    "global-require": "off",
+    "no-return-assign": "off",
+    "no-unused-expressions": "off",
+    "no-underscore-dangle": "off",
+    "no-shadow": "off",
+    "no-param-reassign": "off",
+    "no-mixed-operators": "off",
+    "consistent-return": "off",
+    "guard-for-in": "off",
     "padding-line-between-statements": [
       "error",
       { "blankLine": "any", "prev": "*", "next": "*" }

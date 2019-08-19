@@ -1,22 +1,66 @@
-@import '../variables.pcss';
-
 .Filters {
   & .FiltersControls {
     position: relative;
     transition: all 1s;
     left: 0;
 
+    &.filtersCollapsed {
+      max-height: 0;
+      overflow: hidden;
+    }
+
     @media print {
       display: none;
     }
   }
 
-  & .filterSearch {
+  & .filtersCollapsedButton {
+    position: relative;
+
+    &.collapsed {
+      & hr {
+        margin-top: 0;
+      }
+    }
+
+    & i {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -14px;
+      cursor: pointer;
+      background-color: var(--white);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover,
+      &:focus {
+        color: var(--orange);
+        border-color: var(--orange);
+      }
+
+      &::before {
+        position: relative;
+        top: -1px;
+      }
+    }
+  }
+
+  & .firstRow {
     display: flex;
     padding-bottom: 15px;
+  }
+
+  & .filterSearch {
+    flex: 1;
+    display: flex;
     position: relative;
     margin-left: 0;
-    transition: .2s margin-left;
+    transition: 0.2s margin-left;
 
     & button[type=submit] {
       position: absolute;
@@ -110,47 +154,10 @@
       }
     }
 
-    & .ButtonFilter,
     & .DropdownFilter {
       padding: 0 5px;
       margin-bottom: 10px;
       top: 1px;
-    }
-
-    & .ButtonFilter {
-      width: 100%;
-      display: flex;
-      flex-wrap: nowrap;
-
-      & .filterBox {
-        padding: 0 2px;
-        flex-grow: 1;
-
-        & .btn {
-          text-align: center;
-        }
-      }
-
-      & .filterBox:first-child {
-        padding-left: 0;
-      }
-
-      & .filterBox:last-child {
-        padding-right: 0;
-      }
-    }
-
-    & input[type="radio"] {
-      display: none;
-
-      &:checked + label {
-        color: var(--white);
-        background: var(--primary-color);
-
-        & i {
-          pointer-events: none;
-        }
-      }
     }
 
     & .btn {
@@ -175,7 +182,7 @@
 
       &:focus {
         -moz-outline-radius: var(--border-radius);
-        outline: 1px solid var(--primary-color);
+        outline: 1px dotted var(--primary-color);
       }
 
       &:hover,
@@ -191,6 +198,7 @@
 
     & .DropdownFilter {
       flex: 1;
+      max-width: calc(100% / 3);
 
       & .btn.expand {
         max-width: 100%;
@@ -198,6 +206,29 @@
 
         & i {
           padding-right: 10px;
+        }
+      }
+    }
+
+    & .showMore {
+      flex: 1;
+      max-width: calc(100% / 3);
+      padding: 0 5px;
+
+      & > .btn {
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid var(--blue);
+        background-color: var(--white);
+        color: var(--blue);
+
+        &.active::before {
+          content: "\f077";
+        }
+
+        &:hover {
+          border-color: var(--orange);
+          color: var(--orange);
         }
       }
     }
@@ -374,5 +405,21 @@
 
   &:hover::after {
     color: var(--orange);
+  }
+}
+
+.togglePins {
+  border-radius: var(--border-radius);
+  border: 1px solid var(--blue-light);
+  background-color: var(--white);
+  color: var(--blue);
+  font-size: var(--font-size);
+  margin-left: 5px;
+  padding: 0 15px;
+
+  &.checked {
+    background-color: var(--blue-dark);
+    border-color: var(--blue-dark);
+    color: var(--white);
   }
 }

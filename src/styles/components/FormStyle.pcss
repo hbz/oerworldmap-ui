@@ -1,5 +1,5 @@
 @import '../colors.pcss';
-@import '../variables.pcss';
+
 @import 'FormsStructure.pcss';
 
 .Form {
@@ -32,9 +32,26 @@
     font-size: var(--font-size-xs);
   }
 
-  & .List .LocalizedString .Input.text label,
-  & .List.sameAs .Input.text label {
-    display: none;
+  & .LocalizedString .Textarea,
+  & .LocalizedString .Input {
+    position: relative;
+    margin-bottom: 10px;
+    & + select {
+      border: 1px solid var(--blue-dark);
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      color: var(--blue-dark);
+    }
+    & label {
+      position: absolute;
+      right: 4px;
+      top: 2px;
+      color: var(--grey-dark);
+      font-size: var(--font-size-xs);
+      padding: 0;
+      display: inline-block;
+      font-weight: unset;
+    }
   }
 
   & .Builder > .Fieldset > .label {
@@ -384,7 +401,8 @@
 
   & .List.isFundedBy > .label,
   & .List.isFundedBy > ul > li > .Fieldset > .label,
-  & .List.availableChannel > .label {
+  & .List.availableChannel > .label,
+  & .List.location > .label {
     display: none;
   }
 
@@ -683,6 +701,10 @@
       display: none;
     }
   }
+}
+
+.LocalizedString div.error {
+  display: block;
 }
 
 div.error {

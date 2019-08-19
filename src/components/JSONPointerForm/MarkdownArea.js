@@ -4,9 +4,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import SimpleMDE from 'react-simplemde-editor'
 import Markdown from 'markdown-to-jsx'
-import ReactDOMServer from "react-dom/server"
+import ReactDOMServer from 'react-dom/server'
 
-import "simplemde/dist/simplemde.min.css"
+import 'simplemde/dist/simplemde.min.css'
 
 import withFormData from './withFormData'
 import LinkOverride from '../LinkOverride'
@@ -14,9 +14,9 @@ import { objectMap } from '../../common'
 
 const MarkdownArea = ({
   name, value, setValue, errors, property, title, className, translate, shouldFormComponentFocus,
-  formId, required, description
+  formId, required, description,
 }) => (
-  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError': ''}`.trim()}>
+  <div className={`Textarea ${property || ''} ${className} ${errors.length ? 'hasError' : ''}`.trim()}>
     <label
       htmlFor={`${formId}-${name}`}
       className={required ? 'required' : ''}
@@ -43,22 +43,20 @@ const MarkdownArea = ({
       id={`${formId}-${name}`}
       onChange={value => setValue(value)}
       className="SimpleMDE"
-      getMdeInstance={instance => {
-
-        const mo = new MutationObserver(e => {
+      getMdeInstance={(instance) => {
+        const mo = new MutationObserver((e) => {
           const mutation = e.shift()
           if (mutation
-            && mutation.attributeName === "class"
+            && mutation.attributeName === 'class'
             && !mutation.target.classList.contains('hidden')) {
             instance.codemirror.refresh()
           }
         })
 
-        document && document.getElementById('edit') &&
-          mo.observe(document.getElementById('edit'), {attributes: true})
+        document && document.getElementById('edit')
+          && mo.observe(document.getElementById('edit'), { attributes: true })
 
-        instance.codemirror.on("focus", (i, e) =>
-          !e && i.setCursor(i.getValue().length))
+        instance.codemirror.on('focus', (i, e) => !e && i.setCursor(i.getValue().length))
       }}
       options={{
         autofocus: shouldFormComponentFocus,
@@ -66,19 +64,19 @@ const MarkdownArea = ({
         spellChecker: false,
         placeholder: translate(title),
         previewRender(value) {
-          return ReactDOMServer.renderToString (
+          return ReactDOMServer.renderToString(
             <Markdown options={{
               overrides: {
                 a: {
-                  component: LinkOverride
-                }
-              }
+                  component: LinkOverride,
+                },
+              },
             }}
             >
               {value}
-            </Markdown>
+            </Markdown>,
           )
-        }
+        },
       }}
     />
   </div>
@@ -96,7 +94,7 @@ MarkdownArea.propTypes = {
   shouldFormComponentFocus: PropTypes.bool,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  description: PropTypes.string
+  description: PropTypes.string,
 }
 
 MarkdownArea.defaultProps = {
@@ -107,7 +105,7 @@ MarkdownArea.defaultProps = {
   className: '',
   shouldFormComponentFocus: false,
   required: false,
-  description: undefined
+  description: undefined,
 }
 
 export default withFormData(MarkdownArea)

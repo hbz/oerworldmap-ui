@@ -11,8 +11,6 @@ import user from './resources/user.json'
 import mock from './helpers/mock'
 import i18n from '../src/i18n'
 
-const author = 'Test Author'
-const contributor = 'Test Contributor'
 const dateModified = "2018-02-22T16:26:27.753"
 
 describe('<Metadata />', () => {
@@ -24,8 +22,6 @@ describe('<Metadata />', () => {
         <Metadata
           type={about['@type']}
           about={about}
-          author={author}
-          contributor={contributor}
           dateModified={dateModified}
           user={user}
         />

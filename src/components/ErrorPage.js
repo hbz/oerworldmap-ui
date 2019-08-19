@@ -6,7 +6,7 @@ import Link from './Link'
 
 import '../styles/components/ErrorPage.pcss'
 
-const ErrorPage = ({message, translate}) => (
+const ErrorPage = ({ message, translate }) => (
   <Link href="/">
     <div className="ErrorPage">
       <div className="ErrorPageContainer">
@@ -20,7 +20,7 @@ const ErrorPage = ({message, translate}) => (
 
 ErrorPage.propTypes = {
   message: PropTypes.string.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
 }
 
 export default withI18n(ErrorPage)

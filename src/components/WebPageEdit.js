@@ -1,5 +1,6 @@
 /* global document */
 /* global confirm */
+/* global _paq */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
@@ -16,26 +17,26 @@ import Link from './Link'
 import expose from '../expose'
 
 const WebPageEdit = ({
-  about,
-  emitter,
-  translate,
-  action,
-  mapboxConfig,
-  user,
-  schema,
-  closeLink,
-  showOptionalFields,
-  onSubmit
+  about, emitter, translate, action, mapboxConfig,
+  user, schema, closeLink, showOptionalFields, _self,
+  onSubmit,
 }) => (
   <Form
     data={about}
     validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
-    onSubmit={onSubmit}
+    onSubmit={(data) => {
+      if (_self && _self.includes('?add')) {
+        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', 'SubmitButtonClick'])
+      } else {
+        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', 'SubmitButtonClick'])
+      }
+      onSubmit(data)
+    }}
     onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
       .scrollTop = document.querySelector('.hasError').offsetTop
     )}
   >
-    <h2>{translate(action, {type: translate(about['@type'])})}</h2>
+    <h2>{translate(action, { type: translate(about['@type']) })}</h2>
     <a
       href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
       target="_blank"
@@ -46,11 +47,11 @@ const WebPageEdit = ({
     </a>
     <Builder
       schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)}
-      config={{mapboxConfig}}
+      config={{ mapboxConfig }}
       key={uniqueId()}
       showOptionalFields={showOptionalFields}
     />
-    <p className="agree" dangerouslySetInnerHTML={{__html: translate('ResourceIndex.index.agreeMessage')}} />
+    <p className="agree" dangerouslySetInnerHTML={{ __html: translate('ResourceIndex.index.agreeMessage') }} />
 
     <div className="formButtons">
       <div className="primaryButtons">
@@ -63,10 +64,10 @@ const WebPageEdit = ({
         <button
           className="btn delete"
           type="button"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault()
             confirm(translate('other.deleteResource')) && emitter.emit('delete', {
-              url: `/resource/${about['@id']}`
+              url: `/resource/${about['@id']}`,
             })
           }}
         >
@@ -88,13 +89,14 @@ WebPageEdit.propTypes = {
       token: PropTypes.string,
       style: PropTypes.string,
       miniMapStyle: PropTypes.string,
-    }
+    },
   ).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   closeLink: PropTypes.string,
   showOptionalFields: PropTypes.bool,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  _self: PropTypes.string.isRequired,
 }
 
 WebPageEdit.defaultProps = {
@@ -102,7 +104,7 @@ WebPageEdit.defaultProps = {
   user: null,
   closeLink: null,
   showOptionalFields: true,
-  onSubmit: formData => console.log(formData)
+  onSubmit: formData => console.log(formData),
 }
 
 export default withI18n(withEmitter(WebPageEdit))

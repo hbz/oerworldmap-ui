@@ -1,6 +1,7 @@
 ---
 title: Documentação da API
 ---
+
 <p xmlns:dct="http://purl.org/dc/terms/">
   To the extent possible under law, <a rel="dct:publisher"
      href="https://www.hbz-nrw.de/"> <span property="dct:title">hbz</span></a> has waived all copyright and related or neighboring rights to <span property="dct:title">OER World Map data</span>. <a rel="license"

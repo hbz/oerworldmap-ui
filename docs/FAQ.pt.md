@@ -3,6 +3,7 @@ title: FAQ
 layout: page
 class: faq
 ---
+
 # FAQ
 
 ## O que é REA?

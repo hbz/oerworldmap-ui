@@ -1,12 +1,13 @@
-@import '../variables.pcss';
-
 #Map {
+  font-family: var(--font-family);
+
   & .tooltip {
     border: 1px solid var(--blue-dark);
     background-color: var(--white);
-    max-width: 500px;
+    max-width: 322px;
     color: var(--blue-dark);
     position: relative;
+    font-family: var(--font-family);
 
     & a {
       color: var(--blue-dark);
@@ -15,15 +16,27 @@
     & ul {
       list-style-type: none;
       margin: 0;
-      padding: 5px;
+      padding: 15px;
 
       &.list li {
         width: 100%;
         border-bottom: 1px solid #ccc;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+
+        & > i,
+        & > a > i {
+          width: 20px;
+        }
+      }
+
+      &.list li:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
       }
 
       & li {
-        padding: 5px 10px;
+        font-size: var(--font-size);
 
         & span.item {
           display: inline-flex;
@@ -41,22 +54,37 @@
           border-bottom: none;
         }
 
+        & .tooltipTitle {
+          font-size: var(--font-size);
+        }
+
+        & .tip {
+          font-size: var(--font-size-xs);
+        }
+
         & .buckets {
+          border-top: 1px solid var(--blue-dark);
           display: flex;
           flex-wrap: wrap;
-          justify-content: space-around;
-          padding-top: 5px;
           flex: 1;
+          justify-content: center;
+          padding: 0 5px;
+          padding-top: 15px;
+          margin-top: 15px;
 
           & div {
-            padding-right: 20px;
+            /* width: calc(100%< / 10); */
+            width: 28px;
             display: inline-flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
+            margin: 0;
+            font-size: var(--font-size-xs);
 
-            &:last-child {
-              padding-right: 0;
+            & > span {
+              margin-top: 5px;
             }
           }
         }
@@ -66,10 +94,11 @@
         }
 
         &.separator {
+          margin-top: 5px;
           & span {
-            border-top: 1px solid var(--blue-lightest);
-            padding: 10px 10px 0;
-            text-align: center;
+            font-size: var(--font-size-xs);
+            padding-top: 15px;
+            border-top: 1px solid var(--blue-dark);
             display: block;
           }
         }
@@ -81,7 +110,7 @@
     display: flex;
     right: 20px;
     position: relative;
-    top: -15px;
+    top: -13px;
     background-color: transparent;
     box-shadow: none;
 
@@ -110,12 +139,12 @@
 
     & .mapboxgl-ctrl-icon {
       border-radius: 2px;
-      border: 2px solid var(--blue);
+      border: 1px solid var(--blue);
       background-color: var(--white);
       position: relative;
       color: var(--blue);
       background-image: none;
-      margin-right: 10px;
+      margin-right: 2px;
 
       &:last-child {
         margin-right: 0;
@@ -158,10 +187,10 @@
     height: 30px;
     background-color: #fff;
     position: absolute;
-    right: 120px;
+    right: 100px;
     bottom: 43px;
     border-radius: 2px;
-    border: 2px solid var(--blue);
+    border: 1px solid var(--blue);
     z-index: 1;
 
     & .infoContainer {
@@ -207,6 +236,7 @@
   & .mapboxgl-popup-tip {
     position: relative;
     z-index: 10;
+    top: -1px;
 
     &::after {
       content: "";
@@ -232,6 +262,7 @@
 
   & .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
     border-bottom-color: var(--blue-dark);
+    top: 1px;
 
     &::after {
       top: 1px;
@@ -244,6 +275,7 @@
 
   & .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
     border-right-color: var(--blue-dark);
+    left: 1px;
 
     &::after {
       left: 1px;
@@ -256,6 +288,7 @@
 
   & .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
     border-left-color: var(--blue-dark);
+    right: 1px;
 
     &::after {
       right: 1px;
@@ -319,11 +352,14 @@
   }
 
   & .mapboxgl-popup {
+    max-width: 322px !Important;
     z-index: 5;
   }
 
   & .mapboxgl-popup-content {
     padding: 0;
+    min-width: 322px;
+    max-width: 322px;
 
     &.noEvents {
       pointer-events: none;
@@ -336,7 +372,7 @@
 
   & .imprintLink {
     position: absolute;
-    right: 300px;
+    right: 110px;
     bottom: 0;
     z-index: 3;
     padding: 0 5px;
@@ -370,6 +406,9 @@
   }
 
   @media screen and (--mobile-breakpoint) {
+    height: calc(100% - 30px) !important;
+    top: 30px !important;
+
     & .goToMap {
       right: 10px;
       bottom: 42px;
@@ -380,13 +419,17 @@
         font-size: 2rem;
       }
     }
-
     & .mapLeyend {
-      left: 17px;
+      right: 82px;
+      bottom: 63px;
     }
 
     & .imprintLink {
       display: none;
+    }
+
+    & .mapboxgl-ctrl.mapboxgl-ctrl-group {
+      right: 5px;
     }
   }
 }

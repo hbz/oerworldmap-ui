@@ -8,18 +8,17 @@ import LinkOverride from './LinkOverride'
 
 import '../styles/components/TimelineBlock.pcss'
 
-const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
-
-  let user
+const TimelineBlock = ({
+  entry, prominent, withBorder, moment, translate,
+}) => {
+  let { user } = entry || {}
   let message
   let resource
 
   if (entry.about['@type'] === 'LighthouseAction') {
-    user = entry.user
     message = translate('marked as a lighthouse')
     resource = entry.about.object
   } else if (entry.about['@type'] === 'Comment') {
-    user = entry.user
     message = translate('commented on')
     resource = entry.about.commentOn
   } else if (entry.action.type === 'add' && entry.about['@type'] === 'Person') {
@@ -27,11 +26,9 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
     message = translate('joined the OER World Map')
     resource = entry.about
   } else if (entry.action.type === 'add' && entry.about['@type'] === 'LikeAction') {
-    user = entry.user
     message = translate('liked')
     resource = entry.about.object
   } else if (entry.action.type === 'add') {
-    user = entry.user
     message = translate('added')
     resource = entry.about
   } else if (entry.action.type === 'edit' && entry.about['@type'] === 'Person') {
@@ -39,7 +36,6 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
     message = translate('updated their profile')
     resource = entry.about
   } else if (entry.action.type === 'edit') {
-    user = entry.user
     message = translate('edited')
     resource = entry.about
   }
@@ -48,7 +44,7 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
   resource = resource || {}
 
   return (
-    <div className={`TimelineBlock${prominent ? ' prominent': ''}`}>
+    <div className={`TimelineBlock${prominent ? ' prominent' : ''}`}>
 
       <React.Fragment>
         <div className="timelineBlockTitle">
@@ -62,9 +58,12 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
           &nbsp;
           {translate('from')}
           &nbsp;
-          {(user.location && user.location.address)
-            ? <Link href={user.location.address.addressCountry}>{translate(user.location.address.addressCountry)}</Link>
-            : null}
+          {(user.location && user.location[0] && user.location[0].address)
+            ? (
+              <Link href={user.location[0].address.addressCountry}>
+                {translate(user.location[0].address.addressCountry)}
+              </Link>
+            ) : null}
           &nbsp;
           {translate(message)}
           {entry.about['@type'] !== 'Person' && (
@@ -75,7 +74,7 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
           )}
         </div>
 
-        <div className={`timelineBlockContent${withBorder ? ' withBorder': ''}`}>
+        <div className={`timelineBlockContent${withBorder ? ' withBorder' : ''}`}>
           <ResourcePreview about={resource} />
 
           {entry.about['@type'] === 'Comment' && (
@@ -87,9 +86,9 @@ const TimelineBlock = ({entry, prominent, withBorder, moment, translate}) => {
                 <Markdown options={{
                   overrides: {
                     a: {
-                      component: LinkOverride
-                    }
-                  }
+                      component: LinkOverride,
+                    },
+                  },
                 }}
                 >
                   {translate(entry.about.text)}
@@ -114,7 +113,7 @@ TimelineBlock.propTypes = {
 
 TimelineBlock.defaultProps = {
   prominent: false,
-  withBorder: false
+  withBorder: false,
 }
 
 

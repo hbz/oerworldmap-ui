@@ -8,61 +8,12 @@ import withI18n from './withI18n'
 import '../styles/components/Calendar.pcss'
 
 class Calendar extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      showPastEvents: false
-    }
-  }
-
   render() {
     const { translate, moment, entries } = this.props
-    const { showPastEvents } = this.state
     return (
       <ul ref={node => this.calendarRef = node} className="Calendar">
-        <label>
-          <input
-            type="radio"
-            name="togglePastEvents"
-            defaultChecked
-            onChange={() => this.setState({showPastEvents: !showPastEvents})}
-          />
-          &nbsp;
-          {translate('calendar.show.upcoming')}
-          &nbsp;
-          (
-          {entries
-            .filter(month => moment(month.key).diff(moment().startOf('month')) >= 0)
-            .reduce((count, month) => count + month['top_hits#about.@id'].hits.hits.length, 0)
-          }
-          )
-        </label>
-        &nbsp;
-        <label>
-          <input
-            type="radio"
-            name="togglePastEvents"
-            onChange={() => this.setState({showPastEvents: !showPastEvents})}
-          />
-          &nbsp;
-          {translate('calendar.show.past')}
-          &nbsp;
-          (
-          {entries
-            .filter(month => moment(month.key).diff(moment().startOf('month')) < 0)
-            .reduce((count, month) => count + month['top_hits#about.@id'].hits.hits.length, 0)
-          }
-          )
-        </label>
         {entries.map(month => (
-          <li
-            key={month.key}
-            className={`monthBlock ${
-              showPastEvents
-                || moment(month.key).diff(moment().startOf('month')) >= 0
-                ? '' : 'hidden'}`}
-          >
+          <li key={month.key} className="monthBlock">
             <h4>{moment(month.key_as_string).format('MMMM YYYY')}</h4>
             <ul>
               {month['top_hits#about.@id'].hits.hits.map(hit => hit._source.about).map(event => (
@@ -78,7 +29,7 @@ class Calendar extends React.Component {
                     </div>
                     <span>
                       {translate(event.name)}
-                      {event.alternateName ? ` (${translate(event.alternateName)})`: ''}
+                      {event.alternateName ? ` (${translate(event.alternateName)})` : ''}
                       <br />
                       {event.location && event.location.address && (
                         <span className="subtitle">
@@ -89,8 +40,8 @@ class Calendar extends React.Component {
                           &nbsp;&ndash;&nbsp;
                           {moment(event.endDate).format('D MMM')}
                           &nbsp;&mdash;&nbsp;
-                          {event.location.address.addressLocality &&
-                            event.location.address.addressLocality.concat(',')
+                          {event.location.address.addressLocality
+                            && event.location.address.addressLocality.concat(',')
                           }
                           &nbsp;
                           {event.location.address.addressCountry}
@@ -112,7 +63,7 @@ class Calendar extends React.Component {
 Calendar.propTypes = {
   translate: PropTypes.func.isRequired,
   moment: PropTypes.func.isRequired,
-  entries: PropTypes.arrayOf(PropTypes.any).isRequired
+  entries: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 export default withI18n(Calendar)

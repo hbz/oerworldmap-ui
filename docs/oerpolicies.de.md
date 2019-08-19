@@ -2,36 +2,70 @@
 title: OER-Policy-Registry
 class: oerPolicies
 ---
-## Herzlich willkommen auf der neuen OER-Policy-Ebene der OER World Map!
 
-Wir integrieren derzeit die [Creative Commons](https://creativecommons.org/) OER Policy Registry in die OER World Map. Dieses Register ermöglicht es jedem, Informationen über Strategiepapiere, Richtlinien und Gesetze zu Open Education einfach zu teilen, zu aktualisieren und zu finden. Auch verwandte Dokumente wie Fallstudien und Leitfäden werden hier gesammelt.
+<div style="width:100%;text-align:center;">
+<img style="width:auto;margin:0 auto;border:0px solid transparent;border-radius:10px;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
+</div>
 
-Herzlicher Dank an [Creative Commons](https://creativecommons.org/) dafür, die OER Policy Registry ins Leben gerufen, gepflegt und der OER World Map zur Verfügung gestellt zu haben. Die Aufnahme von OER-Policys als neue Ebene der OER World Map ermöglicht es OER-Befürwortern und politischen Entscheidern, sich ein umfassenderes Bild von allen offenen Bildungsaktivitäten in einem bestimmten Land oder einer bestimmten Region zu machen.
+<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> <a class="btn" href="#latest-policy-related-entries">Related</a> | <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
 
-Weitere Informationen zum Stand des Projekts finden Sie in unserem [Blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map).
+<div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
-Sehen Sie [hier](https://oerworldmap.org/resource/?filter.about.additionalType.@id=https%3A%2F%2Foerworldmap.org%2Fassets%2Fjson%2Fpublications.json%23policy) alle bisher auf der Karte verfügbaren Policys.
+## Statistic explorer
 
-Wir sammeln auch [verwandte Ressourcen](https://oerworldmap.org/resource/?filter.about.keywords=policy&size=20) zu finden über den Tag „Policy“.
+<div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
 
-Das Projekt wurde erst kürzlich begonnen und wird in den nächsten Wochen und Monaten weiter ausgearbeitet. Jeder ist eingeladen mitzuhelfen. Helfen Sie uns, indem Sie weitere Policys eintragen oder bereits vorhandenen bearbeiten (lesen Sie hier unsere kurze [Anleitung](https://github.com/hbz/oerworldmap/issues/1615)). Policys, die Sie für wichtig halten, können Sie [liken oder mit einem Leuchtturm markieren](https://oerworldmap.wordpress.com/2017/11/27/identifying-lighthouses/). Sagen Sie uns, welche neuen Funktionen Sie auf der OER-Policy-Ebene sehen möchten, indem Sie [unser Arbeitsdokument](https://docs.google.com/document/d/1qDb1jfGXWQQwjLTFX9myfqS7DbHYD3YzlgoGiHQgfhc/edit?usp=sharing) kommentieren oder Issues direkt auf [GitHub](https://github.com/hbz/oerworldmap/milestone/23) kommentieren oder hinzufügen.
+<iframe
+  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
+  data-scope="filter.about.@type=Policy"
+  height="750"
+  width="800"
+  style="border:0; width: 100%; margin: 0 auto;"
+></iframe> 
 
-## Lastest policies on the map
+<a data-inject-newwindowlink> Open in a new window </a>
+
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
+
+## Latest policies added
 
 <div data-inject-feed>
 </div>
+
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add-a-policy" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
 
 ## Latest policy related entries
 
 <div data-inject-policy-related>
 </div>
 
-## Policies Statistics
+<div style="display:none;"><a class="btn" href="" target="_blank">All related entries (list)</a></div>
 
-<a data-inject-newwindowlink> Open in a new window </a> <iframe
-  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
-  data-scope="filter.about.@type=Policy"
-  height="750"
-  width="800"
-  style="border:0; width: 100%; margin: 0 auto;"
-></iframe>
+## FAQ
+
+### Add a policy
+
+Any registered OER world map user can add a policy to the OER policy registry: <a href="/resource/?add=Policy" target="_blank">Add a policy</a>. If you're not registered yet, you can <a href="https://oerworldmap.org/user/register" target="_blank">join here</a>. See the Policy Registry Manual for a detailed description of all fields: <a href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a>
+
+<a href="/resource/?add=Policy" class="btn" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a> <a href="https://kurzelinks.de/yuge" target="_blank" class="btn"><i class="fa fa-book" aria-hidden="true"></i> Editors guide (beta)</a>
+
+### What is a policy?
+
+„Open education policies are formal regulations regarding support, funding, adoption, and use of open educational resources (OER) and/or open education practices (OEP). Such policies are designed to support the creation, adoption, and sharing of OER and the design and integration of OEP into programs of study.“ [7 Things You Should Know About... Open Education: Policy](https://library.educause.edu/resources/2018/8/7-things-you-should-know-about-open-education-policies)
+
+### Why is a OER policy registry needed?
+
+The OER Policy Registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy makers, open education activists and initiatives.
+
+### What was the origin of the OER policy registry @ OER World Map?
+
+We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map! We documented the conversion process [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map).
+
+The work is not done yet, we hope to gather feedback here: [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/). If you have feedback, contact us ( info@oerworldmap.org) or [submit an issue on github](https://github.com/hbz/oerworldmap/issues). Thanks in advance!
+
+## Mentioned / used by:
+
+* [Cable Green](https://twitter.com/cgreen/status/1070343155000709120)
+* [Jennifer Englund](https://twitter.com/jmenglund03/status/1070334983624146944)
+
+<div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons and thanks for everyone participating!</div>

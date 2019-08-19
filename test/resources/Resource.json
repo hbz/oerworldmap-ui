@@ -1,70 +1,78 @@
 {
-  "contributor" : "karin.driesen@hbz-nrw.de",
-  "dateCreated" : "2017-07-13T09:36:00.786+02:00",
-  "@type" : "WebPage",
-  "author" : "karin.driesen@hbz-nrw.de",
-  "about" : {
-    "@type" : "Organization",
-    "awards" : [ {
-      "isAwardedBy" : [ {
-        "@type" : "Organization",
-        "name" : [ {
-          "@value" : "eBildungslabor",
-          "@language" : "en"
-        } ],
-        "location" : {
-          "geo" : {
-            "lon" : 12.391040110778858,
-            "lat" : 51.71374180887
-          },
-          "address" : {
-            "addressCountry" : "DE",
-            "streetAddress" : "Goethehain 4",
-            "postalCode" : 6772,
-            "addressLocality" : "Gräfenhainichen",
-            "addressRegion" : "DE.ST"
+  "contributor": "karin.driesen@hbz-nrw.de",
+  "dateCreated": "2017-07-13T09:36:00.786+02:00",
+  "@type": "WebPage",
+  "author": "karin.driesen@hbz-nrw.de",
+  "about": {
+    "@type": "Organization",
+    "awards": [
+      {
+        "isAwardedBy": [
+          {
+            "@type": "Organization",
+            "name": {
+              "en": "eBildungslabor"
+            },
+            "location": [
+              {
+                "geo": {
+                  "lon": 12.391040110778858,
+                  "lat": 51.71374180887
+                },
+                "address": {
+                  "addressCountry": "DE",
+                  "streetAddress": "Goethehain 4",
+                  "postalCode": 6772,
+                  "addressLocality": "Gräfenhainichen",
+                  "addressRegion": "DE.ST"
+                }
+              }
+            ],
+            "@id": "urn:uuid:3b120b13-26bc-4c7e-bf66-ebfa0d07b603"
           }
-        },
-        "@id" : "urn:uuid:3b120b13-26bc-4c7e-bf66-ebfa0d07b603"
-      } ],
-      "@type" : "Grant"
-    } ],
-    "provides" : [ {
-      "@type" : "Service",
-      "name" : [ {
-        "@value" : "Leselerntexte.de",
-        "@language" : "en"
-      } ],
-      "@id" : "urn:uuid:679aa796-c868-4a8b-a24a-13b360dae1be",
-      "startDate" : "2017"
-    } ],
-    "name" : [ {
-      "@value" : "eBildungslabor",
-      "@language" : "en"
-    } ],
-    "description" : [ {
-      "@value" : "\"Das eBildungslabor ist eine Initiative für besseres E-Learning: offen, partizipativ und professionell. Gegründet im Jahr 2014 ist das eBildungslabor schnell gewachsen. Inzwischen habe ich mir ein großes Netzwerk von Medienpädagogen, Bildungstechnologen und Weiterbildnern aufgebaut. Auf diese Weise kann ich im eBildungslabor für Sie größere und kleinere Aufträge gleichermaßen realisieren. In jedem Fall biete ich Ihnen exzellente Beratung, nachhaltige Weiterbildung und praktische Umsetzung von E-Learning-Angeboten - alles aus einer Hand und spezifisch für Ihre Organisation gestaltet.\" Nele Hirsch",
-      "@language" : "en"
-    } ],
-    "location" : {
-      "geo" : {
-        "lon" : 12.391040110778858,
-        "lat" : 51.71374180887
-      },
-      "address" : {
-        "addressCountry" : "DE",
-        "streetAddress" : "Goethehain 4",
-        "postalCode" : 6772,
-        "addressLocality" : "Gräfenhainichen",
-        "addressRegion" : "DE.ST"
+        ],
+        "@type": "Grant"
       }
+    ],
+    "provides": [
+      {
+        "@type": "Service",
+        "name": {
+          "en": "Leselerntexte.de"
+        },
+        "@id": "urn:uuid:679aa796-c868-4a8b-a24a-13b360dae1be",
+        "startDate": "2017"
+      }
+    ],
+    "name": {
+      "en": "eBildungslabor"
     },
-    "@id" : "urn:uuid:3b120b13-26bc-4c7e-bf66-ebfa0d07b603",
-    "@context" : "https://oerworldmap.org/assets/json/context.json",
-    "email" : "nele.hirsch@ebildungslabor.de",
-    "url" : "http://www.ebildungslabor.de/",
-    "sameAs" : [ "https://twitter.com/eBildungslabor" ]
+    "description": {
+      "en": "\"Das eBildungslabor ist eine Initiative für besseres E-Learning: offen, partizipativ und professionell. Gegründet im Jahr 2014 ist das eBildungslabor schnell gewachsen. Inzwischen habe ich mir ein großes Netzwerk von Medienpädagogen, Bildungstechnologen und Weiterbildnern aufgebaut. Auf diese Weise kann ich im eBildungslabor für Sie größere und kleinere Aufträge gleichermaßen realisieren. In jedem Fall biete ich Ihnen exzellente Beratung, nachhaltige Weiterbildung und praktische Umsetzung von E-Learning-Angeboten - alles aus einer Hand und spezifisch für Ihre Organisation gestaltet.\" Nele Hirsch"
+    },
+    "location": [
+      {
+        "geo": {
+          "lon": 12.391040110778858,
+          "lat": 51.71374180887
+        },
+        "address": {
+          "addressCountry": "DE",
+          "streetAddress": "Goethehain 4",
+          "postalCode": 6772,
+          "addressLocality": "Gräfenhainichen",
+          "addressRegion": "DE.ST"
+        }
+      }
+    ],
+    "@id": "urn:uuid:3b120b13-26bc-4c7e-bf66-ebfa0d07b603",
+    "@context": "https://oerworldmap.org/assets/json/context.json",
+    "email": "nele.hirsch@ebildungslabor.de",
+    "url": "http://www.ebildungslabor.de/",
+    "sameAs": [
+      "https://twitter.com/eBildungslabor"
+    ]
   },
-  "dateModified" : "2017-07-13T10:05:34.477+02:00",
-  "@id" : "urn:uuid:3b120b13-26bc-4c7e-bf66-ebfa0d07b603.about"
+  "dateModified": "2017-07-13T10:05:34.477+02:00",
+  "@id": "urn:uuid:3b120b13-26bc-4c7e-bf66-ebfa0d07b603.about"
 }

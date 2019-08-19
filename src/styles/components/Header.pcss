@@ -1,5 +1,3 @@
-@import '../variables.pcss';
-
 .Header {
   display: flex;
   justify-content: space-between;
@@ -13,17 +11,19 @@
     color: var(--white);
   }
 
-  & h1 {
-    margin: 0;
-    padding: 10px 0;
+  & .headerTitle {
+    display: flex;
+    align-items: center;
     font-size: var(--font-size);
     font-weight: 600;
+    padding: 10px 0;
     letter-spacing: 0.15em;
     text-transform: uppercase;
 
-    &:focus,
-    &:hover {
-      color: var(--white);
+    & h1 {
+      font-size: var(--font-size);
+      margin: 0;
+      margin-right: 10px;
     }
   }
 
@@ -56,6 +56,7 @@
         & div.btnHover {
           position: relative;
           color: white;
+          pointer-events: none;
         }
 
         &:hover div.btnHover {
@@ -337,6 +338,10 @@
       border-right: none;
     }
 
+    & .headerTitle a:last-child {
+      display: none;
+    }
+
     & .mainNav {
       display: none;
     }
@@ -358,16 +363,44 @@
         & > li {
           display: block;
           padding: 0;
+          border-bottom: 1px solid var(--white);
 
           & > a,
-          & > button {
+          & > button,
+          & > .btnHover {
             padding: 10px var(--column-padding);
             text-align: left;
             font-size: var(--font-size);
             font-weight: 400;
             width: 100%;
-            border-bottom: 1px solid var(--blue-lightest);
             display: block;
+          }
+
+          &.languageSelector span {
+            & > i {
+              display: none;
+            }
+
+            & > ul {
+              position: unset;
+              display: flex;
+              justify-content: space-evenly;
+
+              & li {
+                flex: 1;
+
+                & a {
+                  background-color: var(--blue-dark);
+                  color: var(--white);
+                  padding: 10px;
+                  border-right: 1px solid var(--white);
+                }
+              }
+
+              & li:last-child a {
+                border-right: none;
+              }
+            }
           }
 
           & .dropdown {

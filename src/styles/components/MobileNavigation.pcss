@@ -1,0 +1,29 @@
+.MobileNavigation {
+  background-color: var(--white);
+  height: 30px;
+  border-bottom: 1px solid var(--blue-light);
+  align-items: center;
+  display: none;
+  z-index: 2;
+  justify-content: space-between;
+
+  & .mobileNavigationMain {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+  }
+
+  & i {
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+
+    &.active {
+      color: var(--orange);
+    }
+  }
+
+  @media screen and (--mobile-breakpoint) {
+    display: flex;
+  }
+}

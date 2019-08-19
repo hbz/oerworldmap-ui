@@ -3,15 +3,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
-import FullModal from './FullModal'
-import Link from './Link'
 import TimelineBlock from './TimelineBlock'
 
 class Timeline extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: props.entries
+      entries: props.entries,
     }
   }
 
@@ -23,7 +21,7 @@ class Timeline extends React.Component {
 
     emitter.emit('clearActivity')
     emitter.on('newActivity', (activities) => {
-      this.setState({entries: activities.concat(entries)})
+      this.setState({ entries: activities.concat(entries) })
     })
   }
 
@@ -32,7 +30,7 @@ class Timeline extends React.Component {
     const { entries } = this.state
 
     return (
-      <FullModal closeLink={Link.home}>
+      <div className="Timeline">
         <h2 className="title">
           {translate('Activity')}
         </h2>
@@ -46,10 +44,10 @@ class Timeline extends React.Component {
               />
             ))
           ) : (
-            translate("No entries")
+            translate('No entries')
           )}
         </div>
-      </FullModal>
+      </div>
     )
   }
 }

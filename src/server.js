@@ -1,5 +1,4 @@
 /* global Headers */
-/* global URL */
 
 import { renderToString } from 'react-dom/server'
 import path from 'path'
@@ -18,30 +17,32 @@ import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
 
-import Config, { mapboxConfig, apiConfig, piwikConfig, i18nConfig } from '../config'
+import Config, {
+  mapboxConfig, apiConfig, piwikConfig, i18nConfig,
+} from '../config'
 
 const server = express()
 const api = new Api(apiConfig)
 
-server.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
 
 server.use(compression())
 server.use(cookieParser())
 
-if (process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'static') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)
 
   server.use([
     webpackDevMiddleware(compiler, {
       noInfo: true,
       publicPath: webpackConfig.output.publicPath,
-      stats: 'minimal'
+      stats: 'minimal',
     }),
-    webpackHotMiddleware(compiler)
+    webpackHotMiddleware(compiler),
   ])
 }
 
@@ -49,8 +50,8 @@ server.use(express.static(path.join(__dirname, '/../dist')))
 
 // Middleware to check browser support
 server.use((req, res, next) => {
-  const ua = userAgent.parse(req.headers['user-agent'])
-  ua.isIE && res.send('Sorry, your browser is not supported') || next()
+  const ua = req.headers['user-agent'] && userAgent.parse(req.headers['user-agent'])
+  ua && ua.isIE && res.send('Sorry, your browser is not supported') || next()
 })
 
 // Middleware to fetch user profile
@@ -84,7 +85,7 @@ server.use((req, res, next) => {
 
 // Middleware to extract locales
 const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
-const defaultLanguage = i18nConfig.defaultLanguage
+const { defaultLanguage } = i18nConfig.defaultLanguage
 
 server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
@@ -105,7 +106,7 @@ server.use((req, res, next) => {
   req.location = new URL(url.format({
     protocol: req.get('x-forwarded-proto') || req.protocol,
     host: req.get('x-forwarded-host') || req.get('host'),
-    pathname: req.originalUrl
+    pathname: req.originalUrl,
   }))
   next()
 })
@@ -124,32 +125,54 @@ server.get(/^(.*)$/, (req, res) => {
   const headers = new Headers(req.headers)
   headers.delete('Host')
   headers.delete('If-None-Match')
-  const user = req.user
-  const locales = req.locales
-  const supportedLanguages = req.supportedLanguages
+  const { user, locales, supportedLanguages } = req
   if (req.labels) {
-    req.labels.results.bindings.forEach(label => {
+    req.labels.results.bindings.forEach((label) => {
       i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
       i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
     })
   }
-  const phrases = locales.slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
-  const schema = req.schema
-  const embed = req.query.embed
-  const context = { supportedLanguages, locales, headers, user, mapboxConfig, phrases, apiConfig, schema, embed }
-  //TODO: use actual request method
-  router(api, null, req.location).route(req.path, context).get(req.query).then(({title, data, render, err, metadata}) => {
+
+  const phrases = locales
+    .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
+  const { schema, embed } = req
+  const context = {
+    supportedLanguages,
+    locales,
+    headers,
+    user,
+    mapboxConfig,
+    phrases,
+    apiConfig,
+    schema,
+    embed,
+  }
+  // TODO: use actual request method
+  router(api, null, req.location).route(req.path, context).get(req.query).then(({
+    title, data, render, err, metadata,
+  }) => {
     console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
-      initialState: JSON.stringify({supportedLanguages, apiConfig, locales, mapboxConfig, data, user, err, phrases, schema, embed})
-        .replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029"),
+      initialState: JSON.stringify({
+        supportedLanguages,
+        apiConfig,
+        locales,
+        mapboxConfig,
+        data,
+        user,
+        err,
+        phrases,
+        schema,
+        embed,
+      })
+        .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029'),
       title,
       piwikConfig,
       embed,
       metadata,
-      locales
+      locales,
     }))
   })
 })

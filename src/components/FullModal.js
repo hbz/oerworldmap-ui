@@ -7,7 +7,9 @@ import withEmitter from './withEmitter'
 
 import '../styles/components/FullModal.pcss'
 
-const FullModal = ({className, children, closeLink, emitter}) => (
+const FullModal = ({
+  className, children, closeLink, emitter,
+}) => (
   <div
     className={`FullModal ${className || ''}`}
     role="presentation"
@@ -36,7 +38,7 @@ FullModal.propTypes = {
 
 FullModal.defaultProps = {
   className: null,
-  closeLink: null
+  closeLink: null,
 }
 
 export default withEmitter(FullModal)

@@ -6,37 +6,39 @@ import PropTypes from 'prop-types'
 import Export from './Export'
 import Share from './Share'
 import withI18n from './withI18n'
+import FullModal from './FullModal'
 
 import '../styles/components/ShareExport.pcss'
 
 import { triggerClick } from '../common'
 
 class ShareExport extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      showing : false
+      showing: false,
     }
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleClick)
+    document.addEventListener('click', this.handleClick)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick)
+    document.removeEventListener('click', this.handleClick)
   }
 
   handleClick(e) {
-    if (e.target !== this.dropdownButton)
-      this.setState({showing:false})
+    if (e.target !== this.dropdownButton) {
+      this.setState({ showing: false })
+    }
   }
 
   render() {
-
-    const { translate, view, embedValue, _self, _links } = this.props
+    const {
+      translate, view, embedValue, _self, _links,
+    } = this.props
     const { showing } = this.state
 
     return (
@@ -46,7 +48,7 @@ class ShareExport extends React.Component {
           role="button"
           tabIndex="0"
           className="fa fa-gear"
-          onClick={() => {this.setState({showing:!showing})}}
+          onClick={() => { this.setState({ showing: !showing }) }}
           onKeyDown={triggerClick}
           ref={el => this.dropdownButton = el}
         />
@@ -80,12 +82,16 @@ class ShareExport extends React.Component {
             </li>
           </ul>
         )}
-        {view === 'share' &&
-          <Share embedValue={embedValue} _self={_self} />
-        }
-        {view === 'export' &&
-          <Export _self={_self} _links={_links} />
-        }
+        {view === 'share' && (
+          <FullModal closeLink={_self}>
+            <Share embedValue={embedValue} _self={_self} />
+          </FullModal>
+        )}
+        {view === 'export' && (
+          <FullModal closeLink={_self}>
+            <Export _self={_self} _links={_links} />
+          </FullModal>
+        )}
       </div>
     )
   }
@@ -96,12 +102,12 @@ ShareExport.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  embedValue: PropTypes.string
+  embedValue: PropTypes.string,
 }
 
 ShareExport.defaultProps = {
   view: null,
-  embedValue: null
+  embedValue: null,
 }
 
 export default withI18n(ShareExport)
