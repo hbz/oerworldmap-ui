@@ -62,7 +62,10 @@ class Columns extends React.Component {
         target: '.togglePins',
         content: (
           <div>
-            <p>{translate('Just one quick information before we explore the data entries about OER activities: <b>The pin switch.</b>')}</p>
+            <p>{translate('Just one quick information before we explore the data entries about OER activities:')}</p>
+            <p>
+              <b>{translate('The pin switch')}</b>
+            </p>
             <p>{translate('It\'s our most important navigation element.')}</p>
             <p>{translate('You can hide and show the pins on the map with it.')}</p>
           </div>
