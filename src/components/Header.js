@@ -517,11 +517,9 @@ class Header extends React.Component {
                           <li>
                             <a
                               className="item"
-                              // FIXME: This works to log out after editing a profile
-                              // eslint-disable-next-line max-len
-                              // href={`/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri=${Link.self}`}
-                              // FIXME: This works in all cases except after editing a profile
-                              href={`/oauth2callback?logout=${Link.self}`}
+                              href={'/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri='
+                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))
+                              }
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>
