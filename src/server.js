@@ -24,6 +24,10 @@ import Config, {
 const server = express()
 const api = new Api(apiConfig)
 
+const getHeaders = headers => new Headers(Object.entries(headers)
+  .filter(([key]) => !key.startsWith('oidc'))
+  .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}))
+
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -57,7 +61,7 @@ server.use((req, res, next) => {
 // Middleware to fetch user profile
 server.use((req, res, next) => {
   if (req.cookies.mod_auth_openidc_session) {
-    const headers = new Headers(req.headers)
+    const headers = getHeaders(req.headers)
     headers.delete('Host')
     headers.delete('If-None-Match')
     // This will log a FetchError: invalid json response body
@@ -122,7 +126,7 @@ server.get('/.login', (req, res) => {
 
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const headers = new Headers(req.headers)
+  const headers = getHeaders(req.headers)
   headers.delete('Host')
   headers.delete('If-None-Match')
   const { user, locales, supportedLanguages } = req
