@@ -135,7 +135,7 @@ class Header extends React.Component {
           <ul>
 
             <li>
-              <Link href="/activity/">
+              <Link href="/activity/" className="activityFeedLink">
                 {translate('Activity')}
                 {showNotification && (
                   <span className="showNotification">
@@ -309,7 +309,7 @@ class Header extends React.Component {
             </li>
 
             <li
-              className={`hasDropdown${dropdowns.add ? ' active' : ''}`}
+              className={`addMenu hasDropdown${dropdowns.add ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
