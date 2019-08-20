@@ -7,15 +7,15 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick, addParamToURL, urlParse } from '../common'
+import {
+  triggerClick, addParamToURL, urlParse, types,
+} from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
-
-const types = ['Organization', 'Action', 'Service', 'Event', 'Article', 'WebPage', 'Product', 'Policy']
 
 class Header extends React.Component {
   constructor(props) {
@@ -343,7 +343,7 @@ class Header extends React.Component {
                   </div>
                   <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
 
-                    {types.map(type => (
+                    {types.filter(type => type !== 'Person').map(type => (
                       <div key={type} className="col one-fourth">
                         <Link
                           className="addBox"

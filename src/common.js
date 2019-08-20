@@ -205,6 +205,8 @@ export const urlParse = (urlString) => {
   return new URL(urlString)
 }
 
+export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy']
+
 export default {
   getTitle,
   formatURL,
@@ -221,4 +223,5 @@ export default {
   sortByProp,
   addParamToURL,
   urlParse,
+  types,
 }
