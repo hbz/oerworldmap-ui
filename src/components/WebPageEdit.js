@@ -1,7 +1,7 @@
 /* global document */
 /* global confirm */
 /* global _paq */
-import React from 'react'
+import React, { useState }  from 'react'
 import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
 
@@ -9,6 +9,7 @@ import JsonSchema from './JSONPointerForm/JsonSchema'
 import Form from './JSONPointerForm/Form'
 import Builder from './JSONPointerForm/Builder'
 import validate from './JSONPointerForm/validate'
+import withFormData from './JSONPointerForm/withFormData'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
@@ -19,65 +20,85 @@ import expose from '../expose'
 const WebPageEdit = ({
   about, emitter, translate, action, mapboxConfig,
   user, schema, closeLink, showOptionalFields, _self,
-}) => (
-  <Form
-    data={about}
-    validate={validate(JsonSchema(schema).get(`#/definitions/${about['@type']}`))}
-    onSubmit={(data) => {
-      if (_self && _self.includes('?add')) {
-        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', 'SubmitButtonClick'])
-      } else {
-        typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', 'SubmitButtonClick'])
-      }
+}) => {
+  const types = [
+    'Organization', 'Service', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy'
+  ]
+  const [type, setType] = useState(about['@type'])
+  const TypeSwitcher = withFormData(({ setValue }) => (
+    <select value={type} onChange={e => {
+      setType(e.target.value)
+      setValue(e.target.value)
+    }}>
+      {types.map(type => <option key={type} value={type}>{translate(type)}</option>)}
+    </select>
+  ))
 
-      emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })
-    }}
-    onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
-      .scrollTop = document.querySelector('.hasError').offsetTop
-    )}
-  >
-    <h2>{translate(action, { type: translate(about['@type']) })}</h2>
-    <a
-      href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="needHelp"
-    >
-      {translate('needHelp')}
-    </a>
-    <Builder
-      schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)}
-      config={{ mapboxConfig }}
-      key={uniqueId()}
-      showOptionalFields={showOptionalFields}
-    />
-    <p className="agree" dangerouslySetInnerHTML={{ __html: translate('ResourceIndex.index.agreeMessage') }} />
-
-    <div className="formButtons">
-      <div className="primaryButtons">
-        <button className="btn prominent" type="submit">{translate('publish')}</button>
-        <Link href={closeLink || Link.home} className="btn">
-          Cancel
-        </Link>
-      </div>
-      {expose('deleteEntry', user, about) && (
-        <button
-          className="btn delete"
-          type="button"
-          onClick={(e) => {
-            e.preventDefault()
-            confirm(translate('other.deleteResource')) && emitter.emit('delete', {
-              url: `/resource/${about['@id']}`,
-            })
-          }}
-        >
-          {translate('ResourceIndex.read.delete')}
-        </button>
+  return (
+    <Form
+      data={about}
+      validate={validate(JsonSchema(schema).get(`#/definitions/${type}`))}
+      onSubmit={(data) => {
+        if (_self && _self.includes('?add')) {
+          typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'AddFormOverlay', 'SubmitButtonClick'])
+        } else {
+          typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', 'SubmitButtonClick'])
+        }
+        emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })
+      }}
+      onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
+        .scrollTop = document.querySelector('.hasError').offsetTop
       )}
-    </div>
+    >
+      <h2>
+        {translate(action)}:&nbsp;
+        {action === 'edit' && expose('changeType', user, about)
+          ? <TypeSwitcher property="@type" />
+          : translate(type)
+        }
+      </h2>
+      <a
+        href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="needHelp"
+      >
+        {translate('needHelp')}
+      </a>
+      <Builder
+        schema={JsonSchema(schema).get(`#/definitions/${type}`)}
+        config={{ mapboxConfig }}
+        key={uniqueId()}
+        showOptionalFields={showOptionalFields}
+      />
+      <p className="agree" dangerouslySetInnerHTML={{ __html: translate('ResourceIndex.index.agreeMessage') }} />
 
-  </Form>
-)
+      <div className="formButtons">
+        <div className="primaryButtons">
+          <button className="btn prominent" type="submit">{translate('publish')}</button>
+          <Link href={closeLink || Link.home} className="btn">
+            Cancel
+          </Link>
+        </div>
+        {expose('deleteEntry', user, about) && (
+          <button
+            className="btn delete"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              confirm(translate('other.deleteResource')) && emitter.emit('delete', {
+                url: `/resource/${about['@id']}`,
+              })
+            }}
+          >
+            {translate('ResourceIndex.read.delete')}
+          </button>
+        )}
+      </div>
+
+    </Form>
+  )
+}
 
 WebPageEdit.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
