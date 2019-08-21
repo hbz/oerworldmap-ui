@@ -44,7 +44,7 @@ const ItemList = ({
         >
           <div>
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
-              {listItem.image ? (
+              {listItem.image || listItem.sameAs ? (
                 <ResourceImage about={listItem} className="itemListImage" />
               ) : (
                 <Icon type={listItem['@type']} />
