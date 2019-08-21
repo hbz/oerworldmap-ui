@@ -1,7 +1,7 @@
 /* global document */
 /* global confirm */
 /* global _paq */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
 
@@ -25,6 +25,8 @@ const WebPageEdit = ({
     'Organization', 'Service', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy',
   ]
   const [type, setType] = useState(about['@type'])
+  useEffect(() => setType(about['@type']), [about])
+
   const TypeSwitcher = withFormData(({ setValue }) => (
     <select
       value={type}
