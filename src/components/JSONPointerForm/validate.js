@@ -5,7 +5,7 @@ const validate = (schema) => {
     schemaId: 'id',
     allErrors: true,
     jsonPointers: true,
-    removeAdditional: true
+    removeAdditional: true,
   })
   ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
   return ajv.compile(schema)

@@ -1,7 +1,7 @@
 /* global document */
 /* global confirm */
 /* global _paq */
-import React, { useState }  from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
 
@@ -22,14 +22,17 @@ const WebPageEdit = ({
   user, schema, closeLink, showOptionalFields, _self,
 }) => {
   const types = [
-    'Organization', 'Service', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy'
+    'Organization', 'Service', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy',
   ]
   const [type, setType] = useState(about['@type'])
   const TypeSwitcher = withFormData(({ setValue }) => (
-    <select value={type} onChange={e => {
-      setType(e.target.value)
-      setValue(e.target.value)
-    }}>
+    <select
+      value={type}
+      onChange={(e) => {
+        setType(e.target.value)
+        setValue(e.target.value)
+      }}
+    >
       {types.map(type => <option key={type} value={type}>{translate(type)}</option>)}
     </select>
   ))
@@ -51,7 +54,8 @@ const WebPageEdit = ({
       )}
     >
       <h2>
-        {translate(action)}:&nbsp;
+        {translate(action)}
+        :&nbsp;
         {action === 'edit' && expose('changeType', user, about)
           ? <TypeSwitcher property="@type" />
           : translate(type)
