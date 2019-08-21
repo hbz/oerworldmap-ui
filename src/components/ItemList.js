@@ -13,6 +13,7 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 import ResourcePreview from './ResourcePreview'
+import ResourceImage from './ResourceImage'
 
 const ItemList = ({
   translate, emitter, listItems, linkTemplate, className, count, moment, tooltip,
@@ -43,7 +44,11 @@ const ItemList = ({
         >
           <div>
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
-              <Icon type={listItem['@type']} />
+              {listItem.image ? (
+                <ResourceImage about={listItem} className="itemListImage" />
+              ) : (
+                <Icon type={listItem['@type']} />
+              )}
               <span>
                 {translate(listItem.name) || translate(listItem['@id'])}
                 {listItem.alternateName ? ` (${translate(listItem.alternateName)})` : ''}

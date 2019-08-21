@@ -20,6 +20,40 @@
         color: var(--highlight-color);
       }
     }
+
+    & .itemListImage {
+      min-width: auto;
+      min-height: auto;
+      margin: 0 10px;
+
+      & a {
+        text-align: center;
+
+        & .missingImg {
+          height: 45px;
+          width: 45px;
+          margin: 0 auto;
+          border-radius: 50%;
+          font-size: var(--font-size);
+          background: var(--blue-light);
+        }
+
+        & img {
+          border-radius: 50%;
+          min-width: 45px;
+          max-width: 45px;
+          min-height: 45px;
+          max-height: 45px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--white);
+        }
+      }
+    }
+
+    &:hover .itemListImage a .missingImg {
+      background-color: var(--highlight-color);
+    }
   }
 
   &.noIcon li a span {
@@ -38,10 +72,10 @@
         & > i {
           margin: 0 10px;
           border-radius: 100%;
-          width: 30px;
-          height: 30px;
+          width: 45px;
+          height: 45px;
           font-size: var(--font-size);
-          line-height: 30px;
+          line-height: 45px;
           background-color: var(--blue-light);
           color: white;
           text-align: center;
