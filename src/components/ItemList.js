@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import urlTemplate from 'url-template'
+import removeMd from 'remove-markdown'
 
 import Icon from './Icon'
 import Link from './Link'
@@ -52,6 +53,14 @@ const ItemList = ({
               <span>
                 {translate(listItem.name) || translate(listItem['@id'])}
                 {listItem.alternateName ? ` (${translate(listItem.alternateName)})` : ''}
+
+                {listItem.description && (
+                  <p className="itemListDescription">
+                    {removeMd(translate(listItem.description)).slice(0, 200)}
+                    ...
+                  </p>
+                )}
+
                 {(listItem['@type'] === 'Event' && listItem.startDate)
                   ? (
                     <React.Fragment>
