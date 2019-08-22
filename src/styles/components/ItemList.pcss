@@ -32,6 +32,7 @@
         & .missingImg {
           height: 45px;
           width: 45px;
+          line-height: 45px;
           margin: 0 auto;
           border-radius: 50%;
           font-size: var(--font-size);
@@ -64,6 +65,7 @@
 
     & li {
       padding: 0.35em 0;
+      overflow: hidden;
 
       & .item {
         padding: 0.7em 0;
@@ -162,6 +164,11 @@
     & .toggle.fa-plus + ul {
       display: none;
     }
+  }
+
+  & .itemListDescription {
+    font-size: var(--font-size-small);
+    font-weight: normal;
   }
 }
 

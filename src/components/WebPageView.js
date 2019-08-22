@@ -341,6 +341,214 @@ const WebPageView = ({
               </Block>
             )}
 
+            {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) && (
+              <Block
+                collapsible={!expandAll
+                  && [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
+                    .map(grant => grant.isAwardedBy)).length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate(`${about['@type']}.isFundedBy`)}
+              >
+                <ItemList
+                  tooltip={false}
+                  listItems={
+                    [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
+                      .map(grant => grant.isAwardedBy))
+                      .sort((a, b) => translate(a.name) > translate(b.name))
+                  }
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) && (
+              <Block title={translate(`${about['@type']}.budget`)}>
+                <ul className="commaSeparatedList">
+                  {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
+                    <li key={i}>
+                      {grant.hasMonetaryValue}
+                    </li>
+                  ))}
+                </ul>
+              </Block>
+            )}
+
+            {about.contactPoint && (
+              <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
+                <ItemList
+                  tooltip={false}
+                  listItems={about.contactPoint
+                    .sort((a, b) => translate(a.name) > translate(b.name))}
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {about.isPartOf && (
+              <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
+                <ItemList
+                  tooltip={false}
+                  listItems={[about.isPartOf]
+                    .sort((a, b) => translate(a.name) > translate(b.name))}
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {about.hasPart && (
+              <Block
+                collapsible={!expandAll && about.hasPart.length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate(`${about['@type']}.hasPart`)}
+              >
+                <ItemList
+                  tooltip={false}
+                  listItems={about.hasPart
+                    .sort((a, b) => translate(a.name) > translate(b.name))}
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {
+              ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
+                prop => (
+                  about[prop] && (
+                    <Block
+                      key={prop}
+                      collapsible={!expandAll && about[prop].length > 3}
+                      collapsibleType="show-all"
+                      className="list"
+                      title={translate(`${about['@type']}.${prop}`)}
+                    >
+                      <ItemList
+                        listItems={about[prop]
+                          .sort((a, b) => translate(a.name) > translate(b.name))}
+                        className="prominent"
+                      />
+                    </Block>
+                  )),
+              )
+            }
+
+            {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') && (
+              <Block
+                collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'Action').length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate(`${about['@type']}.agentIn`)}
+              >
+                <ItemList
+                  tooltip={false}
+                  listItems={about.agentIn.filter(item => item['@type'] === 'Action')
+                    .sort((a, b) => translate(a.name) > translate(b.name))}
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {about.agentIn && about.agentIn.some(item => item['@type'] === 'LighthouseAction') && (
+              <Block
+                collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LighthouseAction').length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate('Lighthouses')}
+              >
+                <ItemList
+                  tooltip={false}
+                  listItems={about.agentIn.filter(action => action['@type'] === 'LighthouseAction')
+                    .map(lighthouseAction => lighthouseAction.object)
+                    .sort((a, b) => translate(a['@id']) > translate(b['@id']))
+                  }
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {about.agentIn && about.agentIn.some(item => item['@type'] === 'LikeAction') && (
+              <Block
+                collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LikeAction').length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate('Likes')}
+              >
+                <ItemList
+                  tooltip={false}
+                  listItems={about.agentIn.filter(action => action['@type'] === 'LikeAction')
+                    .filter(LikeAction => !!LikeAction.object)
+                    .map(LikeAction => LikeAction.object)
+                    .sort((a, b) => translate(a['@id']) > translate(b['@id']))
+                  }
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {about.awards && about.awards.some(grant => grant.funds) && (
+              <Block
+                collapsible={!expandAll
+                  && [].concat(...about.awards.filter(grant => grant.funds)
+                    .map(grant => grant.funds)).length > 3}
+                collapsibleType="show-all"
+                className="list"
+                title={translate(`${about['@type']}.funds`)}
+              >
+                <ItemList
+                  tooltip={false}
+                  listItems={
+                    [].concat(...about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+                      .sort((a, b) => translate(a.name) > translate(b.name))
+                  }
+                  className="prominent"
+                />
+              </Block>
+            )}
+
+            {
+              ['participant', 'participantIn'].map(
+                prop => (
+                  about[prop] && (
+                    <Block
+                      key={prop}
+                      collapsible={!expandAll && about[prop].length > 3}
+                      collapsibleType="show-all"
+                      className="list"
+                      title={translate(`${about['@type']}.${prop}`)}
+                    >
+                      <ItemList
+                        tooltip={false}
+                        listItems={about[prop]
+                          .sort((a, b) => translate(a.name) > translate(b.name))}
+                        className="prominent"
+                      />
+                    </Block>
+                  )),
+              )
+            }
+
+            {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
+              'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
+              'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
+              'isRelatedTo', 'isBasedOn', 'isBasisFor'].map(prop => (
+              about[prop] && (
+                <Block
+                  key={prop}
+                  collapsible={!expandAll && about[prop].length > 3}
+                  collapsibleType="show-all"
+                  className="list"
+                  title={translate(`${about['@type']}.${prop}`)}
+                >
+                  <ItemList
+                    tooltip={false}
+                    listItems={about[prop]
+                      .sort((a, b) => translate(a.name) > translate(b.name))}
+                    className="prominent"
+                  />
+                </Block>
+              )))}
+
           </div>
 
         </div>
@@ -515,17 +723,6 @@ const WebPageView = ({
             </Block>
           )}
 
-          {about.contactPoint && (
-            <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
-              <ItemList
-                tooltip={false}
-                listItems={about.contactPoint
-                  .sort((a, b) => translate(a.name) > translate(b.name))}
-                className="prominent"
-              />
-            </Block>
-          )}
-
           {about.startTime && (
             <Block title={translate(`${about['@type']}.startTime`)}>
               {formatDate(about.startTime, moment)}
@@ -611,203 +808,6 @@ const WebPageView = ({
               </ul>
             </Block>
           )}
-
-          {
-            ['result', 'resultOf', 'provides', 'provider', 'agent'].map(
-              prop => (
-                about[prop] && (
-                  <Block
-                    key={prop}
-                    collapsible={!expandAll && about[prop].length > 3}
-                    collapsibleType="show-all"
-                    className="list"
-                    title={translate(`${about['@type']}.${prop}`)}
-                  >
-                    <ItemList
-                      listItems={about[prop]
-                        .sort((a, b) => translate(a.name) > translate(b.name))}
-                      className="prominent"
-                    />
-                  </Block>
-                )),
-            )
-          }
-
-          {about.agentIn && about.agentIn.some(item => item['@type'] === 'Action') && (
-            <Block
-              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'Action').length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate(`${about['@type']}.agentIn`)}
-            >
-              <ItemList
-                tooltip={false}
-                listItems={about.agentIn.filter(item => item['@type'] === 'Action')
-                  .sort((a, b) => translate(a.name) > translate(b.name))}
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {about.agentIn && about.agentIn.some(item => item['@type'] === 'LighthouseAction') && (
-            <Block
-              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LighthouseAction').length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate('Lighthouses')}
-            >
-              <ItemList
-                tooltip={false}
-                listItems={about.agentIn.filter(action => action['@type'] === 'LighthouseAction')
-                  .map(lighthouseAction => lighthouseAction.object)
-                  .sort((a, b) => translate(a['@id']) > translate(b['@id']))
-                }
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {about.agentIn && about.agentIn.some(item => item['@type'] === 'LikeAction') && (
-            <Block
-              collapsible={!expandAll && about.agentIn.filter(item => item['@type'] === 'LikeAction').length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate('Likes')}
-            >
-              <ItemList
-                tooltip={false}
-                listItems={about.agentIn.filter(action => action['@type'] === 'LikeAction')
-                  .filter(LikeAction => !!LikeAction.object)
-                  .map(LikeAction => LikeAction.object)
-                  .sort((a, b) => translate(a['@id']) > translate(b['@id']))
-                }
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {
-            ['participant', 'participantIn'].map(
-              prop => (
-                about[prop] && (
-                  <Block
-                    key={prop}
-                    collapsible={!expandAll && about[prop].length > 3}
-                    collapsibleType="show-all"
-                    className="list"
-                    title={translate(`${about['@type']}.${prop}`)}
-                  >
-                    <ItemList
-                      tooltip={false}
-                      listItems={about[prop]
-                        .sort((a, b) => translate(a.name) > translate(b.name))}
-                      className="prominent"
-                    />
-                  </Block>
-                )),
-            )
-          }
-
-          {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) && (
-            <Block
-              collapsible={!expandAll
-                && [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
-                  .map(grant => grant.isAwardedBy)).length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate(`${about['@type']}.isFundedBy`)}
-            >
-              <ItemList
-                tooltip={false}
-                listItems={
-                  [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
-                    .map(grant => grant.isAwardedBy))
-                    .sort((a, b) => translate(a.name) > translate(b.name))
-                }
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {about.isFundedBy && about.isFundedBy.some(grant => grant.hasMonetaryValue) && (
-            <Block title={translate(`${about['@type']}.budget`)}>
-              <ul className="commaSeparatedList">
-                {about.isFundedBy.filter(grant => grant.hasMonetaryValue).map((grant, i) => (
-                  <li key={i}>
-                    {grant.hasMonetaryValue}
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          )}
-
-          {about.awards && about.awards.some(grant => grant.funds) && (
-            <Block
-              collapsible={!expandAll
-                && [].concat(...about.awards.filter(grant => grant.funds)
-                  .map(grant => grant.funds)).length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate(`${about['@type']}.funds`)}
-            >
-              <ItemList
-                tooltip={false}
-                listItems={
-                  [].concat(...about.awards.filter(grant => grant.funds).map(grant => grant.funds))
-                    .sort((a, b) => translate(a.name) > translate(b.name))
-                }
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {about.hasPart && (
-            <Block
-              collapsible={!expandAll && about.hasPart.length > 3}
-              collapsibleType="show-all"
-              className="list"
-              title={translate(`${about['@type']}.hasPart`)}
-            >
-              <ItemList
-                tooltip={false}
-                listItems={about.hasPart
-                  .sort((a, b) => translate(a.name) > translate(b.name))}
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {about.isPartOf && (
-            <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
-              <ItemList
-                tooltip={false}
-                listItems={[about.isPartOf]
-                  .sort((a, b) => translate(a.name) > translate(b.name))}
-                className="prominent"
-              />
-            </Block>
-          )}
-
-          {['member', 'memberOf', 'affiliation', 'affiliate', 'organizer',
-            'organizerFor', 'performer', 'performerIn', 'attendee', 'attends', 'created', 'creator', 'publication',
-            'publisher', 'manufacturer', 'manufactured', 'mentions', 'mentionedIn', 'instrument', 'instrumentIn',
-            'isRelatedTo', 'isBasedOn', 'isBasisFor'].map(prop => (
-            about[prop] && (
-              <Block
-                key={prop}
-                collapsible={!expandAll && about[prop].length > 3}
-                collapsibleType="show-all"
-                className="list"
-                title={translate(`${about['@type']}.${prop}`)}
-              >
-                <ItemList
-                  tooltip={false}
-                  listItems={about[prop]
-                    .sort((a, b) => translate(a.name) > translate(b.name))}
-                  className="prominent"
-                />
-              </Block>
-            )))}
 
           {about.license && (
             <Block title={translate(`${about['@type']}.license`)}>
