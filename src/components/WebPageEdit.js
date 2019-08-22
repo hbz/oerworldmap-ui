@@ -36,15 +36,31 @@ const WebPageEdit = ({
       .scrollTop = document.querySelector('.hasError').offsetTop
     )}
   >
-    <h2>{translate(action, { type: translate(about['@type']) })}</h2>
-    <a
-      href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="needHelp"
-    >
-      {translate('needHelp')}
-    </a>
+    {_self.endsWith('/user/profile') ? (
+      <React.Fragment>
+        <h2>{translate('main.myProfile')}</h2>
+        <p>{translate('ResourceIndex.Person.edit.message')}</p>
+        {!user.persistent && (
+          <p>
+            <Link href='/resource/' className="btn">
+            {translate('main.skipProfile')}
+          </Link>
+        </p>
+        )}
+      </React.Fragment>
+    ) : (
+      <React.Fragment>
+        <h2>{translate(action, { type: translate(about['@type']) })}</h2>
+        <a
+          href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="needHelp"
+        >
+          {translate('needHelp')}
+        </a>
+      </React.Fragment>
+    )}
     <Builder
       schema={JsonSchema(schema).get(`#/definitions/${about['@type']}`)}
       config={{ mapboxConfig }}
