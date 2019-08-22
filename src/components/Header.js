@@ -503,10 +503,10 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href="/user/profile#edit">
+                            <a className="item" href="/user/profile#edit">
                               <i aria-hidden="true" className="fa fa-user-circle" />
                               <span>{translate('menu.me.profile')}</span>
-                            </Link>
+                            </a>
                           </li>
                           <li>
                             <a className="item" href="/auth/realms/oerworldmap/account/">
