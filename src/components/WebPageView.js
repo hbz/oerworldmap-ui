@@ -498,7 +498,8 @@ const WebPageView = ({
                 <ItemList
                   tooltip={false}
                   listItems={
-                    [].concat(...about.awards.filter(grant => grant.funds).map(grant => grant.funds))
+                    [].concat(...about.awards.filter(grant => grant.funds)
+                      .map(grant => grant.funds))
                       .sort((a, b) => translate(a.name) > translate(b.name))
                   }
                   className="prominent"
