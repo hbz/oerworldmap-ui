@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick, addParamToURL } from '../common'
+import { triggerClick, urlParser } from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
@@ -88,6 +88,17 @@ class Header extends React.Component {
     if (!supportedLanguages) {
       supportedLanguages = SUPPORTED_LANGUAGES
     }
+
+    const languages = supportedLanguages.filter(lang => lang !== locales[0]).map((lang) => {
+      const url = urlParser((typeof window !== 'undefined' && window.location && window.location.href) || Link.self, 'language')
+      url.searchParams.set('language', lang)
+
+      return (
+        <li key={lang}>
+          <a href={url.href}>{translate(lang)}</a>
+        </li>
+      )
+    })
 
     return (
       <header className="Header">
@@ -595,11 +606,7 @@ class Header extends React.Component {
                 <span>
                   <i className="fa fa-language" aria-hidden="true" />
                   <ul>
-                    {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
-                      <li key={lang}>
-                        <a href={addParamToURL(Link.self || (typeof window !== 'undefined' && window.location && window.location.href) || '/resource/', 'language', lang)}>{translate(lang)}</a>
-                      </li>
-                    ))}
+                    {languages}
                   </ul>
                 </span>
               </li>

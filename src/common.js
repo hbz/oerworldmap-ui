@@ -197,6 +197,22 @@ export const objectMap = (obj, fn) => (
 export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
   ? 1 : ((b[prop] < a[prop]) ? -1 : 0))
 
+export const isNode = (typeof module === 'object' && module.exports)
+
+export const urlParser = (str) => {
+  try {
+    if (isNode) {
+      const { URL } = require('url')
+      return new URL(str)
+    }
+    return new URL(str)
+  } catch (error) {
+    // In case of sending a relative url we just return the string
+    return str
+  }
+}
+
+
 export default {
   getTitle,
   formatURL,
@@ -212,4 +228,6 @@ export default {
   objectMap,
   sortByProp,
   addParamToURL,
+  isNode,
+  urlParser,
 }
