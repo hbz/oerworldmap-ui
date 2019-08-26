@@ -3,7 +3,6 @@
 /* global ENVIRONMENT */
 /* global LANG */
 /* global $ */
-/* global localStorage */
 /* global i18ns */
 
 import React from 'react'
@@ -17,6 +16,7 @@ import Header from './components/Header'
 import Link from './components/Link'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
+import UserProvider from './components/UserProvider'
 import i18n from './i18n'
 import ItemList from './components/ItemList'
 
@@ -26,7 +26,6 @@ import './styles/main.pcss'
 import './styles/static.pcss'
 import './styles/components/Header.pcss'
 
-const user = JSON.parse(localStorage.getItem('user'))
 const locales = [LANG]
 const emitter = mitt()
 
@@ -54,7 +53,9 @@ const injectHeader = (() => {
           )}
         >
           <EmittProvider emitter={emitter}>
-            <Header user={user} />
+            <UserProvider>
+              <Header />
+            </UserProvider>
           </EmittProvider>
         </I18nProvider>,
         target,
@@ -324,7 +325,13 @@ const createPolicyRelated = (() => {
   return { init }
 })()
 
-$(() => {
+$(async () => {
+  try {
+    window.__APP_USER__ = await fetch('/user/profile', { headers: { Accept: 'application/json' } })
+      .then(res => res.json())
+  } catch (e) {
+  // no op, user not logged in but mod_auth_openidc redirects to login page
+  }
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()

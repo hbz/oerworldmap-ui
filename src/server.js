@@ -58,21 +58,6 @@ server.use((req, res, next) => {
   ua && ua.isIE && res.send('Sorry, your browser is not supported') || next()
 })
 
-// Middleware to fetch user profile
-server.use((req, res, next) => {
-  if (req.cookies.mod_auth_openidc_session) {
-    const headers = getHeaders(req.headers)
-    headers.delete('Host')
-    headers.delete('If-None-Match')
-    // This will log a FetchError: invalid json response body
-    // if for some reason mod_auth_openidc_session is not valid
-    api.get('/user/profile', headers)
-      .then(user => (req.user = user) && console.log(user))
-      .catch(err => console.error(err))
-  }
-  next()
-})
-
 // Middleware to fetch labels
 server.use((req, res, next) => {
   api.get('/label')
@@ -129,7 +114,7 @@ server.get(/^(.*)$/, (req, res) => {
   const headers = getHeaders(req.headers)
   headers.delete('Host')
   headers.delete('If-None-Match')
-  const { user, locales, supportedLanguages } = req
+  const { locales, supportedLanguages } = req
   if (req.labels) {
     req.labels.results.bindings.forEach((label) => {
       i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
@@ -144,7 +129,6 @@ server.get(/^(.*)$/, (req, res) => {
     supportedLanguages,
     locales,
     headers,
-    user,
     mapboxConfig,
     phrases,
     apiConfig,
@@ -165,7 +149,6 @@ server.get(/^(.*)$/, (req, res) => {
         locales,
         mapboxConfig,
         data,
-        user,
         err,
         phrases,
         schema,

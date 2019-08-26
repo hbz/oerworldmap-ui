@@ -2,6 +2,7 @@
 /* global window */
 /* global localStorage */
 /* global _paq */
+/* global fetch */
 
 import ReactDOM from 'react-dom'
 import 'normalize.css'
@@ -16,16 +17,19 @@ import Link from './components/Link'
 require('formdata-polyfill')
 
 const client = () => {
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      window.__APP_USER__ = await fetch('/user/profile', { headers: { Accept: 'application/json' } })
+        .then(res => res.json())
+    } catch (e) {
+      // no op - user not logged in, but mod_auth_openidc redirects to login page
+    }
+
     let state = window.__APP_INITIAL_STATE__.data
     const emitter = mitt()
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
-
-    context.user
-      ? localStorage.setItem('user', JSON.stringify(context.user))
-      : localStorage.removeItem('user')
 
     const api = new Api(context.apiConfig)
     const routes = router(api, emitter, window.location)

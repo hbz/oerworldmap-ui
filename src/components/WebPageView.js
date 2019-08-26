@@ -8,6 +8,7 @@ import {
 import urlTemplate from 'url-template'
 
 import withI18n from './withI18n'
+import withUser from './withUser'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
@@ -121,7 +122,7 @@ const WebPageView = ({
       </h2>
 
       {expose('userActions', user)
-        && <WebPageUserActions about={about} user={user} view={view} schema={schema} />
+        && <WebPageUserActions about={about} view={view} schema={schema} />
       }
 
       <div className="row stack-700 stack-gutter-2em">
@@ -331,13 +332,13 @@ const WebPageView = ({
 
             {lighthouses.length > 0 && about['@id'] && (
               <Block title={translate('ResourceIndex.read.lighthouses.title')}>
-                <Lighthouses lighthouses={lighthouses} about={about} user={user} />
+                <Lighthouses lighthouses={lighthouses} about={about} />
               </Block>
             )}
 
             {about['@id'] && about['@type'] !== 'Person' && (
               <Block title={translate('ResourceIndex.read.comments')}>
-                <Comments comments={about.comment} about={about} user={user} schema={schema} />
+                <Comments comments={about.comment} about={about} schema={schema} />
               </Block>
             )}
 
@@ -835,4 +836,4 @@ WebPageView.defaultProps = {
   expandAll: false,
 }
 
-export default withI18n(WebPageView)
+export default withI18n(withUser(WebPageView))

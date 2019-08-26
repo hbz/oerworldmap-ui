@@ -10,6 +10,7 @@ import Link from './Link'
 import { triggerClick, addParamToURL } from '../common'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
+import withUser from './withUser'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
@@ -614,4 +615,4 @@ Header.defaultProps = {
   user: null,
 }
 
-export default withEmitter(withI18n(Header))
+export default withEmitter(withI18n(withUser(Header)))

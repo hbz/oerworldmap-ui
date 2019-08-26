@@ -5,6 +5,7 @@ import 'source-sans-pro/source-sans-pro.css'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import Header from './Header'
 import Loading from './Loading'
+import withUser from './withUser'
 
 const App = ({
   user, locales, supportedLanguages, children,
@@ -13,7 +14,7 @@ const App = ({
 
     <main className="container" data-userroles={user && user.groups ? user.groups.join(' ') : null}>
 
-      <Header user={user} locales={locales} supportedLanguages={supportedLanguages} />
+      <Header locales={locales} supportedLanguages={supportedLanguages} />
 
       <div className="content">
         {children}
@@ -36,4 +37,4 @@ App.defaultProps = {
   user: null,
 }
 
-export default App
+export default withUser(App)

@@ -33,7 +33,7 @@ export default (api, emitter, location) => {
       path: '/resource/',
       get: async (params, context, state) => {
         const {
-          user, mapboxConfig, schema, phrases, embed,
+          mapboxConfig, schema, phrases, embed,
         } = context
         const url = getURL({
           path: '/resource/',
@@ -48,51 +48,15 @@ export default (api, emitter, location) => {
           },
           _self: location.href,
         } : state || await api.get(url, new Headers(context.headers))
-        const { translate } = context.i18n
         const component = data => (params.add ? (
-          user ? (
-            <WebPage
-              user={user}
-              mapboxConfig={mapboxConfig}
-              {...data}
-              view="edit"
-              schema={schema}
-              showOptionalFields={false}
-              onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
-            />
-          ) : (
-            <FullModal>
-              <div
-                style={{
-                  textAlign: 'center',
-                  fontSize: 'var(--font-size-large)',
-                }}
-              >
-                {translate('Please login to add a new')}
-                &nbsp;
-                {translate(params.add).toLowerCase()}
-                <br />
-                <br />
-                <a href={`/.login?continue=${url}`}>
-                  <button
-                    className="btn"
-                  >
-                    Login
-                  </button>
-                </a>
-                <a
-                  style={{ marginLeft: '10px' }}
-                  href="/user/register"
-                >
-                  <button
-                    className="btn"
-                  >
-                    Register
-                  </button>
-                </a>
-              </div>
-            </FullModal>
-          )
+          <WebPage
+            mapboxConfig={mapboxConfig}
+            {...data}
+            view="edit"
+            schema={schema}
+            showOptionalFields={false}
+            onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
+          />
         ) : (
           <ResourceIndex
             {...data}
@@ -138,13 +102,12 @@ export default (api, emitter, location) => {
         }
       },
       post: async (params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const data = await api.post('/resource/', body, new Headers(context.headers))
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
@@ -161,7 +124,7 @@ export default (api, emitter, location) => {
     {
       path: '/resource/:id',
       get: async (id, params, context, state) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, new Headers(context.headers))
         const { about } = data
@@ -169,7 +132,6 @@ export default (api, emitter, location) => {
           <WebPage
             {...data}
             mapboxConfig={mapboxConfig}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             embedValue="true"
@@ -191,13 +153,12 @@ export default (api, emitter, location) => {
         }
       },
       post: async (id, params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
@@ -225,13 +186,12 @@ export default (api, emitter, location) => {
     {
       path: '/resource/:id/comment',
       post: async (id, params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
@@ -425,14 +385,13 @@ export default (api, emitter, location) => {
     {
       path: '/user/profile',
       get: async (params, context, state) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const data = state || await api.get('/user/profile', new Headers(context.headers))
         const component = data => (
           <WebPage
             {...data.profile}
-            _self={user._self}
+            _self="/user/profile"
             mapboxConfig={mapboxConfig}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
@@ -442,15 +401,13 @@ export default (api, emitter, location) => {
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const data = await api.post('/user/profile', body, new Headers(context.headers))
-        user.persistent = true
         const component = data => (
           <WebPage
             {...data.profile}
-            _self={user._self}
+            _self="/user/profile"
             mapboxConfig={mapboxConfig}
-            user={user}
             view="view"
             schema={schema}
             onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}

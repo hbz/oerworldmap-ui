@@ -11,6 +11,7 @@ import WebPageCover from './WebPageCover'
 import expose from '../expose'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
+import withUser from './withUser'
 import Link from './Link'
 
 import '../styles/components/WebPage.pcss'
@@ -50,7 +51,6 @@ const WebPage = ({
     <div className="WebPage">
 
       <WebPageHeader
-        user={user}
         about={about}
         contributor={contributor}
         dateModified={dateModified}
@@ -72,7 +72,6 @@ const WebPage = ({
               about={about}
               action={about['@id'] ? 'edit' : 'add'}
               mapboxConfig={mapboxConfig}
-              user={user}
               schema={schema}
               closeLink={about['@id'] ? _self : undefined}
               showOptionalFields={showOptionalFields}
@@ -83,7 +82,7 @@ const WebPage = ({
         )}
 
         <div id="view" className={!user || view !== 'edit' ? '' : 'hidden'}>
-          <WebPageView id="view" about={about} user={user} view={view} schema={schema} _self={_self} />
+          <WebPageView id="view" about={about} view={view} schema={schema} _self={_self} />
         </div>
 
       </div>
@@ -126,4 +125,4 @@ WebPage.defaultProps = {
   onSubmit: formdata => console.log(formdata),
 }
 
-export default withEmitter(withI18n(WebPage))
+export default withEmitter(withI18n(withUser(WebPage)))
