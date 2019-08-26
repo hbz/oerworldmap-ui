@@ -30,16 +30,16 @@ class Columns extends React.Component {
           <div>
             <img width="100%" src="https://user-images.githubusercontent.com/1938043/63678812-48dc8200-c7f0-11e9-88cd-b87bad187a15.jpg" alt="OERde17-Camp-Tilman-Vogler-Tag-1" />
             <div style={{ textAlign: 'right' }}>
-              <small>{translate('Tilman Vogler für OERde17,')}</small>
+              <small>{translate('Tour.intro1')}</small>
               &nbsp;
               <small><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small>
             </div>
-            <h3>{translate('Welcome to the OER world map!')}</h3>
+            <h3>{translate('Tour.intro2')}</h3>
             <p>
-              {translate('The OER World Map is a project which aims to illuminate the global Open Educational Resources movement by facilitating interaction and collaboration.')}
+              {translate('Tour.intro3')}
             </p>
             <p>
-              {translate('We do that by collecting and sharing open data about actors and activities related to OER.')}
+              {translate('Tour.intro4')}
             </p>
           </div>),
         placement: 'center',
@@ -49,10 +49,10 @@ class Columns extends React.Component {
         content: (
           <div>
             <p>
-              {translate('First, let\'s explore the entries already added to the OER World map.')}
+              {translate('Tour.types1')}
             </p>
             <p>
-              {translate('There are several different data types, let\'s take a look at those.')}
+              {translate('Tour.types2')}
             </p>
           </div>
         ),
@@ -76,7 +76,7 @@ class Columns extends React.Component {
         target: '.ResultList li:first-child',
         content: (
           <div>
-            <p>{translate('Just click on a entry to get the all associated information.')}</p>
+            <p>{translate('Tour.entries1')}</p>
           </div>
         ),
       },
@@ -84,8 +84,8 @@ class Columns extends React.Component {
         target: '.togglePins',
         content: (
           <div>
-            <p>{translate('Here is our pin switch. It\'s our most important navigation element.')}</p>
-            <p>{translate('You can hide and show the pins on the map with it.')}</p>
+            <p>{translate('Tour.pins1')}</p>
+            <p>{translate('Tour.pins2')}</p>
           </div>
         ),
       },
@@ -93,9 +93,9 @@ class Columns extends React.Component {
         target: '#Map',
         content: (
           <div>
-            <p>{translate('If the pins are hidden, you can easily select a specific country and its regions.')}</p>
-            <p>{translate('Recently we welcomed many new members in Brazil.')}</p>
-            <p>{translate('Here is how it\'s done:')}</p>
+            <p>{translate('Tour.map1')}</p>
+            <p>{translate('Tour.map2')}</p>
+            <p>{translate('Tour.map3')}</p>
             <img width="100%" src="https://user-images.githubusercontent.com/1938043/63355114-eace1b80-c365-11e9-9e9a-b44ae765398b.gif" alt="Click intro Brazil" />
           </div>
         ),
@@ -105,9 +105,9 @@ class Columns extends React.Component {
         target: '.addMenu',
         content: (
           <div>
-            <p>{translate('As an OER world map user you can add and modify entries.')}</p>
-            <p>{translate('Every edit is valuable for us, thanks for joining us on our journey!')}</p>
-            <p>{translate('To add something, just login and select add.')}</p>
+            <p>{translate('Tour.add1')}</p>
+            <p>{translate('Tour.add2')}</p>
+            <p>{translate('Tour.add3')}</p>
           </div>
         ),
       },
@@ -115,7 +115,7 @@ class Columns extends React.Component {
         target: '.activityFeedLink',
         content: (
           <div>
-            <p>{translate("To check out what's was recently added or edited, use the Activity Feed.")}</p>
+            <p>{translate('Tour.feed1')}</p>
           </div>
         ),
       },
@@ -124,23 +124,23 @@ class Columns extends React.Component {
         content: (
           <div>
             <p>
-              {translate('That was our quick tour.')}
+              {translate('Tour.end1')}
             </p>
             <p>
-              {translate('Do you have questions or suggestions?')}
+              {translate('Tour.end2')}
             </p>
             <p>
-              {translate('Contact')}
+              {translate('Tour.end3')}
             &nbsp;
               <a href="/resource/urn:uuid:839897e6-178f-11e5-871b-3c970e4a9cbf" target="_blank" rel="noopener noreferrer">Jan Neumann</a>
             &nbsp;
-              {translate('via')}
+              {translate('Tour.end4')}
             &nbsp;
               <a href="mailto:someone@yoursite.com">info@oerworldmap.org</a>
             .
             </p>
             <p>
-              {translate("Now it's time to explore or register yourself, good luck on your open education journey.")}
+              {translate('Tour.end5')}
             </p>
           </div>
         ),
