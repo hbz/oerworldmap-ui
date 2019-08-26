@@ -179,7 +179,7 @@ class Columns extends React.Component {
       type,
     } = data
 
-    if (index === 11) {
+    if (index === 9) {
       this.setState({ show: true })
     }
 
