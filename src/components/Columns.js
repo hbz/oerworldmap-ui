@@ -28,7 +28,12 @@ class Columns extends React.Component {
         target: '.ResourceIndex',
         content: (
           <div>
-            <img width="100%" src="https://user-images.githubusercontent.com/1938043/63359503-26201880-c36d-11e9-9570-6011a0709293.jpg" alt="OERde17-Camp-Tilman-Vogler-Tag-1" />
+            <img width="100%" src="https://user-images.githubusercontent.com/1938043/63678812-48dc8200-c7f0-11e9-88cd-b87bad187a15.jpg" alt="OERde17-Camp-Tilman-Vogler-Tag-1" />
+            <div style={{ textAlign: 'right' }}>
+              <small>{translate('Tilman Vogler für OERde17,')}</small>
+              &nbsp;
+              <small><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small>
+            </div>
             <h3>{translate('Welcome to the OER world map!')}</h3>
             <p>
               {translate('The OER World Map is a project which aims to illuminate the global Open Educational Resources movement by facilitating interaction and collaboration.')}
@@ -40,64 +45,18 @@ class Columns extends React.Component {
         placement: 'center',
       },
       {
-        target: '.addMenu',
-        content: (
-          <div>
-            <p>{translate('As an OER world map user you can add and modify entries.')}</p>
-            <p>{translate('Every edit is valuable for us, thanks for joining us on our journey!')}</p>
-            <p>{translate('To add something, just login and select add.')}</p>
-          </div>
-        ),
-      },
-      {
         target: '.ResourceIndex',
         content: (
           <div>
-            {translate('But first, let\'s explore the entries already added to the OER World map. There are different data types, let\'s explore them.')}
-          </div>
-        ),
-        placement: 'center',
-      },
-      {
-        target: '.togglePins',
-        content: (
-          <div>
-            <p>{translate('Just one quick information before we explore the data entries about OER activities:')}</p>
             <p>
-              <b>{translate('The pin switch')}</b>
+              {translate('First, let\'s explore the entries already added to the OER World map.')}
             </p>
-            <p>{translate('It\'s our most important navigation element.')}</p>
-            <p>{translate('You can hide and show the pins on the map with it.')}</p>
-          </div>
-        ),
-      },
-      {
-        target: '#Map',
-        content: (
-          <div>
-            <p>{translate('If the pins are hidden, you can easily select a specific country and its regions.')}</p>
-            <p>{translate('Let\'s explore Brasil and a specific region. Recently we welcomed many new members in brasil.')}</p>
-            <p>{translate('Here is how it\'s done:')}</p>
-            <img width="100%" src="https://user-images.githubusercontent.com/1938043/63355114-eace1b80-c365-11e9-9e9a-b44ae765398b.gif" alt="Click intro Brazil" />
+            <p>
+              {translate('There are several different data types, let\'s take a look at those.')}
+            </p>
           </div>
         ),
         placement: 'center',
-      },
-      {
-        target: '.ButtonFilter',
-        content: (
-          <div>
-            <p>{translate('Okay, back to data types.')}</p>
-          </div>
-        ),
-      },
-      {
-        target: '.activityFeedLink',
-        content: (
-          <div>
-            <p>{translate("To check out what's was recently added or edited, use the Activity Feed.")}</p>
-          </div>
-        ),
       },
     ]
 
@@ -112,33 +71,82 @@ class Columns extends React.Component {
     }))
 
     this.steps.push(...typesSteps)
-    this.steps.push({
-      target: '.ResourceIndex',
-      content: (
-        <div>
-          <p>
-            {translate('That was our quick tour.')}
-          </p>
-          <p>
-            {translate('Do you have questions or suggestions?')}
-          </p>
-          <p>
-            {translate('Contact')}
+    this.steps.push(
+      {
+        target: '.ResultList li:first-child',
+        content: (
+          <div>
+            <p>{translate('Just click on a entry to get the all associated information.')}</p>
+          </div>
+        ),
+      },
+      {
+        target: '.togglePins',
+        content: (
+          <div>
+            <p>{translate('Here is our pin switch. It\'s our most important navigation element.')}</p>
+            <p>{translate('You can hide and show the pins on the map with it.')}</p>
+          </div>
+        ),
+      },
+      {
+        target: '#Map',
+        content: (
+          <div>
+            <p>{translate('If the pins are hidden, you can easily select a specific country and its regions.')}</p>
+            <p>{translate('Recently we welcomed many new members in Brazil.')}</p>
+            <p>{translate('Here is how it\'s done:')}</p>
+            <img width="100%" src="https://user-images.githubusercontent.com/1938043/63355114-eace1b80-c365-11e9-9e9a-b44ae765398b.gif" alt="Click intro Brazil" />
+          </div>
+        ),
+        placement: 'center',
+      },
+      {
+        target: '.addMenu',
+        content: (
+          <div>
+            <p>{translate('As an OER world map user you can add and modify entries.')}</p>
+            <p>{translate('Every edit is valuable for us, thanks for joining us on our journey!')}</p>
+            <p>{translate('To add something, just login and select add.')}</p>
+          </div>
+        ),
+      },
+      {
+        target: '.activityFeedLink',
+        content: (
+          <div>
+            <p>{translate("To check out what's was recently added or edited, use the Activity Feed.")}</p>
+          </div>
+        ),
+      },
+      {
+        target: '.ResourceIndex',
+        content: (
+          <div>
+            <p>
+              {translate('That was our quick tour.')}
+            </p>
+            <p>
+              {translate('Do you have questions or suggestions?')}
+            </p>
+            <p>
+              {translate('Contact')}
             &nbsp;
-            <a href="/resource/urn:uuid:839897e6-178f-11e5-871b-3c970e4a9cbf" target="_blank" rel="noopener noreferrer">Jan Neumann</a>
+              <a href="/resource/urn:uuid:839897e6-178f-11e5-871b-3c970e4a9cbf" target="_blank" rel="noopener noreferrer">Jan Neumann</a>
             &nbsp;
-            {translate('via')}
+              {translate('via')}
             &nbsp;
-            <a href="mailto:someone@yoursite.com">info@oerworldmap.org</a>
+              <a href="mailto:someone@yoursite.com">info@oerworldmap.org</a>
             .
-          </p>
-          <p>
-            {translate("Now it's time to explore or register yourself, good luck on your open education journey.")}
-          </p>
-        </div>
-      ),
-      placement: 'center',
-    })
+            </p>
+            <p>
+              {translate("Now it's time to explore or register yourself, good luck on your open education journey.")}
+            </p>
+          </div>
+        ),
+        placement: 'center',
+      },
+    )
   }
 
   componentDidMount() {
@@ -171,9 +179,8 @@ class Columns extends React.Component {
       type,
     } = data
 
-    if (index === 4) {
-      const { emitter } = this.props
-      emitter.emit('navigate', '/country/br/mt')
+    if (index === 11) {
+      this.setState({ show: true })
     }
 
     if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
