@@ -39,6 +39,15 @@ emitter.on('navigate', (url) => {
   window.open(url, '_self')
 })
 
+const hideUserLoginButtons = (() => {
+  function init() {
+    const target = document.querySelector('#user-login-buttons')
+    target && window.__APP_USER__ && target.remove()
+  }
+
+  return { init }
+})()
+
 const injectHeader = (() => {
   function init() {
     Link.self = window.location.href
@@ -340,6 +349,7 @@ $(async () => {
   createPoliciesFeed.init()
   createPolicyRelated.init()
   createKibanaListener.init()
+  hideUserLoginButtons.init()
 
   $('[data-slick]').slick()
 })
