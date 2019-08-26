@@ -282,7 +282,10 @@ const WebPageView = ({
             <hr className="border-grey" />
 
             {about.keywords && (
-              <Block title={translate(`${about['@type']}.keywords`)}>
+              <Block
+                title={translate(`${about['@type']}.keywords`)}
+                addButton=".KeywordSelect.keywords"
+              >
                 <ul className="spaceSeparatedList">
                   {about.keywords.sort((a, b) => a > b).map(keyword => (
                     <li key={keyword}>
@@ -296,7 +299,11 @@ const WebPageView = ({
             )}
 
             {about.about && (
-              <Block className="list" title={translate(`${about['@type']}.about`)}>
+              <Block
+                className="list"
+                title={translate(`${about['@type']}.about`)}
+                addButton=".List.about"
+              >
                 <ConceptTree
                   concepts={require('../json/esc.json').hasTopConcept}
                   include={about.about.map(concept => concept['@id'])}
@@ -307,7 +314,11 @@ const WebPageView = ({
             )}
 
             {about.audience && (
-              <Block className="list" title={translate(`${about['@type']}.audience`)}>
+              <Block
+                className="list"
+                title={translate(`${about['@type']}.audience`)}
+                addButton=".List.audience"
+              >
                 <ConceptTree
                   concepts={require('../json/isced-1997.json').hasTopConcept}
                   include={about.audience.map(concept => concept['@id'])}
@@ -319,7 +330,12 @@ const WebPageView = ({
 
             {['primarySector', 'secondarySector'].map(prop => (
               about[prop] && (
-                <Block key={prop} className="list" title={translate(`${about['@type']}.${prop}`)}>
+                <Block
+                  key={prop}
+                  className="list"
+                  title={translate(`${about['@type']}.${prop}`)}
+                  addButton={`.List.${prop}`}
+                >
                   <ConceptTree
                     concepts={require('../json/sectors.json').hasTopConcept}
                     include={about[prop].map(concept => concept['@id'])}
@@ -349,6 +365,7 @@ const WebPageView = ({
                 collapsibleType="show-all"
                 className="list"
                 title={translate(`${about['@type']}.isFundedBy`)}
+                addButton=".List.isAwardedBy"
               >
                 <ItemList
                   tooltip={false}
@@ -375,7 +392,11 @@ const WebPageView = ({
             )}
 
             {about.contactPoint && (
-              <Block className="list" title={translate(`${about['@type']}.contactPoint`)}>
+              <Block
+                className="list"
+                title={translate(`${about['@type']}.contactPoint`)}
+                addButton=".List.contactPoint"
+              >
                 <ItemList
                   tooltip={false}
                   listItems={about.contactPoint
@@ -386,7 +407,11 @@ const WebPageView = ({
             )}
 
             {about.isPartOf && (
-              <Block className="list" title={translate(`${about['@type']}.isPartOf`)}>
+              <Block
+                className="list"
+                title={translate(`${about['@type']}.isPartOf`)}
+                addButton=".RemoteSelect.isPartOf"
+              >
                 <ItemList
                   tooltip={false}
                   listItems={[about.isPartOf]
@@ -402,6 +427,7 @@ const WebPageView = ({
                 collapsibleType="show-all"
                 className="list"
                 title={translate(`${about['@type']}.hasPart`)}
+                addButton=".RemoteSelect.isPartOf"
               >
                 <ItemList
                   tooltip={false}
@@ -424,6 +450,7 @@ const WebPageView = ({
                       title={translate(`${about['@type']}.${prop}`)}
                     >
                       <ItemList
+                        tooltip={false}
                         listItems={about[prop]
                           .sort((a, b) => translate(a.name) > translate(b.name))}
                         className="prominent"
@@ -517,6 +544,7 @@ const WebPageView = ({
                       collapsibleType="show-all"
                       className="list"
                       title={translate(`${about['@type']}.${prop}`)}
+                      addButton={`.List.${prop}`}
                     >
                       <ItemList
                         tooltip={false}
@@ -540,6 +568,7 @@ const WebPageView = ({
                   collapsibleType="show-all"
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
+                  addButton={`.List.${prop}`}
                 >
                   <ItemList
                     tooltip={false}
@@ -574,9 +603,8 @@ const WebPageView = ({
                 {lighthouses.length > 0 && (
                   <li>
                     <div className="item lighthouses">
-                      <i aria-hidden="true" className="bg-highlight-color bg-important" style={{ padding: '6px 12px' }}>
+                      <i aria-hidden="true" className="bg-highlight-color bg-important">
                         <img
-                          style={{ position: 'relative', top: '2px' }}
                           src="/public/lighthouse_16px_white.svg"
                           alt="Lighthouse"
                         />
