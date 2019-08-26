@@ -12,6 +12,7 @@ import validate from './JSONPointerForm/validate'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import withUser from './withUser'
 import Link from './Link'
 
 import expose from '../expose'
@@ -40,7 +41,7 @@ const WebPageEdit = ({
       <React.Fragment>
         <h2>{translate('main.myProfile')}</h2>
         <p>{translate('ResourceIndex.Person.edit.message')}</p>
-        {!user.persistent && (
+        {user && !user.persistent && (
           <p>
             <Link href='/resource/' className="btn">
             {translate('main.skipProfile')}
@@ -123,4 +124,4 @@ WebPageEdit.defaultProps = {
   onSubmit: formData => console.log(formData),
 }
 
-export default withI18n(withEmitter(WebPageEdit))
+export default withI18n(withEmitter(withUser(WebPageEdit)))
