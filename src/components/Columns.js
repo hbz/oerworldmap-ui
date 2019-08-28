@@ -132,8 +132,6 @@ class Columns extends React.Component {
             <p>
               {translate('Tour.end3')}
             &nbsp;
-              <a href="/resource/urn:uuid:839897e6-178f-11e5-871b-3c970e4a9cbf" target="_blank" rel="noopener noreferrer">Jan Neumann</a>
-            &nbsp;
               {translate('Tour.end4')}
             &nbsp;
               <a href="mailto:someone@yoursite.com">info@oerworldmap.org</a>
