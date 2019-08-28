@@ -4,7 +4,7 @@
 /* global localStorage */
 /* global _paq */
 
-import ReactDOM from 'react-dom'
+import { hydrate } from 'react-dom'
 import 'normalize.css'
 import mitt from 'mitt'
 
@@ -34,7 +34,7 @@ const client = () => {
     let referrer = window.location.href
     Link.back = '/resource/'
     const renderApp = (title, component) => {
-      ReactDOM.render(component, document.getElementById('root'))
+      hydrate(component, document.getElementById('root'))
       emitter.emit('setLoading', false)
       window.location.hash
         ? document.getElementById(window.location.hash.replace('#', ''))
