@@ -9,7 +9,7 @@ import 'normalize.css'
 import mitt from 'mitt'
 
 import router from './router'
-import { getParams, getURL } from './common'
+import { getParams, getURL, updateUser } from './common'
 import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
@@ -18,13 +18,7 @@ require('formdata-polyfill')
 
 const client = () => {
   document.addEventListener('DOMContentLoaded', async () => {
-    try {
-      window.__APP_USER__ = await fetch('/user/profile', { headers: { Accept: 'application/json' } })
-        .then(res => res.json())
-    } catch (e) {
-      // no op - user not logged in, but mod_auth_openidc redirects to login page
-    }
-
+    await updateUser()
     let state = window.__APP_INITIAL_STATE__.data
     const emitter = mitt()
     const context = {}

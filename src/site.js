@@ -11,7 +11,7 @@ import fetch from 'isomorphic-fetch'
 import mitt from 'mitt'
 import 'normalize.css'
 
-import { getURL } from './common'
+import { getURL, updateUser } from './common'
 import Header from './components/Header'
 import Link from './components/Link'
 import I18nProvider from './components/I18nProvider'
@@ -335,12 +335,7 @@ const createPolicyRelated = (() => {
 })()
 
 $(async () => {
-  try {
-    window.__APP_USER__ = await fetch('/user/profile', { headers: { Accept: 'application/json' } })
-      .then(res => res.json())
-  } catch (e) {
-  // no op, user not logged in but mod_auth_openidc redirects to login page
-  }
+  await updateUser()
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
