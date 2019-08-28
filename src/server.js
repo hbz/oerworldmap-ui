@@ -81,7 +81,7 @@ server.use((req, res, next) => {
 
 // Middleware to extract locales
 const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
-const { defaultLanguage } = i18nConfig.defaultLanguage
+const { defaultLanguage } = i18nConfig
 
 server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
