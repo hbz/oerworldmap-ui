@@ -16,6 +16,23 @@ import Link from './components/Link'
 
 require('formdata-polyfill')
 
+const sendMatomoNavigate = (title, url, context) => {
+  const referrer = Link.back
+
+  if (typeof _paq !== 'undefined') {
+    _paq.push(['setReferrerUrl', referrer])
+    _paq.push(['setCustomUrl', url])
+    _paq.push(['setDocumentTitle', title])
+    _paq.push(['setDocumentTitle', title])
+    _paq.push(['setCustomVariable', 1, 'context', context, 'page'])
+
+    _paq.push(['deleteCustomVariables', 'page'])
+    _paq.push(['setGenerationTimeMs', 0])
+    _paq.push(['trackPageView'])
+    _paq.push(['enableLinkTracking'])
+  }
+}
+
 const client = () => {
   document.addEventListener('DOMContentLoaded', () => {
     let state = window.__APP_INITIAL_STATE__.data
@@ -68,17 +85,6 @@ const client = () => {
       } else if (parser.href !== window.location.href) {
         Link.back = referrer
 
-        if (typeof _paq !== 'undefined') {
-          _paq.push(['setReferrerUrl', referrer])
-          _paq.push(['setCustomUrl', parser.href])
-          _paq.push(['setDocumentTitle', document.title])
-
-          _paq.push(['deleteCustomVariables', 'page'])
-          _paq.push(['setGenerationTimeMs', 0])
-          _paq.push(['trackPageView'])
-          _paq.push(['enableLinkTracking'])
-        }
-
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
@@ -112,11 +118,13 @@ const client = () => {
                 window.history.replaceState(null, null, redirect.url)
                 state = data
                 renderApp(title, render(data))
+                sendMatomoNavigate(title, redirect.url, 'submit')
               })
           } else {
             state = data
             window.history.pushState(null, null, data._location || url)
             renderApp(title, render(data))
+            sendMatomoNavigate(title, redirect.url, 'submit')
           }
         })
     })
@@ -131,11 +139,13 @@ const client = () => {
                 window.history.replaceState(null, null, redirect.url)
                 state = data
                 renderApp(title, render(data))
+                sendMatomoNavigate(title, redirect.url, 'delete')
               })
           } else {
             state = data
             window.history.pushState(null, null, url)
             renderApp(title, render(data))
+            sendMatomoNavigate(title, redirect.url, 'delete')
           }
         })
     })
@@ -181,6 +191,7 @@ const client = () => {
         .then(({ title, data, render }) => {
           state = data
           renderApp(title, render(data))
+          sendMatomoNavigate(title, url, 'navigate')
         })
     })
 
