@@ -169,5 +169,8 @@
   "Policy.secondarySector": "Please enter additional educational sectors, the policy addresses. If a policy addresses all educational sectors, this field can be left empty. Please check out the policy registry manual for more information.",
   "Policy.isBasedOn": "Please use this field to link to a policy which either triggered the policy (example: OER Morocco Declaration was based on 2012 Paris Declaration and Scottish Open Declaration) or was reused/adopted to create the policy in focus (example: University of Edinburgh OER Policy was based on University of Leeds Open Educational Resources Policy?)",
   "Policy.isBasisFor": "Please use this field to link to either to policies, which have been triggered by / derived from the policy in focus or to projects or services, which were triggered by the policy in focus. This field could become very important since it allows to document achieved outcomes of the policy. Having triggered e.g. a project or a service could be an indicator for the success of a policy.",
-  "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web)."
+  "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web).",
+  "Policy.focus": "Please indicate here which topics are addressed by the policy.",
+  "Policy.contact": "Please add here the name and or an e-mail address of the person responsible for the policy.",
+  "Policy.affiliate": "Please add yourself here, if you have special knowledge about or are somehow affilliated to this policy."
 }

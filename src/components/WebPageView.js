@@ -426,6 +426,19 @@ const WebPageView = ({
             </Block>
           )}
 
+          {about.focus && (
+            <Block title={translate(`${about['@type']}.focus`)}>
+              {about.focus.map(focus => (
+                <React.Fragment key={focus}>
+                  <Link href={`/resource/?filter.about.focus.keyword=${focus}`}>
+                    {translate(focus)}
+                  </Link>
+                  <br />
+                </React.Fragment>
+              ))}
+            </Block>
+          )}
+
           {about.award && (
             <Block className="list" title={translate(`${about['@type']}.award`)}>
               <ul className="ItemList award">
@@ -451,6 +464,14 @@ const WebPageView = ({
                 >
                   {about.email}
                 </a>
+              </p>
+            </Block>
+          )}
+
+          {about.contact && (
+            <Block title={translate(`${about['@type']}.contact`)}>
+              <p>
+                {about.contact}
               </p>
             </Block>
           )}
@@ -549,11 +570,16 @@ const WebPageView = ({
             </Block>
           )}
 
-          {about.datePublished && (
+          {about.datePublished && [
             <Block title={translate(`${about['@type']}.datePublished`)}>
               {formatDate(about.datePublished, moment)}
-            </Block>
-          )}
+            </Block>,
+            about.endDate && (
+              <Block title={translate(`${about['@type']}.endDate`)}>
+                {formatDate(about.endDate, moment)}
+              </Block>
+            ),
+          ]}
 
           {about.inLanguage && (
             <Block className="list" title={translate(`${about['@type']}.inLanguage`)}>
