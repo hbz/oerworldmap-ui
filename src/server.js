@@ -1,5 +1,3 @@
-/* global URL */
-
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -8,6 +6,7 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import userAgent from 'express-useragent'
+import url from 'url'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
@@ -104,7 +103,7 @@ server.use((req, res, next) => {
   req.location = new URL(url.format({
     protocol: req.get('x-forwarded-proto') || req.protocol,
     host: req.get('x-forwarded-host') || req.get('host'),
-    pathname: req.originalUrl
+    pathname: req.originalUrl,
   }))
   next()
 })

@@ -19,7 +19,7 @@ import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
 import i18n from './i18n'
 import ItemList from './components/ItemList'
-
+import Link from './components/Link'
 import Overview from './components/Overview'
 
 import './styles/main.pcss'
