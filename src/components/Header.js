@@ -7,15 +7,13 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick, addParamToURL } from '../common'
+import { triggerClick, urlParser, types } from '../common'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
 import withUser from './withUser'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
-
-const types = ['Organization', 'Action', 'Service', 'Event', 'Article', 'WebPage', 'Product', 'Policy']
 
 class Header extends React.Component {
   constructor(props) {
@@ -80,14 +78,26 @@ class Header extends React.Component {
 
   render() {
     const {
-      translate, user, locales,
+      translate, user, locales, emitter,
     } = this.props
     const { showMobileMenu, dropdowns, showNotification } = this.state
+    const { pathname } = urlParser(Link.self)
 
     let { supportedLanguages } = this.props
     if (!supportedLanguages) {
       supportedLanguages = SUPPORTED_LANGUAGES
     }
+
+    const languages = supportedLanguages.filter(lang => lang !== locales[0]).map((lang) => {
+      const url = urlParser(Link.self)
+      url.searchParams.set('language', lang)
+
+      return (
+        <li key={lang}>
+          <a href={url.href}>{translate(lang)}</a>
+        </li>
+      )
+    })
 
     return (
       <header className="Header">
@@ -100,6 +110,19 @@ class Header extends React.Component {
           <Link title={translate('main.map')} href="/resource/">
             <i aria-hidden="true" className="fa fa-globe" />
           </Link>
+
+          {(pathname === '/resource/' || pathname.startsWith('/country/')) && (
+            <a
+              href="#tour"
+              className="tour"
+              onClick={(e) => {
+                e.preventDefault()
+                emitter.emit('resetTour')
+              }}
+            >
+              {translate('Take a tour')}
+            </a>
+          )}
         </div>
 
         <button
@@ -121,7 +144,7 @@ class Header extends React.Component {
           <ul>
 
             <li>
-              <Link href="/activity/">
+              <Link href="/activity/" className="activityFeedLink">
                 {translate('Activity')}
                 {showNotification && (
                   <span className="showNotification">
@@ -295,7 +318,7 @@ class Header extends React.Component {
             </li>
 
             <li
-              className={`hasDropdown${dropdowns.add ? ' active' : ''}`}
+              className={`addMenu hasDropdown${dropdowns.add ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -329,7 +352,7 @@ class Header extends React.Component {
                   </div>
                   <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
 
-                    {types.map(type => (
+                    {types.filter(type => type !== 'Person').map(type => (
                       <div key={type} className="col one-fourth">
                         <Link
                           className="addBox"
@@ -585,11 +608,7 @@ class Header extends React.Component {
                 <span>
                   <i className="fa fa-language" aria-hidden="true" />
                   <ul>
-                    {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
-                      <li key={lang}>
-                        <a href={addParamToURL(Link.self, 'language', lang)}>{translate(lang)}</a>
-                      </li>
-                    ))}
+                    {languages}
                   </ul>
                 </span>
               </li>

@@ -1,3 +1,6 @@
+/* global window */
+/* global fetch */
+
 export const formatURL = (url) => {
   const re = /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/
   const result = re.exec(url)
@@ -199,16 +202,33 @@ export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
 
 export const updateUser = async () => {
   try {
-    window.__APP_USER__ = await fetch('/user/profile',{
+    window.__APP_USER__ = await fetch('/user/profile', {
       headers: {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
-      }
+      },
     }).then(res => res.json())
   } catch (e) {
     // no op - user not logged in, but mod_auth_openidc redirects to login page
   }
-  setTimeout(updateUser, 1000*60*3)
+  setTimeout(updateUser, 1000 * 60 * 3)
+}
+
+export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy']
+
+export const isNode = (typeof module === 'object' && module.exports)
+
+export const urlParser = (str) => {
+  try {
+    if (isNode) {
+      const { URL } = require('url')
+      return new URL(str)
+    }
+    return new URL(str)
+  } catch (error) {
+    // In case of sending a relative url we just return the string
+    return str
+  }
 }
 
 export default {
@@ -227,4 +247,7 @@ export default {
   sortByProp,
   addParamToURL,
   updateUser,
+  types,
+  isNode,
+  urlParser,
 }

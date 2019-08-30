@@ -2,9 +2,8 @@
 /* global window */
 /* global localStorage */
 /* global _paq */
-/* global fetch */
 
-import ReactDOM from 'react-dom'
+import { hydrate } from 'react-dom'
 import 'normalize.css'
 import mitt from 'mitt'
 
@@ -15,6 +14,23 @@ import Api from './api'
 import Link from './components/Link'
 
 require('formdata-polyfill')
+
+const sendMatomoNavigate = (title, url, context) => {
+  const referrer = Link.back
+
+  if (typeof _paq !== 'undefined') {
+    _paq.push(['setReferrerUrl', referrer])
+    _paq.push(['setCustomUrl', url])
+    _paq.push(['setDocumentTitle', title])
+    _paq.push(['setDocumentTitle', title])
+    _paq.push(['setCustomVariable', 1, 'context', context, 'page'])
+
+    _paq.push(['deleteCustomVariables', 'page'])
+    _paq.push(['setGenerationTimeMs', 0])
+    _paq.push(['trackPageView'])
+    _paq.push(['enableLinkTracking'])
+  }
+}
 
 const client = () => {
   document.addEventListener('DOMContentLoaded', async () => {
@@ -31,7 +47,7 @@ const client = () => {
     let referrer = window.location.href
     Link.back = '/resource/'
     const renderApp = (title, component) => {
-      ReactDOM.render(component, document.getElementById('root'))
+      hydrate(component, document.getElementById('root'))
       emitter.emit('setLoading', false)
       window.location.hash
         ? document.getElementById(window.location.hash.replace('#', ''))
@@ -65,17 +81,6 @@ const client = () => {
       } else if (parser.href !== window.location.href) {
         Link.back = referrer
 
-        if (typeof _paq !== 'undefined') {
-          _paq.push(['setReferrerUrl', referrer])
-          _paq.push(['setCustomUrl', parser.href])
-          _paq.push(['setDocumentTitle', document.title])
-
-          _paq.push(['deleteCustomVariables', 'page'])
-          _paq.push(['setGenerationTimeMs', 0])
-          _paq.push(['trackPageView'])
-          _paq.push(['enableLinkTracking'])
-        }
-
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
@@ -91,11 +96,13 @@ const client = () => {
                 window.history.replaceState(null, null, redirect.url)
                 state = data
                 renderApp(title, render(data))
+                sendMatomoNavigate(title, redirect.url, 'submit')
               })
           } else {
             state = data
             window.history.pushState(null, null, data._location || url)
             renderApp(title, render(data))
+            sendMatomoNavigate(title, redirect.url, 'submit')
           }
         })
     })
@@ -110,11 +117,13 @@ const client = () => {
                 window.history.replaceState(null, null, redirect.url)
                 state = data
                 renderApp(title, render(data))
+                sendMatomoNavigate(title, redirect.url, 'delete')
               })
           } else {
             state = data
             window.history.pushState(null, null, url)
             renderApp(title, render(data))
+            sendMatomoNavigate(title, redirect.url, 'delete')
           }
         })
     })
@@ -160,6 +169,7 @@ const client = () => {
         .then(({ title, data, render }) => {
           state = data
           renderApp(title, render(data))
+          sendMatomoNavigate(title, url, 'navigate')
         })
     })
 
