@@ -16,7 +16,9 @@ export default (action, user, context) => {
   case 'addEntry':
     return !!user
   case 'groupAdmin':
-    return user && user.groups.includes('admin')
+    return user && user.groups && user.groups.includes('admin')
+  case 'changeType':
+    return context['@type'] !== 'Person' && user && user.groups && user.groups.includes('admin')
   default:
     return !!user
   }
