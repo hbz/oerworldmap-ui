@@ -345,18 +345,6 @@ const WebPageView = ({
                 </Block>
               )))}
 
-            {lighthouses.length > 0 && about['@id'] && (
-              <Block title={translate('ResourceIndex.read.lighthouses.title')}>
-                <Lighthouses lighthouses={lighthouses} about={about} user={user} />
-              </Block>
-            )}
-
-            {about['@id'] && about['@type'] !== 'Person' && (
-              <Block title={translate('ResourceIndex.read.comments')}>
-                <Comments comments={about.comment} about={about} user={user} schema={schema} />
-              </Block>
-            )}
-
             {about.isFundedBy && about.isFundedBy.some(grant => grant.isAwardedBy) && (
               <Block
                 collapsible={!expandAll
@@ -578,6 +566,18 @@ const WebPageView = ({
                   />
                 </Block>
               )))}
+
+            {lighthouses.length > 0 && about['@id'] && (
+              <Block title={translate('ResourceIndex.read.lighthouses.title')}>
+                <Lighthouses lighthouses={lighthouses} about={about} user={user} />
+              </Block>
+            )}
+
+            {about['@id'] && about['@type'] !== 'Person' && (
+              <Block title={translate('ResourceIndex.read.comments')}>
+                <Comments comments={about.comment} about={about} user={user} schema={schema} />
+              </Block>
+            )}
 
           </div>
 
