@@ -21,6 +21,7 @@ import i18n from './i18n'
 import ItemList from './components/ItemList'
 
 import Overview from './components/Overview'
+import Link from './components/Link'
 
 import './styles/main.pcss'
 import './styles/static.pcss'
