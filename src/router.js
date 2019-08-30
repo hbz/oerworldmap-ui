@@ -26,9 +26,10 @@ import { APIError } from './api'
 import i18nWrapper from './i18n'
 import MobileNavigation from './components/MobileNavigation'
 
-export default (api) => {
+export default (api, location) => {
   Link.home = '/resource/'
   Link.back = '/resource/'
+  Link.self = location.href
 
   const routes = [
     {
@@ -48,7 +49,7 @@ export default (api) => {
           about: {
             '@type': params.add,
           },
-          _self: url,
+          _self: location.href,
         } : state || await api.get(url, context.authorization)
         const { translate } = context.i18n
         const component = data => (params.add ? (

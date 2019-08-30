@@ -53,6 +53,7 @@ emitter.on('logout', () => {
 
 const injectHeader = (() => {
   function init() {
+    Link.self = window.location.href
     const target = document.querySelector('[data-inject-header]')
 
     if (target) {

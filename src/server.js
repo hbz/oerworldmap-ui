@@ -1,3 +1,5 @@
+/* global URL */
+
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -97,6 +99,16 @@ server.use((req, res, next) => {
   next()
 })
 
+// Middleware to set public URL
+server.use((req, res, next) => {
+  req.location = new URL(url.format({
+    protocol: req.get('x-forwarded-proto') || req.protocol,
+    host: req.get('x-forwarded-host') || req.get('host'),
+    pathname: req.originalUrl
+  }))
+  next()
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const authorization = req.get('authorization')
@@ -122,7 +134,7 @@ server.get(/^(.*)$/, (req, res) => {
     embed,
   }
   // TODO: use actual request method
-  router(api).route(req.path, context).get(req.query).then(({
+  router(api, req.location).route(req.path, context).get(req.query).then(({
     title, data, render, err, metadata,
   }) => {
     console.info('Render from Server:', req.url)

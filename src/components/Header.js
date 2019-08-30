@@ -89,7 +89,7 @@ class Header extends React.Component {
     }
 
     const languages = supportedLanguages.filter(lang => lang !== locales[0]).map((lang) => {
-      const url = urlParser((typeof window !== 'undefined' && window.location && window.location.href) || Link.self, 'language')
+      const url = urlParser(Link.self)
       url.searchParams.set('language', lang)
 
       return (

@@ -46,7 +46,7 @@ const client = () => {
       : localStorage.removeItem('user')
 
     const api = new Api(context.apiConfig)
-    const routes = router(api)
+    const routes = router(api, window.location)
 
     let referrer = window.location.href
     Link.back = '/resource/'
