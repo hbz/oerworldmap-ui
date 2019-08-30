@@ -203,10 +203,10 @@
   "Policy.isBasedOn": "Baseado em",
   "Policy.isBasisFor": "Serve de base para",
   "Policy.mentionedIn": "Mencionado em",
-  "Policy.focus": "Focus",
-  "Policy.contact": "Contact",
-  "Policy.affiliate": "Affiliate",
-  "Policy.endDate": "End Date",
+  "Policy.focus": "Foco",
+  "Policy.contact": "Contato",
+  "Policy.affiliate": "Associado",
+  "Policy.endDate": "Data do Término",
   "Product.name": "The tool's name",
   "Product.alternateName": "An abbreviation that identifies the tool",
   "Product.description": "A description of the tool",
@@ -243,5 +243,5 @@
   "Tip.Article": "Aprenda através da experiência dos outros com REA",
   "Tip.showList": "Exibir Lista",
   "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)",
-  "Block.add": "Add"
+  "Block.add": "Adicionar"
 }
