@@ -84,7 +84,6 @@
   "Person.mentionedIn": "Mencionado em",
   "Person.organizerFor": "Um evento que você organiza",
   "Person.funderOf": "Financiador de",
-  "Person.keywords": "Uma tag arbitrária para a pessoa",
   "Person.attends": "Um evento do qual você será participante",
   "Person.primarySector": "The educational sector you are working for in the first place",
   "Person.secondarySector": "Educational sectors you are also working for",
@@ -243,5 +242,6 @@
   "Tip.WebPage": "Encontrar a melhor informação sobre REA disponível na web",
   "Tip.Article": "Aprenda através da experiência dos outros com REA",
   "Tip.showList": "Exibir Lista",
-  "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)"
+  "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)",
+  "Block.add": "Add"
 }
