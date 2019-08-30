@@ -197,6 +197,16 @@ export const objectMap = (obj, fn) => (
 export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
   ? 1 : ((b[prop] < a[prop]) ? -1 : 0))
 
+export const urlParse = (urlString) => {
+  if (typeof window === 'undefined') {
+    const { URL } = require('url')
+    return new URL(urlString)
+  }
+  return new URL(urlString)
+}
+
+export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy']
+
 export default {
   getTitle,
   formatURL,
@@ -212,4 +222,6 @@ export default {
   objectMap,
   sortByProp,
   addParamToURL,
+  urlParse,
+  types,
 }

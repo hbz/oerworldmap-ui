@@ -7,15 +7,15 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick, addParamToURL } from '../common'
+import {
+  triggerClick, addParamToURL, urlParse, types,
+} from '../common'
 import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
-
-const types = ['Organization', 'Action', 'Service', 'Event', 'Article', 'WebPage', 'Product', 'Policy']
 
 class Header extends React.Component {
   constructor(props) {
@@ -83,6 +83,7 @@ class Header extends React.Component {
       translate, user, emitter, locales,
     } = this.props
     const { showMobileMenu, dropdowns, showNotification } = this.state
+    const { pathname } = urlParse(Link.self)
 
     let { supportedLanguages } = this.props
     if (!supportedLanguages) {
@@ -100,6 +101,19 @@ class Header extends React.Component {
           <Link title={translate('main.map')} href="/resource/">
             <i aria-hidden="true" className="fa fa-globe" />
           </Link>
+
+          {(pathname === '/resource/' || pathname.startsWith('/country/')) && (
+            <a
+              href="#tour"
+              className="tour"
+              onClick={(e) => {
+                e.preventDefault()
+                emitter.emit('resetTour')
+              }}
+            >
+              {translate('Take a tour')}
+            </a>
+          )}
         </div>
 
         <button
@@ -121,7 +135,7 @@ class Header extends React.Component {
           <ul>
 
             <li>
-              <Link href="/activity/">
+              <Link href="/activity/" className="activityFeedLink">
                 {translate('Activity')}
                 {showNotification && (
                   <span className="showNotification">
@@ -295,7 +309,7 @@ class Header extends React.Component {
             </li>
 
             <li
-              className={`hasDropdown${dropdowns.add ? ' active' : ''}`}
+              className={`addMenu hasDropdown${dropdowns.add ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -329,7 +343,7 @@ class Header extends React.Component {
                   </div>
                   <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
 
-                    {types.map(type => (
+                    {types.filter(type => type !== 'Person').map(type => (
                       <div key={type} className="col one-fourth">
                         <Link
                           className="addBox"
