@@ -284,7 +284,7 @@ const WebPageView = ({
             {about.keywords && (
               <Block
                 title={translate(`${about['@type']}.keywords`)}
-                addButton=".KeywordSelect.keywords"
+                addButton={user && ".KeywordSelect.keywords"}
               >
                 <ul className="spaceSeparatedList">
                   {about.keywords.sort((a, b) => a > b).map(keyword => (
@@ -302,7 +302,7 @@ const WebPageView = ({
               <Block
                 className="list"
                 title={translate(`${about['@type']}.about`)}
-                addButton=".List.about"
+                addButton={user && ".List.about"}
               >
                 <ConceptTree
                   concepts={require('../json/esc.json').hasTopConcept}
@@ -317,7 +317,7 @@ const WebPageView = ({
               <Block
                 className="list"
                 title={translate(`${about['@type']}.audience`)}
-                addButton=".List.audience"
+                addButton={user && ".List.audience"}
               >
                 <ConceptTree
                   concepts={require('../json/isced-1997.json').hasTopConcept}
@@ -334,7 +334,7 @@ const WebPageView = ({
                   key={prop}
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
-                  addButton={`.List.${prop}`}
+                  addButton={user && `.List.${prop}`}
                 >
                   <ConceptTree
                     concepts={require('../json/sectors.json').hasTopConcept}
@@ -365,7 +365,7 @@ const WebPageView = ({
                 collapsibleType="show-all"
                 className="list"
                 title={translate(`${about['@type']}.isFundedBy`)}
-                addButton=".List.isAwardedBy"
+                addButton={user && ".List.isAwardedBy"}
               >
                 <ItemList
                   tooltip={false}
@@ -395,7 +395,7 @@ const WebPageView = ({
               <Block
                 className="list"
                 title={translate(`${about['@type']}.contactPoint`)}
-                addButton=".List.contactPoint"
+                addButton={user && ".List.contactPoint"}
               >
                 <ItemList
                   tooltip={false}
@@ -410,7 +410,7 @@ const WebPageView = ({
               <Block
                 className="list"
                 title={translate(`${about['@type']}.isPartOf`)}
-                addButton=".RemoteSelect.isPartOf"
+                addButton={user && ".RemoteSelect.isPartOf"}
               >
                 <ItemList
                   tooltip={false}
@@ -427,7 +427,7 @@ const WebPageView = ({
                 collapsibleType="show-all"
                 className="list"
                 title={translate(`${about['@type']}.hasPart`)}
-                addButton=".RemoteSelect.isPartOf"
+                addButton={user && ".RemoteSelect.isPartOf"}
               >
                 <ItemList
                   tooltip={false}
@@ -544,7 +544,7 @@ const WebPageView = ({
                       collapsibleType="show-all"
                       className="list"
                       title={translate(`${about['@type']}.${prop}`)}
-                      addButton={`.List.${prop}`}
+                      addButton={user && `.List.${prop}`}
                     >
                       <ItemList
                         tooltip={false}
@@ -568,7 +568,7 @@ const WebPageView = ({
                   collapsibleType="show-all"
                   className="list"
                   title={translate(`${about['@type']}.${prop}`)}
-                  addButton={`.List.${prop}`}
+                  addButton={user && `.List.${prop}`}
                 >
                   <ItemList
                     tooltip={false}
