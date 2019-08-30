@@ -1,5 +1,5 @@
 {
-  "Article": "Eine Geschichte über oder im Zusammenhang mit OER.",
+  "Article": "A story published on the OER World Map plattform related to Open Education.",
   "Article.name": "Der Titel dieser Story",
   "Article.description": "Eine kurze Einführung in die Story, die u. a. in Ergebnislisten angezeigt wird",
   "Article.articleBody": "Der Text der Story",
@@ -52,6 +52,7 @@
   "Organization.award": "Preis, mit dem diese Organisation ausgezeichnet wurde",
   "Organization.primarySector": "Der Bildungssektor, in dem die Organisation hauptsächlich tätig ist",
   "Organization.secondarySector": "Der Bildungssektor, in dem die Organisation ebenfalls tätig ist",
+  "Person": "An individual that is part of the global OER community.",
   "Person.name": "Ihr vollständiger Name",
   "Person.url": "Die URL Ihrer Homepage oder Ihres Blogs",
   "Person.email": "Ihre Mailadresse",
@@ -147,7 +148,7 @@
   "WebPage.award": "Preis, mit dem diese Veröffentlichung ausgezeichnet wurde",
   "WebPage.additionalType": "Die Art der Veröffentlichung",
   "LighthouseAction.description": "Bitte beschreiben Sie, was diesen Eintrag zu einem \"Leuchtturm\" macht.",
-  "Policy": "Eine mit OER verwandte Policy",
+  "Policy": "A formal regulation or strategy regarding the creation and use of OER.",
   "Policy.name": "Bitte geben Sie hier den offiziellen Namen der Policy ein.",
   "Policy.url": "Bitte geben Sie die URL ein, die direkt auf die Policy verweist. Wenn es eine Website mit zusätzlichen Informationen gibt, kann diese in die Beschreibung aufgenommen werden.",
   "Policy.description": "Wenn verfügbar, sollte die Beschreibung Angaben zum Hintergrund der Policy enthalten sowie zum Implementierungsprozess und zu Erfahrungen mit der Policy. Die Beschreibung kann in mehreren Sprachen enthalten sein. Wenn die Beschreibung in einer lokalen Sprache enthalten ist, sollte eine zusätzliche Beschreibung in Englisch hinzugefügt werden.",
@@ -168,5 +169,8 @@
   "Policy.secondarySector": "Please enter additional educational sectors, the policy addresses. If a policy addresses all educational sectors, this field can be left empty. Please check out the policy registry manual for more information.",
   "Policy.isBasedOn": "Please use this field to link to a policy which either triggered the policy (example: OER Morocco Declaration was based on 2012 Paris Declaration and Scottish Open Declaration) or was reused/adopted to create the policy in focus (example: University of Edinburgh OER Policy was based on University of Leeds Open Educational Resources Policy?)",
   "Policy.isBasisFor": "Please use this field to link to either to policies, which have been triggered by / derived from the policy in focus or to projects or services, which were triggered by the policy in focus. This field could become very important since it allows to document achieved outcomes of the policy. Having triggered e.g. a project or a service could be an indicator for the success of a policy.",
-  "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web)."
+  "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web).",
+  "Policy.focus": "Please indicate here which topics are addressed by the policy.",
+  "Policy.contact": "Please add here the name and or an e-mail address of the person responsible for the policy.",
+  "Policy.affiliate": "Please add yourself here, if you have special knowledge about or are somehow affilliated to this policy."
 }
