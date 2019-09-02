@@ -39,10 +39,6 @@ The OER World Map is being built by [hbz](http://www.hbz-nrw.de) and [graphthink
 
 ## Team
 
-### Philipp von Böselager (Back-End Developer)
-![Philipp von Böselager](/assets/images/image05.png)
-Philipp ([@boesephil](https://twitter.com/boesephil) on Twitter) is a Java backend developer in the field of Computational Linguistics (CL). After having worked with search engines, parsers, neural networks and speech synthesis in the course of his CL studies at the University of Cologne he went on to gain general IT experience at a German Java focused company. Later on he worked as a backend developer in an eDiscovery company, finally heading for the open minded spirit of the University-related HBZ again. He is deeply convinced of the WWW to serve for the common welfare and therefore being open and truly loves to work on a project he severely identifies with.
-
 ### Felix Link (Design)
 ![Felix Link](/assets/images/felix-link.png)
 Felix joined the project in October 2015, being the UI-/frontend-designer of the OER World Map. He studied graphic and communication design from 2006 to 2012. Since 2008 he has been working as a freelance designer for both agencies and own clients, developing and implementing projects in corporate, editorial and web design. He is interested in design as a conceptual and integrated process as well as a characteristic expression of its content.
@@ -64,6 +60,10 @@ Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at th
 Johannes is the front-end developer of the project. Together with Felix Link he also develops the underlying UI concepts. He works as a freelance web developer since 2003 and implemented projects for a huge variety of clients and agencies. Lately he focussed on building UI functionalities and responsive layouts. Johannes studied computer- and communication science and is passionate about the intersections between the technical and conceptional aspects of his work.
 
 ## Former Members of our Team
+
+### Philipp von Böselager (Back-End Developer)
+![Philipp von Böselager](/assets/images/image05.png)
+Philipp ([@boesephil](https://twitter.com/boesephil) on Twitter) is a Java backend developer in the field of Computational Linguistics (CL). After having worked with search engines, parsers, neural networks and speech synthesis in the course of his CL studies at the University of Cologne he went on to gain general IT experience at a German Java focused company. Later on he worked as a backend developer in an eDiscovery company, finally heading for the open minded spirit of the University-related hbz again. He is deeply convinced of the WWW to serve for the common welfare and therefore being open and truly loves to work on a project he severely identifies with.
 
 ### Karin Driesen (Online Editor)
 ![Karin Driesen](/assets/images/Karin-Driesen-130.jpg)
