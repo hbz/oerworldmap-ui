@@ -204,9 +204,9 @@
   "Policy.isBasisFor": "Basis für",
   "Policy.mentionedIn": "Erwähnt in",
   "Policy.focus": "Focus",
-  "Policy.contact": "Contact",
+  "Policy.contact": "Kontakt",
   "Policy.affiliate": "Affiliate",
-  "Policy.endDate": "End Date",
+  "Policy.endDate": "Enddatum",
   "Product.name": "Name",
   "Product.alternateName": "Abkürzung",
   "Product.description": "Beschreibung",
@@ -243,5 +243,5 @@
   "Tip.Article": "Von den Erfahrungen anderer Personen mit OER lernen",
   "Tip.showList": "Liste anzeigen",
   "Tip.Policy": "OER Policies (OER-Policy-Verzeichnis)",
-  "Block.add": "Add"
+  "Block.add": "Hinzufügen"
 }
