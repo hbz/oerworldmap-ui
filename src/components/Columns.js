@@ -96,7 +96,7 @@ class Columns extends React.Component {
             <p>{translate('Tour.map1')}</p>
             <p>{translate('Tour.map2')}</p>
             <p>{translate('Tour.map3')}</p>
-            <img width="100%" src="https://user-images.githubusercontent.com/1938043/63355114-eace1b80-c365-11e9-9e9a-b44ae765398b.gif" alt="Click intro Brazil" />
+            <img width="100%" src="https://user-images.githubusercontent.com/1938043/64237255-4539b100-cefc-11e9-9fff-4ba6c6d1c2be.gif" alt="Click intro Brazil" />
           </div>
         ),
         placement: 'center',
