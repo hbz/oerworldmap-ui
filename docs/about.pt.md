@@ -12,11 +12,11 @@ Por mais de uma década a criação e uso de Recursos Educacionais Abertos (REA)
 
 O Mapa Global de REA destina-se a fornecer informações necessárias para o apoio à auto-organização dos processos do movimento REA. Além de mapeamento de serviços, projetos, pessoas e organizações relevantes, a plataforma fornece uma rede social, permite a identificação de coleções de REA e oferece suporte a tomada de decisão. Tomado em conjunto, o Mapa Global REA pode ser visto como uma espécie de "sala de operações" para a comunidade de educação aberta.
 
-<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="The OER World Map seen as 'operations room' for the open education community" />
+<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="O Mapa Global REA visto como 'espaço de operações' para a comunidade de educação aberta" />
 
 O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [ graphthinking GmbH](http://www.graphthinking.com), em associação com [ The Open University (Reino Unido)](http://www.open.ac.uk/), financiado pela [ William e Flora Hewlett Foundation](http://www.hewlett.org/). Mas o Mapa pertence à comunidade global de REA. Com a inserção de dados e a inteligência de fontes locais e uma rede global de parceiros e voluntários, o Mapa Global REA será construído e atualizado – um recurso para todos.
 
-![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![The Open University](/assets/images/image07.png) ![The William and Flora Hewlett Foundation](/assets/images/image04.jpg)
+![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![A Open University](/assets/images/image07.png) ![A Fundação William e Flora Hewlett](/assets/images/image04.jpg)
 
 <div style="clear: both;">
   <p xmlns:dct="http://purl.org/dc/terms/" >
@@ -43,7 +43,7 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Karin Driesen (Editor on-line)
 
-![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin começou a trabalhar para o mapa globa de REA em hbz, na primavera de 2016, como editora online. Antes, ela havia trabalhado para o escritória alemão da O'Reilly Media, editora de livros sobre computador conhecida pelo seu apoio à comunidade do código aberto. Ela tem estudado dois assuntos extremamente diferentes: literatura alemã e geoecologia. Esses temas relacionaram-se às diferentes maneiras de estudar: ler e escrever sozinha sobre a literatura estudada e trabalhar como um time ao compartilhar todos os recursos com os companheiros estudantes de geocologia. Conseguir material escrito por outras pessoas, refiná-lo e passá-lo adiante aos próximos estudantes era muito parecido com o jeito REA. Ela quer continuar nessa toada e ajudar pessoas a encontrarem informação útil e reutilizável.
+![Driesen de Karin](/assets/images/Karin-Driesen-130.jpg) Karin começou a trabalhar para o mapa globa de REA em hbz, na primavera de 2016, como editora online. Antes, ela havia trabalhado para o escritória alemão da O'Reilly Media, editora de livros sobre computador conhecida pelo seu apoio à comunidade do código aberto. Ela tem estudado dois assuntos extremamente diferentes: literatura alemã e geoecologia. Esses temas relacionaram-se às diferentes maneiras de estudar: ler e escrever sozinha sobre a literatura estudada e trabalhar como um time ao compartilhar todos os recursos com os companheiros estudantes de geocologia. Conseguir material escrito por outras pessoas, refiná-lo e passá-lo adiante aos próximos estudantes era muito parecido com o jeito REA. Ela quer continuar nessa toada e ajudar pessoas a encontrarem informação útil e reutilizável.
 
 ### Dr. Robert Farrow (Comunicação do Projeto)
 

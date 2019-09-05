@@ -84,7 +84,6 @@
   "Person.mentionedIn": "Mencionado em",
   "Person.organizerFor": "Um evento que você organiza",
   "Person.funderOf": "Financiador de",
-  "Person.keywords": "Uma tag arbitrária para a pessoa",
   "Person.attends": "Um evento do qual você será participante",
   "Person.primarySector": "The educational sector you are working for in the first place",
   "Person.secondarySector": "Educational sectors you are also working for",
@@ -204,10 +203,10 @@
   "Policy.isBasedOn": "Baseado em",
   "Policy.isBasisFor": "Serve de base para",
   "Policy.mentionedIn": "Mencionado em",
-  "Policy.focus": "Focus",
-  "Policy.contact": "Contact",
-  "Policy.affiliate": "Affiliate",
-  "Policy.endDate": "End Date",
+  "Policy.focus": "Foco",
+  "Policy.contact": "Contato",
+  "Policy.affiliate": "Associado",
+  "Policy.endDate": "Data do Término",
   "Product.name": "The tool's name",
   "Product.alternateName": "An abbreviation that identifies the tool",
   "Product.description": "A description of the tool",
@@ -243,5 +242,6 @@
   "Tip.WebPage": "Encontrar a melhor informação sobre REA disponível na web",
   "Tip.Article": "Aprenda através da experiência dos outros com REA",
   "Tip.showList": "Exibir Lista",
-  "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)"
+  "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)",
+  "Block.add": "Adicionar"
 }

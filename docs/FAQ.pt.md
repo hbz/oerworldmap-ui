@@ -1,10 +1,10 @@
 ---
 title: FAQ
-layout: page
+layout: página
 class: faq
 ---
 
-# FAQ
+# Perguntas frequentes (FAQ)
 
 ## O que é REA?
 
