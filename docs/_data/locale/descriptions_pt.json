@@ -1,5 +1,5 @@
 {
-  "Article": "A story published on the OER World Map plattform related to Open Education.",
+  "Article": "Uma história publicada no Mapa Global REA relacionada a Educação Aberta.",
   "Article.name": "Título principal do artigo",
   "Article.description": "Um texto curto para o artigo, por exemplo, para ser exibido em listas de resultado de busca",
   "Article.articleBody": "Corpo principal do artigo",
@@ -52,7 +52,7 @@
   "Organization.award": "Um prêmio que essa organização recebeu",
   "Organization.primarySector": "Setor educacional prioritário para a organização",
   "Organization.secondarySector": "Setores educacionais também relevantes para a organização",
-  "Person": "An individual that is part of the global OER community.",
+  "Person": "Um indivíduo que faz parte da comunidade global de REA.",
   "Person.name": "Seu nome completo",
   "Person.url": "O endereço web da usa página ou blog",
   "Person.email": "O seu endereço de email",
