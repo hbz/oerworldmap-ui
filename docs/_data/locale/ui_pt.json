@@ -292,6 +292,7 @@
   "application/json": "JSON",
   "text/calendar": "iCal",
   "slogan": "Descubra o movimento REA",
+  "menu.activity": "Activity",
   "menu.find": "Buscar",
   "menu.most_liked": "Mais curtidas",
   "menu.my_entries": "Meus Itens",
