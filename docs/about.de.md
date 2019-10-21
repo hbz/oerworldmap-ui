@@ -34,21 +34,9 @@ Die OER World Map wird entwickelt von [hbz](http://www.hbz-nrw.de) und [graphthi
 
 ## Team
 
-### Philipp von Böselager (Backend-Entwickler)
-
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) auf Twitter) entwickelt als gelernter Computerlinguist Java im Bereich Backend für die OER World Map und das hbz. In seinem Studium hat er sich unter anderem mit Suchmaschinen, Parsern, Neuronalen Netzen und Sprachsynthese befasst. Zwischenzeitlich hat er allgemeine IT-Projekterfahrung und Java-Backend-Erfahrung in privatwirtschaftlichen Unternehmen gesammelt, bevor er schließlich in die wirtschaftlich freiere universitätsnahe Welt zurückgekehrt ist, um beim hbz zu arbeiten. Er ist fest davon überzeugt, dass es eine unbedingte Aufgabe des WWW ist, den allgemeinen Lebensstandard zu erhöhen und deswegen offen und frei zugänglich zu sein. Philipp schätzt es sehr, an einem Projekt arbeiten zu können, mit dem er sich wirklich identifiziert.
-
-### Karin Driesen (Online-Redakteurin)
-
-![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin arbeitet seit 2016 als Online-Redakteurin am hbz für die OER World Map. Vorher hat sie für den O'Reilly Verlag gearbeitet, einen Fachbuchverlag, der für sein Engagement im Bereich Open Source bekannt ist. Sie hat zwei sehr unterschiedliche Fächer studiert: Literaturwissenschaft und Geoökologie. Diese beiden Studiengänge waren ebenso unterschiedlich in der Art, wie studiert wurde: Lesen und Schreiben der eigenen Texte weitgehend für sich allein für Literaturwissenschaft und gemeinsames Lernen und Teilen aller Materialien mit den Mitstudenten in Geoökologie. Dieses von den anderen Studenten Material bekommen, es erweitern und ausarbeiten und an die nachfolgenden Studenten weitergeben war wie eine frühe Form von Open Educational Resources. Auf diesem Weg möchte sie weiter gehen und andere dabei unterstützen, nützliche und weiterverwendbare Materialien zu finden.
-
-### Dr. Robert Farrow (Projekt-Kommunikation)
-
-![Dr. Robert Farrow](/assets/images/image08.jpg) Robert ([@philosopher1978](https://twitter.com/philosopher1978) bei Twitter) forscht interdisziplinär zu Open Education an der Open University, UK. Er ist einer der Leiter des Bereichs Forschung vom OER Research Hub und leitet die Entwicklung der OER Impact Map. Er verfügt über langjährige Erfahrung im Sammeln und Visualisieren von Daten über OER-Aktivitäten und -Diskurse in erster Linie im Zusammenhang mit den von der Hewlett Foundation geförderten Projekten OLnet und OER Research Hub. Sein Hauptbeitrag zur OER World Map ist es, realalitätsnahe "Use Cases" für die Map zu entwickeln und als Verbindung zur OER-Community zu fungieren.
-
 ### Felix Link (Design)
 
-![Felix Link](/assets/images/felix-link.png) Felix ist seit 2015 als UI-/Frontend-Designer im OER World Map Team. Er hat von 2006 bis 2012 Grafik- und Kommunikationsdesign an der Fachhochschule Bielefeld studiert und arbeitet seit 2008 als selbstständiger Gestalter für Agenturen und eigene Kunden. Schwerpunkte seiner Arbeit sind die Entwicklung visueller Konzepte und das Gestalten öffentlicher Kommunikation in den Bereichen Editorial Design, UI/UX Design und Corporate Design. Fokus und besonderes Interesse dabei gelten Design als konzeptionellem, ganzheitlichem Prozess und als charakteristischem Ausdruck seines Inhalts.
+![Felix Link](/assets/images/felix-link.png) Felix trat im Oktober 2015 dem Projekt bei, als UI-/Frontend-Designer der OER World Map. Er studierte Grafik- und Kommunikationsdesign von 2006 bis 2012. Seit 2008 arbeitet er als freiberuflicher Designer für Agenturen und eigene Kunden, entwickelt und implementiert Projekte in Corporate, Redaktion und Webdesign. Er ist an der Gestaltung als konzeptioneller und integrierter Prozess sowie an einem charakteristischen Ausdruck seines Inhalts interessiert.
 
 ### Jan Neumann (Projektmanagement)
 
@@ -62,11 +50,23 @@ Die OER World Map wird entwickelt von [hbz](http://www.hbz-nrw.de) und [graphthi
 
 ![Adrian Pohl](/assets/images/image09.jpg) Adrian ([@acka47](https://twitter.com/acka47) bei Twitter) arbeitet seit 2008 am hbz. Er ist spezialisiert auf den Bereich Datenmodellierung und RDF-Vokabulare und Projekt-Manager für den Linked-Open-Data-Dienst "lobid" des hbz. Seit Jahren fördert Adrian in der Bibliothekswelt die Entwicklung und Implementierung von offenem Wissen und Webstandards und die Nutzung von Open-Source-Software. Adrian initiierte die Bildung einer deutschsprachigen Arbeitsgruppe für [OER Metadaten]](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) innerhalb des Kompetenzzentrums Interoperable Metadaten (KIM) der Deutschen Initiative für Netzwerkinformation (DINI).
 
-### Johannes Schnettker (Frontend-Entwickler)
+### Johannes Schnettker (Front-End Entwickler)
 
-![Johannes Schnettker](/assets/images/image01.jpg) Johannes ist der Frontend-Entwickler für das Projekt. Gemeinsam mit Felix Link entwickelt er auch die zugrundeliegenden UI-Konzepte. Er arbeitet seit 2003 als selbständiger Web-Entwickler und hat eine Vielzahl von Projekten für eine breite Palette von Kunden und Agenturen durchgeführt. In letzter Zeit hat er sich auf responsive Layouts und UI-Funktionalitäten spezialisiert. Johannes hat Computer- und Kommunikationswissenschaften studiert und liebt die Kombination technischer und konzeptioneller Aspekte bei seiner Arbeit.
+![Johannes Schnettker](/assets/images/image01.jpg) Johannes ist der Entwickler des Projekts. Zusammen mit Felix Link entwickelt er auch die zugrunde liegenden UI-Konzepte. Er arbeitet seit 2003 als selbständiger Web-Entwickler und hat eine Vielzahl von Projekten für eine breite Palette von Kunden und Agenturen durchgeführt. In letzter Zeit hat er sich auf responsive Layouts und UI-Funktionalitäten spezialisiert. Johannes hat Computer- und Kommunikationswissenschaften studiert und liebt die Kombination technischer und konzeptioneller Aspekte bei seiner Arbeit.
 
-## Früheres Teammitglied
+## Frühere Teammitglieder
+
+### Philipp von Böselager (Backend-Entwickler)
+
+![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) auf Twitter) entwickelt als gelernter Computerlinguist Java im Bereich Backend für die OER World Map und das hbz. In seinem Studium hat er sich unter anderem mit Suchmaschinen, Parsern, Neuronalen Netzen und Sprachsynthese befasst. Zwischenzeitlich hat er allgemeine IT-Projekterfahrung und Java-Backend-Erfahrung in privatwirtschaftlichen Unternehmen gesammelt, bevor er schließlich in die wirtschaftlich freiere universitätsnahe Welt zurückgekehrt ist, um beim hbz zu arbeiten. Er ist fest davon überzeugt, dass es eine unbedingte Aufgabe des WWW ist, den allgemeinen Lebensstandard zu erhöhen und deswegen offen und frei zugänglich zu sein. Philipp schätzt es sehr, an einem Projekt arbeiten zu können, mit dem er sich wirklich identifiziert.
+
+### Karin Driesen (Online-Redakteurin)
+
+![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin arbeitete von Frühjahr 2016 bis Ende 2018 beim hbz für die OER World Map. Vorher hat sie für den O'Reilly Verlag gearbeitet, einen Fachbuchverlag, der für sein Engagement im Bereich Open Source bekannt ist. Sie hat zwei sehr unterschiedliche Fächer studiert: Literaturwissenschaft und Geoökologie. Diese beiden Studiengänge waren ebenso unterschiedlich in der Art, wie studiert wurde: Lesen und Schreiben der eigenen Texte weitgehend für sich allein für Literaturwissenschaft und gemeinsames Lernen und Teilen aller Materialien mit den Mitstudenten in Geoökologie. Dieses von den anderen Studenten Material bekommen, es erweitern und ausarbeiten und an die nachfolgenden Studenten weitergeben war wie eine frühe Form von Open Educational Resources. Auf diesem Weg möchte sie weiter gehen und andere dabei unterstützen, nützliche und weiterverwendbare Materialien zu finden.
+
+### Dr. Robert Farrow (Projekt-Kommunikation)
+
+![Dr. Robert Farrow](/assets/images/image08.jpg) Robert ([@philosopher1978](https://twitter.com/philosopher1978) on Twitter) is an interdisciplinary open education researcher at the Open University, UK who acts as one of the research leads for OER Research Hub and leads the development of OER Impact Map. He has many years of experience in curating and visualizing data about OER activity and discourse, primarily in the Hewlett funded OLnet and OER Research Hub projects. His input to the project focused on generating authentic use cases for the OER Map as well as acting as a conduit for outreach and awareness-building in the OER community.
 
 ### Ben Buschfeld (Design)
 

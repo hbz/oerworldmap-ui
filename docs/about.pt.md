@@ -37,21 +37,9 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ## Equipe
 
-### Philipp von Böselager (desenvolvedor de Back-End)
-
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) no Twitter) é um desenvolvedor de back-end Java no campo da Linguística Computacional (LC). Após ter trabalhado com ferramentas de busca, analisadores, redes neurais e sintetizadores de fala ao longo de seus estudos com LC na Universidade de Cologne, ele continuou a ganhar experência com T. I. em uma empresa alemã voltada para Java. Depois, ele trabalhou como desenvolvedor back-end em uma empresa de eDiscovery, finalmente para encaminhar-se ao espírito de mente aberta da HBZ, ligada à Universidade. Ele está profundamente convencido de que a WWW deve servir para o bem-estar comum e, portanto, ser aberta. Ele realmente ama trabalhar com projetos com os quais se identifica.
-
-### Karin Driesen (Editor on-line)
-
-![Driesen de Karin](/assets/images/Karin-Driesen-130.jpg) Karin começou a trabalhar para o mapa globa de REA em hbz, na primavera de 2016, como editora online. Antes, ela havia trabalhado para o escritória alemão da O'Reilly Media, editora de livros sobre computador conhecida pelo seu apoio à comunidade do código aberto. Ela tem estudado dois assuntos extremamente diferentes: literatura alemã e geoecologia. Esses temas relacionaram-se às diferentes maneiras de estudar: ler e escrever sozinha sobre a literatura estudada e trabalhar como um time ao compartilhar todos os recursos com os companheiros estudantes de geocologia. Conseguir material escrito por outras pessoas, refiná-lo e passá-lo adiante aos próximos estudantes era muito parecido com o jeito REA. Ela quer continuar nessa toada e ajudar pessoas a encontrarem informação útil e reutilizável.
-
-### Dr. Robert Farrow (Comunicação do Projeto)
-
-![Dr. Robert Farrow](/assets/images/image08.jpg) Robert ([@philosopher1978](https://twitter.com/philosopher1978) on Twitter) é um pesquisador interdisciplinar sobre educação aberta pela Open University, do Reino Unido, que atua como um dos líderes da pesquisa OER Research Hub e do desenvolvimento do OER Impact Map. Ele tem anos de experiência com a curadoria e visualização de dados sobre atividades e discursos de REAs, principalmente nos projetos OLnet e OER Research Hub, financiados principalmente pela Hewlett. His input to the project will focus on generating authentic use cases for the OER Map as well as acting as a conduit for outreach and awareness-building in the OER community.
-
 ### Felix Link (Design)
 
-![Felix Link](/assets/images/felix-link.png) Feliz juntou-se ao projeto em outubro de 2015, sendo o designer de UI/Frontend do Mapa Global de REAs. Ele estudou design gráfico e de comunicação entre 2006 e 2012. Desde 3008 ele trabalha como freelance designer tanto para agências quanto para clientes próprios, desenvolvendo e implementando projetos de design corporativo, editoria e web. Ele é interessado em design como um processo conceitual e integrado assim como uma expressão característica de seu conteúdo.
+![Link Felix](/assets/images/felix-link.png) Feliz juntou-se ao projeto em outubro de 2015, sendo o designer de UI/Frontend do Mapa Global de REAs. Ele estudou design gráfico e de comunicação entre 2006 e 2012. Desde 3008 ele trabalha como freelance designer tanto para agências quanto para clientes próprios, desenvolvendo e implementando projetos de design corporativo, editoria e web. Ele é interessado em design como um processo conceitual e integrado assim como uma expressão característica de seu conteúdo.
 
 ### Jan Neumann (Gerenciamento de Projeto)
 
@@ -59,17 +47,29 @@ O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [
 
 ### Felix Ostrowski (Líder Técnico)
 
-![Felix Ostrowski](/assets/images/image00.jpg) Felix ([@literarymachine](https://twitter.com/literarymachine) on Twitter) acts as hbz’s partner in this project. He is a web engineer, Linked Data technologist and knowledge management consultant who has been on the web since the mid-’90s. After graduating in communication studies and computer science he worked as a software developer and repository manager at hbz from 2008 – 2010. He was also a driving force behind the institution’s Linked Open Data (LOD) strategy. In 2010 he moved on to work as a research assistant in a [joint project on digital long term preservation](http://www.lukii.hu-berlin.de/) of the The Berlin School of Library and Information Science, Stanford University Libraries and the German National Library. Since 2013 Felix is the founder and managing director of Berlin based [graphthinking GmbH](http://www.graphthinking.com/).
+![Felix Ostrowski](/assets/images/image00.jpg) Felix Ostrowski trabalha como liderança na parte tecnológica do Mapa Global REA. He is a web engineer, Linked Data technologist and knowledge management consultant who has been on the web since the mid-’90s. After graduating in communication studies and computer science he worked as a software developer and repository manager at hbz from 2008 – 2010. He was also a driving force behind the institution’s Linked Open Data (LOD) strategy. In 2010 he moved on to work as a research assistant in a [joint project on digital long term preservation](http://www.lukii.hu-berlin.de/) of the The Berlin School of Library and Information Science, Stanford University Libraries and the German National Library. Since 2013 Felix is the founder and managing director of Berlin based [graphthinking GmbH](http://www.graphthinking.com/).
 
 ### Adrian Pohl (Metadados & Suporte)
 
-![Adrian Pohl](/assets/images/image09.jpg) Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at the hbz since 2008. He is the metadata and RDF vocabulary expert for the development of hbz`s linked open data service “lobid” and also responsible for the project management. He has been actively promoting open knowledge, web standards and the use of open source software in the international library community. Adrian initiated the establishment of a German-speaking working group for [OER metadata](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) within the Competence Center for Interoperable Metadata (KIM) of the German Initiative for Network Information (DINI).
+![Adrian Pohl](/assets/images/image09.jpg) Adrian Pohl é responsável por metadados e suporte do Mapa Global REA. He is the metadata and RDF vocabulary expert for the development of hbz's linked open data service “lobid” and also responsible for the project management. He has been actively promoting open knowledge, web standards and the use of open source software in the international library community. Adrian initiated the establishment of a German-speaking working group for [OER metadata](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) within the Competence Center for Interoperable Metadata (KIM) of the German Initiative for Network Information (DINI).
 
 ### Johannes Schnettker (Desenvolvedor Front-End)
 
-![Johannes Schnettker](/assets/images/image01.jpg) Johannes é o desenvolvedor front-end do projeto. Junto com Felix Link, ele também desenvolve os conceitos de interface de usuário subjacentes. Ele trabalha como desenvolvedor web freelancer desde 2002 e têm implementdo projetos para um grande variedade de clientes e agências. Ultimamente ele centrou-se na construção de layouts responsivos e funcionalidades da interface do usuário. Johannes estudou ciência da computação e da comunicação e é apaixonado pels intersecções entre os aspectos técnicos e conceituais de seu trabalho.
+![Johannes Schnettker](/assets/images/image01.jpg) Johannes é o desenvolvedor front-end do projeto. Together with Felix Link he also develops the underlying UI concepts. He works as a freelance web developer since 2003 and implemented projects for a huge variety of clients and agencies. Lately he focussed on building UI functionalities and responsive layouts. Johannes studied computer- and communication science and is passionate about the intersections between the technical and conceptional aspects of his work.
 
-## Membros anteriores da equipe
+## Former Members of our Team
+
+### Philipp von Böselager (desenvolvedor de Back-End)
+
+![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) no Twitter) é um desenvolvedor de back-end Java no campo da Linguística Computacional (LC). Após ter trabalhado com ferramentas de busca, analisadores, redes neurais e sintetizadores de fala ao longo de seus estudos com LC na Universidade de Cologne, ele continuou a ganhar experência com T. I. em uma empresa alemã voltada para Java. Depois, ele trabalhou como desenvolvedor back-end em uma empresa de eDiscovery, finalmente para encaminhar-se ao espírito de mente aberta da HBZ, ligada à Universidade. Ele está profundamente convencido de que a WWW deve servir para o bem-estar comum e, portanto, ser aberta. Ele realmente ama trabalhar com projetos com os quais se identifica.
+
+### Karin Driesen (Editor on-line)
+
+![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin has been working for the OER World Map at hbz from spring 2016 until the end of 2018 as online editor. Antes, ela havia trabalhado para o escritória alemão da O'Reilly Media, editora de livros sobre computador conhecida pelo seu apoio à comunidade do código aberto. Ela tem estudado dois assuntos extremamente diferentes: literatura alemã e geoecologia. Esses temas relacionaram-se às diferentes maneiras de estudar: ler e escrever sozinha sobre a literatura estudada e trabalhar como um time ao compartilhar todos os recursos com os companheiros estudantes de geocologia. Conseguir material escrito por outras pessoas, refiná-lo e passá-lo adiante aos próximos estudantes era muito parecido com o jeito REA. Ela quer continuar nessa toada e ajudar pessoas a encontrarem informação útil e reutilizável.
+
+### Dr. Robert Farrow (Comunicação do Projeto)
+
+![Dr. Robert Farrow](/assets/images/image08.jpg) Robert ([@philosopher1978](https://twitter.com/philosopher1978) on Twitter) is an interdisciplinary open education researcher at the Open University, UK who acts as one of the research leads for OER Research Hub and leads the development of OER Impact Map. He has many years of experience in curating and visualizing data about OER activity and discourse, primarily in the Hewlett funded OLnet and OER Research Hub projects. His input to the project focused on generating authentic use cases for the OER Map as well as acting as a conduit for outreach and awareness-building in the OER community.
 
 ### Ben Buschfeld (Design)
 
