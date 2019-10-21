@@ -161,7 +161,7 @@
   "Policy.citation": "Permite conectar à autores que não têm um perfil do Mapa",
   "Policy.datePublished": "A data não precisa ser completa, é possível incluir AAAA ou AAAA-MM. Pode ser muito valioso para identificar políticas estabelecidas há muito tempo.",
   "Policy.inLanguage": "Idioma da política, atualmente somente um idioma é apoiado.",
-  "Policy.license": "Choose the license the policy document(!) is published under. Does not refer to the licence a policy recommends or requires! Information could be helpful in the future, e.g. to index the full text of policies or translate them.",
+  "Policy.license": "Escolha a licença de direito autoral utilizada para a política. Isso não se refere à licença que uma política recomenda ou demanda em seu texto! A informação pode ser útil no futuro, por exemplo, para que se possa indexar o texto completo das políticas ou traduzi-las.",
   "Policy.spatialCoverage": "Este campo permite relacionar uma política com um determinado nível de hierarquia. Por favor, verifique o manual para uma descrição detalhada,",
   "Policy.location": "Escolha o país onde está localizada a instituição que emitiu a política. É necessário para que possamos contar essa política dentro das estatísticas nacionais. Se o nível de política é multi-nacional, deixe em branco.",
   "Policy.status": "O status da política. Se você não tem certeza, deixe este campo em branco por favor.",
@@ -171,6 +171,6 @@
   "Policy.isBasisFor": "Por favor, use este campo para conectar a políticas que foram iniciadas / derivadas da política em foco ou para projetos ou serviços, que foram desencadeados pela política em foco. Este campo pode tornar-se muito importante, uma vez que permite documentar resultados da política. Tendo levado, por exemplo, a criação de um projeto ou um serviço pode ser um indicador do sucesso de uma política.",
   "Policy.mentionedIn": "A política pode ser ligada à categoria 'histórias' do Mapa (que são publicadas no Mapa Global REA) bem como às publicações (que são publicadas em algum lugar na web).",
   "Policy.focus": "Por favor, indique aqui quais são os temas abordados pela política.",
-  "Policy.contact": "Please add here the name and or an e-mail address of the person responsible for the policy.",
-  "Policy.affiliate": "Please add yourself here, if you have special knowledge about or are somehow affilliated to this policy."
+  "Policy.contact": "Por favor, adicione aqui o nome e/ou um endereço de e-mail da pessoa responsável pela política.",
+  "Policy.affiliate": "Por favor adicione você mesmo aqui, se tiver conhecimento especial sobre ou estiver de alguma forma associado à esta política."
 }
