@@ -54,7 +54,10 @@ const TimelineBlock = ({
               &nbsp;
             </span>
           )}
-          <Link href={user['@id']}>{translate(user.name)}</Link>
+          {user.name
+            && <Link href={user['@id']}>{translate(user.name)}</Link>
+            || translate('someone')
+          }
           &nbsp;
           {translate('from')}
           &nbsp;
@@ -63,7 +66,7 @@ const TimelineBlock = ({
               <Link href={user.location[0].address.addressCountry}>
                 {translate(user.location[0].address.addressCountry)}
               </Link>
-            ) : null}
+            ) : translate('somewhere')}
           &nbsp;
           {translate(message)}
           {entry.about['@type'] !== 'Person' && (
