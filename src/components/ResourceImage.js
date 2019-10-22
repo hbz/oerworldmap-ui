@@ -23,7 +23,7 @@ const ResourceImage = ({
       {about.image && (
         <img
           className={about['@type']}
-          src={about.image}
+          src={about.image.replace('http:', '').replace('https:', '')}
           alt={translate(about.name)}
           style={{
             visibility: 'hidden',
