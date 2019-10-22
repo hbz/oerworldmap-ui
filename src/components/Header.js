@@ -145,7 +145,7 @@ class Header extends React.Component {
 
             <li>
               <Link href="/activity/" className="activityFeedLink">
-                {translate('Activity')}
+                {translate('menu.activity')}
                 {showNotification && (
                   <span className="showNotification">
                     <i className="fa fa-bell" aria-hidden="true" />
