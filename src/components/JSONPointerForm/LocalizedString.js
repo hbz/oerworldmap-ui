@@ -19,6 +19,9 @@ const LocalizedString = ({
   const languagesAvailable = Object.keys(schema.properties)
     .filter(lang => !(schema.required && schema.required.includes(lang))
       && !(value && value[lang] != null))
+    .map(key => [key, translate(key)])
+    .sort((a, b) => a[1].localeCompare(b[1]))
+
   return (
     <div className={`LocalizedString ${errors.length ? 'hasError' : ''}`.trim()}>
       <div
@@ -60,7 +63,7 @@ const LocalizedString = ({
           >
             <option value="">&nbsp;</option>
             {languagesAvailable.map(lang => (
-              <option value={lang} key={lang}>{translate(lang)}</option>
+              <option value={lang[0]} key={lang[0]}>{lang[1]}</option>
             ))}
           </select>
         </label>
