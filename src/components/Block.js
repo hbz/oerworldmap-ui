@@ -19,12 +19,12 @@ class Block extends React.Component {
 
   render() {
     const {
-      className, title, collapsible, collapsibleType, type, children, translate, addButton,
+      id, className, title, collapsible, collapsibleType, type, children, translate, addButton,
     } = this.props
     const { collapsed } = this.state
 
     return (
-      <div className={`Block ${className} ${collapsible ? 'collapsible' : ''} ${collapsibleType} ${collapsed ? 'collapsed' : ''}`}>
+      <div id={id} className={`Block ${className} ${collapsible ? 'collapsible' : ''} ${collapsibleType} ${collapsed ? 'collapsed' : ''}`}>
         <div className={`head ${type}`}>
           <h3>
             {title}
@@ -80,6 +80,7 @@ class Block extends React.Component {
 }
 
 Block.propTypes = {
+  id: PropTypes.string,
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   translate: PropTypes.func.isRequired,
@@ -93,6 +94,7 @@ Block.propTypes = {
 
 
 Block.defaultProps = {
+  id: undefined,
   className: '',
   collapsible: false,
   collapsibleType: 'plus',
