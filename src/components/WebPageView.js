@@ -569,7 +569,7 @@ const WebPageView = ({
               )))}
 
             {lighthouses.length > 0 && about['@id'] && (
-              <Block title={translate('ResourceIndex.read.lighthouses.title')}>
+              <Block id="lighthouses" title={translate('ResourceIndex.read.lighthouses.title')}>
                 <Lighthouses lighthouses={lighthouses} about={about} />
               </Block>
             )}
@@ -603,21 +603,23 @@ const WebPageView = ({
                 )}
                 {lighthouses.length > 0 && (
                   <li>
-                    <div className="item lighthouses">
-                      <i aria-hidden="true" className="bg-highlight-color bg-important">
-                        <img
-                          src="/public/lighthouse_16px_white.svg"
-                          alt="Lighthouse"
-                        />
-                      </i>
-                      <span>
-                        {translate('Lighthouses')}
-                        &nbsp;
-                        (
-                        {lighthouses.length}
-                        )
-                      </span>
-                    </div>
+                    <a href="#lighthouses">
+                      <div className="item lighthouses">
+                        <i aria-hidden="true" className="bg-highlight-color bg-important">
+                          <img
+                            src="/public/lighthouse_16px_white.svg"
+                            alt="Lighthouse"
+                          />
+                        </i>
+                        <span>
+                          {translate('Lighthouses')}
+                          &nbsp;
+                          (
+                          {lighthouses.length}
+                          )
+                        </span>
+                      </div>
+                    </a>
                   </li>
                 )}
                 {likes.length > 0 && (

@@ -170,15 +170,13 @@ export const appendOnFocus = (e) => {
 export const formatDate = (date, moment) => {
   let currentDate = date.replace('T00:00:00', '')
 
-  if (moment(currentDate, 'YYYY', true).isValid()) {
-    currentDate = moment(currentDate).format('YYYY')
-  } else if (moment(currentDate, 'YYYYMM', true).isValid()
+  if (moment(currentDate, 'YYYYMM', true).isValid()
     || moment(currentDate, 'YYYY-MM', true).isValid()) {
     currentDate = moment(currentDate).format('MM YYYY')
   } else if (moment(currentDate, 'YYYY-MM-D', true).isValid()
     || moment(currentDate, 'YYYYMMD', true).isValid()) {
     currentDate = moment(currentDate).format('LL')
-  } else {
+  } else if (!moment(currentDate, 'YYYY', true).isValid()) {
     currentDate = moment(currentDate).format('LLL')
   }
 

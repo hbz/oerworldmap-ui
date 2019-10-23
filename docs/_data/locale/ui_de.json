@@ -292,6 +292,7 @@
   "application/json": "JSON",
   "text/calendar": "iCal",
   "slogan": "Entdecken Sie die OER-Bewegung",
+  "menu.activity": "Activity",
   "menu.find": "Finden",
   "menu.most_liked": "Am beliebtesten",
   "menu.my_entries": "Meine Einträge",

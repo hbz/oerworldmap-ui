@@ -21,6 +21,8 @@
   "ClientTemplates.filter.relevance": "relevance",
   "ClientTemplates.filter.dateCreated": "date created",
   "ClientTemplates.filter.alphabetical": "alphabet",
+  "ClientTemplates.filter.lighthouseCount": "number of lighthouses",
+  "ClientTemplates.filter.likeCount": "number of likes",
   "ClientTemplates.http_error.title": "An error occured",
   "ClientTemplates.http_error.error": "Error",
   "ClientTemplates.place_widget.searchLocation": "Search Address",
