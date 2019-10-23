@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Link from './Link'
 import ShareExport from './ShareExport'
 import Metadata from './Metadata'
+import withUser from './withUser'
 
 import expose from '../expose'
 
@@ -18,7 +19,6 @@ const WebPageHeader = ({
       type={about['@type']}
       about={about}
       dateModified={dateModified}
-      user={user}
     />
     <div className="webPageActions print-display-none">
       <div>
@@ -85,4 +85,4 @@ WebPageHeader.defaultProps = {
   embedValue: null,
 }
 
-export default WebPageHeader
+export default withUser(WebPageHeader)

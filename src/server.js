@@ -1,3 +1,5 @@
+/* global Headers */
+
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -6,6 +8,7 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import userAgent from 'express-useragent'
+import cookieParser from 'cookie-parser'
 import url from 'url'
 
 import template from './views/index'
@@ -21,6 +24,10 @@ import Config, {
 const server = express()
 const api = new Api(apiConfig)
 
+const getHeaders = headers => new Headers(Object.entries(headers)
+  .filter(([key]) => !key.startsWith('oidc'))
+  .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}))
+
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -28,6 +35,7 @@ server.use((req, res, next) => {
 })
 
 server.use(compression())
+server.use(cookieParser())
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)
@@ -48,22 +56,6 @@ server.use(express.static(path.join(__dirname, '/../dist')))
 server.use((req, res, next) => {
   const ua = req.headers['user-agent'] && userAgent.parse(req.headers['user-agent'])
   ua && ua.isIE && res.send('Sorry, your browser is not supported') || next()
-})
-
-// Middleware to fetch user profile
-server.use((req, res, next) => {
-  const authorization = req.get('authorization')
-  const [user] = authorization
-    ? Buffer.from(authorization.split(' ').pop(), 'base64').toString('ascii').split(':') : []
-  if (user) {
-    api.get('/user/profile', authorization)
-      .then(user => (req.user = user) && next())
-      .catch(err => (err.status === 401
-        ? res.redirect(`${apiConfig.scheme}://logout@${apiConfig.host}/.logout`)
-        : res.status(err.status).send(err.message)))
-  } else {
-    next()
-  }
 })
 
 // Middleware to fetch labels
@@ -108,24 +100,35 @@ server.use((req, res, next) => {
   next()
 })
 
+// Handle login
+server.get('/.login', (req, res) => {
+  if (req.headers.oidc_claim_profile_id) {
+    res.redirect(req.query.continue ? req.query.continue : '/resource/')
+  } else {
+    res.redirect('/user/profile#edit')
+  }
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const authorization = req.get('authorization')
-  const { user, locales, supportedLanguages } = req
+  const headers = getHeaders(req.headers)
+  headers.delete('Host')
+  headers.delete('If-None-Match')
+  const { locales, supportedLanguages } = req
   if (req.labels) {
     req.labels.results.bindings.forEach((label) => {
       i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
       i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
     })
   }
+
   const phrases = locales
     .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
   const { schema, embed } = req
   const context = {
     supportedLanguages,
     locales,
-    authorization,
-    user,
+    headers,
     mapboxConfig,
     phrases,
     apiConfig,
@@ -133,7 +136,7 @@ server.get(/^(.*)$/, (req, res) => {
     embed,
   }
   // TODO: use actual request method
-  router(api, req.location).route(req.path, context).get(req.query).then(({
+  router(api, null, req.location).route(req.path, context).get(req.query).then(({
     title, data, render, err, metadata,
   }) => {
     console.info('Render from Server:', req.url)
@@ -146,7 +149,6 @@ server.get(/^(.*)$/, (req, res) => {
         locales,
         mapboxConfig,
         data,
-        user,
         err,
         phrases,
         schema,

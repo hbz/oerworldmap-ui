@@ -1,5 +1,5 @@
-/* global window */
 /* global document */
+/* global window */
 /* global SUPPORTED_LANGUAGES */
 /* global _paq */
 import React from 'react'
@@ -8,9 +8,9 @@ import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
 import { triggerClick, urlParser, types } from '../common'
-import expose from '../expose'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
+import withUser from './withUser'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
@@ -78,7 +78,7 @@ class Header extends React.Component {
 
   render() {
     const {
-      translate, user, emitter, locales,
+      translate, user, locales, emitter,
     } = this.props
     const { showMobileMenu, dropdowns, showNotification } = this.state
     const { pathname } = urlParser(Link.self)
@@ -527,33 +527,23 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/${user.id}`}>
+                            <a className="item" href="/user/profile#edit">
                               <i aria-hidden="true" className="fa fa-user-circle" />
                               <span>{translate('menu.me.profile')}</span>
-                            </Link>
+                            </a>
                           </li>
-                          {expose('groupAdmin', user) && (
-                            <li>
-                              <Link className="item" href="/user/groups">
-                                <i aria-hidden="true" className="fa fa-gear" />
-                                <span>{translate('menu.me.groups')}</span>
-                              </Link>
-                            </li>
-                          )}
                           <li>
-                            <Link className="item" href="/user/password">
-                              <i aria-hidden="true" className="fa fa-lock" />
-                              <span>{translate('menu.me.password')}</span>
-                            </Link>
+                            <a className="item" href="/auth/realms/oerworldmap/account/">
+                              <i aria-hidden="true" className="fa fa-cogs" />
+                              <span>{translate('menu.me.settings')}</span>
+                            </a>
                           </li>
                           <li>
                             <a
                               className="item"
-                              href="/.logout"
-                              onClick={(e) => {
-                                e.preventDefault()
-                                emitter.emit('logout')
-                              }}
+                              href={'/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri='
+                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))
+                              }
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>
@@ -604,13 +594,13 @@ class Header extends React.Component {
               </li>
             ) : (
               <li>
-                <Link
+                <a
                   title={translate('login')}
-                  href="/user/register"
+                  href={`/.login?continue=${Link.self}`}
                   className="loginLink"
                 >
                   {translate('login')}
-                </Link>
+                </a>
               </li>
             )}
             {supportedLanguages && (
@@ -644,4 +634,4 @@ Header.defaultProps = {
   user: null,
 }
 
-export default withEmitter(withI18n(Header))
+export default withEmitter(withI18n(withUser(Header)))

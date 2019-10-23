@@ -3,8 +3,6 @@
 /* global ENVIRONMENT */
 /* global LANG */
 /* global $ */
-/* global XMLHttpRequest */
-/* global localStorage */
 /* global i18ns */
 
 import React from 'react'
@@ -13,20 +11,20 @@ import fetch from 'isomorphic-fetch'
 import mitt from 'mitt'
 import 'normalize.css'
 
-import { getURL } from './common'
+import { getURL, updateUser } from './common'
 import Header from './components/Header'
+import Link from './components/Link'
 import I18nProvider from './components/I18nProvider'
 import EmittProvider from './components/EmittProvider'
+import UserProvider from './components/UserProvider'
 import i18n from './i18n'
 import ItemList from './components/ItemList'
-import Link from './components/Link'
 import Overview from './components/Overview'
 
 import './styles/main.pcss'
 import './styles/static.pcss'
 import './styles/components/Header.pcss'
 
-const user = JSON.parse(localStorage.getItem('user'))
 const locales = [LANG]
 const emitter = mitt()
 
@@ -40,16 +38,14 @@ emitter.on('navigate', (url) => {
   window.open(url, '_self')
 })
 
-emitter.on('logout', () => {
-  if (!document.execCommand('ClearAuthenticationCache')) {
-    const request = new XMLHttpRequest()
-    const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
-    request.open('GET', url, false)
-    request.send(null)
+const hideUserLoginButtons = (() => {
+  function init() {
+    const target = document.querySelector('#user-login-buttons')
+    target && window.__APP_USER__ && target.remove()
   }
-  localStorage.removeItem('user')
-  window.location.reload()
-})
+
+  return { init }
+})()
 
 const injectHeader = (() => {
   function init() {
@@ -65,7 +61,9 @@ const injectHeader = (() => {
           )}
         >
           <EmittProvider emitter={emitter}>
-            <Header user={user} />
+            <UserProvider>
+              <Header />
+            </UserProvider>
           </EmittProvider>
         </I18nProvider>,
         target,
@@ -335,7 +333,8 @@ const createPolicyRelated = (() => {
   return { init }
 })()
 
-$(() => {
+$(async () => {
+  await updateUser()
   animateScrollToFragment.init()
   injectHeader.init()
   injectStats.init()
@@ -344,6 +343,7 @@ $(() => {
   createPoliciesFeed.init()
   createPolicyRelated.init()
   createKibanaListener.init()
+  hideUserLoginButtons.init()
 
   $('[data-slick]').slick()
 })

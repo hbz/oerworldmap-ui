@@ -1,6 +1,5 @@
 /* global document */
 /* global window */
-/* global XMLHttpRequest */
 /* global localStorage */
 /* global _paq */
 
@@ -9,7 +8,7 @@ import 'normalize.css'
 import mitt from 'mitt'
 
 import router from './router'
-import { getParams, getURL } from './common'
+import { getParams, getURL, updateUser } from './common'
 import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
@@ -34,19 +33,16 @@ const sendMatomoNavigate = (title, url, context) => {
 }
 
 const client = () => {
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    await updateUser()
     let state = window.__APP_INITIAL_STATE__.data
     const emitter = mitt()
     const context = {}
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
 
-    context.user
-      ? localStorage.setItem('user', JSON.stringify(context.user))
-      : localStorage.removeItem('user')
-
     const api = new Api(context.apiConfig)
-    const routes = router(api, window.location)
+    const routes = router(api, emitter, window.location)
 
     let referrer = window.location.href
     Link.back = '/resource/'
@@ -88,24 +84,6 @@ const client = () => {
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
-    })
-    // Log in
-    emitter.on('login', (back) => {
-      const request = new XMLHttpRequest()
-      request.open('GET', '/.login', false)
-      request.send(null)
-      window.location.href = back || '/resource'
-    })
-    // Log out
-    emitter.on('logout', () => {
-      if (!document.execCommand('ClearAuthenticationCache')) {
-        const request = new XMLHttpRequest()
-        const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
-        request.open('GET', url, false)
-        request.send(null)
-      }
-      localStorage.removeItem('user')
-      window.location.reload()
     })
     // Form submission
     emitter.on('submit', ({ url, data, redirect }) => {

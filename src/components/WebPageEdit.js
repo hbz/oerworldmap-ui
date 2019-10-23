@@ -13,17 +13,17 @@ import withFormData from './JSONPointerForm/withFormData'
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import withUser from './withUser'
 import Link from './Link'
 
 import expose from '../expose'
+import { types } from '../common'
 
 const WebPageEdit = ({
   about, emitter, translate, action, mapboxConfig,
   user, schema, closeLink, showOptionalFields, _self,
+  onSubmit,
 }) => {
-  const types = [
-    'Organization', 'Service', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy',
-  ]
   const [type, setType] = useState(about['@type'])
   useEffect(() => setType(about['@type']), [about])
 
@@ -35,7 +35,7 @@ const WebPageEdit = ({
         setValue(e.target.value)
       }}
     >
-      {types.map(type => <option key={type} value={type}>{translate(type)}</option>)}
+      {types.filter(t => t !== 'Person').map(type => <option key={type} value={type}>{translate(type)}</option>)}
     </select>
   ))
 
@@ -49,28 +49,44 @@ const WebPageEdit = ({
         } else {
           typeof _paq !== 'undefined' && _paq.push(['trackEvent', 'EditFormOverlay', 'SubmitButtonClick'])
         }
-        emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })
+        onSubmit(data)
       }}
       onError={() => document.querySelector('.hasError') && (document.querySelector('.webPageWrapper')
         .scrollTop = document.querySelector('.hasError').offsetTop
       )}
     >
-      <h2>
-        {translate(action)}
-        :&nbsp;
-        {action === 'edit' && expose('changeType', user, about)
-          ? <TypeSwitcher property="@type" />
-          : translate(type)
-        }
-      </h2>
-      <a
-        href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="needHelp"
-      >
-        {translate('needHelp')}
-      </a>
+      {_self.endsWith('/user/profile') ? (
+        <React.Fragment>
+          <h2>{translate('main.myProfile')}</h2>
+          <p>{translate('ResourceIndex.Person.edit.message')}</p>
+          {user && !user.persistent && (
+            <p>
+              <Link href="/resource/" className="btn">
+                {translate('main.skipProfile')}
+              </Link>
+            </p>
+          )}
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <h2>
+            {translate(action)}
+            :&nbsp;
+            {action === 'edit' && expose('changeType', user, about)
+              ? <TypeSwitcher property="@type" />
+              : translate(type)
+            }
+          </h2>
+          <a
+            href="https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="needHelp"
+          >
+            {translate('needHelp')}
+          </a>
+        </React.Fragment>
+      )}
       <Builder
         schema={JsonSchema(schema).get(`#/definitions/${type}`)}
         config={{ mapboxConfig }}
@@ -122,6 +138,7 @@ WebPageEdit.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   closeLink: PropTypes.string,
   showOptionalFields: PropTypes.bool,
+  onSubmit: PropTypes.func,
   _self: PropTypes.string.isRequired,
 }
 
@@ -130,6 +147,7 @@ WebPageEdit.defaultProps = {
   user: null,
   closeLink: null,
   showOptionalFields: true,
+  onSubmit: formData => console.log(formData),
 }
 
-export default withI18n(withEmitter(WebPageEdit))
+export default withI18n(withEmitter(withUser(WebPageEdit)))
