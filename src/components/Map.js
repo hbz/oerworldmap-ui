@@ -857,6 +857,7 @@ class Map extends React.Component {
 
     const query = {
       size: 9999,
+      _source: 'feature.*',
       query: {
         bool: {
           filter: [
@@ -922,6 +923,7 @@ class Map extends React.Component {
     const date = new Date().toJSON().split('T').shift()
 
     const queryEvents = {
+      _source: 'feature.*',
       query: {
         bool: {
           must: {
