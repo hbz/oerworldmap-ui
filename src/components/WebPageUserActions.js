@@ -9,6 +9,7 @@ import validate from './JSONPointerForm/validate'
 import FullModal from './FullModal'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
+import withUser from './withUser'
 
 import '../styles/components/WebPageUserActions.pcss'
 
@@ -189,4 +190,4 @@ WebPageUserActions.defaultProps = {
   user: null,
 }
 
-export default withI18n(withEmitter(WebPageUserActions))
+export default withI18n(withEmitter(withUser(WebPageUserActions)))

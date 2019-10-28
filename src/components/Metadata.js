@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import urlTemplate from 'url-template'
 import withI18n from './withI18n'
+import withUser from './withUser'
 
 import Icon from './Icon'
 import Link from './Link'
@@ -70,4 +71,4 @@ Metadata.defaultProps = {
   user: null,
 }
 
-export default withI18n(Metadata)
+export default withI18n(withUser(Metadata))

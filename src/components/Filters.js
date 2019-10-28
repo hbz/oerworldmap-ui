@@ -231,15 +231,23 @@ class Filters extends React.Component {
       }
     }
 
-    let sortSize
-    if (sort && sort.split(':').shift() === 'about.name.en.sort') {
-      sortSize = translate('ClientTemplates.filter.alphabetical').length
-    } else if (sort) {
-      sortSize = translate(`ClientTemplates.filter.${sort.split(':').shift()}`).length
+    let sortName
+    const sortType = sort && sort.split(':').shift()
+    let sortOder = 'ASC'
+
+    if (sortType === 'about.name.en.sort') {
+      sortName = translate('ClientTemplates.filter.alphabetical')
+    } else if (sortType === 'lighthouse_count') {
+      sortName = translate('ClientTemplates.filter.lighthouseCount')
+      sortOder = 'DESC'
+    } else if (sortType === 'like_count') {
+      sortName = translate('ClientTemplates.filter.likeCount')
+      sortOder = 'DESC'
     } else if (query) {
-      sortSize = translate('ClientTemplates.filter.relevance').length
+      sortName = translate('ClientTemplates.filter.relevance')
     } else {
-      sortSize = translate('ClientTemplates.filter.dateCreated').length
+      sortName = translate('ClientTemplates.filter.dateCreated')
+      sortOder = 'DESC'
     }
 
     return (
@@ -427,14 +435,14 @@ class Filters extends React.Component {
                     <span className="arrowWrapper">
                       <select
                         name="sort"
-                        value={sort}
+                        value={sortType ? `${sortType}:${sortOder}` : ''}
                         className="styledSelect"
                         style={{
-                          width: `${sortSize * 1.4}ex`,
+                          width: `${(sortName.length + 3) * 1.1}ex `,
                           minWidth: '70px',
                         }}
                         onChange={(evt) => {
-                          evt.target.style.width = `${evt.target.options[evt.target.selectedIndex].text.length * 1.4}ex`
+                          evt.target.style.width = `${(evt.target.options[evt.target.selectedIndex].text.length + 3) * 1.1}ex`
                           onSubmit(evt, emitter)
                         }}
                       >
@@ -447,6 +455,8 @@ class Filters extends React.Component {
                           && <option value="dateCreated:DESC">{translate('ClientTemplates.filter.dateCreated')}</option>
                         }
                         <option value="about.name.en.sort:ASC">{translate('ClientTemplates.filter.alphabetical')}</option>
+                        <option value="lighthouse_count:DESC">{translate('ClientTemplates.filter.lighthouseCount')}</option>
+                        <option value="like_count:DESC">{translate('ClientTemplates.filter.likeCount')}</option>
                       </select>
                     </span>
                   </span>

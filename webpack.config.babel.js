@@ -15,13 +15,13 @@ let Config = {
   entry: [
     '@babel/polyfill',
     './client.js',
-    './views/index.js'
+    './views/index.js',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: `${apiConfig.scheme}://${apiConfig.host}`
       .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
-    filename: 'public/bundle.js'
+    filename: 'public/bundle.js',
   },
   module: {
     exprContextCritical: false,
@@ -30,8 +30,11 @@ let Config = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        },
       },
 
       {
@@ -50,19 +53,19 @@ let Config = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: 'public/'
-          }
-        }
-      }
-    ]
+            outputPath: 'public/',
+          },
+        },
+      },
+    ],
   },
 
   plugins: [
     new webpack.ProgressPlugin(),
     new CopyWebpackPlugin([
       { from: 'public', to: 'public' },
-    ])
-  ]
+    ]),
+  ],
 
 }
 
@@ -70,15 +73,15 @@ if (ENV === 'production') {
   Config = merge(Config, {
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "public/styles.css"
+        filename: 'public/styles.css',
       }),
       new OptimizeCSSAssetsPlugin({
         cssProcessor: cssnano,
         cssProcessorOptions: {
           parser: safe,
-          discardComments: { removeAll: true }
-        }
-      })
+          discardComments: { removeAll: true },
+        },
+      }),
     ],
     mode: 'production',
     module: {
@@ -93,11 +96,11 @@ if (ENV === 'production') {
                 importLoaders: 1,
               },
             },
-            "postcss-loader"
-          ]
+            'postcss-loader',
+          ],
         },
-      ]
-    }
+      ],
+    },
   })
 }
 
@@ -118,18 +121,18 @@ if (ENV === 'development') {
               options: {
                 importLoaders: 1,
                 sourceMap: true,
-              }
+              },
             },
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: true
-              }
-            }
-          ]
-        }
-      ]
-    }
+                sourceMap: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
   })
 }
 

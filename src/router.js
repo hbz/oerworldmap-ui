@@ -1,5 +1,5 @@
 /* global window */
-/* global XMLHttpRequest */
+/* global Headers */
 
 import React from 'react'
 import toRegExp from 'path-to-regexp'
@@ -12,9 +12,6 @@ import Feed from './components/Feed'
 import Timeline from './components/Timeline'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
-import Register from './components/Register'
-import Password from './components/Password'
-import Groups from './components/Groups'
 import Feedback from './components/Feedback'
 import FullModal from './components/FullModal'
 import ErrorPage from './components/ErrorPage'
@@ -26,16 +23,17 @@ import { APIError } from './api'
 import i18nWrapper from './i18n'
 import MobileNavigation from './components/MobileNavigation'
 
-export default (api) => {
+export default (api, emitter, location) => {
   Link.home = '/resource/'
   Link.back = '/resource/'
+  Link.self = location.href
 
   const routes = [
     {
       path: '/resource/',
       get: async (params, context, state) => {
         const {
-          user, mapboxConfig, schema, phrases, embed,
+          mapboxConfig, schema, phrases, embed,
         } = context
         const url = getURL({
           path: '/resource/',
@@ -48,52 +46,17 @@ export default (api) => {
           about: {
             '@type': params.add,
           },
-          _self: url,
-        } : state || await api.get(url, context.authorization)
-        const { translate } = context.i18n
+          _self: location.href,
+        } : state || await api.get(url, new Headers(context.headers))
         const component = data => (params.add ? (
-          user ? (
-            <WebPage
-              user={user}
-              mapboxConfig={mapboxConfig}
-              {...data}
-              view="edit"
-              schema={schema}
-              showOptionalFields={false}
-            />
-          ) : (
-            <FullModal>
-              <div
-                style={{
-                  textAlign: 'center',
-                  fontSize: 'var(--font-size-large)',
-                }}
-              >
-                {translate('Please login to add a new')}
-                &nbsp;
-                {translate(params.add).toLowerCase()}
-                <br />
-                <br />
-                <a href={`/.login?continue=${url}`}>
-                  <button
-                    className="btn"
-                  >
-                    Login
-                  </button>
-                </a>
-                <a
-                  style={{ marginLeft: '10px' }}
-                  href="/user/register"
-                >
-                  <button
-                    className="btn"
-                  >
-                    Register
-                  </button>
-                </a>
-              </div>
-            </FullModal>
-          )
+          <WebPage
+            mapboxConfig={mapboxConfig}
+            {...data}
+            view="edit"
+            schema={schema}
+            showOptionalFields={false}
+            onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
+          />
         ) : (
           <ResourceIndex
             {...data}
@@ -139,15 +102,16 @@ export default (api) => {
         }
       },
       post: async (params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
-        const data = await api.post('/resource/', body, context.authorization)
+        const { mapboxConfig, schema } = context
+        const data = await api.post('/resource/', body, new Headers(context.headers))
+        const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
 
@@ -160,17 +124,18 @@ export default (api) => {
     {
       path: '/resource/:id',
       get: async (id, params, context, state) => {
-        const { user, mapboxConfig, schema } = context
+        const { mapboxConfig, schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
+        const { about } = data
         const component = data => (
           <WebPage
             {...data}
             mapboxConfig={mapboxConfig}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             embedValue="true"
+            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
         const title = context.i18n.translate(data.about.name)
@@ -188,15 +153,16 @@ export default (api) => {
         }
       },
       post: async (id, params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
-        const data = await api.post(`/resource/${id}`, body, context.authorization)
+        const { mapboxConfig, schema } = context
+        const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
+        const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -205,7 +171,7 @@ export default (api) => {
         return { title, data, component }
       },
       delete: async (id, params, context) => {
-        const data = await api.delete(`/resource/${id}`, context.authorization)
+        const data = await api.delete(`/resource/${id}`, new Headers(context.headers))
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -220,15 +186,16 @@ export default (api) => {
     {
       path: '/resource/:id/comment',
       post: async (id, params, context, state, body) => {
-        const { user, mapboxConfig, schema } = context
-        const data = await api.post(`/resource/${id}/comment`, body, context.authorization)
+        const { mapboxConfig, schema } = context
+        const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
+        const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            user={user}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
+            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -246,7 +213,7 @@ export default (api) => {
           params,
         })
         Link.home = url
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
         const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
           .buckets.find(bucket => bucket.key === data.iso3166)
         const countryData = data.aggregations['global#facets']['filter#country']
@@ -364,7 +331,7 @@ export default (api) => {
     {
       path: '/feed/',
       get: async (params, context, state) => {
-        const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', context.authorization)
+        const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Feed {...data} />
@@ -388,148 +355,10 @@ export default (api) => {
       },
     },
     {
-      path: '/user/register',
-      get: async (params, context, state) => {
-        const { schema } = context
-
-        const data = state
-        const component = () => <Register schema={schema} />
-        const title = context.i18n.translate('UserIndex.register.register')
-        return { title, data, component }
-      },
-      post: async (params, context, state, body) => {
-        const { i18n } = context
-        const data = await api.post('/user/register', body, context.authorization)
-        const component = data => (
-          <FullModal closeLink={Link.home}>
-            <Feedback>
-              <p>
-                {i18n.translate('UserIndex.registered.successfullyRegistere', {
-                  username: data.username,
-                })}
-              </p>
-              {data.newsletter && (
-                <p>
-                  {i18n.translate('UserIndex.registered.signedUpForNewsletter', {
-                    username: data.username,
-                  })}
-                </p>
-              )}
-              {data.newsletter ? (
-                <p>
-                  {i18n.translate('UserIndex.registered.sentMessageNewsletter')}
-                </p>
-              ) : (
-                <p>
-                  {i18n.translate('UserIndex.registered.sentMessage')}
-                </p>
-              )}
-            </Feedback>
-          </FullModal>
-        )
-        const title = context.i18n.translate('UserIndex.registered.successfullyRegistere', {
-          username: data.username,
-        })
-        return { title, data, component }
-      },
-    },
-    {
-      path: '/user/password',
-      get: async (params, context, state) => {
-        const { schema } = context
-
-        const data = state
-        const component = () => <Password schema={schema} />
-        const title = context.i18n.translate('UserIndex.register.resetPassword')
-        return { title, data, component }
-      },
-    },
-    {
-      path: '/user/password/reset',
-      post: async (params, context, state, body) => {
-        const { i18n } = context
-        const data = await api.post('/user/password/reset', body, context.authorization)
-        const component = () => (
-          <FullModal closeLink={Link.home}>
-            <Feedback>
-              {i18n.translate('UserIndex.passwordReset.message')}
-            </Feedback>
-          </FullModal>
-        )
-        const title = context.i18n.translate('UserIndex.register.resetPassword')
-        return { title, data, component }
-      },
-    },
-    {
-      path: '/user/password/change',
-      post: async (params, context, state, body) => {
-        const { i18n } = context
-        const data = await api.post('/user/password/change', body, context.authorization)
-
-        setTimeout(() => {
-          const request = new XMLHttpRequest()
-          const url = `${window.location.protocol}//logout@${window.location.hostname}/.logout`
-          request.open('GET', url, false)
-          request.send(null)
-          window.location = Link.home
-        }, 5000)
-
-        const component = () => (
-          <FullModal closeLink={Link.home}>
-            <Feedback>
-              {i18n.translate('UserIndex.passwordChanged.message')}
-            </Feedback>
-          </FullModal>
-        )
-        const title = context.i18n.translate('UserIndex.passwordChanged.message')
-        return { title, data, component }
-      },
-    },
-    {
-      path: '/user/groups',
-      get: async (params, context, state) => {
-        const data = state || await api.get('/user/groups', context.authorization)
-        const component = data => (
-          <Groups {...data} />
-        )
-        const title = context.i18n.translate('UserIndex.groups.title')
-        return { title, data, component }
-      },
-      post: async (params, context, state, body) => {
-        const data = await api.post('/user/groups', body, context.authorization)
-        const component = data => (
-          <Groups {...data} confirm />
-        )
-        const title = context.i18n.translate('UserIndex.groupsChanged.groupsUpdated')
-        return { title, data, component }
-      },
-    },
-    {
-      path: '/user/verify',
-      get: async (params, context, state) => {
-        const { i18n } = context
-        const url = getURL({ path: '/user/verify', params })
-        const data = state || await api.get(url, context.authorization)
-        const component = user => (
-          <FullModal closeLink={Link.home}>
-            <Feedback>
-              <p
-                dangerouslySetInnerHTML={
-                  { __html: i18n.translate('UserIndex.verified.message', user) }
-                }
-              />
-            </Feedback>
-          </FullModal>
-        )
-        const title = context.i18n.translate('UserIndex.verified.title', data)
-        return { title, data, component }
-      },
-    },
-    {
       path: '/log/',
       get: async (params, context, state) => {
         const { i18n } = context
-        const data = state || await api.get('/log/', context.authorization)
+        const data = state || await api.get('/log/', new Headers(context.headers))
         const component = data => (
           <Log entries={data} />
         )
@@ -545,11 +374,48 @@ export default (api) => {
         const url = params.compare && params.to
           ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
           : getURL({ path: `/log/${id}` })
-        const data = state || await api.get(url, context.authorization)
+        const data = state || await api.get(url, new Headers(context.headers))
         const component = data => (
           <Diffs {...data} phrases={phrases} schema={schema} />
         )
         const title = context.i18n.translate('ResourceIndex.log.logFor', { id })
+        return { title, data, component }
+      },
+    },
+    {
+      path: '/user/profile',
+      get: async (params, context, state) => {
+        const { mapboxConfig, schema } = context
+        const data = state || await api.get('/user/profile', new Headers(context.headers))
+        const component = data => (
+          <WebPage
+            {...data.profile}
+            _self="/user/profile"
+            mapboxConfig={mapboxConfig}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            schema={schema}
+            onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
+          />
+        )
+        const title = context.i18n.translate(data.profile.about.name)
+        return { title, data, component }
+      },
+      post: async (params, context, state, body) => {
+        const { mapboxConfig, schema } = context
+        const data = await api.post('/user/profile', body, new Headers(context.headers))
+        const component = data => (
+          <WebPage
+            {...data.profile}
+            _self="/user/profile"
+            mapboxConfig={mapboxConfig}
+            view="view"
+            schema={schema}
+            onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
+          />
+        )
+        const title = context.i18n.translate('updated.updated', {
+          name: context.i18n.translate(data.profile.about.name),
+        })
         return { title, data, component }
       },
     },
@@ -581,7 +447,7 @@ export default (api) => {
           const result = await route[method](...uriParams, params, context, state, body)
           if (result) {
             result.render = (data) => {
-              Link.self = (data && data._self) || 'resource'
+              Link.self = (data && data._self) || Link.self
               return (
                 <Init {...context}>
                   {result.component(data)}

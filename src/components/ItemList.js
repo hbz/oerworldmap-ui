@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import urlTemplate from 'url-template'
+import removeMd from 'remove-markdown'
 
 import Icon from './Icon'
 import Link from './Link'
@@ -13,6 +14,7 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 import ResourcePreview from './ResourcePreview'
+import ResourceImage from './ResourceImage'
 
 const ItemList = ({
   translate, emitter, listItems, linkTemplate, className, count, moment, tooltip,
@@ -43,10 +45,22 @@ const ItemList = ({
         >
           <div>
             <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
-              <Icon type={listItem['@type']} />
+              {listItem.image || listItem.sameAs ? (
+                <ResourceImage about={listItem} className="itemListImage" />
+              ) : (
+                <Icon type={listItem['@type']} />
+              )}
               <span>
                 {translate(listItem.name) || translate(listItem['@id'])}
                 {listItem.alternateName ? ` (${translate(listItem.alternateName)})` : ''}
+
+                {listItem.description && (
+                  <p className="itemListDescription">
+                    {removeMd(translate(listItem.description)).slice(0, 200)}
+                    ...
+                  </p>
+                )}
+
                 {(listItem['@type'] === 'Event' && listItem.startDate)
                   ? (
                     <React.Fragment>

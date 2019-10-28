@@ -1,3 +1,6 @@
+/* global window */
+/* global fetch */
+
 export const formatURL = (url) => {
   const re = /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/
   const result = re.exec(url)
@@ -167,15 +170,13 @@ export const appendOnFocus = (e) => {
 export const formatDate = (date, moment) => {
   let currentDate = date.replace('T00:00:00', '')
 
-  if (moment(currentDate, 'YYYY', true).isValid()) {
-    currentDate = moment(currentDate).format('YYYY')
-  } else if (moment(currentDate, 'YYYYMM', true).isValid()
+  if (moment(currentDate, 'YYYYMM', true).isValid()
     || moment(currentDate, 'YYYY-MM', true).isValid()) {
     currentDate = moment(currentDate).format('MM YYYY')
   } else if (moment(currentDate, 'YYYY-MM-D', true).isValid()
     || moment(currentDate, 'YYYYMMD', true).isValid()) {
     currentDate = moment(currentDate).format('LL')
-  } else {
+  } else if (!moment(currentDate, 'YYYY', true).isValid()) {
     currentDate = moment(currentDate).format('LLL')
   }
 
@@ -202,6 +203,37 @@ export const emptyGeometry = {
   features: [],
 }
 
+export const updateUser = async () => {
+  try {
+    window.__APP_USER__ = await fetch('/user/profile', {
+      headers: {
+        Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    }).then(res => res.json())
+  } catch (e) {
+    // no op - user not logged in, but mod_auth_openidc redirects to login page
+  }
+  setTimeout(updateUser, 1000 * 60 * 3)
+}
+
+export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy']
+
+export const isNode = (typeof module === 'object' && module.exports)
+
+export const urlParser = (str) => {
+  try {
+    if (isNode) {
+      const { URL } = require('url')
+      return new URL(str)
+    }
+    return new URL(str)
+  } catch (error) {
+    // In case of sending a relative url we just return the string
+    return str
+  }
+}
+
 export default {
   getTitle,
   formatURL,
@@ -218,4 +250,8 @@ export default {
   sortByProp,
   addParamToURL,
   emptyGeometry,
+  updateUser,
+  types,
+  isNode,
+  urlParser,
 }

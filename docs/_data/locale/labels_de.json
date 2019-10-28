@@ -84,7 +84,6 @@
   "Person.mentionedIn": "Erwähnt in",
   "Person.organizerFor": "Organisator von",
   "Person.funderOf": "Geldgeber für",
-  "Person.keywords": "Schlagwörter",
   "Person.attends": "Nimmt teil an",
   "Person.primarySector": "Hauptbildungssektor",
   "Person.secondarySector": "Weiterer Bildungssektor",
@@ -204,6 +203,10 @@
   "Policy.isBasedOn": "Basiert auf",
   "Policy.isBasisFor": "Basis für",
   "Policy.mentionedIn": "Erwähnt in",
+  "Policy.focus": "Focus",
+  "Policy.contact": "Kontakt",
+  "Policy.affiliate": "Affiliate",
+  "Policy.endDate": "Enddatum",
   "Product.name": "Name",
   "Product.alternateName": "Abkürzung",
   "Product.description": "Beschreibung",
@@ -239,5 +242,6 @@
   "Tip.WebPage": "Die besten im Internet verfügbaren Informationen über OER finden",
   "Tip.Article": "Von den Erfahrungen anderer Personen mit OER lernen",
   "Tip.showList": "Liste anzeigen",
-  "Tip.Policy": "OER Policies (OER-Policy-Verzeichnis)"
+  "Tip.Policy": "OER Policies (OER-Policy-Verzeichnis)",
+  "Block.add": "Hinzufügen"
 }

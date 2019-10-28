@@ -5,6 +5,7 @@ import Markdown from 'markdown-to-jsx'
 import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import withUser from './withUser'
 import LinkOverride from './LinkOverride'
 
 import { formatDate } from '../common'
@@ -81,4 +82,4 @@ Lighthouses.defaultProps = {
   user: null,
 }
 
-export default withI18n(withEmitter(Lighthouses))
+export default withI18n(withEmitter(withUser(Lighthouses)))

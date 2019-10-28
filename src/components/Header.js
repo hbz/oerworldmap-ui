@@ -1,5 +1,5 @@
-/* global window */
 /* global document */
+/* global window */
 /* global SUPPORTED_LANGUAGES */
 /* global _paq */
 import React from 'react'
@@ -7,15 +7,13 @@ import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
 import Link from './Link'
-import { triggerClick, addParamToURL } from '../common'
-import expose from '../expose'
+import { triggerClick, urlParser, types } from '../common'
 import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
+import withUser from './withUser'
 
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
-
-const types = ['Organization', 'Action', 'Service', 'Event', 'Article', 'WebPage', 'Product', 'Policy']
 
 class Header extends React.Component {
   constructor(props) {
@@ -80,14 +78,26 @@ class Header extends React.Component {
 
   render() {
     const {
-      translate, user, emitter, locales,
+      translate, user, locales, emitter,
     } = this.props
     const { showMobileMenu, dropdowns, showNotification } = this.state
+    const { pathname } = urlParser(Link.self)
 
     let { supportedLanguages } = this.props
     if (!supportedLanguages) {
       supportedLanguages = SUPPORTED_LANGUAGES
     }
+
+    const languages = supportedLanguages.filter(lang => lang !== locales[0]).map((lang) => {
+      const url = urlParser(Link.self)
+      url.searchParams.set('language', lang)
+
+      return (
+        <li key={lang}>
+          <a href={url.href}>{translate(lang)}</a>
+        </li>
+      )
+    })
 
     return (
       <header className="Header">
@@ -100,6 +110,19 @@ class Header extends React.Component {
           <Link title={translate('main.map')} href="/resource/">
             <i aria-hidden="true" className="fa fa-globe" />
           </Link>
+
+          {(pathname === '/resource/' || pathname.startsWith('/country/')) && (
+            <a
+              href="#tour"
+              className="tour"
+              onClick={(e) => {
+                e.preventDefault()
+                emitter.emit('resetTour')
+              }}
+            >
+              {translate('Take a tour')}
+            </a>
+          )}
         </div>
 
         <button
@@ -121,8 +144,8 @@ class Header extends React.Component {
           <ul>
 
             <li>
-              <Link href="/activity/">
-                {translate('Activity')}
+              <Link href="/activity/" className="activityFeedLink">
+                {translate('menu.activity')}
                 {showNotification && (
                   <span className="showNotification">
                     <i className="fa fa-bell" aria-hidden="true" />
@@ -295,7 +318,7 @@ class Header extends React.Component {
             </li>
 
             <li
-              className={`hasDropdown${dropdowns.add ? ' active' : ''}`}
+              className={`addMenu hasDropdown${dropdowns.add ? ' active' : ''}`}
               onMouseLeave={() => {
                 this.setDropdown('')
               }}
@@ -329,7 +352,7 @@ class Header extends React.Component {
                   </div>
                   <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
 
-                    {types.map(type => (
+                    {types.filter(type => type !== 'Person').map(type => (
                       <div key={type} className="col one-fourth">
                         <Link
                           className="addBox"
@@ -504,33 +527,23 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/${user.id}`}>
+                            <a className="item" href="/user/profile#edit">
                               <i aria-hidden="true" className="fa fa-user-circle" />
                               <span>{translate('menu.me.profile')}</span>
-                            </Link>
+                            </a>
                           </li>
-                          {expose('groupAdmin', user) && (
-                            <li>
-                              <Link className="item" href="/user/groups">
-                                <i aria-hidden="true" className="fa fa-gear" />
-                                <span>{translate('menu.me.groups')}</span>
-                              </Link>
-                            </li>
-                          )}
                           <li>
-                            <Link className="item" href="/user/password">
-                              <i aria-hidden="true" className="fa fa-lock" />
-                              <span>{translate('menu.me.password')}</span>
-                            </Link>
+                            <a className="item" href="/auth/realms/oerworldmap/account/">
+                              <i aria-hidden="true" className="fa fa-cogs" />
+                              <span>{translate('menu.me.settings')}</span>
+                            </a>
                           </li>
                           <li>
                             <a
                               className="item"
-                              href="/.logout"
-                              onClick={(e) => {
-                                e.preventDefault()
-                                emitter.emit('logout')
-                              }}
+                              href={'/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri='
+                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))
+                              }
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>
@@ -581,13 +594,13 @@ class Header extends React.Component {
               </li>
             ) : (
               <li>
-                <Link
+                <a
                   title={translate('login')}
-                  href="/user/register"
+                  href={`/.login?continue=${Link.self}`}
                   className="loginLink"
                 >
                   {translate('login')}
-                </Link>
+                </a>
               </li>
             )}
             {supportedLanguages && (
@@ -595,11 +608,7 @@ class Header extends React.Component {
                 <span>
                   <i className="fa fa-language" aria-hidden="true" />
                   <ul>
-                    {supportedLanguages.filter(lang => lang !== locales[0]).map(lang => (
-                      <li key={lang}>
-                        <a href={addParamToURL(Link.self || (typeof window !== 'undefined' && window.location && window.location.href) || '/resource/', 'language', lang)}>{translate(lang)}</a>
-                      </li>
-                    ))}
+                    {languages}
                   </ul>
                 </span>
               </li>
@@ -625,4 +634,4 @@ Header.defaultProps = {
   user: null,
 }
 
-export default withEmitter(withI18n(Header))
+export default withEmitter(withI18n(withUser(Header)))

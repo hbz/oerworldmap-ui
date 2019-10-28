@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
-import 'source-sans-pro/source-sans-pro.css'
+import '../styles/fonts.pcss'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import Header from './Header'
 import Loading from './Loading'
+import withUser from './withUser'
 
 const App = ({
   user, locales, supportedLanguages, children,
 }) => (
   <div id="wrapper">
 
-    <main className="container" data-userroles={user ? user.groups.join(' ') : null}>
+    <main className="container" data-userroles={user && user.groups ? user.groups.join(' ') : null}>
 
-      <Header user={user} locales={locales} supportedLanguages={supportedLanguages} />
+      <Header locales={locales} supportedLanguages={supportedLanguages} />
 
       <div className="content">
         {children}
@@ -36,4 +37,4 @@ App.defaultProps = {
   user: null,
 }
 
-export default App
+export default withUser(App)

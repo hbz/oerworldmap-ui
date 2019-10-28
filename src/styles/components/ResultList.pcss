@@ -25,9 +25,11 @@
       font-size: var(--font-size);
       display: flex;
       align-items: center;
+      justify-content: space-around;
 
       & a {
         color: var(--blue-dark);
+        flex: 1;
       }
 
       & i {
@@ -41,6 +43,26 @@
       & i {
         font-size: var(--font-size);
         color: var(--blue);
+      }
+    }
+
+    & .resultListCounts {
+      padding-left: 5px;
+      color: var(--grey);
+      display: flex;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        & > span {
+          padding-left: 5px;
+        }
+      }
+
+      & i {
+        color: var(--grey);
       }
     }
 

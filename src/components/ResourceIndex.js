@@ -69,7 +69,7 @@ const ResourceIndex = ({
           ) : (
             <div className="wrapper-ItemList-Pagination">
               <ResultList
-                listItems={member.map(member => member.about)}
+                listItems={member}
               />
 
               <Pagination

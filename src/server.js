@@ -1,3 +1,5 @@
+/* global Headers */
+
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -6,6 +8,8 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import userAgent from 'express-useragent'
+import cookieParser from 'cookie-parser'
+import url from 'url'
 
 import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
@@ -20,6 +24,10 @@ import Config, {
 const server = express()
 const api = new Api(apiConfig)
 
+const getHeaders = headers => new Headers(Object.entries(headers)
+  .filter(([key]) => !key.startsWith('oidc'))
+  .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}))
+
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -27,6 +35,7 @@ server.use((req, res, next) => {
 })
 
 server.use(compression())
+server.use(cookieParser())
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'static') {
   const compiler = webpack(webpackConfig)
@@ -49,22 +58,6 @@ server.use((req, res, next) => {
   ua && ua.isIE && res.send('Sorry, your browser is not supported') || next()
 })
 
-// Middleware to fetch user profile
-server.use((req, res, next) => {
-  const authorization = req.get('authorization')
-  const [user] = authorization
-    ? Buffer.from(authorization.split(' ').pop(), 'base64').toString('ascii').split(':') : []
-  if (user) {
-    api.get('/user/profile', authorization)
-      .then(user => (req.user = user) && next())
-      .catch(err => (err.status === 401
-        ? res.redirect(`${apiConfig.scheme}://logout@${apiConfig.host}/.logout`)
-        : res.status(err.status).send(err.message)))
-  } else {
-    next()
-  }
-})
-
 // Middleware to fetch labels
 server.use((req, res, next) => {
   api.get('/label')
@@ -81,7 +74,7 @@ server.use((req, res, next) => {
 
 // Middleware to extract locales
 const supportedLanguages = i18nConfig.supportedLanguages.trim().split(/\s+/)
-const { defaultLanguage } = i18nConfig.defaultLanguage
+const { defaultLanguage } = i18nConfig
 
 server.use((req, res, next) => {
   const requestedLanguages = req.headers['accept-language']
@@ -97,24 +90,45 @@ server.use((req, res, next) => {
   next()
 })
 
+// Middleware to set public URL
+server.use((req, res, next) => {
+  req.location = new URL(url.format({
+    protocol: req.get('x-forwarded-proto') || req.protocol,
+    host: req.get('x-forwarded-host') || req.get('host'),
+    pathname: req.originalUrl,
+  }))
+  next()
+})
+
+// Handle login
+server.get('/.login', (req, res) => {
+  if (req.headers.oidc_claim_profile_id) {
+    res.redirect(req.query.continue ? req.query.continue : '/resource/')
+  } else {
+    res.redirect('/user/profile#edit')
+  }
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const authorization = req.get('authorization')
-  const { user, locales, supportedLanguages } = req
+  const headers = getHeaders(req.headers)
+  headers.delete('Host')
+  headers.delete('If-None-Match')
+  const { locales, supportedLanguages } = req
   if (req.labels) {
     req.labels.results.bindings.forEach((label) => {
       i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
       i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
     })
   }
+
   const phrases = locales
     .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
   const { schema, embed } = req
   const context = {
     supportedLanguages,
     locales,
-    authorization,
-    user,
+    headers,
     mapboxConfig,
     phrases,
     apiConfig,
@@ -122,7 +136,7 @@ server.get(/^(.*)$/, (req, res) => {
     embed,
   }
   // TODO: use actual request method
-  router(api).route(req.path, context).get(req.query).then(({
+  router(api, null, req.location).route(req.path, context).get(req.query).then(({
     title, data, render, err, metadata,
   }) => {
     console.info('Render from Server:', req.url)
@@ -135,7 +149,6 @@ server.get(/^(.*)$/, (req, res) => {
         locales,
         mapboxConfig,
         data,
-        user,
         err,
         phrases,
         schema,

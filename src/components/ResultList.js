@@ -7,15 +7,17 @@ import withEmitter from './withEmitter'
 import Link from './Link'
 import Icon from './Icon'
 
+import lighhthouseIcon from '../public/lighthouse_16px_grey.svg'
+
 import '../styles/components/ResultList.pcss'
 
 const ResultList = ({ translate, emitter, listItems }) => (
   <ul className="ResultList">
-    {listItems.map(listItem => (
+    {listItems.map(({ about, lighthouse_count: lighthouseCount, like_count: likeCount }) => (
       <li
-        key={listItem['@id']}
+        key={about['@id']}
         onMouseEnter={() => {
-          emitter.emit('hoverPoint', { id: listItem['@id'] })
+          emitter.emit('hoverPoint', { id: about['@id'] })
         }}
         onMouseLeave={() => {
           emitter.emit('hoverPoint', { id: '' })
@@ -23,47 +25,64 @@ const ResultList = ({ translate, emitter, listItems }) => (
       >
         <div className="resultListTitle">
           <span className="centerIcon">
-            <Icon type={listItem['@type']} />
+            <Icon type={about['@type']} />
           </span>
-          &nbsp;
-          <Link href={`/resource/${listItem['@id']}`}>
-            {translate(listItem.name) || listItem['@id']}
-            {listItem.alternateName
-              ? ` (${translate(listItem.alternateName)})`
+          <Link href={`/resource/${about['@id']}`}>
+            {translate(about.name) || about['@id']}
+            {about.alternateName
+              ? ` (${translate(about.alternateName)})`
               : ''}
           </Link>
+          <div className="resultListCounts">
+            {lighthouseCount > 0 && (
+              <div title={translate('ClientTemplates.filter.lighthouseCount')}>
+                <svg width="9" height="16">
+                  <image xlinkHref={lighhthouseIcon} width="9" height="16" />
+                </svg>
+                <span>{lighthouseCount}</span>
+              </div>
+            )}
+
+            {likeCount > 0 && (
+              <div title={translate('ClientTemplates.filter.likeCount')}>
+                <i aria-hidden="true" className="fa fa-thumbs-up" />
+                <span>{likeCount}</span>
+              </div>
+            )}
+          </div>
         </div>
-        {listItem.location && listItem.location.address && (
+
+        {about.location && about.location.address && (
           <div className="resultListLocation">
             <span className="centerIcon">
               <i aria-hidden="true" className="fa fa-map-marker" />
             </span>
-            {listItem.location.address.streetAddress && (
-              listItem.location.address.streetAddress
+            {about.location.address.streetAddress && (
+              about.location.address.streetAddress
             )}
-            {listItem.location.address.addressLocality && (
+            {about.location.address.addressLocality && (
               <>
                 &nbsp;
-                {[listItem.location.address.addressLocality, ',']}
+                {[about.location.address.addressLocality, ',']}
               </>
             )}
-            {listItem.location.address.addressCountry && (
+            {about.location.address.addressCountry && (
               <>
                 &nbsp;
-                <Link href={`/country/${listItem.location.address.addressCountry}`}>
+                <Link href={`/country/${about.location.address.addressCountry}`}>
                   <span>
-                    {translate(listItem.location.address.addressCountry)}
+                    {translate(about.location.address.addressCountry)}
                   </span>
                 </Link>
               </>
             )}
           </div>
         )}
-        {listItem.description && (
+        {about.description && (
           <div className="resultListDescription">
-            {removeMd(translate(listItem.description)).slice(0, 200)}
+            {removeMd(translate(about.description)).slice(0, 200)}
             ...&nbsp;
-            <Link href={`/resource/${listItem['@id']}`}>
+            <Link href={`/resource/${about['@id']}`}>
               {translate('ResourceIndex.feed.more')}
             </Link>
           </div>

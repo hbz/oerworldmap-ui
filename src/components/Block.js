@@ -1,3 +1,6 @@
+/* global document */
+/* global window */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -16,16 +19,35 @@ class Block extends React.Component {
 
   render() {
     const {
-      className, title, collapsible, collapsibleType, type, children, translate,
+      id, className, title, collapsible, collapsibleType, type, children, translate, addButton,
     } = this.props
     const { collapsed } = this.state
 
     return (
-      <div className={`Block ${className} ${collapsible ? 'collapsible' : ''} ${collapsibleType} ${collapsed ? 'collapsed' : ''}`}>
+      <div id={id} className={`Block ${className} ${collapsible ? 'collapsible' : ''} ${collapsibleType} ${collapsed ? 'collapsed' : ''}`}>
         <div className={`head ${type}`}>
           <h3>
             {title}
           </h3>
+
+          {addButton && (
+            <input
+              type="button"
+              className="btn addButton"
+              value={`+ ${translate('Block.add')}`}
+              onClick={() => {
+                (window.location.hash = 'edit')
+                && setTimeout(() => {
+                  const element = document.querySelector(addButton)
+                  element && element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  })
+                }, 500)
+              }}
+            />
+          )}
+
           {(collapsible && collapsibleType === 'plus') && (
             <span
               role="button"
@@ -58,6 +80,7 @@ class Block extends React.Component {
 }
 
 Block.propTypes = {
+  id: PropTypes.string,
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   translate: PropTypes.func.isRequired,
@@ -66,15 +89,18 @@ Block.propTypes = {
   collapsibleType: PropTypes.string,
   collapsed: PropTypes.bool,
   type: PropTypes.string,
+  addButton: PropTypes.string,
 }
 
 
 Block.defaultProps = {
+  id: undefined,
   className: '',
   collapsible: false,
   collapsibleType: 'plus',
   collapsed: true,
   type: '',
+  addButton: undefined,
 }
 
 export default withI18n(Block)
