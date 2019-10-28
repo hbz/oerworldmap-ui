@@ -9,6 +9,10 @@
         {
           "@value": "Generic programmes and qualifications",
           "@language": "en"
+        },
+        {
+          "@value": "Programas e qualificações genéricas",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -28,6 +32,10 @@
             {
               "@value": "Basic programmes and qualifications",
               "@language": "en"
+            },
+            {
+              "@value": "Programas e qualificações básicas",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -58,6 +66,10 @@
             {
               "@value": "Literacy and numeracy",
               "@language": "en"
+            },
+            {
+              "@value": "Alfabetização e numeramento",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -82,6 +94,10 @@
             {
               "@value": "Personal skills and development",
               "@language": "en"
+            },
+            {
+              "@value": "Habilidades pessoais e desenvolvimento",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -118,6 +134,10 @@
         {
           "@value": "Education",
           "@language": "en"
+        },
+        {
+          "@value": "Educação",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -138,6 +158,10 @@
             {
               "@value": "Education science",
               "@language": "en"
+            },
+            {
+              "@value": "Ciências da educação",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -161,6 +185,10 @@
             {
               "@value": "Training for pre-school teachers",
               "@language": "en"
+            },
+            {
+              "@value": "Formação continuada para docentes do ensino infantil",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -184,6 +212,10 @@
             {
               "@value": "Teacher training without subject specialisation",
               "@language": "en"
+            },
+            {
+              "@value": "Formação continuada docente sem tema específico",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -207,6 +239,10 @@
             {
               "@value": "Teacher training with subject specialisation",
               "@language": "en"
+            },
+            {
+              "@value": "Formação continuada docente com tema específico",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -236,6 +272,10 @@
         {
           "@value": "Arts and humanities",
           "@language": "en"
+        },
+        {
+          "@value": "Artes e humanidades",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -255,6 +295,10 @@
             {
               "@value": "Arts",
               "@language": "en"
+            },
+            {
+              "@value": "Artes",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -271,6 +315,10 @@
                 {
                   "@value": "Audio-visual techniques and media production",
                   "@language": "en"
+                },
+                {
+                  "@value": "Técnicas audiovisuais e produção de mídias",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -294,6 +342,10 @@
                 {
                   "@value": "Fashion, interior and industrial design",
                   "@language": "en"
+                },
+                {
+                  "@value": "Moda, design industrial e de interiores",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -317,6 +369,10 @@
                 {
                   "@value": "Fine arts",
                   "@language": "en"
+                },
+                {
+                  "@value": "__MISSING__",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -340,6 +396,10 @@
                 {
                   "@value": "Handicrafts",
                   "@language": "en"
+                },
+                {
+                  "@value": "Artesanato",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -363,6 +423,10 @@
                 {
                   "@value": "Music and performing arts",
                   "@language": "en"
+                },
+                {
+                  "@value": "Música e artes cênicas",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -395,6 +459,10 @@
             {
               "@value": "Humanities (except languages)",
               "@language": "en"
+            },
+            {
+              "@value": "Humanidades (exceto idiomas)",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -411,6 +479,10 @@
                 {
                   "@value": "Religion and theology",
                   "@language": "en"
+                },
+                {
+                  "@value": "Religião e teologia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -434,6 +506,10 @@
                 {
                   "@value": "History and archaeology",
                   "@language": "en"
+                },
+                {
+                  "@value": "História e arqueologia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -457,6 +533,10 @@
                 {
                   "@value": "Philosophy and ethics",
                   "@language": "en"
+                },
+                {
+                  "@value": "Filosofia e ética",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -489,6 +569,10 @@
             {
               "@value": "Languages",
               "@language": "en"
+            },
+            {
+              "@value": "__MISSING__",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -505,6 +589,10 @@
                 {
                   "@value": "Language acquisition",
                   "@language": "en"
+                },
+                {
+                  "@value": "Aprendizagem de idiomas",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -519,8 +607,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 Chinese",
+                      "@value": "Language acquisition – Chinese",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Chinês",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -542,8 +634,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 Italian",
+                      "@value": "Language acquisition – Italian",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Italiano",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -565,8 +661,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 German",
+                      "@value": "Language acquisition – German",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Alemão",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -588,8 +688,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 Spanish",
+                      "@value": "Language acquisition – Spanish",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Espanhol",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -611,8 +715,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 Gaelic",
+                      "@value": "Language acquisition – Gaelic",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Gaulês",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -634,8 +742,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 Welsh",
+                      "@value": "Language acquisition – Welsh",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Gaélico",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -657,8 +769,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 American Sign Language",
+                      "@value": "Language acquisition – American Sign Language",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Galês",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -680,8 +796,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 French",
+                      "@value": "Language acquisition – French",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Francês",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -703,8 +823,12 @@
                       "@language": "de"
                     },
                     {
-                      "@value": "Language acquisition \u2013 English",
+                      "@value": "Language acquisition – English",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Aprendizagem de idiomas – Inglês",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -737,6 +861,10 @@
                 {
                   "@value": "Literature and linguistics",
                   "@language": "en"
+                },
+                {
+                  "@value": "Literatura e linguística",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -753,6 +881,10 @@
                     {
                       "@value": "Portuguese literature and linguistics",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Literatura e linguística - Português",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -776,6 +908,10 @@
                     {
                       "@value": "English literature and linguistics",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Literatura e linguística - Inglês",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -799,6 +935,10 @@
                     {
                       "@value": "Spanish literature and linguistics",
                       "@language": "en"
+                    },
+                    {
+                      "@value": "Literatura e linguística - Espanhol",
+                      "@language": "pt"
                     }
                   ],
                   "notation": [
@@ -846,6 +986,10 @@
         {
           "@value": "Social sciences, journalism and information",
           "@language": "en"
+        },
+        {
+          "@value": "Ciências sociais, jornalismo e informação",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -865,6 +1009,10 @@
             {
               "@value": "Social and behavioural sciences",
               "@language": "en"
+            },
+            {
+              "@value": "Ciências sociais e do comportamento",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -881,6 +1029,10 @@
                 {
                   "@value": "Economics",
                   "@language": "en"
+                },
+                {
+                  "@value": "Economia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -904,6 +1056,10 @@
                 {
                   "@value": "Political sciences and civics",
                   "@language": "en"
+                },
+                {
+                  "@value": "Ciência política e estudos cívicos",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -927,6 +1083,10 @@
                 {
                   "@value": "Psychology",
                   "@language": "en"
+                },
+                {
+                  "@value": "Psicologia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -950,6 +1110,10 @@
                 {
                   "@value": "Sociology and cultural studies",
                   "@language": "en"
+                },
+                {
+                  "@value": "Sociologia e estudos culturais",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -982,6 +1146,10 @@
             {
               "@value": "Journalism and information",
               "@language": "en"
+            },
+            {
+              "@value": "Jornalismo e informação",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -998,6 +1166,10 @@
                 {
                   "@value": "Journalism and reporting",
                   "@language": "en"
+                },
+                {
+                  "@value": "Jornalismo e reportagem",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1021,6 +1193,10 @@
                 {
                   "@value": "Library, information and archival studies",
                   "@language": "en"
+                },
+                {
+                  "@value": "Biblioteconomia, ciências da informação e arquivologia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1059,6 +1235,10 @@
         {
           "@value": "Business, administration and law",
           "@language": "en"
+        },
+        {
+          "@value": "Negócios, administração e direito",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -1078,6 +1258,10 @@
             {
               "@value": "Business and administration",
               "@language": "en"
+            },
+            {
+              "@value": "Negócios e administração",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1094,6 +1278,10 @@
                 {
                   "@value": "Accounting and taxation",
                   "@language": "en"
+                },
+                {
+                  "@value": "Contabilidade e tributação",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1117,6 +1305,10 @@
                 {
                   "@value": "Finance, banking and insurance",
                   "@language": "en"
+                },
+                {
+                  "@value": "Finanças, seguros e setor bancário",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1140,6 +1332,10 @@
                 {
                   "@value": "Management and administration",
                   "@language": "en"
+                },
+                {
+                  "@value": "Gerenciamento e adminstração",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1163,6 +1359,10 @@
                 {
                   "@value": "Marketing and advertising",
                   "@language": "en"
+                },
+                {
+                  "@value": "Marketing e propaganda",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1186,6 +1386,10 @@
                 {
                   "@value": "Secretarial and office work",
                   "@language": "en"
+                },
+                {
+                  "@value": "Trabalho administrativo e secretarial",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1209,6 +1413,10 @@
                 {
                   "@value": "Wholesale and retail sales",
                   "@language": "en"
+                },
+                {
+                  "@value": "Vendas no atacado e varejo",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1232,6 +1440,10 @@
                 {
                   "@value": "Work skills",
                   "@language": "en"
+                },
+                {
+                  "@value": "Habilidades para o emprego",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1264,6 +1476,10 @@
             {
               "@value": "Law",
               "@language": "en"
+            },
+            {
+              "@value": "__MISSING__",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1294,6 +1510,10 @@
         {
           "@value": "Natural sciences, mathematics and statistics",
           "@language": "en"
+        },
+        {
+          "@value": "Ciências naturais, matemática e estatística",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -1313,6 +1533,10 @@
             {
               "@value": "Biological and related sciences",
               "@language": "en"
+            },
+            {
+              "@value": "Ciências biológicas e adjacentes",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1329,6 +1553,10 @@
                 {
                   "@value": "Biology",
                   "@language": "en"
+                },
+                {
+                  "@value": "__MISSING__",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1352,6 +1580,10 @@
                 {
                   "@value": "Biochemistry",
                   "@language": "en"
+                },
+                {
+                  "@value": "Bioquímica",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1384,6 +1616,10 @@
             {
               "@value": "Environment",
               "@language": "en"
+            },
+            {
+              "@value": "Meio ambiente",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1400,6 +1636,10 @@
                 {
                   "@value": "Environmental sciences",
                   "@language": "en"
+                },
+                {
+                  "@value": "Ciências do meio ambiente",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1423,6 +1663,10 @@
                 {
                   "@value": "Natural environments and wildlife",
                   "@language": "en"
+                },
+                {
+                  "@value": "Ambientes naturais e vida selvagem",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1455,6 +1699,10 @@
             {
               "@value": "Physical sciences",
               "@language": "en"
+            },
+            {
+              "@value": "Ciências físicas",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1471,6 +1719,10 @@
                 {
                   "@value": "Chemistry",
                   "@language": "en"
+                },
+                {
+                  "@value": "Quimica",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1494,6 +1746,10 @@
                 {
                   "@value": "Earth sciences",
                   "@language": "en"
+                },
+                {
+                  "@value": "Ciências da terra",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1517,6 +1773,10 @@
                 {
                   "@value": "Physics",
                   "@language": "en"
+                },
+                {
+                  "@value": "__MISSING__",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1549,6 +1809,10 @@
             {
               "@value": "Mathematics and statistics",
               "@language": "en"
+            },
+            {
+              "@value": "Matemática e estatística",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1565,6 +1829,10 @@
                 {
                   "@value": "Mathematics",
                   "@language": "en"
+                },
+                {
+                  "@value": "Matemática",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1588,6 +1856,10 @@
                 {
                   "@value": "Statistics",
                   "@language": "en"
+                },
+                {
+                  "@value": "Estatística",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1626,6 +1898,10 @@
         {
           "@value": "Information and Communication Technologies (ICTs)",
           "@language": "en"
+        },
+        {
+          "@value": "Tecnologias da Informação e Comunicação (TICs)",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -1646,6 +1922,10 @@
             {
               "@value": "Computer use",
               "@language": "en"
+            },
+            {
+              "@value": "Uso de computadores",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1669,6 +1949,10 @@
             {
               "@value": "Database and network design and administration",
               "@language": "en"
+            },
+            {
+              "@value": "Administração e design de redes e banco de dados",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1692,6 +1976,10 @@
             {
               "@value": "Software and applications development and analysis",
               "@language": "en"
+            },
+            {
+              "@value": "Análise e desenvolvimento de software e aplicações",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1721,6 +2009,10 @@
         {
           "@value": "Engineering, manufacturing and construction",
           "@language": "en"
+        },
+        {
+          "@value": "Engenheria, manufatura e construção",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -1740,6 +2032,10 @@
             {
               "@value": "Engineering and engineering trades",
               "@language": "en"
+            },
+            {
+              "@value": "Engenheria e trabalhos relacionados",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1756,6 +2052,10 @@
                 {
                   "@value": "Chemical engineering and processes",
                   "@language": "en"
+                },
+                {
+                  "@value": "Engenharia química e processos",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1779,6 +2079,10 @@
                 {
                   "@value": "Environmental protection technology",
                   "@language": "en"
+                },
+                {
+                  "@value": "Tecnologia de proteção do meio ambiente",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1802,6 +2106,10 @@
                 {
                   "@value": "Electricity and energy",
                   "@language": "en"
+                },
+                {
+                  "@value": "Eletricidade e energia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1825,6 +2133,10 @@
                 {
                   "@value": "Electronics and automation",
                   "@language": "en"
+                },
+                {
+                  "@value": "Eletrônica e automação",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1848,6 +2160,10 @@
                 {
                   "@value": "Mechanics and metal trades",
                   "@language": "en"
+                },
+                {
+                  "@value": "Mecânica e metalurgica",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1871,6 +2187,10 @@
                 {
                   "@value": "Motor vehicles, ships and aircraft",
                   "@language": "en"
+                },
+                {
+                  "@value": "Veículos motores, embarcações e aeronaves",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1909,6 +2229,10 @@
             {
               "@value": "Manufacturing and processing",
               "@language": "en"
+            },
+            {
+              "@value": "Manufatura e processamento",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -1925,6 +2249,10 @@
                 {
                   "@value": "Food processing",
                   "@language": "en"
+                },
+                {
+                  "@value": "Processamento de alimentos",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1948,6 +2276,10 @@
                 {
                   "@value": "Materials (glass, paper, plastic and wood)",
                   "@language": "en"
+                },
+                {
+                  "@value": "Materiais (vidro, papel, plástico e madeira)",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1971,6 +2303,10 @@
                 {
                   "@value": "Textiles (clothes, footwear and leather)",
                   "@language": "en"
+                },
+                {
+                  "@value": "Texteis (roupas, calçados e couro)",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -1994,6 +2330,10 @@
                 {
                   "@value": "Mining and extraction",
                   "@language": "en"
+                },
+                {
+                  "@value": "Mineração e extração",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2032,6 +2372,10 @@
             {
               "@value": "Architecture and construction",
               "@language": "en"
+            },
+            {
+              "@value": "Arquitetura e construção",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2048,6 +2392,10 @@
                 {
                   "@value": "Building and civil engineering",
                   "@language": "en"
+                },
+                {
+                  "@value": "Construção e engenharia civil",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2071,6 +2419,10 @@
                 {
                   "@value": "Architecture and town planning",
                   "@language": "en"
+                },
+                {
+                  "@value": "Arquitetura e planejamento urbano",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2109,6 +2461,10 @@
         {
           "@value": "Agriculture, forestry, fisheries and veterinary",
           "@language": "en"
+        },
+        {
+          "@value": "Agricultura, silvicultura, pesca e veterinária",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -2128,6 +2484,10 @@
             {
               "@value": "Agriculture",
               "@language": "en"
+            },
+            {
+              "@value": "__MISSING__",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2144,6 +2504,10 @@
                 {
                   "@value": "Crop and livestock production",
                   "@language": "en"
+                },
+                {
+                  "@value": "Produção agrícuola e pecuária",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2167,6 +2531,10 @@
                 {
                   "@value": "Horticulture",
                   "@language": "en"
+                },
+                {
+                  "@value": "Horticultura",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2199,6 +2567,10 @@
             {
               "@value": "Forestry",
               "@language": "en"
+            },
+            {
+              "@value": "Silvicultura",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2223,6 +2595,10 @@
             {
               "@value": "Fisheries",
               "@language": "en"
+            },
+            {
+              "@value": "Pesca",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2247,6 +2623,10 @@
             {
               "@value": "Veterinary",
               "@language": "en"
+            },
+            {
+              "@value": "Veterinária",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2277,6 +2657,10 @@
         {
           "@value": "Health and welfare",
           "@language": "en"
+        },
+        {
+          "@value": "Saúde e bem estar",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -2296,6 +2680,10 @@
             {
               "@value": "Health",
               "@language": "en"
+            },
+            {
+              "@value": "Saúde",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2312,6 +2700,10 @@
                 {
                   "@value": "Dental studies",
                   "@language": "en"
+                },
+                {
+                  "@value": "Ortodontia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2335,6 +2727,10 @@
                 {
                   "@value": "Medicine",
                   "@language": "en"
+                },
+                {
+                  "@value": "Medicina",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2358,6 +2754,10 @@
                 {
                   "@value": "Nursing and midwifery",
                   "@language": "en"
+                },
+                {
+                  "@value": "Enfermagem e obstetrícia",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2381,6 +2781,10 @@
                 {
                   "@value": "Medical diagnostic and treatment technology",
                   "@language": "en"
+                },
+                {
+                  "@value": "Tecnologia de diagnóstico e tratamento médico",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2404,6 +2808,10 @@
                 {
                   "@value": "Therapy and rehabilitation",
                   "@language": "en"
+                },
+                {
+                  "@value": "Terapia e reabilitação",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2427,6 +2835,10 @@
                 {
                   "@value": "Pharmacy",
                   "@language": "en"
+                },
+                {
+                  "@value": "__MISSING__",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2450,6 +2862,10 @@
                 {
                   "@value": "Traditional and complementary medicine and therapy",
                   "@language": "en"
+                },
+                {
+                  "@value": "Medicina e terapia tradicional e complementar",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2482,6 +2898,10 @@
             {
               "@value": "Welfare",
               "@language": "en"
+            },
+            {
+              "@value": "__MISSING__",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2498,6 +2918,10 @@
                 {
                   "@value": "Care of the elderly and of disabled adults",
                   "@language": "en"
+                },
+                {
+                  "@value": "Cuidado de idosos e pessoas com deficiência",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2521,6 +2945,10 @@
                 {
                   "@value": "Child care and youth services",
                   "@language": "en"
+                },
+                {
+                  "@value": "Serviços de assistência à crianças e à juventude",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2544,6 +2972,10 @@
                 {
                   "@value": "Social work and counselling",
                   "@language": "en"
+                },
+                {
+                  "@value": "Serviço social e aconselhamento",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2582,6 +3014,10 @@
         {
           "@value": "Services",
           "@language": "en"
+        },
+        {
+          "@value": "Serviços",
+          "@language": "pt"
         }
       ],
       "notation": [
@@ -2601,6 +3037,10 @@
             {
               "@value": "Personal services",
               "@language": "en"
+            },
+            {
+              "@value": "Serviços pessoais",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2617,6 +3057,10 @@
                 {
                   "@value": "Domestic services",
                   "@language": "en"
+                },
+                {
+                  "@value": "Serviços domésticos",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2640,6 +3084,10 @@
                 {
                   "@value": "Hair and beauty services",
                   "@language": "en"
+                },
+                {
+                  "@value": "Serviços de beleza e cabelo",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2663,6 +3111,10 @@
                 {
                   "@value": "Hotel, restaurants and catering",
                   "@language": "en"
+                },
+                {
+                  "@value": "Hotelaria, restaurantes e bufê",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2686,6 +3138,10 @@
                 {
                   "@value": "Sports",
                   "@language": "en"
+                },
+                {
+                  "@value": "Esportes",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2709,6 +3165,10 @@
                 {
                   "@value": "Travel, tourism and leisure",
                   "@language": "en"
+                },
+                {
+                  "@value": "Viagem, turismo e lazer",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2741,6 +3201,10 @@
             {
               "@value": "Hygiene and occupational health services",
               "@language": "en"
+            },
+            {
+              "@value": "Higiene e serviçso de saúde ocupacional",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2757,6 +3221,10 @@
                 {
                   "@value": "Community sanitation",
                   "@language": "en"
+                },
+                {
+                  "@value": "Saneamento comunitário",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2780,6 +3248,10 @@
                 {
                   "@value": "Occupational health and safety",
                   "@language": "en"
+                },
+                {
+                  "@value": "Segurança e saúde ocupacional",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2812,6 +3284,10 @@
             {
               "@value": "Security services",
               "@language": "en"
+            },
+            {
+              "@value": "Serviços de segurança",
+              "@language": "pt"
             }
           ],
           "notation": [
@@ -2828,6 +3304,10 @@
                 {
                   "@value": "Military and defence",
                   "@language": "en"
+                },
+                {
+                  "@value": "Defesa e militar",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2851,6 +3331,10 @@
                 {
                   "@value": "Protection of persons and property",
                   "@language": "en"
+                },
+                {
+                  "@value": "Proteção de pessoas e propriedades",
+                  "@language": "pt"
                 }
               ],
               "notation": [
@@ -2883,6 +3367,10 @@
             {
               "@value": "Transport services",
               "@language": "en"
+            },
+            {
+              "@value": "Serviços de transporte",
+              "@language": "pt"
             }
           ],
           "notation": [
