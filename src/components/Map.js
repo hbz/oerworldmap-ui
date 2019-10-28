@@ -952,7 +952,7 @@ class Map extends React.Component {
     }
 
     // Query elasticsearch with a multiple search fot the features and events
-    const response = await fetch('http://localhost:9200/oerworldmap/_msearch', {
+    const response = await fetch('/elastic/_msearch', {
       method: 'POST',
       body: `{}\n${[JSON.stringify(query), {}, JSON.stringify(queryEvents)].join('\n')}\n`,
       headers: new Headers({
