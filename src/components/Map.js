@@ -219,7 +219,7 @@ class Map extends React.Component {
         },
       })
 
-      this.updatePoints(_links)
+      this.updatePoints()
 
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
@@ -302,7 +302,7 @@ class Map extends React.Component {
     this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
-    this.updatePoints(nextProps._links)
+    this.updatePoints()
   }
 
   componentWillUnmount() {
@@ -841,34 +841,143 @@ class Map extends React.Component {
     }
   }
 
-  async updatePoints(_links) {
+  async updatePoints() {
     const layers = ['points', 'Events', 'EventsGlow']
     layers.map(layerName => this.animateCircleLayer(layerName, false))
     this.map.getSource('eventsSource').setData(emptyGeometry)
     cancelAnimationFrame(this.animatingMarkers)
 
-    const { uri } = _links.refs.find(link => link.type === 'application/geo+json') || {}
+    const { searchParams } = new URL(Link.self)
+    const q = searchParams.get('q')
+    const type = searchParams.get('filter.about.@type')
+    const filters = [...searchParams].filter(param => param[0].startsWith('filter')
+      && (param[0] !== 'filter.about.@type')
+      && (param[0] !== 'filter.about.startDate.GTE'))
+      .reduce((acc, curr) => {
+        if (!acc[curr[0]]) acc[curr[0]] = []
+        acc[curr[0]].push(curr)
+        return acc
+      }, {})
 
-    const response = await fetch(uri)
-    const json = await response.json()
+    const startDate = searchParams.get('filter.about.startDate.GTE')
 
-    this.map.getSource('pointsSource').setData(json)
+    const query = {
+      size: 9999,
+      query: {
+        bool: {
+          filter: [
+            {
+              exists: {
+                field: 'feature',
+              },
+            },
+          ],
+        },
+      },
+    }
 
-    const headers = new Headers({
-      Accept: 'application/geo+json',
+    if (q) {
+      query.query.bool.filter.push({
+        query_string: {
+          query: q,
+        },
+      })
+    }
+
+    if (type) {
+      query.query.bool.filter.push({
+        term: {
+          'about.@type': type,
+        },
+      })
+
+      if (type === 'Event' && !startDate) {
+        query.query.bool.filter.push({
+          range: {
+            'about.startDate': {
+              gte: 'now/d',
+            },
+          },
+        })
+      }
+    }
+
+    if (Object.keys(filters).length) {
+      Object.keys(filters).forEach((filterName) => {
+        let formatedFilter
+        if (filters[filterName].length > 1) {
+          formatedFilter = {
+            bool: {
+              should: filters[filterName].map(f => (
+                {
+                  term: { [f[0].replace('filter.', '')]: f[1] },
+                }
+              )),
+            },
+          }
+        } else {
+          formatedFilter = {
+            term: {
+              [filters[filterName][0][0].replace('filter.', '')]: filters[filterName][0][1],
+            },
+          }
+        }
+        query.query.bool.filter.push(formatedFilter)
+      })
+    }
+    const date = new Date().toJSON().split('T').shift()
+
+    const queryEvents = {
+      query: {
+        bool: {
+          must: {
+            exists: {
+              field: 'feature',
+            },
+          },
+          filter: [
+            {
+              query_string: {
+                query: `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`,
+              },
+            },
+            {
+              term: {
+                'about.@type': 'Event',
+              },
+            },
+          ],
+        },
+      },
+    }
+
+    // Query elasticsearch with a multiple search fot the features and events
+    const response = await fetch('http://localhost:9200/oerworldmap/_msearch', {
+      method: 'POST',
+      body: `{}\n${[JSON.stringify(query), {}, JSON.stringify(queryEvents)].join('\n')}\n`,
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
     })
 
-    const eventsURL = new URL(uri)
-    const date = new Date().toJSON().split('T').shift()
-    eventsURL.searchParams.set('filter.about.@type', 'Event')
-    eventsURL.searchParams.set('filter.about.startDate.GTE', '1970')
-    eventsURL.searchParams.set('q', `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`)
+    const json = await response.json()
 
-    const eventsResponse = await fetch(eventsURL.href, { headers })
-    const events = await eventsResponse.json()
+    const [points, events] = json.responses
 
-    if (events.features && events.features.length) {
-      this.map.getSource('eventsSource').setData(events)
+    const pointsCollection = {
+      type: 'FeatureCollection',
+      features: points.hits.hits.map(item => item._source.feature),
+    }
+
+    const eventsCollection = {
+      type: 'FeatureCollection',
+      features: events.hits.hits.map(item => item._source.feature),
+    }
+
+    this.map.getSource('pointsSource').setData(pointsCollection)
+
+    if (eventsCollection.features && eventsCollection.features.length) {
+      this.map.getSource('eventsSource').setData(eventsCollection)
       this.animatingMarkers = requestAnimationFrame(this.animateMarker)
     }
 
