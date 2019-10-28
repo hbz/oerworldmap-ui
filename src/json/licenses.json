@@ -14,6 +14,10 @@
         {
           "@value": "Public domain (kein Copyright)",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Public Domain Dedication",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -41,6 +45,10 @@
         {
           "@value": "Creative Commons Namensnennung",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Attribution",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -68,6 +76,10 @@
         {
           "@value": "Creative Commons Namensnennung, Weitergabe unter gleichen Bedingungen",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Attribution Share-Alike",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -95,6 +107,10 @@
         {
           "@value": "Creative Commons Namensnennung, nicht kommerziell",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Attribution Non-Commercial",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -122,6 +138,10 @@
         {
           "@value": "Creative Commons Namensnennung, nicht kommerziell, Weitergabe unter gleichen Bedingungen",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Attribution Non-Commercial Share-Alike",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -149,6 +169,10 @@
         {
           "@value": "Creative Commons Namensnennung, keine Bearbeitung",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Attribution No-Derivatives",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -176,6 +200,10 @@
         {
           "@value": "Creative Commons Namensnennung, nicht kommerziell, keine Bearbeitung",
           "@language": "de"
+        },
+        {
+          "@value": "Creative Commons Attribution Non-Commercial No-Derivatives",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -203,6 +231,10 @@
         {
           "@value": "Andere (Public Domain)",
           "@language": "de"
+        },
+        {
+          "@value": "Other (Public Domain)",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -230,6 +262,10 @@
         {
           "@value": "Andere (Namensnennung)",
           "@language": "de"
+        },
+        {
+          "@value": "Other (Attribution)",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -257,6 +293,10 @@
         {
           "@value": "Andere (Weitergabe unter gleichen Bedingungen)",
           "@language": "de"
+        },
+        {
+          "@value": "Other (Share-Alike)",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -284,6 +324,10 @@
         {
           "@value": "Andere (nicht kommerziell)",
           "@language": "de"
+        },
+        {
+          "@value": "Other (Non-Commercial)",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -311,6 +355,10 @@
         {
           "@value": "Andere (keine Bearbeitung)",
           "@language": "de"
+        },
+        {
+          "@value": "Other (No-Derivatives)",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -338,6 +386,10 @@
         {
           "@value": "Copyright",
           "@language": "de"
+        },
+        {
+          "@value": "Copyright",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -365,6 +417,10 @@
         {
           "@value": "Non-CC open license",
           "@language": "de"
+        },
+        {
+          "@value": "Non-CC open license",
+          "@language": "pt"
         }
       ],
       "alternateName": [
@@ -392,6 +448,10 @@
         {
           "@value": "nicht spezifiziert",
           "@language": "de"
+        },
+        {
+          "@value": "Unspecified",
+          "@language": "pt"
         }
       ],
       "alternateName": [
