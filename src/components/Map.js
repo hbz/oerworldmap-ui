@@ -109,7 +109,7 @@ class Map extends React.Component {
   componentDidMount() {
     const {
       mapboxConfig, map, locales,
-      aggregations, iso3166, home, emitter, initPins, region, _links,
+      aggregations, iso3166, home, emitter, initPins, region,
     } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
@@ -1082,7 +1082,6 @@ Map.propTypes = {
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  _links: PropTypes.objectOf(PropTypes.any).isRequired,
   aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
