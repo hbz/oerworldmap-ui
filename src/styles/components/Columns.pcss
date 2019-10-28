@@ -206,3 +206,14 @@
     }
   }
 }
+
+@media screen and (--mobile-breakpoint) {
+  .__floater__body {
+    max-height: 100vh;
+    overflow: scroll;
+
+    & .react-joyride__tooltip {
+      width: 100vw;
+    }
+  }
+}
