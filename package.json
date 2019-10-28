@@ -97,7 +97,7 @@
     "isomorphic-fetch": "^2.2.1",
     "json-pointer": "^0.6.0",
     "lodash": "^4.17.15",
-    "mapbox-gl": "1.1.0",
+    "mapbox-gl": "^1.5.0",
     "markdown-to-jsx": "^6.10.2",
     "mitt": "^1.1.3",
     "moment": "^2.24.0",
