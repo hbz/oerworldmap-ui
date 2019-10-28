@@ -527,7 +527,12 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <a className="item" href="/user/profile#edit">
+                            <a
+                              className="item"
+                              href={(locales && locales.length > 0)
+                                ? `/user/profile?language=${locales[0]}#edit`
+                                : '/user/profile#edit'}
+                            >
                               <i aria-hidden="true" className="fa fa-user-circle" />
                               <span>{translate('menu.me.profile')}</span>
                             </a>
