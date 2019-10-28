@@ -13,7 +13,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Teacher"
+          "@value": "Professor"
         },
         {
           "@language": "de",
@@ -31,7 +31,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Student"
+          "@value": "Estudante"
         },
         {
           "@language": "de",
@@ -49,7 +49,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Librarian"
+          "@value": "Bibliotecário"
         },
         {
           "@language": "de",
@@ -67,7 +67,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Instructional designer"
+          "@value": "Designer instrucional"
         },
         {
           "@language": "de",
@@ -103,7 +103,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Policy maker"
+          "@value": "Formulador de políticas"
         },
         {
           "@language": "de",
@@ -121,7 +121,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Scientist"
+          "@value": "Cientista"
         },
         {
           "@language": "de",
@@ -139,7 +139,7 @@
         },
         {
           "@language": "pt",
-          "@value": "OER advocate"
+          "@value": "Advogado do OER"
         },
         {
           "@language": "de",
@@ -157,7 +157,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Consultant"
+          "@value": "Consultor"
         },
         {
           "@language": "de",
@@ -175,7 +175,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Developer"
+          "@value": "Desenvolvedor"
         },
         {
           "@language": "de",
@@ -193,7 +193,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Other"
+          "@value": "Outros"
         },
         {
           "@language": "de",
