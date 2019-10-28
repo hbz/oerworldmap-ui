@@ -86,11 +86,11 @@ const WebPage = ({
                 about={about}
                 action={about['@id'] ? 'edit' : 'add'}
                 mapboxConfig={mapboxConfig}
-                user={user}
                 schema={schema}
                 closeLink={about['@id'] ? _self : undefined}
                 showOptionalFields={showOptionalFields}
                 _self={_self}
+                onSubmit={onSubmit}
               />
             </div>
           )}
@@ -99,14 +99,12 @@ const WebPage = ({
             <WebPageView
               id="view"
               about={about}
-              user={user}
               view={view}
               action={about['@id'] ? 'edit' : 'add'}
               mapboxConfig={mapboxConfig}
               schema={schema}
               _self={_self}
               isLiveEvent={isLiveEvent}
-              onSubmit={onSubmit}
             />
           </div>
 
