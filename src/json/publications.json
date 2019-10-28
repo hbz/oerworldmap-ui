@@ -13,7 +13,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Learning Resource (OER)"
+          "@value": "Recursos de Aprendizagem (OER)"
         },
         {
           "@language": "de",
@@ -31,7 +31,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Informal online article"
+          "@value": "Artigo informal online"
         },
         {
           "@language": "de",
@@ -49,7 +49,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Peer-reviewed journal article"
+          "@value": "Artigo de periódico revisado por pares"
         },
         {
           "@language": "de",
@@ -67,7 +67,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Report"
+          "@value": "Relatório"
         },
         {
           "@language": "de",
@@ -85,7 +85,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Project Document"
+          "@value": "Documento de projeto"
         },
         {
           "@language": "de",
@@ -103,7 +103,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Interview"
+          "@value": "Entrevista"
         },
         {
           "@language": "de",
@@ -121,7 +121,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Book"
+          "@value": "Livro"
         },
         {
           "@language": "de",
@@ -139,7 +139,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Presentation"
+          "@value": "Apresentações"
         },
         {
           "@language": "de",
@@ -157,7 +157,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Other"
+          "@value": "Outros"
         },
         {
           "@language": "de",
