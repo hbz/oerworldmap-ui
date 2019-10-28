@@ -371,7 +371,7 @@
                   "@language": "en"
                 },
                 {
-                  "@value": "__MISSING__",
+                  "@value": "Belas artes",
                   "@language": "pt"
                 }
               ],
@@ -571,7 +571,7 @@
               "@language": "en"
             },
             {
-              "@value": "__MISSING__",
+              "@value": "Línguas",
               "@language": "pt"
             }
           ],
@@ -1478,7 +1478,7 @@
               "@language": "en"
             },
             {
-              "@value": "__MISSING__",
+              "@value": "Direito",
               "@language": "pt"
             }
           ],
@@ -1555,7 +1555,7 @@
                   "@language": "en"
                 },
                 {
-                  "@value": "__MISSING__",
+                  "@value": "Biologia",
                   "@language": "pt"
                 }
               ],
@@ -1775,7 +1775,7 @@
                   "@language": "en"
                 },
                 {
-                  "@value": "__MISSING__",
+                  "@value": "Física",
                   "@language": "pt"
                 }
               ],
@@ -2486,7 +2486,7 @@
               "@language": "en"
             },
             {
-              "@value": "__MISSING__",
+              "@value": "Agricultura",
               "@language": "pt"
             }
           ],
@@ -2837,7 +2837,7 @@
                   "@language": "en"
                 },
                 {
-                  "@value": "__MISSING__",
+                  "@value": "Farmácia",
                   "@language": "pt"
                 }
               ],
@@ -2900,7 +2900,7 @@
               "@language": "en"
             },
             {
-              "@value": "__MISSING__",
+              "@value": "Bem-estar",
               "@language": "pt"
             }
           ],
