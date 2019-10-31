@@ -86,11 +86,12 @@ ResourceImage.propTypes = {
   translate: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
-  view: PropTypes.string.isRequired,
+  view: PropTypes.string,
 }
 
 ResourceImage.defaultProps = {
   className: undefined,
+  view: false,
 }
 
 export default withI18n(ResourceImage)

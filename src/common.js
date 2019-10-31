@@ -198,6 +198,11 @@ export const objectMap = (obj, fn) => (
 export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
   ? 1 : ((b[prop] < a[prop]) ? -1 : 0))
 
+export const emptyGeometry = {
+  type: 'FeatureCollection',
+  features: [],
+}
+
 export const updateUser = async () => {
   try {
     window.__APP_USER__ = await fetch('/user/profile', {
@@ -244,6 +249,7 @@ export default {
   objectMap,
   sortByProp,
   addParamToURL,
+  emptyGeometry,
   updateUser,
   types,
   isNode,

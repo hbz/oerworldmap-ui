@@ -37,7 +37,7 @@ export default (api, emitter, location) => {
         } = context
         const url = getURL({
           path: '/resource/',
-          params: Object.assign(params, { features: true }),
+          params,
         })
         if (!params.add) {
           Link.home = url
@@ -69,7 +69,7 @@ export default (api, emitter, location) => {
           >
             <MobileNavigation
               current={
-                !url.endsWith('/resource/?features=true')
+                !url.endsWith('/resource/')
                 || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
                   ? 'list' : 'map'}
             />
@@ -210,7 +210,7 @@ export default (api, emitter, location) => {
         const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${id}`,
-          params: Object.assign(params, { features: true }),
+          params,
         })
         Link.home = url
         const data = state || await api.get(url, new Headers(context.headers))
@@ -263,7 +263,7 @@ export default (api, emitter, location) => {
         const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
-          params: Object.assign(params, { features: true }),
+          params,
         })
         Link.home = url
         const data = state || await api.get(url, context.authorization)

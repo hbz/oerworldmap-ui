@@ -25,7 +25,7 @@ import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({
-  translate, moment, about, user, view, expandAll, schema, locales, _self,
+  translate, moment, about, user, view, expandAll, schema, locales, _self, isLiveEvent,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -120,6 +120,21 @@ const WebPageView = ({
           </React.Fragment>
         )}
       </h2>
+
+      {isLiveEvent && (
+        <a
+          href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="liveBtn"
+        >
+          <button className="btn">
+            <i className="fa fa-external-link" />
+            &nbsp;
+            {translate('Currently taking place: Follow the discussion on Social Media!')}
+          </button>
+        </a>
+      )}
 
       {expose('userActions', user)
         && <WebPageUserActions about={about} view={view} schema={schema} />
@@ -896,11 +911,13 @@ WebPageView.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   _self: PropTypes.string.isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
+  isLiveEvent: PropTypes.bool,
 }
 
 WebPageView.defaultProps = {
   user: null,
   expandAll: false,
+  isLiveEvent: undefined,
 }
 
 export default withI18n(withUser(WebPageView))

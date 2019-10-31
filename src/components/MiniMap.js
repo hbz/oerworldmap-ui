@@ -2,18 +2,16 @@
 /* global Event */
 /* global document */
 /* global MutationObserver */
+/* global requestAnimationFrame */
+/* global cancelAnimationFrame */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import bbox from '@turf/bbox'
 import { point } from '@turf/helpers'
+import { emptyGeometry } from '../common'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
-
-const emptyGeometry = {
-  type: 'FeatureCollection',
-  features: [],
-}
 
 class MiniMap extends React.Component {
   constructor(props) {
@@ -29,6 +27,7 @@ class MiniMap extends React.Component {
     this.mouseEnter = this.mouseEnter.bind(this)
     this.mouseLeave = this.mouseLeave.bind(this)
     this.updateMap = this.updateMap.bind(this)
+    this.animateMarker = this.animateMarker.bind(this)
   }
 
   componentDidMount() {
@@ -46,7 +45,7 @@ class MiniMap extends React.Component {
       && mo.observe(document.getElementById('edit'), { attributes: true })
 
     const {
-      geometry, mapboxConfig, boxZoom, draggable,
+      geometry, mapboxConfig, boxZoom, draggable, isLiveEvent,
     } = this.props
     const mapboxgl = require('mapbox-gl')
 
@@ -66,6 +65,16 @@ class MiniMap extends React.Component {
       this.isDragging = false
 
       this.MiniMap.on('load', () => {
+        // Set circle layers properties
+        this.initialRadius = window.innerWidth <= 700 ? 10 : 7
+        this.radius = this.initialRadius
+        this.framesPerSecond = 15
+        this.initialOpacity = 0.9
+        this.opacity = this.initialOpacity
+        this.maxRadius = this.initialRadius * 20
+        this.animatingMarkers
+        this.start = null
+
         if (draggable) {
           const nav = new mapboxgl.NavigationControl({ showCompass: false })
           this.MiniMap.addControl(nav, 'bottom-left')
@@ -78,7 +87,7 @@ class MiniMap extends React.Component {
           this.MiniMap.dragPan.enable()
         })
 
-        this.MiniMap.addSource('points', {
+        this.MiniMap.addSource('pointsSource', {
           type: 'geojson',
           data: geometry || emptyGeometry,
         })
@@ -86,14 +95,44 @@ class MiniMap extends React.Component {
         this.MiniMap.addLayer({
           id: 'points',
           type: 'circle',
-          source: 'points',
+          source: 'pointsSource',
           paint: {
-            'circle-radius': 7,
+            'circle-radius': this.initialRadius,
             'circle-color': '#f93',
             'circle-stroke-width': 1,
             'circle-stroke-color': 'white',
           },
         })
+
+        this.MiniMap.addSource('eventsSource', {
+          type: 'geojson',
+          data: isLiveEvent ? geometry : emptyGeometry,
+        })
+
+        this.MiniMap.addLayer({
+          id: 'EventsGlow',
+          source: 'eventsSource',
+          type: 'circle',
+          paint: {
+            'circle-radius': this.initialRadius,
+            'circle-radius-transition': { duration: 0 },
+            'circle-opacity-transition': { duration: 0 },
+            'circle-color': '#f93',
+          },
+        })
+
+        this.MiniMap.addLayer({
+          id: 'Events',
+          source: 'eventsSource',
+          type: 'circle',
+          paint: {
+            'circle-radius': this.initialRadius,
+            'circle-stroke-color': 'hsl(0, 0%, 100%)',
+            'circle-stroke-width': 1,
+            'circle-color': '#f93',
+          },
+        })
+
         this.updateMap(this.props)
       })
     }, 0)
@@ -107,6 +146,27 @@ class MiniMap extends React.Component {
     return false
   }
 
+  animateMarker(timestamp) {
+    if (!this.start) this.start = timestamp
+    const progress = timestamp - this.start
+
+    if (progress > 1000 / this.framesPerSecond) {
+      this.radius += (this.maxRadius - this.radius) / (1000 / this.framesPerSecond)
+      this.opacity -= (0.9 / this.framesPerSecond)
+
+      this.MiniMap.setPaintProperty('EventsGlow', 'circle-radius', this.radius)
+      this.MiniMap.setPaintProperty('EventsGlow', 'circle-opacity', this.opacity)
+
+      if (this.opacity <= 0.1) {
+        this.radius = this.initialRadius
+        this.opacity = this.initialOpacity
+      }
+      this.start = null
+    }
+
+    this.animatingMarkers = requestAnimationFrame(this.animateMarker)
+  }
+
   mouseMove(e) {
     if (!this.isDragging) return
     const coords = e.lngLat
@@ -114,11 +174,11 @@ class MiniMap extends React.Component {
     this.canvas.style.cursor = 'grabbing'
 
     if (this.selected) {
-      const data = JSON.parse(JSON.stringify(this.MiniMap.getSource('points')._data))
+      const data = JSON.parse(JSON.stringify(this.MiniMap.getSource('pointsSource')._data))
       if (data.type === 'Point') {
         data.coordinates = [coords.lng, coords.lat]
       }
-      this.MiniMap.getSource('points').setData(data)
+      this.MiniMap.getSource('pointsSource').setData(data)
     }
   }
 
@@ -163,11 +223,19 @@ class MiniMap extends React.Component {
 
   updateMap(props) {
     const {
-      geometry, draggable, zoomable, center,
+      geometry, draggable, zoomable, center, isLiveEvent,
     } = props
     const { zoom } = this.state
 
-    this.MiniMap.getSource('points').setData(geometry || emptyGeometry)
+    this.MiniMap.getSource('pointsSource').setData(geometry || emptyGeometry)
+
+    if (isLiveEvent) {
+      this.MiniMap.getSource('eventsSource').setData(geometry)
+      this.animatingMarkers = requestAnimationFrame(this.animateMarker)
+    } else {
+      this.MiniMap.getSource('eventsSource').setData(emptyGeometry)
+      cancelAnimationFrame(this.animatingMarkers)
+    }
 
     setTimeout(() => {
       if (center || geometry) {
@@ -238,6 +306,7 @@ MiniMap.propTypes = {
   onFeatureDrag: PropTypes.func,
   boxZoom: PropTypes.bool,
   zoom: PropTypes.number,
+  isLiveEvent: PropTypes.bool,
 }
 
 MiniMap.defaultProps = {
@@ -248,6 +317,7 @@ MiniMap.defaultProps = {
   onFeatureDrag: null,
   boxZoom: false,
   zoom: null,
+  isLiveEvent: undefined,
 }
 
 export default MiniMap
