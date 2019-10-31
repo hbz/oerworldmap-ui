@@ -20,9 +20,7 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import {
-  getParams, getURL, getProp, emptyGeometry,
-} from '../common'
+import { getProp, emptyGeometry } from '../common'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
@@ -603,16 +601,12 @@ class Map extends React.Component {
     const { iso3166 } = this.props
 
     if (!iso3166) {
-      const center = e.target.getCenter()
-      center.zoom = e.target.getZoom()
-      const params = getParams(window.location.search)
-      params.map = `${center.lng.toFixed(5)},${center.lat.toFixed(5)},${Math.floor(center.zoom)}`
-      const route = {
-        params,
-        path: window.location.pathname,
-        hash: window.location.hash.replace('#', ''),
-      }
-      window.history.replaceState(null, null, decodeURIComponent(getURL(route)))
+      const { lng, lat } = e.target.getCenter()
+      const zoom = e.target.getZoom()
+
+      const url = new URL(window.location.href)
+      url.searchParams.set('map', `${lng.toFixed(5)},${lat.toFixed(5)},${Math.floor(zoom)}`)
+      window.history.replaceState(null, null, url.href)
     }
   }
 

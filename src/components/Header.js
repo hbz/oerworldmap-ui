@@ -88,13 +88,14 @@ class Header extends React.Component {
       supportedLanguages = SUPPORTED_LANGUAGES
     }
 
+    const view = typeof window !== 'undefined' ? window.location.hash.substr(1) : ''
     const languages = supportedLanguages.filter(lang => lang !== locales[0]).map((lang) => {
       const url = urlParser(Link.self)
       url.searchParams.set('language', lang)
 
       return (
         <li key={lang}>
-          <a href={url.href}>{translate(lang)}</a>
+          <a href={`${url.href}${view ? `#${view}` : ''}`}>{translate(lang)}</a>
         </li>
       )
     })
@@ -527,7 +528,12 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <a className="item" href="/user/profile#edit">
+                            <a
+                              className="item"
+                              href={(locales && locales.length > 0)
+                                ? `/user/profile?language=${locales[0]}#edit`
+                                : '/user/profile#edit'}
+                            >
                               <i aria-hidden="true" className="fa fa-user-circle" />
                               <span>{translate('menu.me.profile')}</span>
                             </a>
