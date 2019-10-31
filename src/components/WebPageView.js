@@ -123,7 +123,7 @@ const WebPageView = ({
 
       {isLiveEvent && (
         <a
-          href={`https://twitter.com/search?q=${about.hashtag}`}
+          href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
           target="_blank"
           rel="noopener noreferrer"
           className="liveBtn"
