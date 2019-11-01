@@ -1,0 +1,31 @@
+.pageFooter {
+  & a {
+    text-decoration: none;
+    margin-right: 1.2em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  & .left {
+    float: left;
+    line-height: 36px;
+  }
+
+  & .right {
+    float: right;
+  }
+
+  @media screen and (max-width: 800px) {
+    & .left,
+    & .right {
+      float: none;
+      text-align: center;
+    }
+
+    & .left {
+      margin-bottom: 0.7em;
+    }
+  }
+}

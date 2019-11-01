@@ -22,6 +22,7 @@ import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
 import MobileNavigation from './components/MobileNavigation'
+import PageWithSection from './components/PageWithSection'
 
 export default (api, emitter, location) => {
   Link.home = '/resource/'
@@ -48,14 +49,14 @@ export default (api, emitter, location) => {
           },
           _self: location.href,
         } : state || await api.get(url, new Headers(context.headers))
-        const component = data => (params.add ? (
+        const component = (data) => (params.add ? (
           <WebPage
             mapboxConfig={mapboxConfig}
             {...data}
             view="edit"
             schema={schema}
             showOptionalFields={false}
-            onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
+            onSubmit={(data) => emitter.emit('submit', { url: '/resource/', data })}
           />
         ) : (
           <ResourceIndex
@@ -71,7 +72,8 @@ export default (api, emitter, location) => {
               current={
                 !url.endsWith('/resource/?features=true')
                 || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
-                  ? 'list' : 'map'}
+                  ? 'list' : 'map'
+              }
             />
           </ResourceIndex>
         ))
@@ -105,13 +107,13 @@ export default (api, emitter, location) => {
         const { mapboxConfig, schema } = context
         const data = await api.post('/resource/', body, new Headers(context.headers))
         const { about } = data
-        const component = data => (
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
-            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
+            onSubmit={(data) => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
 
@@ -128,14 +130,14 @@ export default (api, emitter, location) => {
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, new Headers(context.headers))
         const { about } = data
-        const component = data => (
+        const component = (data) => (
           <WebPage
             {...data}
             mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             embedValue="true"
-            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
+            onSubmit={(data) => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
         const title = context.i18n.translate(data.about.name)
@@ -156,13 +158,13 @@ export default (api, emitter, location) => {
         const { mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
         const { about } = data
-        const component = data => (
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
-            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
+            onSubmit={(data) => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
         const title = context.i18n.translate('updated.updated', {
@@ -172,7 +174,7 @@ export default (api, emitter, location) => {
       },
       delete: async (id, params, context) => {
         const data = await api.delete(`/resource/${id}`, new Headers(context.headers))
-        const component = data => (
+        const component = (data) => (
           <FullModal closeLink={Link.home}>
             <Feedback>
               {data.message}
@@ -189,13 +191,13 @@ export default (api, emitter, location) => {
         const { mapboxConfig, schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
         const { about } = data
-        const component = data => (
+        const component = (data) => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             mapboxConfig={mapboxConfig}
-            onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
+            onSubmit={(data) => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
         const title = context.i18n.translate('ResourceIndex.upsertResource.created', {
@@ -215,9 +217,9 @@ export default (api, emitter, location) => {
         Link.home = url
         const data = state || await api.get(url, new Headers(context.headers))
         const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === data.iso3166)
+          .buckets.find((bucket) => bucket.key === data.iso3166)
         const countryData = data.aggregations['global#facets']['filter#country']
-        const component = data => (
+        const component = (data) => (
           <ResourceIndex
             {...data}
             className="countryView"
@@ -268,13 +270,13 @@ export default (api, emitter, location) => {
         Link.home = url
         const data = state || await api.get(url, context.authorization)
         const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === data.iso3166)
+          .buckets.find((bucket) => bucket.key === data.iso3166)
         const countryData = data.aggregations['global#facets']['filter#country']
         const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+          .buckets.find((bucket) => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
         const regionData = data.aggregations['global#facets']['filter#feature.properties.location.address.addressRegion']['sterms#feature.properties.location.address.addressRegion']
-          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
-        const component = data => (
+          .buckets.find((bucket) => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+        const component = (data) => (
           <ResourceIndex
             {...data}
             className="regionView"
@@ -332,7 +334,7 @@ export default (api, emitter, location) => {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
-        const component = data => (
+        const component = (data) => (
           <FullModal closeLink={Link.home}>
             <Feed {...data} />
           </FullModal>
@@ -345,7 +347,7 @@ export default (api, emitter, location) => {
       path: '/activity/',
       get: async (params, context, state) => {
         const data = state || await api.get('/activity/', context.authorization)
-        const component = data => (
+        const component = (data) => (
           <FullModal closeLink={Link.home}>
             <Timeline entries={data} />
           </FullModal>
@@ -359,7 +361,7 @@ export default (api, emitter, location) => {
       get: async (params, context, state) => {
         const { i18n } = context
         const data = state || await api.get('/log/', new Headers(context.headers))
-        const component = data => (
+        const component = (data) => (
           <Log entries={data} />
         )
         const title = i18n.translate('ResourceIndex.log.log')
@@ -375,7 +377,7 @@ export default (api, emitter, location) => {
           ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
           : getURL({ path: `/log/${id}` })
         const data = state || await api.get(url, new Headers(context.headers))
-        const component = data => (
+        const component = (data) => (
           <Diffs {...data} phrases={phrases} schema={schema} />
         )
         const title = context.i18n.translate('ResourceIndex.log.logFor', { id })
@@ -387,14 +389,14 @@ export default (api, emitter, location) => {
       get: async (params, context, state) => {
         const { mapboxConfig, schema } = context
         const data = state || await api.get('/user/profile', new Headers(context.headers))
-        const component = data => (
+        const component = (data) => (
           <WebPage
             {...data.profile}
             _self="/user/profile"
             mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
+            onSubmit={(data) => emitter.emit('submit', { url: '/user/profile', data })}
           />
         )
         const title = context.i18n.translate(data.profile.about.name)
@@ -403,20 +405,40 @@ export default (api, emitter, location) => {
       post: async (params, context, state, body) => {
         const { mapboxConfig, schema } = context
         const data = await api.post('/user/profile', body, new Headers(context.headers))
-        const component = data => (
+        const component = (data) => (
           <WebPage
             {...data.profile}
             _self="/user/profile"
             mapboxConfig={mapboxConfig}
             view="view"
             schema={schema}
-            onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
+            onSubmit={(data) => emitter.emit('submit', { url: '/user/profile', data })}
           />
         )
         const title = context.i18n.translate('updated.updated', {
           name: context.i18n.translate(data.profile.about.name),
         })
         return { title, data, component }
+      },
+    },
+    {
+      path: '/:id',
+      get: async (id, params, context, state) => {
+        const { supportedLanguages, i18n: { locales: [userLocale] } } = context
+
+        const File = (userLocale !== 'en' && supportedLanguages.includes(userLocale))
+          ? require(`../docs/${id}.${userLocale}.md`)
+          : require(`../docs/${id}.md`)
+
+        const { frontMatter } = File
+        const RenderedFile = File.default
+        const component = () => (
+          <PageWithSection frontMatter={frontMatter}>
+            <RenderedFile />
+          </PageWithSection>
+        )
+        const { title } = frontMatter
+        return { title, data: state, component }
       },
     },
   ]
@@ -458,21 +480,14 @@ export default (api, emitter, location) => {
           }
         }
       }
+      throw new Error('Route not found')
     } catch (err) {
-      if (err instanceof APIError) {
-        const component = err => <ErrorPage translate={i18n.translate} message={err.message} />
-        const render = err => <Init {...context}>{component(err)}</Init>
-        return {
-          title: err.message, data: err, component, render, err,
-        }
+      console.error(err)
+      const component = () => <ErrorPage translate={i18n.translate} message="Not Found" />
+      const render = () => <Init {...context}>{component()}</Init>
+      return {
+        title: 'Not Found', data: {}, component, render,
       }
-      throw err
-    }
-    // 404
-    const component = () => <ErrorPage translate={i18n.translate} message="Not Found" />
-    const render = () => <Init {...context}>{component()}</Init>
-    return {
-      title: 'Not Found', data: {}, component, render,
     }
   }
 

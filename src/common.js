@@ -13,7 +13,7 @@ export const getEntryByLocales = (locales, key) => {
   if (Array.isArray(key)) {
     let localesString = false
     locales.forEach((locale) => {
-      localesString = key.find(value => value['@language'] === locales[locale])
+      localesString = key.find((value) => value['@language'] === locales[locale])
       if (localesString) {
         return localesString['@value']
       }
@@ -34,7 +34,7 @@ export const getParams = (qstring) => {
     const q = qstring.replace('?', '').split('&')
     for (let i = 0; i < q.length; i += 1) {
       const [param, val] = q[i].split('=', 2).map(
-        s => decodeURIComponent(s).replace(/\+/g, ' '),
+        (s) => decodeURIComponent(s).replace(/\+/g, ' '),
       )
       if (!val) {
         params[param] = ''
@@ -74,7 +74,7 @@ export const getURL = (route) => {
   for (const param in route.params) {
     const value = route.params[param]
     if (Array.isArray(value)) {
-      value && (params = params.concat(value.map(value => `${param}=${encodeURIComponent(value)}`)))
+      value && (params = params.concat(value.map((value) => `${param}=${encodeURIComponent(value)}`)))
     } else {
       value && params.push(`${param}=${encodeURIComponent(value)}`)
     }
@@ -94,7 +94,7 @@ export const triggerClick = (e, code) => {
   }
 }
 
-export const mapNominatimResult = result => ({
+export const mapNominatimResult = (result) => ({
   '@id': `info:${result.place_id}`,
   '@type': 'Place',
   name: {
@@ -133,7 +133,7 @@ export const getProp = (p, o) => p.reduce((xs, x) => ((xs && xs[x]) ? xs[x] : nu
 export const clearForm = (form, exclude = []) => {
   // clearing inputs
   const inputs = [...form.getElementsByTagName('input')]
-    .filter(input => !exclude.includes(input.name))
+    .filter((input) => !exclude.includes(input.name))
   for (let i = 0; i < inputs.length; i += 1) {
     switch (inputs[i].type) {
     case 'radio':
@@ -148,14 +148,14 @@ export const clearForm = (form, exclude = []) => {
 
   // clearing selects
   const selects = [...form.getElementsByTagName('select')]
-    .filter(select => !exclude.includes(select.name))
+    .filter((select) => !exclude.includes(select.name))
   for (let i = 0; i < selects.length; i += 1) {
     selects[i].selectedIndex = 0
   }
 
   // clearing textarea
   const textareas = [...form.getElementsByTagName('textarea')]
-    .filter(textarea => !exclude.includes(textarea.name))
+    .filter((textarea) => !exclude.includes(textarea.name))
   for (let i = 0; i < textareas.length; i += 1) {
     textareas[i].innerHTML = ''
   }
@@ -184,7 +184,7 @@ export const formatDate = (date, moment) => {
 }
 
 export const getTwitterId = (sameAs) => {
-  const twitterURL = sameAs && sameAs.find(url => url.includes('twitter.com'))
+  const twitterURL = sameAs && sameAs.find((url) => url.includes('twitter.com'))
   return /twitter.com\/([a-zA-Z0-9_]{1,15})/.exec(twitterURL)
 }
 
@@ -195,7 +195,7 @@ export const objectMap = (obj, fn) => (
   }, {})
 )
 
-export const sortByProp = prop => (a, b) => ((a[prop] < b[prop])
+export const sortByProp = (prop) => (a, b) => ((a[prop] < b[prop])
   ? 1 : ((b[prop] < a[prop]) ? -1 : 0))
 
 export const updateUser = async () => {
@@ -205,7 +205,7 @@ export const updateUser = async () => {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
       },
-    }).then(res => res.json())
+    }).then((res) => res.json())
   } catch (e) {
     // no op - user not logged in, but mod_auth_openidc redirects to login page
   }

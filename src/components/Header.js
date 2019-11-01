@@ -44,7 +44,7 @@ class Header extends React.Component {
 
     emitter.on('newActivity', (activities) => {
       if (window.location.pathname !== '/activity/') {
-        const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
+        const showNotification = !user || activities.some((activity) => activity.user && activity.user['@id'] !== user.id)
         this.setState({ showNotification })
       }
     })
@@ -89,7 +89,7 @@ class Header extends React.Component {
     }
 
     const view = typeof window !== 'undefined' ? window.location.hash.substr(1) : ''
-    const languages = supportedLanguages.filter(lang => lang !== locales[0]).map((lang) => {
+    const languages = supportedLanguages.filter((lang) => lang !== locales[0]).map((lang) => {
       const url = urlParser(Link.self)
       url.searchParams.set('language', lang)
 
@@ -133,14 +133,14 @@ class Header extends React.Component {
             this.setDropdown('')
           }}
           onKeyDown={triggerClick}
-          ref={el => this.menuToggle = el}
+          ref={(el) => this.menuToggle = el}
         >
           <i aria-hidden="true" className="fa fa-bars" />
         </button>
 
         <nav
           className={`secondaryNav${showMobileMenu ? ' show' : ''}`}
-          ref={secondaryNav => this.secondaryNav = secondaryNav}
+          ref={(secondaryNav) => this.secondaryNav = secondaryNav}
         >
           <ul>
 
@@ -151,8 +151,7 @@ class Header extends React.Component {
                   <span className="showNotification">
                     <i className="fa fa-bell" aria-hidden="true" />
                   </span>
-                )
-                }
+                )}
               </Link>
             </li>
             <li
@@ -214,10 +213,10 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <a className="iconItem" href="/oerpolicies">
+                        <Link className="iconItem" href="/oerpolicies">
                           <i className="fa fa-balance-scale" />
                           {translate('ClientTemplates.app.oerpolicies')}
-                        </a>
+                        </Link>
                       </li>
                     </ul>
 
@@ -353,7 +352,7 @@ class Header extends React.Component {
                   </div>
                   <div className="row vertical-guttered stack-700" style={{ justifyContent: 'start' }}>
 
-                    {types.filter(type => type !== 'Person').map(type => (
+                    {types.filter((type) => type !== 'Person').map((type) => (
                       <div key={type} className="col one-fourth">
                         <Link
                           className="addBox"
@@ -405,9 +404,9 @@ class Header extends React.Component {
                           <h3>{translate('menu.info.topical')}</h3>
                         </li>
                         <li>
-                          <a className="item" href="/about#newsletter">
+                          <Link className="item" href="/about#newsletter">
                             {translate('menu.info.topical.newsletter')}
-                          </a>
+                          </Link>
                         </li>
                         <li>
                           <a className="item" href="https://oerworldmap.wordpress.com/" rel="noopener noreferrer" target="_blank">
@@ -422,29 +421,29 @@ class Header extends React.Component {
                           <h3>{translate('menu.info.about')}</h3>
                         </li>
                         <li>
-                          <a className="item" href="/about#the-vision">
+                          <Link className="item" href="/about#the-vision">
                             {translate('The OER World Map')}
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a className="item" href="/contribute">
+                          <Link className="item" href="/contribute">
                             {translate('menu.info.about.contribute')}
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a className="item" href="/FAQ">
+                          <Link className="item" href="/FAQ">
                             {translate('menu.info.about.faq')}
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a className="item" href="/about#team">
+                          <Link className="item" href="/about#team">
                             {translate('menu.info.about.team')}
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a className="item" href="editorsFAQ">
+                          <Link className="item" href="editorsFAQ">
                             {translate('menu.info.about.faqeditors')}
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>
@@ -514,7 +513,7 @@ class Header extends React.Component {
                   {translate('menu.me')}
                 </div>
                 <div
-                  ref={el => this.dropDown = el}
+                  ref={(el) => this.dropDown = el}
                   className="dropdown"
                 >
                   <div className="inner">
@@ -548,8 +547,7 @@ class Header extends React.Component {
                             <a
                               className="item"
                               href={'/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri='
-                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))
-                              }
+                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))}
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>

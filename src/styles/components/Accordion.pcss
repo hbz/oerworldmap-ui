@@ -1,0 +1,38 @@
+.Accordion {
+  padding: 40px 20px 20px 20px;
+  border-top: 1px solid var(--blue-light);
+
+  & h2 {
+    position: relative;
+    padding: 0 !important;
+    padding-right: 50px !important;
+
+    &::after {
+      content: "+";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 20px;
+    }
+  }
+
+  & .accordionContent {
+    display: none;
+
+    & p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.active {
+    background-color: var(--grey-lightest);
+
+    & h2::after {
+      content: "–";
+    }
+
+    & .accordionContent {
+      display: block;
+    }
+  }
+}

@@ -6,7 +6,6 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import safe from 'postcss-safe-parser'
 import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import WebpackShellPlugin from 'webpack-shell-plugin'
 import nodeExternals from 'webpack-node-externals'
 
 import config, { apiConfig } from './config'
@@ -26,16 +25,57 @@ const loaders = [
       },
     },
   },
+  {
+    test: /\.mdx?$/,
+    use: [
+      'babel-loader',
+      'mdx-loader',
+    ],
+  },
+  {
+    test: /\.(css|pcss)$/,
+    include: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules/normalize.css'),
+      path.resolve(__dirname, 'node_modules/font-awesome'),
+      path.resolve(__dirname, 'node_modules/source-sans-pro'),
+      path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
+      path.resolve(__dirname, 'node_modules/rc-tooltip'),
+      path.resolve(__dirname, 'node_modules/simplemde/dist'),
+      path.resolve(__dirname, 'node_modules/react-select'),
+    ],
+    use: [
+      MiniCssExtractPlugin.loader,
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+          sourceMap: !isProduction,
+        },
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: !isProduction,
+        },
+      },
+    ],
+  }, {
+    test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
+    use: {
+      loader: 'file-loader',
+      options: {
+        outputPath: 'public/',
+      },
+    },
+  },
 ]
 
 const baseConfig = {
   mode: NODE_ENV,
+  stats: isProduction ? 'normal' : 'minimal',
   devtool: isProduction ? 'cheap-source-map' : 'source-map',
   context: path.join(__dirname, 'src'),
-  module: {
-    exprContextCritical: false,
-    rules: loaders,
-  },
   output: {
     path: path.join(__dirname, directory),
     publicPath: !isProduction ? `http://${config.host}:${config.port}/`
@@ -59,43 +99,8 @@ const configServer = merge(baseConfig, {
     filename: 'server.js',
   },
   module: {
-    rules: loaders.concat({
-      test: /\.(css|pcss)$/,
-      include: [
-        path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'node_modules/normalize.css'),
-        path.resolve(__dirname, 'node_modules/font-awesome'),
-        path.resolve(__dirname, 'node_modules/source-sans-pro'),
-        path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-        path.resolve(__dirname, 'node_modules/rc-tooltip'),
-        path.resolve(__dirname, 'node_modules/simplemde/dist'),
-        path.resolve(__dirname, 'node_modules/react-select'),
-      ],
-      use: [
-        MiniCssExtractPlugin.loader,
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            sourceMap: !isProduction,
-          },
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: !isProduction,
-          },
-        },
-      ],
-    }, {
-      test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
-      use: {
-        loader: 'file-loader',
-        options: {
-          outputPath: 'public/',
-        },
-      },
-    }),
+    exprContextCritical: false,
+    rules: loaders,
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -125,12 +130,6 @@ if (isProduction) {
 } else {
   // Use files from node_modules instead to include them in the build, makes the build faster
   configServer.externals = [nodeExternals({ whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i] })]
-  // Restart server at the end of each build
-  configServer.plugins.push(
-    new WebpackShellPlugin({
-      onBuildEnd: [`node ${directory}/server.js`],
-    }),
-  )
 }
 
 const configClient = merge(baseConfig, {
@@ -140,8 +139,10 @@ const configClient = merge(baseConfig, {
     './client.js',
   ],
   module: {
+    exprContextCritical: false,
     // Styles styles and resources are processed by the server so they can be ignored
-    rules: loaders.concat({
+    // Slicing the loaders to only get the first 2 loaders for js and mdx
+    rules: loaders.slice(0, 2).concat({
       test: /\.(css|pcss|png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
       use: 'ignore-loader',
     }),
@@ -151,4 +152,5 @@ const configClient = merge(baseConfig, {
   },
 })
 
+// export default configServer
 export default [configClient, configServer]

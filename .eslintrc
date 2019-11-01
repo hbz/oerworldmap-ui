@@ -6,6 +6,8 @@
       "reset": true
     }],
     "no-alert": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "arrow-parens": "off",
     "no-restricted-globals": "warn",
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/label-has-associated-control": "off",
