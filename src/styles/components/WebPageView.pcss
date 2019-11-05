@@ -16,6 +16,7 @@
       color: var(--orange);
       margin-bottom: 20px;
       width: 100%;
+      animation: pulsateEvent 0.8s infinite alternate;
 
       &:hover,
       &:focus {
@@ -115,5 +116,14 @@
         }
       }
     }
+  }
+}
+
+@keyframes pulsateEvent {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(1.02, 1.05);
   }
 }
