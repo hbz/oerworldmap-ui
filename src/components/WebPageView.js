@@ -25,7 +25,7 @@ import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({
-  translate, moment, about, user, view, expandAll, schema, locales, _self, isLiveEvent,
+  translate, moment, about, user, view, expandAll, schema, locales, isLiveEvent,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -53,12 +53,6 @@ const WebPageView = ({
           <Topline about={about} />
 
         </div>
-
-        {!user && (
-          <a href={`/.login?continue=${_self}`}>
-            {translate('Please login if you want to edit this entry')}
-          </a>
-        )}
 
         <div className="col">
 
@@ -909,7 +903,6 @@ WebPageView.propTypes = {
   view: PropTypes.string.isRequired,
   expandAll: PropTypes.bool,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
-  _self: PropTypes.string.isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   isLiveEvent: PropTypes.bool,
 }

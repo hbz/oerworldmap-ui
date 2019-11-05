@@ -11,7 +11,7 @@ import { formatDate } from '../common'
 import expose from '../expose'
 
 const Metadata = ({
-  type, about, dateModified, moment, translate, user,
+  type, about, dateModified, moment, translate, user, _self,
 }) => (
   <div className="Metadata">
     <Icon type={type} />
@@ -54,6 +54,16 @@ const Metadata = ({
         </span>
       )
     )}
+    {!user && (
+      <>
+        {' '}
+        |
+        <a style={{ paddingLeft: '5px' }} href={`/.login?continue=${_self}`}>
+          <i className="fa fa-pencil" />
+          {translate('Metadata.loginToEdit')}
+        </a>
+      </>
+    )}
   </div>
 )
 
@@ -64,6 +74,7 @@ Metadata.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   dateModified: PropTypes.string,
   user: PropTypes.objectOf(PropTypes.any),
+  _self: PropTypes.string.isRequired,
 }
 
 Metadata.defaultProps = {

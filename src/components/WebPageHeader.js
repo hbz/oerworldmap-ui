@@ -19,6 +19,7 @@ const WebPageHeader = ({
       type={about['@type']}
       about={about}
       dateModified={dateModified}
+      _self={_self}
     />
     <div className="webPageActions print-display-none">
       <div>
