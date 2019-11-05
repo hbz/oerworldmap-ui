@@ -1,7 +1,7 @@
 .WebPageView {
 
   & > h2 {
-    margin: 25px 0 25px 0;
+    margin: 0 0 25px 0;
     font-size: var(--webpage-heading-font-size);
     font-weight: var(--webpage-heading-font-weight);
     line-height: var(--webpage-heading-line-height);
@@ -33,6 +33,26 @@
   & .FullModal.Lighthouse .Form .Textarea:not(.en),
   & .Comments .Form .Textarea:not(.en) {
     display: none;
+  }
+
+  & .logo {
+    margin-top: 10px;
+    max-height: 200px;
+    transition: opacity 0.5s;
+    color: var(--grey-light);
+    background: var(--white);
+    margin-right: 0;
+    padding: 0 5px;
+
+    & img {
+      max-height: 200px;
+      position: relative;
+      border-radius: var(--border-radius);
+    }
+  }
+
+  & .SocialLinks {
+    margin-top: 5px;
   }
 
   &.Article {

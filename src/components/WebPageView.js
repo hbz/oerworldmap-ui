@@ -6,6 +6,7 @@ import {
   Tab, Tabs, TabList, TabPanel,
 } from 'react-tabs'
 import urlTemplate from 'url-template'
+import ResourceImage from './ResourceImage'
 
 import withI18n from './withI18n'
 import withUser from './withUser'
@@ -19,13 +20,25 @@ import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 import LinkOverride from './LinkOverride'
+import MiniMap from './MiniMap'
 
 import { formatURL, formatDate } from '../common'
+import centroids from '../json/centroids.json'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
 
 const WebPageView = ({
-  translate, moment, about, user, view, expandAll, schema, locales, isLiveEvent,
+  translate,
+  moment,
+  about,
+  user,
+  view,
+  expandAll,
+  schema,
+  locales,
+  isLiveEvent,
+  feature,
+  mapboxConfig,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -44,24 +57,17 @@ const WebPageView = ({
       .filter(n => !locales.includes(n)),
   ] : []
 
+  const country = (about
+    && about.location
+    && about.location[0]
+    && about.location[0].address
+    && about.location[0].address.addressCountry) || null
+
+  const geometry = feature && feature.geometry
+
+
   return (
     <div className={`WebPageView ${about['@type']}`}>
-
-      <div className="row auto gutter-40 text-large">
-        <div className="col">
-
-          <Topline about={about} />
-
-        </div>
-
-        <div className="col">
-
-          {about.sameAs
-            && <SocialLinks links={about.sameAs} />
-          }
-
-        </div>
-      </div>
 
       <h2>
         {about.name && Object.keys(about.name).length > 1 ? (
@@ -115,6 +121,8 @@ const WebPageView = ({
         )}
       </h2>
 
+      <Topline about={about} />
+
       {isLiveEvent && (
         <a
           href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
@@ -138,7 +146,17 @@ const WebPageView = ({
 
         <div className="col two-third">
 
-          <div className="border-top text-large" style={{ paddingTop: '2em' }}>
+
+          <div
+            className="border-top text-large"
+            // style={{ paddingTop: '2em' }}
+          >
+
+
+            {about.sameAs
+              && <SocialLinks links={about.sameAs} />
+            }
+
 
             <Block
               className="first description"
@@ -597,6 +615,8 @@ const WebPageView = ({
 
           <hr style={{ marginBottom: '0px' }} />
 
+          <ResourceImage about={about} className="logo" view={view} disableDefault />
+
           {(lighthouses.length > 0 || likes.length > 0 || about['@type'] === 'Policy') && (
             <div className="Block" style={{ marginTop: '0px' }}>
               <ul className="ItemList prominent">
@@ -736,27 +756,45 @@ const WebPageView = ({
           {(about.location
           && about.location.filter(location => !!location.address).map((location, i) => (
             <Block title={translate(`${about['@type']}.location`)} key={i}>
-              <p>
-                {location.address.streetAddress
-                  && [location.address.streetAddress, <br key="br" />]
-                }
-                {location.address.postalCode}
-                {location.address.postalCode && location.address.addressLocality
-                  && <span>,&nbsp;</span>
-                }
-                {location.address.addressLocality}
-                {(location.address.postalCode || location.address.addressLocality)
-                  && <br />
-                }
-                {location.address.addressRegion
-                  && [translate(location.address.addressRegion), <br key="br" />]
-                }
-                {location.address.addressCountry && (
-                  <Link href={`/country/${location.address.addressCountry}`}>
-                    {translate(location.address.addressCountry)}
-                  </Link>
+              <>
+                {about['@type'] !== 'Policy' && (
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: '200px',
+                    }}
+                  >
+                    <MiniMap
+                      mapboxConfig={mapboxConfig}
+                      geometry={geometry}
+                      center={geometry ? undefined : (country && centroids[country])}
+                      isLiveEvent={isLiveEvent}
+                    />
+                  </div>
                 )}
-              </p>
+                <p>
+                  {location.address.streetAddress
+                    && [location.address.streetAddress, <br key="br" />]
+                  }
+                  {location.address.postalCode}
+                  {location.address.postalCode && location.address.addressLocality
+                    && <span>,&nbsp;</span>
+                  }
+                  {location.address.addressLocality}
+                  {(location.address.postalCode || location.address.addressLocality)
+                    && <br />
+                  }
+                  {location.address.addressRegion
+                    && [translate(location.address.addressRegion), <br key="br" />]
+                  }
+                  {location.address.addressCountry && (
+                    <Link href={`/country/${location.address.addressCountry}`}>
+                      {translate(location.address.addressCountry)}
+                    </Link>
+                  )}
+                </p>
+              </>
             </Block>
           )))}
 
@@ -905,12 +943,21 @@ WebPageView.propTypes = {
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   isLiveEvent: PropTypes.bool,
+  feature: PropTypes.objectOf(PropTypes.any),
+  mapboxConfig: PropTypes.shape(
+    {
+      token: PropTypes.string,
+      style: PropTypes.string,
+      miniMapStyle: PropTypes.string,
+    },
+  ).isRequired,
 }
 
 WebPageView.defaultProps = {
   user: null,
   expandAll: false,
   isLiveEvent: undefined,
+  feature: null,
 }
 
 export default withI18n(withUser(WebPageView))
