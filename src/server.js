@@ -4,11 +4,15 @@ import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
 import compression from 'compression'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
 import userAgent from 'express-useragent'
 import cookieParser from 'cookie-parser'
 import url from 'url'
 
 import template from './views/index'
+import webpackConfig from '../webpack.config.babel'
 import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
@@ -16,8 +20,6 @@ import i18ns from './i18ns'
 import Config, {
   mapboxConfig, apiConfig, piwikConfig, i18nConfig,
 } from '../config'
-
-global.URL = require('url').URL
 
 const server = express()
 const api = new Api(apiConfig)
@@ -35,10 +37,20 @@ server.use((req, res, next) => {
 server.use(compression())
 server.use(cookieParser())
 
-// Set static files path
-server.use(express.static(
-  path.resolve(process.env.NODE_ENV === 'production' ? 'dist' : 'dev'),
-))
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'static') {
+  const compiler = webpack(webpackConfig)
+
+  server.use([
+    webpackDevMiddleware(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath,
+      stats: 'minimal',
+    }),
+    webpackHotMiddleware(compiler),
+  ])
+}
+
+server.use(express.static(path.join(__dirname, '/../dist')))
 
 // Middleware to check browser support
 server.use((req, res, next) => {

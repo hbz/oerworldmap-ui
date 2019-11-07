@@ -4,10 +4,12 @@
 /* global _paq */
 
 import { hydrate } from 'react-dom'
+import 'normalize.css'
 import mitt from 'mitt'
 
 import router from './router'
 import { getParams, getURL, updateUser } from './common'
+import './styles/main.pcss'
 import Api from './api'
 import Link from './components/Link'
 

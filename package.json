@@ -4,9 +4,9 @@
   "description": "The user interface for https://oerworldmap.org/",
   "scripts": {
     "clean": "rimraf dist/",
-    "start": "NODE_ENV=development webpack -w",
-    "build": "NODE_ENV=production webpack",
-    "server": "NODE_ENV=production node dist/server.js",
+    "server:dev": "NODE_ENV=development node src/index.js",
+    "server:prod": "NODE_ENV=production node src/index.js",
+    "build:prod": "NODE_ENV=production webpack-cli",
     "test": "eslint src --quiet && jest",
     "singleTest": "node --inspect-brk  node_modules/.bin/jest --verbose=false --runInBand -t ",
     "fix": "eslint src --fix",
@@ -52,7 +52,6 @@
     "eslint-plugin-react": "^7.14.3",
     "file-loader": "^4.1.0",
     "identity-obj-proxy": "^3.0.0",
-    "ignore-loader": "^0.1.2",
     "jest": "^24.8.0",
     "jsdom": "^15.1.1",
     "mini-css-extract-plugin": "^0.8.0",
@@ -82,9 +81,9 @@
     "@turf/invariant": "^6.1.2",
     "ajv": "^6.10.2",
     "asset-require-hook": "^1.2.0",
+    "cookie-parser": "^1.4.3",
     "cleave.js": "^1.5.3",
     "compression": "^1.7.4",
-    "cookie-parser": "^1.4.3",
     "d3": "^5.9.7",
     "deepmerge": "^4.0.0",
     "dotenv": "^8.0.0",
@@ -122,7 +121,8 @@
     "source-sans-pro": "^2.45.0",
     "url-template": "^2.0.8",
     "webpack": "^4.38.0",
-    "webpack-node-externals": "^1.7.2",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack-dev-middleware": "^3.7.0",
+    "webpack-dev-server": "^3.7.1",
+    "webpack-hot-middleware": "^2.25.0"
   }
 }

@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { isNode } from '../common'
+const isNode = (typeof module === 'object' && module.exports)
 
 class UserProvider extends React.Component {
   getChildContext() {

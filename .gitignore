@@ -1,5 +1,4 @@
 node_modules
-dev
 dist
 npm-debug.log
 .env

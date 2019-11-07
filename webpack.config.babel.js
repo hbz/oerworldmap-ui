@@ -6,149 +6,135 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import safe from 'postcss-safe-parser'
 import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import WebpackShellPlugin from 'webpack-shell-plugin'
-import nodeExternals from 'webpack-node-externals'
-
 import config, { apiConfig } from './config'
 
-const { NODE_ENV } = process.env
-const isProduction = NODE_ENV === 'production'
-const directory = isProduction ? 'dist' : 'dev'
+const ENV = process.env.NODE_ENV
 
-const loaders = [
-  {
-    test: /\.jsx?$/,
-    exclude: /(node_modules)/,
-    use: {
-      loader: 'babel-loader',
-      options: {
-        cacheDirectory: true,
-      },
-    },
-  },
-]
-
-const baseConfig = {
-  mode: NODE_ENV,
-  devtool: isProduction ? 'cheap-source-map' : 'source-map',
+let Config = {
   context: path.join(__dirname, 'src'),
-  module: {
-    exprContextCritical: false,
-    rules: loaders,
-  },
-  output: {
-    path: path.join(__dirname, directory),
-    publicPath: !isProduction ? `http://${config.host}:${config.port}/`
-      : `${apiConfig.scheme}://${apiConfig.host}`
-        .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
-  },
-  plugins: [
-    new webpack.ProgressPlugin(),
-  ],
-}
-
-const configServer = merge(baseConfig, {
-  entry: [
-    '@babel/register',
-    '@babel/polyfill',
-    './server.js',
-  ],
-  target: 'node',
-  output: {
-    libraryTarget: 'commonjs2',
-    filename: 'server.js',
-  },
-  module: {
-    rules: loaders.concat({
-      test: /\.(css|pcss)$/,
-      include: [
-        path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'node_modules/normalize.css'),
-        path.resolve(__dirname, 'node_modules/font-awesome'),
-        path.resolve(__dirname, 'node_modules/source-sans-pro'),
-        path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-        path.resolve(__dirname, 'node_modules/rc-tooltip'),
-        path.resolve(__dirname, 'node_modules/simplemde/dist'),
-        path.resolve(__dirname, 'node_modules/react-select'),
-      ],
-      use: [
-        MiniCssExtractPlugin.loader,
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            sourceMap: !isProduction,
-          },
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: !isProduction,
-          },
-        },
-      ],
-    }, {
-      test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
-      use: {
-        loader: 'file-loader',
-        options: {
-          outputPath: 'public/',
-        },
-      },
-    }),
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'public/styles.css',
-    }),
-    // Copy public files
-    new CopyWebpackPlugin([
-      { from: 'public', to: 'public' },
-      { from: '../docs/assets', to: 'assets' },
-    ]),
-  ],
-})
-
-if (isProduction) {
-  // Minimize all CSS
-  configServer.plugins.push(
-    new OptimizeCSSAssetsPlugin({
-      cssProcessor: cssnano,
-      cssProcessorOptions: {
-        parser: safe,
-        discardComments: {
-          removeAll: true,
-        },
-      },
-    }),
-  )
-} else {
-  // Use files from node_modules instead to include them in the build, makes the build faster
-  configServer.externals = [nodeExternals({ whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i] })]
-  // Restart server at the end of each build
-  configServer.plugins.push(
-    new WebpackShellPlugin({
-      onBuildEnd: [`node ${directory}/server.js`],
-    }),
-  )
-}
-
-const configClient = merge(baseConfig, {
-  target: 'web',
   entry: [
     '@babel/polyfill',
     './client.js',
+    './views/index.js',
   ],
-  module: {
-    // Styles styles and resources are processed by the server so they can be ignored
-    rules: loaders.concat({
-      test: /\.(css|pcss|png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
-      use: 'ignore-loader',
-    }),
-  },
   output: {
-    filename: 'public/client.js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: `${apiConfig.scheme}://${apiConfig.host}`
+      .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
+    filename: 'public/bundle.js',
   },
-})
+  module: {
+    exprContextCritical: false,
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        },
+      },
 
-export default [configClient, configServer]
+      {
+        test: /\.(css|pcss)$/,
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules/normalize.css'),
+          path.resolve(__dirname, 'node_modules/font-awesome'),
+          path.resolve(__dirname, 'node_modules/source-sans-pro'),
+          path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
+        ],
+      },
+
+      {
+        test: /\.(png|svg|jpg|gif|ico|woff|woff2|ttf|eot|otf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            outputPath: 'public/',
+          },
+        },
+      },
+    ],
+  },
+
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new CopyWebpackPlugin([
+      { from: 'public', to: 'public' },
+    ]),
+  ],
+
+}
+
+if (ENV === 'production') {
+  Config = merge(Config, {
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'public/styles.css',
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessor: cssnano,
+        cssProcessorOptions: {
+          parser: safe,
+          discardComments: { removeAll: true },
+        },
+      }),
+    ],
+    mode: 'production',
+    module: {
+      rules: [
+        {
+          test: /\.(css|pcss)$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+              },
+            },
+            'postcss-loader',
+          ],
+        },
+      ],
+    },
+  })
+}
+
+if (ENV === 'development') {
+  Config = merge(Config, {
+    output: {
+      publicPath: `http://${config.host}:${config.port}/`,
+    },
+    mode: 'development',
+    module: {
+      rules: [
+        {
+          test: /\.(css|pcss)$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: true,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  })
+}
+
+const WebpackConfig = Config
+export default WebpackConfig
