@@ -34,6 +34,7 @@ const ResourceImage = ({
             e.target && (e.target.style.visibility = 'visible')
           }}
           onError={(e) => {
+            console.error(e)
             e.target && (e.target.style.visibility = 'hidden')
             disableDefault && e.target.parentElement.parentElement.remove()
           }}
@@ -55,7 +56,7 @@ const ResourceImage = ({
     <div
       className={`ResourceImage ${className}`}
       style={{
-        display: (disableDefault && !about.image && !twitterId) ? 'none' : '',
+        display: (disableDefault && !about.image && !twitterId) ? 'none' : 'inherit',
       }}
     >
       {(about.url && className === 'webPageCoverImage') ? (
