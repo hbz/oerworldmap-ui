@@ -52,7 +52,12 @@ const ResourceImage = ({
   )
 
   return (
-    <div className={`ResourceImage ${className}`}>
+    <div
+      className={`ResourceImage ${className}`}
+      style={{
+        display: (disableDefault && !about.image && !twitterId) ? 'none' : '',
+      }}
+    >
       {(about.url && className === 'webPageCoverImage') ? (
         <a target="_blank" rel="noopener noreferrer" href={about.url}>
           {images}
