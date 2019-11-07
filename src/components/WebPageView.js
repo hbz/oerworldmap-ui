@@ -276,11 +276,18 @@ const WebPageView = ({
             )}
 
             {about.url && (
-              <p>
-                <a href={about.url} target="_blank" rel="noopener noreferrer" className="boxedLink">
-                  {formatURL(about.url)}
-                </a>
-              </p>
+              <>
+                <h4>
+                  {translate('link')}
+                </h4>
+                <p>
+                  <a href={about.url} target="_blank" rel="noopener noreferrer" className="boxedLink">
+                    <i className="fa fa-external-link" />
+                    {' '}
+                    {formatURL(about.url)}
+                  </a>
+                </p>
+              </>
             )}
 
             {about.citation && (
