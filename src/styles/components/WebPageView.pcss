@@ -7,14 +7,32 @@
     line-height: var(--webpage-heading-line-height);
   }
 
-  & .liveBtn {
+  & .isLiveEvent {
     margin-top: -20px;
-    display: block;
+    margin-bottom: 20px;
+
+    & a {
+      display: block;
+      position: relative;
+      z-index: 0;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--orange);
+        animation: pulsateEvent 2s infinite;
+        z-index: -1;
+        border-radius: var(--border-radius);
+      }
+    }
 
     & .btn {
       border-color: var(--orange);
       color: var(--orange);
-      margin-bottom: 20px;
       width: 100%;
 
       &:hover,
@@ -115,5 +133,16 @@
         }
       }
     }
+  }
+}
+
+@keyframes pulsateEvent {
+  from {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.04, 1.5);
+    opacity: 0;
   }
 }

@@ -122,18 +122,20 @@ const WebPageView = ({
       </h2>
 
       {isLiveEvent && (
-        <a
-          href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="liveBtn"
-        >
-          <button className="btn">
-            <i className="fa fa-external-link" />
-            &nbsp;
-            {translate('Currently taking place: Follow the discussion on Social Media!')}
-          </button>
-        </a>
+        <div className="isLiveEvent">
+          <a
+            href={`https://twitter.com/hashtag/${about.hashtag.replace('#', '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="liveBtn"
+          >
+            <button className="btn">
+              <i className="fa fa-external-link" />
+              &nbsp;
+              {translate('Currently taking place: Follow the discussion on Social Media!')}
+            </button>
+          </a>
+        </div>
       )}
 
       {expose('userActions', user)
