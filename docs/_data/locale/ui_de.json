@@ -222,6 +222,7 @@
   "contribute": "Beitragen",
   "export": "Exportieren",
   "print": "Drucken",
+  "link": "Link",
   "markdownSupported": "Markdown wird unterstützt",
   "https://w3id.org/class/esc/scheme": "Fächerklassifikation",
   "https://w3id.org/isced/1997/scheme": "Bildungsstufen nach ISCED 1997",
@@ -365,5 +366,6 @@
   "Tour.end2": "Haben Sie/hast Du Fragen oder Anregungen?",
   "Tour.end3": "Kontaktiere",
   "Tour.end4": "uns via",
-  "Tour.end5": "Jetzt ist es an der Zeit, sich zu registrieren und die Karte zu erkunden. Viel Glück auf Ihrer/Deiner persönlichen Reise in die Welt der Offenen Bildung!"
+  "Tour.end5": "Jetzt ist es an der Zeit, sich zu registrieren und die Karte zu erkunden. Viel Glück auf Ihrer/Deiner persönlichen Reise in die Welt der Offenen Bildung!",
+  "Metadata.loginToEdit": "Login to edit"
 }

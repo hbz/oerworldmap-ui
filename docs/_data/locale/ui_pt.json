@@ -222,6 +222,7 @@
   "contribute": "Contribuir",
   "export": "Exportar",
   "print": "Imprimir",
+  "link": "Link",
   "markdownSupported": "Markdown permitido",
   "https://w3id.org/class/esc/scheme": "Classificação de Assuntos Educacionais",
   "https://w3id.org/isced/1997/scheme": "Níveis ISCED 1997 de educação",
@@ -365,5 +366,6 @@
   "Tour.end2": "Você tem alguma pergunta ou sugestão?",
   "Tour.end3": "Contato",
   "Tour.end4": "nós através",
-  "Tour.end5": "Agora é hora de explorar e criar sua conta. Boa sorte na sua viagem pessoal em torno da Educação Aberta!"
+  "Tour.end5": "Agora é hora de explorar e criar sua conta. Boa sorte na sua viagem pessoal em torno da Educação Aberta!",
+  "Metadata.loginToEdit": "Login to edit"
 }
