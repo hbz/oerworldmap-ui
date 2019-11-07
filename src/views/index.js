@@ -16,7 +16,7 @@ export default ({
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
 
-        <script src="/public/bundle.js" ></script>
+        <script defer src="/public/client.js" ></script>
         <title>${title} - OER World Map</title>
 
         <meta property="og:site_name" content="OER World Map" />
@@ -37,11 +37,11 @@ export default ({
         <meta property="og:image" content="https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png" />
 
         <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
-        <link rel="shortcut icon" href="/public/${favicon}" type="image/x-icon" />
-        ${env !== 'development' ? '<link rel="stylesheet" href="/public/styles.css">' : ''}
+        <link rel="shortcut icon" href="${favicon}" type="image/x-icon" />
+        <link rel="stylesheet" href="/public/styles.css" rel="preload">
       </head>
       ${embed === undefined ? '<body>' : `<body data-embed="${embed}">`}
-        <div id="root"><div>${body}</div></div>
+        <div id="root">${body}</div>
         ${piwikEmbed}
       </body>
     </html>
