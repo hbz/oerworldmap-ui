@@ -10,15 +10,17 @@ import Link from './Link'
 import '../styles/components/ResourceImage.pcss'
 
 const ResourceImage = ({
-  about, translate, className, view,
+  about, translate, className, view, disableDefault,
 }) => {
   const twitterId = getTwitterId(about.sameAs)
 
   const images = (
     <React.Fragment>
-      <div className="missingImg">
-        <Icon type={about['@type']} />
-      </div>
+      {!disableDefault && (
+        <div className="missingImg">
+          <Icon type={about['@type']} />
+        </div>
+      )}
 
       {about.image && (
         <img
@@ -33,6 +35,7 @@ const ResourceImage = ({
           }}
           onError={(e) => {
             e.target && (e.target.style.visibility = 'hidden')
+            disableDefault && e.target.parentElement.parentElement.remove()
           }}
           aria-label={translate(about.name)}
         />
@@ -49,7 +52,12 @@ const ResourceImage = ({
   )
 
   return (
-    <div className={`ResourceImage ${className}`}>
+    <div
+      className={`ResourceImage ${className}`}
+      style={{
+        display: (disableDefault && !about.image && !twitterId) ? 'none' : '',
+      }}
+    >
       {(about.url && className === 'webPageCoverImage') ? (
         <a target="_blank" rel="noopener noreferrer" href={about.url}>
           {images}
@@ -87,11 +95,13 @@ ResourceImage.propTypes = {
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   view: PropTypes.string,
+  disableDefault: PropTypes.bool,
 }
 
 ResourceImage.defaultProps = {
   className: undefined,
   view: false,
+  disableDefault: undefined,
 }
 
 export default withI18n(ResourceImage)

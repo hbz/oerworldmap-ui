@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import WebPageView from './WebPageView'
 import WebPageEdit from './WebPageEdit'
 import WebPageHeader from './WebPageHeader'
-import WebPageCover from './WebPageCover'
 
 import expose from '../expose'
 import withEmitter from './withEmitter'
@@ -66,17 +65,6 @@ const WebPage = ({
           embedValue={embedValue}
         />
 
-        {about['@type'] !== 'Policy'
-          && (
-            <WebPageCover
-              about={about}
-              feature={feature}
-              mapboxConfig={mapboxConfig}
-              view={view}
-              isLiveEvent={isLiveEvent}
-            />
-          )
-        }
 
         <div className="webPageContent">
 
@@ -105,6 +93,7 @@ const WebPage = ({
               schema={schema}
               _self={_self}
               isLiveEvent={isLiveEvent}
+              feature={feature}
             />
           </div>
 
