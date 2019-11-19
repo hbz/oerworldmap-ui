@@ -105,11 +105,15 @@ class Header extends React.Component {
 
         <div className="headerTitle">
           <a href="/">
-            <h1>{translate('OER World Map')}</h1>
+            <h1>Home</h1>
           </a>
 
           <Link title={translate('main.map')} href="/resource/">
-            <i aria-hidden="true" className="fa fa-globe" />
+            <h1>
+              <i aria-hidden="true" className="fa fa-globe" />
+              &nbsp;
+              {translate('OER World Map')}
+            </h1>
           </Link>
 
           {(pathname === '/resource/' || pathname.startsWith('/country/')) && (

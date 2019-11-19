@@ -1,77 +1,186 @@
 ---
 title: OER World Map
 layout: page
+class: landing
 ---
 
-<section
-  id="entry"
-  class="pageSection bg-primary-color text-center text-white wide"
-  style="min-height: calc(100vh - 42px); margin-top: 42px; display:flex; align-items: center; background-image: url('{{ site.baseurl }}/assets/img/landingpage/map-bg.png'); background-size: cover; background-position: center center;"
->
-  <div
-    class="inner"
-  >
-    {% include _landingpage/entry.html %}
+<section class="introduction sectionLanding">
+
+  <div class="innerLanding">
+    <div class="center">
+      <img src="{{ site.baseurl }}/assets/img/landingpage/world_map.png" alt="World Map">
+      <h1>The OER World Map</h1>
+      <p>Enabling the exchange of data, experiences and ideas among open educational actors and communities.</p>
+    </div>
+
+    <div class="buttons">
+      <a class="btnLanding" href="#description">
+        <i class="fa fa-arrow-down"></i>
+        &nbsp;
+        Tell me more
+      </a>
+      <a class="btnLanding clear" href="/resource/">Enter the map</a>
+    </div>
+  </div>
+
+</section>
+
+<section id="description" class="explanation sectionLanding">
+  <div class="innerLanding">
+
+    <h2>What is the OER World Map?</h2>
+
+    <div class="dual">
+      <div>
+        <p>
+          The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work.
+        </p>
+
+        <p>Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.</p>
+        <a href="#mission" class="btnLanding">
+          <i class="fa fa-arrow-down"></i>
+          Our mission
+        </a>
+      </div>
+
+      <div>
+        <img src="https://programmieraffe.github.io/oerworldmap-landingpage-2019/landerz/gifs/worldmap.gif" alt="">
+        <div class="center">
+          <a href="/resource/">
+            <i class="fa fa-map"></i>
+            Explore the map
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section
-  id="introduction"
-  class="pageSection bg-blue-light text-white text-center"
->
-  <div class="inner">
-    {% include _landingpage/introduction.html %}
+<section id="mission" class="explanation sectionLanding">
+  <div class="innerLanding">
+
+    <h2>Our mission</h2>
+
+    <div class="dual">
+      <div>
+        <p>We aim to facilitate exchange of data, experiences and ideas between different people and Open Education communities. </p>
+        <p>We believe that Open Education has the potential to enhance education for all, to foster democratic participation, sustainable development and social justice. Helping others to open and transform education, its institutions, practices and resources is what gets us going every morning.</p>
+        <a href="#getInvolved" class="btnLanding">
+            <i class="fa fa-arrow-down"></i>
+            Get Involved
+          </a>
+
+      </div>
+
+      <div>
+        <div style="width: 400px;">
+            <div data-slick='{"infinite" : true, "dots": true, "autoplay": true}'>
+              <img src="https://programmieraffe.github.io/oerworldmap-landingpage-2019/landerz/images/cccs_edu.jpg" alt="">
+              <img src="https://programmieraffe.github.io/oerworldmap-landingpage-2019/landerz/images/cccs_edu.jpg" alt="">
+            </div>
+          </div>
+        <span>2DO - SLIDER WITH BULLETS AND DESCRIPTION TEXT: WORLD MAP WORKSHOPS OR COMMUNITY EVENT PHOTOS /<a href="https://www.cccs.edu/cccs-news/open-educational-resources-initiative-gains-momentum-in-colorado/">SOURCE</a> </span>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section
-  id="award"
-  class="pageSection bg-grey-lightest text-center"
->
-  <div class="inner">
-    {% include _landingpage/award.html %}
+
+<section id="getInvolved" class="explanation sectionLanding">
+  <div class="innerLanding">
+
+    <h2>How can you get involved?</h2>
+
+    <div class="dual">
+      <div>
+        <p>Share your own work as an open educator, researcher or policy maker.</p>
+        <p>Make your events more visible. Let others discover your project websites. Help influence decision-making processes by making a case for Open Education and its affordances.</p>
+        <a href="/auth/realms/oerworldmap/protocol/openid-connect/registrations?client_id=account&response_type=code&scope=openid email&redirect_uri=/.login">Create an account</a> and a profile in just a few short steps.
+      </div>
+
+      <div>
+
+        <div style="width: 400px;">
+            <div data-slick='{"infinite" : true, "dots": true, "autoplay": true}'>
+              <img src="https://programmieraffe.github.io/oerworldmap-landingpage-2019/landerz/gifs/worldmap_profile.gif" alt="">
+              <img src="https://programmieraffe.github.io/oerworldmap-landingpage-2019/landerz/gifs/worldmap_profile.gif" alt="">
+            </div>
+          </div>
+
+        <span>2DO - SLIDER WITH BULLETS AND DESCRIPTION TEXT: WORLD MAP WORKSHOPS OR COMMUNITY EVENT PHOTOS /<a href="https://www.cccs.edu/cccs-news/open-educational-resources-initiative-gains-momentum-in-colorado/">SOURCE</a> </span>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section
-  id="on-the-map"
-  class="pageSection text-center"
->
-  <div class="inner">
-    {% include _landingpage/on-the-map.html %}
+<section class="explanation sectionLanding">
+  <div class="innerLanding">
+
+    <h2>Share what you are working on</h2>
+
+    <div class="triple">
+
+      <div class="center">
+        <i class="fa fa-plus btnLanding"></i>
+        <p><b>Make your work visible:</b> you can add a project, service, event or an institution as well as all other kinds of building blocks of Open Education to the World Map. Others will be able to look you up and learn from what you have been working on. </p>
+      </div>
+
+      <div class="center">
+        <i class="fa fa-search btnLanding"></i>
+        <p><b>Find the work of other open educators:</b> browse through others’ Open Education work to find networks and inspiration or search for a specific item in a certain geographic area, a research field, or an educational sector. </p>
+      </div>
+
+      <div class="center">
+        <i class="fa fa-balance-scale btnLanding"></i>
+        <p><b>Get an overview of the Open Education landscape:</b> find policies from other institutions or geographic areas, get in touch with their facilitators, and find arguments to support Open Education. </p>
+      </div>
+
+    </div>
+
+    <div class="center">
+      <p>Ready?</p>
+
+      <div class="buttons">
+          <a href="/auth/realms/oerworldmap/protocol/openid-connect/registrations?client_id=account&response_type=code&scope=openid email&redirect_uri=/.login" class="btnLanding">Create an account</a>
+          <a href="/resource/" class="btnLanding clear">Browse the OER World Map</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section
-  id="adding-data"
-  class="pageSection bg-grey-lightest bottom-0 text-center"
->
-  {% include _landingpage/examples.html %}
-</section>
+<section class="explanation sectionLanding">
+  <div class="innerLanding">
 
-<section
-  id="find"
-  class="pageSection bg-white"
->
-  <div class="inner">
-    {% include _landingpage/find.html %}
-  </div>
-</section>
+    <h2>More about the OER World Map</h2>
 
-<section
-  id="contribute"
-  class="pageSection bg-grey-lightest text-center"
->
-  <div class="inner">
-    {% include _landingpage/contribute.html %}
-  </div>
-</section>
+    <div class="triple">
 
-<section
-  id="partners"
-  class="pageSection bg-primary-color"
->
-  <div class="inner">
-    {% include _landingpage/partners.html %}
+      <div class="center">
+        <h3>Team & Partners</h3>
+        <p>The core team of the OER World Map is based in Cologne, Germany. We collaborate with open educators across the world.</p>
+        <p>The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.</p>
+        <a href="about#team">Team</a>
+      </div>
+
+      <div class="center">
+        <h3>Conception</h3>
+        <p>What is our conception of Open Education and OER? Open Education and Open Educational Resources (OER) have been evolving over time and will continue to do so. There are numerous posts on our blog that should give an overview of the field. </p>
+      </div>
+
+      <div class="center">
+        <h3>Questions?</h3>
+        <p>Any questions? Want to get involved? Let’s stay in touch! Got feedback? A project idea? An idea for a guest post on our blog? We would love to hear from you. Send email to <a href="mailto:info@oerworldmap.org">info@oerworldmap.org</a>, follow us on twitter or join one of our recurring Q+A online meetings. If you like, subscribe to our quarterly newsletter. </p>
+      </div>
+
+    </div>
+
+    <div class="center">
+      <a href="/about" class="btnLanding">About</a>
+    </div>
+
   </div>
 </section>

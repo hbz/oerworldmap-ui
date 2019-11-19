@@ -6,7 +6,117 @@
     width: 100%;
     z-index: 2;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: tomato;
+  }
+
+  & .landing {
+
+    & .center {
+      text-align: center;
+    }
+
+    & .btnLanding {
+      background-color: var(--blue);
+      border: 1px solid var(--blue);
+      color: var(--white);
+      border-radius: 20px;
+      font-size: var(--static-font-size);
+      padding: 7px 12px;
+      cursor: pointer;
+      display: inline-block;
+
+      &.clear {
+        background-color: var(--white);
+        color: var(--blue);
+      }
+
+      &:hover,
+      &.clear:hover {
+        background-color: var(--orange);
+        border-color: var(--orange);
+        color: var(--white);
+      }
+    }
+
+    & .sectionLanding {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    & .innerLanding {
+      padding: 0 10px;
+      max-width: 1100px;
+    }
+
+    & .dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 150px;
+    }
+
+    & .triple {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 50px;
+    }
+
+    & .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 50px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    @media screen and (--mobile-breakpoint) {
+      & .dual,
+      & .triple,
+      & .buttons {
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+      }
+    }
+
+    & .introduction {
+      min-height: calc(100vh - 50px);
+
+      & .innerLanding {
+        max-width: 800px;
+      }
+
+      & h1 {
+        font-size: 3rem;
+      }
+
+      & img {
+        width: 400px;
+        max-width: 100%;
+      }
+
+      & p {
+        font-size: 1.5rem;
+      }
+    }
+
+    & .explanation {
+
+      & .innerLanding {
+        padding: 100px 20px;
+      }
+
+      & img {
+        max-width: 100%;
+        border-radius: 5px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+
+      & h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        padding-bottom: 40px;
+      }
+    }
   }
 
   & .static-content {
