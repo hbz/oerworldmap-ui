@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom'
 import fetch from 'isomorphic-fetch'
 import mitt from 'mitt'
 import 'normalize.css'
+import { gsap } from 'gsap/all'
 
 import { getURL, updateUser } from './common'
 import Header from './components/Header'
@@ -406,6 +407,28 @@ const createBlogPost = (() => {
   return { init }
 })()
 
+const animateMap = (() => {
+  const init = async () => {
+    const isLanding = document.querySelector('.landing')
+
+    if (isLanding) {
+      const circles = [...document.querySelectorAll('circle')]
+      setInterval(() => {
+        const circle = circles[Math.floor(Math.random() * circles.length)]
+        gsap.fromTo(circle, {
+          opacity: 1,
+          duration: 7,
+        }, {
+          opacity: 0,
+          duration: 7,
+        })
+      }, 1000)
+    }
+  }
+
+  return { init }
+})()
+
 
 $(async () => {
   await updateUser()
@@ -419,6 +442,7 @@ $(async () => {
   createKibanaListener.init()
   hideUserLoginButtons.init()
   createBlogPost.init()
+  animateMap.init()
 
   $('[data-slick]').slick()
 })
