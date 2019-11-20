@@ -6,9 +6,9 @@ title: About
 
 The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work. Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.
 
-![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
+<!-- ![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
 [2015 Felix Ostrowski presenting the idea in 2015 at ELAG, Sweden](https://www.youtube.com/watch?v=s3_zT3l9p-w)
-<div style="clear:both"></div>
+<div style="clear:both"></div> -->
 
 Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
 
@@ -28,11 +28,11 @@ We aim to facilitate exchange of data, information, experiences and ideas betwee
 - [Create a profile](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) on the World Map and add your own work, events or institution to the World Map to make it even more visible to others.
 - [Get in touch](mailto:info@oerworldmap.org) with us for all kinds of questions, comments and inquiries.
 
-## Impressions
+<!-- ## Impressions
 
 <img src="https://pbs.twimg.com/media/D3tqb0OUIAAolTQ?format=jpg&name=4096x4096" style="max-width:400px;" />
 *https://twitter.com/philosopher1978/status/1115602400507621380*
-<br style="clear:both;">
+<br style="clear:both;"> -->
 
 ### Team and Partners
 
