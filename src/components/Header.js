@@ -105,7 +105,11 @@ class Header extends React.Component {
 
         <div className="headerTitle">
           <a href="/">
-            <h1>Home</h1>
+            <h1
+              style={{ fontSize: '12px' }}
+            >
+              Home
+            </h1>
           </a>
 
           <Link title={translate('main.map')} href="/resource/">
