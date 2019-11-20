@@ -8,7 +8,7 @@ Since the OER World Map’s beginnings in 2014, the team and the partners of the
 
 In 2019, after five years of developing, tweaking and tinkering with the OER World Map, the team has put their impact, their goals and challenges under review. We have come up with a renewed vision and a mission that feel like they can be our guiding lights in the future.
 
-## The Vision
+## Our Vision
 
 We strive for a world where humans connect, share and collaborate across borders in order to foster democratic participation, social justice and sustainable development. We believe that opening up education - its institutions, its practices and its resources - is necessary to make this happen. The OER World Map contributes to this vision by facilitating the exchange of data, experiences and ideas between open educational actors and communities.
 
@@ -26,27 +26,8 @@ Get in touch (LINK email?) with us for all kinds of questions, comments and inqu
 
 The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
 
-<!-- <img style="width:100%;" src="/assets/images/open-control-room.jpg" title="The OER World Map seen as 'operations room' for the open education community"> -->
-
 The OER World Map is being built by [hbz](http://www.hbz-nrw.de) and [graphthinking GmbH](http://www.graphthinking.com) in association with [The Open University (UK)](http://www.open.ac.uk/) funded by [The William and Flora Hewlett Foundation](http://www.hewlett.org/).
 
-![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![The Open University](/assets/images/image07.png) ![The William and Flora Hewlett Foundation](/assets/images/image04.jpg)
-
-
-<div style="clear: both;">
-  <p xmlns:dct="http://purl.org/dc/terms/" >
-    To the extent possible under law,
-    <a rel="dct:publisher"
-      href="https://www.hbz-nrw.de/">
-      <span property="dct:title">hbz</span></a>
-    has waived all copyright and related or neighboring rights to
-    <span property="dct:title">OER World Map data</span>.
-    <a rel="license"
-      href="http://creativecommons.org/publicdomain/zero/1.0/">
-      <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none; float: none; margin: 0; position: relative; top: 10px;" alt="CC0" />
-    </a>
-  </p>
-</div>
 
 ### Matthias Andrasch, hbz (Metadata & General Support)
 
