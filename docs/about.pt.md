@@ -2,75 +2,69 @@
 title: Sobre
 ---
 
-## A Visão
+## About the OER World Map
 
-Por mais de uma década a criação e uso de Recursos Educacionais Abertos (REA) tem aumentado em todo o mundo. O Mapa Global REA coleta e apresenta dados sobre o crescente número de atores e atividades no campo da educação aberta em todo o mundo. O objetivo é acelerar a evolução do ecossistema global de REA, oferecendo um retrato abrangente e ágil do movimento REA. A informação fornecida pode ser usada para uma ampla gama de propósitos, incluindo:
+The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work. Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.
 
-- conectar atores, facilitando a cooperação e a partilha de recursos e conhecimentos
-- fornecer listas qualificadas de repositórios e outro serviços REA para ajudar professores e alunos a encontrar recursos educacionais relevantes para eles
-- apoiar decisores em tomar decisões estratégicas e defendê-las fornecendo estatísticas relevantes e perspectivas gerais do movimento de educação aberta e impactos associados
+<!-- ![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
+[2015 Felix Ostrowski presenting the idea in 2015 at ELAG, Sweden](https://www.youtube.com/watch?v=s3_zT3l9p-w)
+<div style="clear:both"></div> -->
 
-O Mapa Global de REA destina-se a fornecer informações necessárias para o apoio à auto-organização dos processos do movimento REA. Além de mapeamento de serviços, projetos, pessoas e organizações relevantes, a plataforma fornece uma rede social, permite a identificação de coleções de REA e oferece suporte a tomada de decisão. Tomado em conjunto, o Mapa Global REA pode ser visto como uma espécie de "sala de operações" para a comunidade de educação aberta.
+Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
 
-<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="O Mapa Global REA visto como 'espaço de operações' para a comunidade de educação aberta" />
+In 2019, after five years of developing, tweaking and tinkering with the OER World Map, the team has put their impact, their goals and challenges under review. We have come up with a renewed vision and a mission that feel like they can be our guiding lights in the future.
 
-O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [ graphthinking GmbH](http://www.graphthinking.com), em associação com [ The Open University (Reino Unido)](http://www.open.ac.uk/), financiado pela [ William e Flora Hewlett Foundation](http://www.hewlett.org/). Mas o Mapa pertence à comunidade global de REA. Com a inserção de dados e a inteligência de fontes locais e uma rede global de parceiros e voluntários, o Mapa Global REA será construído e atualizado – um recurso para todos.
+### Our Vision
 
-![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![A Open University](/assets/images/image07.png) ![A Fundação William e Flora Hewlett](/assets/images/image04.jpg)
+We strive for a world where humans connect, share and collaborate across borders in order to foster democratic participation, social justice and sustainable development. We believe that opening up education - its institutions, its practices and its resources - is necessary to make this happen. The OER World Map contributes to this vision by facilitating the exchange of data, experiences and ideas between open educational actors and communities.
 
-<div style="clear: both;">
-  <p xmlns:dct="http://purl.org/dc/terms/" >
-    Na medida do possível, sob os termos da lei,
-    <a rel="dct:publisher"
-      href="https://www.hbz-nrw.de/">
-      <span property="dct:title">hbz</span></a>
-    renunciou todos os direitos autorais e direitos relacionados ou conexos aos
-    <span property="dct:title">Dados do Mapa Global REA</span>.
-    <a rel="license"
-      href="http://creativecommons.org/publicdomain/zero/1.0/">
-      <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none; float: none; margin: 0; position: relative; top: 10px;" alt="CC0" />
-    </a>
-  </p>
-</div>
+### Our Mission
 
-* * *
+We aim to facilitate exchange of data, information, experiences and ideas between different people and Open Education communities. We believe that Open Education has the potential to enhance education for all, to foster democratic participation, sustainable development and social justice. Helping others to open and transform education, its institutions, practices and resources is what gets us going every morning.
 
-## Equipe
+## Get involved
 
-### Felix Link (Design)
+- [Browse through the World Map](https://oerworldmap.org/resource/) and the many excellent projects, people and institutions who care about Open Education as much as we do.
+- [Create a profile](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) on the World Map and add your own work, events or institution to the World Map to make it even more visible to others.
+- [Get in touch](mailto:info@oerworldmap.org) with us for all kinds of questions, comments and inquiries.
 
-![Link Felix](/assets/images/felix-link.png) Feliz juntou-se ao projeto em outubro de 2015, sendo o designer de UI/Frontend do Mapa Global de REAs. Ele estudou design gráfico e de comunicação entre 2006 e 2012. Desde 3008 ele trabalha como freelance designer tanto para agências quanto para clientes próprios, desenvolvendo e implementando projetos de design corporativo, editoria e web. Ele é interessado em design como um processo conceitual e integrado assim como uma expressão característica de seu conteúdo.
+<!-- ## Impressions
 
-### Jan Neumann (Gerenciamento de Projeto)
+<img src="https://pbs.twimg.com/media/D3tqb0OUIAAolTQ?format=jpg&name=4096x4096" style="max-width:400px;" />
+*https://twitter.com/philosopher1978/status/1115602400507621380*
+<br style="clear:both;"> -->
 
-![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) trabalha como responsável pelos assuntos jurídicos e organizacionais na hbz. Ele estudou direito, economia e sistemas de pensamento e tem mais de 10 anos de experiência em projetos internacionais de gerenciamento para diferentes editoras e bibliotecas. A trajetória de Jan com os REAs começou em 2012 quando ele viu Susan D'Antoni apresentando sua visão sobre o Mapa Global dos REAs em Paris, no Congresso Mundial de REA . Jan é membro do conselho consultivo para educação do capítulo alemão da UNESCO, frequentemente fala em conferências e blogs sobre REAs em [OERSYS.org](https://oersys.org/).</p> 
+### Team and Partners
 
-### Felix Ostrowski (Líder Técnico)
+The OER World Map is being built by [hbz](http://www.hbz-nrw.de) and [graphthinking GmbH](http://www.graphthinking.com) in association with [The Open University (UK)](http://www.open.ac.uk/) funded by [The William and Flora Hewlett Foundation](http://www.hewlett.org/).
 
-![Felix Ostrowski](/assets/images/image00.jpg) Felix Ostrowski trabalha como liderança na parte tecnológica do Mapa Global REA. He is a web engineer, Linked Data technologist and knowledge management consultant who has been on the web since the mid-’90s. After graduating in communication studies and computer science he worked as a software developer and repository manager at hbz from 2008 – 2010. He was also a driving force behind the institution’s Linked Open Data (LOD) strategy. In 2010 he moved on to work as a research assistant in a [joint project on digital long term preservation](http://www.lukii.hu-berlin.de/) of the The Berlin School of Library and Information Science, Stanford University Libraries and the German National Library. Since 2013 Felix is the founder and managing director of Berlin based [graphthinking GmbH](http://www.graphthinking.com/).
+We collaborate with open educators across the world to ensure the inclusion of diverse perspectives and social backgrounds. We are aware that the current core team member list is an all-male-list.
 
-### Adrian Pohl (Metadados & Suporte)
+#### Jan Neumann, hbz (Project Lead)
 
-![Adrian Pohl](/assets/images/image09.jpg) Adrian Pohl é responsável por metadados e suporte do Mapa Global REA. He is the metadata and RDF vocabulary expert for the development of hbz's linked open data service “lobid” and also responsible for the project management. He has been actively promoting open knowledge, web standards and the use of open source software in the international library community. Adrian initiated the establishment of a German-speaking working group for [OER metadata](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) within the Competence Center for Interoperable Metadata (KIM) of the German Initiative for Network Information (DINI).
+![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) head of legal affairs and organisation at hbz. He studied law, economy and systems thinking and has more than 15 years of experience within (international) project management for different publishing houses and libraries. His story with OER began 2012 when he saw Susan D’Antoni presenting her vision of an OER World Map at the [World OER Congress](https://oerworldmap.org/resource/urn:uuid:c27c383c-ecab-44e7-be67-24a741586afe) in Paris. Jan is a member of the German Comission for UNESCO and its educational advisory board, he speaks at conferences.
 
-### Johannes Schnettker (Desenvolvedor Front-End)
+#### Felix Ostrowski (Technical Lead)
 
-![Johannes Schnettker](/assets/images/image01.jpg) Johannes é o desenvolvedor front-end do projeto. Together with Felix Link he also develops the underlying UI concepts. He works as a freelance web developer since 2003 and implemented projects for a huge variety of clients and agencies. Lately he focussed on building UI functionalities and responsive layouts. Johannes studied computer- and communication science and is passionate about the intersections between the technical and conceptional aspects of his work.
+![Felix Ostrowski](/assets/images/image00.jpg) Felix ([@literarymachine](https://twitter.com/literarymachine) on Twitter) acts as hbz’s partner in this project. He is a web engineer, Linked Data technologist and knowledge management consultant who has been on the web since the mid-’90s. After graduating in communication studies and computer science he worked as a software developer and repository manager at hbz from 2008 – 2010. He was also a driving force behind the institution’s Linked Open Data (LOD) strategy. In 2010 he moved on to work as a research assistant in a [joint project on digital long term preservation](http://www.lukii.hu-berlin.de/) of the The Berlin School of Library and Information Science, Stanford University Libraries and the German National Library. Since 2013 Felix is the founder and managing director of Berlin based [graphthinking GmbH](http://www.graphthinking.com/).
 
-## Former Members of our Team
+#### Felix Link (Design)
 
-### Philipp von Böselager (desenvolvedor de Back-End)
+![Felix Link](/assets/images/felix-link.png) Felix joined the project in October 2015, being the UI-/frontend-designer of the OER World Map. He studied graphic and communication design from 2006 to 2012. Since 2008 he has been working as a freelance designer for both agencies and own clients, developing and implementing projects in corporate, editorial and web design. He is interested in design as a conceptual and integrated process as well as a characteristic expression of its content.
 
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) no Twitter) é um desenvolvedor de back-end Java no campo da Linguística Computacional (LC). Após ter trabalhado com ferramentas de busca, analisadores, redes neurais e sintetizadores de fala ao longo de seus estudos com LC na Universidade de Cologne, ele continuou a ganhar experência com T. I. em uma empresa alemã voltada para Java. Depois, ele trabalhou como desenvolvedor back-end em uma empresa de eDiscovery, finalmente para encaminhar-se ao espírito de mente aberta da HBZ, ligada à Universidade. Ele está profundamente convencido de que a WWW deve servir para o bem-estar comum e, portanto, ser aberta. Ele realmente ama trabalhar com projetos com os quais se identifica.
+#### Adrian Pohl (Metadata & General Support )
 
-### Karin Driesen (Editor on-line)
+![Adrian Pohl](/assets/images/image09.jpg) Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at the hbz since 2008. He is the metadata and RDF vocabulary expert for the development of hbz's linked open data service “lobid” and also responsible for the project management. He has been actively promoting open knowledge, web standards and the use of open source software in the international library community. Adrian initiated the establishment of a German-speaking working group for [OER metadata](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) within the Competence Center for Interoperable Metadata (KIM) of the German Initiative for Network Information (DINI).
 
-![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin has been working for the OER World Map at hbz from spring 2016 until the end of 2018 as online editor. Antes, ela havia trabalhado para o escritória alemão da O'Reilly Media, editora de livros sobre computador conhecida pelo seu apoio à comunidade do código aberto. Ela tem estudado dois assuntos extremamente diferentes: literatura alemã e geoecologia. Esses temas relacionaram-se às diferentes maneiras de estudar: ler e escrever sozinha sobre a literatura estudada e trabalhar como um time ao compartilhar todos os recursos com os companheiros estudantes de geocologia. Conseguir material escrito por outras pessoas, refiná-lo e passá-lo adiante aos próximos estudantes era muito parecido com o jeito REA. Ela quer continuar nessa toada e ajudar pessoas a encontrarem informação útil e reutilizável.
+### OER World Map Team Alumini
 
-### Dr. Robert Farrow (Comunicação do Projeto)
+- Philipp von Böselager (Back-End Developer)
+- Ben Buschfeld (Design)
+- Karin Driesen (Online Editor)
+- Dr. Robert Farrow (Project Communications)
+- Johannes Schnettker (Front-End Developer)
 
-![Dr. Robert Farrow](/assets/images/image08.jpg) Robert ([@philosopher1978](https://twitter.com/philosopher1978) on Twitter) is an interdisciplinary open education researcher at the Open University, UK who acts as one of the research leads for OER Research Hub and leads the development of OER Impact Map. He has many years of experience in curating and visualizing data about OER activity and discourse, primarily in the Hewlett funded OLnet and OER Research Hub projects. His input to the project focused on generating authentic use cases for the OER Map as well as acting as a conduit for outreach and awareness-building in the OER community.
+### Recorded talks and presentations
 
-### Ben Buschfeld (Design)
-
-![Ben Buschfeld](/assets/images/image02.jpg) Ben has been the frontend-designer of the project until December 2015. He studied communication design from 1990-1994 and is working on the web and digital media since 1995, when he wrote the initial draft and subsequently acted as the art director and project manager of the B2B-platform Baunetz.de. After the launch 1997 he teached as a visiting professor for information design at UDLA in Mexico and founded his own studio <http://www.buschfeld.com> – graphic and interface design in Berlin. Since then he developed a number of publications, corporate identity programs, websites, information portals, and graphical user interfaces – working for clients from various industries, cultural and political institutions. His design work and public engagement was frequently awarded.
+- [2017 OER World Map as a tool for scientists](https://www.youtube.com/watch?v=VLcd41vLDGs)
+- [2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://www.youtube.com/watch?v=s3_zT3l9p-w)
