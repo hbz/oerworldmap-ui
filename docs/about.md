@@ -8,6 +8,8 @@ The OER World Map is the place on the web where anyone involved in Open Educatio
 
 Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
 
+![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
+
 In 2019, after five years of developing, tweaking and tinkering with the OER World Map, the team has put their impact, their goals and challenges under review. We have come up with a renewed vision and a mission that feel like they can be our guiding lights in the future.
 
 ### Our Vision
@@ -23,10 +25,6 @@ We aim to facilitate exchange of data, information, experiences and ideas betwee
 [Create a profile](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) on the World Map and add your own work, events or institution to the World Map to make it even more visible to others.
 
 [Get in touch](mailto:info@oerworldmap.org) with us for all kinds of questions, comments and inquiries.
-
-## Recorded talks and presentations
-- [2017 OER World Map as a tool for scientists](https://www.youtube.com/watch?v=VLcd41vLDGs)
-- [2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://www.youtube.com/watch?v=s3_zT3l9p-w)
 
 ### Team and Partners
 
@@ -56,3 +54,7 @@ Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at th
 - Karin Driesen (Online Editor)
 - Dr. Robert Farrow (Project Communications)
 - Johannes Schnettker (Front-End Developer)
+
+### Recorded talks and presentations
+- [2017 OER World Map as a tool for scientists](https://www.youtube.com/watch?v=VLcd41vLDGs)
+- [2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://www.youtube.com/watch?v=s3_zT3l9p-w)
