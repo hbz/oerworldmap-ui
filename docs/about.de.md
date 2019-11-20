@@ -2,72 +2,69 @@
 title: Über uns
 ---
 
-## Die Vision
+## About the OER World Map
 
-Seit mehr als 10 Jahren werden stetig mehr und mehr Open Educational Resources (OER) geschaffen und verwendet. Die OER World Map sammelt und veranschaulicht Daten zur wachsenden Zahl der Akteure und Aktivitäten im Bereich der offenen Bildung weltweit. Ihr Ziel ist es, die Entwicklung des OER-Ökosystems zu beschleunigen, indem sie ein möglichst umfassendes und aktuelles Bild der OER-Bewegung zeigt. Die dargestellten Informationen können für ganz verschiedene Zwecken verwendet werden, beispielsweise:
+The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work. Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.
 
-- verschiedene Akteure miteinander vernetzen, um die Zusammenarbeit zu erleichtern und um Wissen und Ressourcen zu teilen
-- qualifizierte Listen von Repositorys und anderen OER-Services bereitstellen, um Lehrern und Lernenden zu helfen, passende Bildungsmaterialien zu finden
-- Entscheider durch aussagekräftige Statistiken und Überblicksdarstellungen zur OER-Bewegung und deren Auswirkungen dabei unterstützen, strategischen Entscheidungen zu treffen und zu vertreten
+<!-- ![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
+[2015 Felix Ostrowski presenting the idea in 2015 at ELAG, Sweden](https://www.youtube.com/watch?v=s3_zT3l9p-w)
+<div style="clear:both"></div> -->
 
-Die OER World Map stellt Informationen für die selbstorganisierte Entwicklung der OER-Bewegung bereit. Sie erfasst und zeigt relevante Organisationen, Projekte, Personen und Services. Gleichzeitig unterstützt die Plattform das Netzwerken, das Finden von OER-Sammlungen und das Treffen von Entscheidungen. Als Ganzes kann die OER World Map als eine Art "Steuerzentrale" für die Open Education Community gesehen werden.
+Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
 
-<img style="width:100%;" src="/assets/images/open-control-room.jpg" title="Die OER World Map als &quot;Steuerzentrale&quot; für die Open Education Community" />
+In 2019, after five years of developing, tweaking and tinkering with the OER World Map, the team has put their impact, their goals and challenges under review. We have come up with a renewed vision and a mission that feel like they can be our guiding lights in the future.
 
-Die OER World Map wird entwickelt von [hbz](http://www.hbz-nrw.de) und [graphthinking GmbH](http://www.graphthinking.com) in Verbindung mit der [Open University (UK)](http://www.open.ac.uk/) gefördert von der [William and Flora Hewlett Foundation](http://www.hewlett.org/). Aber sie gehört der weltweiten OER-Community. Durch Einsatz und Ideen auf lokaler Ebene und ein globales Netz aus Partnern und freiwilligen Helfern wird die OER World Map aufgebaut und aktuell gehalten als nützliche Quelle für alle.
+### Our Vision
 
-![hbz](/assets/images/image06.gif) ![graphthinkingGmbH](/assets/images/image10.png) ![The Open University](/assets/images/image07.png) ![The William and Flora Hewlett Foundation](/assets/images/image04.jpg)
+We strive for a world where humans connect, share and collaborate across borders in order to foster democratic participation, social justice and sustainable development. We believe that opening up education - its institutions, its practices and its resources - is necessary to make this happen. The OER World Map contributes to this vision by facilitating the exchange of data, experiences and ideas between open educational actors and communities.
 
-<div style="clear: both;">
-  <p xmlns:dct="http://purl.org/dc/terms/" >
-    Soweit rechtlich möglich überträgt das <a rel="dct:publisher"
-      href="https://www.hbz-nrw.de/">
-      <span property="dct:title">hbz</span></a> jedwedes Copyright, sowie verwandte Rechte <span property="dct:title">OER World Map data</span>.
-    <a rel="license"
-      href="http://creativecommons.org/publicdomain/zero/1.0/">
-      <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none; float: none; margin: 0; position: relative; top: 10px;" alt="CC0" />
-    </a>
-  </p>
-</div>
+### Our Mission
 
-* * *
+We aim to facilitate exchange of data, information, experiences and ideas between different people and Open Education communities. We believe that Open Education has the potential to enhance education for all, to foster democratic participation, sustainable development and social justice. Helping others to open and transform education, its institutions, practices and resources is what gets us going every morning.
 
-## Team
+## Get involved
 
-### Felix Link (Design)
+- [Browse through the World Map](https://oerworldmap.org/resource/) and the many excellent projects, people and institutions who care about Open Education as much as we do.
+- [Create a profile](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) on the World Map and add your own work, events or institution to the World Map to make it even more visible to others.
+- [Get in touch](mailto:info@oerworldmap.org) with us for all kinds of questions, comments and inquiries.
 
-![Felix Link](/assets/images/felix-link.png) Felix trat im Oktober 2015 dem Projekt bei, als UI-/Frontend-Designer der OER World Map. Er studierte Grafik- und Kommunikationsdesign von 2006 bis 2012. Seit 2008 arbeitet er als freiberuflicher Designer für Agenturen und eigene Kunden, entwickelt und implementiert Projekte in Corporate, Redaktion und Webdesign. Er ist an der Gestaltung als konzeptioneller und integrierter Prozess sowie an einem charakteristischen Ausdruck seines Inhalts interessiert.
+<!-- ## Impressions
 
-### Jan Neumann (Projektmanagement)
+<img src="https://pbs.twimg.com/media/D3tqb0OUIAAolTQ?format=jpg&name=4096x4096" style="max-width:400px;" />
+*https://twitter.com/philosopher1978/status/1115602400507621380*
+<br style="clear:both;"> -->
 
-![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) bei Twitter) arbeitet als Leiter Recht und Organisation am hbz. Er hat Jura, Wirtschaft und Systemtheorie studiert und mehr als 10 Jahre Erfahrung im (internationalen) Projektmanagment in verschiedenen Verlagen und Bibliotheken. Seine Geschichte mit OER begann 2012 als er Susan D’Antoni ihre Vision einer OER-Weltkarte auf dem [World OER Congress](https://oerworldmap.org/resource/urn:uuid:c27c383c-ecab-44e7-be67-24a741586afe) in Paris vorstellen sah. Jan ist Mitglied des Fachausschuss Bildung der Deutschen UNESCO Kommission, spricht häufig auf Konferenzen und bloggt über OER auf [OERSYS.org](https://oersys.org/).
+### Team and Partners
 
-### Felix Ostrowski (Technischer Leiter)
+The OER World Map is being built by [hbz](http://www.hbz-nrw.de) and [graphthinking GmbH](http://www.graphthinking.com) in association with [The Open University (UK)](http://www.open.ac.uk/) funded by [The William and Flora Hewlett Foundation](http://www.hewlett.org/).
 
-![Felix Ostrowski](/assets/images/image00.jpg) Felix ([@literarymachine](https://twitter.com/literarymachine) bei Twitter) ist bei diesem Projekt der Partner des hbz. Er ist Web-Entwickler, Linked-Data-Spezialist und Conultant für Wissensmanagement. Er ist seit Mitte der 90er im Web aktiv. Nachdem er sein Studium der Kommunikations- und Computerwissenschaft abgeschlossen hat, hat er von 2008 bis 2010 am hbz als Software-Entwickler und Repository-Manager gearbeitet. Er war die treibende Kraft hinter der Linked-Open-Data-(LOD)-Strategie des hbz. 2010 wechselte er er nach Berlin und arbeitete dort als wissenschaftlicher Mitarbeiter im [joint project on digital long term preservation](http://www.lukii.hu-berlin.de/) des Instituts für Bibliotheks- und Informationswissenschaft, der Bibliothek der Stanford University und der Deutschen Nationalbibliothek. 2013 gründete Felix die in Berlin ansässige [graphthinking GmbH](http://www.graphthinking.com/), als deren Geschäftsführer er fungiert.
+We collaborate with open educators across the world to ensure the inclusion of diverse perspectives and social backgrounds. We are aware that the current core team member list is an all-male-list.
 
-### Adrian Pohl (Metadaten & allgemeiner Support)
+#### Jan Neumann, hbz (Project Lead)
 
-![Adrian Pohl](/assets/images/image09.jpg) Adrian ([@acka47](https://twitter.com/acka47) bei Twitter) arbeitet seit 2008 am hbz. Er ist spezialisiert auf den Bereich Datenmodellierung und RDF-Vokabulare und Projekt-Manager für den Linked-Open-Data-Dienst "lobid" des hbz. Seit Jahren fördert Adrian in der Bibliothekswelt die Entwicklung und Implementierung von offenem Wissen und Webstandards und die Nutzung von Open-Source-Software. Adrian initiierte die Bildung einer deutschsprachigen Arbeitsgruppe für [OER Metadaten]](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) innerhalb des Kompetenzzentrums Interoperable Metadaten (KIM) der Deutschen Initiative für Netzwerkinformation (DINI).
+![Jan Neumann](/assets/images/image03.jpg) Jan ([@trugwaldsaenger](https://twitter.com/trugwaldsaenger) on Twitter) head of legal affairs and organisation at hbz. He studied law, economy and systems thinking and has more than 15 years of experience within (international) project management for different publishing houses and libraries. His story with OER began 2012 when he saw Susan D’Antoni presenting her vision of an OER World Map at the [World OER Congress](https://oerworldmap.org/resource/urn:uuid:c27c383c-ecab-44e7-be67-24a741586afe) in Paris. Jan is a member of the German Comission for UNESCO and its educational advisory board, he speaks at conferences.
 
-### Johannes Schnettker (Front-End Entwickler)
+#### Felix Ostrowski (Technical Lead)
 
-![Johannes Schnettker](/assets/images/image01.jpg) Johannes ist der Entwickler des Projekts. Zusammen mit Felix Link entwickelt er auch die zugrunde liegenden UI-Konzepte. Er arbeitet seit 2003 als selbständiger Web-Entwickler und hat eine Vielzahl von Projekten für eine breite Palette von Kunden und Agenturen durchgeführt. In letzter Zeit hat er sich auf responsive Layouts und UI-Funktionalitäten spezialisiert. Johannes hat Computer- und Kommunikationswissenschaften studiert und liebt die Kombination technischer und konzeptioneller Aspekte bei seiner Arbeit.
+![Felix Ostrowski](/assets/images/image00.jpg) Felix ([@literarymachine](https://twitter.com/literarymachine) on Twitter) acts as hbz’s partner in this project. He is a web engineer, Linked Data technologist and knowledge management consultant who has been on the web since the mid-’90s. After graduating in communication studies and computer science he worked as a software developer and repository manager at hbz from 2008 – 2010. He was also a driving force behind the institution’s Linked Open Data (LOD) strategy. In 2010 he moved on to work as a research assistant in a [joint project on digital long term preservation](http://www.lukii.hu-berlin.de/) of the The Berlin School of Library and Information Science, Stanford University Libraries and the German National Library. Since 2013 Felix is the founder and managing director of Berlin based [graphthinking GmbH](http://www.graphthinking.com/).
 
-## Frühere Teammitglieder
+#### Felix Link (Design)
 
-### Philipp von Böselager (Backend-Entwickler)
+![Felix Link](/assets/images/felix-link.png) Felix joined the project in October 2015, being the UI-/frontend-designer of the OER World Map. He studied graphic and communication design from 2006 to 2012. Since 2008 he has been working as a freelance designer for both agencies and own clients, developing and implementing projects in corporate, editorial and web design. He is interested in design as a conceptual and integrated process as well as a characteristic expression of its content.
 
-![Philipp von Böselager](/assets/images/image05.png) Philipp ([@boesephil](https://twitter.com/boesephil) auf Twitter) entwickelt als gelernter Computerlinguist Java im Bereich Backend für die OER World Map und das hbz. In seinem Studium hat er sich unter anderem mit Suchmaschinen, Parsern, Neuronalen Netzen und Sprachsynthese befasst. Zwischenzeitlich hat er allgemeine IT-Projekterfahrung und Java-Backend-Erfahrung in privatwirtschaftlichen Unternehmen gesammelt, bevor er schließlich in die wirtschaftlich freiere universitätsnahe Welt zurückgekehrt ist, um beim hbz zu arbeiten. Er ist fest davon überzeugt, dass es eine unbedingte Aufgabe des WWW ist, den allgemeinen Lebensstandard zu erhöhen und deswegen offen und frei zugänglich zu sein. Philipp schätzt es sehr, an einem Projekt arbeiten zu können, mit dem er sich wirklich identifiziert.
+#### Adrian Pohl (Metadata & General Support )
 
-### Karin Driesen (Online-Redakteurin)
+![Adrian Pohl](/assets/images/image09.jpg) Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at the hbz since 2008. He is the metadata and RDF vocabulary expert for the development of hbz's linked open data service “lobid” and also responsible for the project management. He has been actively promoting open knowledge, web standards and the use of open source software in the international library community. Adrian initiated the establishment of a German-speaking working group for [OER metadata](https://wiki.dnb.de/display/DINIAGKIM/OER-Metadaten-Gruppe) within the Competence Center for Interoperable Metadata (KIM) of the German Initiative for Network Information (DINI).
 
-![Karin Driesen](/assets/images/Karin-Driesen-130.jpg) Karin arbeitete von Frühjahr 2016 bis Ende 2018 beim hbz für die OER World Map. Vorher hat sie für den O'Reilly Verlag gearbeitet, einen Fachbuchverlag, der für sein Engagement im Bereich Open Source bekannt ist. Sie hat zwei sehr unterschiedliche Fächer studiert: Literaturwissenschaft und Geoökologie. Diese beiden Studiengänge waren ebenso unterschiedlich in der Art, wie studiert wurde: Lesen und Schreiben der eigenen Texte weitgehend für sich allein für Literaturwissenschaft und gemeinsames Lernen und Teilen aller Materialien mit den Mitstudenten in Geoökologie. Dieses von den anderen Studenten Material bekommen, es erweitern und ausarbeiten und an die nachfolgenden Studenten weitergeben war wie eine frühe Form von Open Educational Resources. Auf diesem Weg möchte sie weiter gehen und andere dabei unterstützen, nützliche und weiterverwendbare Materialien zu finden.
+### OER World Map Team Alumini
 
-### Dr. Robert Farrow (Projekt-Kommunikation)
+- Philipp von Böselager (Back-End Developer)
+- Ben Buschfeld (Design)
+- Karin Driesen (Online Editor)
+- Dr. Robert Farrow (Project Communications)
+- Johannes Schnettker (Front-End Developer)
 
-![Dr. Robert Farrow](/assets/images/image08.jpg) Robert ([@philosopher1978](https://twitter.com/philosopher1978) on Twitter) is an interdisciplinary open education researcher at the Open University, UK who acts as one of the research leads for OER Research Hub and leads the development of OER Impact Map. He has many years of experience in curating and visualizing data about OER activity and discourse, primarily in the Hewlett funded OLnet and OER Research Hub projects. His input to the project focused on generating authentic use cases for the OER Map as well as acting as a conduit for outreach and awareness-building in the OER community.
+### Recorded talks and presentations
 
-### Ben Buschfeld (Design)
-
-![Ben Buschfeld](/assets/images/image02.jpg) Ben war bis Dezember 2015 Frontend-Designer für das Projekt. Er hat von 1990 bis 1994 Kommunikationsdesign studiert und arbeitet seit 1995 im Bereich Web und digitale Medien. Unter anderem hat er die B2B-Plattform baunetz.de entworfen und war dort als Art Director und Projektmanager tätig. Anschließend lehrte er als Gastprofessor Informationsdesign an der UDLA in Mexiko und gründete dann sein eigenes Studio für Grafik und Interface-Design <http://www.buschfeld.com> in Berlin. Seit dem hat er eine Reihe von Publikationen, Coroparate-Identity-Programmen, Websites, Informationsportalen und Benutzeroberflächen entwickelt. Er arbeitet für Kunden aus verschiedenen Industriezweigen und für kulturelle und politische Institutionen. Er wurde für seine Tätigkeit als Designer und für sein Engagement mehrfach ausgezeichnet.
+- [2017 OER World Map as a tool for scientists](https://www.youtube.com/watch?v=VLcd41vLDGs)
+- [2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://www.youtube.com/watch?v=s3_zT3l9p-w)
