@@ -22,11 +22,15 @@ We strive for a world where humans connect, share and collaborate across borders
 
 We aim to facilitate exchange of data, information, experiences and ideas between different people and Open Education communities. We believe that Open Education has the potential to enhance education for all, to foster democratic participation, sustainable development and social justice. Helping others to open and transform education, its institutions, practices and resources is what gets us going every morning.
 
+## Get involved
+
 - [Browse through the World Map](https://oerworldmap.org/resource/) and the many excellent projects, people and institutions who care about Open Education as much as we do.
 - [Create a profile](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) on the World Map and add your own work, events or institution to the World Map to make it even more visible to others.
 - [Get in touch](mailto:info@oerworldmap.org) with us for all kinds of questions, comments and inquiries.
 
-![](https://pbs.twimg.com/media/D3tqb0OUIAAolTQ?format=jpg&name=4096x4096)
+## Impressions
+
+<img src="https://pbs.twimg.com/media/D3tqb0OUIAAolTQ?format=jpg&name=4096x4096" style="max-width:400px;" />
 *https://twitter.com/philosopher1978/status/1115602400507621380*
 <br style="clear:both;">
 
