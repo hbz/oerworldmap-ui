@@ -6,9 +6,10 @@ title: About
 
 The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work. Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.
 
-Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
-
 ![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
+[2015 Felix Ostrowski presenting the idea in 2015 2015 at ELAG, Sweden](https://www.youtube.com/watch?v=s3_zT3l9p-w)
+
+Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
 
 In 2019, after five years of developing, tweaking and tinkering with the OER World Map, the team has put their impact, their goals and challenges under review. We have come up with a renewed vision and a mission that feel like they can be our guiding lights in the future.
 
