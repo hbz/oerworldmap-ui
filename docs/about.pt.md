@@ -16,17 +16,17 @@ Em 2019, após cinco anos de desenvolvimento e de ajustes com o Mapa Global REA,
 
 ### Nossa visão
 
-We strive for a world where humans connect, share and collaborate across borders in order to foster democratic participation, social justice and sustainable development. We believe that opening up education - its institutions, its practices and its resources - is necessary to make this happen. The OER World Map contributes to this vision by facilitating the exchange of data, experiences and ideas between open educational actors and communities.
+Lutamos por um mundo em que os seres humanos possam se conectar, partilhar e colaborar entre fronteiras, a fim de promoverem participação democrática, a justiça social e o desenvolvimento sustentável. Acreditamos que a abertura da educação - as suas instituições, as suas práticas e os seus recursos - é necessária para que isso possa acontecer. The OER World Map contributes to this vision by facilitating the exchange of data, experiences and ideas between open educational actors and communities.
 
-### Our Mission
+### Nossa Missão
 
-We aim to facilitate exchange of data, information, experiences and ideas between different people and Open Education communities. We believe that Open Education has the potential to enhance education for all, to foster democratic participation, sustainable development and social justice. Helping others to open and transform education, its institutions, practices and resources is what gets us going every morning.
+We aim to facilitate exchange of data, information, experiences and ideas between different people and Open Education communities. Acreditamos que a Educação Aberta tem o potencial para contribuir para a promoção de uma educação para todos, a participação democrática, o desenvolvimento sustentável e a justiça social. Ajudar outros a abrir e transformar a educação, suas instituições, práticas e recursos é o que nos motiva.
 
-## Get involved
+## Participe
 
-- [Browse through the World Map](https://oerworldmap.org/resource/) and the many excellent projects, people and institutions who care about Open Education as much as we do.
-- [Create a profile](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) on the World Map and add your own work, events or institution to the World Map to make it even more visible to others.
-- [Get in touch](mailto:info@oerworldmap.org) with us for all kinds of questions, comments and inquiries.
+- [Navegue pelo Mapa](https://oerworldmap.org/resource/) e pelos muitos excelentes projetos, pessoas e instituições que se preocupam tanto com a Educação Aberta como nós.
+- [Crie um perfil](https://oerworldmap.org/auth/realms/oerworldmap/login-actions/registration?client_id=account&tab_id=Xzm_Qs0qD4g) no Mapa e adicione seu próprio trabalho, eventos ou instituição, para fazer com que essas informações ganhem visibilidade.
+- [Entre em contato com](mailto:info@oerworldmap.org) para todos os tipos de perguntas, comentários e dúvidas.
 
 <!-- ## Impressions
 
@@ -34,11 +34,11 @@ We aim to facilitate exchange of data, information, experiences and ideas betwee
 *https://twitter.com/philosopher1978/status/1115602400507621380*
 <br style="clear:both;"> -->
 
-## Team and Partners
+## Equipe e Parceiros
 
-The OER World Map is being built by [hbz](http://www.hbz-nrw.de) and [graphthinking GmbH](http://www.graphthinking.com) in association with [The Open University (UK)](http://www.open.ac.uk/) funded by [The William and Flora Hewlett Foundation](http://www.hewlett.org/).
+O Mapa Global REA está sendo construído pela [ hbz](http://www.hbz-nrw.de) e [ graphthinking GmbH](http://www.graphthinking.com), em associação com [ The Open University (Reino Unido)](http://www.open.ac.uk/), financiado pela [ William e Flora Hewlett Foundation](http://www.hewlett.org/).
 
-We collaborate with open educators across the world to ensure the inclusion of diverse perspectives and backgrounds. We are aware that the current core team is all-male and euro-centric and we aim to take steps that help us ensure the inclusion of diverse perspectives on Open Education and our work.
+Colaboramos com educadores abertos no mundo todo para garantir a inclusão de perspectivas e experiências prévias. Estamos cientes de que a equipe central atual é exclusivamente composta de homens e eurocêntrica, e pretendemos tomar medidas que nos ajudem a assegurar a inclusão de perspectivas diversas sobre educação aberta e o nosso trabalho.
 
 #### Jan Neumann, hbz (Project Lead)
 
