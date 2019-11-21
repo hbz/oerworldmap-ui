@@ -2,7 +2,7 @@
 title: Sobre
 ---
 
-## About the OER World Map
+## Sobre o Mapa Global REA
 
 The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work. Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.
 
