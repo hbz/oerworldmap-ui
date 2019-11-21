@@ -4,17 +4,17 @@ title: Sobre
 
 ## Sobre o Mapa Global REA
 
-The OER World Map is the place on the web where anyone involved in Open Education can share information, experiences and ideas related to their work. Anyone can contribute to the information on the World Map and anyone can access the information on the World Map.
+O Mapa Global REA é o lugar na web onde qualquer pessoa envolvida com a Educação Aberta pode compartilhar informações, experiências e ideias relacionadas com o seu trabalho. Qualquer um pode contribuir com as informações no Mapa e qualquer um pode acessar às informações contidas no Mapa.
 
 <!-- ![2015 Felix Ostrowski - ELAG 2015 I Building the OER World Map](https://i.imgur.com/fQWKJMm.png)
 [2015 Felix Ostrowski presenting the idea in 2015 at ELAG, Sweden](https://www.youtube.com/watch?v=s3_zT3l9p-w)
 <div style="clear:both"></div> -->
 
-Since the OER World Map’s beginnings in 2014, the team and the partners of the OER World Map are striving to make Open Educational Resources (OER), related projects, actors, data and events visible on a global scale. The World Map is being built by hbz and graphthinking GmbH in association with The Open University (UK) funded by The William and Flora Hewlett Foundation.
+Desde o início do Mapa Global REA em 2014, a equipe e os parceiros do Mapa Global REA estão lutando para fazer com que Recursos Educacionais Abertos (REA), projetos relacionados, atores, dados e eventos tenham visibilidade em uma escala global. O Mapa Mundial está sendo construído pela hbz e graphthinking GmbH em associação com a Open University (Inglaterra) e é financiado pela Fundação William e Flora Hewlett.
 
-In 2019, after five years of developing, tweaking and tinkering with the OER World Map, the team has put their impact, their goals and challenges under review. We have come up with a renewed vision and a mission that feel like they can be our guiding lights in the future.
+Em 2019, após cinco anos de desenvolvimento e de ajustes com o Mapa Global REA, a equipe revisou o impacto, seus objetivos e desafios. Chegamos a uma nova visão e a uma missão que sentimos, pode ser a nossa orientação para o futuro.
 
-### Our Vision
+### Nossa visão
 
 We strive for a world where humans connect, share and collaborate across borders in order to foster democratic participation, social justice and sustainable development. We believe that opening up education - its institutions, its practices and its resources - is necessary to make this happen. The OER World Map contributes to this vision by facilitating the exchange of data, experiences and ideas between open educational actors and communities.
 
