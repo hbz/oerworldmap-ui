@@ -301,7 +301,7 @@
   "menu.most_liked": "Most liked",
   "menu.my_entries": "My entries",
   "menu.add": "Add",
-  "menu.hint": "The OER World Map collects data related to Open Educational Resources (OER) and Open Education as described in the <a href='http://www.capetowndeclaration.org/' target='_blank' rel='noopener noreferrer'>Cape Town Declaration</a> and the 2012 <a target='_blank' rel='noopener noreferrer' href='http://www.unesco.org/new/fileadmin/MULTIMEDIA/HQ/CI/CI/pdf/Events/English_Paris_OER_Declaration.pdf'>OER Paris Declaration</a>. Please ad only related data. If not obvious, please outline the reference to OER in the description field.",
+  "menu.hint": "The OER World Map collects data related to Open Educational Resources (OER) and Open Education as described in the <a href='http://www.capetowndeclaration.org/' target='_blank' rel='noopener noreferrer'>Cape Town Declaration</a> and the 2012 <a target='_blank' rel='noopener noreferrer' href='http://www.unesco.org/new/fileadmin/MULTIMEDIA/HQ/CI/CI/pdf/Events/English_Paris_OER_Declaration.pdf'>OER Paris Declaration</a>. Please add only related data. If not obvious, please outline the reference to OER in the description field.",
   "menu.add.subtitle": "What kind of entry would you like to add?",
   "menu.info": "Info",
   "menu.info.topical": "Topical",
