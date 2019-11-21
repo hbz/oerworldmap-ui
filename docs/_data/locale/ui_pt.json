@@ -301,7 +301,7 @@
   "menu.most_liked": "Mais curtidas",
   "menu.my_entries": "Meus Itens",
   "menu.add": "Adicionar",
-  "menu.hint": "O Mapa Global REA agrega dados relacionados a Recursos Educacionais Abertos (REA) e Educação Aberta conforme descrito na <a href='http://www.capetowndeclaration.org/' target='_blank' rel='noopener noreferrer'>Declaração da Cidade do Cabo</a> e a <a target='_blank' rel='noopener noreferrer' href='http://www.unesco.org/new/fileadmin/MULTIMEDIA/HQ/CI/CI/pdf/Events/English_Paris_OER_Declaration.pdf'>Declaração REA de Paris de 2012</a>. Por favor adicione dados relacionados à esse tema. Se não for clara a relação, por favor defina a referência à REA no campo de descrição do item adicionado.",
+  "menu.hint": "The OER World Map collects data related to Open Educational Resources (OER) and Open Education as described in the <a href='http://www.capetowndeclaration.org/' target='_blank' rel='noopener noreferrer'>Cape Town Declaration</a> and the 2012 <a target='_blank' rel='noopener noreferrer' href='http://www.unesco.org/new/fileadmin/MULTIMEDIA/HQ/CI/CI/pdf/Events/English_Paris_OER_Declaration.pdf'>OER Paris Declaration</a>. Please add only related data. If not obvious, please outline the reference to OER in the description field.",
   "menu.add.subtitle": "Que tipo de entrada gostaria de adicionar?",
   "menu.info": "Informações",
   "menu.info.topical": "Assunto",
