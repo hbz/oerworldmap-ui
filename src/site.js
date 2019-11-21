@@ -341,7 +341,8 @@ const createBlogPost = (() => {
 
     if (blogPostContainer) {
       try {
-        const rawResponse = await fetch('https://cors-anywhere.herokuapp.com/https://oerworldmap.wordpress.com/feed/', {
+        //const rawResponse = await fetch('https://cors-anywhere.herokuapp.com/https://oerworldmap.wordpress.com/feed/', {
+        const rawResponse = await fetch('https://blog.oerworldmap.org/feed/', {
           headers: {
             accept: 'application/rss+xml',
           },
@@ -391,7 +392,7 @@ const createBlogPost = (() => {
               </div>
 
               <div className="center">
-                <a href="/about" className="btnLanding">About</a>
+                <a href="https://blog.oerworldmap.org/" className="btnLanding" target="_blank">All blog posts</a>
               </div>
 
             </div>
