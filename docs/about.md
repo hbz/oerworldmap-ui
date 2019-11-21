@@ -34,7 +34,7 @@ We aim to facilitate exchange of data, information, experiences and ideas betwee
 *https://twitter.com/philosopher1978/status/1115602400507621380*
 <br style="clear:both;"> -->
 
-### Team and Partners
+## Team and Partners
 
 The OER World Map is being built by [hbz](http://www.hbz-nrw.de) and [graphthinking GmbH](http://www.graphthinking.com) in association with [The Open University (UK)](http://www.open.ac.uk/) funded by [The William and Flora Hewlett Foundation](http://www.hewlett.org/).
 
@@ -65,7 +65,7 @@ Adrian ([@acka47](https://twitter.com/acka47) on Twitter) has been working at th
 <br style="clear:both" />
 
 #### Matthias Andrasch (Webdevelopment & General Support)
-Matthias ([@m_andrasch](https://twitter.com/m_andrasch) on Twitter) studied Media Education and learned Webdevelopment early in his life. He is fascinated by Open movements such as Open Source, Open Science, Open Education and Open Educational Resources.
+Matthias ([@m_andrasch](https://twitter.com/m_andrasch) on Twitter) studied Media Education and learned Webdevelopment early in his life. He is fascinated by Open movements such as Open Source, Open Science, Open Education and Open Educational Resources. Before working in the hbz he experienced challenges regarding OER first-hand while working in the OERlabs project.
 
 <br style="clear:both" />
 
