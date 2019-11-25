@@ -16,7 +16,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Public Domain Dedication",
+          "@value": "Marca de Domínio Público Creative Commons",
           "@language": "pt"
         }
       ],
@@ -47,7 +47,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Attribution",
+          "@value": "Creative Commons Atribuição",
           "@language": "pt"
         }
       ],
@@ -78,7 +78,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Attribution Share-Alike",
+          "@value": "Creative Commons Atribuição-CompartilhaIgual",
           "@language": "pt"
         }
       ],
@@ -109,7 +109,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Attribution Non-Commercial",
+          "@value": "Creative Commons Atribuição-NãoComercial",
           "@language": "pt"
         }
       ],
@@ -140,7 +140,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Attribution Non-Commercial Share-Alike",
+          "@value": "Creative Commons Atribuição-NãoComercial-CompartilhaIgual",
           "@language": "pt"
         }
       ],
@@ -171,7 +171,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Attribution No-Derivatives",
+          "@value": "Creative Commons Atribuição-SemDerivações",
           "@language": "pt"
         }
       ],
@@ -202,7 +202,7 @@
           "@language": "de"
         },
         {
-          "@value": "Creative Commons Attribution Non-Commercial No-Derivatives",
+          "@value": "Creative Commons Atribuição-NãoComercial-SemDerivações",
           "@language": "pt"
         }
       ],
@@ -233,7 +233,7 @@
           "@language": "de"
         },
         {
-          "@value": "Other (Public Domain)",
+          "@value": "Outro (Domínio Público)",
           "@language": "pt"
         }
       ],
@@ -264,7 +264,7 @@
           "@language": "de"
         },
         {
-          "@value": "Other (Attribution)",
+          "@value": "Outro (Atribuição)",
           "@language": "pt"
         }
       ],
@@ -295,7 +295,7 @@
           "@language": "de"
         },
         {
-          "@value": "Other (Share-Alike)",
+          "@value": "Outro (Compartilha Igual)",
           "@language": "pt"
         }
       ],
@@ -326,7 +326,7 @@
           "@language": "de"
         },
         {
-          "@value": "Other (Non-Commercial)",
+          "@value": "Outro (Não-Comercial)",
           "@language": "pt"
         }
       ],
@@ -357,7 +357,7 @@
           "@language": "de"
         },
         {
-          "@value": "Other (No-Derivatives)",
+          "@value": "Outro (Sem Derivações)",
           "@language": "pt"
         }
       ],
@@ -388,7 +388,7 @@
           "@language": "de"
         },
         {
-          "@value": "Copyright",
+          "@value": "Todos os direitos reservados",
           "@language": "pt"
         }
       ],
@@ -419,7 +419,7 @@
           "@language": "de"
         },
         {
-          "@value": "Non-CC open license",
+          "@value": "Licença aberta que não é CC",
           "@language": "pt"
         }
       ],
@@ -450,7 +450,7 @@
           "@language": "de"
         },
         {
-          "@value": "Unspecified",
+          "@value": "Não especificado",
           "@language": "pt"
         }
       ],
