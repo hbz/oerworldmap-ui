@@ -219,11 +219,11 @@ export const updateUser = async () => {
 
 export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy']
 
-export const isNode = (typeof module === 'object' && module.exports)
+export const isNode = () => (typeof window === 'undefined')
 
 export const urlParser = (str) => {
   try {
-    if (isNode) {
+    if (isNode()) {
       const { URL } = require('url')
       return new URL(str)
     }
