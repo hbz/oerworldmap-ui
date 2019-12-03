@@ -17,6 +17,10 @@
         {
           "@language": "de",
           "@value": "Frühkindliche Erziehung"
+        },
+        {
+          "@language": "pt",
+          "@value": "Ensino Infantil"
         }
       ],
       "topConceptOf": {
@@ -37,6 +41,10 @@
         {
           "@language": "de",
           "@value": "Schule"
+        },
+        {
+          "@language": "pt",
+          "@value": "Escola"
         }
       ],
       "topConceptOf": {
@@ -57,6 +65,10 @@
         {
           "@language": "de",
           "@value": "Hochschule"
+        },
+        {
+          "@language": "pt",
+          "@value": "Ensino Superior"
         }
       ],
       "topConceptOf": {
@@ -77,6 +89,10 @@
         {
           "@language": "de",
           "@value": "Berufliche Bildung"
+        },
+        {
+          "@language": "pt",
+          "@value": "Ensino Profissional"
         }
       ],
       "topConceptOf": {
@@ -97,6 +113,10 @@
         {
           "@language": "de",
           "@value": "Weiterbildung"
+        },
+        {
+          "@language": "pt",
+          "@value": "Formação Continuada"
         }
       ],
       "topConceptOf": {
@@ -117,6 +137,10 @@
         {
           "@language": "de",
           "@value": "Sektorenübergreifend"
+        },
+        {
+          "@language": "pt",
+          "@value": "Multisetor"
         }
       ],
       "topConceptOf": {
