@@ -1,7 +1,17 @@
 import Polyglot from 'node-polyglot'
 import moment from 'moment'
 
-import { getEntryByLocales } from './common'
+const getEntryByLocales = (locales, key) => {
+  let localesString = false
+  // eslint-disable-next-line no-restricted-syntax
+  for (const i in locales) {
+    localesString = key.find(value => value['@language'] === locales[i])
+    if (localesString) {
+      return localesString['@value']
+    }
+  }
+  return key[0]['@value']
+}
 
 export default (locales, phrases) => {
   const polyglot = new Polyglot({
