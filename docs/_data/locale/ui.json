@@ -63,7 +63,7 @@
   "ResourceIndex.Article.subtitle.originallyPublished": "This article was originally published as <em>%{exampleOfWork}</em> at",
   "ResourceIndex.GeoCoordinates.edit.geoCoordinates": "Geo Coordinates",
   "ResourceIndex.Grant.edit.grant": "Grant",
-  "ResourceIndex.Person.edit.message": "This is your personal profile. We appreciate very much if you want to share information about yourself with the OER community.",
+  "ResourceIndex.Person.edit.message": "Add a few details about yourself, your work and your expertise in just a few steps. Hit \"publish\" and others will find you and your work on the World Map!",
   "ResourceIndex.PostalAddress.edit.address": "Address",
   "ResourceIndex.Service.edit.info": "The address of a service is inherited from the provider. That's why it's not shown per default. Only activate it, if this service is run in a different place then the provider is located.",
   "ResourceIndex.Service.edit.readMore": "Read more: <a href=\"https://github.com/hbz/oerworldmap/wiki/FAQs-for-OER-World-Map-editors#how-to-add-locations\">FAQ Chapter: How to add locations?</a>",
