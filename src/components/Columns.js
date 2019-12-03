@@ -28,26 +28,6 @@ class Columns extends React.Component {
         target: '.ResourceIndex',
         content: (
           <div>
-            <img width="100%" src="https://user-images.githubusercontent.com/1938043/63678812-48dc8200-c7f0-11e9-88cd-b87bad187a15.jpg" alt="OERde17-Camp-Tilman-Vogler-Tag-1" />
-            <div style={{ textAlign: 'right' }}>
-              <small>{translate('Tour.intro1')}</small>
-              &nbsp;
-              <small><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></small>
-            </div>
-            <h3>{translate('Tour.intro2')}</h3>
-            <p>
-              {translate('Tour.intro3')}
-            </p>
-            <p>
-              {translate('Tour.intro4')}
-            </p>
-          </div>),
-        placement: 'center',
-      },
-      {
-        target: '.ResourceIndex',
-        content: (
-          <div>
             <p>
               {translate('Tour.types1')}
             </p>
@@ -94,7 +74,6 @@ class Columns extends React.Component {
         content: (
           <div>
             <p>{translate('Tour.map1')}</p>
-            <p>{translate('Tour.map2')}</p>
             <p>{translate('Tour.map3')}</p>
             <img width="100%" src="https://user-images.githubusercontent.com/1938043/64237255-4539b100-cefc-11e9-9fff-4ba6c6d1c2be.gif" alt="Click intro Brazil" />
           </div>

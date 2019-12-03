@@ -217,7 +217,7 @@ class Map extends React.Component {
         },
       })
 
-      this.updatePoints()
+      this.updatePoints(iso3166, region)
 
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
@@ -300,7 +300,7 @@ class Map extends React.Component {
     this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
-    this.updatePoints()
+    this.updatePoints(nextProps.iso3166, nextProps.region)
   }
 
   componentWillUnmount() {
@@ -835,7 +835,7 @@ class Map extends React.Component {
     }
   }
 
-  async updatePoints() {
+  async updatePoints(iso3166, region) {
     const layers = ['points', 'Events', 'EventsGlow']
     layers.map(layerName => this.animateCircleLayer(layerName, false))
     this.map.getSource('eventsSource').setData(emptyGeometry)
@@ -895,6 +895,22 @@ class Map extends React.Component {
           },
         })
       }
+    }
+
+    if (iso3166) {
+      query.query.bool.filter.push({
+        term: {
+          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+        },
+      })
+    }
+
+    if (region) {
+      query.query.bool.filter.push({
+        term: {
+          'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+        },
+      })
     }
 
     if (Object.keys(filters).length) {

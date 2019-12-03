@@ -1,2 +1,7 @@
 docs/_site/assets
 dist
+dev
+node_modules
+npm-debug.log
+docs/_site/
+docs/.jekyll-metadata

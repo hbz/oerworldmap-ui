@@ -14,6 +14,10 @@
         {
           "@value": "Assessment",
           "@language": "de"
+        },
+        {
+          "@value": "Avaliação",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -34,6 +38,10 @@
         {
           "@value": "Contentproduktion",
           "@language": "de"
+        },
+        {
+          "@value": "Autoria",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -54,6 +62,10 @@
         {
           "@value": "Business-Model-Entwicklung",
           "@language": "de"
+        },
+        {
+          "@value": "Desenvolvimento de Modelos de Negócio",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -74,6 +86,10 @@
         {
           "@value": "Community Development",
           "@language": "de"
+        },
+        {
+          "@value": "Desenvolvimento de Comunidades",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -94,6 +110,10 @@
         {
           "@value": "Entwicklungszusammenarbeit",
           "@language": "de"
+        },
+        {
+          "@value": "Desenvolvimento",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -114,6 +134,10 @@
         {
           "@value": "Fundraising",
           "@language": "de"
+        },
+        {
+          "@value": "Captação de recursos",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -134,6 +158,10 @@
         {
           "@value": "Didaktisches Design",
           "@language": "de"
+        },
+        {
+          "@value": "Design Instrucional",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -154,6 +182,10 @@
         {
           "@value": "Wissensmanagement",
           "@language": "de"
+        },
+        {
+          "@value": "Gestão do Conhecimento",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -174,6 +206,10 @@
         {
           "@value": "Recht & Compliance",
           "@language": "de"
+        },
+        {
+          "@value": "Jurídico e Compliance",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -194,6 +230,10 @@
         {
           "@value": "Lizenzen & Copyright",
           "@language": "de"
+        },
+        {
+          "@value": "Licenciamento e Direitos Autorais",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -214,6 +254,10 @@
         {
           "@value": "Lebenslanges Lernen",
           "@language": "de"
+        },
+        {
+          "@value": "Aprendizagem ao longo da vida",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -234,6 +278,10 @@
         {
           "@value": "Management",
           "@language": "de"
+        },
+        {
+          "@value": "Gestão",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -254,6 +302,10 @@
         {
           "@value": "Open Educational Practices",
           "@language": "de"
+        },
+        {
+          "@value": "Práticas Educacionais Abertas",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -274,6 +326,10 @@
         {
           "@value": "Öffentlichkeitsarbeit, Sensibilisierung & Advocacy",
           "@language": "de"
+        },
+        {
+          "@value": "Divulgação, Conscientização e Advocacy",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -294,6 +350,10 @@
         {
           "@value": "Policies",
           "@language": "de"
+        },
+        {
+          "@value": "Políticas",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -314,6 +374,10 @@
         {
           "@value": "Weiterbildung & Training",
           "@language": "de"
+        },
+        {
+          "@value": "Desenvolvimento profissional e formação",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -334,6 +398,10 @@
         {
           "@value": "Publikation",
           "@language": "de"
+        },
+        {
+          "@value": "Editorial",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -354,6 +422,10 @@
         {
           "@value": "Forschung",
           "@language": "de"
+        },
+        {
+          "@value": "Pesquisas",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -374,6 +446,10 @@
         {
           "@value": "Qualitätssicherung",
           "@language": "de"
+        },
+        {
+          "@value": "Garantia de Qualidade",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -394,6 +470,10 @@
         {
           "@value": "Lehre & Lernen",
           "@language": "de"
+        },
+        {
+          "@value": "Ensino e Aprendizagem",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -414,6 +494,10 @@
         {
           "@value": "Technologie & Infrastruktur",
           "@language": "de"
+        },
+        {
+          "@value": "Tecnologia e Infraestrutura",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {
@@ -434,6 +518,10 @@
         {
           "@value": "Partizipation & Barrierefreiheit",
           "@language": "de"
+        },
+        {
+          "@value": "Ampliação da Participação e Acessibilidade",
+          "@language": "pt"
         }
       ],
       "topConceptOf": {

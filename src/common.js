@@ -9,25 +9,6 @@ export const formatURL = (url) => {
     : `${re.exec(url)[1]}...`
 }
 
-export const getEntryByLocales = (locales, key) => {
-  if (Array.isArray(key)) {
-    let localesString = false
-    locales.forEach((locale) => {
-      localesString = key.find(value => value['@language'] === locales[locale])
-      if (localesString) {
-        return localesString['@value']
-      }
-    })
-    return key[0]['@value']
-  }
-}
-
-export const getTitle = (data, locales = ['en']) => (
-  data.about && (data.about.name || data.about['@id'])
-    ? getEntryByLocales(locales, data.about.name) || data.about['@id']
-    : `${data.totalItems} Entries`
-)
-
 export const getParams = (qstring) => {
   const params = {}
   if (qstring) {
@@ -219,11 +200,11 @@ export const updateUser = async () => {
 
 export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy']
 
-export const isNode = (typeof module === 'object' && module.exports)
+export const isNode = () => (typeof window === 'undefined')
 
 export const urlParser = (str) => {
   try {
-    if (isNode) {
+    if (isNode()) {
       const { URL } = require('url')
       return new URL(str)
     }
@@ -235,11 +216,9 @@ export const urlParser = (str) => {
 }
 
 export default {
-  getTitle,
   formatURL,
   getParams,
   getURL,
-  getEntryByLocales,
   triggerClick,
   debounce,
   getProp,
