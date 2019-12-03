@@ -13,7 +13,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Professor"
+          "@value": "Professor/a"
         },
         {
           "@language": "de",
@@ -31,7 +31,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Estudante"
+          "@value": "Aluno/a"
         },
         {
           "@language": "de",
@@ -49,7 +49,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Bibliotecário"
+          "@value": "Bibliotecário/a"
         },
         {
           "@language": "de",
@@ -85,7 +85,7 @@
         },
         {
           "@language": "pt",
-          "@value": "E-learning professional"
+          "@value": "Professional da EaD"
         },
         {
           "@language": "de",
@@ -103,7 +103,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Formulador de políticas"
+          "@value": "Formulador/a de políticas"
         },
         {
           "@language": "de",
@@ -139,7 +139,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Advogado do OER"
+          "@value": "Ativista dos REA"
         },
         {
           "@language": "de",
@@ -157,7 +157,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Consultor"
+          "@value": "Consultor/a"
         },
         {
           "@language": "de",
@@ -175,7 +175,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Desenvolvedor"
+          "@value": "Desenvolvedor/a"
         },
         {
           "@language": "de",
