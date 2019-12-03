@@ -67,7 +67,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Organismo financiador"
+          "@value": "Instituição financiadora"
         },
         {
           "@language": "de",
@@ -175,7 +175,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Empresa Social ou ONG"
+          "@value": "Empresa Social ou OSC"
         },
         {
           "@language": "de",
@@ -229,7 +229,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Comunidade de práticas"
+          "@value": "Comunidade de prática"
         },
         {
           "@language": "de",
