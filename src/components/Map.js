@@ -28,6 +28,8 @@ import i18n from '../i18n'
 
 import '../styles/components/Map.pcss'
 
+const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
+
 let resizeTimer
 const pointsLayers = ['points', 'points-hover', 'points-select']
 
@@ -85,6 +87,7 @@ class Map extends React.Component {
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
     this.animateMarker = this.animateMarker.bind(this)
     this.setMapData = this.setMapData.bind(this)
+    this.isReady = false
 
     this.layersOrder = [
       {
@@ -280,6 +283,13 @@ class Map extends React.Component {
       emitter.on('hideOverlay', () => {
         this.popup ? this.popup.remove() : null
       })
+
+      while (!this.map.isStyleLoaded()) {
+        console.log('new style check is not ready')
+        // eslint-disable-next-line no-await-in-loop
+        await timeout(10)
+      }
+      this.isReady = true
     })
 
     // Create popup for hover
@@ -315,14 +325,13 @@ class Map extends React.Component {
     this.map.off('click', this.handleClick)
   }
 
-  setMapData(data) {
-    if (this.map.isStyleLoaded()) {
+  async setMapData(data) {
+    if (this.isReady) {
       this.updateChoropleth(data.aggregations)
       this.updatePoints(data.features)
     } else {
-      setTimeout(() => {
-        this.setMapData(data)
-      }, 100)
+      await timeout(10)
+      this.setMapData(data)
     }
   }
 
