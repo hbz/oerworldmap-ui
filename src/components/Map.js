@@ -283,12 +283,6 @@ class Map extends React.Component {
       emitter.on('hideOverlay', () => {
         this.popup ? this.popup.remove() : null
       })
-
-      while (!this.map.isStyleLoaded()) {
-        console.log('new style check is not ready')
-        // eslint-disable-next-line no-await-in-loop
-        await timeout(10)
-      }
       this.isReady = true
     })
 
