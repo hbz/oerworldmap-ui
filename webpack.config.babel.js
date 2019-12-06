@@ -28,7 +28,7 @@ const loaders = [
 
 const baseConfig = {
   mode: NODE_ENV,
-  devtool: isProduction ? 'cheap-source-map' : 'source-map',
+  devtool: 'cheap-source-map',
   context: path.join(__dirname, 'src'),
   module: {
     exprContextCritical: false,

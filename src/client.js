@@ -57,10 +57,9 @@ const client = () => {
       referrer = window.location.href
     }
 
-    // Log all emissions
-    emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
     emitter.on('navigate', (url) => {
+      console.log('Navigate')
       const parser = document.createElement('a')
       parser.href = url
 

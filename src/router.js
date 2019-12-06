@@ -33,7 +33,7 @@ export default (api, emitter, location) => {
       path: '/resource/',
       get: async (params, context, state) => {
         const {
-          mapboxConfig, schema, phrases, embed,
+          mapboxConfig, schema, phrases, embed, elasticsearchConfig,
         } = context
         const url = getURL({
           path: '/resource/',
@@ -42,12 +42,15 @@ export default (api, emitter, location) => {
         if (!params.add) {
           Link.home = url
         }
-        const data = params.add ? {
-          about: {
-            '@type': params.add,
-          },
+        const data = state || {
           _self: location.href,
-        } : state || await api.get(url, new Headers(context.headers))
+        }
+        // const data = params.add ? {
+        //   about: {
+        //     '@type': params.add,
+        //   },
+        //   _self: location.href,
+        // } : state || await api.get(url, new Headers(context.headers))
         const component = data => (params.add ? (
           <WebPage
             mapboxConfig={mapboxConfig}
@@ -62,6 +65,7 @@ export default (api, emitter, location) => {
             {...data}
             phrases={phrases}
             mapboxConfig={mapboxConfig}
+            elasticsearchConfig={elasticsearchConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"

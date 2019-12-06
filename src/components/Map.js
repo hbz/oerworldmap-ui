@@ -63,6 +63,11 @@ class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+
+    props.emitter.on('mapData', (data) => {
+      this.setMapData(data)
+    })
+
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -79,6 +84,7 @@ class Map extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
     this.animateMarker = this.animateMarker.bind(this)
+    this.setMapData = this.setMapData.bind(this)
 
     this.layersOrder = [
       {
@@ -106,8 +112,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     const {
-      mapboxConfig, map, locales,
-      aggregations, iso3166, home, emitter, initPins, region,
+      mapboxConfig, map, locales, iso3166, home, emitter, initPins, region,
     } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
@@ -217,7 +222,7 @@ class Map extends React.Component {
         },
       })
 
-      this.updatePoints(iso3166, region)
+      // this.updatePoints(iso3166, region)
 
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
@@ -228,7 +233,7 @@ class Map extends React.Component {
       this.map.addLayer(RegionsLayer, 'Regions')
 
       // Initialize choropleth layers
-      this.updateChoropleth(aggregations)
+      // this.updateChoropleth(aggregations)
       this.updateZoom(iso3166, home, map)
       this.updateActiveCountry(iso3166, region)
 
@@ -297,10 +302,8 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
-    this.updatePoints(nextProps.iso3166, nextProps.region)
   }
 
   componentWillUnmount() {
@@ -310,6 +313,17 @@ class Map extends React.Component {
     this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
+  }
+
+  setMapData(data) {
+    if (this.map.isStyleLoaded()) {
+      this.updateChoropleth(data.aggregations)
+      this.updatePoints(data.features)
+    } else {
+      setTimeout(() => {
+        this.setMapData(data)
+      }, 100)
+    }
   }
 
   getBucket(location, aggregation) {
@@ -724,26 +738,31 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
-    if (aggregations) {
-      const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
-        || aggregations['sterms#feature.properties.location.address.addressCountry']
-      const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
-      const colors = stops
-        .map(stop => stop[1])
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .concat('rgba(255, 255, 255)')
-        .reverse()
-      const property = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'code_hasc' : 'iso_a2'
-      const layer = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'Regions' : 'countries'
+    console.log('Updateing aggregations')
+    // console.log(aggregations)
+    // if (aggregations) {
+    // const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
+    // || aggregations['sterms#feature.properties.location.address.addressCountry']
+    // const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
+    const stops = this.choroplethStopsFromBuckets(aggregations)
+    // const colors = stops
+    //   .map(stop => stop[1])
+    //   .filter((value, index, self) => self.indexOf(value) === index)
+    //   .concat('rgba(255, 255, 255)')
+    //   .reverse()
+    // const property = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'code_hasc' : 'iso_a2'
+    // const layer = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'Regions' : 'countries'
+    const property = 'iso_a2'
+    const layer = 'countries'
 
-      this.map.setPaintProperty(layer, 'fill-color', {
-        property,
-        stops,
-        type: 'categorical',
-        default: 'rgb(255, 255, 255)',
-      })
-      this.setState({ colors })
-    }
+    this.map.setPaintProperty(layer, 'fill-color', {
+      property,
+      stops,
+      type: 'categorical',
+      default: 'rgb(255, 255, 255)',
+    })
+    // this.setState({ colors })
+    // }
   }
 
   mouseLeave() {
@@ -835,165 +854,13 @@ class Map extends React.Component {
     }
   }
 
-  async updatePoints(iso3166, region) {
-    const layers = ['points', 'Events', 'EventsGlow']
-    layers.map(layerName => this.animateCircleLayer(layerName, false))
-    this.map.getSource('eventsSource').setData(emptyGeometry)
-    cancelAnimationFrame(this.animatingMarkers)
-
-    const { searchParams } = new URL(Link.self)
-    const q = searchParams.get('q')
-    const type = searchParams.get('filter.about.@type')
-    const filters = [...searchParams].filter(param => param[0].startsWith('filter')
-      && (param[0] !== 'filter.about.@type')
-      && (param[0] !== 'filter.about.startDate.GTE'))
-      .reduce((acc, curr) => {
-        if (!acc[curr[0]]) acc[curr[0]] = []
-        acc[curr[0]].push(curr)
-        return acc
-      }, {})
-
-    const startDate = searchParams.get('filter.about.startDate.GTE')
-
-    const query = {
-      size: 9999,
-      _source: 'feature.*',
-      query: {
-        bool: {
-          filter: [
-            {
-              exists: {
-                field: 'feature',
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    if (q) {
-      query.query.bool.filter.push({
-        query_string: {
-          query: q,
-        },
-      })
-    }
-
-    if (type) {
-      query.query.bool.filter.push({
-        term: {
-          'about.@type': type,
-        },
-      })
-
-      if (type === 'Event' && !startDate) {
-        query.query.bool.filter.push({
-          range: {
-            'about.startDate': {
-              gte: 'now/d',
-            },
-          },
-        })
-      }
-    }
-
-    if (iso3166) {
-      query.query.bool.filter.push({
-        term: {
-          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-        },
-      })
-    }
-
-    if (region) {
-      query.query.bool.filter.push({
-        term: {
-          'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-        },
-      })
-    }
-
-    if (Object.keys(filters).length) {
-      Object.keys(filters).forEach((filterName) => {
-        let formatedFilter
-        if (filters[filterName].length > 1) {
-          formatedFilter = {
-            bool: {
-              should: filters[filterName].map(f => (
-                {
-                  term: { [f[0].replace('filter.', '')]: f[1] },
-                }
-              )),
-            },
-          }
-        } else {
-          formatedFilter = {
-            term: {
-              [filters[filterName][0][0].replace('filter.', '')]: filters[filterName][0][1],
-            },
-          }
-        }
-        query.query.bool.filter.push(formatedFilter)
-      })
-    }
-    const date = new Date().toJSON().split('T').shift()
-
-    const queryEvents = {
-      _source: 'feature.*',
-      query: {
-        bool: {
-          must: {
-            exists: {
-              field: 'feature',
-            },
-          },
-          filter: [
-            {
-              query_string: {
-                query: `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`,
-              },
-            },
-            {
-              term: {
-                'about.@type': 'Event',
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    // Query elasticsearch with a multiple search fot the features and events
-    const response = await fetch('/elastic/_msearch', {
-      method: 'POST',
-      body: `{}\n${[JSON.stringify(query), '{}', JSON.stringify(queryEvents)].join('\n')}\n`,
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-    })
-
-    const json = await response.json()
-
-    const [points, events] = json.responses
-
+  updatePoints(features) {
     const pointsCollection = {
       type: 'FeatureCollection',
-      features: points.hits.hits.map(item => item._source.feature),
-    }
-
-    const eventsCollection = {
-      type: 'FeatureCollection',
-      features: events.hits.hits.map(item => item._source.feature),
+      features,
     }
 
     this.map.getSource('pointsSource').setData(pointsCollection)
-
-    if (eventsCollection.features && eventsCollection.features.length) {
-      this.map.getSource('eventsSource').setData(eventsCollection)
-      this.animatingMarkers = requestAnimationFrame(this.animateMarker)
-    }
-
-    layers.map(layerName => this.animateCircleLayer(layerName, true))
   }
 
   animateCircleLayer(layerName, show) {

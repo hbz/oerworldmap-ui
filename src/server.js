@@ -14,7 +14,7 @@ import Api from './api'
 import i18ns from './i18ns'
 
 import Config, {
-  mapboxConfig, apiConfig, piwikConfig, i18nConfig,
+  mapboxConfig, apiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
 } from '../config'
 
 global.URL = require('url').URL
@@ -117,6 +117,7 @@ server.get(/^(.*)$/, (req, res) => {
     locales,
     headers,
     mapboxConfig,
+    elasticsearchConfig,
     phrases,
     apiConfig,
     schema,
@@ -135,6 +136,7 @@ server.get(/^(.*)$/, (req, res) => {
         apiConfig,
         locales,
         mapboxConfig,
+        elasticsearchConfig,
         data,
         err,
         phrases,

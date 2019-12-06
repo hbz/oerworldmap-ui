@@ -6,7 +6,7 @@
     "clean": "rimraf dist/",
     "build:dev": "NODE_ENV=development webpack-cli -w",
     "build:prod": "NODE_ENV=production webpack-cli",
-    "server:dev": "NODE_ENV=development node dev/server.js",
+    "server:dev": "NODE_ENV=development nodemon -w dev dev/server.js",
     "server:prod": "NODE_ENV=production node dist/server.js",
     "test": "eslint src --quiet && jest",
     "singleTest": "node --inspect-brk  node_modules/.bin/jest --verbose=false --runInBand -t ",
@@ -68,6 +68,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "@appbaseio/reactivesearch": "^3.1.1",
     "@babel/polyfill": "^7.4.4",
     "@babel/register": "^7.5.5",
     "@storybook/addon-a11y": "^5.0.11",
@@ -106,6 +107,7 @@
     "mitt": "^1.1.3",
     "moment": "^2.24.0",
     "node-polyglot": "^2.3.0",
+    "nodemon": "^2.0.1",
     "normalize.css": "^8.0.1",
     "path-to-regexp": "^3.0.0",
     "postcss-import": "^12.0.1",

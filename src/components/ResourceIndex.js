@@ -3,28 +3,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Map from './Map'
-import Filters from './Filters'
+import {
+  ReactiveBase,
+  DataSearch,
+  // ReactiveList,
+  ReactiveComponent,
+} from '@appbaseio/reactivesearch'
+
+// import Filters from './Filters'
 import Columns from './Columns'
 import Column from './Column'
-import ResultList from './ResultList'
-import Pagination from './Pagination'
-import Calendar from './Calendar'
+// import ResultList from './ResultList'
+// import Pagination from './Pagination'
+// import Calendar from './Calendar'
+// import MapSimple from './MapSimple'
+import Map from './Map'
+import ReactiveFilters from './ReactiveFilters'
 
 import withEmitter from './withEmitter'
 
 const ResourceIndex = ({
   mapboxConfig,
+  elasticsearchConfig,
   emitter,
-  query,
-  filters,
-  aggregations,
-  member,
-  size,
-  totalItems,
-  nextPage,
-  previousPage,
-  from,
+  // query,
+  // filters,
+  // aggregations,
+  // member,
+  // size,
+  // totalItems,
+  // nextPage,
+  // previousPage,
+  // from,
   iso3166,
   map,
   view,
@@ -32,8 +42,8 @@ const ResourceIndex = ({
   _self,
   _links,
   className,
-  sort,
-  embedValue,
+  // sort,
+  // embedValue,
   phrases,
   isEmbed,
   region,
@@ -46,47 +56,15 @@ const ResourceIndex = ({
 
       <Columns show={!home || view.length > 0} country={iso3166}>
         <Column>
-          <Filters
-            query={query}
-            filters={filters}
-            aggregations={aggregations}
-            totalItems={totalItems}
-            size={Number.isInteger(+size) ? +size : 20}
-            sort={sort}
-            _self={_self}
-            _links={_links}
-            view={view}
-            embedValue={embedValue}
-            country={iso3166}
-            isEmbed={isEmbed}
-            region={region}
-            initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
-          />
-          {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
-            <div className="wrapper-Calendar">
-              <Calendar entries={aggregations['date_histogram#about.startDate.GTE'].buckets} />
-            </div>
-          ) : (
-            <div className="wrapper-ItemList-Pagination">
-              <ResultList
-                listItems={member}
-              />
 
-              <Pagination
-                totalItems={totalItems}
-                nextPage={nextPage}
-                previousPage={previousPage}
-                from={from}
-                size={size}
-              />
-            </div>
-          )}
+          <ReactiveFilters elasticsearchConfig={elasticsearchConfig} />
+
         </Column>
       </Columns>
 
       <Map
         phrases={phrases}
-        aggregations={aggregations}
+        aggregations={[]}
         emitter={emitter}
         mapboxConfig={mapboxConfig}
         iso3166={iso3166}
@@ -95,6 +73,8 @@ const ResourceIndex = ({
         _links={_links}
         initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
         region={region}
+        data={[]}
+        // data={features}
       />
 
     </div>
