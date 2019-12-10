@@ -910,9 +910,9 @@ class Map extends React.Component {
         id="Map"
         style={
           {
-            // position: 'absolute',
+            position: 'absolute',
             width: '100%',
-            height: '60vh',
+            height: '75vh',
             top: 0,
             left: 0,
           }}

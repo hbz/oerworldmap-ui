@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -200,6 +201,7 @@ const ReactiveFilters = ({
       <ReactiveBase
         app={elasticsearchConfig.index}
         url={elasticsearchConfig.url}
+        className="reactiveBase"
       >
 
         <section className="filtersHeader">
@@ -225,14 +227,47 @@ const ReactiveFilters = ({
             }}
             data={toggleButtons}
           />
+
+          <div className="controls">
+            <TotalEntries />
+
+            <div>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  const el = document.querySelector('.mainContent')
+                  el.classList.add('listView')
+                  el.classList.remove('Map')
+                }}
+              >
+                <i className="fa fa-list" />
+                &nbsp;
+                List
+              </button>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  const el = document.querySelector('.mainContent')
+                  el.classList.add('Map')
+                  el.classList.remove('listView')
+                  emitter.emit('resize')
+                }}
+              >
+                <i className="fa fa-map" />
+                &nbsp;
+                Map
+              </button>
+            </div>
+
+          </div>
         </section>
 
 
-        <div className="resourceIndexMain">
+        <div className="mainContent listView">
 
           <aside>
-
-            <TotalEntries />
 
             <SelectedFilters />
 
@@ -333,38 +368,28 @@ const ReactiveFilters = ({
 
           </aside>
 
-          <div className="right">
-            <div className="controls">
-              <button
-                type="button"
-                className="btn"
-                onClick={() => {
-                  const el = document.querySelector('.searchResults')
-                  el.classList.add('listView')
-                  el.classList.remove('Map')
-                }}
-              >
-                <i className="fa fa-list" />
-                &nbsp;
-                List
-              </button>
-              <button
-                type="button"
-                className="btn"
-                onClick={() => {
-                  const el = document.querySelector('.searchResults')
-                  el.classList.add('Map')
-                  el.classList.remove('listView')
-                  emitter.emit('resize')
-                }}
-              >
-                <i className="fa fa-map" />
-                &nbsp;
-                Map
-              </button>
-            </div>
+          <button
+            className="toggleList"
+            type="button"
+            onClick={(e) => {
+              console.log(e.target)
+              e.target.parentElement.classList.toggle('collapsed')
+              const icon = e.target.querySelector('i')
+              if (icon.classList.contains('fa-chevron-right')) {
+                icon.classList.add('fa-chevron-left')
+                icon.classList.remove('fa-chevron-right')
+              } else {
+                icon.classList.add('fa-chevron-right')
+                icon.classList.remove('fa-chevron-left')
+              }
+            }}
+          >
+            <i className="fa fa-chevron-left" />
+          </button>
 
-            <div className="searchResults listView">
+          <div className="right">
+
+            <div className="searchResults">
               <ReactiveList
                 className="listResults"
                 componentId="SearchResult"
