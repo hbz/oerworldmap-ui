@@ -11,7 +11,7 @@ import Loading from './Loading'
 import withUser from './withUser'
 
 const App = ({
-  user, locales, supportedLanguages, children,
+  locales, supportedLanguages, children,
 }) => (
   <div id="wrapper">
     <Header locales={locales} supportedLanguages={supportedLanguages} />
@@ -21,14 +21,9 @@ const App = ({
 )
 
 App.propTypes = {
-  user: PropTypes.objectOf(PropTypes.any),
   children: PropTypes.node.isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   supportedLanguages: PropTypes.arrayOf(PropTypes.any).isRequired,
-}
-
-App.defaultProps = {
-  user: null,
 }
 
 export default withUser(App)

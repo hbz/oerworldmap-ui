@@ -17,7 +17,6 @@ import withEmitter from './withEmitter'
 import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import Icon from './Icon'
-import Loading from './Loading'
 
 const toggleButtons = [
   { label: 'Organizaion', value: 'Organization' },
@@ -43,8 +42,6 @@ const toggleButtons = [
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children,
 }) => {
-  const isReady = false
-
   let subFilters = [
     {
       componentId: 'filter.about.keyword',
@@ -58,7 +55,7 @@ const ReactiveFilters = ({
       dataField: 'about.location.address.addressCountry',
       showSearch: false,
       title: 'Country',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{translate(label)}</span>
           <span>{count}</span>
@@ -70,7 +67,7 @@ const ReactiveFilters = ({
       dataField: 'about.location.address.addressRegion',
       showSearch: false,
       title: 'Region',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{translate(label)}</span>
           <span>{count}</span>
@@ -82,7 +79,7 @@ const ReactiveFilters = ({
       dataField: 'about.availableChannel.availableLanguage',
       showSearch: false,
       title: 'Language',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{translate(label)}</span>
           <span>{count}</span>
@@ -94,7 +91,7 @@ const ReactiveFilters = ({
       dataField: 'about.additionalType.@id',
       showSearch: false,
       title: 'Sub-Categories',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
           <span>{count}</span>
@@ -106,7 +103,7 @@ const ReactiveFilters = ({
       dataField: 'about.audience.@id',
       showSearch: false,
       title: 'Audience',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{label.split('/').slice(-1).pop()}</span>
           <span>{count}</span>
@@ -118,7 +115,7 @@ const ReactiveFilters = ({
       dataField: 'about.primarySector.@id',
       showSearch: false,
       title: 'Primary Sector',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
           <span>{count}</span>
@@ -130,7 +127,7 @@ const ReactiveFilters = ({
       dataField: 'about.secondarySector.@id',
       showSearch: false,
       title: 'Secondary Sector',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
           <span>{count}</span>
@@ -142,7 +139,7 @@ const ReactiveFilters = ({
       dataField: 'about.award',
       showSearch: false,
       title: 'Award',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>
             {label.split('/').slice(-1).pop().replace('.png', '')
@@ -158,7 +155,7 @@ const ReactiveFilters = ({
       dataField: 'about.license.@id',
       showSearch: false,
       title: 'License',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
           <span>{count}</span>
@@ -170,7 +167,7 @@ const ReactiveFilters = ({
       dataField: 'about.about.@id',
       showSearch: false,
       title: 'Subject',
-      renderItem: (label, count, isSelected) => (
+      renderItem: (label, count) => (
         <span>
           <span>{label.split('/').slice(-1).pop()}</span>
           <span>{count}</span>
@@ -345,7 +342,8 @@ const ReactiveFilters = ({
               onData={({ aggregations, data }) => {
                 if (aggregations !== null) {
                   const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
-                  const agg = (aggregations && aggregations.color && aggregations.color.buckets || [])
+                  const agg = (aggregations
+                    && aggregations.color && aggregations.color.buckets || [])
                   emitter.emit('mapData', { features, aggregations: agg })
                   const total = features.length
                   emitter.emit('updateCount', total)
@@ -409,7 +407,7 @@ const ReactiveFilters = ({
                   and: filterIDs,
                 }}
 
-                render={({ data, resultStats, loading }) => {
+                render={({ data }) => {
                   const items = data || []
                   return <ResultList listItems={items} />
                 }}
@@ -429,7 +427,15 @@ const ReactiveFilters = ({
 }
 
 ReactiveFilters.propTypes = {
-
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired,
+  elasticsearchConfig: PropTypes.shape(
+    {
+      index: PropTypes.string,
+      url: PropTypes.string,
+    },
+  ).isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default withEmitter(withI18n(ReactiveFilters))

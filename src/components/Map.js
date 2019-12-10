@@ -2,13 +2,10 @@
 /* global window */
 /* global navigator */
 /* global requestAnimationFrame */
-/* global cancelAnimationFrame */
-/* global Headers */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
-import fetch from 'isomorphic-fetch'
 
 import { scaleLog, quantile, interpolateHcl } from 'd3'
 
@@ -20,7 +17,7 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getProp, emptyGeometry } from '../common'
+import { getProp } from '../common'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
@@ -761,8 +758,10 @@ class Map extends React.Component {
     //   .filter((value, index, self) => self.indexOf(value) === index)
     //   .concat('rgba(255, 255, 255)')
     //   .reverse()
-    // const property = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'code_hasc' : 'iso_a2'
-    // const layer = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'Regions' : 'countries'
+    // const property = aggregations['sterms#feature.properties.location.address.addressRegion']
+    // ? 'code_hasc' : 'iso_a2'
+    // const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
+    // ? 'Regions' : 'countries'
     const property = 'iso_a2'
     const layer = 'countries'
 

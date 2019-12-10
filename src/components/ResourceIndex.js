@@ -3,8 +3,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Columns from './Columns'
-import Column from './Column'
 import Map from './Map'
 import ReactiveFilters from './ReactiveFilters'
 
@@ -84,6 +82,12 @@ ResourceIndex.propTypes = {
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string,
+  elasticsearchConfig: PropTypes.shape(
+    {
+      index: PropTypes.string,
+      url: PropTypes.string,
+    },
+  ).isRequired,
 }
 
 ResourceIndex.defaultProps = {
