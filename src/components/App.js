@@ -14,18 +14,9 @@ const App = ({
   user, locales, supportedLanguages, children,
 }) => (
   <div id="wrapper">
-
-    <main className="container" data-userroles={user && user.groups ? user.groups.join(' ') : null}>
-
-      <Header locales={locales} supportedLanguages={supportedLanguages} />
-
-      <div className="content">
-        {children}
-      </div>
-
-      <Loading />
-
-    </main>
+    <Header locales={locales} supportedLanguages={supportedLanguages} />
+    {children}
+    <Loading />
   </div>
 )
 

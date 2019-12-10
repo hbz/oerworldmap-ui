@@ -1,0 +1,151 @@
+#wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden; */
+  background-color: #f5f5f5;
+}
+
+.ReactiveFilters {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  & .filtersHeader {
+    width: 1000px;
+    max-width: 100%;
+    padding-bottom: 10px;
+    text-align: center;
+
+    & .nameSearch {
+      padding-top: 20px;
+    }
+  }
+
+  & .resourceIndexMain {
+    display: flex;
+    overflow: hidden;
+  }
+
+  & aside,
+  & .searchResults {
+    overflow: auto;
+  }
+
+  & .searchResults {
+    & #Map,
+    & .list {
+      display: none;
+    }
+  }
+
+  & .searchResults.Map {
+    & #Map {
+      display: block;
+    }
+  }
+
+  & .searchResults.list {
+    & .list {
+      display: block;
+    }
+  }
+
+  & aside {
+    min-width: 335px;
+    flex: 1;
+    padding-right: 20px;
+  }
+
+  & .right {
+    height: 100%;
+    flex: 3;
+  }
+}
+
+.FilterBox {
+  margin-bottom: 20px;
+  border-radius: 2px;
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  color: var(--blue-dark);
+
+  & h2 {
+    color: var(--blue-dark);
+  }
+}
+
+.controls {
+  text-align: right;
+  margin-bottom: 10px;
+
+  & button {
+    border: none;
+    color: var(--blue-dark);
+    background-color: var(--blue-lightest);
+    margin-left: 5px;
+  }
+}
+
+.ResultList li {
+  background-color: var(--white);
+  border-radius: 2px;
+  padding: 20px;
+  border-bottom: none;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+h3,
+h4 {
+  color: var(--blue-dark);
+}
+
+.typeSearch {
+  display: flex;
+  justify-content: space-around;
+
+  & a {
+    color: rgb(152, 152, 152);
+    background-color: transparent;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+    transition: none;
+
+    &:focus {
+      background-color: transparent;
+      transition: none;
+      outline: 1px dotted gray;
+      border: none;
+      box-shadow: none;
+    }
+
+    &.active {
+      color: var(--blue-dark);
+    }
+
+    &:hover {
+      background-color: transparent;
+      color: var(--orange);
+    }
+  }
+}
+
+.selectedFilters {
+  background-color: #CBE8F8;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+  color: var(--blue-dark);
+
+  & h2 {
+    color: var(--blue-dark);
+    font-size: 1rem;
+  }
+}

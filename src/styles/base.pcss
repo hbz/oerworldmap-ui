@@ -8,21 +8,12 @@ body {
   padding: 0;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 .container {
-  min-height: 100vh;
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-
-  & .content {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    background-image: url(/public/map-bg.png);
-    background-size: cover;
-    background-position: center center;
-  }
-
   &[data-userroles*="admin"] .Form .admin.only {
     display: block;
   }

@@ -41,7 +41,7 @@ export default ({
         <link rel="stylesheet" href="/public/styles.css" rel="preload">
       </head>
       ${embed === undefined ? '<body>' : `<body data-embed="${embed}">`}
-        <div id="root"><div>${body}</div></div>
+        <div id="root">${body}</div>
         ${piwikEmbed}
       </body>
     </html>

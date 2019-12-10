@@ -3,24 +3,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {
-  ReactiveBase,
-  DataSearch,
-  // ReactiveList,
-  ReactiveComponent,
-} from '@appbaseio/reactivesearch'
-
-// import Filters from './Filters'
 import Columns from './Columns'
 import Column from './Column'
-// import ResultList from './ResultList'
-// import Pagination from './Pagination'
-// import Calendar from './Calendar'
-// import MapSimple from './MapSimple'
 import Map from './Map'
 import ReactiveFilters from './ReactiveFilters'
 
 import withEmitter from './withEmitter'
+
+import '../styles/components/ResourceIndex.pcss'
 
 const ResourceIndex = ({
   mapboxConfig,
@@ -51,16 +41,7 @@ const ResourceIndex = ({
   const home = _self.endsWith('/resource/?features=true')
 
   return (
-    <div className={`ResourceIndex ${className || ''}`}>
-      {children}
-
-      <Columns show={!home || view.length > 0} country={iso3166}>
-        <Column>
-
-          <ReactiveFilters elasticsearchConfig={elasticsearchConfig} />
-
-        </Column>
-      </Columns>
+    <ReactiveFilters elasticsearchConfig={elasticsearchConfig}>
 
       <Map
         phrases={phrases}
@@ -74,10 +55,8 @@ const ResourceIndex = ({
         initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
         region={region}
         data={[]}
-        // data={features}
       />
-
-    </div>
+    </ReactiveFilters>
   )
 }
 

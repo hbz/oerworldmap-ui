@@ -13,8 +13,34 @@ import {
 
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import ResultList from './ResultList'
+import TotalEntries from './TotalEntries'
+import Icon from './Icon'
 
-const ReactiveFilters = ({ emitter, translate, elasticsearchConfig }) => {
+const toggleButtons = [
+  { label: 'Organizaion', value: 'Organization' },
+  { label: 'Service', value: 'Service' },
+  { label: 'Person', value: 'Person' },
+  { label: 'Project', value: 'Action' },
+  { label: 'Event', value: 'Event' },
+  { label: 'Story', value: 'Article' },
+  { label: 'Publication', value: 'WebPage' },
+  { label: 'Tool', value: 'Product' },
+  { label: 'Policy', value: 'Policy' },
+].map((btn) => {
+  btn.label = (
+    <span>
+      <Icon type={btn.value} />
+      {' '}
+      {btn.label}
+    </span>
+  )
+  return btn
+})
+
+const ReactiveFilters = ({
+  emitter, translate, elasticsearchConfig, children,
+}) => {
   const isReady = false
 
   let subFilters = [
@@ -165,179 +191,209 @@ const ReactiveFilters = ({ emitter, translate, elasticsearchConfig }) => {
     return filter
   })
 
-  const toggleButtons = [
-    { label: 'Organizaion', value: 'Organization' },
-    { label: 'Service', value: 'Service' },
-    { label: 'Person', value: 'Person' },
-    { label: 'Project', value: 'Action' },
-    { label: 'Event', value: 'Event' },
-    { label: 'Story', value: 'Article' },
-    { label: 'Publication', value: 'WebPage' },
-    { label: 'Tool', value: 'Product' },
-    { label: 'Policy', value: 'Policy' },
-  ]
-
-  // const sendData = (data) => {
-  //   if (this.isReady) {
-  //     emitter.emit('mapData', { features, aggregations: agg })
-  //   } else {
-  //     setTimeout(() => {
-  //       sendData(data)
-  //     }, 100)
-  //   }
-  // }
 
   return (
     <div
       className="ReactiveFilters"
-      style={{ overflow: 'auto', paddingRight: '10px' }}
     >
       <ReactiveBase
         app={elasticsearchConfig.index}
         url={elasticsearchConfig.url}
       >
 
-        <DataSearch
-          className="nameSearch"
-          componentId="q"
-          dataField={['about.name.*', 'about.description.*']}
-          placeholder="Search the OER"
-          // URLParams
-          react={{
-            and: filterIDs.filter(id => id !== 'q'),
-          }}
-        />
+        <section className="filtersHeader">
+          <DataSearch
+            className="nameSearch"
+            componentId="q"
+            dataField={['about.name.*', 'about.description.*']}
+            placeholder="Search the OER"
+            // URLParams
+            react={{
+              and: filterIDs.filter(id => id !== 'q'),
+            }}
+          />
 
-        <ToggleButton
-          className="typeSearch"
-          componentId="filter.about.@type"
-          dataField="about.@type"
-          // URLParams
-          multiSelect={false}
-          react={{
-            and: filterIDs.filter(id => id !== 'filter.about.@type'),
-          }}
-          data={toggleButtons}
-        />
+          <ToggleButton
+            className="typeSearch"
+            componentId="filter.about.@type"
+            dataField="about.@type"
+            // URLParams
+            multiSelect={false}
+            react={{
+              and: filterIDs.filter(id => id !== 'filter.about.@type'),
+            }}
+            data={toggleButtons}
+          />
+        </section>
 
-        <SelectedFilters />
 
-        <ReactiveComponent
-          componentId="myCountryPicker"
-          defaultQuery={() => ({
-            size: 9999,
-            query: {
-              bool: {
-                filter: [
-                  {
-                    exists: {
-                      field: 'feature',
+        <div className="resourceIndexMain">
+
+          <aside>
+
+            <TotalEntries />
+
+            <SelectedFilters
+              render={(data) => {
+                const applied = Object.keys(data.selectedValues)
+                return (
+                  (applied.length > 0) && (
+                    <div className="selectedFilters">
+                      <h2>Filters</h2>
+                      <div>
+                        {applied.map(filter => (
+                          (typeof data.selectedValues[filter].value === 'string') ? (
+                            <button
+                              type="button"
+                              key={`${filter}-${data.selectedValues[filter].value}`}
+                              onClick={() => data.setValue(filter, null)}
+                            >
+                              {translate(filter)}
+                              &nbsp;
+                              {translate(data.selectedValues[filter].value)}
+                            </button>
+                          ) : (
+                            data.selectedValues[filter].value.map(value => (
+                              <button
+                                type="button"
+                                key={`${filter}-${value}`}
+                                onClick={() => {
+                                  data.setValue(filter, null)
+                                }}
+                              >
+                                {translate(filter)}
+                                &nbsp;
+                                {translate(value)}
+                              </button>
+                            ))
+                          )
+                        ))}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={data.clearAll}
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                  )
+                )
+              }}
+            />
+
+            <ReactiveComponent
+              componentId="myCountryPicker"
+              defaultQuery={() => ({
+                size: 99, // CHANGE TO 9999
+                query: {
+                  bool: {
+                    filter: [
+                      {
+                        exists: {
+                          field: 'feature',
+                        },
+                      },
+                    ],
+                  },
+                },
+                aggs: {
+                  color: {
+                    terms: {
+                      field: 'feature.properties.location.address.addressCountry',
                     },
                   },
-                ],
-              },
-            },
-            aggs: {
-              color: {
-                terms: {
-                  field: 'feature.properties.location.address.addressCountry',
                 },
-              },
-            },
-          })}
-          onData={({ aggregations, data }) => {
-            const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
-            const agg = (aggregations && aggregations.color && aggregations.color.buckets || [])
-            emitter.emit('mapData', { features, aggregations: agg })
-            // sendData({ features, aggregations: agg })
-          }}
-          react={{
-            and: filterIDs,
-          }}
-        />
+              })}
+              onData={({ aggregations, data }) => {
+                if (aggregations !== null) {
+                  const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
+                  const agg = (aggregations && aggregations.color && aggregations.color.buckets || [])
+                  emitter.emit('mapData', { features, aggregations: agg })
+                  const total = features.length
+                  emitter.emit('updateCount', total)
+                  document.title = `${total} entries - OER World Map`
+                }
+              }}
+              react={{
+                and: filterIDs,
+              }}
+            />
 
-        {subFilters.map(filter => (
-          <MultiList
-            key={filter.componentId}
-            className="FilterBox"
-            {...filter}
-            // URLParams
-          />
-        ))}
+            {subFilters.map(filter => (
+              <MultiList
+                key={filter.componentId}
+                className="FilterBox"
+                {...filter}
+                // URLParams
+              />
+            ))}
 
-        {/* <ReactiveList
-        className="SearchResult"
-        componentId="SearchResult"
-        title="Results"
-        dataField="@type"
-        showResultStats={false}
-        from={0}
-        size={20}
-        pagination
-        loader={(
-          <div className="loading">
-            <h1>Loading Results...</h1>
-            <div className="loader" />
-          </div>
-        )}
-        showLoader
-        react={{
-          and: filterIDs,
-        }}
+          </aside>
 
-        render={({ data, resultStats }) => (
-          <>
-            <h4>
-              {resultStats.numberOfResults}
-              {' '}
-              Found
-            </h4>
-            <SelectedFilters />
-            <br />
-            <div className="columns">
-              <aside
-                style={{
-                  display: resource ? 'none' : '',
+          <div className="right">
+            <div className="controls">
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  const el = document.querySelector('.searchResults')
+                  el.classList.add('list')
+                  el.classList.remove('Map')
                 }}
               >
-                {subFilters.map(filter => (
-                  <MultiList
-                    key={filter.componentId}
-                    className="FilterBox"
-                    {...filter}
-                    URLParams
-                  />
-                ))}
-
-              </aside>
-              <main
-                style={{
-                  display: resource ? 'none' : '',
+                <i className="fa fa-list" />
+                &nbsp;
+                List
+              </button>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  const el = document.querySelector('.searchResults')
+                  el.classList.add('Map')
+                  el.classList.remove('list')
+                  emitter.emit('resize')
                 }}
               >
-                <ResultList
-                  items={data}
-                  onClickItem={(item) => {
-                    setState({ resource: item })
-                  }}
-                />
-              </main>
+                <i className="fa fa-map" />
+                &nbsp;
+                Map
+              </button>
             </div>
 
-            {resource
-              && (
-                <ResourceView
-                  resource={resource}
-                  onClose={() => {
-                    setState({ resource: null })
-                  }}
-                />
-              )
-            }
-          </>
-        )
-        }
-      /> */}
+            <div className="searchResults list">
+              <ReactiveList
+                className="list"
+                componentId="SearchResult"
+                title="Results"
+                dataField="@type"
+                showResultStats={false}
+                from={0}
+                size={20}
+                pagination
+                loader={(
+                  <div className="loading">
+                    <h4>Loading Results...</h4>
+                    <div className="loader" />
+                  </div>
+                )}
+                showLoader
+                react={{
+                  and: filterIDs,
+                }}
+
+                render={({ data, resultStats, loading }) => {
+                  const items = data || []
+                  return <ResultList listItems={items} />
+                }}
+              />
+
+              {children}
+            </div>
+
+          </div>
+        </div>
+
 
       </ReactiveBase>
     </div>

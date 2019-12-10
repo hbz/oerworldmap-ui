@@ -70,6 +70,10 @@ class Map extends React.Component {
       this.setMapData(data)
     })
 
+    props.emitter.on('resize', () => {
+      this.map.resize()
+    })
+
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -88,6 +92,10 @@ class Map extends React.Component {
     this.animateMarker = this.animateMarker.bind(this)
     this.setMapData = this.setMapData.bind(this)
     this.isReady = false
+    this.data = {
+      aggregations: null,
+      features: null,
+    }
 
     this.layersOrder = [
       {
@@ -314,7 +322,7 @@ class Map extends React.Component {
     this.map.off('zoom', this.zoom)
     this.map.off('mousemove', 'points', this.mouseMovePoints)
     this.map.off('mousemove', this.mouseMove)
-    this.map.off('moveend', this.moveEnd)
+    // this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
   }
@@ -741,7 +749,7 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
-    console.log('Updateing aggregations')
+    console.log('Updating aggregations')
     // console.log(aggregations)
     // if (aggregations) {
     // const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
@@ -890,6 +898,7 @@ class Map extends React.Component {
   }
 
   render() {
+    console.log('Render Map')
     const {
       iso3166, emitter, translate, aggregations,
     } = this.props
@@ -901,9 +910,9 @@ class Map extends React.Component {
         id="Map"
         style={
           {
-            position: 'absolute',
-            width: '101%',
-            height: '100%',
+            // position: 'absolute',
+            width: '100%',
+            height: '60vh',
             top: 0,
             left: 0,
           }}
