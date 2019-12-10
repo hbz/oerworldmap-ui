@@ -16,6 +16,7 @@ import withEmitter from './withEmitter'
 import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import Icon from './Icon'
+import Loading from './Loading'
 
 const toggleButtons = [
   { label: 'Organizaion', value: 'Organization' },
@@ -233,7 +234,9 @@ const ReactiveFilters = ({
 
             <TotalEntries />
 
-            <SelectedFilters
+            <SelectedFilters />
+
+            {/* <SelectedFilters
               render={(data) => {
                 const applied = Object.keys(data.selectedValues)
                 return (
@@ -279,7 +282,7 @@ const ReactiveFilters = ({
                   )
                 )
               }}
-            />
+            /> */}
 
             <ReactiveComponent
               componentId="myCountryPicker"
@@ -337,7 +340,7 @@ const ReactiveFilters = ({
                 className="btn"
                 onClick={() => {
                   const el = document.querySelector('.searchResults')
-                  el.classList.add('list')
+                  el.classList.add('listView')
                   el.classList.remove('Map')
                 }}
               >
@@ -351,7 +354,7 @@ const ReactiveFilters = ({
                 onClick={() => {
                   const el = document.querySelector('.searchResults')
                   el.classList.add('Map')
-                  el.classList.remove('list')
+                  el.classList.remove('listView')
                   emitter.emit('resize')
                 }}
               >
@@ -361,9 +364,9 @@ const ReactiveFilters = ({
               </button>
             </div>
 
-            <div className="searchResults list">
+            <div className="searchResults listView">
               <ReactiveList
-                className="list"
+                className="listResults"
                 componentId="SearchResult"
                 title="Results"
                 dataField="@type"
@@ -372,9 +375,8 @@ const ReactiveFilters = ({
                 size={20}
                 pagination
                 loader={(
-                  <div className="loading">
-                    <h4>Loading Results...</h4>
-                    <div className="loader" />
+                  <div className="Loading">
+                    <div className="loadingCircle" />
                   </div>
                 )}
                 showLoader
