@@ -266,47 +266,53 @@ const ReactiveFilters = ({
 
           <aside>
 
-            <SelectedFilters />
-
-            {/* <SelectedFilters
+            <SelectedFilters
               render={(data) => {
                 const applied = Object.keys(data.selectedValues)
                 return (
-                  (applied.length > 0) && (
+                  (applied.length > 0 && (applied.map(filter => data.selectedValues[filter]).map(f => f.value).some(value => ((value !== null) && (value.length > 0))))) && (
                     <div className="selectedFilters">
                       <h2>Filters</h2>
-                      <div>
+                      <ul>
                         {applied.map(filter => (
-                          (typeof data.selectedValues[filter].value === 'string') ? (
-                            <button
-                              type="button"
-                              key={`${filter}-${data.selectedValues[filter].value}`}
-                              onClick={() => data.setValue(filter, null)}
+                          (data.selectedValues[filter].value !== null) && (
+                            <li
+                              key={`${filter}`}
+                              className="selectedFilter"
                             >
-                              {translate(filter)}
-                              &nbsp;
-                              {translate(data.selectedValues[filter].value)}
-                            </button>
-                          ) : (
-                            data.selectedValues[filter].value.map(value => (
-                              <button
-                                type="button"
-                                key={`${filter}-${value}`}
-                                onClick={() => {
-                                  data.setValue(filter, null)
-                                }}
-                              >
-                                {translate(filter)}
+                              {(typeof data.selectedValues[filter].value === 'string') ? (
+                                <button
+                                  type="button"
+                                  onClick={() => data.setValue(filter, null)}
+                                >
+                                  <b>{translate(filter)}</b>
+                                :
                                 &nbsp;
-                                {translate(value)}
-                              </button>
-                            ))
+                                  {translate(data.selectedValues[filter].value)}
+                                </button>
+                              ) : (
+                                data.selectedValues[filter].value.map(value => (
+                                  <button
+                                    type="button"
+                                    key={`${filter}-${value}`}
+                                    onClick={() => {
+                                      data.setValue(filter, data.selectedValues[filter].value.filter(v => v !== value))
+                                    }}
+                                  >
+                                    <b>{translate(filter)}</b>
+                                  :
+                                  &nbsp;
+                                    {translate(value)}
+                                  </button>
+                                )))}
+                            </li>
                           )
                         ))}
-                      </div>
+                      </ul>
                       <button
                         type="button"
-                        onClick={data.clearAll}
+                        className="clearAll"
+                        onClick={data.clearValues}
                       >
                         Clear All
                       </button>
@@ -314,7 +320,7 @@ const ReactiveFilters = ({
                   )
                 )
               }}
-            /> */}
+            />
 
             <ReactiveComponent
               componentId="myCountryPicker"
