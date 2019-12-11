@@ -251,7 +251,7 @@ class Map extends React.Component {
       })
 
       // Update URL values
-      this.map.on('moveend', this.moveEnd)
+      // this.map.on('moveend', this.moveEnd)
 
       // Get features currently under the mouse
       this.map.on('mousemove', this.mouseMove)
