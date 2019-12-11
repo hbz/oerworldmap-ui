@@ -39,7 +39,11 @@ const ResourceIndex = ({
   const home = _self.endsWith('/resource/?features=true')
 
   return (
-    <ReactiveFilters elasticsearchConfig={elasticsearchConfig}>
+    <ReactiveFilters
+      iso3166={iso3166}
+      region={region}
+      elasticsearchConfig={elasticsearchConfig}
+    >
 
       <Map
         phrases={phrases}

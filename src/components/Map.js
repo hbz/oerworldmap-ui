@@ -242,7 +242,7 @@ class Map extends React.Component {
 
       // Initialize choropleth layers
       // this.updateChoropleth(aggregations)
-      this.updateZoom(iso3166, home, map)
+      // this.updateZoom(iso3166, home, map)
       this.updateActiveCountry(iso3166, region)
 
       window.addEventListener('resize', () => {
@@ -311,7 +311,7 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
+    // this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
   }
 
@@ -746,6 +746,7 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
+    const { region } = this.props
     console.log('Updating aggregations')
     // console.log(aggregations)
     // if (aggregations) {
@@ -762,8 +763,8 @@ class Map extends React.Component {
     // ? 'code_hasc' : 'iso_a2'
     // const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
     // ? 'Regions' : 'countries'
-    const property = 'iso_a2'
-    const layer = 'countries'
+    const property = region ? 'code_hasc' : 'iso_a2'
+    const layer = region ? 'Regions' : 'countries'
 
     this.map.setPaintProperty(layer, 'fill-color', {
       property,

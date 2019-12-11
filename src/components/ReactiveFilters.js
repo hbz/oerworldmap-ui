@@ -40,7 +40,7 @@ const toggleButtons = [
 })
 
 const ReactiveFilters = ({
-  emitter, translate, elasticsearchConfig, children,
+  emitter, translate, elasticsearchConfig, children, iso3166, region,
 }) => {
   let subFilters = [
     {
@@ -324,27 +324,47 @@ const ReactiveFilters = ({
 
             <ReactiveComponent
               componentId="myCountryPicker"
-              defaultQuery={() => ({
-                size: 99, // CHANGE TO 9999
-                query: {
-                  bool: {
-                    filter: [
-                      {
-                        exists: {
-                          field: 'feature',
+              defaultQuery={() => {
+                const query = {
+                  size: 99, // CHANGE TO 9999
+                  query: {
+                    bool: {
+                      filter: [
+                        {
+                          exists: {
+                            field: 'feature',
+                          },
                         },
-                      },
-                    ],
-                  },
-                },
-                aggs: {
-                  color: {
-                    terms: {
-                      field: 'feature.properties.location.address.addressCountry',
+                      ],
                     },
                   },
-                },
-              })}
+                  aggs: {
+                    color: {
+                      terms: {
+                        field: 'feature.properties.location.address.addressCountry',
+                      },
+                    },
+                  },
+                }
+
+                if (iso3166) {
+                  query.query.bool.filter.push({
+                    term: {
+                      'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                    },
+                  })
+                }
+
+                if (region) {
+                  query.query.bool.filter.push({
+                    term: {
+                      'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                    },
+                  })
+                }
+
+                return query
+              }}
               onData={({ aggregations, data }) => {
                 if (aggregations !== null) {
                   const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
@@ -398,6 +418,35 @@ const ReactiveFilters = ({
                 className="listResults"
                 componentId="SearchResult"
                 title="Results"
+                defaultQuery={() => {
+                  let query = null
+
+                  if (iso3166) {
+                    query = {
+                      query: {
+                        bool: {
+                          filter: [
+                            {
+                              term: {
+                                'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    }
+                  }
+
+                  if (region) {
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                      },
+                    })
+                  }
+
+                  return query
+                }}
                 dataField="@type"
                 showResultStats={false}
                 from={0}
