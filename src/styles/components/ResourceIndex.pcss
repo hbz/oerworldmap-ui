@@ -16,6 +16,14 @@
     width: 1000px;
     max-width: 100%;
     text-align: center;
+
+    & .basicFilters {
+      display: flex;
+
+      & .nameSearch {
+        flex: 1;
+      }
+    }
   }
 
   & .reactiveBase {
@@ -196,7 +204,6 @@ h4 {
 
   & .clearAll {
     margin-top: 5px;
-
     border: none;
     background-color: transparent;
     color: var(--blue);

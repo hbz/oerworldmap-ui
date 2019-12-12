@@ -37,12 +37,14 @@ const ResourceIndex = ({
   region,
 }) => {
   const home = _self.endsWith('/resource/?features=true')
+  const initPins = isEmbed || (typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true')
 
   return (
     <ReactiveFilters
       iso3166={iso3166}
       region={region}
       elasticsearchConfig={elasticsearchConfig}
+      initPins={initPins}
     >
 
       <Map
@@ -54,7 +56,7 @@ const ResourceIndex = ({
         map={map}
         home={home}
         _links={_links}
-        initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
+        initPins={initPins}
         region={region}
         data={[]}
       />

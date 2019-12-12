@@ -17,6 +17,7 @@ import withEmitter from './withEmitter'
 import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import Icon from './Icon'
+import TogglePoints from './TogglePoints'
 
 const toggleButtons = [
   { label: 'Organizaion', value: 'Organization' },
@@ -40,7 +41,7 @@ const toggleButtons = [
 })
 
 const ReactiveFilters = ({
-  emitter, translate, elasticsearchConfig, children, iso3166, region,
+  emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
 }) => {
   let subFilters = [
     {
@@ -202,16 +203,22 @@ const ReactiveFilters = ({
       >
 
         <section className="filtersHeader">
-          <DataSearch
-            className="nameSearch"
-            componentId="q"
-            dataField={['about.name.*', 'about.description.*']}
-            placeholder="Search the OER"
-            // URLParams
-            react={{
-              and: filterIDs.filter(id => id !== 'q'),
-            }}
-          />
+
+          <div className="basicFilters">
+            <DataSearch
+              className="nameSearch"
+              componentId="q"
+              dataField={['about.name.*', 'about.description.*']}
+              placeholder="Search the OER"
+              // URLParams
+              react={{
+                and: filterIDs.filter(id => id !== 'q'),
+              }}
+            />
+
+            <TogglePoints initPins={initPins} />
+
+          </div>
 
           <ToggleButton
             className="typeSearch"
@@ -491,6 +498,14 @@ ReactiveFilters.propTypes = {
     },
   ).isRequired,
   children: PropTypes.node.isRequired,
+  initPins: PropTypes.bool.isRequired,
+  iso3166: PropTypes.string,
+  region: PropTypes.string,
+}
+
+ReactiveFilters.defaultProps = {
+  iso3166: '',
+  region: null,
 }
 
 export default withEmitter(withI18n(ReactiveFilters))
