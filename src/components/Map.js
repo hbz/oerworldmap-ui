@@ -22,6 +22,7 @@ import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
 import i18n from '../i18n'
+import MapLeyend from './MapLeyend'
 
 import '../styles/components/Map.pcss'
 
@@ -746,7 +747,7 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
-    const { region } = this.props
+    const { region, emitter } = this.props
     console.log('Updating aggregations')
     // console.log(aggregations)
     // if (aggregations) {
@@ -754,11 +755,11 @@ class Map extends React.Component {
     // || aggregations['sterms#feature.properties.location.address.addressCountry']
     // const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
     const stops = this.choroplethStopsFromBuckets(aggregations)
-    // const colors = stops
-    //   .map(stop => stop[1])
-    //   .filter((value, index, self) => self.indexOf(value) === index)
-    //   .concat('rgba(255, 255, 255)')
-    //   .reverse()
+    const colors = stops
+      .map(stop => stop[1])
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .concat('rgba(255, 255, 255)')
+      .reverse()
     // const property = aggregations['sterms#feature.properties.location.address.addressRegion']
     // ? 'code_hasc' : 'iso_a2'
     // const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
@@ -772,8 +773,10 @@ class Map extends React.Component {
       type: 'categorical',
       default: 'rgb(255, 255, 255)',
     })
-    // this.setState({ colors })
-    // }
+
+    const max = (aggregations.length && aggregations[0].doc_count) || 0
+
+    emitter.emit('updateColors', { colors, max })
   }
 
   mouseLeave() {
@@ -900,9 +903,9 @@ class Map extends React.Component {
   render() {
     console.log('Render Map')
     const {
-      iso3166, emitter, translate, aggregations,
+      iso3166, emitter, translate,
     } = this.props
-    const { overlayList, colors } = this.state
+    const { overlayList } = this.state
 
     return (
       <div
@@ -925,37 +928,9 @@ class Map extends React.Component {
       >
         {overlayList && <div className="overlayList" />}
 
-        {colors && (
-          (getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations) > 0)
-          || (getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-          || (getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-        ) && (
-          <div className="mapLeyend">
-            <div className="infoContainer">
-              <span className="min">0</span>
-
-              <span className="description">
-                {aggregations['sterms#feature.properties.location.address.addressRegion']
-                && aggregations['sterms#feature.properties.location.address.addressRegion'].buckets.length
-                  ? translate('Map.entriesPerRegion') : translate('Map.entriesPerCountry')}
-              </span>
-
-              <span className="max">
-                {
-                  getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations)
-                  || getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations)
-                  || getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations)
-                }
-              </span>
-            </div>
-
-            <div className="stepsContainer">
-              {colors.map(color => (
-                <div key={color} style={{ backgroundColor: color }} className="step" />
-              ))}
-            </div>
-          </div>
-        )}
+        <MapLeyend
+          iso3166={iso3166}
+        />
 
         <a className="imprintLink" href="/imprint">{translate('main.imprintPrivacy')}</a>
 
