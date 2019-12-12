@@ -16,7 +16,7 @@ const TotalEntries = ({ translate, emitter }) => {
     <h3>
       {total}
       &nbsp;
-      {translate('entries found')}
+      {translate('CountryIndex.read.entriesShown')}
     </h3>
   )
 }

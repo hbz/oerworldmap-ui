@@ -72,37 +72,12 @@ const ReactiveFilters = ({
       dataField: 'about.keywords',
       showMissing: true,
       showSearch: true,
-      title: 'Tag',
-    },
-    {
-      componentId: 'filter.about.location.address.addressCountry',
-      dataField: 'about.location.address.addressCountry',
-      showSearch: false,
-      title: 'Country',
-      renderItem: (label, count) => (
-        <span>
-          <span>{translate(label)}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.location.address.addressRegion',
-      dataField: 'about.location.address.addressRegion',
-      showSearch: false,
-      title: 'Region',
-      renderItem: (label, count) => (
-        <span>
-          <span>{translate(label)}</span>
-          <span>{count}</span>
-        </span>
-      ),
+      title: 'filter.about.keywords',
     },
     {
       componentId: 'filter.about.availableChannel.availableLanguage',
       dataField: 'about.availableChannel.availableLanguage',
       showSearch: false,
-      title: 'Language',
       renderItem: (label, count) => (
         <span>
           <span>{translate(label)}</span>
@@ -114,7 +89,6 @@ const ReactiveFilters = ({
       componentId: 'filter.about.additionalType.@id',
       dataField: 'about.additionalType.@id',
       showSearch: false,
-      title: 'Sub-Categories',
       renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
@@ -126,7 +100,6 @@ const ReactiveFilters = ({
       componentId: 'filter.about.audience.@id',
       dataField: 'about.audience.@id',
       showSearch: false,
-      title: 'Audience',
       renderItem: (label, count) => (
         <span>
           <span>{label.split('/').slice(-1).pop()}</span>
@@ -138,7 +111,6 @@ const ReactiveFilters = ({
       componentId: 'filter.about.primarySector.@id',
       dataField: 'about.primarySector.@id',
       showSearch: false,
-      title: 'Primary Sector',
       renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
@@ -150,7 +122,6 @@ const ReactiveFilters = ({
       componentId: 'filter.about.secondarySector.@id',
       dataField: 'about.secondarySector.@id',
       showSearch: false,
-      title: 'Secondary Sector',
       renderItem: (label, count) => (
         <span>
           <span>{label.split('#').slice(-1).pop()}</span>
@@ -162,7 +133,6 @@ const ReactiveFilters = ({
       componentId: 'filter.about.award',
       dataField: 'about.award',
       showSearch: false,
-      title: 'Award',
       renderItem: (label, count) => (
         <span>
           <span>
@@ -205,6 +175,36 @@ const ReactiveFilters = ({
       title: 'Field of Activity',
     },
   ]
+
+  if (!iso3166) {
+    subFilters.push({
+      componentId: 'filter.about.location.address.addressCountry',
+      dataField: 'about.location.address.addressCountry',
+      showSearch: false,
+      title: 'country',
+      renderItem: (label, count) => (
+        <span>
+          <span>{translate(label)}</span>
+          <span>{count}</span>
+        </span>
+      ),
+    })
+  }
+
+  if (!region) {
+    subFilters.push({
+      componentId: 'filter.about.location.address.addressRegion',
+      dataField: 'about.location.address.addressRegion',
+      showSearch: false,
+      title: 'filter.feature.properties.location.address.addressRegion',
+      renderItem: (label, count) => (
+        <span>
+          <span>{translate(label)}</span>
+          <span>{count}</span>
+        </span>
+      ),
+    })
+  }
 
   const filterIDs = ['q', 'filter.about.@type'].concat(subFilters.map(filter => filter.componentId))
   subFilters = subFilters.map((filter) => {
@@ -441,7 +441,6 @@ const ReactiveFilters = ({
                 return query
               }}
               onData={({ aggregations, data }) => {
-                console.log(data)
                 if (aggregations !== null) {
                   const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
                   const agg = (aggregations
@@ -462,6 +461,7 @@ const ReactiveFilters = ({
                 key={filter.componentId}
                 className="FilterBox"
                 {...filter}
+                title={filter.title ? translate(filter.title) : translate(filter.componentId)}
                 // URLParams
               />
             ))}
