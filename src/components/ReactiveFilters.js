@@ -192,6 +192,25 @@ const ReactiveFilters = ({
     return filter
   })
 
+  let searchPlaceholder = translate('search.entries')
+  if (iso3166) {
+    // (filters && Object.keys(filters).includes('about.@type'))
+    //   ? searchPlaceholder = translate('search.entries.country.filter', {
+    //     country: translate(region ? `${iso3166}.${region}` : iso3166),
+    //     // filter: translate(filters['about.@type'][0]).toLowerCase(),
+    //   })
+    //   :
+    searchPlaceholder = translate('search.entries.country', { country: translate(region ? `${iso3166}.${region}` : iso3166) })
+  // } else if (filters && Object.keys(filters).includes('about.@type')) {
+  //   if (filters['about.@type'][0] === 'Policy') {
+  //     searchPlaceholder = translate('search.entries.filter.policy')
+  //   } else {
+  //     searchPlaceholder = translate('search.entries.filter', {
+  //       filter: translate(filters['about.@type'][0]).toLowerCase(),
+  //     })
+  //   }
+  }
+
 
   return (
     <div
@@ -210,7 +229,7 @@ const ReactiveFilters = ({
               className="nameSearch"
               componentId="q"
               dataField={['about.name.*', 'about.description.*']}
-              placeholder="Search the OER"
+              placeholder={searchPlaceholder}
               // URLParams
               react={{
                 and: filterIDs.filter(id => id !== 'q'),
