@@ -1,6 +1,7 @@
 /* global document */
 import React from 'react'
 import PropTypes from 'prop-types'
+import Tooltip from 'rc-tooltip'
 
 import {
   ReactiveBase,
@@ -20,30 +21,51 @@ import Icon from './Icon'
 import TogglePoints from './TogglePoints'
 import Link from './Link'
 
-const toggleButtons = [
-  { label: 'Organizaion', value: 'Organization' },
-  { label: 'Service', value: 'Service' },
-  { label: 'Person', value: 'Person' },
-  { label: 'Project', value: 'Action' },
-  { label: 'Event', value: 'Event' },
-  { label: 'Story', value: 'Article' },
-  { label: 'Publication', value: 'WebPage' },
-  { label: 'Tool', value: 'Product' },
-  { label: 'Policy', value: 'Policy' },
-].map((btn) => {
-  btn.label = (
-    <span>
-      <Icon type={btn.value} />
-      {' '}
-      {btn.label}
-    </span>
-  )
-  return btn
-})
 
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
 }) => {
+  const toggleButtons = [
+    { label: 'Organizaion', value: 'Organization' },
+    { label: 'Service', value: 'Service' },
+    { label: 'Person', value: 'Person' },
+    { label: 'Project', value: 'Action' },
+    { label: 'Event', value: 'Event' },
+    { label: 'Story', value: 'Article' },
+    { label: 'Publication', value: 'WebPage' },
+    { label: 'Tool', value: 'Product' },
+    { label: 'Policy', value: 'Policy' },
+  ].map((btn) => {
+    btn.label = (
+      <Tooltip
+        key={btn.value}
+        overlayStyle={{
+          maxWidth: '110px',
+        }}
+        overlay={(
+          <span>
+            <b>{translate(btn.value)}</b>
+          :&nbsp;
+            {translate(`Tip.${btn.value}`)}
+          </span>
+        )}
+        placement="top"
+        align={{
+          targetOffset: [0, 5],
+        }}
+        mouseEnterDelay={0.2}
+        overlayClassName="tooltipDisableEvents"
+      >
+        <span>
+          <Icon type={btn.value} />
+          {' '}
+          {translate(btn.value)}
+        </span>
+      </Tooltip>
+    )
+    return btn
+  })
+
   let subFilters = [
     {
       componentId: 'filter.about.keyword',
