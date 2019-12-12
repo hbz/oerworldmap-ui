@@ -419,7 +419,7 @@ const ReactiveFilters = ({
                 componentId="SearchResult"
                 title="Results"
                 defaultQuery={() => {
-                  let query = null
+                  let query = {}
 
                   if (iso3166) {
                     query = {
