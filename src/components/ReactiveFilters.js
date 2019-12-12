@@ -18,6 +18,7 @@ import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import Icon from './Icon'
 import TogglePoints from './TogglePoints'
+import Link from './Link'
 
 const toggleButtons = [
   { label: 'Organizaion', value: 'Organization' },
@@ -272,6 +273,31 @@ const ReactiveFilters = ({
         <div className="mainContent listView">
 
           <aside>
+
+            {iso3166 && (
+              <div className="FilterBox country">
+                <img
+                  className="countryFlag"
+                  src={`https://lipis.github.io/flag-icon-css/flags/4x3/${iso3166.toLowerCase()}.svg`}
+                  alt={`Flag for ${translate(iso3166)}`}
+                />
+                {region ? (
+                  <>
+                    <h2>{translate(`${iso3166}.${region}`)}</h2>
+                    <Link href={`/country/${iso3166}`} className="closePage">
+                    &times;
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <h2>{translate(iso3166)}</h2>
+                    <Link href="/resource/" className="closePage">
+                    &times;
+                    </Link>
+                  </>
+                )}
+              </div>
+            )}
 
             <SelectedFilters
               render={(data) => {
