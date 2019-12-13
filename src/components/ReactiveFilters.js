@@ -21,64 +21,6 @@ import Icon from './Icon'
 import TogglePoints from './TogglePoints'
 import Link from './Link'
 
-
-let subFilters = [
-  {
-    componentId: 'filter.about.keyword',
-    dataField: 'about.keywords',
-    showMissing: true,
-    showSearch: true,
-    translate: false,
-    size: 100,
-  },
-  {
-    componentId: 'filter.about.availableChannel.availableLanguage',
-    dataField: 'about.availableChannel.availableLanguage',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.additionalType.@id',
-    dataField: 'about.additionalType.@id',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.audience.@id',
-    dataField: 'about.audience.@id',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.primarySector.@id',
-    dataField: 'about.primarySector.@id',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.secondarySector.@id',
-    dataField: 'about.secondarySector.@id',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.award',
-    dataField: 'about.award',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.license.@id',
-    dataField: 'about.license.@id',
-    showSearch: false,
-    title: 'License',
-  },
-  {
-    componentId: 'filter.about.about.@id',
-    dataField: 'about.about.@id',
-    showSearch: false,
-  },
-  {
-    componentId: 'filter.about.activityField.@id',
-    dataField: 'about.activityField.@id',
-    showSearch: false,
-  },
-]
-
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
 }) => {
@@ -114,7 +56,7 @@ const ReactiveFilters = ({
         overlayClassName="tooltipDisableEvents"
       >
         <span>
-          <Icon type={btn.value} />
+          {/* <Icon type={btn.value} /> */}
           {' '}
           {translate(btn.value)}
         </span>
@@ -123,7 +65,64 @@ const ReactiveFilters = ({
     return btn
   })
 
-  if (!iso3166) {
+  let subFilters = [
+    {
+      componentId: 'filter.about.keyword',
+      dataField: 'about.keywords',
+      showMissing: true,
+      showSearch: true,
+      translate: false,
+      size: 100,
+    },
+    {
+      componentId: 'filter.about.availableChannel.availableLanguage',
+      dataField: 'about.availableChannel.availableLanguage',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.additionalType.@id',
+      dataField: 'about.additionalType.@id',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.audience.@id',
+      dataField: 'about.audience.@id',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.primarySector.@id',
+      dataField: 'about.primarySector.@id',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.secondarySector.@id',
+      dataField: 'about.secondarySector.@id',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.award',
+      dataField: 'about.award',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.license.@id',
+      dataField: 'about.license.@id',
+      showSearch: false,
+      title: 'License',
+    },
+    {
+      componentId: 'filter.about.about.@id',
+      dataField: 'about.about.@id',
+      showSearch: false,
+    },
+    {
+      componentId: 'filter.about.activityField.@id',
+      dataField: 'about.activityField.@id',
+      showSearch: false,
+    },
+  ]
+
+  if (!iso3166 && !subFilters.find(filter => filter.componentId === 'filter.about.location.address.addressCountry')) {
     subFilters.push({
       componentId: 'filter.about.location.address.addressCountry',
       dataField: 'about.location.address.addressCountry',
@@ -132,7 +131,7 @@ const ReactiveFilters = ({
     })
   }
 
-  if (!region) {
+  if (!region && !subFilters.find(filter => filter.componentId === 'filter.about.location.address.addressRegion')) {
     subFilters.push({
       componentId: 'filter.about.location.address.addressRegion',
       dataField: 'about.location.address.addressRegion',
