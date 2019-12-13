@@ -22,19 +22,77 @@ import TogglePoints from './TogglePoints'
 import Link from './Link'
 
 
+let subFilters = [
+  {
+    componentId: 'filter.about.keyword',
+    dataField: 'about.keywords',
+    showMissing: true,
+    showSearch: true,
+    title: 'filter.about.keywords',
+    translate: false,
+    size: 100,
+  },
+  {
+    componentId: 'filter.about.availableChannel.availableLanguage',
+    dataField: 'about.availableChannel.availableLanguage',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.additionalType.@id',
+    dataField: 'about.additionalType.@id',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.audience.@id',
+    dataField: 'about.audience.@id',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.primarySector.@id',
+    dataField: 'about.primarySector.@id',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.secondarySector.@id',
+    dataField: 'about.secondarySector.@id',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.award',
+    dataField: 'about.award',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.license.@id',
+    dataField: 'about.license.@id',
+    showSearch: false,
+    title: 'License',
+  },
+  {
+    componentId: 'filter.about.about.@id',
+    dataField: 'about.about.@id',
+    showSearch: false,
+  },
+  {
+    componentId: 'filter.about.activityField.@id',
+    dataField: 'about.activityField.@id',
+    showSearch: false,
+  },
+]
+
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
 }) => {
   const toggleButtons = [
-    { label: 'Organizaion', value: 'Organization' },
-    { label: 'Service', value: 'Service' },
-    { label: 'Person', value: 'Person' },
-    { label: 'Project', value: 'Action' },
-    { label: 'Event', value: 'Event' },
-    { label: 'Story', value: 'Article' },
-    { label: 'Publication', value: 'WebPage' },
-    { label: 'Tool', value: 'Product' },
-    { label: 'Policy', value: 'Policy' },
+    { value: 'Organization' },
+    { value: 'Service' },
+    { value: 'Person' },
+    { value: 'Action' },
+    { value: 'Event' },
+    { value: 'Article' },
+    { value: 'WebPage' },
+    { value: 'Product' },
+    { value: 'Policy' },
   ].map((btn) => {
     btn.label = (
       <Tooltip
@@ -66,128 +124,12 @@ const ReactiveFilters = ({
     return btn
   })
 
-  let subFilters = [
-    {
-      componentId: 'filter.about.keyword',
-      dataField: 'about.keywords',
-      showMissing: true,
-      showSearch: true,
-      title: 'filter.about.keywords',
-    },
-    {
-      componentId: 'filter.about.availableChannel.availableLanguage',
-      dataField: 'about.availableChannel.availableLanguage',
-      showSearch: false,
-      renderItem: (label, count) => (
-        <span>
-          <span>{translate(label)}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.additionalType.@id',
-      dataField: 'about.additionalType.@id',
-      showSearch: false,
-      renderItem: (label, count) => (
-        <span>
-          <span>{label.split('#').slice(-1).pop()}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.audience.@id',
-      dataField: 'about.audience.@id',
-      showSearch: false,
-      renderItem: (label, count) => (
-        <span>
-          <span>{label.split('/').slice(-1).pop()}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.primarySector.@id',
-      dataField: 'about.primarySector.@id',
-      showSearch: false,
-      renderItem: (label, count) => (
-        <span>
-          <span>{label.split('#').slice(-1).pop()}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.secondarySector.@id',
-      dataField: 'about.secondarySector.@id',
-      showSearch: false,
-      renderItem: (label, count) => (
-        <span>
-          <span>{label.split('#').slice(-1).pop()}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.award',
-      dataField: 'about.award',
-      showSearch: false,
-      renderItem: (label, count) => (
-        <span>
-          <span>
-            {label.split('/').slice(-1).pop().replace('.png', '')
-              .replace('.jpg', '')}
-
-          </span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.license.@id',
-      dataField: 'about.license.@id',
-      showSearch: false,
-      title: 'License',
-      renderItem: (label, count) => (
-        <span>
-          <span>{label.split('#').slice(-1).pop()}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.about.@id',
-      dataField: 'about.about.@id',
-      showSearch: false,
-      title: 'Subject',
-      renderItem: (label, count) => (
-        <span>
-          <span>{label.split('/').slice(-1).pop()}</span>
-          <span>{count}</span>
-        </span>
-      ),
-    },
-    {
-      componentId: 'filter.about.activityField.@id',
-      dataField: 'about.activityField.@id',
-      showSearch: false,
-      title: 'Field of Activity',
-    },
-  ]
-
   if (!iso3166) {
     subFilters.push({
       componentId: 'filter.about.location.address.addressCountry',
       dataField: 'about.location.address.addressCountry',
       showSearch: false,
       title: 'country',
-      renderItem: (label, count) => (
-        <span>
-          <span>{translate(label)}</span>
-          <span>{count}</span>
-        </span>
-      ),
     })
   }
 
@@ -197,12 +139,6 @@ const ReactiveFilters = ({
       dataField: 'about.location.address.addressRegion',
       showSearch: false,
       title: 'filter.feature.properties.location.address.addressRegion',
-      renderItem: (label, count) => (
-        <span>
-          <span>{translate(label)}</span>
-          <span>{count}</span>
-        </span>
-      ),
     })
   }
 
@@ -462,6 +398,15 @@ const ReactiveFilters = ({
                 className="FilterBox"
                 {...filter}
                 title={filter.title ? translate(filter.title) : translate(filter.componentId)}
+                renderItem={
+                  (filter.translate !== false)
+                    ? ((label, count) => (
+                      <span>
+                        <span>{translate(label)}</span>
+                        <span>{count}</span>
+                      </span>
+                    ))
+                    : null}
                 // URLParams
               />
             ))}
