@@ -1,5 +1,5 @@
 /* global document */
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from 'rc-tooltip'
 
@@ -21,9 +21,13 @@ import Icon from './Icon'
 import TogglePoints from './TogglePoints'
 import Link from './Link'
 
+const sizes = [20, 50, 100, 200, 9999]
+
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
 }) => {
+  const [currentSize, setCurrentSize] = useState(20)
+
   const toggleButtons = [
     { value: 'Organization' },
     { value: 'Service' },
@@ -140,7 +144,7 @@ const ReactiveFilters = ({
     })
   }
 
-  const filterIDs = ['q', 'filter.about.@type'].concat(subFilters.map(filter => filter.componentId))
+  const filterIDs = ['q', 'size', 'filter.about.@type'].concat(subFilters.map(filter => filter.componentId))
   subFilters = subFilters.map((filter) => {
     filter.react = {
       and: filterIDs.filter(id => id !== filter.componentId),
@@ -166,7 +170,6 @@ const ReactiveFilters = ({
   //     })
   //   }
   }
-
 
   return (
     <div
@@ -212,6 +215,26 @@ const ReactiveFilters = ({
             <TotalEntries />
 
             <div>
+
+              <select
+                className="btn"
+                onChange={(e) => {
+                  setCurrentSize(e.target.value)
+                }}
+              >
+                {sizes.map(size => (
+                  <option
+                    key={size}
+                    selected={(size === currentSize) || null}
+                    value={size}
+                  >
+                    {size === 9999 ? 'all' : size}
+                    &nbsp;
+                    {translate('entries / page')}
+                  </option>
+                ))}
+              </select>
+
               <button
                 type="button"
                 className="btn"
@@ -415,7 +438,6 @@ const ReactiveFilters = ({
             className="toggleList"
             type="button"
             onClick={(e) => {
-              console.log(e.target)
               e.target.parentElement.classList.toggle('collapsed')
               const icon = e.target.querySelector('i')
               if (icon.classList.contains('fa-chevron-right')) {
@@ -469,7 +491,7 @@ const ReactiveFilters = ({
                 dataField="@type"
                 showResultStats={false}
                 from={0}
-                size={20}
+                size={currentSize}
                 pagination
                 loader={(
                   <div className="Loading">
