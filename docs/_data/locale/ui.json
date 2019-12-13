@@ -231,6 +231,8 @@
   "filter.feature.properties.location.address.addressCountry": "Location",
   "filter.feature.properties.location.address.addressRegion": "Region",
   "filter.about.keywords": "Tag",
+  "filter.about.keyword": "Tag",
+  "filter.about.@type": "Type",
   "availableLanguage": "Language",
   "keywords": "Tag",
   "country": "Country",

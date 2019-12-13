@@ -28,7 +28,6 @@ let subFilters = [
     dataField: 'about.keywords',
     showMissing: true,
     showSearch: true,
-    title: 'filter.about.keywords',
     translate: false,
     size: 100,
   },
@@ -188,7 +187,7 @@ const ReactiveFilters = ({
               componentId="q"
               dataField={['about.name.*', 'about.description.*']}
               placeholder={searchPlaceholder}
-              // URLParams
+              URLParams
               react={{
                 and: filterIDs.filter(id => id !== 'q'),
               }}
@@ -202,7 +201,7 @@ const ReactiveFilters = ({
             className="typeSearch"
             componentId="filter.about.@type"
             dataField="about.@type"
-            // URLParams
+            URLParams
             multiSelect={false}
             react={{
               and: filterIDs.filter(id => id !== 'filter.about.@type'),
@@ -336,7 +335,7 @@ const ReactiveFilters = ({
               componentId="myCountryPicker"
               defaultQuery={() => {
                 const query = {
-                  size: 9999,
+                  size: 99,
                   _source: 'feature.*',
                   query: {
                     bool: {
@@ -407,7 +406,7 @@ const ReactiveFilters = ({
                       </span>
                     ))
                     : null}
-                // URLParams
+                URLParams
               />
             ))}
 
