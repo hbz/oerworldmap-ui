@@ -281,7 +281,7 @@ const ReactiveFilters = ({
                 return (
                   (applied.length > 0 && (applied.map(filter => data.selectedValues[filter]).map(f => f.value).some(value => ((value !== null) && (value.length > 0))))) && (
                     <div className="selectedFilters">
-                      <h2>Filters</h2>
+                      <h2>{translate('Filters')}</h2>
                       <ul>
                         {applied.map(filter => (
                           (data.selectedValues[filter].value !== null) && (
@@ -323,7 +323,7 @@ const ReactiveFilters = ({
                         className="clearAll"
                         onClick={data.clearValues}
                       >
-                        Clear All
+                        {translate('Clear All')}
                       </button>
                     </div>
                   )
