@@ -252,11 +252,12 @@ const ReactiveFilters = ({
                   const el = document.querySelector('.mainContent')
                   el.classList.add('listView')
                   el.classList.remove('Map')
+                  el.classList.remove('statisticsView')
                 }}
               >
                 <i className="fa fa-list" />
                 &nbsp;
-                List
+                {translate('main.list')}
               </button>
               <button
                 type="button"
@@ -265,13 +266,31 @@ const ReactiveFilters = ({
                   const el = document.querySelector('.mainContent')
                   el.classList.add('Map')
                   el.classList.remove('listView')
+                  el.classList.remove('statisticsView')
                   emitter.emit('resize')
                 }}
               >
                 <i className="fa fa-map" />
                 &nbsp;
-                Map
+                {translate('main.map')}
               </button>
+
+              {iso3166 && (
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => {
+                    const el = document.querySelector('.mainContent')
+                    el.classList.add('statisticsView')
+                    el.classList.remove('Map')
+                    el.classList.remove('listView')
+                  }}
+                >
+                  <i className="fa fa-pie-chart" />
+                  &nbsp;
+                  {translate('ClientTemplates.app.statistics')}
+                </button>
+              )}
             </div>
 
           </div>
