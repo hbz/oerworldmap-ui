@@ -60,7 +60,7 @@ const ReactiveFilters = ({
         overlayClassName="tooltipDisableEvents"
       >
         <span>
-          {/* <Icon type={btn.value} /> */}
+          <Icon type={btn.value} />
           {' '}
           {translate(btn.value)}
         </span>
