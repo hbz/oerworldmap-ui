@@ -154,25 +154,6 @@ const ReactiveFilters = ({
     return filter
   })
 
-  let searchPlaceholder = translate('search.entries')
-  if (iso3166) {
-    // (filters && Object.keys(filters).includes('about.@type'))
-    //   ? searchPlaceholder = translate('search.entries.country.filter', {
-    //     country: translate(region ? `${iso3166}.${region}` : iso3166),
-    //     // filter: translate(filters['about.@type'][0]).toLowerCase(),
-    //   })
-    //   :
-    searchPlaceholder = translate('search.entries.country', { country: translate(region ? `${iso3166}.${region}` : iso3166) })
-  // } else if (filters && Object.keys(filters).includes('about.@type')) {
-  //   if (filters['about.@type'][0] === 'Policy') {
-  //     searchPlaceholder = translate('search.entries.filter.policy')
-  //   } else {
-  //     searchPlaceholder = translate('search.entries.filter', {
-  //       filter: translate(filters['about.@type'][0]).toLowerCase(),
-  //     })
-  //   }
-  }
-
   return (
     <div
       className="ReactiveFilters"
@@ -186,14 +167,41 @@ const ReactiveFilters = ({
         <section className="filtersHeader">
 
           <div className="basicFilters">
-            <DataSearch
-              className="nameSearch"
-              componentId="q"
-              dataField={['about.name.*', 'about.description.*']}
-              placeholder={searchPlaceholder}
-              URLParams
-              react={{
-                and: filterIDs.filter(id => id !== 'q'),
+
+            <StateProvider
+              render={({ searchState }) => {
+                const filter = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value) || false
+
+                let searchPlaceholder = translate('search.entries')
+                if (iso3166) {
+                  (filter)
+                    ? searchPlaceholder = translate('search.entries.country.filter', {
+                      country: translate(region ? `${iso3166}.${region}` : iso3166),
+                      filter: translate(filter).toLowerCase(),
+                    })
+                    : searchPlaceholder = translate('search.entries.country', { country: translate(region ? `${iso3166}.${region}` : iso3166) })
+                } else if (filter) {
+                  if (filter === 'Policy') {
+                    searchPlaceholder = translate('search.entries.filter.policy')
+                  } else {
+                    searchPlaceholder = translate('search.entries.filter', {
+                      filter: translate(filter),
+                    })
+                  }
+                }
+
+                return (
+                  <DataSearch
+                    className="nameSearch"
+                    componentId="q"
+                    dataField={['about.name.*', 'about.description.*']}
+                    placeholder={searchPlaceholder}
+                    URLParams
+                    react={{
+                      and: filterIDs.filter(id => id !== 'q'),
+                    }}
+                  />
+                )
               }}
             />
 
