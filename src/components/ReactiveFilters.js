@@ -11,6 +11,7 @@ import {
   MultiList,
   SelectedFilters,
   ReactiveComponent,
+  StateProvider,
 } from '@appbaseio/reactivesearch'
 
 import withI18n from './withI18n'
@@ -20,6 +21,7 @@ import TotalEntries from './TotalEntries'
 import Icon from './Icon'
 import TogglePoints from './TogglePoints'
 import Link from './Link'
+// import Calendar from './Calendar'
 
 const sizes = [20, 50, 100, 200, 9999]
 
@@ -505,7 +507,22 @@ const ReactiveFilters = ({
 
                 render={({ data }) => {
                   const items = data || []
-                  return <ResultList listItems={items} />
+
+                  return (
+                    <StateProvider
+                      render={({ searchState }) => {
+                        const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
+                        return (
+                          eventSelected ? (
+                            // <Calendar entries={items} />
+                            <div>Calendar</div>
+                          ) : (
+                            <ResultList listItems={items} />
+                          )
+                        )
+                      }}
+                    />
+                  )
                 }}
               />
 
