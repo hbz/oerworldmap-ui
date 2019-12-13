@@ -252,7 +252,7 @@ class Map extends React.Component {
       })
 
       // Update URL values
-      // this.map.on('moveend', this.moveEnd)
+      this.map.on('moveend', this.moveEnd)
 
       // Get features currently under the mouse
       this.map.on('mousemove', this.mouseMove)
@@ -312,7 +312,7 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
+    this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
   }
 
