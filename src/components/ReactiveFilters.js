@@ -6,7 +6,7 @@ import Tooltip from 'rc-tooltip'
 import {
   ReactiveBase,
   ReactiveList,
-  ToggleButton,
+  // ToggleButton,
   DataSearch,
   MultiDropdownList,
   SelectedFilters,
