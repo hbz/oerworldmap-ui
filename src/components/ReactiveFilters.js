@@ -499,15 +499,19 @@ const ReactiveFilters = ({
                 className="FilterBox"
                 {...filter}
                 title={filter.title ? translate(filter.title) : translate(filter.componentId)}
-                renderItem={
-                  (filter.translate !== false)
-                    ? ((label, count) => (
-                      <span>
-                        <span>{translate(label)}</span>
-                        <span>{count}</span>
-                      </span>
-                    ))
-                    : null}
+                renderItem={(label, count) => (
+                  <span>
+                    <span>{(filter.translate !== false) ? translate(label) : label}</span>
+                    &nbsp;
+                    <span
+                      className="count"
+                    >
+                      (
+                      {count}
+                      )
+                    </span>
+                  </span>
+                )}
                 URLParams
               />
             ))}
