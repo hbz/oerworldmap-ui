@@ -8,7 +8,7 @@ import {
   ReactiveList,
   ToggleButton,
   DataSearch,
-  MultiList,
+  MultiDropdownList,
   SelectedFilters,
   ReactiveComponent,
   StateProvider,
@@ -209,16 +209,67 @@ const ReactiveFilters = ({
 
           </div>
 
-          <ToggleButton
+          {/* <ToggleButton
             className="typeSearch"
             componentId="filter.about.@type"
             dataField="about.@type"
             URLParams
             multiSelect={false}
-            react={{
-              and: filterIDs.filter(id => id !== 'filter.about.@type'),
-            }}
+            // react={{
+            //   and: filterIDs.filter(id => id !== 'filter.about.@type'),
+            // }}
             data={toggleButtons}
+          /> */}
+
+          <StateProvider
+            render={({ searchState }) => {
+              const selectedType = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value) || null
+              return (
+                <ReactiveComponent
+                  className="typeSearch"
+                  componentId="filter.about.@type"
+                  defaultQuery={() => ({
+                    query: {
+                      term: {
+                        'about.@type': selectedType,
+                      },
+                    },
+                  })}
+                  URLParams
+                  // showFilter
+                  render={({ setQuery }) => (
+                    <div className="toggleButtons">
+                      {toggleButtons.map(button => (
+                        <button
+                          type="button"
+                          key={button.value}
+                          className={`typeButton${(selectedType === button.value) ? ' active' : ''}`}
+                          onClick={() => {
+                            if (selectedType === button.value) {
+                              setQuery({
+                                query: null,
+                                value: '',
+                              })
+                            } else {
+                              setQuery({
+                                query: {
+                                  term: {
+                                    'about.@type': button.value,
+                                  },
+                                },
+                                value: button.value,
+                              })
+                            }
+                          }}
+                        >
+                          {button.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                />
+              )
+            }}
           />
 
           <div className="controls">
@@ -443,7 +494,7 @@ const ReactiveFilters = ({
             />
 
             {subFilters.map(filter => (
-              <MultiList
+              <MultiDropdownList
                 key={filter.componentId}
                 className="FilterBox"
                 {...filter}

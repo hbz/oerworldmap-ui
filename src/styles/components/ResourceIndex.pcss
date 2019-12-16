@@ -24,6 +24,31 @@
         flex: 1;
       }
     }
+
+    & .toggleButtons {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+
+      & .typeButton {
+        background-color: transparent;
+        border: none;
+        color: var(--grey);
+        cursor: pointer;
+
+        &.active {
+          color: var(--blue-dark);
+        }
+
+        &:hover {
+          color: var(--orange);
+        }
+
+        &:focus {
+          outline: 1px dotted var(--blue-dark);
+        }
+      }
+    }
   }
 
   & .reactiveBase {
