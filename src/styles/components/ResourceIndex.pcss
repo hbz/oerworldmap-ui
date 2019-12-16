@@ -92,7 +92,8 @@
     }
 
     & #Map,
-    & .listResults {
+    & .listResults,
+    & .statisticsContent {
       display: none;
     }
   }
@@ -133,6 +134,12 @@
 
   & .mainContent.listView {
     & .listResults {
+      display: block;
+    }
+  }
+
+  & .mainContent.statisticsView {
+    & .statisticsContent {
       display: block;
     }
   }
