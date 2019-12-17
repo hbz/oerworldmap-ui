@@ -634,8 +634,12 @@ const ReactiveFilters = ({
                           and: filterIDs,
                         }}
 
-                        render={({ data }) => {
+                        render={({ data, resultStats: { numberOfResults } }) => {
                           const items = data || []
+                          emitter.emit('updateCount', numberOfResults)
+                          if (typeof document !== 'undefined') {
+                            document.title = numberOfResults
+                          }
                           return <ResultList listItems={items} />
                         }}
                       />

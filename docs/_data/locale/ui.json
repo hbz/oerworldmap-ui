@@ -38,7 +38,7 @@
   "CountryIndex.read.noChampion": "There is no <a href=\"/contribute\">champion</a> for %{country}, yet. <a href=\"mailto:info@oerworldmap.org\">Contact us</a> if you can jump in!",
   "CountryIndex.read.statistics": "Statistics",
   "CountryIndex.read.countryReports": "Country reports",
-  "CountryIndex.read.entriesShown": "entries shown",
+  "CountryIndex.read.entriesShown": "entries found",
   "CountryIndex.read.noRelatedEntries": "No related entries found",
   "CountryIndex.description": "Discover the OER movement in %{countryName}!",
   "LandigPage.index.welcome": "Welcome to the OER World Map!",
