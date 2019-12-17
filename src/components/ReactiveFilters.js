@@ -437,7 +437,7 @@ const ReactiveFilters = ({
               componentId="myCountryPicker"
               defaultQuery={() => {
                 const query = {
-                  size: 99,
+                  size: 9999,
                   _source: 'feature.*',
                   query: {
                     bool: {

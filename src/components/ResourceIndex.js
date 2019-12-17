@@ -4,25 +4,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Map from './Map'
-import ReactiveFilters from './ReactiveFilters'
+import Filters from './Filters'
+import Columns from './Columns'
+import Column from './Column'
+import ResultList from './ResultList'
+import Pagination from './Pagination'
+import Calendar from './Calendar'
 
 import withEmitter from './withEmitter'
 
-import '../styles/components/ResourceIndex.pcss'
-
 const ResourceIndex = ({
   mapboxConfig,
-  elasticsearchConfig,
   emitter,
-  // query,
-  // filters,
-  // aggregations,
-  // member,
-  // size,
-  // totalItems,
-  // nextPage,
-  // previousPage,
-  // from,
+  query,
+  filters,
+  aggregations,
+  member,
+  size,
+  totalItems,
+  nextPage,
+  previousPage,
+  from,
   iso3166,
   map,
   view,
@@ -30,37 +32,79 @@ const ResourceIndex = ({
   _self,
   _links,
   className,
-  // sort,
-  // embedValue,
+  sort,
+  embedValue,
   phrases,
   isEmbed,
   region,
 }) => {
   const home = _self.endsWith('/resource/?features=true')
-  const initPins = isEmbed || (typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true')
 
   return (
-    <ReactiveFilters
-      iso3166={iso3166}
-      region={region}
-      elasticsearchConfig={elasticsearchConfig}
-      initPins={initPins}
+    <div
+      className={`ResourceIndex ${className || ''}`}
+      style={{
+        flex: 1,
+        overflow: 'hidden',
+        position: 'relative',
+      }}
     >
+      {children}
+
+      <Columns show={!home || view.length > 0} country={iso3166}>
+        <Column>
+          <Filters
+            query={query}
+            filters={filters}
+            aggregations={aggregations}
+            totalItems={totalItems}
+            size={Number.isInteger(+size) ? +size : 20}
+            sort={sort}
+            _self={_self}
+            _links={_links}
+            view={view}
+            embedValue={embedValue}
+            country={iso3166}
+            isEmbed={isEmbed}
+            region={region}
+            initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
+          />
+          {filters['about.@type'] && filters['about.@type'].includes('Event') ? (
+            <div className="wrapper-Calendar">
+              <Calendar entries={aggregations['date_histogram#about.startDate.GTE'].buckets} />
+            </div>
+          ) : (
+            <div className="wrapper-ItemList-Pagination">
+              <ResultList
+                listItems={member}
+              />
+
+              <Pagination
+                totalItems={totalItems}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                from={from}
+                size={size}
+              />
+            </div>
+          )}
+        </Column>
+      </Columns>
 
       <Map
         phrases={phrases}
-        aggregations={[]}
+        aggregations={aggregations}
         emitter={emitter}
         mapboxConfig={mapboxConfig}
         iso3166={iso3166}
         map={map}
         home={home}
         _links={_links}
-        initPins={initPins}
+        initPins={isEmbed || typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true'}
         region={region}
-        data={[]}
       />
-    </ReactiveFilters>
+
+    </div>
   )
 }
 
@@ -88,12 +132,6 @@ ResourceIndex.propTypes = {
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string,
-  elasticsearchConfig: PropTypes.shape(
-    {
-      index: PropTypes.string,
-      url: PropTypes.string,
-    },
-  ).isRequired,
 }
 
 ResourceIndex.defaultProps = {

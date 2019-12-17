@@ -12,6 +12,7 @@ import Feed from './components/Feed'
 import Timeline from './components/Timeline'
 import Statistics from './components/Statistics'
 import ResourceIndex from './components/ResourceIndex'
+import ReactiveResourceIndex from './components/ReactiveResourceIndex'
 import Feedback from './components/Feedback'
 import FullModal from './components/FullModal'
 import ErrorPage from './components/ErrorPage'
@@ -30,7 +31,7 @@ export default (api, emitter, location) => {
 
   const routes = [
     {
-      path: '/resource/',
+      path: '/browse/',
       get: async (params, context, state) => {
         const {
           mapboxConfig, schema, phrases, embed, elasticsearchConfig,
@@ -42,6 +43,7 @@ export default (api, emitter, location) => {
         if (!params.add) {
           Link.home = url
         }
+        Link.back = '/browse/'
         const data = state || {
           _self: location.href,
         }
@@ -61,11 +63,84 @@ export default (api, emitter, location) => {
             onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
           />
         ) : (
-          <ResourceIndex
+          <ReactiveResourceIndex
             {...data}
             phrases={phrases}
             mapboxConfig={mapboxConfig}
             elasticsearchConfig={elasticsearchConfig}
+            map={params.map}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            embedValue="true"
+            isEmbed={embed === 'true' || embed === 'country'}
+          >
+            <MobileNavigation
+              current={
+                !url.endsWith('/resource/')
+                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
+                  ? 'list' : 'map'}
+            />
+          </ReactiveResourceIndex>
+        ))
+
+        const title = params.add
+          ? context.i18n.translate('add', { type: context.i18n.translate(params.add) })
+          : context.i18n.translate('ResourceIndex.index.showingEntities', {
+            number: data.totalItems,
+            query: data.filters
+              && data.filters['about.@type']
+              && context.i18n.translate(data.filters['about.@type'][0])
+              || '',
+          })
+
+        const metadata = {
+          description: context.i18n.translate('slogan'),
+          url: data._self,
+          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
+        }
+
+        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0))) {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
+        }
+
+        return {
+          title, data, component, metadata,
+        }
+      },
+    },
+    {
+      path: '/resource/',
+      get: async (params, context, state) => {
+        const {
+          mapboxConfig, schema, phrases, embed,
+        } = context
+        const url = getURL({
+          path: '/resource/',
+          params,
+        })
+        if (!params.add) {
+          Link.home = url
+        }
+        const data = params.add ? {
+          about: {
+            '@type': params.add,
+          },
+          _self: location.href,
+        } : state || await api.get(url, new Headers(context.headers))
+        const component = data => (params.add ? (
+          <WebPage
+            mapboxConfig={mapboxConfig}
+            {...data}
+            view="edit"
+            schema={schema}
+            showOptionalFields={false}
+            onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
+          />
+        ) : (
+          <ResourceIndex
+            {...data}
+            phrases={phrases}
+            mapboxConfig={mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"

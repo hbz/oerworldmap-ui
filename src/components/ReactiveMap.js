@@ -2,13 +2,10 @@
 /* global window */
 /* global navigator */
 /* global requestAnimationFrame */
-/* global cancelAnimationFrame */
-/* global Headers */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
-import fetch from 'isomorphic-fetch'
 
 import { scaleLog, quantile, interpolateHcl } from 'd3'
 
@@ -20,13 +17,16 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getProp, emptyGeometry } from '../common'
+import { getProp } from '../common'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
 import i18n from '../i18n'
+import MapLeyend from './MapLeyend'
 
-import '../styles/components/Map.pcss'
+import '../styles/components/ReactiveMap.pcss'
+
+const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 let resizeTimer
 const pointsLayers = ['points', 'points-hover', 'points-select']
@@ -63,6 +63,15 @@ class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+
+    props.emitter.on('mapData', (data) => {
+      this.setMapData(data)
+    })
+
+    props.emitter.on('resize', () => {
+      this.map.resize()
+    })
+
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
@@ -79,6 +88,12 @@ class Map extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
     this.animateMarker = this.animateMarker.bind(this)
+    this.setMapData = this.setMapData.bind(this)
+    this.isReady = false
+    this.data = {
+      aggregations: null,
+      features: null,
+    }
 
     this.layersOrder = [
       {
@@ -106,8 +121,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     const {
-      mapboxConfig, map, locales,
-      aggregations, iso3166, home, emitter, initPins, region,
+      mapboxConfig, map, locales, iso3166, home, emitter, initPins, region,
     } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
@@ -217,7 +231,7 @@ class Map extends React.Component {
         },
       })
 
-      this.updatePoints(iso3166, region)
+      // this.updatePoints(iso3166, region)
 
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
@@ -228,8 +242,8 @@ class Map extends React.Component {
       this.map.addLayer(RegionsLayer, 'Regions')
 
       // Initialize choropleth layers
-      this.updateChoropleth(aggregations)
-      this.updateZoom(iso3166, home, map)
+      // this.updateChoropleth(aggregations)
+      // this.updateZoom(iso3166, home, map)
       this.updateActiveCountry(iso3166, region)
 
       window.addEventListener('resize', () => {
@@ -275,6 +289,7 @@ class Map extends React.Component {
       emitter.on('hideOverlay', () => {
         this.popup ? this.popup.remove() : null
       })
+      this.isReady = true
     })
 
     // Create popup for hover
@@ -297,19 +312,27 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
-    this.updatePoints(nextProps.iso3166, nextProps.region)
   }
 
   componentWillUnmount() {
     this.map.off('zoom', this.zoom)
     this.map.off('mousemove', 'points', this.mouseMovePoints)
     this.map.off('mousemove', this.mouseMove)
-    this.map.off('moveend', this.moveEnd)
+    // this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
+  }
+
+  async setMapData(data) {
+    if (this.isReady) {
+      this.updateChoropleth(data.aggregations)
+      this.updatePoints(data.features)
+    } else {
+      await timeout(10)
+      this.setMapData(data)
+    }
   }
 
   getBucket(location, aggregation) {
@@ -724,26 +747,34 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
-    if (aggregations) {
-      const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
-        || aggregations['sterms#feature.properties.location.address.addressCountry']
-      const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
-      const colors = stops
-        .map(stop => stop[1])
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .concat('rgba(255, 255, 255)')
-        .reverse()
-      const property = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'code_hasc' : 'iso_a2'
-      const layer = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'Regions' : 'countries'
+    const { region, emitter } = this.props
+    // if (aggregations) {
+    // const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
+    // || aggregations['sterms#feature.properties.location.address.addressCountry']
+    // const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
+    const stops = this.choroplethStopsFromBuckets(aggregations)
+    const colors = stops
+      .map(stop => stop[1])
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .concat('rgba(255, 255, 255)')
+      .reverse()
+    // const property = aggregations['sterms#feature.properties.location.address.addressRegion']
+    // ? 'code_hasc' : 'iso_a2'
+    // const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
+    // ? 'Regions' : 'countries'
+    const property = region ? 'code_hasc' : 'iso_a2'
+    const layer = region ? 'Regions' : 'countries'
 
-      this.map.setPaintProperty(layer, 'fill-color', {
-        property,
-        stops,
-        type: 'categorical',
-        default: 'rgb(255, 255, 255)',
-      })
-      this.setState({ colors })
-    }
+    this.map.setPaintProperty(layer, 'fill-color', {
+      property,
+      stops,
+      type: 'categorical',
+      default: 'rgb(255, 255, 255)',
+    })
+
+    const max = (aggregations.length && aggregations[0].doc_count) || 0
+
+    emitter.emit('updateColors', { colors, max })
   }
 
   mouseLeave() {
@@ -835,165 +866,13 @@ class Map extends React.Component {
     }
   }
 
-  async updatePoints(iso3166, region) {
-    const layers = ['points', 'Events', 'EventsGlow']
-    layers.map(layerName => this.animateCircleLayer(layerName, false))
-    this.map.getSource('eventsSource').setData(emptyGeometry)
-    cancelAnimationFrame(this.animatingMarkers)
-
-    const { searchParams } = new URL(Link.self)
-    const q = searchParams.get('q')
-    const type = searchParams.get('filter.about.@type')
-    const filters = [...searchParams].filter(param => param[0].startsWith('filter')
-      && (param[0] !== 'filter.about.@type')
-      && (param[0] !== 'filter.about.startDate.GTE'))
-      .reduce((acc, curr) => {
-        if (!acc[curr[0]]) acc[curr[0]] = []
-        acc[curr[0]].push(curr)
-        return acc
-      }, {})
-
-    const startDate = searchParams.get('filter.about.startDate.GTE')
-
-    const query = {
-      size: 9999,
-      _source: 'feature.*',
-      query: {
-        bool: {
-          filter: [
-            {
-              exists: {
-                field: 'feature',
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    if (q) {
-      query.query.bool.filter.push({
-        query_string: {
-          query: q,
-        },
-      })
-    }
-
-    if (type) {
-      query.query.bool.filter.push({
-        term: {
-          'about.@type': type,
-        },
-      })
-
-      if (type === 'Event' && !startDate) {
-        query.query.bool.filter.push({
-          range: {
-            'about.startDate': {
-              gte: 'now/d',
-            },
-          },
-        })
-      }
-    }
-
-    if (iso3166) {
-      query.query.bool.filter.push({
-        term: {
-          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-        },
-      })
-    }
-
-    if (region) {
-      query.query.bool.filter.push({
-        term: {
-          'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-        },
-      })
-    }
-
-    if (Object.keys(filters).length) {
-      Object.keys(filters).forEach((filterName) => {
-        let formatedFilter
-        if (filters[filterName].length > 1) {
-          formatedFilter = {
-            bool: {
-              should: filters[filterName].map(f => (
-                {
-                  term: { [f[0].replace('filter.', '')]: f[1] },
-                }
-              )),
-            },
-          }
-        } else {
-          formatedFilter = {
-            term: {
-              [filters[filterName][0][0].replace('filter.', '')]: filters[filterName][0][1],
-            },
-          }
-        }
-        query.query.bool.filter.push(formatedFilter)
-      })
-    }
-    const date = new Date().toJSON().split('T').shift()
-
-    const queryEvents = {
-      _source: 'feature.*',
-      query: {
-        bool: {
-          must: {
-            exists: {
-              field: 'feature',
-            },
-          },
-          filter: [
-            {
-              query_string: {
-                query: `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`,
-              },
-            },
-            {
-              term: {
-                'about.@type': 'Event',
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    // Query elasticsearch with a multiple search fot the features and events
-    const response = await fetch('/elastic/_msearch', {
-      method: 'POST',
-      body: `{}\n${[JSON.stringify(query), '{}', JSON.stringify(queryEvents)].join('\n')}\n`,
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-    })
-
-    const json = await response.json()
-
-    const [points, events] = json.responses
-
+  updatePoints(features) {
     const pointsCollection = {
       type: 'FeatureCollection',
-      features: points.hits.hits.map(item => item._source.feature),
-    }
-
-    const eventsCollection = {
-      type: 'FeatureCollection',
-      features: events.hits.hits.map(item => item._source.feature),
+      features,
     }
 
     this.map.getSource('pointsSource').setData(pointsCollection)
-
-    if (eventsCollection.features && eventsCollection.features.length) {
-      this.map.getSource('eventsSource').setData(eventsCollection)
-      this.animatingMarkers = requestAnimationFrame(this.animateMarker)
-    }
-
-    layers.map(layerName => this.animateCircleLayer(layerName, true))
   }
 
   animateCircleLayer(layerName, show) {
@@ -1020,10 +899,11 @@ class Map extends React.Component {
   }
 
   render() {
+    console.log('Render Map')
     const {
-      iso3166, emitter, translate, aggregations,
+      iso3166, emitter, translate,
     } = this.props
-    const { overlayList, colors } = this.state
+    const { overlayList } = this.state
 
     return (
       <div
@@ -1032,8 +912,8 @@ class Map extends React.Component {
         style={
           {
             position: 'absolute',
-            width: '101%',
-            height: '100%',
+            width: '100%',
+            height: '75vh',
             top: 0,
             left: 0,
           }}
@@ -1046,37 +926,9 @@ class Map extends React.Component {
       >
         {overlayList && <div className="overlayList" />}
 
-        {colors && (
-          (getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations) > 0)
-          || (getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-          || (getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-        ) && (
-          <div className="mapLeyend">
-            <div className="infoContainer">
-              <span className="min">0</span>
-
-              <span className="description">
-                {aggregations['sterms#feature.properties.location.address.addressRegion']
-                && aggregations['sterms#feature.properties.location.address.addressRegion'].buckets.length
-                  ? translate('Map.entriesPerRegion') : translate('Map.entriesPerCountry')}
-              </span>
-
-              <span className="max">
-                {
-                  getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations)
-                  || getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations)
-                  || getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations)
-                }
-              </span>
-            </div>
-
-            <div className="stepsContainer">
-              {colors.map(color => (
-                <div key={color} style={{ backgroundColor: color }} className="step" />
-              ))}
-            </div>
-          </div>
-        )}
+        <MapLeyend
+          iso3166={iso3166}
+        />
 
         <a className="imprintLink" href="/imprint">{translate('main.imprintPrivacy')}</a>
 
@@ -1094,7 +946,7 @@ Map.propTypes = {
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
+  aggregations: PropTypes.arrayOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,
