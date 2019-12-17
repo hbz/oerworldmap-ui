@@ -90,15 +90,9 @@
         }
       }
     }
-
-    & #Map,
-    & .listResults,
-    & .statisticsContent {
-      display: none;
-    }
   }
 
-  & .mainContent.Map {
+  & .mainContent.mapView {
     & #Map {
       display: block;
     }
@@ -182,6 +176,10 @@
       color: var(--blue-dark);
       background-color: var(--blue-lightest);
       margin-left: 5px;
+
+      &:disabled {
+        color: var(--blue-light);
+      }
     }
   }
 

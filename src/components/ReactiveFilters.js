@@ -29,6 +29,7 @@ const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
 }) => {
   const [currentSize, setCurrentSize] = useState(20)
+  const [view, setView] = useState('listView')
 
   const toggleButtons = [
     { value: 'Organization' },
@@ -297,13 +298,11 @@ const ReactiveFilters = ({
               </select>
 
               <button
+                disabled={view === 'listView'}
                 type="button"
                 className="btn"
                 onClick={() => {
-                  const el = document.querySelector('.mainContent')
-                  el.classList.add('listView')
-                  el.classList.remove('Map')
-                  el.classList.remove('statisticsView')
+                  setView('listView')
                 }}
               >
                 <i className="fa fa-list" />
@@ -311,13 +310,11 @@ const ReactiveFilters = ({
                 {translate('main.list')}
               </button>
               <button
+                disabled={view === 'mapView'}
                 type="button"
                 className="btn"
                 onClick={() => {
-                  const el = document.querySelector('.mainContent')
-                  el.classList.add('Map')
-                  el.classList.remove('listView')
-                  el.classList.remove('statisticsView')
+                  setView('mapView')
                   emitter.emit('resize')
                 }}
               >
@@ -328,13 +325,11 @@ const ReactiveFilters = ({
 
               {iso3166 && (
                 <button
+                  disabled={view === 'statisticsView'}
                   type="button"
                   className="btn"
                   onClick={() => {
-                    const el = document.querySelector('.mainContent')
-                    el.classList.add('statisticsView')
-                    el.classList.remove('Map')
-                    el.classList.remove('listView')
+                    setView('statisticsView')
                   }}
                 >
                   <i className="fa fa-pie-chart" />
@@ -348,7 +343,7 @@ const ReactiveFilters = ({
         </section>
 
 
-        <div className="mainContent listView">
+        <div className={`mainContent ${view}`}>
 
           <aside>
 
@@ -433,65 +428,67 @@ const ReactiveFilters = ({
               }}
             />
 
-            <ReactiveComponent
-              componentId="myCountryPicker"
-              defaultQuery={() => {
-                const query = {
-                  size: 9999,
-                  _source: 'feature.*',
-                  query: {
-                    bool: {
-                      filter: [
-                        {
-                          exists: {
-                            field: 'feature',
+            {(view === 'mapView') && (
+              <ReactiveComponent
+                componentId="myCountryPicker"
+                defaultQuery={() => {
+                  const query = {
+                    size: 9999,
+                    _source: 'feature.*',
+                    query: {
+                      bool: {
+                        filter: [
+                          {
+                            exists: {
+                              field: 'feature',
+                            },
                           },
-                        },
-                      ],
-                    },
-                  },
-                  aggs: {
-                    color: {
-                      terms: {
-                        field: 'feature.properties.location.address.addressCountry',
+                        ],
                       },
                     },
-                  },
-                }
-
-                if (iso3166) {
-                  query.query.bool.filter.push({
-                    term: {
-                      'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                    aggs: {
+                      color: {
+                        terms: {
+                          field: 'feature.properties.location.address.addressCountry',
+                        },
+                      },
                     },
-                  })
-                }
+                  }
 
-                if (region) {
-                  query.query.bool.filter.push({
-                    term: {
-                      'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-                    },
-                  })
-                }
+                  if (iso3166) {
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                      },
+                    })
+                  }
 
-                return query
-              }}
-              onData={({ aggregations, data }) => {
-                if (aggregations !== null) {
-                  const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
-                  const agg = (aggregations
-                    && aggregations.color && aggregations.color.buckets || [])
-                  emitter.emit('mapData', { features, aggregations: agg })
-                  const total = features.length
-                  emitter.emit('updateCount', total)
-                  document.title = `${total} entries - OER World Map`
-                }
-              }}
-              react={{
-                and: filterIDs,
-              }}
-            />
+                  if (region) {
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                      },
+                    })
+                  }
+
+                  return query
+                }}
+                onData={({ aggregations, data }) => {
+                  if (aggregations !== null) {
+                    const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
+                    const agg = (aggregations
+                      && aggregations.color && aggregations.color.buckets || [])
+                    emitter.emit('mapData', { features, aggregations: agg })
+                    const total = features.length
+                    emitter.emit('updateCount', total)
+                    document.title = `${total} entries - OER World Map`
+                  }
+                }}
+                react={{
+                  and: filterIDs,
+                }}
+              />
+            )}
 
             {subFilters.map(filter => (
               <MultiDropdownList
@@ -539,115 +536,117 @@ const ReactiveFilters = ({
           <div className="right">
 
             <div className="searchResults">
-              <StateProvider
-                render={({ searchState }) => {
-                  const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
+              {(view === 'listView') && (
+                <StateProvider
+                  render={({ searchState }) => {
+                    const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
 
-                  if (eventSelected) {
-                    return (
-                      <ReactiveComponent
-                        componentId="test"
-                        defaultQuery={() => {
-                          if (eventSelected) {
-                            const query = {
-                              size: 0,
-                              aggs: {
-                                Calendar: {
-                                  date_histogram: {
-                                    min_doc_count: 1,
-                                    field: 'about.startDate',
-                                    interval: 'month',
-                                  },
-                                  aggs: {
-                                    'top_hits#about.@id': {
-                                      top_hits: {
-                                        size: 100,
-                                        _source: ['about.@id', 'about.@type', 'about.name', 'about.startDate', 'about.endDate', 'about.location'],
+                    if (eventSelected) {
+                      return (
+                        <ReactiveComponent
+                          componentId="test"
+                          defaultQuery={() => {
+                            if (eventSelected) {
+                              const query = {
+                                size: 0,
+                                aggs: {
+                                  Calendar: {
+                                    date_histogram: {
+                                      min_doc_count: 1,
+                                      field: 'about.startDate',
+                                      interval: 'month',
+                                    },
+                                    aggs: {
+                                      'top_hits#about.@id': {
+                                        top_hits: {
+                                          size: 100,
+                                          _source: ['about.@id', 'about.@type', 'about.name', 'about.startDate', 'about.endDate', 'about.location'],
+                                        },
                                       },
                                     },
                                   },
                                 },
+                              }
+                              return query
+                            }
+                          }}
+                          react={{
+                            and: filterIDs,
+                          }}
+                          render={({ aggregations }) => {
+                            if (aggregations !== null) {
+                              const entries = (aggregations && aggregations.Calendar && aggregations.Calendar.buckets) || []
+                              return <Calendar entries={entries} />
+                            }
+
+                            return <div>Loading...</div>
+                          }}
+                        />
+                      )
+                    }
+
+                    return (
+                      <ReactiveList
+                        className="listResults"
+                        componentId="SearchResult"
+                        title="Results"
+                        defaultQuery={() => {
+                          let query = {}
+
+                          if (iso3166) {
+                            query = {
+                              query: {
+                                bool: {
+                                  filter: [
+                                    {
+                                      term: {
+                                        'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             }
-                            return query
                           }
+
+                          if (region) {
+                            query.query.bool.filter.push({
+                              term: {
+                                'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                              },
+                            })
+                          }
+
+                          return query
                         }}
+                        dataField="@type"
+                        showResultStats={false}
+                        from={0}
+                        size={currentSize}
+                        pagination
+                        loader={(
+                          <div className="Loading">
+                            <div className="loadingCircle" />
+                          </div>
+                        )}
+                        showLoader
                         react={{
                           and: filterIDs,
                         }}
-                        render={({ aggregations }) => {
-                          if (aggregations !== null) {
-                            const entries = (aggregations && aggregations.Calendar && aggregations.Calendar.buckets) || []
-                            return <Calendar entries={entries} />
-                          }
 
-                          return <div>Loading...</div>
+                        render={({ data }) => {
+                          const items = data || []
+                          return <ResultList listItems={items} />
                         }}
                       />
                     )
-                  }
+                  }}
+                />
+              )}
 
-                  return (
-                    <ReactiveList
-                      className="listResults"
-                      componentId="SearchResult"
-                      title="Results"
-                      defaultQuery={() => {
-                        let query = {}
+              {(view === 'mapView') && children}
 
-                        if (iso3166) {
-                          query = {
-                            query: {
-                              bool: {
-                                filter: [
-                                  {
-                                    term: {
-                                      'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          }
-                        }
-
-                        if (region) {
-                          query.query.bool.filter.push({
-                            term: {
-                              'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-                            },
-                          })
-                        }
-
-                        return query
-                      }}
-                      dataField="@type"
-                      showResultStats={false}
-                      from={0}
-                      size={currentSize}
-                      pagination
-                      loader={(
-                        <div className="Loading">
-                          <div className="loadingCircle" />
-                        </div>
-                      )}
-                      showLoader
-                      react={{
-                        and: filterIDs,
-                      }}
-
-                      render={({ data }) => {
-                        const items = data || []
-                        return <ResultList listItems={items} />
-                      }}
-                    />
-                  )
-                }}
-              />
-
-              {children}
-
-              {iso3166 && (
+              {((view === 'statisticsView') && iso3166) && (
                 <div className="statisticsContent">
                   <iframe
                     title="countryStatistics"

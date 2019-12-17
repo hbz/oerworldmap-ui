@@ -77,7 +77,7 @@ class Map extends React.Component {
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
     this.mouseMovePoints = this.mouseMovePoints.bind(this)
     this.mouseMove = this.mouseMove.bind(this)
-    this.moveEnd = this.moveEnd.bind(this)
+    // this.moveEnd = this.moveEnd.bind(this)
     this.mouseLeave = this.mouseLeave.bind(this)
     this.clickPoints = this.clickPoints.bind(this)
     this.clickCountries = this.clickCountries.bind(this)
@@ -252,7 +252,7 @@ class Map extends React.Component {
       })
 
       // Update URL values
-      this.map.on('moveend', this.moveEnd)
+      // this.map.on('moveend', this.moveEnd)
 
       // Get features currently under the mouse
       this.map.on('mousemove', this.mouseMove)
