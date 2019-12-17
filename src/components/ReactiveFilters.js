@@ -638,7 +638,7 @@ const ReactiveFilters = ({
                           const items = data || []
                           emitter.emit('updateCount', numberOfResults)
                           if (typeof document !== 'undefined') {
-                            document.title = numberOfResults
+                            document.title = `${numberOfResults} entries - OER World Map`
                           }
                           return <ResultList listItems={items} />
                         }}
