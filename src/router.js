@@ -286,29 +286,22 @@ export default (api, emitter, location) => {
     {
       path: '/country/:id',
       get: async (id, params, context, state) => {
-        const {
-          phrases, mapboxConfig, embed, elasticsearchConfig,
-        } = context
+        const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${id}`,
           params,
         })
         Link.home = url
-        // const data = state || await api.get(url, new Headers(context.headers))
-        const data = state || {
-          _self: location.href,
-        }
-        // const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-        //   .buckets.find(bucket => bucket.key === data.iso3166)
-        // const countryData = data.aggregations['global#facets']['filter#country']
+        const data = state || await api.get(url, new Headers(context.headers))
+        const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
+          .buckets.find(bucket => bucket.key === data.iso3166)
+        const countryData = data.aggregations['global#facets']['filter#country']
         const component = data => (
           <ResourceIndex
             {...data}
             className="countryView"
             phrases={phrases}
             mapboxConfig={mapboxConfig}
-            iso3166={id.toUpperCase()}
-            elasticsearchConfig={elasticsearchConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
             isEmbed={embed === 'true' || embed === 'country'}
@@ -317,11 +310,11 @@ export default (api, emitter, location) => {
               current="list"
               country={data.iso3166}
             />
-            {/* <Country
+            <Country
               iso3166={data.iso3166}
-              // countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
-              // countryData={countryData}
-            /> */}
+              countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
+              countryData={countryData}
+            />
           </ResourceIndex>
         )
         const title = context.i18n.translate(id.toUpperCase())
@@ -333,10 +326,10 @@ export default (api, emitter, location) => {
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
         }
 
-        // if (data && (data.query || Object.keys(data.filters).length > 0)) {
-        //   metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-        //   metadata.summary = 'summary'
-        // }
+        if (data && (data.query || Object.keys(data.filters).length > 0)) {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
+        }
 
         return {
           title, data, component, metadata,
@@ -346,33 +339,26 @@ export default (api, emitter, location) => {
     {
       path: '/country/:country/:region',
       get: async (country, region, params, context, state) => {
-        const {
-          phrases, mapboxConfig, embed, elasticsearchConfig,
-        } = context
+        const { phrases, mapboxConfig, embed } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
           params,
         })
         Link.home = url
-        const data = state || {
-          _self: location.href,
-        }
-        // const data = state || await api.get(url, context.authorization)
-        // const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-        //   .buckets.find(bucket => bucket.key === data.iso3166)
-        // const countryData = data.aggregations['global#facets']['filter#country']
-        // const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
-        //   .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
-        // const regionData = data.aggregations['global#facets']['filter#feature.properties.location.address.addressRegion']['sterms#feature.properties.location.address.addressRegion']
-        //   .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+        const data = state || await api.get(url, context.authorization)
+        const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
+          .buckets.find(bucket => bucket.key === data.iso3166)
+        const countryData = data.aggregations['global#facets']['filter#country']
+        const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
+          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+        const regionData = data.aggregations['global#facets']['filter#feature.properties.location.address.addressRegion']['sterms#feature.properties.location.address.addressRegion']
+          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
         const component = data => (
           <ResourceIndex
             {...data}
             className="regionView"
             phrases={phrases}
             mapboxConfig={mapboxConfig}
-            iso3166={country.toUpperCase()}
-            elasticsearchConfig={elasticsearchConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="country"
             region={region.toUpperCase()}
@@ -383,14 +369,14 @@ export default (api, emitter, location) => {
               country={data.iso3166}
               region={region.toUpperCase()}
             />
-            {/* <Country
+            <Country
               iso3166={data.iso3166}
               region={region.toUpperCase()}
               countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
               regionalChampions={regionalChampions && regionalChampions['top_hits#regional_champions'].hits.hits}
               countryData={countryData}
               regionData={regionData}
-            /> */}
+            />
           </ResourceIndex>
         )
         const title = `${context.i18n.translate((`${country}.${region}`).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`
@@ -402,10 +388,10 @@ export default (api, emitter, location) => {
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
         }
 
-        // if (data && (data.query || Object.keys(data.filters).length > 0)) {
-        //   metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-        //   metadata.summary = 'summary'
-        // }
+        if (data && (data.query || Object.keys(data.filters).length > 0)) {
+          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+          metadata.summary = 'summary'
+        }
 
         return {
           title, data, component, metadata,
