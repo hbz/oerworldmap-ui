@@ -748,8 +748,6 @@ class Map extends React.Component {
 
   updateChoropleth(aggregations) {
     const { region, emitter } = this.props
-    console.log('Updating aggregations')
-    // console.log(aggregations)
     // if (aggregations) {
     // const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
     // || aggregations['sterms#feature.properties.location.address.addressCountry']

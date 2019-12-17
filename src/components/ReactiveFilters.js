@@ -21,7 +21,7 @@ import TotalEntries from './TotalEntries'
 import Icon from './Icon'
 import TogglePoints from './TogglePoints'
 import Link from './Link'
-// import Calendar from './Calendar'
+import Calendar from './Calendar'
 
 const sizes = [20, 50, 100, 200, 9999]
 
@@ -539,69 +539,106 @@ const ReactiveFilters = ({
           <div className="right">
 
             <div className="searchResults">
-              <ReactiveList
-                className="listResults"
-                componentId="SearchResult"
-                title="Results"
-                defaultQuery={() => {
-                  let query = {}
+              <StateProvider
+                render={({ searchState }) => {
+                  const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
 
-                  if (iso3166) {
-                    query = {
-                      query: {
-                        bool: {
-                          filter: [
-                            {
-                              term: {
-                                'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                  if (eventSelected) {
+                    return (
+                      <ReactiveComponent
+                        componentId="test"
+                        defaultQuery={() => {
+                          if (eventSelected) {
+                            const query = {
+                              size: 0,
+                              aggs: {
+                                Calendar: {
+                                  date_histogram: {
+                                    min_doc_count: 1,
+                                    field: 'about.startDate',
+                                    interval: 'month',
+                                  },
+                                  aggs: {
+                                    'top_hits#about.@id': {
+                                      top_hits: {
+                                        size: 100,
+                                        _source: ['about.@id', 'about.@type', 'about.name', 'about.startDate', 'about.endDate', 'about.location'],
+                                      },
+                                    },
+                                  },
+                                },
                               },
-                            },
-                          ],
-                        },
-                      },
-                    }
+                            }
+                            return query
+                          }
+                        }}
+                        react={{
+                          and: filterIDs,
+                        }}
+                        render={({ aggregations }) => {
+                          if (aggregations !== null) {
+                            const entries = (aggregations && aggregations.Calendar && aggregations.Calendar.buckets) || []
+                            return <Calendar entries={entries} />
+                          }
+
+                          return <div>Loading...</div>
+                        }}
+                      />
+                    )
                   }
-
-                  if (region) {
-                    query.query.bool.filter.push({
-                      term: {
-                        'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-                      },
-                    })
-                  }
-
-                  return query
-                }}
-                dataField="@type"
-                showResultStats={false}
-                from={0}
-                size={currentSize}
-                pagination
-                loader={(
-                  <div className="Loading">
-                    <div className="loadingCircle" />
-                  </div>
-                )}
-                showLoader
-                react={{
-                  and: filterIDs,
-                }}
-
-                render={({ data }) => {
-                  const items = data || []
 
                   return (
-                    <StateProvider
-                      render={({ searchState }) => {
-                        const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
-                        return (
-                          eventSelected ? (
-                            // <Calendar entries={items} />
-                            <div>Calendar</div>
-                          ) : (
-                            <ResultList listItems={items} />
-                          )
-                        )
+                    <ReactiveList
+                      className="listResults"
+                      componentId="SearchResult"
+                      title="Results"
+                      defaultQuery={() => {
+                        let query = {}
+
+                        if (iso3166) {
+                          query = {
+                            query: {
+                              bool: {
+                                filter: [
+                                  {
+                                    term: {
+                                      'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          }
+                        }
+
+                        if (region) {
+                          query.query.bool.filter.push({
+                            term: {
+                              'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                            },
+                          })
+                        }
+
+                        return query
+                      }}
+                      dataField="@type"
+                      showResultStats={false}
+                      from={0}
+                      size={currentSize}
+                      pagination
+                      loader={(
+                        <div className="Loading">
+                          <div className="loadingCircle" />
+                        </div>
+                      )}
+                      showLoader
+                      react={{
+                        and: filterIDs,
+                      }}
+
+                      render={({ data }) => {
+                        const items = data || []
+                        return <ResultList listItems={items} />
                       }}
                     />
                   )
