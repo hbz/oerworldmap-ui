@@ -23,6 +23,8 @@ import TogglePoints from './TogglePoints'
 import Link from './Link'
 import Calendar from './Calendar'
 
+const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
+
 const sizes = [20, 50, 100, 200, 9999]
 
 const ReactiveFilters = ({
@@ -313,8 +315,9 @@ const ReactiveFilters = ({
                 disabled={view === 'mapView'}
                 type="button"
                 className="btn"
-                onClick={() => {
+                onClick={async () => {
                   setView('mapView')
+                  await timeout(10)
                   emitter.emit('resize')
                 }}
               >
@@ -654,7 +657,7 @@ const ReactiveFilters = ({
                 />
               )}
 
-              {(view === 'mapView') && children}
+              {children}
 
               {((view === 'statisticsView') && iso3166) && (
                 <div className="statisticsContent">
