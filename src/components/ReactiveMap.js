@@ -17,7 +17,6 @@ import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import EmittProvider from './EmittProvider'
-import { getProp } from '../common'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
@@ -121,7 +120,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     const {
-      mapboxConfig, map, locales, iso3166, home, emitter, initPins, region,
+      mapboxConfig, map, locales, iso3166, emitter, initPins, region,
     } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
@@ -899,7 +898,6 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log('Render Map')
     const {
       iso3166, emitter, translate,
     } = this.props

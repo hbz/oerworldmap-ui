@@ -376,7 +376,10 @@ const ReactiveFilters = ({
               render={(data) => {
                 const applied = Object.keys(data.selectedValues)
                 return (
-                  (applied.length > 0 && (applied.map(filter => data.selectedValues[filter]).map(f => f.value).some(value => ((value !== null) && (value.length > 0))))) && (
+                  (applied.length > 0
+                  && (applied.map(filter => data.selectedValues[filter])
+                    .map(f => f.value)
+                    .some(value => ((value !== null) && (value.length > 0))))) && (
                     <div className="selectedFilters">
                       <h2>{translate('Filters')}</h2>
                       <ul>
@@ -402,7 +405,8 @@ const ReactiveFilters = ({
                                     type="button"
                                     key={`${filter}-${value}`}
                                     onClick={() => {
-                                      data.setValue(filter, data.selectedValues[filter].value.filter(v => v !== value))
+                                      data.setValue(filter, data.selectedValues[filter].value
+                                        .filter(v => v !== value))
                                     }}
                                   >
                                     <b>{translate(filter)}</b>
@@ -575,7 +579,9 @@ const ReactiveFilters = ({
                           }}
                           render={({ aggregations }) => {
                             if (aggregations !== null) {
-                              const entries = (aggregations && aggregations.Calendar && aggregations.Calendar.buckets) || []
+                              const entries = (aggregations
+                                && aggregations.Calendar
+                                && aggregations.Calendar.buckets) || []
                               return <Calendar entries={entries} />
                             }
 
