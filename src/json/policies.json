@@ -17,7 +17,7 @@
         },
         {
           "@language": "de",
-          "@value": "Dedicated OE/OER policy"
+          "@value": "Política exclusivamente de EA/REA"
         }
       ]
     },
@@ -35,7 +35,7 @@
         },
         {
           "@language": "de",
-          "@value": "ICT policy with OE/OER component"
+          "@value": "Política de TIC com componente sobre EA/REA"
         }
       ]
     },
@@ -53,7 +53,7 @@
         },
         {
           "@language": "de",
-          "@value": "Educational policy with OE/OER component"
+          "@value": "`Política educacional com componente sobre EA/REA"
         }
       ]
     },
@@ -71,7 +71,7 @@
         },
         {
           "@language": "de",
-          "@value": "Openness policy with educational component"
+          "@value": "Política de abertura com componente sobre EA/REA"
         }
       ]
     },
@@ -89,7 +89,7 @@
         },
         {
           "@language": "de",
-          "@value": "Labour market policy with OE/OER component"
+          "@value": "Política de emprego com componente sobre EA/REA"
         }
       ]
     }

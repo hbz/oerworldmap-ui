@@ -13,7 +13,7 @@
         },
         {
           "@language": "pt",
-          "@value": "School"
+          "@value": "Escola"
         },
         {
           "@language": "de",
@@ -31,7 +31,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Higher education institution"
+          "@value": "Instituição de ensino superior"
         },
         {
           "@language": "de",
@@ -49,7 +49,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Training provider"
+          "@value": "Fornecedor de formação"
         },
         {
           "@language": "de",
@@ -67,7 +67,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Funding body"
+          "@value": "Instituição financiadora"
         },
         {
           "@language": "de",
@@ -85,7 +85,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Research institute"
+          "@value": "Instituto de Pesquisa"
         },
         {
           "@language": "de",
@@ -103,7 +103,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Infrastructure provider"
+          "@value": "Fornecedor de infraestrutura"
         },
         {
           "@language": "de",
@@ -121,7 +121,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Government agency"
+          "@value": "Agência governamental"
         },
         {
           "@language": "de",
@@ -139,7 +139,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Private agency"
+          "@value": "Agência privada"
         },
         {
           "@language": "de",
@@ -157,7 +157,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Commercial Enterprise"
+          "@value": "Empresa Comercial"
         },
         {
           "@language": "de",
@@ -175,7 +175,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Social Enterprise or NGO"
+          "@value": "Empresa Social ou OSC"
         },
         {
           "@language": "de",
@@ -193,7 +193,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Grassroots initiative"
+          "@value": "Iniciativa de base"
         },
         {
           "@language": "de",
@@ -211,7 +211,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Special Interest Group"
+          "@value": "Grupo de Interesse Especial"
         },
         {
           "@language": "de",
@@ -229,7 +229,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Community of practice"
+          "@value": "Comunidade de prática"
         },
         {
           "@language": "de",
@@ -247,7 +247,7 @@
         },
         {
           "@language": "pt",
-          "@value": "Other"
+          "@value": "Outros"
         },
         {
           "@language": "de",

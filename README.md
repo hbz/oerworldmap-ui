@@ -38,7 +38,8 @@ PIWIK_URL=your.piwik.url
 Check if all is well and run:
 ```
 $ npm test
-$ npm run server:dev
+$ npm run build:dev
+& npm run server:dev
 ```
 
 Apache configuration
