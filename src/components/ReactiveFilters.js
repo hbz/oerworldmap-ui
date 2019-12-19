@@ -493,6 +493,7 @@ const ReactiveFilters = ({
             <div className="searchResults">
               {(view === 'listView') && (
                 <StateProvider
+                  componentIds={['filter.about.@type']}
                   render={({ searchState }) => {
                     const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
 
