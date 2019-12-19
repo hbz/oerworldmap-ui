@@ -49,14 +49,21 @@ class ReactiveTypeButtons extends Component {
               type="button"
               className={`typeButton${selectedType === type ? ' active' : ''}`}
               onClick={() => {
-                setQuery({
-                  query: {
-                    term: {
-                      'about.@type': type,
+                if (selectedType === type) {
+                  setQuery({
+                    query: null,
+                    value: '',
+                  })
+                } else {
+                  setQuery({
+                    query: {
+                      term: {
+                        'about.@type': type,
+                      },
                     },
-                  },
-                  value: type,
-                })
+                    value: type,
+                  })
+                }
               }}
             >
               <Icon type={type} />
