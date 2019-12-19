@@ -220,6 +220,7 @@ const ReactiveFilters = ({
               <div>
 
                 <select
+                  value={currentSize}
                   className="btn"
                   onChange={(e) => {
                     setCurrentSize(e.target.value)
@@ -228,7 +229,6 @@ const ReactiveFilters = ({
                   {sizes.map(size => (
                     <option
                       key={size}
-                      selected={(size === currentSize) || null}
                       value={size}
                     >
                       {size === 9999 ? 'all' : size}
@@ -485,6 +485,7 @@ const ReactiveFilters = ({
                 {(view === 'listView') && (
                   <StateProvider
                     componentIds={['filter.about.@type']}
+                    strict={false}
                     render={({ searchState }) => {
                       const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
 
