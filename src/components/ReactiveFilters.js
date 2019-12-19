@@ -1,7 +1,6 @@
 /* global document */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Tooltip from 'rc-tooltip'
 
 import {
   ReactiveBase,
@@ -18,10 +17,10 @@ import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
-import Icon from './Icon'
 import TogglePoints from './TogglePoints'
 import Link from './Link'
 import Calendar from './Calendar'
+import ReactiveTypeButtons from './ReactiveTypeButtons'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -32,47 +31,6 @@ const ReactiveFilters = ({
 }) => {
   const [currentSize, setCurrentSize] = useState(20)
   const [view, setView] = useState('listView')
-
-  const toggleButtons = [
-    { value: 'Organization' },
-    { value: 'Service' },
-    { value: 'Person' },
-    { value: 'Action' },
-    { value: 'Event' },
-    { value: 'Article' },
-    { value: 'WebPage' },
-    { value: 'Product' },
-    { value: 'Policy' },
-  ].map((btn) => {
-    btn.label = (
-      <Tooltip
-        key={btn.value}
-        overlayStyle={{
-          maxWidth: '110px',
-        }}
-        overlay={(
-          <span>
-            <b>{translate(btn.value)}</b>
-          :&nbsp;
-            {translate(`Tip.${btn.value}`)}
-          </span>
-        )}
-        placement="top"
-        align={{
-          targetOffset: [0, 5],
-        }}
-        mouseEnterDelay={0.2}
-        overlayClassName="tooltipDisableEvents"
-      >
-        <span>
-          <Icon type={btn.value} />
-          {' '}
-          {translate(btn.value)}
-        </span>
-      </Tooltip>
-    )
-    return btn
-  })
 
   let subFilters = [
     {
@@ -172,8 +130,11 @@ const ReactiveFilters = ({
           <div className="basicFilters">
 
             <StateProvider
+              componentIds={['filter.about.@type']}
               render={({ searchState }) => {
-                const filter = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value) || false
+                const filter = (searchState && searchState['filter.about.@type']
+                  && searchState['filter.about.@type'].value && !Array.isArray(searchState['filter.about.@type'].value)
+                  && searchState['filter.about.@type'].value) || false
 
                 let searchPlaceholder = translate('search.entries')
                 if (iso3166) {
@@ -224,51 +185,38 @@ const ReactiveFilters = ({
             data={toggleButtons}
           /> */}
 
+
           <StateProvider
+            componentIds={['filter.about.@type']}
             render={({ searchState }) => {
+              //              const selectedType = type && type.value
               const selectedType = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value) || null
+
               return (
                 <ReactiveComponent
-                  className="typeSearch"
                   componentId="filter.about.@type"
-                  defaultQuery={() => ({
-                    query: {
-                      term: {
-                        'about.@type': selectedType,
-                      },
-                    },
-                  })}
                   URLParams
-                  // showFilter
+                  customQuery={(props) => {
+                    let query = {
+                      query: {
+                        match_all: {},
+                      },
+                    }
+
+                    if (props.selectedValue) {
+                      query = {
+                        query: {
+                          term: {
+                            'about.@type': props.selectedValue,
+                          },
+                        },
+                      }
+                    }
+
+                    return query
+                  }}
                   render={({ setQuery }) => (
-                    <div className="toggleButtons">
-                      {toggleButtons.map(button => (
-                        <button
-                          type="button"
-                          key={button.value}
-                          className={`typeButton${(selectedType === button.value) ? ' active' : ''}`}
-                          onClick={() => {
-                            if (selectedType === button.value) {
-                              setQuery({
-                                query: null,
-                                value: '',
-                              })
-                            } else {
-                              setQuery({
-                                query: {
-                                  term: {
-                                    'about.@type': button.value,
-                                  },
-                                },
-                                value: button.value,
-                              })
-                            }
-                          }}
-                        >
-                          {button.label}
-                        </button>
-                      ))}
-                    </div>
+                    <ReactiveTypeButtons setQuery={setQuery} selectedType={selectedType} />
                   )}
                 />
               )
