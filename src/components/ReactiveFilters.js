@@ -181,18 +181,18 @@ const ReactiveFilters = ({
                 <ReactiveComponent
                   componentId="filter.about.@type"
                   URLParams
-                  customQuery={(props) => {
+                  customQuery={({ selectedValue }) => {
                     let query = {
                       query: {
                         match_all: {},
                       },
                     }
 
-                    if (props.selectedValue) {
+                    if (selectedValue) {
                       query = {
                         query: {
                           term: {
-                            'about.@type': props.selectedValue,
+                            'about.@type': selectedValue,
                           },
                         },
                       }
