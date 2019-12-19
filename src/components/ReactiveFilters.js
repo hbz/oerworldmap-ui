@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import {
   ReactiveBase,
   ReactiveList,
-  // ToggleButton,
   DataSearch,
   MultiDropdownList,
   SelectedFilters,
@@ -173,23 +172,9 @@ const ReactiveFilters = ({
 
           </div>
 
-          {/* <ToggleButton
-            className="typeSearch"
-            componentId="filter.about.@type"
-            dataField="about.@type"
-            URLParams
-            multiSelect={false}
-            // react={{
-            //   and: filterIDs.filter(id => id !== 'filter.about.@type'),
-            // }}
-            data={toggleButtons}
-          /> */}
-
-
           <StateProvider
             componentIds={['filter.about.@type']}
             render={({ searchState }) => {
-              //              const selectedType = type && type.value
               const selectedType = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value) || null
 
               return (
