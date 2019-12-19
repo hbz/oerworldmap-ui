@@ -7,8 +7,6 @@ import withEmitter from './withEmitter'
 import Link from './Link'
 import Icon from './Icon'
 
-import lighhthouseIcon from '../public/lighthouse_16px_grey.svg'
-
 import '../styles/components/ResultList.pcss'
 
 const ResultList = ({ translate, emitter, listItems }) => (
@@ -37,7 +35,7 @@ const ResultList = ({ translate, emitter, listItems }) => (
             {lighthouseCount > 0 && (
               <div title={translate('ClientTemplates.filter.lighthouseCount')}>
                 <svg width="9" height="16">
-                  <image xlinkHref={lighhthouseIcon} width="9" height="16" />
+                  <image xlinkHref="/public/lighthouse_16px_grey.svg" width="9" height="16" />
                 </svg>
                 <span>{lighthouseCount}</span>
               </div>
