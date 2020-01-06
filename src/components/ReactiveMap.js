@@ -140,7 +140,7 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-50, 42],
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 42],
       zoom: center.zoom || 1,
       maxBounds: bounds,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1,
