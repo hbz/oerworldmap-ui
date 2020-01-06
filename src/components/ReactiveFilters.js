@@ -31,6 +31,7 @@ const ReactiveFilters = ({
   const [currentSize, setCurrentSize] = useState(20)
   const [view, setView] = useState('listView')
   const [isClient, setIsClient] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
 
   useEffect(() => {
     setIsClient(true)
@@ -285,7 +286,7 @@ const ReactiveFilters = ({
           </section>
 
 
-          <div className={`mainContent ${view} collapsed`}>
+          <div className={`mainContent ${view}${collapsed ? ' collapsed' : ''}`}>
 
             <aside>
 
@@ -464,19 +465,11 @@ const ReactiveFilters = ({
             <button
               className="toggleList"
               type="button"
-              onClick={(e) => {
-                e.target.parentElement.classList.toggle('collapsed')
-                const icon = e.target.querySelector('i')
-                if (icon.classList.contains('fa-chevron-right')) {
-                  icon.classList.add('fa-chevron-left')
-                  icon.classList.remove('fa-chevron-right')
-                } else {
-                  icon.classList.add('fa-chevron-right')
-                  icon.classList.remove('fa-chevron-left')
-                }
+              onClick={() => {
+                setCollapsed(!collapsed)
               }}
             >
-              <i className="fa fa-chevron-right" />
+              <i className={`fa fa-chevron-${collapsed ? 'right' : 'left'}`} />
             </button>
 
             <div className="right">
