@@ -285,7 +285,7 @@ const ReactiveFilters = ({
           </section>
 
 
-          <div className={`mainContent ${view}`}>
+          <div className={`mainContent ${view} collapsed`}>
 
             <aside>
 
@@ -476,7 +476,7 @@ const ReactiveFilters = ({
                 }
               }}
             >
-              <i className="fa fa-chevron-left" />
+              <i className="fa fa-chevron-right" />
             </button>
 
             <div className="right">
