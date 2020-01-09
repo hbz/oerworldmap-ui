@@ -83,6 +83,7 @@
     "@turf/invariant": "^6.1.2",
     "ajv": "^6.10.2",
     "asset-require-hook": "^1.2.0",
+    "c3": "^0.7.11",
     "cleave.js": "^1.5.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.3",

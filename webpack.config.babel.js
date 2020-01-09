@@ -68,6 +68,7 @@ const configServer = merge(baseConfig, {
         path.resolve(__dirname, 'node_modules/rc-tooltip'),
         path.resolve(__dirname, 'node_modules/simplemde/dist'),
         path.resolve(__dirname, 'node_modules/react-select'),
+        path.resolve(__dirname, 'node_modules/c3'),
       ],
       use: [
         MiniCssExtractPlugin.loader,

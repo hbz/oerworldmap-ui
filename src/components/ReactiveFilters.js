@@ -20,6 +20,7 @@ import TogglePoints from './TogglePoints'
 import Link from './Link'
 import Calendar from './Calendar'
 import ReactiveTypeButtons from './ReactiveTypeButtons'
+import ReactivePieChart from './ReactivePieChart'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -81,7 +82,6 @@ const ReactiveFilters = ({
         componentId: 'filter.about.license.@id',
         dataField: 'about.license.@id',
         showSearch: false,
-        title: 'License',
       },
       {
         componentId: 'filter.about.about.@id',
@@ -280,6 +280,19 @@ const ReactiveFilters = ({
                     {translate('ClientTemplates.app.statistics')}
                   </button>
                 )}
+
+                <button
+                  disabled={view === 'statisticsView'}
+                  type="button"
+                  className="btn"
+                  onClick={() => {
+                    setView('statisticsView')
+                  }}
+                >
+                  <i className="fa fa-pie-chart" />
+                  &nbsp;
+                  {translate('ClientTemplates.app.statistics')}
+                </button>
               </div>
 
             </div>
@@ -439,9 +452,13 @@ const ReactiveFilters = ({
 
               {subFilters.map(filter => (
                 <MultiDropdownList
-                  key={filter.componentId}
+                  key={filter.dataField}
                   className="FilterBox"
                   {...filter}
+                  transformData={(buckets) => {
+                    emitter.emit('newAggregations', { dataField: filter.dataField, buckets: buckets.slice(0, 10) })
+                    return buckets
+                  }}
                   title={filter.title ? translate(filter.title) : translate(filter.componentId)}
                   renderItem={(label, count) => (
                     <span>
@@ -592,6 +609,19 @@ const ReactiveFilters = ({
                 )}
 
                 {children}
+
+                <div
+                  hidden={view !== 'statisticsView'}
+                >
+                  {subFilters.map(({ dataField, title, componentId }) => (
+                    <ReactivePieChart
+                      key={dataField}
+                      dataField={dataField}
+                      title={title ? translate(title) : translate(componentId)}
+                      componentId={componentId}
+                    />
+                  ))}
+                </div>
 
                 {((view === 'statisticsView') && iso3166) && (
                   <div className="statisticsContent">
