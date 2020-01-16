@@ -104,7 +104,7 @@ const formatDataStacked = ({ rawData, translate }) => {
 }
 
 
-const donutGrap = ({ rawData, translate }) => {
+const donutGrap = ({ rawData, translate, field, q }) => {
   const { document } = (new JSDOM('')).window
   global.document = document
   const body = d3.select(document).select('body')
@@ -148,6 +148,9 @@ const donutGrap = ({ rawData, translate }) => {
   g.selectAll('path')
     .data(arcData)
     .enter()
+    .append('a')
+    .attr('xlink:href', d => `/resource/?filter.${field}=${encodeURIComponent(d.data[0])}`.concat(q ? `&q=${encodeURIComponent(q)}` : ''))
+    .attr('target', '_parent')
     .append('path')
     .attr('d', arcGenerator)
     .attr('fill', d => color(d.data[1]))
@@ -312,7 +315,7 @@ export const createGraph = async ({
     }),
     elasticsearchConfig,
   })
-  return subField ? stackedGrap({ rawData, translate }) : donutGrap({ rawData, translate })
+  return subField ? stackedGrap({ rawData, translate }) : donutGrap({ rawData, translate, field, q })
 }
 
 export default { createGraph }
