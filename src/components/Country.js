@@ -1,4 +1,3 @@
-/* global window */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -7,7 +6,7 @@ import Link from './Link'
 import Icon from './Icon'
 import FullModal from './FullModal'
 import withEmitter from './withEmitter'
-import { triggerClick, getURL } from '../common'
+import { triggerClick } from '../common'
 import '../styles/components/Country.pcss'
 
 class Country extends React.Component {
@@ -354,21 +353,33 @@ class Country extends React.Component {
           >
             ×
           </span>
-          <div>
-            <h2>{translate('about.@type')}</h2>
-            <img alt={translate('about.@type')} src={`/stats?field=about.@type&q=${statsQuery}`} />
-            <h2>{translate('about.primarySector.@id')}</h2>
-            <img alt={translate('about.primarySector.@id')} src={`/stats?field=about.primarySector.@id&q=${statsQuery}`} />
-            <h2>{translate('about.license.@id')}</h2>
-            <img alt={translate('about.license.@id')} src={`/stats?field=about.license.@id&q=${statsQuery}`} />
-            <h2>{translate('about.about.@id')}</h2>
-            <img alt={translate('about.about.@id')} src={`/stats?field=about.about.@id&include=https://w3id.org/class/esc/n..&q=${statsQuery}`} />
+          <div className="graphs">
+            <div>
+              <h2>{translate('about.@type')}</h2>
+              <embed type="image/svg+xml" alt={translate('about.@type')} src={`/stats?field=about.@type&q=${statsQuery}`} />
+            </div>
+            <div>
+              <h2>{translate('about.primarySector.@id')}</h2>
+              <embed type="image/svg+xml" alt={translate('about.primarySector.@id')} src={`/stats?field=about.primarySector.@id&q=${statsQuery}`} />
+            </div>
+            <div>
+              <h2>{translate('about.license.@id')}</h2>
+              <embed type="image/svg+xml" alt={translate('about.license.@id')} src={`/stats?field=about.license.@id&q=${statsQuery}`} />
+            </div>
+            <div>
+              <h2>{translate('about.about.@id')}</h2>
+              <embed type="image/svg+xml" alt={translate('about.about.@id')} src={`/stats?field=about.about.@id&include=https://w3id.org/class/esc/n..&q=${statsQuery}`} />
+            </div>
             {!region && (
               <>
-                <h2>{translate('feature.properties.location.address.addressRegion')}</h2>
-                <img alt={translate('feature.properties.location.address.addressRegion')} src={`/stats?field=feature.properties.location.address.addressRegion&q=about.@type:Action AND ${statsQuery}`} />
-                <h2>{translate('about.location.address.addressRegion')}</h2>
-                <img alt={translate('about.location.address.addressRegion')} src={`/stats?field=about.location.address.addressRegion&q=${statsQuery}`} />
+                <div>
+                  <h2>{translate('feature.properties.location.address.addressRegion')}</h2>
+                  <embed type="image/svg+xml" alt={translate('feature.properties.location.address.addressRegion')} src={`/stats?field=feature.properties.location.address.addressRegion&q=about.@type:Action AND ${statsQuery}`} />
+                </div>
+                <div>
+                  <h2>{translate('about.location.address.addressRegion')}</h2>
+                  <embed type="image/svg+xml" alt={translate('about.location.address.addressRegion')} src={`/stats?field=about.location.address.addressRegion&q=${statsQuery}`} />
+                </div>
               </>
             )
             }

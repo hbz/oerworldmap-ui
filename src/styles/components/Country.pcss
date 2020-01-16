@@ -305,12 +305,10 @@
       display: none;
     }
 
-    & iframe {
-      border: none;
-
-      & .filter-bar {
-        display: none;
-      }
+    & .graphs {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(650px, 1fr));
     }
   }
 }
