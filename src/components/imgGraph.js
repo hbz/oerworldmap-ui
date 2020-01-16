@@ -104,7 +104,9 @@ const formatDataStacked = ({ rawData, translate }) => {
 }
 
 
-const donutGrap = ({ rawData, translate, field, q }) => {
+const donutGrap = ({
+  rawData, translate, field, q,
+}) => {
   const { document } = (new JSDOM('')).window
   global.document = document
   const body = d3.select(document).select('body')
@@ -315,7 +317,11 @@ export const createGraph = async ({
     }),
     elasticsearchConfig,
   })
-  return subField ? stackedGrap({ rawData, translate }) : donutGrap({ rawData, translate, field, q })
+  return subField
+    ? stackedGrap({ rawData, translate })
+    : donutGrap({
+      rawData, translate, field, q,
+    })
 }
 
 export default { createGraph }

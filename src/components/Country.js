@@ -23,9 +23,6 @@ class Country extends React.Component {
     this.showCountry = this.showCountry.bind(this)
   }
 
-  showCountry(showCountry) {
-    this.setState({ showCountry })
-  }
 
   componentDidMount() {
     const { emitter } = this.props
@@ -35,6 +32,10 @@ class Country extends React.Component {
   componentWillUnmount() {
     const { emitter } = this.props
     emitter.off('showCountry', this.showCountry)
+  }
+
+  showCountry(showCountry) {
+    this.setState({ showCountry })
   }
 
   render() {
