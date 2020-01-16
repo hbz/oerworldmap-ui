@@ -1,10 +1,16 @@
 /* global Headers */
-const d3 = require('d3')
 const fetch = require('isomorphic-fetch')
 const jsdom = require('jsdom')
+const {
+  select, scaleOrdinal, pie, arc, stack, scaleBand, scaleLinear, max, axisBottom, axisLeft,
+} = require('d3')
 const { types } = require('../common')
 
 const { JSDOM } = jsdom
+
+const d3 = {
+  select, scaleOrdinal, pie, arc, stack, scaleBand, scaleLinear, max, axisBottom, axisLeft,
+}
 
 const createQuery = ({
   field, q, subField, size, subSize, include, subInclude,
