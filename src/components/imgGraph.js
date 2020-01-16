@@ -96,7 +96,9 @@ const formatDataStacked = ({ rawData, translate }) => {
   const groups = [...new Set(...[...buckets.map(c => c.subResults.buckets)]
     .map(e => e.map(e => e.key)))]
 
-  const data = buckets.map(b => Object.assign({ name: translate(b.key) }, ...b.subResults.buckets.map(b => ({ [b.key]: b.doc_count }))))
+  const data = buckets.map(b => Object.assign(
+    { name: translate(b.key) }, ...b.subResults.buckets.map(b => ({ [b.key]: b.doc_count })),
+  ))
 
   return { groups, data }
 }
@@ -251,7 +253,7 @@ const stackedGrap = ({ rawData, translate }) => {
     .style('text-anchor', 'end')
     .attr('dx', '-.8em')
     .attr('dy', '.15em')
-    .attr('transform', d => 'rotate(-65)')
+    .attr('transform', 'rotate(-65)')
 
   const yAxis = g => g
     .attr('transform', `translate(${margin.left},0)`)
@@ -264,10 +266,10 @@ const stackedGrap = ({ rawData, translate }) => {
     .join('g')
     .attr('fill', d => color(d.key))
 
-  const stack = bar.selectAll('rect')
+  bar.selectAll('rect')
     .data(d => d)
     .join('rect')
-    .attr('x', (d, i) => x(d.data.name))
+    .attr('x', d => x(d.data.name))
     .attr('y', d => y(d[1]))
     .attr('height', d => y(d[0]) - y(d[1]))
     .attr('width', x.bandwidth())
