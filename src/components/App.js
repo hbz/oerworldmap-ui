@@ -5,7 +5,6 @@ import 'font-awesome/css/font-awesome.css'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import '../styles/fonts.pcss'
 import '../styles/main.pcss'
-import 'c3/c3.css'
 
 import Header from './Header'
 import Loading from './Loading'

@@ -12,6 +12,8 @@ import template from './views/index'
 import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
+import i18n from './i18n'
+import { createGraph } from './components/imgGraph'
 
 import Config, {
   mapboxConfig, apiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
@@ -48,7 +50,13 @@ server.use((req, res, next) => {
 // Middleware to fetch labels
 server.use((req, res, next) => {
   api.get('/label')
-    .then(labels => (req.labels = labels) && next())
+    .then((labels) => {
+      labels.results.bindings.forEach((label) => {
+        i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
+        i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
+      })
+      next()
+    })
     .catch(err => res.status(err.status).send(err.message))
 })
 
@@ -74,6 +82,9 @@ server.use((req, res, next) => {
   }
   req.locales = locales
   req.supportedLanguages = supportedLanguages
+  req.phrases = locales
+    .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
+
   next()
 })
 
@@ -96,21 +107,32 @@ server.get('/.login', (req, res) => {
   }
 })
 
+server.get('/stats', async (req, res) => {
+  const { translate } = i18n(req.locales, req.phrases)
+  const {
+    field, q, subField, sub, size, subSize,
+  } = req.query
+
+  const image = await createGraph({
+    field, q, subField, sub, size, subSize, translate, elasticsearchConfig,
+  })
+
+  if (image) {
+    res.setHeader('content-type', 'image/svg+xml')
+    res.send(image)
+  } else {
+    res.status(404)
+      .send('Not found')
+  }
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const headers = getHeaders(req.headers)
   headers.delete('Host')
   headers.delete('If-None-Match')
-  const { locales, supportedLanguages } = req
-  if (req.labels) {
-    req.labels.results.bindings.forEach((label) => {
-      i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
-      i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
-    })
-  }
+  const { locales, supportedLanguages, phrases } = req
 
-  const phrases = locales
-    .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
   const { schema, embed } = req
   const context = {
     supportedLanguages,

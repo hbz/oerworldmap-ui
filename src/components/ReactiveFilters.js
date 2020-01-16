@@ -20,7 +20,6 @@ import TogglePoints from './TogglePoints'
 import Link from './Link'
 import Calendar from './Calendar'
 import ReactiveTypeButtons from './ReactiveTypeButtons'
-import ReactivePieChart from './ReactivePieChart'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -41,7 +40,7 @@ const ReactiveFilters = ({
   if (isClient) {
     let subFilters = [
       {
-        componentId: 'filter.about.keyword',
+        componentId: 'filter.about.keywords',
         dataField: 'about.keywords',
         showMissing: true,
         showSearch: true,
@@ -455,10 +454,6 @@ const ReactiveFilters = ({
                   key={filter.dataField}
                   className="FilterBox"
                   {...filter}
-                  transformData={(buckets) => {
-                    emitter.emit('newAggregations', { dataField: filter.dataField, buckets: buckets.slice(0, 10) })
-                    return buckets
-                  }}
                   title={filter.title ? translate(filter.title) : translate(filter.componentId)}
                   renderItem={(label, count) => (
                     <span>
@@ -613,14 +608,27 @@ const ReactiveFilters = ({
                 <div
                   hidden={view !== 'statisticsView'}
                 >
-                  {subFilters.map(({ dataField, title, componentId }) => (
-                    <ReactivePieChart
-                      key={dataField}
-                      dataField={dataField}
-                      title={title ? translate(title) : translate(componentId)}
-                      componentId={componentId}
-                    />
-                  ))}
+
+                  <StateProvider render={({ searchState }) => {
+                    const qstring = Object.entries(searchState)
+                      .filter(([field, { value }]) => field.startsWith('filter.') && value && value.length)
+                      .map(([field, { value }]) => `${field.replace('filter.', '')}: (${(Array.isArray(value) && value || [value]).map(v => `"${encodeURIComponent(v)}"`)})`)
+                      .join(' AND ')
+                    return (
+                      <div>
+                        {subFilters.map(({ dataField, title, componentId }) => (
+                          <div key={dataField}>
+                            <h2>{title ? translate(title) : translate(componentId)}</h2>
+                            <embed
+                              type="image/svg+xml"
+                              src={`/stats?field=${dataField}&q=${qstring}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )
+                  }}
+                  />
                 </div>
 
                 {((view === 'statisticsView') && iso3166) && (
