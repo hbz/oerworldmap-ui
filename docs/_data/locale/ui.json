@@ -276,6 +276,8 @@
   "about.isFundedBy.isAwardedBy.@id": "Projects by Funders",
   "about.primarySector.@id": "Entries by primary education sector",
   "about.secondarySector.@id": "Entries by secondary education sector",
+  "feature.properties.location.address.addressRegion": "Projects by Region",
+  "about.location.address.addressRegion": "Entries by Region",
   "https://open-educational-resources.de/wp-content/uploads/oerde16_logo_award.png": "OERde16 Award winner",
   "https://oerworldmap.org/assets/images/badge_preistraeger_100_2017.png": "OERde17 Award winner",
   "http://www.oeconsortium.org/wp-content/uploads/awards/badge-2011.png": "Open Education Award 2011",
