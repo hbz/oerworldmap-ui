@@ -17,13 +17,13 @@ class: oerPolicies
 TODO
 
 # Policies by Country
-![](http://192.168.2.128:3000/stats?field=about.location.address.addressCountry&q=about.@type:Policy)
+![](/stats?field=about.location.address.addressCountry&q=about.@type:Policy)
 
 # Policies by Coverage
-![](http://192.168.2.128:3000/stats?field=about.spatialCoverage&q=about.@type:Policy)
+![](/stats?field=about.spatialCoverage&q=about.@type:Policy)
 
 # Policies by Educational Sector
-![](http://192.168.2.128:3000/stats?field=about.primarySector.@id&q=about.@type:Policy)
+![](/stats?field=about.primarySector.@id&q=about.@type:Policy)
 
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
 

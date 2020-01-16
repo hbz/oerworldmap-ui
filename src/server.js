@@ -110,11 +110,11 @@ server.get('/.login', (req, res) => {
 server.get('/stats', async (req, res) => {
   const { translate } = i18n(req.locales, req.phrases)
   const {
-    field, q, subField, sub, size, subSize,
+    field, q, subField, sub, size, subSize, include, subInclude,
   } = req.query
 
   const image = await createGraph({
-    field, q, subField, sub, size, subSize, translate, elasticsearchConfig,
+    field, q, subField, sub, size, subSize, translate, elasticsearchConfig, include, subInclude,
   })
 
   if (image) {

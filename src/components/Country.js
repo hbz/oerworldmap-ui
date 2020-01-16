@@ -46,8 +46,8 @@ class Country extends React.Component {
       showCountryChampion, showRegionalChampion, showReports, showStatistics,
       showKibanaStatistics, showCountry, minimizeCountry,
     } = this.state
-    const statsQuery = `feature.properties.address.addressCountry:${iso3166}`
-      .concat(region ? ` AND feature.properties.address.addressRegion:${iso3166}.${region}` : '')
+    const statsQuery = `feature.properties.location.address.addressCountry:${iso3166}`
+      .concat(region ? ` AND feature.properties.location.address.addressRegion:${iso3166}.${region}` : '')
 
     return (
       <React.Fragment>
@@ -313,6 +313,7 @@ class Country extends React.Component {
                 </ul>
                 <div className="more">
                   <button
+                    type="button"
                     onKeyDown={triggerClick}
                     onClick={() => this.setState({ showKibanaStatistics: !showKibanaStatistics })}
                   >
@@ -355,18 +356,21 @@ class Country extends React.Component {
           </span>
           <div>
             <h2>{translate('about.@type')}</h2>
-            <img src={`http://192.168.2.128:3000/stats?field=about.@type&q=${statsQuery}`} />
+            <img alt={translate('about.@type')} src={`/stats?field=about.@type&q=${statsQuery}`} />
             <h2>{translate('about.primarySector.@id')}</h2>
-            <img src={`http://192.168.2.128:3000/stats?field=about.primarySector.@id&q=${statsQuery}`} />
+            <img alt={translate('about.primarySector.@id')} src={`/stats?field=about.primarySector.@id&q=${statsQuery}`} />
             <h2>{translate('about.license.@id')}</h2>
-            <img src={`http://192.168.2.128:3000/stats?field=about.license.@id&q=${statsQuery}`} />
+            <img alt={translate('about.license.@id')} src={`/stats?field=about.license.@id&q=${statsQuery}`} />
             <h2>{translate('about.about.@id')}</h2>
-            <img src={`http://192.168.2.128:3000/stats?field=about.about.@id&include=https://w3id.org/class/esc/n..&q=${statsQuery}`} />
-            {!region &&
-              <h2>{translate('feature.properties.location.address.addressRegion')}</h2>
-              <img src={`http://192.168.2.128:3000/stats?field=feature.properties.location.address.addressRegion&q=about.@type:Action AND ${statsQuery}`} />
-              <h2>{translate('about.location.address.addressRegion')}</h2>
-              <img src={`http://192.168.2.128:3000/stats?field=about.location.address.addressRegion&q=${statsQuery}`} />
+            <img alt={translate('about.about.@id')} src={`/stats?field=about.about.@id&include=https://w3id.org/class/esc/n..&q=${statsQuery}`} />
+            {!region && (
+              <>
+                <h2>{translate('feature.properties.location.address.addressRegion')}</h2>
+                <img alt={translate('feature.properties.location.address.addressRegion')} src={`/stats?field=feature.properties.location.address.addressRegion&q=about.@type:Action AND ${statsQuery}`} />
+                <h2>{translate('about.location.address.addressRegion')}</h2>
+                <img alt={translate('about.location.address.addressRegion')} src={`/stats?field=about.location.address.addressRegion&q=${statsQuery}`} />
+              </>
+            )
             }
           </div>
         </FullModal>
