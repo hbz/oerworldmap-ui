@@ -21,33 +21,21 @@ class Country extends React.Component {
       showCountry: false,
       minimizeCountry: false,
     }
-    this.listenMessage = this.listenMessage.bind(this)
+    this.showCountry = this.showCountry.bind(this)
+  }
+
+  showCountry(showCountry) {
+    this.setState({ showCountry })
   }
 
   componentDidMount() {
     const { emitter } = this.props
-    window.addEventListener('message', this.listenMessage, false)
-
-    emitter.on('showCountry', (showCountry) => {
-      this.setState({ showCountry })
-    })
+    emitter.on('showCountry', this.showCountry)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('message', this.listenMessage)
-  }
-
-  listenMessage(msg) {
-    const { emitter, iso3166 } = this.props
-    if (msg.data.filter && msg.data.key) {
-      this.setState({ showKibanaStatistics: false })
-      emitter.emit('navigate', getURL({
-        path: `/country/${iso3166}`,
-        params: {
-          [`filter.${msg.data.filter}`]: msg.data.key,
-        },
-      }))
-    }
+    const { emitter } = this.props
+    emitter.off('showCountry', this.showCountry)
   }
 
   render() {
@@ -58,6 +46,8 @@ class Country extends React.Component {
       showCountryChampion, showRegionalChampion, showReports, showStatistics,
       showKibanaStatistics, showCountry, minimizeCountry,
     } = this.state
+    const statsQuery = `feature.properties.address.addressCountry:${iso3166}`
+      .concat(region ? ` AND feature.properties.address.addressRegion:${iso3166}.${region}` : '')
 
     return (
       <React.Fragment>
@@ -363,16 +353,22 @@ class Country extends React.Component {
           >
             ×
           </span>
-          <iframe
-            title="countryStatistics"
-            src={
-              region
-                ? `https://oerworldmap.org/kibana/app/kibana#/dashboard/2f3f5ce0-7b07-11e9-a87c-776689b2b49d?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:${iso3166}),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressRegion,negate:!f,params:(query:${`${iso3166}.${region}`},type:phrase),type:phrase,value:${`${iso3166}.${region}`}),query:(match:(feature.properties.location.address.addressRegion:(query:${`${iso3166}.${region}`},type:phrase))))))`
-                : `https://oerworldmap.org/kibana/app/kibana#/dashboard/026c73e0-0444-11e9-b10a-2128e9354d61?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:Germany),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase))))))`
+          <div>
+            <h2>{translate('about.@type')}</h2>
+            <img src={`http://192.168.2.128:3000/stats?field=about.@type&q=${statsQuery}`} />
+            <h2>{translate('about.primarySector.@id')}</h2>
+            <img src={`http://192.168.2.128:3000/stats?field=about.primarySector.@id&q=${statsQuery}`} />
+            <h2>{translate('about.license.@id')}</h2>
+            <img src={`http://192.168.2.128:3000/stats?field=about.license.@id&q=${statsQuery}`} />
+            <h2>{translate('about.about.@id')}</h2>
+            <img src={`http://192.168.2.128:3000/stats?field=about.about.@id&include=https://w3id.org/class/esc/n..&q=${statsQuery}`} />
+            {!region &&
+              <h2>{translate('feature.properties.location.address.addressRegion')}</h2>
+              <img src={`http://192.168.2.128:3000/stats?field=feature.properties.location.address.addressRegion&q=about.@type:Action AND ${statsQuery}`} />
+              <h2>{translate('about.location.address.addressRegion')}</h2>
+              <img src={`http://192.168.2.128:3000/stats?field=about.location.address.addressRegion&q=${statsQuery}`} />
             }
-            height="800"
-            width="100%"
-          />
+          </div>
         </FullModal>
       </React.Fragment>
     )
