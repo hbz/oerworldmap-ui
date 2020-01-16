@@ -2,14 +2,24 @@
 const d3 = require('d3')
 const fetch = require('isomorphic-fetch')
 const jsdom = require('jsdom')
+const { types } = require('../common')
 
 const { JSDOM } = jsdom
 
 const createQuery = ({
-  field, q, subField, size, subSize,
+  field, q, subField, size, subSize, include, subInclude,
 }) => {
   const query = {
     size: 0,
+    query: {
+      bool: {
+        filter: {
+          terms: {
+            'about.@type': types,
+          },
+        },
+      },
+    },
     aggs: {
       results: {
         terms: {
@@ -29,22 +39,26 @@ const createQuery = ({
         },
       },
     }
+
+    if (subInclude) {
+      query.aggs.results.aggs.subResults.terms.include = include
+    }
+  }
+
+  if (include) {
+    query.aggs.results.terms.include = include
   }
 
   if (q) {
-    query.query = {
-      bool: {
-        must: [
-          {
-            query_string: {
-              analyze_wildcard: true,
-              query: q,
-              default_field: '*',
-            },
-          },
-        ],
+    query.query.bool.must = [
+      {
+        query_string: {
+          analyze_wildcard: true,
+          query: q,
+          default_field: '*',
+        },
       },
-    }
+    ]
   }
 
   return query
@@ -288,11 +302,11 @@ const stackedGrap = ({ rawData, translate }) => {
 
 
 export const createGraph = async ({
-  field, q, subField, size, subSize, translate, elasticsearchConfig,
+  field, q, subField, size, subSize, translate, elasticsearchConfig, include, subInclude,
 }) => {
   const rawData = await getData({
     query: createQuery({
-      field, q, subField, size, subSize,
+      field, q, subField, size, subSize, include, subInclude,
     }),
     elasticsearchConfig,
   })
