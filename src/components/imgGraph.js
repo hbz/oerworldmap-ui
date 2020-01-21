@@ -123,7 +123,9 @@ const formatDataStacked = ({ rawData, translate }) => {
 const donutGrap = ({
   rawData, translate, field, q, filters = []
 }) => {
-  const filterString = filters.map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
+  const filterString = filters
+    .map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
+    .join('&')
   const { document } = (new JSDOM('')).window
   global.document = document
   const body = d3.select(document).select('body')
@@ -168,6 +170,7 @@ const donutGrap = ({
     .data(arcData)
     .enter()
     .append('a')
+    // FIXME: prevent duplication of filter param
     .attr('xlink:href', d => `/browse/?filter.${field}=${encodeURIComponent(JSON.stringify([d.data[0]]))}`
       .concat(q ? `&q=${encodeURIComponent(q)}` : '')
       .concat(filterString ? `&${filterString}` : '')
