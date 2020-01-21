@@ -13,17 +13,19 @@ const d3 = {
 }
 
 const createQuery = ({
-  field, q, subField, size, subSize, include, subInclude,
+  field, q, subField, size, subSize, include, subInclude, filters = []
 }) => {
   const query = {
     size: 0,
     query: {
       bool: {
-        filter: {
-          terms: {
-            'about.@type': types,
+        filter: [
+          {
+            terms: {
+              'about.@type': types,
+            },
           },
-        },
+        ],
       },
     },
     aggs: {
@@ -35,6 +37,14 @@ const createQuery = ({
       },
     },
   }
+
+  filters.forEach(([field, value]) => {
+    query.query.bool.filter.push({
+      terms: {
+        [field]: Array.isArray(value) ? value : [value]
+      }
+    })
+  })
 
   if (subField) {
     query.aggs.results.aggs = {
@@ -111,8 +121,9 @@ const formatDataStacked = ({ rawData, translate }) => {
 
 
 const donutGrap = ({
-  rawData, translate, field, q,
+  rawData, translate, field, q, filters = []
 }) => {
+  const filterString = filters.map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
   const { document } = (new JSDOM('')).window
   global.document = document
   const body = d3.select(document).select('body')
@@ -157,7 +168,10 @@ const donutGrap = ({
     .data(arcData)
     .enter()
     .append('a')
-    .attr('xlink:href', d => `/resource/?filter.${field}=${encodeURIComponent(d.data[0])}`.concat(q ? `&q=${encodeURIComponent(q)}` : ''))
+    .attr('xlink:href', d => `/browse/?filter.${field}=${encodeURIComponent(JSON.stringify([d.data[0]]))}`
+      .concat(q ? `&q=${encodeURIComponent(q)}` : '')
+      .concat(filterString ? `&${filterString}` : '')
+    )
     .attr('target', '_parent')
     .append('path')
     .attr('d', arcGenerator)
@@ -315,18 +329,18 @@ const stackedGrap = ({ rawData, translate }) => {
 
 
 export const createGraph = async ({
-  field, q, subField, size, subSize, translate, elasticsearchConfig, include, subInclude,
+  field, q, subField, size, subSize, translate, elasticsearchConfig, include, subInclude, filters
 }) => {
   const rawData = await getData({
     query: createQuery({
-      field, q, subField, size, subSize, include, subInclude,
+      field, q, subField, size, subSize, include, subInclude, filters
     }),
     elasticsearchConfig,
   })
   return subField
     ? stackedGrap({ rawData, translate })
     : donutGrap({
-      rawData, translate, field, q,
+      rawData, translate, field, q, filters
     })
 }
 

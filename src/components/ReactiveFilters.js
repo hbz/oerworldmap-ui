@@ -610,10 +610,10 @@ const ReactiveFilters = ({
                 >
 
                   <StateProvider render={({ searchState }) => {
-                    const qstring = Object.entries(searchState)
+                    const filters = Object.entries(searchState)
                       .filter(([field, { value }]) => field.startsWith('filter.') && value && value.length)
-                      .map(([field, { value }]) => `${field.replace('filter.', '')}: (${(Array.isArray(value) && value || [value]).map(v => `"${encodeURIComponent(v)}"`)})`)
-                      .join(' AND ')
+                      .map(([field, { value }]) => `${field}=${encodeURIComponent(JSON.stringify(value))}`)
+                      .join('&')
                     return (
                       <div>
                         {subFilters.map(({ dataField, title, componentId }) => (
@@ -621,7 +621,10 @@ const ReactiveFilters = ({
                             <h2>{title ? translate(title) : translate(componentId)}</h2>
                             <embed
                               type="image/svg+xml"
-                              src={`/stats?field=${dataField}&q=${qstring}`}
+                              src={`/stats?field=${dataField}`
+                                .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
+                                .concat(filters ? `&${filters}` : '')
+                              }
                             />
                           </div>
                         ))}

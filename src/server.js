@@ -57,7 +57,7 @@ server.use((req, res, next) => {
       })
       next()
     })
-    .catch(err => res.status(err.status).send(err.message))
+    .catch(err => console.log(err) || res.status(err.status).send(err.message))
 })
 
 // Middleware to fetch JSON schema
@@ -112,9 +112,13 @@ server.get('/stats', async (req, res) => {
   const {
     field, q, subField, sub, size, subSize, include, subInclude,
   } = req.query
+  const filters = Object.entries(req.query)
+    .filter(([param]) => param.startsWith('filter.'))
+    .map(([param, value]) => [ param.replace(/^filter./, ""), JSON.parse(value) ])
 
   const image = await createGraph({
     field, q, subField, sub, size, subSize, translate, elasticsearchConfig, include, subInclude,
+    filters
   })
 
   if (image) {
