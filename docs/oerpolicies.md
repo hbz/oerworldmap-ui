@@ -13,17 +13,11 @@ class: oerPolicies
 ## Statistic explorer
 <div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
 
-# Policies Count
-TODO
-
-# Policies by Country
-![](/stats?field=about.location.address.addressCountry&q=about.@type:Policy)
-
-# Policies by Coverage
-![](/stats?field=about.spatialCoverage&q=about.@type:Policy)
-
-# Policies by Educational Sector
-![](/stats?field=about.primarySector.@id&q=about.@type:Policy)
+<div class="graphsContainer">
+  {% include graph.html title="Policies by Country" src="/stats?field=about.location.address.addressCountry&q=about.@type:Policy" %}
+  {% include graph.html title="Policies by Coverage" src="/stats?field=about.spatialCoverage&q=about.@type:Policy" %}
+  {% include graph.html title="Policies by Educational Sector" src="/stats?field=about.primarySector.@id&q=about.@type:Policy" %}
+</div>
 
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
 
