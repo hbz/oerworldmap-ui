@@ -12,6 +12,18 @@ const d3 = {
   select, scaleOrdinal, pie, arc, stack, scaleBand, scaleLinear, max, axisBottom, axisLeft,
 }
 
+const colors = [
+  '#3770B8',
+  '#00A3CB',
+  '#00D4BB',
+  '#6CFB98',
+  '#F5FF81',
+  '#F6D948',
+  '#F6A008',
+  '#EF5E00',
+  '#E20001',
+]
+
 const createQuery = ({
   field, q, subField, size, subSize, include, subInclude, filters = []
 }) => {
@@ -141,7 +153,7 @@ const donutGrap = ({
 
   const color = d3.scaleOrdinal()
     .domain(data)
-    .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56'])
+    .range(colors)
 
   const pieGenerator = d3.pie()
     .value(([, value]) => value)
@@ -160,6 +172,7 @@ const donutGrap = ({
     .attr('xmlns', 'http://www.w3.org/2000/svg')
     .attr('width', width)
     .attr('height', height)
+    .style('font-family', '"Source Sans Pro", futura-pt, sans-serif')
 
   const g = svg.append('g')
     .attr('class', 'graph')
@@ -196,6 +209,7 @@ const donutGrap = ({
         .attr('dy', '0.33em')
         .attr('fill', 'white')
         .attr('pointer-events', 'none')
+        .style('text-shadow', '1px 1px .1px black')
         .text((d) => {
           // eslint-disable-next-line no-bitwise
           const percentage = ~~(d.data[1] * 100 / total)
@@ -227,7 +241,6 @@ const donutGrap = ({
     .html(d => d.data[1])
 
   lg.append('text')
-    .style('font-family', 'Georgia')
     .style('font-size', '13px')
     .attr('x', 17.5 + 10)
     .attr('y', 10)
@@ -258,11 +271,12 @@ const stackedGrap = ({ rawData, translate }) => {
     .attr('viewBox', [0, 0, width, height])
     .attr('width', width)
     .attr('height', height)
+    .style('font-family', '"Source Sans Pro", futura-pt, sans-serif')
 
   const series = d3.stack().keys(groups)(data)
   const color = d3.scaleOrdinal()
     .domain(series.map(d => d.key))
-    .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56'])
+    .range(colors)
 
   const x = d3.scaleBand()
     .domain(data.map(d => d.name))
