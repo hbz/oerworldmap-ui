@@ -13,7 +13,7 @@ import mitt from 'mitt'
 import 'normalize.css'
 import { gsap } from 'gsap/all'
 
-import { getURL, updateUser } from './common'
+import { updateUser } from './common'
 import Header from './components/Header'
 import Link from './components/Link'
 import I18nProvider from './components/I18nProvider'

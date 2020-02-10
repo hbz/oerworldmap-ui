@@ -25,7 +25,7 @@ const colors = [
 ]
 
 const createQuery = ({
-  field, q, subField, size, subSize, include, subInclude, filters = []
+  field, q, subField, size, subSize, include, subInclude, filters = [],
 }) => {
   const query = {
     size: 0,
@@ -53,8 +53,8 @@ const createQuery = ({
   filters.forEach(([field, value]) => {
     query.query.bool.filter.push({
       terms: {
-        [field]: Array.isArray(value) ? value : [value]
-      }
+        [field]: Array.isArray(value) ? value : [value],
+      },
     })
   })
 
@@ -133,7 +133,7 @@ const formatDataStacked = ({ rawData, translate }) => {
 
 
 const donutGrap = ({
-  rawData, translate, field, q, filters = []
+  rawData, translate, field, q, filters = [],
 }) => {
   const filterString = filters
     .map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
@@ -186,8 +186,7 @@ const donutGrap = ({
     // FIXME: prevent duplication of filter param
     .attr('xlink:href', d => `/browse/?filter.${field}=${encodeURIComponent(JSON.stringify([d.data[0]]))}`
       .concat(q ? `&q=${encodeURIComponent(q)}` : '')
-      .concat(filterString ? `&${filterString}` : '')
-    )
+      .concat(filterString ? `&${filterString}` : ''))
     .attr('target', '_parent')
     .append('path')
     .attr('d', arcGenerator)
@@ -346,18 +345,18 @@ const stackedGrap = ({ rawData, translate }) => {
 
 
 export const createGraph = async ({
-  field, q, subField, size, subSize, translate, elasticsearchConfig, include, subInclude, filters
+  field, q, subField, size, subSize, translate, elasticsearchConfig, include, subInclude, filters,
 }) => {
   const rawData = await getData({
     query: createQuery({
-      field, q, subField, size, subSize, include, subInclude, filters
+      field, q, subField, size, subSize, include, subInclude, filters,
     }),
     elasticsearchConfig,
   })
   return subField
     ? stackedGrap({ rawData, translate })
     : donutGrap({
-      rawData, translate, field, q, filters
+      rawData, translate, field, q, filters,
     })
 }
 
