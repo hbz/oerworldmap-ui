@@ -22,6 +22,9 @@ const colors = [
   '#F6A008',
   '#EF5E00',
   '#E20001',
+  '#6822A9',
+  '#C0383A',
+  '#09783F',
 ]
 
 const createQuery = ({
