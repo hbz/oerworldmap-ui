@@ -136,7 +136,7 @@ const formatDataStacked = ({ rawData, translate }) => {
 
 
 const donutGrap = ({
-  rawData, translate, field, q, filters = [],
+  rawData, translate, field, q, filters = [], w = 500,
 }) => {
   const filterString = filters
     .map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
@@ -150,9 +150,14 @@ const donutGrap = ({
   if (valuesArray.length === 0) return false
 
   const neededHeight = valuesArray.length * 20 + 15
-  const width = 650
-  const height = (neededHeight < 400) ? 400 : neededHeight
+  const width = w
+  const height = (neededHeight < width / 2) ? width / 2 : neededHeight
   const padding = 10
+  const legendWidth = 250
+
+  const areaWidth = (width - padding) - legendWidth
+  const r = Math.min(areaWidth, height - 10) / 2
+  const total = (valuesArray.length && valuesArray.reduce((acc, i) => acc + i)) || 0
 
   const color = d3.scaleOrdinal()
     .domain(data)
@@ -161,13 +166,10 @@ const donutGrap = ({
   const pieGenerator = d3.pie()
     .value(([, value]) => value)
 
-  const areaWidth = (width - padding) / 2
-  const r = Math.min(areaWidth, height - 10) / 2
-  const total = (valuesArray.length && valuesArray.reduce((acc, i) => acc + i)) || 0
 
   const arcGenerator = d3.arc()
     .outerRadius(r)
-    .innerRadius(r - 45)
+    .innerRadius(r - 40)
 
   const arcData = pieGenerator(Object.entries(data))
 
@@ -244,11 +246,14 @@ const donutGrap = ({
 
   lg.append('text')
     .style('font-size', '13px')
-    .attr('x', 17.5 + 10)
+    .attr('x', 20)
     .attr('y', 10)
-    .text(d => translate(d.data[0]))
+    .text((d) => {
+      const translated = translate(d.data[0])
+      return translated.length > 25 ? `${translated.slice(0, 25)}...` : translated
+    })
     .append('title')
-    .html(d => d.data[1])
+    .html(d => `${translate(d.data[0])} (${d.data[1]})`)
 
   return body.node().innerHTML
 }
@@ -341,14 +346,24 @@ const stackedGrap = ({ rawData, translate }) => {
   leyend.append('text')
     .attr('x', 20)
     .attr('y', 10)
-    .html(d => translate(d.key))
+    .html(d => (translate(d.key).length > 20 ? `${translate(d.key).slice(0, 100)}...` : translate(d.key)))
 
   return body.node().innerHTML
 }
 
 
 export const createGraph = async ({
-  field, q, subField, size, subSize, translate, elasticsearchConfig, include, subInclude, filters,
+  field,
+  q,
+  subField,
+  size,
+  subSize,
+  translate,
+  elasticsearchConfig,
+  include,
+  subInclude,
+  filters,
+  w,
 }) => {
   const rawData = await getData({
     query: createQuery({
@@ -359,7 +374,7 @@ export const createGraph = async ({
   return subField
     ? stackedGrap({ rawData, translate })
     : donutGrap({
-      rawData, translate, field, q, filters,
+      rawData, translate, field, q, filters, w,
     })
 }
 
