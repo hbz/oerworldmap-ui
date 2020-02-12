@@ -80,8 +80,12 @@ class ReactiveTypeButtons extends Component {
 
 ReactiveTypeButtons.propTypes = {
   translate: PropTypes.func.isRequired,
-  selectedType: PropTypes.string.isRequired,
+  selectedType: PropTypes.string,
   setQuery: PropTypes.func.isRequired,
+}
+
+ReactiveTypeButtons.defaultProps = {
+  selectedType: undefined,
 }
 
 
