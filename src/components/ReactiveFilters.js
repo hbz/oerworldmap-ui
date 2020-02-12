@@ -617,7 +617,7 @@ const ReactiveFilters = ({
                     return (
                       <div>
                         {subFilters.map(({ dataField, title, componentId }) => (
-                          <div key={dataField}>
+                          <div key={dataField} className="graphContainer">
                             <h2>{title ? translate(title) : translate(componentId)}</h2>
                             <embed
                               type="image/svg+xml"
