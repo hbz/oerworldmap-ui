@@ -40,8 +40,8 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^5.0.4",
-    "css-loader": "^3.1.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
     "cssnano": "^4.1.8",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -125,9 +125,9 @@
     "simplemde": "^1.11.2",
     "source-sans-pro": "^2.45.0",
     "url-template": "^2.0.8",
-    "webpack": "^4.38.0",
+    "webpack": "^4.41.6",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-dev-server": "^3.7.1",
+    "webpack-dev-server": "^3.10.3",
     "webpack-hot-middleware": "^2.25.0"
   }
 }
