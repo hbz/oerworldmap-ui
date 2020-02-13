@@ -80,7 +80,7 @@ class ReactiveTypeButtons extends Component {
 
 ReactiveTypeButtons.propTypes = {
   translate: PropTypes.func.isRequired,
-  selectedType: PropTypes.string,
+  selectedType: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.object)]),
   setQuery: PropTypes.func.isRequired,
 }
 
