@@ -42,6 +42,7 @@ const baseConfig = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
+    new webpack.IgnorePlugin(/canvas/),
   ],
 }
 
