@@ -29,6 +29,7 @@ const loaders = [
 const baseConfig = {
   mode: NODE_ENV,
   devtool: 'cheap-source-map',
+  externals: ['bufferutil', 'utf-8-validate'],
   context: path.join(__dirname, 'src'),
   module: {
     exprContextCritical: false,
