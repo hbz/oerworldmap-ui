@@ -221,6 +221,7 @@ const donutGrap = ({
         })
         .attr('text-anchor', 'middle')
         .attr('font-weight', 400)
+        .attr('font-size', '13px')
     })
 
   // Legend
