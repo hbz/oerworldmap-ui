@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/hbz/oerworldmap-ui#readme",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=12.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -99,7 +99,7 @@
     "ignore-loader": "^0.1.2",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.2.0",
     "json-pointer": "^0.6.0",
     "lodash": "^4.17.15",
     "mapbox-gl": "^1.7.0",
