@@ -2,7 +2,7 @@
 /* global Headers */
 
 import React from 'react'
-import toRegExp from 'path-to-regexp'
+import { pathToRegexp } from 'path-to-regexp'
 import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
@@ -501,7 +501,7 @@ export default (api, emitter, location) => {
   ]
 
   const matchURI = (path, uri) => {
-    const match = toRegExp(path).exec(uri)
+    const match = pathToRegexp(path).exec(uri)
     return match ? match.slice(1) : null
   }
 
