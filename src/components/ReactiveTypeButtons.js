@@ -34,7 +34,7 @@ class ReactiveTypeButtons extends Component {
             overlay={(
               <span>
                 <b>{translate(type)}</b>
-              :&nbsp;
+                :&nbsp;
                 {translate(`Tip.${type}`)}
               </span>
             )}

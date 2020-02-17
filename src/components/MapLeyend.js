@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 
@@ -37,6 +38,16 @@ const MapLeyend = ({ emitter, translate, iso3166 }) => {
         </div>
       </div>
     ))
+}
+
+MapLeyend.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  translate: PropTypes.func.isRequired,
+  iso3166: PropTypes.string,
+}
+
+MapLeyend.defaultProps = {
+  iso3166: undefined,
 }
 
 export default withEmitter(withI18n(MapLeyend))

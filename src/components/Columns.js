@@ -114,7 +114,7 @@ class Columns extends React.Component {
               {translate('Tour.end4')}
             &nbsp;
               <a href="mailto:someone@yoursite.com">info@oerworldmap.org</a>
-            .
+              .
             </p>
             <p>
               {translate('Tour.end5')}

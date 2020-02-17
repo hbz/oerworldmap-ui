@@ -69,12 +69,14 @@ ReactiveResourceIndex.propTypes = {
       url: PropTypes.string,
     },
   ).isRequired,
+  view: PropTypes.string,
 }
 
 ReactiveResourceIndex.defaultProps = {
   map: null,
   iso3166: '',
   region: null,
+  view: null,
 }
 
 export default withEmitter(ReactiveResourceIndex)

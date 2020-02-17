@@ -347,14 +347,14 @@ const ReactiveFilters = ({
                     <>
                       <h2>{translate(`${iso3166}.${region}`)}</h2>
                       <Link href={`/country/${iso3166}`} className="closePage">
-                      &times;
+                        &times;
                       </Link>
                     </>
                   ) : (
                     <>
                       <h2>{translate(iso3166)}</h2>
                       <Link href="/resource/" className="closePage">
-                      &times;
+                        &times;
                       </Link>
                     </>
                   )}
@@ -384,8 +384,8 @@ const ReactiveFilters = ({
                                     onClick={() => data.setValue(filter, null)}
                                   >
                                     <b>{translate(filter)}</b>
-                                  :
-                                  &nbsp;
+                                    :
+                                    &nbsp;
                                     {translate(data.selectedValues[filter].value)}
                                   </button>
                                 ) : (
@@ -399,8 +399,8 @@ const ReactiveFilters = ({
                                       }}
                                     >
                                       <b>{translate(filter)}</b>
-                                    :
-                                    &nbsp;
+                                      :
+                                      &nbsp;
                                       {translate(value)}
                                     </button>
                                   )))}
