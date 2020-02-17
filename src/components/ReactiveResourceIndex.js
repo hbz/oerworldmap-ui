@@ -10,7 +10,7 @@ import withEmitter from './withEmitter'
 
 import '../styles/components/ResourceIndex.pcss'
 
-const ResourceIndex = ({
+const ReactiveResourceIndex = ({
   mapboxConfig,
   elasticsearchConfig,
   emitter,
@@ -21,6 +21,7 @@ const ResourceIndex = ({
   phrases,
   isEmbed,
   region,
+  view,
 }) => {
   const home = _self.endsWith('/resource/?features=true')
   const initPins = isEmbed || (typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true')
@@ -29,8 +30,10 @@ const ResourceIndex = ({
     <ReactiveFilters
       iso3166={iso3166}
       region={region}
+      _self={_self}
       elasticsearchConfig={elasticsearchConfig}
       initPins={initPins}
+      viewHash={view}
     >
 
       <ReactiveMap
@@ -50,7 +53,7 @@ const ResourceIndex = ({
   )
 }
 
-ResourceIndex.propTypes = {
+ReactiveResourceIndex.propTypes = {
   mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -68,10 +71,10 @@ ResourceIndex.propTypes = {
   ).isRequired,
 }
 
-ResourceIndex.defaultProps = {
+ReactiveResourceIndex.defaultProps = {
   map: null,
   iso3166: '',
   region: null,
 }
 
-export default withEmitter(ResourceIndex)
+export default withEmitter(ReactiveResourceIndex)

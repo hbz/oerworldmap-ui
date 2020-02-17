@@ -7,11 +7,9 @@ import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
-import Country from './components/Country'
 import Feed from './components/Feed'
 import Timeline from './components/Timeline'
 import Statistics from './components/Statistics'
-import ResourceIndex from './components/ResourceIndex'
 import ReactiveResourceIndex from './components/ReactiveResourceIndex'
 import Feedback from './components/Feedback'
 import FullModal from './components/FullModal'
@@ -22,7 +20,6 @@ import Link from './components/Link'
 import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
-import MobileNavigation from './components/MobileNavigation'
 
 export default (api, emitter, location) => {
   Link.home = '/resource/'
@@ -31,7 +28,7 @@ export default (api, emitter, location) => {
 
   const routes = [
     {
-      path: '/browse/',
+      path: '/resource/',
       get: async (params, context, state) => {
         const {
           mapboxConfig, schema, phrases, embed, elasticsearchConfig,
@@ -43,16 +40,15 @@ export default (api, emitter, location) => {
         if (!params.add) {
           Link.home = url
         }
-        Link.back = '/browse/'
-        const data = state || {
+        Link.back = '/resource/'
+        let data = state || {
           _self: location.href,
         }
-        // const data = params.add ? {
-        //   about: {
-        //     '@type': params.add,
-        //   },
-        //   _self: location.href,
-        // } : state || await api.get(url, new Headers(context.headers))
+        data = params.add ? {
+          about: {
+            '@type': params.add,
+          },
+        } : state || await api.get(url, new Headers(context.headers))
         const component = data => (params.add ? (
           <WebPage
             mapboxConfig={mapboxConfig}
@@ -72,93 +68,13 @@ export default (api, emitter, location) => {
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
             isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current={
-                !url.endsWith('/resource/')
-                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
-                  ? 'list' : 'map'}
-            />
-          </ReactiveResourceIndex>
-        ))
-
-        const title = params.add
-          ? context.i18n.translate('add', { type: context.i18n.translate(params.add) })
-          : context.i18n.translate('ResourceIndex.index.showingEntities', {
-            number: data.totalItems,
-            query: data.filters
-              && data.filters['about.@type']
-              && context.i18n.translate(data.filters['about.@type'][0])
-              || '',
-          })
-
-        const metadata = {
-          description: context.i18n.translate('slogan'),
-          url: data._self,
-          image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
-        }
-
-        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0))) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
-        }
-
-        return {
-          title, data, component, metadata,
-        }
-      },
-    },
-    {
-      path: '/resource/',
-      get: async (params, context, state) => {
-        const {
-          mapboxConfig, schema, phrases, embed,
-        } = context
-        const url = getURL({
-          path: '/resource/',
-          params,
-        })
-        if (!params.add) {
-          Link.home = url
-        }
-        const data = params.add ? {
-          about: {
-            '@type': params.add,
-          },
-          _self: location.href,
-        } : state || await api.get(url, new Headers(context.headers))
-        const component = data => (params.add ? (
-          <WebPage
-            mapboxConfig={mapboxConfig}
-            {...data}
-            view="edit"
-            schema={schema}
-            showOptionalFields={false}
-            onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
           />
-        ) : (
-          <ResourceIndex
-            {...data}
-            phrases={phrases}
-            mapboxConfig={mapboxConfig}
-            map={params.map}
-            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="true"
-            isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current={
-                !url.endsWith('/resource/')
-                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
-                  ? 'list' : 'map'}
-            />
-          </ResourceIndex>
         ))
 
         const title = params.add
           ? context.i18n.translate('add', { type: context.i18n.translate(params.add) })
           : context.i18n.translate('ResourceIndex.index.showingEntities', {
-            number: data.totalItems,
+            number: '',
             query: data.filters
               && data.filters['about.@type']
               && context.i18n.translate(data.filters['about.@type'][0])
@@ -286,49 +202,38 @@ export default (api, emitter, location) => {
     {
       path: '/country/:id',
       get: async (id, params, context, state) => {
-        const { phrases, mapboxConfig, embed } = context
+        const {
+          phrases, mapboxConfig, embed, elasticsearchConfig,
+        } = context
         const url = getURL({
           path: `/country/${id}`,
           params,
         })
         Link.home = url
-        const data = state || await api.get(url, new Headers(context.headers))
-        const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === data.iso3166)
-        const countryData = data.aggregations['global#facets']['filter#country']
+        const data = state || {
+          _self: location.href,
+        }
         const component = data => (
-          <ResourceIndex
+          <ReactiveResourceIndex
             {...data}
-            className="countryView"
             phrases={phrases}
             mapboxConfig={mapboxConfig}
+            elasticsearchConfig={elasticsearchConfig}
+            map={params.map}
+            iso3166={id.toUpperCase()}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="country"
+            embedValue="true"
             isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current="list"
-              country={data.iso3166}
-            />
-            <Country
-              iso3166={data.iso3166}
-              countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
-              countryData={countryData}
-            />
-          </ResourceIndex>
+          />
+
         )
         const title = context.i18n.translate(id.toUpperCase())
         const metadata = {
           description: context.i18n.translate('CountryIndex.description', {
-            countryName: context.i18n.translate(data.iso3166),
+            countryName: context.i18n.translate(id.toUpperCase()),
           }),
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
-        }
-
-        if (data && (data.query || Object.keys(data.filters).length > 0)) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
         }
 
         return {
@@ -339,45 +244,30 @@ export default (api, emitter, location) => {
     {
       path: '/country/:country/:region',
       get: async (country, region, params, context, state) => {
-        const { phrases, mapboxConfig, embed } = context
+        const {
+          phrases, mapboxConfig, embed, elasticsearchConfig,
+        } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
           params,
         })
         Link.home = url
-        const data = state || await api.get(url, context.authorization)
-        const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === data.iso3166)
-        const countryData = data.aggregations['global#facets']['filter#country']
-        const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
-        const regionData = data.aggregations['global#facets']['filter#feature.properties.location.address.addressRegion']['sterms#feature.properties.location.address.addressRegion']
-          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+        const data = state || {
+          _self: location.href,
+        }
         const component = data => (
-          <ResourceIndex
+          <ReactiveResourceIndex
             {...data}
-            className="regionView"
             phrases={phrases}
             mapboxConfig={mapboxConfig}
-            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="country"
+            elasticsearchConfig={elasticsearchConfig}
+            map={params.map}
+            iso3166={country.toUpperCase()}
             region={region.toUpperCase()}
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+            embedValue="true"
             isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current="list"
-              country={data.iso3166}
-              region={region.toUpperCase()}
-            />
-            <Country
-              iso3166={data.iso3166}
-              region={region.toUpperCase()}
-              countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
-              regionalChampions={regionalChampions && regionalChampions['top_hits#regional_champions'].hits.hits}
-              countryData={countryData}
-              regionData={regionData}
-            />
-          </ResourceIndex>
+          />
         )
         const title = `${context.i18n.translate((`${country}.${region}`).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`
         const metadata = {
@@ -386,11 +276,6 @@ export default (api, emitter, location) => {
           }),
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
-        }
-
-        if (data && (data.query || Object.keys(data.filters).length > 0)) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
         }
 
         return {

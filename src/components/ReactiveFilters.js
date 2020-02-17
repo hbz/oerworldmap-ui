@@ -1,4 +1,5 @@
 /* global document */
+/* global window */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
@@ -12,11 +13,14 @@ import {
   StateProvider,
 } from '@appbaseio/reactivesearch'
 
+
+import { types } from '../common'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import TogglePoints from './TogglePoints'
+import ShareExport from './ShareExport'
 import Link from './Link'
 import Calendar from './Calendar'
 import ReactiveTypeButtons from './ReactiveTypeButtons'
@@ -25,13 +29,25 @@ const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const sizes = [20, 50, 100, 200, 9999]
 
+const getView = (viewHash) => {
+  switch (viewHash) {
+  case 'map':
+    return 'mapView'
+  case 'stats':
+    return 'statisticsView'
+  default:
+    return 'listView'
+  }
+}
+
 const ReactiveFilters = ({
-  emitter, translate, elasticsearchConfig, children, iso3166, region, initPins,
+  emitter, translate, elasticsearchConfig, children, iso3166, region, initPins, _self, viewHash,
 }) => {
   const [currentSize, setCurrentSize] = useState(20)
-  const [view, setView] = useState('listView')
+  const [view, setView] = useState(getView(viewHash))
   const [isClient, setIsClient] = useState(false)
   const [collapsed, setCollapsed] = useState(true)
+  const [showPastEvents, setShowPastEvents] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
@@ -243,6 +259,7 @@ const ReactiveFilters = ({
                   type="button"
                   className="btn"
                   onClick={() => {
+                    window.location.hash = 'list'
                     setView('listView')
                   }}
                 >
@@ -255,6 +272,7 @@ const ReactiveFilters = ({
                   type="button"
                   className="btn"
                   onClick={async () => {
+                    window.location.hash = 'map'
                     setView('mapView')
                     await timeout(10)
                     emitter.emit('resize')
@@ -265,26 +283,12 @@ const ReactiveFilters = ({
                   {translate('main.map')}
                 </button>
 
-                {iso3166 && (
-                  <button
-                    disabled={view === 'statisticsView'}
-                    type="button"
-                    className="btn"
-                    onClick={() => {
-                      setView('statisticsView')
-                    }}
-                  >
-                    <i className="fa fa-pie-chart" />
-                    &nbsp;
-                    {translate('ClientTemplates.app.statistics')}
-                  </button>
-                )}
-
                 <button
                   disabled={view === 'statisticsView'}
                   type="button"
                   className="btn"
                   onClick={() => {
+                    window.location.hash = 'stats'
                     setView('statisticsView')
                   }}
                 >
@@ -293,6 +297,36 @@ const ReactiveFilters = ({
                   {translate('ClientTemplates.app.statistics')}
                 </button>
               </div>
+
+              <ShareExport
+                _self={_self}
+                _links={{
+                  refs: [
+                    {
+                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=geojson',
+                      rel: 'alternate',
+                      type: 'application/geo+json',
+                    },
+                    {
+                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=ics',
+                      rel: 'alternate',
+                      type: 'text/calendar',
+                    },
+                    {
+                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=json',
+                      rel: 'alternate',
+                      type: 'application/json',
+                    },
+                    {
+                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=csv',
+                      rel: 'alternate',
+                      type: 'text/csv',
+                    },
+                  ],
+                }}
+                view={viewHash}
+                embedValue="true"
+              />
 
             </div>
           </section>
@@ -520,6 +554,17 @@ const ReactiveFilters = ({
                                     },
                                   },
                                 }
+
+                                if (eventSelected && !showPastEvents) {
+                                  query.query = {
+                                    range: {
+                                      'about.startDate': {
+                                        gte: 'now/d',
+                                      },
+                                    },
+                                  }
+                                }
+
                                 return query
                               }
                             }}
@@ -531,7 +576,25 @@ const ReactiveFilters = ({
                                 const entries = (aggregations
                                   && aggregations.Calendar
                                   && aggregations.Calendar.buckets) || []
-                                return <Calendar entries={entries} />
+                                return (
+                                  <>
+                                    {eventSelected && (
+                                      <div>
+                                        <label>
+                                          <input
+                                            type="checkbox"
+                                            value={showPastEvents}
+                                            onClick={() => setShowPastEvents(!showPastEvents)}
+                                            s
+                                            style={{ position: 'relative', top: '2px', marginRight: '10px' }}
+                                          />
+                                          {translate('Include past events')}
+                                        </label>
+                                      </div>
+                                    )}
+                                    <Calendar entries={entries} />
+                                  </>
+                                )
                               }
 
                               return <div>Loading...</div>
@@ -546,22 +609,31 @@ const ReactiveFilters = ({
                           componentId="SearchResult"
                           title="Results"
                           defaultQuery={() => {
-                            let query = {}
+                            const query = {
+                              query: {
+                                bool: {
+                                  filter: [
+                                    {
+                                      terms: {
+                                        'about.@type': types,
+                                      },
+                                    },
+                                    {
+                                      exists: {
+                                        field: 'about.name',
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            }
 
                             if (iso3166) {
-                              query = {
-                                query: {
-                                  bool: {
-                                    filter: [
-                                      {
-                                        term: {
-                                          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-                                        },
-                                      },
-                                    ],
-                                  },
+                              query.query.bool.filter.push({
+                                term: {
+                                  'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
                                 },
-                              }
+                              })
                             }
 
                             if (region) {
@@ -592,7 +664,7 @@ const ReactiveFilters = ({
                           render={({ data, resultStats: { numberOfResults } }) => {
                             const items = data || []
                             emitter.emit('updateCount', numberOfResults)
-                            if (typeof document !== 'undefined') {
+                            if (typeof document !== 'undefined' && numberOfResults) {
                               document.title = `${numberOfResults} entries - OER World Map`
                             }
                             return <ResultList listItems={items} />
@@ -614,12 +686,23 @@ const ReactiveFilters = ({
                       .filter(([field, { value }]) => field.startsWith('filter.') && value && value.length)
                       .map(([field, { value }]) => `${field}=${encodeURIComponent(JSON.stringify(value))}`)
                       .join('&')
+
+                    // [...document.querySelectorAll('.graphContainer')].forEach((e) => {
+                    //   e.style.display = 'none'
+                    // })
                     return (
                       <div>
                         {subFilters.map(({ dataField, title, componentId }) => (
-                          <div key={dataField} className="graphContainer">
+                          <div
+                            key={dataField}
+                            className="graphContainer"
+                            // style={{ display: 'none' }}
+                          >
                             <h2>{title ? translate(title) : translate(componentId)}</h2>
                             <embed
+                              // onLoad={(e) => {
+                              //   e.target.parentElement.style.display = 'block'
+                              // }}
                               type="image/svg+xml"
                               src={`/stats?field=${dataField}`
                                 .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
@@ -634,20 +717,6 @@ const ReactiveFilters = ({
                   />
                 </div>
 
-                {((view === 'statisticsView') && iso3166) && (
-                  <div className="statisticsContent">
-                    <iframe
-                      title="countryStatistics"
-                      src={
-                        region
-                          ? `https://oerworldmap.org/kibana/app/kibana#/dashboard/2f3f5ce0-7b07-11e9-a87c-776689b2b49d?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:${iso3166}),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressRegion,negate:!f,params:(query:${`${iso3166}.${region}`},type:phrase),type:phrase,value:${`${iso3166}.${region}`}),query:(match:(feature.properties.location.address.addressRegion:(query:${`${iso3166}.${region}`},type:phrase))))))`
-                          : `https://oerworldmap.org/kibana/app/kibana#/dashboard/026c73e0-0444-11e9-b10a-2128e9354d61?embed=true&_g=()&_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'31e495b0-ad16-11e8-bc1a-bd36147d8400',key:feature.properties.location.address.addressCountry,negate:!f,params:(query:${iso3166},type:phrase),type:phrase,value:Germany),query:(match:(feature.properties.location.address.addressCountry:(query:${iso3166},type:phrase))))))`
-                      }
-                      height="800"
-                      width="100%"
-                    />
-                  </div>
-                )}
               </div>
 
             </div>
@@ -674,11 +743,14 @@ ReactiveFilters.propTypes = {
   initPins: PropTypes.bool.isRequired,
   iso3166: PropTypes.string,
   region: PropTypes.string,
+  _self: PropTypes.string.isRequired,
+  viewHash: PropTypes.string,
 }
 
 ReactiveFilters.defaultProps = {
   iso3166: '',
   region: null,
+  viewHash: null,
 }
 
 export default withEmitter(withI18n(ReactiveFilters))

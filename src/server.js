@@ -135,8 +135,7 @@ server.get('/stats', async (req, res) => {
     res.setHeader('content-type', 'image/svg+xml')
     res.send(image)
   } else {
-    res.status(404)
-      .send('Not found')
+    res.sendStatus(404)
   }
 })
 
