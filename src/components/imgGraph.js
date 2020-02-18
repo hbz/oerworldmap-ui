@@ -177,6 +177,7 @@ const donutGrap = ({
     .attr('xmlns', 'http://www.w3.org/2000/svg')
     .attr('width', width)
     .attr('height', height)
+    .attr('viewBox', `0 0 ${width} ${height}`)
     .style('font-family', '"Source Sans Pro", futura-pt, sans-serif')
 
   const g = svg.append('g')
@@ -279,6 +280,7 @@ const stackedGrap = ({ rawData, translate }) => {
     .attr('viewBox', [0, 0, width, height])
     .attr('width', width)
     .attr('height', height)
+    .attr('viewBox', `0 0 ${width} ${height}`)
     .style('font-family', '"Source Sans Pro", futura-pt, sans-serif')
 
   const series = d3.stack().keys(groups)(data)
