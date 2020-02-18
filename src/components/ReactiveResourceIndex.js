@@ -17,7 +17,6 @@ const ReactiveResourceIndex = ({
   iso3166,
   map,
   _self,
-  _links,
   phrases,
   isEmbed,
   region,
@@ -43,7 +42,6 @@ const ReactiveResourceIndex = ({
         iso3166={iso3166}
         map={map}
         home={home}
-        _links={_links}
         initPins={initPins}
         region={region}
       />
@@ -57,7 +55,6 @@ ReactiveResourceIndex.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   map: PropTypes.string,
   _self: PropTypes.string.isRequired,
-  _links: PropTypes.objectOf(PropTypes.any).isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string,

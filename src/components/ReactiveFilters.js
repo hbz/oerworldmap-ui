@@ -29,26 +29,30 @@ const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const sizes = [20, 50, 100, 200, 9999]
 
-const getView = (viewHash) => {
-  switch (viewHash) {
-  case 'map':
-    return 'mapView'
-  case 'stats':
-    return 'statisticsView'
-  default:
-    return 'listView'
+const getViewParam = () => {
+  if (typeof window === 'undefined') {
+    return 'list'
   }
+  const url = new URL(window.location.href)
+  return url.searchParams.get('view') || 'list'
 }
 
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins, _self, viewHash,
 }) => {
   const [currentSize, setCurrentSize] = useState(20)
-  const [view, setView] = useState(getView(viewHash))
+  const [view, setView] = useState(getViewParam())
   const [isClient, setIsClient] = useState(false)
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+
+  const setViewParam = view => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('view', view)
+    window.history.pushState(null, null, url.href)
+    setView(view)
+  }
 
   useEffect(() => {
     setIsClient(true)
@@ -266,25 +270,21 @@ const ReactiveFilters = ({
                 </button>
 
                 <button
-                  disabled={view === 'listView'}
+                  disabled={view === 'list'}
                   type="button"
                   className="btn"
-                  onClick={() => {
-                    window.location.hash = 'list'
-                    setView('listView')
-                  }}
+                  onClick={() => setViewParam('list')}
                 >
                   <i className="fa fa-list" />
                   &nbsp;
                   {translate('main.list')}
                 </button>
                 <button
-                  disabled={view === 'mapView'}
+                  disabled={view === 'map'}
                   type="button"
                   className="btn"
                   onClick={async () => {
-                    window.location.hash = 'map'
-                    setView('mapView')
+                    setViewParam('map')
                     await timeout(100)
                     emitter.emit('resize')
                   }}
@@ -295,12 +295,11 @@ const ReactiveFilters = ({
                 </button>
 
                 <button
-                  disabled={view === 'statisticsView'}
+                  disabled={view === 'statistics'}
                   type="button"
                   className="btn"
                   onClick={() => {
-                    window.location.hash = 'stats'
-                    setView('statisticsView')
+                    setViewParam('statistics')
                   }}
                 >
                   <i className="fa fa-pie-chart" />
@@ -341,7 +340,7 @@ const ReactiveFilters = ({
           </section>
 
 
-          <div className={`mainContent ${view}${collapsed ? ' collapsed' : ''}`}>
+          <div className={`mainContent ${view}View${collapsed ? ' collapsed' : ''}`}>
 
             <aside className={showMobileFilters ? 'show' : ''}>
 
@@ -495,7 +494,6 @@ const ReactiveFilters = ({
                 }}
                 onData={({ aggregations, data = [], resultStats: { numberOfResults } }) => {
                   if (aggregations !== null && data !== null) {
-                    console.log("DATA", data, aggregations)
                     const features = data.map(item => item.feature)
                     emitter.emit('mapData', { features, aggregations })
                     emitter.emit('updateCount', numberOfResults)
@@ -547,7 +545,7 @@ const ReactiveFilters = ({
               <div
                 className="searchResults"
               >
-                {(view === 'listView') && (
+                {(view === 'list') && (
                   <StateProvider
                     componentIds={['filter.about.@type']}
                     strict={false}
@@ -704,7 +702,7 @@ const ReactiveFilters = ({
                 {children}
 
                 <div
-                  hidden={view !== 'statisticsView'}
+                  hidden={view !== 'statistics'}
                   className={showMobileFilters ? 'hidden-mobile' : ''}
                 >
 
