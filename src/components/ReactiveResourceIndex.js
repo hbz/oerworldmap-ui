@@ -38,7 +38,6 @@ const ReactiveResourceIndex = ({
 
       <ReactiveMap
         phrases={phrases}
-        aggregations={[]}
         emitter={emitter}
         mapboxConfig={mapboxConfig}
         iso3166={iso3166}
@@ -47,7 +46,6 @@ const ReactiveResourceIndex = ({
         _links={_links}
         initPins={initPins}
         region={region}
-        data={[]}
       />
     </ReactiveFilters>
   )

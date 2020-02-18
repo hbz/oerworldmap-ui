@@ -61,11 +61,10 @@ const renderTypes = types => (
 class Map extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
-
-    props.emitter.on('mapData', (data) => {
-      this.setMapData(data)
-    })
+    this.state = {
+      aggregations: {},
+      features: [],
+    }
 
     props.emitter.on('resize', () => {
       this.map.resize()
@@ -90,8 +89,7 @@ class Map extends React.Component {
     this.setMapData = this.setMapData.bind(this)
     this.isReady = false
     this.data = {
-      aggregations: null,
-      features: null,
+
     }
 
     this.layersOrder = [
@@ -147,6 +145,7 @@ class Map extends React.Component {
     })
 
     this.map.once('load', async () => {
+      this.props.emitter.on('mapData', this.setMapData)
       // Set circle layers properties
       this.initialRadius = window.innerWidth <= 700 ? 10 : 5
       this.radius = this.initialRadius
@@ -323,12 +322,15 @@ class Map extends React.Component {
     // this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
+    this.props.emitter.off('mapData', this.setMapData)
   }
 
   async setMapData(data) {
+
     if (this.isReady) {
       this.updateChoropleth(data.aggregations)
       this.updatePoints(data.features)
+      this.setState(data)
     } else {
       await timeout(10)
       this.setMapData(data)
@@ -336,7 +338,7 @@ class Map extends React.Component {
   }
 
   getBucket(location, aggregation) {
-    const { aggregations } = this.props
+    const { aggregations } = this.state
 
     return (aggregations && aggregations[aggregation]
       && aggregations[aggregation].buckets.find(agg => agg.key === location))
@@ -404,8 +406,9 @@ class Map extends React.Component {
 
     if (!overlayList) {
       const {
-        translate, iso3166, aggregations, phrases, locales, emitter, region,
+        translate, iso3166, phrases, locales, emitter, region,
       } = this.props
+      const { aggregations } = this.state
       const hoveredEvents = this.map.queryRenderedFeatures(e.point, { layers: ['Events'] })
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
@@ -529,11 +532,11 @@ class Map extends React.Component {
                   </>
                 )}
               </li>
-              {bucket && aggregations['global#champions']['sterms#about.regionalChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
+              {/* {bucket && aggregations['global#champions']['sterms#about.regionalChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
                 <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
               ) : (
                 <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-              )}
+              )} */}
             </ul>
           )
         } else if (currentRegionInactive) {
@@ -594,11 +597,11 @@ class Map extends React.Component {
                   </>
                 )}
               </li>
-              {bucket && aggregations['global#champions']['sterms#about.countryChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
+              {/* {bucket && aggregations['global#champions']['sterms#about.countryChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
                 <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
               ) : (
                 <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-              )}
+              )} */}
             </ul>
           )
         }
@@ -748,33 +751,31 @@ class Map extends React.Component {
 
   updateChoropleth(aggregations) {
     const { region, emitter } = this.props
-    // if (aggregations) {
-    // const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
-    // || aggregations['sterms#feature.properties.location.address.addressCountry']
-    // const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
-    const stops = this.choroplethStopsFromBuckets(aggregations)
-    const colors = stops
-      .map(stop => stop[1])
-      .filter((value, index, self) => self.indexOf(value) === index)
-      .concat('rgba(255, 255, 255)')
-      .reverse()
-    // const property = aggregations['sterms#feature.properties.location.address.addressRegion']
-    // ? 'code_hasc' : 'iso_a2'
-    // const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
-    // ? 'Regions' : 'countries'
-    const property = region ? 'code_hasc' : 'iso_a2'
-    const layer = region ? 'Regions' : 'countries'
+    if (aggregations) {
+      const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion'] ||
+        aggregations['sterms#feature.properties.location.address.addressCountry']
+      const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
+      const colors = stops
+        .map(stop => stop[1])
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .concat('rgba(255, 255, 255)')
+        .reverse()
+      const property = aggregations['sterms#feature.properties.location.address.addressRegion']
+        ? 'code_hasc' : 'iso_a2'
+      const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
+        ? 'Regions' : 'countries'
 
-    this.map.setPaintProperty(layer, 'fill-color', {
-      property,
-      stops,
-      type: 'categorical',
-      default: 'rgb(255, 255, 255)',
-    })
+      this.map.setPaintProperty(layer, 'fill-color', {
+        property,
+        stops,
+        type: 'categorical',
+        default: 'rgb(255, 255, 255)',
+      })
 
-    const max = (aggregations.length && aggregations[0].doc_count) || 0
+      const max = (aggregations.length && aggregations[0].doc_count) || 0
 
-    emitter.emit('updateColors', { colors, max })
+      emitter.emit('updateColors', { colors, max })
+    }
   }
 
   mouseLeave() {
@@ -945,7 +946,6 @@ Map.propTypes = {
   ).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  aggregations: PropTypes.arrayOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,

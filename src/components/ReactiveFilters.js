@@ -285,7 +285,7 @@ const ReactiveFilters = ({
                   onClick={async () => {
                     window.location.hash = 'map'
                     setView('mapView')
-                    await timeout(10)
+                    await timeout(100)
                     emitter.emit('resize')
                   }}
                 >
@@ -430,67 +430,82 @@ const ReactiveFilters = ({
                 }}
               />
 
-              {(view === 'mapView') && (
-                <ReactiveComponent
-                  componentId="myCountryPicker"
-                  defaultQuery={() => {
-                    const query = {
-                      size: 9999,
-                      _source: 'feature.*',
-                      query: {
-                        bool: {
-                          filter: [
-                            {
-                              exists: {
-                                field: 'feature',
-                              },
+              <ReactiveComponent
+                componentId="myCountryPicker"
+                defaultQuery={() => {
+                  const query = {
+                    size: 9999,
+                    _source: 'feature.*',
+                    query: {
+                      bool: {
+                        filter: [
+                          {
+                            exists: {
+                              field: 'feature',
                             },
-                          ],
-                        },
+                          },
+                        ],
+                      },
+                    },
+                    aggs: {}
+                  }
+
+                  if (iso3166) {
+                    query.aggs['sterms#feature.properties.location.address.addressRegion'] = {
+                      terms: {
+                        field: 'feature.properties.location.address.addressRegion',
+                        size: 9999
                       },
                       aggs: {
-                        color: {
+                        'sterms#by_type': {
                           terms: {
-                            field: 'feature.properties.location.address.addressCountry',
-                          },
-                        },
+                            field: 'about.@type'
+                          }
+                        }
+                      }
+                    }
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
                       },
+                    })
+                  } else {
+                    query.aggs['sterms#feature.properties.location.address.addressCountry'] = {
+                      terms: {
+                        field: 'feature.properties.location.address.addressCountry',
+                      },
+                      aggs: {
+                        'sterms#by_type': {
+                          terms: {
+                            field: 'about.@type'
+                          }
+                        }
+                      }
                     }
+                  }
 
-                    if (iso3166) {
-                      query.query.bool.filter.push({
-                        term: {
-                          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-                        },
-                      })
-                    }
-
-                    if (region) {
-                      query.query.bool.filter.push({
-                        term: {
-                          'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-                        },
-                      })
-                    }
-
-                    return query
-                  }}
-                  onData={({ aggregations, data }) => {
-                    if (aggregations !== null) {
-                      const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
-                      const agg = (aggregations
-                        && aggregations.color && aggregations.color.buckets || [])
-                      emitter.emit('mapData', { features, aggregations: agg })
-                      const total = features.length
-                      emitter.emit('updateCount', total)
-                      document.title = `${total} entries - OER World Map`
-                    }
-                  }}
-                  react={{
-                    and: filterIDs,
-                  }}
-                />
-              )}
+                  if (region) {
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                      },
+                    })
+                  }
+                  return query
+                }}
+                onData={({ aggregations, data = [], resultStats: { numberOfResults } }) => {
+                  if (aggregations !== null && data !== null) {
+                    console.log("DATA", data, aggregations)
+                    const features = data.map(item => item.feature)
+                    emitter.emit('mapData', { features, aggregations })
+                    emitter.emit('updateCount', numberOfResults)
+                    document.title = `${numberOfResults} entries - OER World Map`
+                  }
+                }}
+                react={{
+                  and: filterIDs,
+                }}
+              />
 
               {subFilters.map(filter => (
                 <MultiDropdownList
