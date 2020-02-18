@@ -283,6 +283,7 @@ class Map extends React.Component {
       // Add mapbox controls
       const nav = new mapboxgl.NavigationControl({ showCompass: false })
       this.map.addControl(nav, 'bottom-right')
+      this.map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right')
 
       // Receive event from Filters
       emitter.on('hideOverlay', () => {

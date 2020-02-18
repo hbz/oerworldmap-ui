@@ -114,15 +114,30 @@
     background-color: transparent;
     box-shadow: none;
 
+    & button {
+      position: relative;
+    }
+
     & .mapboxgl-ctrl-zoom-in::after,
     & .mapboxgl-ctrl-compass-arrow::after,
-    & .mapboxgl-ctrl-zoom-out::after {
+    & .mapboxgl-ctrl-zoom-out::after,
+    & .mapboxgl-ctrl-shrink::after,
+    & .mapboxgl-ctrl-fullscreen::after {
       font-family: FontAwesome;
       content: "\f067";
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    & .mapboxgl-ctrl-fullscreen::after {
+      content: "\f0b2";
+    }
+
+    & .mapboxgl-ctrl-shrink::after {
+      content: "\f066";
     }
 
     & .mapboxgl-ctrl-zoom-out::after {
@@ -370,9 +385,6 @@
   }
 
   @media screen and (--mobile-breakpoint) {
-    height: calc(100% - 30px) !important;
-    top: 30px !important;
-
     & .goToMap {
       right: 10px;
       bottom: 42px;
