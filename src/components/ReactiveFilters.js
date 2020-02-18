@@ -312,22 +312,22 @@ const ReactiveFilters = ({
                   _links={{
                     refs: [
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=geojson',
+                        uri: `${_self}&size=-1&ext=geojson`,
                         rel: 'alternate',
                         type: 'application/geo+json',
                       },
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=ics',
+                        uri: `${_self}size=-1&ext=ics`,
                         rel: 'alternate',
                         type: 'text/calendar',
                       },
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=json',
+                        uri: `${_self}size=-1&ext=json`,
                         rel: 'alternate',
                         type: 'application/json',
                       },
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=csv',
+                        uri: `${_self}size=-1&ext=csv`,
                         rel: 'alternate',
                         type: 'text/csv',
                       },
