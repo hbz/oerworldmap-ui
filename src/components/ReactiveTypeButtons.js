@@ -67,8 +67,10 @@ class ReactiveTypeButtons extends Component {
               }}
             >
               <Icon type={type} />
-              {' '}
-              {translate(type)}
+              <span className="hidden-mobile">
+                {' '}
+                {translate(type)}
+              </span>
             </button>
           </Tooltip>
         ))}

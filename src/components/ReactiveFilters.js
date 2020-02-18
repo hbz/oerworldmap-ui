@@ -48,6 +48,7 @@ const ReactiveFilters = ({
   const [isClient, setIsClient] = useState(false)
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
+  const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
@@ -231,13 +232,13 @@ const ReactiveFilters = ({
             />
 
             <div className="controls">
-              <TotalEntries />
+              <TotalEntries className="hidden-mobile" />
 
-              <div>
+              <div className="rightButtons">
 
                 <select
                   value={currentSize}
-                  className="btn"
+                  className="btn hidden-mobile"
                   onChange={(e) => {
                     setCurrentSize(e.target.value)
                   }}
@@ -253,6 +254,16 @@ const ReactiveFilters = ({
                     </option>
                   ))}
                 </select>
+
+                <button
+                  type="button"
+                  className={`btn hidden-desktop${showMobileFilters ? ' active' : ''}`}
+                  onClick={() => {
+                    setShowMobileFilters(!showMobileFilters)
+                  }}
+                >
+                  <i className="fa fa-filter" />
+                </button>
 
                 <button
                   disabled={view === 'listView'}
@@ -296,45 +307,43 @@ const ReactiveFilters = ({
                   &nbsp;
                   {translate('ClientTemplates.app.statistics')}
                 </button>
+                <ShareExport
+                  _self={_self}
+                  _links={{
+                    refs: [
+                      {
+                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=geojson',
+                        rel: 'alternate',
+                        type: 'application/geo+json',
+                      },
+                      {
+                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=ics',
+                        rel: 'alternate',
+                        type: 'text/calendar',
+                      },
+                      {
+                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=json',
+                        rel: 'alternate',
+                        type: 'application/json',
+                      },
+                      {
+                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=csv',
+                        rel: 'alternate',
+                        type: 'text/csv',
+                      },
+                    ],
+                  }}
+                  view={viewHash}
+                  embedValue="true"
+                />
               </div>
-
-              <ShareExport
-                _self={_self}
-                _links={{
-                  refs: [
-                    {
-                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=geojson',
-                      rel: 'alternate',
-                      type: 'application/geo+json',
-                    },
-                    {
-                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=ics',
-                      rel: 'alternate',
-                      type: 'text/calendar',
-                    },
-                    {
-                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=json',
-                      rel: 'alternate',
-                      type: 'application/json',
-                    },
-                    {
-                      uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=csv',
-                      rel: 'alternate',
-                      type: 'text/csv',
-                    },
-                  ],
-                }}
-                view={viewHash}
-                embedValue="true"
-              />
-
             </div>
           </section>
 
 
           <div className={`mainContent ${view}${collapsed ? ' collapsed' : ''}`}>
 
-            <aside>
+            <aside className={showMobileFilters ? 'show' : ''}>
 
               {iso3166 && (
                 <div className="FilterBox country">
@@ -520,7 +529,9 @@ const ReactiveFilters = ({
 
             <div className="right">
 
-              <div className="searchResults">
+              <div
+                className="searchResults"
+              >
                 {(view === 'listView') && (
                   <StateProvider
                     componentIds={['filter.about.@type']}
@@ -605,7 +616,7 @@ const ReactiveFilters = ({
 
                       return (
                         <ReactiveList
-                          className="listResults"
+                          className={`listResults${showMobileFilters ? ' hidden-mobile' : ''}`}
                           componentId="SearchResult"
                           title="Results"
                           defaultQuery={() => {
@@ -679,6 +690,7 @@ const ReactiveFilters = ({
 
                 <div
                   hidden={view !== 'statisticsView'}
+                  className={showMobileFilters ? 'hidden-mobile' : ''}
                 >
 
                   <StateProvider render={({ searchState }) => {
