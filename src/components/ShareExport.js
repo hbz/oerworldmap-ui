@@ -7,6 +7,7 @@ import Export from './Export'
 import Share from './Share'
 import withI18n from './withI18n'
 import FullModal from './FullModal'
+import Link from './Link'
 
 import '../styles/components/ShareExport.pcss'
 
@@ -83,12 +84,12 @@ class ShareExport extends React.Component {
           </ul>
         )}
         {view === 'share' && (
-          <FullModal closeLink={_self}>
+          <FullModal closeLink={Link.home}>
             <Share embedValue={embedValue} _self={_self} />
           </FullModal>
         )}
         {view === 'export' && (
-          <FullModal closeLink={_self}>
+          <FullModal closeLink={Link.home}>
             <Export _self={_self} _links={_links} />
           </FullModal>
         )}
