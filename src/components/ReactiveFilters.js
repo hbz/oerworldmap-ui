@@ -698,29 +698,53 @@ const ReactiveFilters = ({
                       .filter(([field, { value }]) => field.startsWith('filter.') && value && value.length)
                       .map(([field, { value }]) => `${field}=${encodeURIComponent(JSON.stringify(value))}`)
                       .join('&')
-
-                    // [...document.querySelectorAll('.graphContainer')].forEach((e) => {
-                    //   e.style.display = 'none'
-                    // })
                     return (
                       <div>
                         {subFilters.map(({ dataField, title, componentId }) => (
                           <div
                             key={dataField}
                             className="graphContainer"
-                            // style={{ display: 'none' }}
                           >
                             <h2>{title ? translate(title) : translate(componentId)}</h2>
-                            <embed
-                              // onLoad={(e) => {
-                              //   e.target.parentElement.style.display = 'block'
-                              // }}
+                            <object
                               type="image/svg+xml"
-                              src={`/stats?field=${dataField}`
+                              data={`/stats?field=${dataField}`
                                 .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
-                                .concat(filters ? `&${filters}` : '')
-                              }
-                            />
+                                .concat(filters ? `&${filters}` : '')}
+                            >
+                              {translate('No data available for this graph.')}
+                            </object>
+                            <div className="graphControls">
+                              <button
+                                type="button"
+                                className="btn"
+                                onClick={async () => {
+                                  const el = document.createElement('textarea')
+                                  el.value = `${elasticsearchConfig.url}stats?field=${dataField}`
+                                    .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
+                                    .concat(filters ? `&${filters}` : '')
+                                  el.setAttribute('readonly', '')
+                                  el.style = { position: 'absolute', left: '-9999px' }
+                                  document.body.appendChild(el)
+                                  el.select()
+                                  document.execCommand('copy')
+                                  document.body.removeChild(el)
+                                }}
+                                title={translate('Copy image URL to clipboard.')}
+                              >
+                                <i aria-hidden="true" className="fa fa-clipboard" />
+                              </button>
+                              <a
+                                title={translate('Download as SVG.')}
+                                className="btn"
+                                href={`/stats?field=${dataField}`
+                                  .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
+                                  .concat(filters ? `&${filters}` : '')
+                                  .concat(`&download=true&filename=${title ? translate(title) : translate(componentId)}`)}
+                              >
+                                <i aria-hidden="true" className="fa fa-download" />
+                              </a>
+                            </div>
                           </div>
                         ))}
                       </div>

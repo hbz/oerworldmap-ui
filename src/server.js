@@ -110,7 +110,7 @@ server.get('/.login', (req, res) => {
 server.get('/stats', async (req, res) => {
   const { translate } = i18n(req.locales, req.phrases)
   const {
-    field, q, subField, sub, size, subSize, include, subInclude, w,
+    field, q, subField, sub, size, subSize, include, subInclude, w, download, filename,
   } = req.query
   const filters = Object.entries(req.query)
     .filter(([param]) => param.startsWith('filter.'))
@@ -133,6 +133,9 @@ server.get('/stats', async (req, res) => {
 
   if (image) {
     res.setHeader('content-type', 'image/svg+xml')
+    if (download && filename) {
+      res.setHeader('Content-Disposition', `attachment; filename=${filename}.svg`)
+    }
     res.send(image)
   } else {
     res.sendStatus(404)

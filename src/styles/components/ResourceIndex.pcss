@@ -152,6 +152,7 @@
 
     & .graphContainer {
       text-align: center;
+      position: relative;
 
       & h2 {
         text-align: left;
@@ -160,6 +161,20 @@
       & embed {
         max-width: 100%;
       }
+
+      & .graphControls {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        & .btn {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    & .graphContainer:last-child {
+      margin-bottom: 20px;
     }
   }
 
