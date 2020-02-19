@@ -11,7 +11,7 @@ const ConceptBlock = ({
 }) => (
   <div className="ConceptBlock">
     <h3 className="border-bottom">
-      <Link className="iconItem" href={`/resource/?filter.about.@type=${type}`}>
+      <Link className="iconItem" href={`/resource/?filter.about.@type="${type}"`}>
         <Icon type={type} />
         {translate(type)}
       </Link>

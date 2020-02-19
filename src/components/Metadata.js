@@ -15,14 +15,14 @@ const Metadata = ({
 }) => (
   <div className="Metadata">
     <Icon type={type} />
-    <Link href={`/resource/?filter.about.@type=${type}&size=20`}>{translate(type)}</Link>
+    <Link href={`/resource/?filter.about.@type="${type}"&size=20`}>{translate(type)}</Link>
     {about.additionalType && (
       <React.Fragment>
         &nbsp;(
         {about.additionalType.map((type, i) => (
           <React.Fragment key={type}>
             {!!i && ', '}
-            <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
+            <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id=["{@id}"]').expand(type)}>
               {translate(type.name)}
             </Link>
           </React.Fragment>

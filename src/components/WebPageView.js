@@ -326,7 +326,7 @@ const WebPageView = ({
                 <ul className="spaceSeparatedList">
                   {about.keywords.sort((a, b) => a > b).map(keyword => (
                     <li key={keyword}>
-                      <Link href={`/resource/?filter.about.keywords=${encodeURIComponent(keyword.toLowerCase())}`}>
+                      <Link href={`/resource/?filter.about.keywords=["${encodeURIComponent(keyword.toLowerCase())}"]`}>
                         {keyword}
                       </Link>
                     </li>
@@ -345,7 +345,7 @@ const WebPageView = ({
                   concepts={require('../json/esc.json').hasTopConcept}
                   include={about.about.map(concept => concept['@id'])}
                   className="ItemList recursive"
-                  linkTemplate="/resource/?filter.about.about.@id={@id}"
+                  linkTemplate={`/resource/?filter.about.about.@id=["{@id}"]`}
                 />
               </Block>
             )}
@@ -360,7 +360,7 @@ const WebPageView = ({
                   concepts={require('../json/isced-1997.json').hasTopConcept}
                   include={about.audience.map(concept => concept['@id'])}
                   className="ItemList"
-                  linkTemplate="/resource/?filter.about.audience.@id={@id}"
+                  linkTemplate={`/resource/?filter.about.audience.@id=["{@id}"]`}
                 />
               </Block>
             )}
@@ -377,7 +377,7 @@ const WebPageView = ({
                     concepts={require('../json/sectors.json').hasTopConcept}
                     include={about[prop].map(concept => concept['@id'])}
                     className="ItemList"
-                    linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
+                    linkTemplate={`/resource/?filter.about.${prop}.@id=["{@id}"]`}
                   />
                 </Block>
               )))}
@@ -682,7 +682,7 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.additionalType`)}>
               {about.additionalType.map(type => (
                 <React.Fragment key={type['@id']}>
-                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id=["{@id}"]').expand(type)}>
                     {translate(type.name)}
                   </Link>
                   <br />
@@ -695,7 +695,7 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.scope`)}>
               {about.scope.map(scope => (
                 <React.Fragment key={scope['@id']}>
-                  <Link href={urlTemplate.parse('/resource/?filter.about.scope.@id={@id}').expand(scope)}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.scope.@id=["{@id}"]').expand(scope)}>
                     {translate(scope.name)}
                   </Link>
                   <br />
@@ -708,7 +708,7 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.focus`)}>
               {about.focus.map(focus => (
                 <React.Fragment key={focus}>
-                  <Link href={`/resource/?filter.about.focus.keyword=${focus}`}>
+                  <Link href={`/resource/?filter.about.focus.keyword=["${focus}"]`}>
                     {translate(focus)}
                   </Link>
                   <br />
@@ -756,7 +756,7 @@ const WebPageView = ({
 
           {about.status && (
             <Block title={translate(`${about['@type']}.status`)}>
-              <Link href={`/resource/?filter.about.status=${about.status}`}>
+              <Link href={`/resource/?filter.about.status=["${about.status}"]`}>
                 {about.status}
               </Link>
             </Block>
@@ -819,14 +819,14 @@ const WebPageView = ({
                 concepts={require('../json/activities.json').hasTopConcept}
                 include={about.activityField.map(concept => concept['@id'])}
                 className="ItemList recursive"
-                linkTemplate="/resource/?filter.about.activityField.@id={@id}"
+                linkTemplate={`/resource/?filter.about.activityField.@id=["{@id}"]`}
               />
             </Block>
           )}
 
           {about.spatialCoverage && (
             <Block title={translate(`${about['@type']}.spatialCoverage`)}>
-              <Link href={`/resource/?filter.about.spatialCoverage=${about.spatialCoverage}`}>
+              <Link href={`/resource/?filter.about.spatialCoverage=["${about.spatialCoverage}"]`}>
                 {about.spatialCoverage}
               </Link>
             </Block>
@@ -872,7 +872,7 @@ const WebPageView = ({
               <ul className="commaSeparatedList">
                 {about.inLanguage.map(lang => (
                   <li key={lang}>
-                    <Link href={`/resource/?filter.about.inLanguage=${lang}`}>
+                    <Link href={`/resource/?filter.about.inLanguage=["${lang}"]`}>
                       {translate(lang)}
                     </Link>
                   </li>
@@ -888,7 +888,7 @@ const WebPageView = ({
                 {[].concat(...about.availableChannel.map(channel => channel.availableLanguage))
                   .map(lang => (
                     <li key={lang}>
-                      <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
+                      <Link href={`/resource/?filter.about.availableChannel.availableLanguage=["${lang}"]`}>
                         {translate(lang)}
                       </Link>
                     </li>

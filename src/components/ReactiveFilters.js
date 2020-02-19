@@ -11,6 +11,7 @@ import {
   SelectedFilters,
   ReactiveComponent,
   StateProvider,
+  ToggleButton,
 } from '@appbaseio/reactivesearch'
 
 
@@ -61,6 +62,11 @@ const ReactiveFilters = ({
   if (isClient) {
     let subFilters = [
       {
+        componentId: 'filter.about.additionalType.@id',
+        dataField: 'about.additionalType.@id',
+        showSearch: false,
+      },
+      {
         componentId: 'filter.about.keywords',
         dataField: 'about.keywords',
         showMissing: true,
@@ -69,18 +75,13 @@ const ReactiveFilters = ({
         size: 100,
       },
       {
+        componentId: 'filter.about.award',
+        dataField: 'about.award',
+        showSearch: false,
+      },
+      {
         componentId: 'filter.about.availableChannel.availableLanguage',
         dataField: 'about.availableChannel.availableLanguage',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.additionalType.@id',
-        dataField: 'about.additionalType.@id',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.audience.@id',
-        dataField: 'about.audience.@id',
         showSearch: false,
       },
       {
@@ -94,13 +95,8 @@ const ReactiveFilters = ({
         showSearch: false,
       },
       {
-        componentId: 'filter.about.award',
-        dataField: 'about.award',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.license.@id',
-        dataField: 'about.license.@id',
+        componentId: 'filter.about.audience.@id',
+        dataField: 'about.audience.@id',
         showSearch: false,
       },
       {
@@ -109,8 +105,62 @@ const ReactiveFilters = ({
         showSearch: false,
       },
       {
+        componentId: 'filter.about.license.@id',
+        dataField: 'about.license.@id',
+        showSearch: false,
+      },
+      {
         componentId: 'filter.about.activityField.@id',
         dataField: 'about.activityField.@id',
+        showSearch: false,
+      },
+      {
+        componentId: 'filter.about.scope.@id',
+        dataField: 'about.scope.@id',
+        showSearch: false,
+      },
+      {
+        componentId: 'filter.about.focus.keyword',
+        dataField: 'about.focus.keyword',
+        showSearch: false,
+      },
+      {
+        componentId: 'filter.about.status',
+        dataField: 'about.status',
+        showSearch: false,
+      },
+      {
+        componentId: 'filter.about.spatialCoverage',
+        dataField: 'about.spatialCoverage',
+        showSearch: false,
+      },
+      // {
+      //   componentId: 'filter.about.inLanguage',
+      //   dataField: 'about.inLanguage',
+      //   showSearch: false,
+      // },
+      {
+        // hidden?
+        componentId: 'filter.about.objectIn.@type',
+        dataField: 'about.objectIn.@type',
+        showSearch: false,
+      },
+      {
+        // hidden?
+        componentId: 'filter.author.keyword',
+        dataField: 'author.keyword',
+        showSearch: false,
+      },
+      {
+        // hidden?
+        componentId: 'filter.about.objectIn.agent.@id',
+        dataField: 'about.objectIn.agent.@id',
+        showSearch: false,
+      },
+      {
+        // hidden?
+        componentId: 'filter.about.attendee.@id',
+        dataField: 'about.attendee.@id',
         showSearch: false,
       },
     ]
@@ -199,40 +249,15 @@ const ReactiveFilters = ({
 
             </div>
 
-            <StateProvider
-              componentIds={['filter.about.@type']}
-              render={({ searchState }) => {
-                const selectedType = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value) || null
-
-                return (
-                  <ReactiveComponent
-                    componentId="filter.about.@type"
-                    URLParams
-                    customQuery={({ selectedValue }) => {
-                      let query = {
-                        query: {
-                          match_all: {},
-                        },
-                      }
-
-                      if (selectedValue) {
-                        query = {
-                          query: {
-                            term: {
-                              'about.@type': selectedValue,
-                            },
-                          },
-                        }
-                      }
-
-                      return query
-                    }}
-                    render={({ setQuery }) => (
-                      <ReactiveTypeButtons setQuery={setQuery} selectedType={selectedType} />
-                    )}
-                  />
-                )
-              }}
+            <ToggleButton
+              componentId="filter.about.@type"
+              URLParams
+              dataField="about.@type"
+              multiSelect={false}
+              data={types.map(type => ({
+                label: translate(type),
+                value: type
+              }))}
             />
 
             <div className="controls">
@@ -628,7 +653,7 @@ const ReactiveFilters = ({
                       if (eventSelected) {
                         return (
                           <ReactiveComponent
-                            componentId="test"
+                            componentId="filter.about.startDate"
                             defaultQuery={() => {
                               if (eventSelected) {
                                 const query = {
@@ -682,7 +707,6 @@ const ReactiveFilters = ({
                                             type="checkbox"
                                             value={showPastEvents}
                                             onClick={() => setShowPastEvents(!showPastEvents)}
-                                            s
                                             style={{ position: 'relative', top: '2px', marginRight: '10px' }}
                                           />
                                           {translate('Include past events')}
@@ -743,7 +767,7 @@ const ReactiveFilters = ({
 
                             return query
                           }}
-                          dataField="@type"
+                          dataField="about.@type"
                           showResultStats={false}
                           from={0}
                           size={currentSize}
