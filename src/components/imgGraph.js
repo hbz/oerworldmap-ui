@@ -190,7 +190,7 @@ const donutGrap = ({
     .enter()
     .append('a')
     // FIXME: prevent duplication of filter param
-    .attr('xlink:href', d => `/browse/?filter.${field}=${encodeURIComponent(JSON.stringify([d.data[0]]))}`
+    .attr('xlink:href', d => `/resource/?filter.${field}=${encodeURIComponent(JSON.stringify([d.data[0]]))}`
       .concat(q ? `&q=${encodeURIComponent(q)}` : '')
       .concat(filterString ? `&${filterString}` : ''))
     .attr('target', '_parent')

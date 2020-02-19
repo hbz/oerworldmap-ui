@@ -796,7 +796,8 @@ const ReactiveFilters = ({
                               type="image/svg+xml"
                               data={`/stats?field=${dataField}`
                                 .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
-                                .concat(filters ? `&${filters}` : '')}
+                                .concat(filters ? `&${filters}` : '')
+                                .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')}
                             >
                               {translate('No data available for this graph.')}
                             </object>
@@ -809,6 +810,7 @@ const ReactiveFilters = ({
                                   el.value = `${elasticsearchConfig.url}stats?field=${dataField}`
                                     .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
                                     .concat(filters ? `&${filters}` : '')
+                                    .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')
                                   el.setAttribute('readonly', '')
                                   el.style = { position: 'absolute', left: '-9999px' }
                                   document.body.appendChild(el)
@@ -826,6 +828,7 @@ const ReactiveFilters = ({
                                 href={`/stats?field=${dataField}`
                                   .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
                                   .concat(filters ? `&${filters}` : '')
+                                  .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')
                                   .concat(`&download=true&filename=${title ? translate(title) : translate(componentId)}`)}
                               >
                                 <i aria-hidden="true" className="fa fa-download" />
