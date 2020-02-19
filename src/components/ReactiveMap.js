@@ -63,7 +63,6 @@ class Map extends React.Component {
     super(props)
     this.state = {
       aggregations: {},
-      features: [],
     }
 
     props.emitter.on('resize', () => {
@@ -145,7 +144,7 @@ class Map extends React.Component {
     })
 
     this.map.once('load', async () => {
-      this.props.emitter.on('mapData', this.setMapData)
+      emitter.on('mapData', this.setMapData)
       // Set circle layers properties
       this.initialRadius = window.innerWidth <= 700 ? 10 : 5
       this.radius = this.initialRadius
@@ -316,17 +315,17 @@ class Map extends React.Component {
   }
 
   componentWillUnmount() {
+    const { emitter } = this.props
     this.map.off('zoom', this.zoom)
     this.map.off('mousemove', 'points', this.mouseMovePoints)
     this.map.off('mousemove', this.mouseMove)
     // this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
-    this.props.emitter.off('mapData', this.setMapData)
+    emitter.off('mapData', this.setMapData)
   }
 
   async setMapData(data) {
-
     if (this.isReady) {
       this.updateChoropleth(data.aggregations)
       this.updatePoints(data.features)
@@ -532,11 +531,13 @@ class Map extends React.Component {
                   </>
                 )}
               </li>
-              {/* {bucket && aggregations['global#champions']['sterms#about.regionalChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
-                <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
-              ) : (
-                <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-              )} */}
+              {bucket && aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
+                .buckets.some(b => b.key === bucket.key) ? (
+                  <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
+                ) : (
+                  <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+                )
+              }
             </ul>
           )
         } else if (currentRegionInactive) {
@@ -597,11 +598,13 @@ class Map extends React.Component {
                   </>
                 )}
               </li>
-              {/* {bucket && aggregations['global#champions']['sterms#about.countryChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
-                <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
-              ) : (
-                <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-              )} */}
+              {bucket && aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
+                .buckets.some(b => b.key === bucket.key) ? (
+                  <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
+                ) : (
+                  <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+                )
+              }
             </ul>
           )
         }
@@ -750,10 +753,10 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
-    const { region, emitter } = this.props
+    const { emitter } = this.props
     if (aggregations) {
-      const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion'] ||
-        aggregations['sterms#feature.properties.location.address.addressCountry']
+      const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
+        || aggregations['sterms#feature.properties.location.address.addressCountry']
       const stops = this.choroplethStopsFromBuckets(aggregation.buckets)
       const colors = stops
         .map(stop => stop[1])

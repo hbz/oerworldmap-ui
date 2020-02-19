@@ -13,13 +13,12 @@ const TogglePoints = ({ translate, emitter, initPins }) => {
     <button
       type="button"
       className={`TogglePoints${showPins ? ' checked' : ''}`}
-      title={showPins ? translate('Hide pins') : translate('Show pins')}
+      title={translate(showPins ? 'Hide pins' : 'Show pins')}
       onClick={() => {
         localStorage.setItem('showPins', !showPins)
         emitter.emit('showFeatures', !showPins)
         setShowPins(!showPins)
       }}
-      title={translate(showPins ? 'Hide pins' : 'Show pins')}
     >
       <i aria-hidden="true" className="fa fa-map-marker" />
     </button>

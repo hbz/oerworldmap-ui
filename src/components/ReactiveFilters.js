@@ -255,7 +255,7 @@ const ReactiveFilters = ({
               multiSelect={false}
               data={types.map(type => ({
                 label: translate(type),
-                value: type
+                value: type,
               }))}
             />
 

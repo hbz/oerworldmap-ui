@@ -14,7 +14,7 @@ import { formatDate } from '../common'
 import ResourceImage from './ResourceImage'
 
 const ItemList = ({
-  translate, emitter, listItems, linkTemplate, className, count, moment, tooltip,
+  translate, emitter, listItems, linkTemplate, className, count, moment,
 }) => (
   <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
@@ -72,14 +72,12 @@ ItemList.propTypes = {
   className: PropTypes.string,
   moment: PropTypes.func.isRequired,
   count: PropTypes.func,
-  tooltip: PropTypes.bool,
 }
 
 ItemList.defaultProps = {
   linkTemplate: '/resource/{@id}',
   className: '',
   count: undefined,
-  tooltip: true,
 }
 
 export default withEmitter(withI18n(ItemList))

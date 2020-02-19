@@ -188,7 +188,7 @@ class Header extends React.Component {
                   <div className="popular">
                     <ul>
                       <li>
-                        <Link className="iconItem" href={`/resource/?filter.about.objectIn.%40type=["LighthouseAction"]&sort=lighthouse_count:DESC`}>
+                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LighthouseAction"]&sort=lighthouse_count:DESC'}>
                           <div className="i">
                             <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                             <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
@@ -197,7 +197,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <Link className="iconItem" href={`/resource/?filter.about.objectIn.%40type=["LikeAction"]&sort=like_count:DESC`}>
+                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LikeAction"]&sort=like_count:DESC'}>
                           <i aria-hidden="true" className="fa fa-thumbs-up" />
                           {translate('menu.most_liked')}
                         </Link>
@@ -215,7 +215,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <Link className="iconItem" href={`/resource/?q="_exists_:about.countryChampionFor"`}>
+                        <Link className="iconItem" href={'/resource/?q="_exists_:about.countryChampionFor"'}>
                           <i className="fa fa-trophy" />
                           {translate('ClientTemplates.app.countryChampions')}
                         </Link>
@@ -274,40 +274,40 @@ class Header extends React.Component {
                       <ConceptBlock
                         type="Organization"
                         conceptScheme={require('../json/organizations.json').hasTopConcept}
-                        linkTemplate={`/resource/?filter.about.additionalType.@id=["{@id}"]`}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Person"
                         conceptScheme={require('../json/persons.json').hasTopConcept}
-                        linkTemplate={`/resource/?filter.about.additionalType.@id=["{@id}"]`}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Service"
                         conceptScheme={require('../json/services.json').hasTopConcept}
-                        linkTemplate={`/resource/?filter.about.additionalType.@id=["{@id}"]`}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="WebPage"
                         conceptScheme={require('../json/publications.json').hasTopConcept}
-                        linkTemplate={`/resource/?filter.about.additionalType.@id=["{@id}"]`}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                       <ConceptBlock
                         type="Policy"
                         conceptScheme={require('../json/policyTypes.json').hasTopConcept}
-                        linkTemplate={`/resource/?filter.about.additionalType.@id=["{@id}"]`}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Action"
                         conceptScheme={require('../json/projects.json').hasTopConcept}
-                        linkTemplate={`/resource/?filter.about.additionalType.@id=["{@id}"]`}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                       <ConceptBlock
                         type="Product"

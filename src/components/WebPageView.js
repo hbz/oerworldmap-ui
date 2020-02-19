@@ -345,7 +345,7 @@ const WebPageView = ({
                   concepts={require('../json/esc.json').hasTopConcept}
                   include={about.about.map(concept => concept['@id'])}
                   className="ItemList recursive"
-                  linkTemplate={`/resource/?filter.about.about.@id=["{@id}"]`}
+                  linkTemplate={'/resource/?filter.about.about.@id=["{@id}"]'}
                 />
               </Block>
             )}
@@ -360,7 +360,7 @@ const WebPageView = ({
                   concepts={require('../json/isced-1997.json').hasTopConcept}
                   include={about.audience.map(concept => concept['@id'])}
                   className="ItemList"
-                  linkTemplate={`/resource/?filter.about.audience.@id=["{@id}"]`}
+                  linkTemplate={'/resource/?filter.about.audience.@id=["{@id}"]'}
                 />
               </Block>
             )}
@@ -819,7 +819,7 @@ const WebPageView = ({
                 concepts={require('../json/activities.json').hasTopConcept}
                 include={about.activityField.map(concept => concept['@id'])}
                 className="ItemList recursive"
-                linkTemplate={`/resource/?filter.about.activityField.@id=["{@id}"]`}
+                linkTemplate={'/resource/?filter.about.activityField.@id=["{@id}"]'}
               />
             </Block>
           )}
