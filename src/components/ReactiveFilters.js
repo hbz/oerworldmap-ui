@@ -22,7 +22,7 @@ import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import TogglePoints from './TogglePoints'
 import ShareExport from './ShareExport'
-import Link from './Link'
+import Country from './Country'
 import Calendar from './Calendar'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -47,7 +47,7 @@ const ReactiveFilters = ({
   const [showPastEvents, setShowPastEvents] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
-  const setViewParam = view => {
+  const setViewParam = (view) => {
     const url = new URL(window.location.href)
     url.searchParams.set('view', view)
     window.history.pushState(null, null, url.href)
@@ -369,100 +369,7 @@ const ReactiveFilters = ({
             <aside className={showMobileFilters ? 'show' : ''}>
 
               {iso3166 && (
-                <div className="FilterBox country">
-                  <img
-                    className="countryFlag"
-                    src={`https://lipis.github.io/flag-icon-css/flags/4x3/${iso3166.toLowerCase()}.svg`}
-                    alt={`Flag for ${translate(iso3166)}`}
-                  />
-                  {region ? (
-                    <>
-                      <h2>{translate(`${iso3166}.${region}`)}</h2>
-                      <Link href={`/country/${iso3166}`} className="closePage">
-                        &times;
-                      </Link>
-                    </>
-                  ) : (
-                    <>
-                      <h2>{translate(iso3166)}</h2>
-                      <Link href="/resource/" className="closePage">
-                        &times;
-                      </Link>
-                    </>
-                  )}
-                  <ReactiveComponent
-                    componentId="countryChampions"
-                    defaultQuery={() => ({
-                      _source: ['about.@id', 'about.name', 'about.email', 'about.image'],
-                      query: {
-                        bool: {
-                          filter: {
-                            term: {
-                              'about.countryChampionFor.keyword': iso3166
-                            }
-                          },
-                        },
-                      }
-                    })}
-                    render={({ data }) => (
-                      <div>
-                        <h1>{translate('CountryIndex.read.countryChampion')}</h1>
-                        {data.map(champion => (
-                          <div key={champion.about['@id']}>
-                            {champion.about.image && <img src={champion.about.image} />}
-                            <p>
-                              <a href={`/resource/${champion.about['@id']}`}>
-                                {translate(champion.about.name)}
-                              </a>
-                            </p>
-                            <p>
-                              <a href={`mailto:${champion.about.email}`}>
-                                {champion.about.email}
-                              </a>
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  />
-                  {region && (
-                    <ReactiveComponent
-                      componentId="regionalChampions"
-                      defaultQuery={() => ({
-                        _source: ['about.@id', 'about.name', 'about.email', 'about.image'],
-                        query: {
-                          bool: {
-                            filter: {
-                              term: {
-                                'about.regionalChampionFor.keyword': `${iso3166}.${region}`
-                              }
-                            },
-                          },
-                        }
-                      })}
-                      render={({ data }) => (
-                        <div>
-                          <h1>{translate('CountryIndex.read.regionalChampion')}</h1>
-                          {data.map(champion => (
-                            <div key={champion.about['@id']}>
-                              {champion.about.image && <img src={champion.about.image} />}
-                              <p>
-                                <a href={`/resource/${champion.about['@id']}`}>
-                                  {translate(champion.about.name)}
-                                </a>
-                              </p>
-                              <p>
-                                <a href={`mailto:${champion.about.email}`}>
-                                  {champion.about.email}
-                                </a>
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    />
-                  )}
-                </div>
+                <Country iso3166={iso3166} region={region} />
               )}
 
               <SelectedFilters
@@ -542,7 +449,7 @@ const ReactiveFilters = ({
                         ],
                       },
                     },
-                    aggs: {}
+                    aggs: {},
                   }
 
                   if (iso3166) {
@@ -554,10 +461,10 @@ const ReactiveFilters = ({
                       aggs: {
                         'sterms#by_type': {
                           terms: {
-                            field: 'about.@type'
-                          }
-                        }
-                      }
+                            field: 'about.@type',
+                          },
+                        },
+                      },
                     }
                     query.query.bool.filter.push({
                       term: {
@@ -573,10 +480,10 @@ const ReactiveFilters = ({
                       aggs: {
                         'sterms#by_type': {
                           terms: {
-                            field: 'about.@type'
-                          }
-                        }
-                      }
+                            field: 'about.@type',
+                          },
+                        },
+                      },
                     }
                   }
 
