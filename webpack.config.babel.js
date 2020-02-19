@@ -67,7 +67,6 @@ const configServer = merge(baseConfig, {
         path.resolve(__dirname, 'node_modules/font-awesome'),
         path.resolve(__dirname, 'node_modules/source-sans-pro'),
         path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-        path.resolve(__dirname, 'node_modules/rc-tooltip'),
         path.resolve(__dirname, 'node_modules/simplemde/dist'),
         path.resolve(__dirname, 'node_modules/react-select'),
         path.resolve(__dirname, 'node_modules/c3'),

@@ -24,7 +24,6 @@ import TogglePoints from './TogglePoints'
 import ShareExport from './ShareExport'
 import Link from './Link'
 import Calendar from './Calendar'
-import ReactiveTypeButtons from './ReactiveTypeButtons'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -530,7 +529,7 @@ const ReactiveFilters = ({
                 componentId="myCountryPicker"
                 defaultQuery={() => {
                   const query = {
-                    size: 9999,
+                    size: 0,
                     _source: 'feature.*',
                     query: {
                       bool: {
