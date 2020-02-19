@@ -29,26 +29,30 @@ const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const sizes = [20, 50, 100, 200, 9999]
 
-const getView = (viewHash) => {
-  switch (viewHash) {
-  case 'map':
-    return 'mapView'
-  case 'stats':
-    return 'statisticsView'
-  default:
-    return 'listView'
+const getViewParam = () => {
+  if (typeof window === 'undefined') {
+    return 'list'
   }
+  const url = new URL(window.location.href)
+  return url.searchParams.get('view') || 'list'
 }
 
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins, _self, viewHash,
 }) => {
   const [currentSize, setCurrentSize] = useState(20)
-  const [view, setView] = useState(getView(viewHash))
+  const [view, setView] = useState(getViewParam())
   const [isClient, setIsClient] = useState(false)
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+
+  const setViewParam = view => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('view', view)
+    window.history.pushState(null, null, url.href)
+    setView(view)
+  }
 
   useEffect(() => {
     setIsClient(true)
@@ -266,26 +270,22 @@ const ReactiveFilters = ({
                 </button>
 
                 <button
-                  disabled={view === 'listView'}
+                  disabled={view === 'list'}
                   type="button"
                   className="btn"
-                  onClick={() => {
-                    window.location.hash = 'list'
-                    setView('listView')
-                  }}
+                  onClick={() => setViewParam('list')}
                 >
                   <i className="fa fa-list" />
                   &nbsp;
                   {translate('main.list')}
                 </button>
                 <button
-                  disabled={view === 'mapView'}
+                  disabled={view === 'map'}
                   type="button"
                   className="btn"
                   onClick={async () => {
-                    window.location.hash = 'map'
-                    setView('mapView')
-                    await timeout(10)
+                    setViewParam('map')
+                    await timeout(100)
                     emitter.emit('resize')
                   }}
                 >
@@ -295,12 +295,11 @@ const ReactiveFilters = ({
                 </button>
 
                 <button
-                  disabled={view === 'statisticsView'}
+                  disabled={view === 'statistics'}
                   type="button"
                   className="btn"
                   onClick={() => {
-                    window.location.hash = 'stats'
-                    setView('statisticsView')
+                    setViewParam('statistics')
                   }}
                 >
                   <i className="fa fa-pie-chart" />
@@ -312,22 +311,22 @@ const ReactiveFilters = ({
                   _links={{
                     refs: [
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=geojson',
+                        uri: `${_self}&size=-1&ext=geojson`,
                         rel: 'alternate',
                         type: 'application/geo+json',
                       },
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=ics',
+                        uri: `${_self}size=-1&ext=ics`,
                         rel: 'alternate',
                         type: 'text/calendar',
                       },
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=json',
+                        uri: `${_self}size=-1&ext=json`,
                         rel: 'alternate',
                         type: 'application/json',
                       },
                       {
-                        uri: 'https://beta.oerworldmap.org/resource/?size=-1&ext=csv',
+                        uri: `${_self}size=-1&ext=csv`,
                         rel: 'alternate',
                         type: 'text/csv',
                       },
@@ -341,7 +340,7 @@ const ReactiveFilters = ({
           </section>
 
 
-          <div className={`mainContent ${view}${collapsed ? ' collapsed' : ''}`}>
+          <div className={`mainContent ${view}View${collapsed ? ' collapsed' : ''}`}>
 
             <aside className={showMobileFilters ? 'show' : ''}>
 
@@ -430,67 +429,81 @@ const ReactiveFilters = ({
                 }}
               />
 
-              {(view === 'mapView') && (
-                <ReactiveComponent
-                  componentId="myCountryPicker"
-                  defaultQuery={() => {
-                    const query = {
-                      size: 9999,
-                      _source: 'feature.*',
-                      query: {
-                        bool: {
-                          filter: [
-                            {
-                              exists: {
-                                field: 'feature',
-                              },
+              <ReactiveComponent
+                componentId="myCountryPicker"
+                defaultQuery={() => {
+                  const query = {
+                    size: 9999,
+                    _source: 'feature.*',
+                    query: {
+                      bool: {
+                        filter: [
+                          {
+                            exists: {
+                              field: 'feature',
                             },
-                          ],
-                        },
+                          },
+                        ],
+                      },
+                    },
+                    aggs: {}
+                  }
+
+                  if (iso3166) {
+                    query.aggs['sterms#feature.properties.location.address.addressRegion'] = {
+                      terms: {
+                        field: 'feature.properties.location.address.addressRegion',
+                        size: 9999
                       },
                       aggs: {
-                        color: {
+                        'sterms#by_type': {
                           terms: {
-                            field: 'feature.properties.location.address.addressCountry',
-                          },
-                        },
+                            field: 'about.@type'
+                          }
+                        }
+                      }
+                    }
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
                       },
+                    })
+                  } else {
+                    query.aggs['sterms#feature.properties.location.address.addressCountry'] = {
+                      terms: {
+                        field: 'feature.properties.location.address.addressCountry',
+                      },
+                      aggs: {
+                        'sterms#by_type': {
+                          terms: {
+                            field: 'about.@type'
+                          }
+                        }
+                      }
                     }
+                  }
 
-                    if (iso3166) {
-                      query.query.bool.filter.push({
-                        term: {
-                          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-                        },
-                      })
-                    }
-
-                    if (region) {
-                      query.query.bool.filter.push({
-                        term: {
-                          'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-                        },
-                      })
-                    }
-
-                    return query
-                  }}
-                  onData={({ aggregations, data }) => {
-                    if (aggregations !== null) {
-                      const features = (data && data.map(item => item.feature).filter(el => typeof el !== 'undefined')) || []
-                      const agg = (aggregations
-                        && aggregations.color && aggregations.color.buckets || [])
-                      emitter.emit('mapData', { features, aggregations: agg })
-                      const total = features.length
-                      emitter.emit('updateCount', total)
-                      document.title = `${total} entries - OER World Map`
-                    }
-                  }}
-                  react={{
-                    and: filterIDs,
-                  }}
-                />
-              )}
+                  if (region) {
+                    query.query.bool.filter.push({
+                      term: {
+                        'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
+                      },
+                    })
+                  }
+                  return query
+                }}
+                onData={({ aggregations, data = [], resultStats: { numberOfResults } }) => {
+                  if (aggregations !== null && data !== null) {
+                    const features = data.map(item => item.feature)
+                    emitter.emit('mapData', { features, aggregations })
+                    emitter.emit('updateCount', numberOfResults)
+                    document.title = `${numberOfResults} entries - OER World Map`
+                  }
+                }}
+                react={{
+                  and: filterIDs,
+                }}
+              />
 
               {subFilters.map(filter => (
                 <MultiDropdownList
@@ -532,7 +545,7 @@ const ReactiveFilters = ({
               <div
                 className="searchResults"
               >
-                {(view === 'listView') && (
+                {(view === 'list') && (
                   <StateProvider
                     componentIds={['filter.about.@type']}
                     strict={false}
@@ -689,7 +702,7 @@ const ReactiveFilters = ({
                 {children}
 
                 <div
-                  hidden={view !== 'statisticsView'}
+                  hidden={view !== 'statistics'}
                   className={showMobileFilters ? 'hidden-mobile' : ''}
                 >
 

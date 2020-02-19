@@ -7,9 +7,9 @@ import withEmitter from './withEmitter'
 const TotalEntries = ({ translate, emitter, className }) => {
   const [total, setTotal] = useState(null)
   useEffect(() => {
-    emitter.on('updateCount', (total) => {
-      setTotal(total)
-    })
+    const updateCount = total => setTotal(total)
+    emitter.on('updateCount', updateCount)
+    return () => emitter.off('updateCount', updateCount)
   }, [])
 
   return (

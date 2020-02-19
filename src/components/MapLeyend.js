@@ -10,10 +10,12 @@ const MapLeyend = ({ emitter, translate, iso3166 }) => {
   const [max, setMax] = useState(0)
 
   useEffect(() => {
-    emitter.on('updateColors', ({ colors, max }) => {
+    const updateColors = ({ colors, max }) => {
       setColors(colors)
       setMax(max)
-    })
+    }
+    emitter.on('updateColors', updateColors)
+    return () => emitter.off('updateColors', updateColors)
   }, [])
 
   return (
