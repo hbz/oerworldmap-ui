@@ -366,6 +366,78 @@ const ReactiveFilters = ({
                       </Link>
                     </>
                   )}
+                  <ReactiveComponent
+                    componentId="countryChampions"
+                    defaultQuery={() => ({
+                      _source: ['about.@id', 'about.name', 'about.email', 'about.image'],
+                      query: {
+                        bool: {
+                          filter: {
+                            term: {
+                              'about.countryChampionFor.keyword': iso3166
+                            }
+                          },
+                        },
+                      }
+                    })}
+                    render={({ data }) => (
+                      <div>
+                        <h1>{translate('CountryIndex.read.countryChampion')}</h1>
+                        {data.map(champion => (
+                          <div key={champion.about['@id']}>
+                            {champion.about.image && <img src={champion.about.image} />}
+                            <p>
+                              <a href={`/resource/${champion.about['@id']}`}>
+                                {translate(champion.about.name)}
+                              </a>
+                            </p>
+                            <p>
+                              <a href={`mailto:${champion.about.email}`}>
+                                {champion.about.email}
+                              </a>
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  />
+                  {region && (
+                    <ReactiveComponent
+                      componentId="regionalChampions"
+                      defaultQuery={() => ({
+                        _source: ['about.@id', 'about.name', 'about.email', 'about.image'],
+                        query: {
+                          bool: {
+                            filter: {
+                              term: {
+                                'about.regionalChampionFor.keyword': `${iso3166}.${region}`
+                              }
+                            },
+                          },
+                        }
+                      })}
+                      render={({ data }) => (
+                        <div>
+                          <h1>{translate('CountryIndex.read.regionalChampion')}</h1>
+                          {data.map(champion => (
+                            <div key={champion.about['@id']}>
+                              {champion.about.image && <img src={champion.about.image} />}
+                              <p>
+                                <a href={`/resource/${champion.about['@id']}`}>
+                                  {translate(champion.about.name)}
+                                </a>
+                              </p>
+                              <p>
+                                <a href={`mailto:${champion.about.email}`}>
+                                  {champion.about.email}
+                                </a>
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    />
+                  )}
                 </div>
               )}
 
@@ -453,7 +525,7 @@ const ReactiveFilters = ({
                     query.aggs['sterms#feature.properties.location.address.addressRegion'] = {
                       terms: {
                         field: 'feature.properties.location.address.addressRegion',
-                        size: 9999
+                        size: 9999,
                       },
                       aggs: {
                         'sterms#by_type': {
@@ -472,6 +544,7 @@ const ReactiveFilters = ({
                     query.aggs['sterms#feature.properties.location.address.addressCountry'] = {
                       terms: {
                         field: 'feature.properties.location.address.addressCountry',
+                        size: 9999,
                       },
                       aggs: {
                         'sterms#by_type': {
