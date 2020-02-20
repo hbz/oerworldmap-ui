@@ -719,7 +719,29 @@ const ReactiveFilters = ({
                           react={{
                             and: filterIDs,
                           }}
-
+                          defaultSortOption={translate('ClientTemplates.filter.dateCreated')}
+                          sortOptions={[
+                            {
+                              label: translate('ClientTemplates.filter.dateCreated'),
+                              dataField: 'dateCreated',
+                              sortBy: 'desc',
+                            },
+                            {
+                              label: translate('ClientTemplates.filter.alphabetical'),
+                              dataField: 'about.name.en.sort',
+                              sortBy: 'asc',
+                            },
+                            {
+                              label: translate('ClientTemplates.filter.lighthouseCount'),
+                              dataField: 'lighthouse_count',
+                              sortBy: 'desc',
+                            },
+                            {
+                              label: translate('ClientTemplates.filter.likeCount'),
+                              dataField: 'like_count',
+                              sortBy: 'desc',
+                            }
+                          ]}
                           render={({ data, resultStats: { numberOfResults } }) => {
                             const items = data || []
                             emitter.emit('updateCount', numberOfResults)
