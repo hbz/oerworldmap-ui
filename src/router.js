@@ -41,14 +41,17 @@ export default (api, emitter, location) => {
           Link.home = url
         }
         Link.back = '/resource/'
-        let data = state || {
+
+        const data = {
           _self: location.href,
         }
-        data = params.add ? {
-          about: {
+
+        if (params.add) {
+          data.about = {
             '@type': params.add,
-          },
-        } : state || await api.get(url, new Headers(context.headers))
+          }
+        }
+
         const component = data => (params.add ? (
           <WebPage
             mapboxConfig={mapboxConfig}
@@ -75,10 +78,7 @@ export default (api, emitter, location) => {
           ? context.i18n.translate('add', { type: context.i18n.translate(params.add) })
           : context.i18n.translate('ResourceIndex.index.showingEntities', {
             number: '',
-            query: data.filters
-              && data.filters['about.@type']
-              && context.i18n.translate(data.filters['about.@type'][0])
-              || '',
+            query: '',
           })
 
         const metadata = {
@@ -87,10 +87,10 @@ export default (api, emitter, location) => {
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
         }
 
-        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0))) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
-        }
+        // if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0))) {
+        //   metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
+        //   metadata.summary = 'summary'
+        // }
 
         return {
           title, data, component, metadata,
