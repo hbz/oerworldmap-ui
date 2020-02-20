@@ -211,6 +211,26 @@ const Country = ({ iso3166, region, translate }) => {
               )}
             />
           )}
+          <ReactiveComponent
+            componentId="countryReports "
+            defaultQuery={() => ({
+              _source: ['about.@id', 'about.name', 'about.@type'],
+              query: {
+                bool: {
+                  filter: {
+                    term: {
+                      'about.keywords': `countryreport:${iso3166}`,
+                    },
+                  },
+                },
+              },
+            })}
+            render={({ data }) => (
+              <pre>
+                {JSON.stringify(data)}
+              </pre>
+            )}
+          />
         </div>
       )}
     </div>
