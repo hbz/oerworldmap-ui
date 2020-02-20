@@ -62,7 +62,7 @@ class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      aggregations: {}
+      aggregations: {},
     }
 
     props.emitter.on('resize', () => {
@@ -116,7 +116,9 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    const { mapboxConfig, map, locales, iso3166, emitter, region, } = this.props
+    const {
+      mapboxConfig, map, locales, iso3166, emitter, region,
+    } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')

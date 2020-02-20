@@ -463,7 +463,25 @@ const ReactiveFilters = ({
                         ],
                       },
                     },
-                    aggs: {},
+                    aggs: {
+                      'global#champions': {
+                        global: {},
+                        aggs: {
+                          'sterms#about.regionalChampionFor.keyword': {
+                            terms: {
+                              field: 'about.regionalChampionFor.keyword',
+                              size: 9999,
+                            },
+                          },
+                          'sterms#about.countryChampionFor.keyword': {
+                            terms: {
+                              field: 'about.countryChampionFor.keyword',
+                              size: 9999,
+                            },
+                          },
+                        },
+                      },
+                    },
                   }
 
                   if (iso3166) {
