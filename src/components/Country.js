@@ -12,7 +12,7 @@ import Icon from './Icon'
 const Country = ({ iso3166, region, translate }) => {
   const [showCountryChampions, setShowCountryChampions] = useState(true)
   const [showRegionalCountryChampion, setshowRegionalCountryChampion] = useState(false)
-  // const [showReports, setShowReports] = useState(false)
+  const [showReports, setShowReports] = useState(false)
 
   return (
     <div>
@@ -226,9 +226,36 @@ const Country = ({ iso3166, region, translate }) => {
               },
             })}
             render={({ data }) => (
-              <pre>
-                {JSON.stringify(data)}
-              </pre>
+              (data.length > 0) && (
+                <div>
+                  <h4
+                    onKeyDown={triggerClick}
+                    tabIndex="0"
+                    role="button"
+                    onClick={() => setShowReports(!showReports)}
+                  >
+                    {translate('CountryIndex.read.countryReports')}
+                    <i aria-hidden="true" className={`fa fa-${showReports ? 'minus' : 'plus'}`} />
+                  </h4>
+
+                  <div hidden={!showReports}>
+                    {data
+                      .sort((a, b) => a.about.dateCreated < b.about.dateCreated)
+                      .map(report => (
+                        <div className="countryBlock" key={report.about['@id']}>
+                          <div className="frame">
+                            <i aria-hidden="true" className="fa fa-book" />
+                          </div>
+                          <div className="text">
+                            <Link href={`/resource/${report.about['@id']}`}>
+                              {translate(report.about.name)}
+                            </Link>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )
             )}
           />
         </div>
@@ -238,7 +265,7 @@ const Country = ({ iso3166, region, translate }) => {
 }
 
 Country.propTypes = {
-  translate: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired,
   iso3166: PropTypes.string.isRequired,
   region: PropTypes.string,
 }
