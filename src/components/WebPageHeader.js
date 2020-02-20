@@ -12,7 +12,7 @@ import expose from '../expose'
 import '../styles/components/WebPageHeader.pcss'
 
 const WebPageHeader = ({
-  user, about, dateModified, view, _self, _links, embedValue,
+  user, about, dateModified, view, _self, _links,
 }) => (
   <div className="WebPageHeader">
     <Metadata
@@ -77,13 +77,11 @@ WebPageHeader.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
-  embedValue: PropTypes.string,
 }
 
 WebPageHeader.defaultProps = {
   user: null,
   dateModified: null,
-  embedValue: null,
 }
 
 export default withUser(WebPageHeader)
