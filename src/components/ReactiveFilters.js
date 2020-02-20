@@ -27,8 +27,6 @@ import Calendar from './Calendar'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const sizes = [20, 50, 100, 200, 9999]
-
 const getViewParam = () => {
   if (typeof window === 'undefined') {
     return 'list'
@@ -40,7 +38,31 @@ const getViewParam = () => {
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins, _self, viewHash,
 }) => {
+  const sizes = [20, 50, 100, 200, 9999]
+  const sorts = [
+    {
+      label: translate('ClientTemplates.filter.dateCreated'),
+      dataField: 'dateCreated',
+      sortBy: 'desc',
+    },
+    {
+      label: translate('ClientTemplates.filter.alphabetical'),
+      dataField: 'about.name.en.sort',
+      sortBy: 'asc',
+    },
+    {
+      label: translate('ClientTemplates.filter.lighthouseCount'),
+      dataField: 'lighthouse_count',
+      sortBy: 'desc',
+    },
+    {
+      label: translate('ClientTemplates.filter.likeCount'),
+      dataField: 'like_count',
+      sortBy: 'desc',
+    }
+  ]
   const [currentSize, setCurrentSize] = useState(20)
+  const [currentSort, setCurrentSort] = useState(sorts[0])
   const [view, setView] = useState(getViewParam())
   const [isClient, setIsClient] = useState(false)
   const [collapsed, setCollapsed] = useState(true)
@@ -292,6 +314,23 @@ const ReactiveFilters = ({
                       {size === 9999 ? 'all' : size}
                       &nbsp;
                       {translate('entries / page')}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={currentSort.dataField}
+                  className="btn hidden-mobile"
+                  onChange={(e) => {
+                    setCurrentSort(sorts.find(sort => sort.dataField === e.target.value))
+                  }}
+                >
+                  {sorts.map(sort => (
+                    <option
+                      key={sort.dataField}
+                      value={sort.dataField}
+                    >
+                      {sort.label}
                     </option>
                   ))}
                 </select>
@@ -713,7 +752,8 @@ const ReactiveFilters = ({
 
                             return query
                           }}
-                          dataField="about.@type"
+                          dataField={currentSort.dataField}
+                          sortBy={currentSort.sortBy}
                           showResultStats={false}
                           from={0}
                           size={currentSize}
@@ -727,29 +767,6 @@ const ReactiveFilters = ({
                           react={{
                             and: filterIDs,
                           }}
-                          defaultSortOption={translate('ClientTemplates.filter.dateCreated')}
-                          sortOptions={[
-                            {
-                              label: translate('ClientTemplates.filter.dateCreated'),
-                              dataField: 'dateCreated',
-                              sortBy: 'desc',
-                            },
-                            {
-                              label: translate('ClientTemplates.filter.alphabetical'),
-                              dataField: 'about.name.en.sort',
-                              sortBy: 'asc',
-                            },
-                            {
-                              label: translate('ClientTemplates.filter.lighthouseCount'),
-                              dataField: 'lighthouse_count',
-                              sortBy: 'desc',
-                            },
-                            {
-                              label: translate('ClientTemplates.filter.likeCount'),
-                              dataField: 'like_count',
-                              sortBy: 'desc',
-                            },
-                          ]}
                           render={({ data, resultStats: { numberOfResults } }) => {
                             const items = data || []
                             emitter.emit('updateCount', numberOfResults)
