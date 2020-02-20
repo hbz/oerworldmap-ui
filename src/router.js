@@ -29,7 +29,7 @@ export default (api, emitter, location) => {
   const routes = [
     {
       path: '/resource/',
-      get: async (params, context, state) => {
+      get: async (params, context) => {
         const {
           mapboxConfig, schema, phrases, embed, elasticsearchConfig,
         } = context
