@@ -120,6 +120,7 @@ class Map extends React.Component {
       mapboxConfig, map, locales, iso3166, emitter, region,
     } = this.props
 
+    emitter.on('mapData', this.setMapData)
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = mapboxConfig.token
@@ -144,7 +145,6 @@ class Map extends React.Component {
     })
 
     this.map.once('load', async () => {
-      emitter.on('mapData', this.setMapData)
       // Set circle layers properties
       this.initialRadius = window.innerWidth <= 700 ? 10 : 5
       this.radius = this.initialRadius
@@ -864,6 +864,7 @@ class Map extends React.Component {
       features,
     }
 
+    console.log('Set map data with', pointsCollection.features.length)
     this.map.getSource('pointsSource').setData(pointsCollection)
   }
 
