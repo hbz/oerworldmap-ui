@@ -46,6 +46,7 @@ const ReactiveFilters = ({
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  const [showFeatures, setShowFeatures] = useState(initPins)
 
   const setViewParam = (view) => {
     const url = new URL(window.location.href)
@@ -56,6 +57,8 @@ const ReactiveFilters = ({
 
   useEffect(() => {
     setIsClient(true)
+    emitter.on('showFeatures', setShowFeatures)
+    return () => emitter.off('showFeatures', setShowFeatures)
   }, [])
 
   if (isClient) {
@@ -437,11 +440,21 @@ const ReactiveFilters = ({
                 componentId="myCountryPicker"
                 defaultQuery={() => {
                   const query = {
-                    size: 0,
+                    size: showFeatures ? 9999 : 0,
                     _source: 'feature.*',
                     query: {
                       bool: {
                         filter: [
+                          {
+                            terms: {
+                              'about.@type': types,
+                            },
+                          },
+                          {
+                            exists: {
+                              field: 'about.name',
+                            },
+                          },
                           {
                             exists: {
                               field: 'feature',

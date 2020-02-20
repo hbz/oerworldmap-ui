@@ -62,7 +62,7 @@ class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      aggregations: {},
+      aggregations: {}
     }
 
     props.emitter.on('resize', () => {
@@ -116,9 +116,7 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      mapboxConfig, map, locales, iso3166, emitter, initPins, region,
-    } = this.props
+    const { mapboxConfig, map, locales, iso3166, emitter, region, } = this.props
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const mapboxgl = require('mapbox-gl')
@@ -199,9 +197,7 @@ class Map extends React.Component {
         pointsLayer.paint['circle-radius'] = this.initialRadius
 
         this.map.addLayer(pointsLayer)
-        initPins
-          ? this.map.setLayoutProperty(layer, 'visibility', 'visible')
-          : this.map.setLayoutProperty(layer, 'visibility', 'none')
+        this.map.setLayoutProperty(layer, 'visibility', 'visible')
       })
 
       this.map.addLayer({
@@ -266,16 +262,6 @@ class Map extends React.Component {
       // Receive event from ItemList
       emitter.on('hoverPoint', (e) => {
         this.map.setFilter('points-hover', ['in', '@id'].concat(e.id))
-      })
-
-      emitter.on('showFeatures', (show) => {
-        pointsLayers.forEach((layer) => {
-          if (show) {
-            this.map.setLayoutProperty(layer, 'visibility', 'visible')
-          } else {
-            this.map.setLayoutProperty(layer, 'visibility', 'none')
-          }
-        })
       })
 
       // Add mapbox controls
@@ -954,7 +940,6 @@ Map.propTypes = {
   map: PropTypes.string,
   home: PropTypes.bool.isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-  initPins: PropTypes.bool.isRequired,
   region: PropTypes.string,
 }
 
