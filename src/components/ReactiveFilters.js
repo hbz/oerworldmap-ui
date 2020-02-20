@@ -756,7 +756,7 @@ const ReactiveFilters = ({
                           sortBy={currentSort.sortBy}
                           showResultStats={false}
                           from={0}
-                          size={currentSize}
+                          size={+currentSize}
                           pagination
                           loader={(
                             <div className="Loading">
