@@ -251,6 +251,7 @@ const ReactiveFilters = ({
             <ToggleButton
               componentId="filter.about.@type"
               URLParams
+              className="typeButtons"
               dataField="about.@type"
               multiSelect={false}
               data={types.map(type => ({

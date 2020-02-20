@@ -25,27 +25,113 @@
       }
     }
 
-    & .toggleButtons {
+    & .typeButtons {
       display: flex;
-      justify-content: space-between;
-      padding: 20px 0;
+      justify-content: space-around;
+      margin: 20px 0;
+      flex-wrap: wrap;
 
-      & .typeButton {
+      & a {
+        position: relative;
         background-color: transparent;
-        border: none;
+        font-weight: 400;
         color: var(--grey);
+        text-transform: uppercase;
+        margin: 0;
+        padding: 0;
+        font-size: var(--font-size);
+        min-height: 100%;
+        padding-right: 5px;
+        transition: none;
         cursor: pointer;
 
         &.active {
           color: var(--blue-dark);
-        }
 
-        &:hover {
-          color: var(--orange);
+          &::before {
+            color: var(--blue-dark);
+          }
         }
 
         &:focus {
           outline: 1px dotted var(--blue-dark);
+          border: none;
+          box-shadow: none;
+        }
+      }
+
+      & a::before {
+        font-family: FontAwesome;
+        content: "";
+        color: var(--grey-light);
+        margin-right: 10px;
+      }
+
+      & a:hover {
+        color: var(--orange);
+
+        &::before {
+          color: var(--orange);
+        }
+      }
+
+      & a:nth-child(1)::before {
+        content: "\f0c0";
+      }
+      & a:nth-child(2)::before {
+        content: "\f108";
+      }
+
+      & a:nth-child(3)::before {
+        content: "\f007";
+      }
+
+      & a:nth-child(4)::before {
+        content: "\f085";
+      }
+
+      & a:nth-child(5)::before {
+        content: "\f073";
+      }
+
+      & a:nth-child(6)::before {
+        content: "\f075";
+      }
+
+      & a:nth-child(7)::before {
+        content: "\f0ad";
+      }
+
+      & a:nth-child(8)::before {
+        content: "\f15b";
+      }
+
+      & a:nth-child(9)::before {
+        content: "\f24e";
+      }
+
+      @media only screen and (--mobile-breakpoint) {
+        flex-wrap: nowrap;
+
+        & a {
+          overflow: hidden;
+          width: 40px;
+          height: 40px;
+          color: transparent;
+          padding-right: 0;
+
+          &:hover {
+            color: transparent;
+          }
+
+          &.active {
+            color: transparent;
+          }
+        }
+
+        & a::before {
+          position: absolute;
+          margin-right: 0;
         }
       }
     }
