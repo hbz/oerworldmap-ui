@@ -52,13 +52,22 @@ const ReactiveFilters = ({
     const url = new URL(window.location.href)
     url.searchParams.set('view', view)
     window.history.pushState(null, null, url.href)
-    setView(view)
+    window.dispatchEvent(new window.PopStateEvent('popstate'))
+  }
+
+  const handlePopState = () => {
+    setView(getViewParam())
   }
 
   useEffect(() => {
     setIsClient(true)
     emitter.on('showFeatures', setShowFeatures)
-    return () => emitter.off('showFeatures', setShowFeatures)
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      emitter.off('showFeatures', setShowFeatures)
+      window.removeEventListener('popstate', handlePopState)
+    }
   }, [])
 
   if (isClient) {
