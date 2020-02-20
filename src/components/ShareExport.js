@@ -38,7 +38,7 @@ class ShareExport extends React.Component {
 
   render() {
     const {
-      translate, view, embedValue, _self, _links,
+      translate, view, _self, _links,
     } = this.props
     const { showing } = this.state
 
@@ -85,7 +85,7 @@ class ShareExport extends React.Component {
         )}
         {view === 'share' && (
           <FullModal closeLink={Link.home}>
-            <Share embedValue={embedValue} _self={_self} />
+            <Share _self={_self} />
           </FullModal>
         )}
         {view === 'export' && (
@@ -103,12 +103,10 @@ ShareExport.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  embedValue: PropTypes.string,
 }
 
 ShareExport.defaultProps = {
   view: null,
-  embedValue: null,
 }
 
 export default withI18n(ShareExport)

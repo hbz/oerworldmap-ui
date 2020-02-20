@@ -361,7 +361,6 @@ const ReactiveFilters = ({
                     ],
                   }}
                   view={viewHash}
-                  embedValue="true"
                 />
               </div>
             </div>
@@ -740,7 +739,7 @@ const ReactiveFilters = ({
                               label: translate('ClientTemplates.filter.likeCount'),
                               dataField: 'like_count',
                               sortBy: 'desc',
-                            }
+                            },
                           ]}
                           render={({ data, resultStats: { numberOfResults } }) => {
                             const items = data || []

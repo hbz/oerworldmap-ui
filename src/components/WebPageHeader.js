@@ -27,7 +27,7 @@ const WebPageHeader = ({
         {about['@id'] && [
           view !== 'edit' && (
             <div className="action" key="share">
-              <ShareExport _self={_self} _links={_links} view={view} embedValue={embedValue} />
+              <ShareExport _self={_self} _links={_links} view={view} />
             </div>
           ),
           expose('editEntry', user, about) && (
