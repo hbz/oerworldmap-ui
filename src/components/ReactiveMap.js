@@ -122,8 +122,11 @@ class Map extends React.Component {
 
     emitter.on('mapData', this.setMapData)
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
-    this.mapboxgl = require('mapbox-gl')
-    this.mapboxgl.accessToken = mapboxConfig.token
+    // this.mapboxgl = require('mapbox-gl')
+    const {
+      LngLatBounds, Map, NavigationControl, FullscreenControl, Popup,
+    } = require('mapbox-gl')
+    this.mapboxTools = { LngLatBounds, Popup }
 
     const mapParameters = map
       && map.split(',')
@@ -135,12 +138,13 @@ class Map extends React.Component {
       center.zoom = (mapParameters[2] && !Number.isNaN(mapParameters[2])) ? mapParameters[2] : null
     }
 
-    this.map = new this.mapboxgl.Map({
+    this.map = new Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
       center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 42],
       zoom: center.zoom || 1,
       maxBounds: bounds,
+      accessToken: mapboxConfig.token,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1,
     })
 
@@ -262,9 +266,9 @@ class Map extends React.Component {
       this.map.on('click', this.handleClick)
 
       // Add mapbox controls
-      const nav = new this.mapboxgl.NavigationControl({ showCompass: false })
+      const nav = new NavigationControl({ showCompass: false })
       this.map.addControl(nav, 'bottom-right')
-      this.map.addControl(new this.mapboxgl.FullscreenControl(), 'bottom-right')
+      this.map.addControl(new FullscreenControl(), 'bottom-right')
 
       // Receive event from Filters
       emitter.on('hideOverlay', () => {
@@ -284,7 +288,7 @@ class Map extends React.Component {
       'bottom-left': [0, -20],
       'bottom-right': [0, -20],
     }
-    this.hoverPopup = new this.mapboxgl.Popup(
+    this.hoverPopup = new Popup(
       {
         closeButton: false,
         offset: this.popupOffsets,
@@ -646,7 +650,6 @@ class Map extends React.Component {
   }
 
   updateZoom(iso3166, home, map) {
-    // const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
       if (this.map.isStyleLoaded()) {
@@ -675,7 +678,7 @@ class Map extends React.Component {
 
             const bounds = sumCoords
               .reduce((bounds, coord) => bounds
-                .extend(coord), new this.mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+                .extend(coord), new this.mapboxTools.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
               padding: 40,
@@ -807,7 +810,7 @@ class Map extends React.Component {
       if (this.popup && this.popup.isOpen()) {
         this.popup.remove()
       } else {
-        this.popup = new this.mapboxgl.Popup(
+        this.popup = new this.mapboxTools.Popup(
           {
             closeButton: false,
             offset: this.popupOffsets,
