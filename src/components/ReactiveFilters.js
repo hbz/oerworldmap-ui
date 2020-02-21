@@ -59,7 +59,7 @@ const ReactiveFilters = ({
       label: translate('ClientTemplates.filter.likeCount'),
       dataField: 'like_count',
       sortBy: 'desc',
-    }
+    },
   ]
   const [currentSize, setCurrentSize] = useState(20)
   const [currentSort, setCurrentSort] = useState(sorts[0])
@@ -783,73 +783,73 @@ const ReactiveFilters = ({
 
                 {children}
 
-                <div
-                  hidden={view !== 'statistics'}
-                  className={showMobileFilters ? 'hidden-mobile' : ''}
-                >
-
-                  <StateProvider render={({ searchState }) => {
-                    const filters = Object.entries(searchState)
-                      .filter(([field, { value }]) => field.startsWith('filter.') && value && value.length)
-                      .map(([field, { value }]) => `${field}=${encodeURIComponent(JSON.stringify(value))}`)
-                      .join('&')
-                    return (
-                      <div>
-                        {subFilters.map(({ dataField, title, componentId }) => (
-                          <div
-                            key={dataField}
-                            className="graphContainer"
-                          >
-                            <h2>{title ? translate(title) : translate(componentId)}</h2>
-                            <object
-                              type="image/svg+xml"
-                              data={`/stats?field=${dataField}`
-                                .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
-                                .concat(filters ? `&${filters}` : '')
-                                .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')}
+                {view === 'statistics' && (
+                  <div className={showMobileFilters ? 'hidden-mobile' : ''}>
+                    <StateProvider render={({ searchState }) => {
+                      const filters = Object.entries(searchState)
+                        .filter(([field, { value }]) => field.startsWith('filter.') && value && value.length)
+                        .map(([field, { value }]) => `${field}=${encodeURIComponent(JSON.stringify(value))}`)
+                        .join('&')
+                      return (
+                        <div>
+                          {subFilters.map(({ dataField, title, componentId }) => (
+                            <div
+                              key={dataField}
+                              className="graphContainer"
                             >
-                              {translate('No data available for this graph.')}
-                            </object>
-                            <div className="graphControls">
-                              <button
-                                type="button"
-                                className="btn"
-                                onClick={async () => {
-                                  const el = document.createElement('textarea')
-                                  el.value = `${elasticsearchConfig.url}stats?field=${dataField}`
+                              <h2>{title ? translate(title) : translate(componentId)}</h2>
+                              <object
+                                loading="lazy"
+                                type="image/svg+xml"
+                                data={`/stats?field=${dataField}`
+                                  .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
+                                  .concat(filters ? `&${filters}` : '')
+                                  .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')}
+                              >
+                                {translate('No data available for this graph.')}
+                              </object>
+                              <div className="graphControls">
+                                <button
+                                  type="button"
+                                  className="btn"
+                                  onClick={async () => {
+                                    const el = document.createElement('textarea')
+                                    el.value = `${elasticsearchConfig.url}stats?field=${dataField}`
+                                      .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
+                                      .concat(filters ? `&${filters}` : '')
+                                      .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')
+                                    el.setAttribute('readonly', '')
+                                    el.style = { position: 'absolute', left: '-9999px' }
+                                    document.body.appendChild(el)
+                                    el.select()
+                                    document.execCommand('copy')
+                                    document.body.removeChild(el)
+                                  }}
+                                  title={translate('Copy image URL to clipboard.')}
+                                >
+                                  <i aria-hidden="true" className="fa fa-clipboard" />
+                                </button>
+                                <a
+                                  title={translate('Download as SVG.')}
+                                  className="btn"
+                                  href={`/stats?field=${dataField}`
                                     .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
                                     .concat(filters ? `&${filters}` : '')
                                     .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')
-                                  el.setAttribute('readonly', '')
-                                  el.style = { position: 'absolute', left: '-9999px' }
-                                  document.body.appendChild(el)
-                                  el.select()
-                                  document.execCommand('copy')
-                                  document.body.removeChild(el)
-                                }}
-                                title={translate('Copy image URL to clipboard.')}
-                              >
-                                <i aria-hidden="true" className="fa fa-clipboard" />
-                              </button>
-                              <a
-                                title={translate('Download as SVG.')}
-                                className="btn"
-                                href={`/stats?field=${dataField}`
-                                  .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
-                                  .concat(filters ? `&${filters}` : '')
-                                  .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')
-                                  .concat(`&download=true&filename=${title ? translate(title) : translate(componentId)}`)}
-                              >
-                                <i aria-hidden="true" className="fa fa-download" />
-                              </a>
+                                    .concat(`&download=true&filename=${title ? translate(title) : translate(componentId)}`)}
+                                >
+                                  <i aria-hidden="true" className="fa fa-download" />
+                                </a>
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    )
-                  }}
-                  />
-                </div>
+                          ))}
+                        </div>
+                      )
+                    }}
+                    />
+                  </div>
+
+                )}
 
               </div>
 
