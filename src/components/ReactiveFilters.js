@@ -174,34 +174,35 @@ const ReactiveFilters = ({
         dataField: 'about.spatialCoverage',
         showSearch: false,
       },
-      // {
-      //   componentId: 'filter.about.inLanguage',
-      //   dataField: 'about.inLanguage',
-      //   showSearch: false,
-      // },
       {
-        // hidden?
+        componentId: 'filter.about.inLanguage.keyword',
+        dataField: 'about.inLanguage.keyword',
+        showSearch: false,
+        hidden: true,
+      },
+      {
         componentId: 'filter.about.objectIn.@type',
         dataField: 'about.objectIn.@type',
         showSearch: false,
+        hidden: true,
       },
       {
-        // hidden?
         componentId: 'filter.author.keyword',
         dataField: 'author.keyword',
         showSearch: false,
+        hidden: true,
       },
       {
-        // hidden?
         componentId: 'filter.about.objectIn.agent.@id',
         dataField: 'about.objectIn.agent.@id',
         showSearch: false,
+        hidden: true,
       },
       {
-        // hidden?
         componentId: 'filter.about.attendee.@id',
         dataField: 'about.attendee.@id',
         showSearch: false,
+        hidden: true,
       },
     ]
 
@@ -441,7 +442,7 @@ const ReactiveFilters = ({
                       <div className="selectedFilters">
                         <h2>{translate('Filters')}</h2>
                         <ul>
-                          {applied.map(filter => (
+                          {applied.filter(f => f !== 'size').map(filter => (
                             (data.selectedValues[filter].value !== null) && (
                               <li
                                 key={`${filter}`}
@@ -596,26 +597,30 @@ const ReactiveFilters = ({
               />
 
               {subFilters.map(filter => (
-                <MultiDropdownList
+                <div
+                  hidden={filter.hidden}
                   key={filter.dataField}
-                  className="FilterBox"
-                  {...filter}
-                  title={filter.title ? translate(filter.title) : translate(filter.componentId)}
-                  renderItem={(label, count) => (
-                    <span>
-                      <span>{(filter.translate !== false) ? translate(label) : label}</span>
-                      &nbsp;
-                      <span
-                        className="count"
-                      >
-                        (
-                        {count}
-                        )
+                >
+                  <MultiDropdownList
+                    className="FilterBox"
+                    {...filter}
+                    title={filter.title ? translate(filter.title) : translate(filter.componentId)}
+                    renderItem={(label, count) => (
+                      <span>
+                        <span>{(filter.translate !== false) ? translate(label) : label}</span>
+                        &nbsp;
+                        <span
+                          className="count"
+                        >
+                          (
+                          {count}
+                          )
+                        </span>
                       </span>
-                    </span>
-                  )}
-                  URLParams
-                />
+                    )}
+                    URLParams
+                  />
+                </div>
               ))}
 
             </aside>

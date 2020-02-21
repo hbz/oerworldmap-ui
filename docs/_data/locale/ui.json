@@ -367,5 +367,14 @@
   "Tour.end3": "Do you have questions or suggestions?",
   "Tour.end4": "Contact us:",
   "Tour.end5": "We would love to hear from you!",
-  "Metadata.loginToEdit": "Login to edit"
+  "Metadata.loginToEdit": "Login to edit",
+  "filter.about.scope.@id": "Scope",
+  "filter.about.focus.keyword": "Focus",
+  "filter.about.status": "Status",
+  "filter.about.spatialCoverage": "Level",
+  "filter.about.inLanguage.keyword": "In language",
+  "filter.about.objectIn.@type": "Action",
+  "filter.author.keyword": "Added by",
+  "filter.about.objectIn.agent.@id": "Liked by",
+  "filter.about.attendee.@id": "Attended by"
 }
