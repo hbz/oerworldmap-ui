@@ -122,8 +122,8 @@ class Map extends React.Component {
 
     emitter.on('mapData', this.setMapData)
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
-    const mapboxgl = require('mapbox-gl')
-    mapboxgl.accessToken = mapboxConfig.token
+    this.mapboxgl = require('mapbox-gl')
+    this.mapboxgl.accessToken = mapboxConfig.token
 
     const mapParameters = map
       && map.split(',')
@@ -135,7 +135,7 @@ class Map extends React.Component {
       center.zoom = (mapParameters[2] && !Number.isNaN(mapParameters[2])) ? mapParameters[2] : null
     }
 
-    this.map = new mapboxgl.Map({
+    this.map = new this.mapboxgl.Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
       center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 42],
@@ -262,9 +262,9 @@ class Map extends React.Component {
       this.map.on('click', this.handleClick)
 
       // Add mapbox controls
-      const nav = new mapboxgl.NavigationControl({ showCompass: false })
+      const nav = new this.mapboxgl.NavigationControl({ showCompass: false })
       this.map.addControl(nav, 'bottom-right')
-      this.map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right')
+      this.map.addControl(new this.mapboxgl.FullscreenControl(), 'bottom-right')
 
       // Receive event from Filters
       emitter.on('hideOverlay', () => {
@@ -284,7 +284,7 @@ class Map extends React.Component {
       'bottom-left': [0, -20],
       'bottom-right': [0, -20],
     }
-    this.hoverPopup = new mapboxgl.Popup(
+    this.hoverPopup = new this.mapboxgl.Popup(
       {
         closeButton: false,
         offset: this.popupOffsets,
@@ -646,7 +646,7 @@ class Map extends React.Component {
   }
 
   updateZoom(iso3166, home, map) {
-    const mapboxgl = require('mapbox-gl')
+    // const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
       if (this.map.isStyleLoaded()) {
@@ -675,7 +675,7 @@ class Map extends React.Component {
 
             const bounds = sumCoords
               .reduce((bounds, coord) => bounds
-                .extend(coord), new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+                .extend(coord), new this.mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
               padding: 40,
@@ -807,8 +807,7 @@ class Map extends React.Component {
       if (this.popup && this.popup.isOpen()) {
         this.popup.remove()
       } else {
-        const mapboxgl = require('mapbox-gl')
-        this.popup = new mapboxgl.Popup(
+        this.popup = new this.mapboxgl.Popup(
           {
             closeButton: false,
             offset: this.popupOffsets,
