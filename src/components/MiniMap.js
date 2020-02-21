@@ -47,18 +47,17 @@ class MiniMap extends React.Component {
     const {
       geometry, mapboxConfig, boxZoom, draggable, isLiveEvent,
     } = this.props
-    const mapboxgl = require('mapbox-gl')
-
-    mapboxgl.accessToken = mapboxConfig.token
+    const { Map, NavigationControl } = require('mapbox-gl')
 
     setTimeout(() => {
-      this.MiniMap = new mapboxgl.Map({
+      this.MiniMap = new Map({
         container: this.MiniMapContainer,
         center: [0, 0],
         zoom: 1,
         boxZoom,
         style: `mapbox://styles/${mapboxConfig.miniMapStyle}`,
         dragRotate: false,
+        accessToken: mapboxConfig.token,
         touchZoomRotate: false,
       })
       this.canvas = this.MiniMap.getCanvasContainer()
@@ -76,7 +75,7 @@ class MiniMap extends React.Component {
         this.start = null
 
         if (draggable) {
-          const nav = new mapboxgl.NavigationControl({ showCompass: false })
+          const nav = new NavigationControl({ showCompass: false })
           this.MiniMap.addControl(nav, 'bottom-left')
         }
 
