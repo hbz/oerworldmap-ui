@@ -9,24 +9,17 @@ import Link from './Link'
 import '../styles/components/ItemList.pcss'
 
 import withI18n from './withI18n'
-import withEmitter from './withEmitter'
 import { formatDate } from '../common'
 import ResourceImage from './ResourceImage'
 
 const ItemList = ({
-  translate, emitter, listItems, linkTemplate, className, count, moment,
+  translate, listItems, linkTemplate, className, count, moment,
 }) => (
   <ul className={`ItemList linedList ${className}`}>
     {listItems.map(listItem => (
       <li
         id={listItem['@id']}
         key={listItem['@id']}
-        onMouseEnter={() => {
-          emitter.emit('hoverPoint', { id: listItem['@id'] })
-        }}
-        onMouseLeave={() => {
-          emitter.emit('hoverPoint', { id: '' })
-        }}
       >
         <div className="item">
           {listItem.image || listItem.sameAs ? (
@@ -66,7 +59,6 @@ const ItemList = ({
 
 ItemList.propTypes = {
   translate: PropTypes.func.isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired,
   linkTemplate: PropTypes.string,
   className: PropTypes.string,
@@ -80,4 +72,4 @@ ItemList.defaultProps = {
   count: undefined,
 }
 
-export default withEmitter(withI18n(ItemList))
+export default withI18n(ItemList)
