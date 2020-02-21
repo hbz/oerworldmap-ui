@@ -447,7 +447,7 @@ const ReactiveFilters = ({
                                 key={`${filter}`}
                                 className="selectedFilter"
                               >
-                                {(typeof data.selectedValues[filter].value === 'string') ? (
+                                {(!Array.isArray(data.selectedValues[filter].value)) ? (
                                   <button
                                     type="button"
                                     onClick={() => data.setValue(filter, null)}
