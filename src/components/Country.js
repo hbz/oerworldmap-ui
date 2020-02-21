@@ -1,3 +1,4 @@
+/* global window */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { ReactiveComponent } from '@appbaseio/reactivesearch'
@@ -26,14 +27,14 @@ const Country = ({ iso3166, region, translate }) => {
           {region ? (
             <>
               <h3>{translate(`${iso3166}.${region}`)}</h3>
-              <Link href={`/country/${iso3166}`} className="closePage">
+              <Link href={`/country/${iso3166}${window.location.search}`} className="closePage">
                 &times;
               </Link>
             </>
           ) : (
             <>
               <h3>{translate(iso3166)}</h3>
-              <Link href="/resource/" className="closePage">
+              <Link href={`/resource/${window.location.search}`} className="closePage">
                 &times;
               </Link>
             </>

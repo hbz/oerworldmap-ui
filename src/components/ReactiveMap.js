@@ -121,8 +121,8 @@ class Map extends React.Component {
     } = this.props
 
     emitter.on('mapData', this.setMapData)
+
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
-    // this.mapboxgl = require('mapbox-gl')
     const {
       LngLatBounds, Map, NavigationControl, FullscreenControl, Popup,
     } = require('mapbox-gl')
@@ -851,7 +851,7 @@ class Map extends React.Component {
     const { emitter } = this.props
     const [country, region] = features[0].properties.code_hasc.toLowerCase().split('.')
     if (features[0].properties.iso_a2 !== '-99') {
-      emitter.emit('navigate', `/country/${country}/${region}`)
+      emitter.emit('navigate', `/country/${country}/${region}${window.location.search}`)
     }
   }
 
