@@ -25,7 +25,6 @@ const WebPage = ({
   feature,
   _links,
   _self,
-  mapboxConfig,
   schema,
   embedValue,
   showOptionalFields,
@@ -73,7 +72,6 @@ const WebPage = ({
               <WebPageEdit
                 about={about}
                 action={about['@id'] ? 'edit' : 'add'}
-                mapboxConfig={mapboxConfig}
                 schema={schema}
                 closeLink={about['@id'] ? _self : undefined}
                 showOptionalFields={showOptionalFields}
@@ -89,7 +87,6 @@ const WebPage = ({
               about={about}
               view={view}
               action={about['@id'] ? 'edit' : 'add'}
-              mapboxConfig={mapboxConfig}
               schema={schema}
               _self={_self}
               isLiveEvent={isLiveEvent}
@@ -112,13 +109,6 @@ WebPage.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any),
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-      miniMapStyle: PropTypes.string,
-    },
-  ).isRequired,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   embedValue: PropTypes.string,
   showOptionalFields: PropTypes.bool,

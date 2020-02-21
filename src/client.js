@@ -39,7 +39,7 @@ const client = () => {
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
 
-    const api = new Api(context.apiConfig)
+    const api = new Api(context.config.apiConfig)
     const routes = router(api, emitter, window.location)
 
     let referrer = window.location.href

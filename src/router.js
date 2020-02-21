@@ -30,7 +30,7 @@ export default (api, emitter, location) => {
       path: '/resource/',
       get: async (params, context) => {
         const {
-          mapboxConfig, schema, phrases, embed, elasticsearchConfig,
+          schema, phrases, embed,
         } = context
         const url = getURL({
           path: '/resource/',
@@ -53,7 +53,6 @@ export default (api, emitter, location) => {
 
         const component = data => (params.add ? (
           <WebPage
-            mapboxConfig={mapboxConfig}
             {...data}
             view="edit"
             schema={schema}
@@ -64,8 +63,6 @@ export default (api, emitter, location) => {
           <ReactiveResourceIndex
             {...data}
             phrases={phrases}
-            mapboxConfig={mapboxConfig}
-            elasticsearchConfig={elasticsearchConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             embedValue="true"
@@ -91,7 +88,7 @@ export default (api, emitter, location) => {
         }
       },
       post: async (params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post('/resource/', body, new Headers(context.headers))
         const { about } = data
         const component = data => (
@@ -99,7 +96,6 @@ export default (api, emitter, location) => {
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            mapboxConfig={mapboxConfig}
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -113,14 +109,13 @@ export default (api, emitter, location) => {
     {
       path: '/resource/:id',
       get: async (id, params, context, state) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, new Headers(context.headers))
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             embedValue="true"
@@ -142,7 +137,7 @@ export default (api, emitter, location) => {
         }
       },
       post: async (id, params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
         const { about } = data
         const component = data => (
@@ -150,7 +145,6 @@ export default (api, emitter, location) => {
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            mapboxConfig={mapboxConfig}
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -175,7 +169,7 @@ export default (api, emitter, location) => {
     {
       path: '/resource/:id/comment',
       post: async (id, params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
         const { about } = data
         const component = data => (
@@ -183,7 +177,6 @@ export default (api, emitter, location) => {
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            mapboxConfig={mapboxConfig}
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -197,7 +190,7 @@ export default (api, emitter, location) => {
       path: '/country/:id',
       get: async (id, params, context, state) => {
         const {
-          phrases, mapboxConfig, embed, elasticsearchConfig,
+          phrases, embed,
         } = context
         const url = getURL({
           path: `/country/${id}`,
@@ -211,8 +204,6 @@ export default (api, emitter, location) => {
           <ReactiveResourceIndex
             {...data}
             phrases={phrases}
-            mapboxConfig={mapboxConfig}
-            elasticsearchConfig={elasticsearchConfig}
             map={params.map}
             iso3166={id.toUpperCase()}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
@@ -239,7 +230,7 @@ export default (api, emitter, location) => {
       path: '/country/:country/:region',
       get: async (country, region, params, context, state) => {
         const {
-          phrases, mapboxConfig, embed, elasticsearchConfig,
+          phrases, embed,
         } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
@@ -253,8 +244,6 @@ export default (api, emitter, location) => {
           <ReactiveResourceIndex
             {...data}
             phrases={phrases}
-            mapboxConfig={mapboxConfig}
-            elasticsearchConfig={elasticsearchConfig}
             map={params.map}
             iso3166={country.toUpperCase()}
             region={region.toUpperCase()}
@@ -334,13 +323,12 @@ export default (api, emitter, location) => {
     {
       path: '/user/profile',
       get: async (params, context, state) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = state || await api.get('/user/profile', new Headers(context.headers))
         const component = data => (
           <WebPage
             {...data.profile}
             _self="/user/profile"
-            mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
@@ -350,13 +338,12 @@ export default (api, emitter, location) => {
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post('/user/profile', body, new Headers(context.headers))
         const component = data => (
           <WebPage
             {...data.profile}
             _self="/user/profile"
-            mapboxConfig={mapboxConfig}
             view="view"
             schema={schema}
             onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}

@@ -11,8 +11,6 @@ import withEmitter from './withEmitter'
 import '../styles/components/ResourceIndex.pcss'
 
 const ReactiveResourceIndex = ({
-  mapboxConfig,
-  elasticsearchConfig,
   emitter,
   iso3166,
   map,
@@ -30,7 +28,6 @@ const ReactiveResourceIndex = ({
       iso3166={iso3166}
       region={region}
       _self={_self}
-      elasticsearchConfig={elasticsearchConfig}
       initPins={initPins}
       viewHash={view}
     >
@@ -38,7 +35,6 @@ const ReactiveResourceIndex = ({
       <ReactiveMap
         phrases={phrases}
         emitter={emitter}
-        mapboxConfig={mapboxConfig}
         iso3166={iso3166}
         map={map}
         home={home}
@@ -50,7 +46,6 @@ const ReactiveResourceIndex = ({
 }
 
 ReactiveResourceIndex.propTypes = {
-  mapboxConfig: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   map: PropTypes.string,
@@ -58,12 +53,6 @@ ReactiveResourceIndex.propTypes = {
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string,
-  elasticsearchConfig: PropTypes.shape(
-    {
-      index: PropTypes.string,
-      url: PropTypes.string,
-    },
-  ).isRequired,
   view: PropTypes.string,
 }
 

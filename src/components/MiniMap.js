@@ -9,6 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import bbox from '@turf/bbox'
 import { point } from '@turf/helpers'
+import withConfig from './withConfig'
 import { emptyGeometry } from '../common'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -45,7 +46,7 @@ class MiniMap extends React.Component {
       && mo.observe(document.getElementById('edit'), { attributes: true })
 
     const {
-      geometry, mapboxConfig, boxZoom, draggable, isLiveEvent,
+      geometry, config: { mapboxConfig }, boxZoom, draggable, isLiveEvent,
     } = this.props
     const { Map, NavigationControl } = require('mapbox-gl')
 
@@ -291,13 +292,7 @@ class MiniMap extends React.Component {
 }
 
 MiniMap.propTypes = {
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-      miniMapStyle: PropTypes.string,
-    },
-  ).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   center: PropTypes.arrayOf(PropTypes.any), // eslint-disable-line react/no-unused-prop-types
   geometry: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
@@ -319,4 +314,4 @@ MiniMap.defaultProps = {
   isLiveEvent: undefined,
 }
 
-export default MiniMap
+export default withConfig(MiniMap)

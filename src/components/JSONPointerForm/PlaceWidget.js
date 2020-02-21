@@ -70,7 +70,7 @@ class PlaceWidget extends React.Component {
   render() {
     const {
       name, value, errors, property, title, className, translate, schema,
-      setValue, config, description, formId, required,
+      setValue, description, formId, required,
     } = this.props
     const { collapsed, filter, options } = this.state
 
@@ -229,7 +229,6 @@ class PlaceWidget extends React.Component {
                         }}
                       >
                         <MiniMap
-                          mapboxConfig={config.mapboxConfig}
                           geometry={geometry}
                           zoom={geometry ? 12 : 1}
                           draggable
@@ -268,7 +267,6 @@ PlaceWidget.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
-  config: PropTypes.objectOf(PropTypes.any).isRequired,
   description: PropTypes.string,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,

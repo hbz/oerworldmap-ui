@@ -38,7 +38,6 @@ const WebPageView = ({
   locales,
   isLiveEvent,
   feature,
-  mapboxConfig,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -775,7 +774,6 @@ const WebPageView = ({
                     }}
                   >
                     <MiniMap
-                      mapboxConfig={mapboxConfig}
                       geometry={geometry}
                       center={geometry ? undefined : (country && centroids[country])}
                       isLiveEvent={isLiveEvent}
@@ -953,13 +951,6 @@ WebPageView.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   isLiveEvent: PropTypes.bool,
   feature: PropTypes.objectOf(PropTypes.any),
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-      miniMapStyle: PropTypes.string,
-    },
-  ).isRequired,
 }
 
 WebPageView.defaultProps = {

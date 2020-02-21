@@ -17,6 +17,7 @@ import {
 import { types, isNode } from '../common'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import withConfig from './withConfig'
 import ResultList from './ResultList'
 import TotalEntries from './TotalEntries'
 import TogglePoints from './TogglePoints'
@@ -27,7 +28,7 @@ import Calendar from './Calendar'
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const ReactiveFilters = ({
-  emitter, translate, elasticsearchConfig, children, iso3166, region, initPins, _self, viewHash,
+  emitter, translate, config: { elasticsearchConfig }, children, iso3166, region, initPins, _self, viewHash,
 }) => {
   const sizes = [20, 50, 100, 200, 9999]
   const sorts = [
@@ -879,12 +880,7 @@ const ReactiveFilters = ({
 ReactiveFilters.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
-  elasticsearchConfig: PropTypes.shape(
-    {
-      index: PropTypes.string,
-      url: PropTypes.string,
-    },
-  ).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.node.isRequired,
   initPins: PropTypes.bool.isRequired,
   iso3166: PropTypes.string,
@@ -899,4 +895,4 @@ ReactiveFilters.defaultProps = {
   viewHash: null,
 }
 
-export default withEmitter(withI18n(ReactiveFilters))
+export default withConfig(withEmitter(withI18n(ReactiveFilters)))

@@ -148,16 +148,18 @@ server.get(/^(.*)$/, (req, res) => {
   headers.delete('Host')
   headers.delete('If-None-Match')
   const { locales, supportedLanguages, phrases } = req
-
+  const config = {
+    mapboxConfig,
+    elasticsearchConfig,
+    apiConfig,
+  }
   const { schema, embed } = req
   const context = {
     supportedLanguages,
     locales,
     headers,
-    mapboxConfig,
-    elasticsearchConfig,
+    config,
     phrases,
-    apiConfig,
     schema,
     embed,
   }
@@ -171,10 +173,8 @@ server.get(/^(.*)$/, (req, res) => {
       body: renderToString(render(data)),
       initialState: JSON.stringify({
         supportedLanguages,
-        apiConfig,
+        config,
         locales,
-        mapboxConfig,
-        elasticsearchConfig,
         data,
         err,
         phrases,

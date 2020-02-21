@@ -16,6 +16,7 @@ import Icon from './Icon'
 import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import withConfig from './withConfig'
 import EmittProvider from './EmittProvider'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
@@ -117,7 +118,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     const {
-      mapboxConfig, map, locales, iso3166, emitter, region,
+      config: { mapboxConfig }, map, locales, iso3166, emitter, region,
     } = this.props
 
     emitter.on('mapData', this.setMapData)
@@ -925,12 +926,7 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-    },
-  ).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
@@ -947,4 +943,4 @@ Map.defaultProps = {
   region: null,
 }
 
-export default withEmitter(withI18n(Map))
+export default withConfig(withEmitter(withI18n(Map)))
