@@ -14,8 +14,7 @@ import {
   ToggleButton,
 } from '@appbaseio/reactivesearch'
 
-
-import { types } from '../common'
+import { types, isNode } from '../common'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
 import ResultList from './ResultList'
@@ -26,14 +25,6 @@ import Country from './Country'
 import Calendar from './Calendar'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
-
-const getViewParam = () => {
-  if (typeof window === 'undefined') {
-    return 'list'
-  }
-  const url = new URL(window.location.href)
-  return url.searchParams.get('view') || 'list'
-}
 
 const ReactiveFilters = ({
   emitter, translate, elasticsearchConfig, children, iso3166, region, initPins, _self, viewHash,
@@ -59,27 +50,43 @@ const ReactiveFilters = ({
       label: translate('ClientTemplates.filter.likeCount'),
       dataField: 'like_count',
       sortBy: 'desc',
-    }
+    },
   ]
-  const [currentSize, setCurrentSize] = useState(20)
-  const [currentSort, setCurrentSort] = useState(sorts[0])
-  const [view, setView] = useState(getViewParam())
-  const [isClient, setIsClient] = useState(false)
+
+  const getUrlParams = () => {
+    if (isNode()) {
+      return {
+        view: 'list',
+        size: 20,
+        sort: sorts[0].dataField,
+      }
+    }
+    const url = new URL(window.location.href)
+    return {
+      view: url.searchParams.get('view') || 'list',
+      size: url.searchParams.get('size') || 20,
+      sort: url.searchParams.get('sort') || sorts[0].dataField,
+    }
+  }
+
+  const setUrlParams = ({ view = 'list', size = 20, sort = sorts[0].dataField }) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('view', view)
+    url.searchParams.set('size', size)
+    url.searchParams.set('sort', sort)
+    window.history.pushState(null, null, url.href)
+    window.dispatchEvent(new window.PopStateEvent('popstate'))
+  }
+  const [params, setParams] = useState(getUrlParams())
+  const handlePopState = () => {
+    setParams(getUrlParams())
+  }
+
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [showFeatures, setShowFeatures] = useState(initPins)
-
-  const setViewParam = (view) => {
-    const url = new URL(window.location.href)
-    url.searchParams.set('view', view)
-    window.history.pushState(null, null, url.href)
-    window.dispatchEvent(new window.PopStateEvent('popstate'))
-  }
-
-  const handlePopState = () => {
-    setView(getViewParam())
-  }
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
@@ -300,10 +307,10 @@ const ReactiveFilters = ({
               <div className="rightButtons">
 
                 <select
-                  value={currentSize}
+                  value={params.size}
                   className="btn hidden-mobile"
                   onChange={(e) => {
-                    setCurrentSize(e.target.value)
+                    setUrlParams({ ...getUrlParams(), size: e.target.value })
                   }}
                 >
                   {sizes.map(size => (
@@ -319,10 +326,10 @@ const ReactiveFilters = ({
                 </select>
 
                 <select
-                  value={currentSort.dataField}
+                  value={params.sort}
                   className="btn hidden-mobile"
                   onChange={(e) => {
-                    setCurrentSort(sorts.find(sort => sort.dataField === e.target.value))
+                    setUrlParams({ ...getUrlParams(), sort: e.target.value })
                   }}
                 >
                   {sorts.map(sort => (
@@ -346,21 +353,21 @@ const ReactiveFilters = ({
                 </button>
 
                 <button
-                  disabled={view === 'list'}
+                  disabled={params.view === 'list'}
                   type="button"
                   className="btn"
-                  onClick={() => setViewParam('list')}
+                  onClick={() => setUrlParams({ ...getUrlParams(), view: 'list' })}
                 >
                   <i className="fa fa-list" />
                   &nbsp;
                   {translate('main.list')}
                 </button>
                 <button
-                  disabled={view === 'map'}
+                  disabled={params.view === 'map'}
                   type="button"
                   className="btn"
                   onClick={async () => {
-                    setViewParam('map')
+                    setUrlParams({ ...getUrlParams(), view: 'map' })
                     await timeout(100)
                     emitter.emit('resize')
                   }}
@@ -371,11 +378,11 @@ const ReactiveFilters = ({
                 </button>
 
                 <button
-                  disabled={view === 'statistics'}
+                  disabled={params.view === 'statistics'}
                   type="button"
                   className="btn"
                   onClick={() => {
-                    setViewParam('statistics')
+                    setUrlParams({ ...getUrlParams(), view: 'statistics' })
                   }}
                 >
                   <i className="fa fa-pie-chart" />
@@ -415,7 +422,7 @@ const ReactiveFilters = ({
           </section>
 
 
-          <div className={`mainContent ${view}View${collapsed ? ' collapsed' : ''}`}>
+          <div className={`mainContent ${params.view}View${collapsed ? ' collapsed' : ''}`}>
 
             <aside className={showMobileFilters ? 'show' : ''}>
 
@@ -628,7 +635,7 @@ const ReactiveFilters = ({
               <div
                 className="searchResults"
               >
-                {(view === 'list') && (
+                {(params.view === 'list') && (
                   <StateProvider
                     componentIds={['filter.about.@type']}
                     strict={false}
@@ -752,11 +759,11 @@ const ReactiveFilters = ({
 
                             return query
                           }}
-                          dataField={currentSort.dataField}
-                          sortBy={currentSort.sortBy}
+                          dataField={params.sort}
+                          sortBy={sorts.find(s => s.dataField === params.sort).sortBy}
                           showResultStats={false}
                           from={0}
-                          size={+currentSize}
+                          size={+params.size}
                           pagination
                           loader={(
                             <div className="Loading">
@@ -784,7 +791,7 @@ const ReactiveFilters = ({
                 {children}
 
                 <div
-                  hidden={view !== 'statistics'}
+                  hidden={params.view !== 'statistics'}
                   className={showMobileFilters ? 'hidden-mobile' : ''}
                 >
 

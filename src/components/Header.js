@@ -188,7 +188,7 @@ class Header extends React.Component {
                   <div className="popular">
                     <ul>
                       <li>
-                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LighthouseAction"]&sort=lighthouse_count:DESC'}>
+                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LighthouseAction"]&sort=lighthouse_count'}>
                           <div className="i">
                             <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                             <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
@@ -197,7 +197,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LikeAction"]&sort=like_count:DESC'}>
+                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LikeAction"]&sort=like_count'}>
                           <i aria-hidden="true" className="fa fa-thumbs-up" />
                           {translate('menu.most_liked')}
                         </Link>
