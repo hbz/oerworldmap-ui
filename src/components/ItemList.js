@@ -28,13 +28,13 @@ const ItemList = ({
           emitter.emit('hoverPoint', { id: '' })
         }}
       >
-        <div>
-          <Link className="item" href={urlTemplate.parse(linkTemplate).expand(listItem)}>
-            {listItem.image || listItem.sameAs ? (
-              <ResourceImage about={listItem} className="itemListImage" />
-            ) : (
-              <Icon type={listItem['@type']} />
-            )}
+        <div className="item">
+          {listItem.image || listItem.sameAs ? (
+            <ResourceImage about={listItem} className="itemListImage" />
+          ) : (
+            <Icon type={listItem['@type']} />
+          )}
+          <Link href={urlTemplate.parse(linkTemplate).expand(listItem)}>
             <span>
               {translate(listItem.name) || translate(listItem['@id'])}
               {listItem.alternateName ? ` (${translate(listItem.alternateName)})` : ''}
