@@ -12,6 +12,13 @@ import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
 import withUser from './withUser'
 
+import { hasTopConcept as organizationsConcepts } from '../json/organizations.json'
+import { hasTopConcept as personsConcepts } from '../json/persons.json'
+import { hasTopConcept as servicesConcepts } from '../json/services.json'
+import { hasTopConcept as publicationsConcepts } from '../json/publications.json'
+import { hasTopConcept as policyTypesConcepts } from '../json/policyTypes.json'
+import { hasTopConcept as projectsConcepts } from '../json/projects.json'
+
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
 
@@ -273,40 +280,40 @@ class Header extends React.Component {
                     <div className="col">
                       <ConceptBlock
                         type="Organization"
-                        conceptScheme={require('../json/organizations.json').hasTopConcept}
+                        conceptScheme={organizationsConcepts}
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Person"
-                        conceptScheme={require('../json/persons.json').hasTopConcept}
+                        conceptScheme={personsConcepts}
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Service"
-                        conceptScheme={require('../json/services.json').hasTopConcept}
+                        conceptScheme={servicesConcepts}
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="WebPage"
-                        conceptScheme={require('../json/publications.json').hasTopConcept}
+                        conceptScheme={publicationsConcepts}
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                       <ConceptBlock
                         type="Policy"
-                        conceptScheme={require('../json/policyTypes.json').hasTopConcept}
+                        conceptScheme={policyTypesConcepts}
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Action"
-                        conceptScheme={require('../json/projects.json').hasTopConcept}
+                        conceptScheme={projectsConcepts}
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                       <ConceptBlock
