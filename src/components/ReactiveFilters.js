@@ -308,41 +308,45 @@ const ReactiveFilters = ({
 
               <div className="rightButtons">
 
-                <select
-                  value={params.size}
-                  className="btn hidden-mobile"
-                  onChange={(e) => {
-                    setUrlParams({ ...getUrlParams(), size: e.target.value })
-                  }}
-                >
-                  {sizes.map(size => (
-                    <option
-                      key={size}
-                      value={size}
+                {params.view === 'list' && (
+                  <>
+                    <select
+                      value={params.size}
+                      className="btn hidden-mobile"
+                      onChange={(e) => {
+                        setUrlParams({ ...getUrlParams(), size: e.target.value })
+                      }}
                     >
-                      {size === 9999 ? 'all' : size}
-                      &nbsp;
-                      {translate('entries / page')}
-                    </option>
-                  ))}
-                </select>
+                      {sizes.map(size => (
+                        <option
+                          key={size}
+                          value={size}
+                        >
+                          {size === 9999 ? 'all' : size}
+                          &nbsp;
+                          {translate('entries / page')}
+                        </option>
+                      ))}
+                    </select>
 
-                <select
-                  value={params.sort}
-                  className="btn hidden-mobile"
-                  onChange={(e) => {
-                    setUrlParams({ ...getUrlParams(), sort: e.target.value })
-                  }}
-                >
-                  {sorts.map(sort => (
-                    <option
-                      key={sort.dataField}
-                      value={sort.dataField}
+                    <select
+                      value={params.sort}
+                      className="btn hidden-mobile"
+                      onChange={(e) => {
+                        setUrlParams({ ...getUrlParams(), sort: e.target.value })
+                      }}
                     >
-                      {sort.label}
-                    </option>
-                  ))}
-                </select>
+                      {sorts.map(sort => (
+                        <option
+                          key={sort.dataField}
+                          value={sort.dataField}
+                        >
+                          {sort.label}
+                        </option>
+                      ))}
+                    </select>
+                  </>
+                )}
 
                 <button
                   type="button"
