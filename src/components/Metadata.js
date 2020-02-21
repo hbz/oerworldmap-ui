@@ -20,7 +20,7 @@ const Metadata = ({
       <React.Fragment>
         &nbsp;(
         {about.additionalType.map((type, i) => (
-          <React.Fragment key={type}>
+          <React.Fragment key={type['@id']}>
             {!!i && ', '}
             <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id=["{@id}"]').expand(type)}>
               {translate(type.name)}

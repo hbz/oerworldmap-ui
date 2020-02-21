@@ -261,11 +261,6 @@ class Map extends React.Component {
 
       this.map.on('click', this.handleClick)
 
-      // Receive event from ItemList
-      emitter.on('hoverPoint', (e) => {
-        this.map.setFilter('points-hover', ['in', '@id'].concat(e.id))
-      })
-
       // Add mapbox controls
       const nav = new mapboxgl.NavigationControl({ showCompass: false })
       this.map.addControl(nav, 'bottom-right')
@@ -863,8 +858,6 @@ class Map extends React.Component {
       type: 'FeatureCollection',
       features,
     }
-
-    console.log('Set map data with', pointsCollection.features.length)
     this.map.getSource('pointsSource').setData(pointsCollection)
   }
 
