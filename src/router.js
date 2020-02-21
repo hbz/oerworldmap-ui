@@ -9,7 +9,6 @@ import Init from './components/Init'
 import WebPage from './components/WebPage'
 import Feed from './components/Feed'
 import Timeline from './components/Timeline'
-import Statistics from './components/Statistics'
 import ReactiveResourceIndex from './components/ReactiveResourceIndex'
 import Feedback from './components/Feedback'
 import FullModal from './components/FullModal'
@@ -86,11 +85,6 @@ export default (api, emitter, location) => {
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
         }
-
-        // if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0))) {
-        //   metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-        //   metadata.summary = 'summary'
-        // }
 
         return {
           title, data, component, metadata,
@@ -284,15 +278,6 @@ export default (api, emitter, location) => {
       },
     },
     {
-      path: '/aggregation/',
-      get: async (params, context, state) => {
-        const data = state
-        const component = () => <Statistics />
-        const title = context.i18n.translate('ClientTemplates.app.statistics')
-        return { title, data, component }
-      },
-    },
-    {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
@@ -399,7 +384,6 @@ export default (api, emitter, location) => {
         context.err = null
         throw new APIError(message, status)
       }
-      // console.log(routes)
       // eslint-disable-next-line no-restricted-syntax
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)
