@@ -11,6 +11,7 @@ class Timeline extends React.Component {
     this.state = {
       entries: props.entries,
     }
+    this.newActivity = this.newActivity.bind(this)
   }
 
   componentDidMount() {
@@ -20,9 +21,17 @@ class Timeline extends React.Component {
     entries.length && localStorage.setItem('lastActivity', entries[0].id)
 
     emitter.emit('clearActivity')
-    emitter.on('newActivity', (activities) => {
-      this.setState({ entries: activities.concat(entries) })
-    })
+    emitter.on('newActivity', this.newActivity)
+  }
+
+  componentWillUnmount() {
+    const { emitter } = this.props
+    emitter.off('newActivity', this.newActivity)
+  }
+
+  newActivity(activities) {
+    const { entries } = this.state
+    this.setState({ entries: activities.concat(entries) })
   }
 
   render() {

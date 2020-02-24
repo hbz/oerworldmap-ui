@@ -58,8 +58,8 @@ const client = () => {
     }
 
     // Transition to a new URL
-    emitter.on('navigate', (url) => {
-      console.log('Navigate')
+    const navigate = (url) => {
+      console.info('Navigate', url)
       const parser = document.createElement('a')
       parser.href = url
 
@@ -81,9 +81,11 @@ const client = () => {
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
-    })
+    }
+    emitter.on('navigate', navigate)
+
     // Form submission
-    emitter.on('submit', ({ url, data, redirect }) => {
+    const submit = ({ url, data, redirect }) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).post(data)
         .then(({ title, data, render }) => {
@@ -102,9 +104,11 @@ const client = () => {
             sendMatomoNavigate(title, redirect.url, 'submit')
           }
         })
-    })
+    }
+    emitter.on('submit', submit)
+
     // Deletion
-    emitter.on('delete', ({ url, redirect }) => {
+    const deleteResource = ({ url, redirect }) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).delete()
         .then(({ title, data, render }) => {
@@ -123,7 +127,8 @@ const client = () => {
             sendMatomoNavigate(title, redirect.url, 'delete')
           }
         })
-    })
+    }
+    emitter.on('delete', deleteResource)
 
     let lastActivity = (window.location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
     setInterval(() => {
@@ -168,6 +173,12 @@ const client = () => {
           renderApp(title, render(data))
           sendMatomoNavigate(title, url, 'navigate')
         })
+    })
+
+    window.addEventListener('beforeunload', () => {
+      emitter.off('navigate', navigate)
+      emitter.off('submit', submit)
+      emitter.off('delete', deleteResource)
     })
 
     const url = window.location.pathname

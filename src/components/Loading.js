@@ -1,38 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import withEmitter from './withEmitter'
 
 import '../styles/components/Loading.pcss'
 
-class Loading extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: false,
-    }
+const Loading = ({ emitter }) => {
+  const [loading, setloading] = useState(false)
+
+  const updateLoader = (state) => {
+    setloading(state)
   }
 
-  componentDidMount() {
-    const { emitter } = this.props
+  useEffect(() => {
+    emitter.on('setLoading', updateLoader)
+    return () => emitter.off('setLoading', updateLoader)
+  }, [])
 
-    emitter.on('setLoading', (state) => {
-      this.setState({ loading: state })
-    })
-  }
-
-  render() {
-    const { loading } = this.state
-
-    return (
-      <div>
-        {loading && (
-          <div className="Loading">
-            <div className="loadingCircle" />
-          </div>
-        )}
-      </div>
-    )
-  }
+  return (
+    <div>
+      {loading && (
+        <div className="Loading">
+          <div className="loadingCircle" />
+        </div>
+      )}
+    </div>
+  )
 }
 
 Loading.propTypes = {

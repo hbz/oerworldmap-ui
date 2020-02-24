@@ -34,10 +34,16 @@ const baseURL = ENVIRONMENT === 'development'
   ? 'https://oerworldmap.org/'
   : '/'
 
-emitter.on('navigate', (url) => {
+const navigate = (url) => {
   const parser = document.createElement('a')
   parser.href = url
   window.open(url, '_self')
+}
+
+emitter.on('navigate', navigate)
+
+window.addEventListener('beforeunload', () => {
+  emitter.off('navigate', navigate)
 })
 
 const hideUserLoginButtons = (() => {

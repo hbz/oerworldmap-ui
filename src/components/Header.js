@@ -36,34 +36,36 @@ class Header extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
+    this.setLoading = this.setLoading.bind(this)
+    this.newActivity = this.newActivity.bind(this)
+    this.clearActivity = this.clearActivity.bind(this)
   }
 
   componentDidMount() {
-    const { emitter, user } = this.props
+    const { emitter } = this.props
     document.addEventListener('click', this.handleClick)
 
-    emitter.on('setLoading', () => {
-      if (this.dropDown) {
-        this.setState({ showMobileMenu: false })
-        this.setDropdown('')
-      }
-    })
-
-    emitter.on('newActivity', (activities) => {
-      if (window.location.pathname !== '/activity/') {
-        const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
-        this.setState({ showNotification })
-      }
-    })
-
-    emitter.on('clearActivity', () => {
-      this.setState({ showNotification: false })
-    })
+    emitter.on('setLoading', this.setLoading)
+    emitter.on('newActivity', this.newActivity)
+    emitter.on('clearActivity', this.clearActivity)
   }
 
   componentWillUnmount() {
+    const { emitter } = this.props
+
+    emitter.off('setLoading', this.setLoading)
+    emitter.off('newActivity', this.newActivity)
+    emitter.off('clearActivity', this.clearActivity)
     document.removeEventListener('click', this.handleClick)
   }
+
+  setLoading() {
+    if (this.dropDown) {
+      this.setState({ showMobileMenu: false })
+      this.setDropdown('')
+    }
+  }
+
 
   setDropdown(name) {
     const { dropdowns } = this.state
@@ -74,6 +76,18 @@ class Header extends React.Component {
     })
 
     this.setState({ dropdowns: dropdownsState })
+  }
+
+  newActivity(activities) {
+    const { user } = this.props
+    if (window.location.pathname !== '/activity/') {
+      const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
+      this.setState({ showNotification })
+    }
+  }
+
+  clearActivity() {
+    this.setState({ showNotification: false })
   }
 
   handleClick(e) {
