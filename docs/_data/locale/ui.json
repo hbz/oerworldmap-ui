@@ -296,6 +296,8 @@
   "Map.entriesPerRegion": "Entries per Region",
   "Map.countryChampionAvailable": "Champion available",
   "Map.noCountryChampionYet": "No Champion yet",
+  "Map.clickCountry": "Click this country to explore",
+  "Map.clickRegion": "Click this region to explore",
   "application/geo+json": "GeoJSON",
   "text/csv": "CSV",
   "application/json": "JSON",
@@ -376,5 +378,10 @@
   "filter.about.objectIn.@type": "Action",
   "filter.author.keyword": "Added by",
   "filter.about.objectIn.agent.@id": "Liked by",
-  "filter.about.attendee.@id": "Attended by"
+  "filter.about.attendee.@id": "Attended by",
+  "filters.entriesPage": "entries / page",
+  "filters.title": "Filters",
+  "filters.clearAll": "Clear All",
+  "graphs.noData": "No data available for this graph",
+  "graphs.downloadSVG": "Download as SVG."
 }

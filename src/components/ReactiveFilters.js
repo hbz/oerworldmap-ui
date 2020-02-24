@@ -324,7 +324,7 @@ const ReactiveFilters = ({
                         >
                           {size === 9999 ? 'all' : size}
                           &nbsp;
-                          {translate('entries / page')}
+                          {translate('filters.entriesPage')}
                         </option>
                       ))}
                     </select>
@@ -445,7 +445,7 @@ const ReactiveFilters = ({
                       .map(f => f.value)
                       .some(value => ((value !== null) && (value.length > 0))))) && (
                       <div className="selectedFilters">
-                        <h2>{translate('Filters')}</h2>
+                        <h2>{translate('filters.title')}</h2>
                         <ul>
                           {applied.filter(f => f !== 'size').map(filter => (
                             (data.selectedValues[filter].value !== null) && (
@@ -488,7 +488,7 @@ const ReactiveFilters = ({
                           className="clearAll"
                           onClick={data.clearValues}
                         >
-                          {translate('Clear All')}
+                          {translate('filters.clearAll')}
                         </button>
                       </div>
                     )
@@ -711,7 +711,7 @@ const ReactiveFilters = ({
                                             onClick={() => setShowPastEvents(!showPastEvents)}
                                             style={{ position: 'relative', top: '2px', marginRight: '10px' }}
                                           />
-                                          {translate('Include past events')}
+                                          {translate('calendar.show.past')}
                                         </label>
                                       </div>
                                     )}
@@ -823,7 +823,7 @@ const ReactiveFilters = ({
                                   .concat(filters ? `&${filters}` : '')
                                   .concat(iso3166 ? `&filter.about.location.address.addressCountry="${iso3166}"` : '')}
                               >
-                                {translate('No data available for this graph.')}
+                                {translate('graphs.noData')}
                               </object>
                               <div className="graphControls">
                                 <button
@@ -847,7 +847,7 @@ const ReactiveFilters = ({
                                   <i aria-hidden="true" className="fa fa-clipboard" />
                                 </button>
                                 <a
-                                  title={translate('Download as SVG.')}
+                                  title={translate('graphs.downloadSVG')}
                                   className="btn"
                                   href={`/stats?field=${dataField}`
                                     .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')

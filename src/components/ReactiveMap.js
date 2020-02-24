@@ -507,7 +507,7 @@ class Map extends React.Component {
                   <>
                     <br />
                     <span className="tip">
-                      {translate('Click this region to explore')}
+                      {translate('Map.clickRegion')}
                     </span>
                   </>
                 )
@@ -542,7 +542,7 @@ class Map extends React.Component {
                 </b>
                 <br />
                 <span className="tip">
-                  {translate('Click this region to explore')}
+                  {translate('Map.clickRegion')}
                 </span>
               </li>
             </ul>
@@ -559,7 +559,7 @@ class Map extends React.Component {
                 </b>
                 <br />
                 <span className="tip">
-                  {translate('Click this country to explore')}
+                  {translate('Map.clickCountry')}
                 </span>
               </li>
             </ul>
@@ -577,7 +577,7 @@ class Map extends React.Component {
                   <br />
                 </b>
                 <span className="tip">
-                  {translate('Click this country to explore')}
+                  {translate('Map.clickCountry')}
                 </span>
                 {bucket && (
                   <>
