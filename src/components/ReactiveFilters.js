@@ -245,9 +245,9 @@ const ReactiveFilters = ({
       geojson: 'application/geo+json',
       ics: 'text/calendar',
       json: 'application/json',
-      csv: 'text/csv'
+      csv: 'text/csv',
     }).map(([ext, type]) => {
-      const uri = new URL(_self.split("#")[0])
+      const uri = new URL(_self.split('#')[0])
       uri.searchParams.set('ext', ext)
       uri.searchParams.set('size', -1)
       uri.searchParams.delete('view')
@@ -418,7 +418,7 @@ const ReactiveFilters = ({
                 </button>
                 <ShareExport
                   _self={_self}
-                  _links={{refs: links}}
+                  _links={{ refs: links }}
                   view={viewHash}
                 />
               </div>

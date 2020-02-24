@@ -7,7 +7,6 @@ import Export from './Export'
 import Share from './Share'
 import withI18n from './withI18n'
 import FullModal from './FullModal'
-import Link from './Link'
 
 import '../styles/components/ShareExport.pcss'
 
