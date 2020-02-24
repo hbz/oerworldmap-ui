@@ -84,12 +84,12 @@ class ShareExport extends React.Component {
           </ul>
         )}
         {view === 'share' && (
-          <FullModal closeLink={Link.home}>
+          <FullModal closeLink={_self}>
             <Share _self={_self} />
           </FullModal>
         )}
         {view === 'export' && (
-          <FullModal closeLink={Link.home}>
+          <FullModal closeLink={_self}>
             <Export _self={_self} _links={_links} />
           </FullModal>
         )}
