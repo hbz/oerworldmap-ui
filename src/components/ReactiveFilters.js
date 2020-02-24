@@ -241,6 +241,19 @@ const ReactiveFilters = ({
       return filter
     })
 
+    const links = Object.entries({
+      geojson: 'application/geo+json',
+      ics: 'text/calendar',
+      json: 'application/json',
+      csv: 'text/csv'
+    }).map(([ext, type]) => {
+      const uri = new URL(_self.split("#")[0])
+      uri.searchParams.set('ext', ext)
+      uri.searchParams.set('size', -1)
+      uri.searchParams.delete('view')
+      return { uri, type }
+    })
+
     return (
       <div
         className="ReactiveFilters"
@@ -405,30 +418,7 @@ const ReactiveFilters = ({
                 </button>
                 <ShareExport
                   _self={_self}
-                  _links={{
-                    refs: [
-                      {
-                        uri: `${_self}&size=-1&ext=geojson`,
-                        rel: 'alternate',
-                        type: 'application/geo+json',
-                      },
-                      {
-                        uri: `${_self}size=-1&ext=ics`,
-                        rel: 'alternate',
-                        type: 'text/calendar',
-                      },
-                      {
-                        uri: `${_self}size=-1&ext=json`,
-                        rel: 'alternate',
-                        type: 'application/json',
-                      },
-                      {
-                        uri: `${_self}size=-1&ext=csv`,
-                        rel: 'alternate',
-                        type: 'text/csv',
-                      },
-                    ],
-                  }}
+                  _links={{refs: links}}
                   view={viewHash}
                 />
               </div>

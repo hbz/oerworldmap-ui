@@ -39,10 +39,10 @@ export default (api, emitter, location) => {
         if (!params.add) {
           Link.home = url
         }
-        Link.back = '/resource/'
+        Link.back = location.href.split("#")[0]
 
         const data = {
-          _self: location.href,
+          _self: location.href.split("#")[0],
         }
 
         if (params.add) {
@@ -90,6 +90,7 @@ export default (api, emitter, location) => {
       post: async (params, context, state, body) => {
         const { schema } = context
         const data = await api.post('/resource/', body, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const { about } = data
         const component = data => (
           <WebPage
@@ -112,6 +113,7 @@ export default (api, emitter, location) => {
         const { schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const { about } = data
         const component = data => (
           <WebPage
@@ -139,6 +141,7 @@ export default (api, emitter, location) => {
       post: async (id, params, context, state, body) => {
         const { schema } = context
         const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const { about } = data
         const component = data => (
           <WebPage
@@ -155,6 +158,7 @@ export default (api, emitter, location) => {
       },
       delete: async (id, params, context) => {
         const data = await api.delete(`/resource/${id}`, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -171,6 +175,7 @@ export default (api, emitter, location) => {
       post: async (id, params, context, state, body) => {
         const { schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const { about } = data
         const component = data => (
           <WebPage
@@ -198,7 +203,7 @@ export default (api, emitter, location) => {
         })
         Link.home = url
         const data = state || {
-          _self: location.href,
+          _self: location.href.split("#")[0],
         }
         const component = data => (
           <ReactiveResourceIndex
@@ -238,7 +243,7 @@ export default (api, emitter, location) => {
         })
         Link.home = url
         const data = state || {
-          _self: location.href,
+          _self: location.href.split("#")[0],
         }
         const component = data => (
           <ReactiveResourceIndex
@@ -270,6 +275,7 @@ export default (api, emitter, location) => {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Feed {...data} />
@@ -283,6 +289,7 @@ export default (api, emitter, location) => {
       path: '/activity/',
       get: async (params, context, state) => {
         const data = state || await api.get('/activity/', context.authorization)
+        data._self = location.href.split("#")[0]
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Timeline entries={data} />
@@ -297,6 +304,7 @@ export default (api, emitter, location) => {
       get: async (params, context, state) => {
         const { i18n } = context
         const data = state || await api.get('/log/', new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const component = data => (
           <Log entries={data} />
         )
@@ -313,6 +321,7 @@ export default (api, emitter, location) => {
           ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
           : getURL({ path: `/log/${id}` })
         const data = state || await api.get(url, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const component = data => (
           <Diffs {...data} phrases={phrases} schema={schema} />
         )
@@ -325,6 +334,7 @@ export default (api, emitter, location) => {
       get: async (params, context, state) => {
         const { schema } = context
         const data = state || await api.get('/user/profile', new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const component = data => (
           <WebPage
             {...data.profile}
@@ -340,6 +350,7 @@ export default (api, emitter, location) => {
       post: async (params, context, state, body) => {
         const { schema } = context
         const data = await api.post('/user/profile', body, new Headers(context.headers))
+        data._self = location.href.split("#")[0]
         const component = data => (
           <WebPage
             {...data.profile}
