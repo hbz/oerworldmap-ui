@@ -28,7 +28,15 @@ import Calendar from './Calendar'
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const ReactiveFilters = ({
-  emitter, translate, config: { elasticsearchConfig }, children, iso3166, region, initPins, _self, viewHash,
+  emitter,
+  translate,
+  config: { elasticsearchConfig },
+  children,
+  iso3166,
+  region,
+  initPins,
+  _self,
+  viewHash,
 }) => {
   const sizes = [20, 50, 100, 200, 9999]
   const sorts = [

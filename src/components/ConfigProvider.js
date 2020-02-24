@@ -1,5 +1,3 @@
-/* global window */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -21,6 +19,7 @@ ConfigProvider.childContextTypes = {
 
 ConfigProvider.propTypes = {
   children: PropTypes.node.isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default ConfigProvider
