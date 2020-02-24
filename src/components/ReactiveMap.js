@@ -66,9 +66,6 @@ class Map extends React.Component {
       aggregations: {},
     }
 
-    props.emitter.on('resize', () => {
-      this.map.resize()
-    })
 
     this.updatePoints = this.updatePoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
@@ -87,10 +84,11 @@ class Map extends React.Component {
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
     this.animateMarker = this.animateMarker.bind(this)
     this.setMapData = this.setMapData.bind(this)
+    this.resize = this.resize.bind(this)
     this.isReady = false
-    this.data = {
+    this.data = {}
 
-    }
+    props.emitter.on('resize', this.resize)
 
     this.layersOrder = [
       {
@@ -270,11 +268,6 @@ class Map extends React.Component {
       const nav = new NavigationControl({ showCompass: false })
       this.map.addControl(nav, 'bottom-right')
       this.map.addControl(new FullscreenControl(), 'bottom-right')
-
-      // Receive event from Filters
-      emitter.on('hideOverlay', () => {
-        this.popup ? this.popup.remove() : null
-      })
       this.isReady = true
     })
 
@@ -311,6 +304,7 @@ class Map extends React.Component {
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
     emitter.off('mapData', this.setMapData)
+    emitter.off('resize', this.resize)
   }
 
   async setMapData(data) {
@@ -339,6 +333,16 @@ class Map extends React.Component {
       this.map.setPaintProperty(layer, 'circle-radius', this.initialRadius)
     })
     this.map.setPaintProperty('Events', 'circle-radius', this.initialRadius)
+  }
+
+  resize() {
+    if (this.map) {
+      this.map.resize()
+    } else {
+      window.setTimeout(() => {
+        this.resize()
+      }, 500)
+    }
   }
 
   animateMarker(timestamp) {
@@ -861,6 +865,7 @@ class Map extends React.Component {
       type: 'FeatureCollection',
       features,
     }
+    this.popup ? this.popup.remove() : null
     this.map.getSource('pointsSource').setData(pointsCollection)
   }
 
