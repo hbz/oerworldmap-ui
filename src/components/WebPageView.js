@@ -88,7 +88,7 @@ const WebPageView = ({
 
             <br />
             <span className="hint">
-              {translate('Also available in:')}
+              {translate('WebPageView.alsoAvailableIn')}
               &nbsp;
             </span>
             <TabList>
@@ -133,7 +133,7 @@ const WebPageView = ({
             <button className="btn">
               <i className="fa fa-external-link" />
               &nbsp;
-              {translate('Currently taking place: Follow the discussion on Social Media!')}
+              {translate('WebPageView.takingPlace')}
             </button>
           </a>
         </div>
@@ -183,7 +183,7 @@ const WebPageView = ({
                     ))}
 
                     <span className="hint">
-                      {translate('Also available in:')}
+                      {translate('WebPageView.alsoAvailableIn')}
                       &nbsp;
                     </span>
                     <TabList>
@@ -214,17 +214,17 @@ const WebPageView = ({
               ) : (
                 <p>
                   <i>
-                    {translate('A description for this entry is missing.')}
+                    {translate('WebPageView.missingDescription')}
                     {expose('editEntry', user, about) && (
                       <Link href="#edit">
                         &nbsp;
-                        {translate('Help us by adding some information!')}
+                        {translate('WebPageView.helpUs')}
                       </Link>
                     )}
                     {!user && about['@type'] !== 'Person' && (
                       <Link href="/user/register">
                         &nbsp;
-                        {translate('Help us by adding some information!')}
+                        {translate('WebPageView.helpUs')}
                       </Link>
                     )}
                   </i>
@@ -255,7 +255,7 @@ const WebPageView = ({
                     ))}
 
                     <span className="hint">
-                      {translate('Also available in:')}
+                      {translate('WebPageView.alsoAvailableIn')}
                       &nbsp;
                     </span>
                     <TabList>
@@ -633,7 +633,7 @@ const WebPageView = ({
                     <a className="item" href="/oerpolicies">
                       <i aria-hidden="true" className="fa fa-balance-scale bg-highlight-color bg-important" />
                       <span>
-                        {translate('This policy is part of the OER policy registry')}
+                        {translate('WebPageView.partOfRegistry')}
                       </span>
                     </a>
                   </li>

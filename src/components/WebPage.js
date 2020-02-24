@@ -44,7 +44,7 @@ const WebPage = ({
         const modalDialog = document.querySelector('.WebPage')
         if (!modalDialog.contains(e.target)) {
           if (view === 'edit') {
-            confirm(translate('Do you want to go leave the edit view?')) && emitter.emit('navigate', _self || Link.home)
+            confirm(translate('WebPage.leaveEditView')) && emitter.emit('navigate', _self || Link.home)
           } else {
             emitter.emit('navigate', Link.home)
           }

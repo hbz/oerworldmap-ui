@@ -32,7 +32,7 @@ class Timeline extends React.Component {
     return (
       <div className="Timeline">
         <h2 className="title">
-          {translate('Activity')}
+          {translate('Timeline.activity')}
         </h2>
         <div className="Timeline">
           {entries ? (
@@ -44,7 +44,7 @@ class Timeline extends React.Component {
               />
             ))
           ) : (
-            translate('No entries')
+            translate('Timeline.noEntries')
           )}
         </div>
       </div>

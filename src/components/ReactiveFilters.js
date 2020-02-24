@@ -850,7 +850,7 @@ const ReactiveFilters = ({
                                     document.execCommand('copy')
                                     document.body.removeChild(el)
                                   }}
-                                  title={translate('Copy image URL to clipboard.')}
+                                  title={translate('graphs.copyToClipboard')}
                                 >
                                   <i aria-hidden="true" className="fa fa-clipboard" />
                                 </button>

@@ -57,7 +57,7 @@ class DropdownSelect extends React.Component {
         <div className={`label ${required ? 'required' : ''}`.trim()} id={`${formId}-${name}-label`}>
           {translate(title)}
           &nbsp;
-          {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+          {required ? <span className="asterisk" title={translate('Error.requiredField')}>*</span> : ''}
         </div>
         <span className="fieldDescription">
           {(description
