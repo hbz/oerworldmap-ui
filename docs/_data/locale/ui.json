@@ -406,5 +406,6 @@
   "WebPageView.missingDescription": "A description for this entry is missing.",
   "WebPageView.helpUs": "Help us by adding some information!",
   "WebPageView.takingPlace": "Currently taking place: Follow the discussion on Social Media!",
-  "WebPageView.partOfRegistry": "This policy is part of the OER policy registry"
+  "WebPageView.partOfRegistry": "This policy is part of the OER policy registry",
+  "WebPageView.mapAlt": "Map showing the location of the resource."
 }

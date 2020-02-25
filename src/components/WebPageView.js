@@ -20,7 +20,6 @@ import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 import LinkOverride from './LinkOverride'
-import MiniMap from './MiniMap'
 
 import { formatURL, formatDate } from '../common'
 import centroids from '../json/centroids.json'
@@ -62,8 +61,8 @@ const WebPageView = ({
     && about.location[0].address
     && about.location[0].address.addressCountry) || null
 
-  const geometry = feature && feature.geometry
-
+  const { geometry } = feature && feature
+  const centroid = (country && centroids[country]) || null
 
   return (
     <div className={`WebPageView ${about['@type']}`}>
@@ -766,19 +765,23 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.location`)} key={i}>
               <>
                 {about['@type'] !== 'Policy' && (
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      height: '200px',
-                    }}
-                  >
-                    <MiniMap
-                      geometry={geometry}
-                      center={geometry ? undefined : (country && centroids[country])}
-                      isLiveEvent={isLiveEvent}
-                    />
-                  </div>
+                  <>
+                    {geometry ? (
+                      <img
+                        alt={translate('WebPageView.mapAlt')}
+                        src={`https://api.mapbox.com/styles/v1/felixjakoblink/cjdubisd951y72sqdb5hyjt9v/static/geojson({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"%23f93","marker-size":"medium"},"geometry":${JSON.stringify(geometry)}}]})/${geometry.coordinates[0]},${geometry.coordinates[1]},1/230x200@2x?access_token=pk.eyJ1IjoiZmVsaXhqYWtvYmxpbmsiLCJhIjoiY2lnczRvYXZ4MDA3ZXZua3U5czc5aG93bSJ9.n9l3tKZy-Gsbo8HshgCXFQ`}
+                      />
+                    ) : (
+                      centroid ? (
+                        <img
+                          alt={translate('WebPageView.mapAlt')}
+                          src={`https://api.mapbox.com/styles/v1/felixjakoblink/cjdubisd951y72sqdb5hyjt9v/static/${centroid[0]},${centroid[1]},1/230x200@2x?access_token=pk.eyJ1IjoiZmVsaXhqYWtvYmxpbmsiLCJhIjoiY2lnczRvYXZ4MDA3ZXZua3U5czc5aG93bSJ9.n9l3tKZy-Gsbo8HshgCXFQ`}
+                        />
+                      ) : (
+                        <div>No location for this resource</div>
+                      )
+                    )}
+                  </>
                 )}
                 <p>
                   {location.address.streetAddress
