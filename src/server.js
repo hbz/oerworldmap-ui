@@ -153,7 +153,7 @@ server.get(/^(.*)$/, (req, res) => {
     elasticsearchConfig,
     apiConfig,
   }
-  const { schema, embed } = req
+  const { schema } = req
   const context = {
     supportedLanguages,
     locales,
@@ -161,7 +161,6 @@ server.get(/^(.*)$/, (req, res) => {
     config,
     phrases,
     schema,
-    embed,
   }
   // TODO: use actual request method
   router(api, null, req.location).route(req.path, context).get(req.query).then(({
@@ -179,12 +178,10 @@ server.get(/^(.*)$/, (req, res) => {
         err,
         phrases,
         schema,
-        embed,
       })
         .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029'),
       title,
       piwikConfig,
-      embed,
       metadata,
       locales,
     }))
