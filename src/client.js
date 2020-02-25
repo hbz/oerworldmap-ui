@@ -126,27 +126,6 @@ const client = () => {
       })
     }, 60000)
 
-    window.addEventListener('message', (msg) => {
-      if (msg.data.filter && msg.data.key) {
-        const iframe = document.querySelector('iframe')
-        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
-
-        const params = {
-          [`filter.${msg.data.filter}`]: msg.data.key,
-        }
-
-        if (scope) {
-          const [key, value] = scope.split('=')
-          params[key] = value
-        }
-
-        emitter.emit('navigate', getURL({
-          path: '/resource/',
-          params,
-        }))
-      }
-    })
-
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
       const url = window.location.pathname
