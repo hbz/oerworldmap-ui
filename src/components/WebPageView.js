@@ -391,7 +391,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.List.isAwardedBy'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={
                     [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
                       .map(grant => grant.isAwardedBy))
@@ -421,7 +420,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.List.contactPoint'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.contactPoint
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -436,7 +434,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.RemoteSelect.isPartOf'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={[about.isPartOf]
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -453,7 +450,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.RemoteSelect.isPartOf'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.hasPart
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -473,7 +469,6 @@ const WebPageView = ({
                       title={translate(`${about['@type']}.${prop}`)}
                     >
                       <ItemList
-                        tooltip={false}
                         listItems={about[prop]
                           .sort((a, b) => translate(a.name) > translate(b.name))}
                         className="prominent"
@@ -491,7 +486,6 @@ const WebPageView = ({
                 title={translate(`${about['@type']}.agentIn`)}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.agentIn.filter(item => item['@type'] === 'Action')
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -507,7 +501,6 @@ const WebPageView = ({
                 title={translate('Lighthouses')}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.agentIn.filter(action => action['@type'] === 'LighthouseAction')
                     .map(lighthouseAction => lighthouseAction.object)
                     .sort((a, b) => translate(a['@id']) > translate(b['@id']))
@@ -525,7 +518,6 @@ const WebPageView = ({
                 title={translate('Likes')}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.agentIn.filter(action => action['@type'] === 'LikeAction')
                     .filter(LikeAction => !!LikeAction.object)
                     .map(LikeAction => LikeAction.object)
@@ -546,7 +538,6 @@ const WebPageView = ({
                 title={translate(`${about['@type']}.funds`)}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={
                     [].concat(...about.awards.filter(grant => grant.funds)
                       .map(grant => grant.funds))
@@ -570,7 +561,6 @@ const WebPageView = ({
                       addButton={expose('editEntry', user, about) && `.List.${prop}`}
                     >
                       <ItemList
-                        tooltip={false}
                         listItems={about[prop]
                           .sort((a, b) => translate(a.name) > translate(b.name))}
                         className="prominent"
@@ -594,7 +584,6 @@ const WebPageView = ({
                   addButton={expose('editEntry', user, about) && `.List.${prop}`}
                 >
                   <ItemList
-                    tooltip={false}
                     listItems={about[prop]
                       .sort((a, b) => translate(a.name) > translate(b.name))}
                     className="prominent"
