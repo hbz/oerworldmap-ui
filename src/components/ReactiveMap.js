@@ -865,7 +865,7 @@ class Map extends React.Component {
       type: 'FeatureCollection',
       features,
     }
-    this.popup ? this.popup.remove() : null
+    this.popup && this.popup.remove()
     this.map.getSource('pointsSource').setData(pointsCollection)
   }
 

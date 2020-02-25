@@ -32,7 +32,7 @@ export default (api, emitter, location) => {
       path: '/resource/',
       get: async (params, context) => {
         const {
-          schema, phrases, embed,
+          schema, phrases,
         } = context
         const url = getURL({
           path: '/resource/',
@@ -67,8 +67,6 @@ export default (api, emitter, location) => {
             phrases={phrases}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="true"
-            isEmbed={embed === 'true' || embed === 'country'}
           />
         ))
 
@@ -122,7 +120,6 @@ export default (api, emitter, location) => {
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            embedValue="true"
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -197,7 +194,7 @@ export default (api, emitter, location) => {
       path: '/country/:id',
       get: async (id, params, context, state) => {
         const {
-          phrases, embed,
+          phrases,
         } = context
         const url = getURL({
           path: `/country/${id}`,
@@ -214,8 +211,6 @@ export default (api, emitter, location) => {
             map={params.map}
             iso3166={id.toUpperCase()}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="true"
-            isEmbed={embed === 'true' || embed === 'country'}
           />
 
         )
@@ -237,7 +232,7 @@ export default (api, emitter, location) => {
       path: '/country/:country/:region',
       get: async (country, region, params, context, state) => {
         const {
-          phrases, embed,
+          phrases,
         } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
@@ -255,8 +250,6 @@ export default (api, emitter, location) => {
             iso3166={country.toUpperCase()}
             region={region.toUpperCase()}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="true"
-            isEmbed={embed === 'true' || embed === 'country'}
           />
         )
         const title = `${context.i18n.translate((`${country}.${region}`).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`

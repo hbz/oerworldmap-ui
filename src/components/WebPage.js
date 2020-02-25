@@ -26,7 +26,6 @@ const WebPage = ({
   _links,
   _self,
   schema,
-  embedValue,
   showOptionalFields,
   emitter,
   translate,
@@ -61,7 +60,6 @@ const WebPage = ({
           view={view}
           _self={_self}
           _links={_links}
-          embedValue={embedValue}
         />
 
 
@@ -110,7 +108,6 @@ WebPage.propTypes = {
   _self: PropTypes.string.isRequired,
   _links: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
-  embedValue: PropTypes.string,
   showOptionalFields: PropTypes.bool,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
@@ -123,7 +120,6 @@ WebPage.defaultProps = {
   contributor: null,
   dateModified: null,
   _links: { refs: [] },
-  embedValue: null,
   showOptionalFields: true,
   onSubmit: formdata => console.log(formdata),
 }

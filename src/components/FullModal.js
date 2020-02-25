@@ -16,7 +16,7 @@ const FullModal = ({
     onClick={(e) => {
       const modalDialog = document.querySelector('.modalDialog')
       if (!modalDialog.contains(e.target)) {
-        emitter.emit('navigate', Link.home)
+        emitter.emit('navigate', closeLink || Link.home)
       }
     }}
   >

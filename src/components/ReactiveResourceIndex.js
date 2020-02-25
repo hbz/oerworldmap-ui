@@ -16,12 +16,11 @@ const ReactiveResourceIndex = ({
   map,
   _self,
   phrases,
-  isEmbed,
   region,
   view,
 }) => {
   const home = _self.endsWith('/resource/?features=true')
-  const initPins = isEmbed || (typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true')
+  const initPins = (typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true')
 
   return (
     <ReactiveFilters
@@ -51,7 +50,6 @@ ReactiveResourceIndex.propTypes = {
   map: PropTypes.string,
   _self: PropTypes.string.isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-  isEmbed: PropTypes.bool.isRequired,
   region: PropTypes.string,
   view: PropTypes.string,
 }

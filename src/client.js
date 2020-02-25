@@ -7,7 +7,7 @@ import { hydrate } from 'react-dom'
 import mitt from 'mitt'
 
 import router from './router'
-import { getParams, getURL, updateUser } from './common'
+import { getParams, updateUser } from './common'
 import Api from './api'
 import Link from './components/Link'
 
@@ -62,25 +62,9 @@ const client = () => {
       console.info('Navigate', url)
       const parser = document.createElement('a')
       parser.href = url
-
-      const newWindow = context.embed === 'true' || (
-        context.embed === 'country' && (
-          parser.pathname === '/resource/' || (
-            !window.location.pathname.startsWith('/resource/urn') && (
-              parser.pathname.startsWith('/country') && (window.location.pathname.toLowerCase() !== parser.pathname.toLowerCase())
-            )
-          )
-        )
-      )
-
-      if (newWindow) {
-        window.open(parser.href, '_blank')
-      } else if (parser.href !== window.location.href) {
-        Link.back = referrer
-
-        window.history.pushState(null, null, url)
-        window.dispatchEvent(new window.PopStateEvent('popstate'))
-      }
+      Link.back = referrer
+      window.history.pushState(null, null, url)
+      window.dispatchEvent(new window.PopStateEvent('popstate'))
     }
     emitter.on('navigate', navigate)
 
@@ -130,7 +114,8 @@ const client = () => {
     }
     emitter.on('delete', deleteResource)
 
-    let lastActivity = (window.location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
+    let lastActivity = (window.location.pathname === '/activity/' && state && state.length && state[0].id)
+      || (localStorage.getItem('lastActivity'))
     setInterval(() => {
       const until = lastActivity ? `?until=${lastActivity}` : ''
       api.get(`/activity/${until}`).then((response) => {
@@ -140,27 +125,6 @@ const client = () => {
         }
       })
     }, 60000)
-
-    window.addEventListener('message', (msg) => {
-      if (msg.data.filter && msg.data.key) {
-        const iframe = document.querySelector('iframe')
-        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
-
-        const params = {
-          [`filter.${msg.data.filter}`]: msg.data.key,
-        }
-
-        if (scope) {
-          const [key, value] = scope.split('=')
-          params[key] = value
-        }
-
-        emitter.emit('navigate', getURL({
-          path: '/resource/',
-          params,
-        }))
-      }
-    })
 
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
