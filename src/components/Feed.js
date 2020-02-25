@@ -2,17 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from './Link'
 import withI18n from './withI18n'
+import ResultList from './ResultList'
+
 import '../styles/components/Feed.pcss'
-import ItemList from './ItemList'
 
 const Feed = ({ translate, member }) => (
   <div className="Feed">
     <h2 className="title">
       {translate('ResourceIndex.feed.recentAdditions')}
     </h2>
-    <ItemList listItems={member.map(member => member.about)} tooltip={false} />
+    <ResultList listItems={member.map(member => member)} />
     <div className="more">
-      <Link href="/resource/?size=20&sort=dateCreated:desc">
+      <Link href="/resource/">
         {translate('ResourceIndex.feed.more')}
       </Link>
     </div>

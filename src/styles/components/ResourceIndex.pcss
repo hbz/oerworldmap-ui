@@ -305,7 +305,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
     & h3 {
       margin: 0;
@@ -352,6 +352,23 @@
       border-bottom: none;
       margin: 0;
       margin-bottom: 20px;
+    }
+  }
+
+  & .ResultList + div {
+    margin-bottom: 40px;
+
+    & a {
+      &.active {
+        background-color: var(--blue-dark);
+        transition: none;
+      }
+
+      &:focus {
+        outline: 1px dotted var(--blue-dark);
+        box-shadow: none;
+        border: none;
+      }
     }
   }
 
