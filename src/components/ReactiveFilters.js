@@ -24,6 +24,7 @@ import TogglePoints from './TogglePoints'
 import ShareExport from './ShareExport'
 import Country from './Country'
 import Calendar from './Calendar'
+import Tour from './Tour'
 
 const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -392,7 +393,7 @@ const ReactiveFilters = ({
                 <button
                   disabled={params.view === 'map'}
                   type="button"
-                  className="btn"
+                  className="btn mapBtn"
                   onClick={async () => {
                     setUrlParams({ ...getUrlParams(), view: 'map' })
                     await timeout(100)
@@ -870,9 +871,9 @@ const ReactiveFilters = ({
 
             </div>
           </div>
-
-
         </ReactiveBase>
+
+        <Tour setUrlParams={setUrlParams} getUrlParams={getUrlParams} />
       </div>
     )
   }
