@@ -1,6 +1,22 @@
 import i18n from '../../src/i18n'
 
 export default {
+  config: {
+    mapboxConfig: {
+      token: 'MAPBOX_ACCESS_TOKEN',
+      style: 'MAPBOX_STYLE',
+      miniMapStyle: 'MAPBOX_MINIMAP_STYLE'
+    },
+    elasticsearchConfig: {
+      index: 'elastic',
+      url: 'https://example.org/'
+    },
+    apiConfig: {
+      host: 'example.org',
+      port: '443',
+      scheme: 'https'
+    }
+  },
   i18n: i18n(['en'], {}),
   emitter: {
     on: (event, handler) => console.log("Registered", event, handler),
