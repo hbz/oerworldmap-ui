@@ -61,7 +61,7 @@ const WebPageView = ({
     && about.location[0].address
     && about.location[0].address.addressCountry) || null
 
-  const { geometry } = feature && feature
+  const geometry = (feature && feature.geometry) || null
   const centroid = (country && centroids[country]) || null
 
   return (
