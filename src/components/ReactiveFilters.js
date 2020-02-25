@@ -108,6 +108,10 @@ const ReactiveFilters = ({
     }
   }, [])
 
+  const renderLabel = filter => item => Object.keys(item).length
+    ? <div>{Object.keys(item).map(translate).join(', ')}</div>
+    : translate('select', { name : translate(filter.title || filter.componentId) })
+
   if (isClient) {
     let subFilters = [
       {
@@ -608,6 +612,8 @@ const ReactiveFilters = ({
                     className="FilterBox"
                     {...filter}
                     title={filter.title ? translate(filter.title) : translate(filter.componentId)}
+                    renderLabel={filter.translate !== false ? renderLabel(filter) : undefined}
+                    placeholder={translate('select', { name : filter.title ? translate(filter.title) : translate(filter.componentId) })}
                     renderItem={(label, count) => (
                       <span>
                         <span>{(filter.translate !== false) ? translate(label) : label}</span>

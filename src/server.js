@@ -153,7 +153,6 @@ server.get(/^(.*)$/, (req, res) => {
     elasticsearchConfig,
     apiConfig,
   }
-  console.log(config)
   const { schema } = req
   const context = {
     supportedLanguages,
