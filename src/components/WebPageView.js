@@ -10,6 +10,7 @@ import ResourceImage from './ResourceImage'
 
 import withI18n from './withI18n'
 import withUser from './withUser'
+import withConfig from './withConfig'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
@@ -37,6 +38,7 @@ const WebPageView = ({
   locales,
   isLiveEvent,
   feature,
+  config: { mapboxConfig },
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -758,13 +760,13 @@ const WebPageView = ({
                     {geometry ? (
                       <img
                         alt={translate('WebPageView.mapAlt')}
-                        src={`https://api.mapbox.com/styles/v1/felixjakoblink/cjdubisd951y72sqdb5hyjt9v/static/geojson({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"%23f93","marker-size":"medium"},"geometry":${JSON.stringify(geometry)}}]})/${geometry.coordinates[0]},${geometry.coordinates[1]},1/230x200@2x?access_token=pk.eyJ1IjoiZmVsaXhqYWtvYmxpbmsiLCJhIjoiY2lnczRvYXZ4MDA3ZXZua3U5czc5aG93bSJ9.n9l3tKZy-Gsbo8HshgCXFQ`}
+                        src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/geojson({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"%23f93","marker-size":"medium"},"geometry":${JSON.stringify(geometry)}}]})/${geometry.coordinates[0]},${geometry.coordinates[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
                       />
                     ) : (
                       centroid ? (
                         <img
                           alt={translate('WebPageView.mapAlt')}
-                          src={`https://api.mapbox.com/styles/v1/felixjakoblink/cjdubisd951y72sqdb5hyjt9v/static/${centroid[0]},${centroid[1]},1/230x200@2x?access_token=pk.eyJ1IjoiZmVsaXhqYWtvYmxpbmsiLCJhIjoiY2lnczRvYXZ4MDA3ZXZua3U5czc5aG93bSJ9.n9l3tKZy-Gsbo8HshgCXFQ`}
+                          src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/${centroid[0]},${centroid[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
                         />
                       ) : (
                         <div>No location for this resource</div>
@@ -934,6 +936,7 @@ const WebPageView = ({
 
 WebPageView.propTypes = {
   translate: PropTypes.func.isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
@@ -952,4 +955,4 @@ WebPageView.defaultProps = {
   feature: null,
 }
 
-export default withI18n(withUser(WebPageView))
+export default withConfig(withI18n(withUser(WebPageView)))
