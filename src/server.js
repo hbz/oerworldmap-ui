@@ -110,7 +110,7 @@ server.get('/.login', (req, res) => {
 server.get('/stats', async (req, res) => {
   const { translate } = i18n(req.locales, req.phrases)
   const {
-    field, q, subField, sub, size, subSize, include, subInclude, w, download, filename,
+    field, q, subField, sub, size, subSize, include, subInclude, w, download, filename, basePath,
   } = req.query
   const filters = Object.entries(req.query)
     .filter(([param]) => param.startsWith('filter.'))
@@ -129,6 +129,7 @@ server.get('/stats', async (req, res) => {
     subInclude,
     filters,
     w,
+    basePath,
   })
 
   if (image) {

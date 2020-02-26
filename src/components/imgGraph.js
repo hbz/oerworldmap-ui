@@ -135,12 +135,9 @@ const formatDataStacked = ({ rawData, translate }) => {
 }
 
 
-const donutGrap = ({
-  rawData, translate, field, q, filters = [], w = 500,
+const donutGraph = ({
+  rawData, translate, field, q, filters = [], w = 500, basePath = '/resource/',
 }) => {
-  const filterString = filters
-    .map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
-    .join('&')
   const { document } = (new JSDOM('')).window
   global.document = document
   const body = d3.select(document).select('body')
@@ -189,10 +186,25 @@ const donutGrap = ({
     .data(arcData)
     .enter()
     .append('a')
-    // FIXME: prevent duplication of filter param
-    .attr('xlink:href', d => `/resource/?filter.${field}=${encodeURIComponent(JSON.stringify([d.data[0]]))}`
-      .concat(q ? `&q=${encodeURIComponent(q)}` : '')
-      .concat(filterString ? `&${filterString}` : ''))
+    .attr('xlink:href', (d) => {
+      const filterParams = JSON.parse(JSON.stringify(filters))
+      const fieldValue = d.data[0]
+      if (!filterParams.some(([key, value]) => key === field && value.includes(fieldValue))) {
+        const i = filterParams.findIndex(([param]) => param === field)
+        if (i !== -1) {
+          filterParams[i][1].push(fieldValue)
+        } else {
+          filterParams.push([field, [fieldValue]])
+        }
+      }
+      const urlParams = new URLSearchParams(filterParams
+        .map(([field, value]) => `filter.${field}=${encodeURIComponent(JSON.stringify(value))}`)
+        .join('&'))
+      if (q) {
+        urlParams.append('q', q)
+      }
+      return `${basePath}?${urlParams}`
+    })
     .attr('target', '_parent')
     .append('path')
     .attr('d', arcGenerator)
@@ -260,7 +272,7 @@ const donutGrap = ({
   return body.node().innerHTML
 }
 
-const stackedGrap = ({ rawData, translate }) => {
+const stackedGraph = ({ rawData, translate }) => {
   const { document } = (new JSDOM('')).window
   global.document = document
   const body = d3.select(document).select('body')
@@ -367,6 +379,7 @@ export const createGraph = async ({
   subInclude,
   filters,
   w,
+  basePath,
 }) => {
   const rawData = await getData({
     query: createQuery({
@@ -375,9 +388,9 @@ export const createGraph = async ({
     elasticsearchConfig,
   })
   return subField
-    ? stackedGrap({ rawData, translate })
-    : donutGrap({
-      rawData, translate, field, q, filters, w,
+    ? stackedGraph({ rawData, translate })
+    : donutGraph({
+      rawData, translate, field, q, filters, w, basePath,
     })
 }
 
