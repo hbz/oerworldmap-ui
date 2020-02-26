@@ -196,7 +196,7 @@ const donutGrap = ({
     .attr('target', '_parent')
     .append('path')
     .attr('d', arcGenerator)
-    .attr('fill', d => color(d.data[1]))
+    .attr('fill', d => color(d.data[0]))
     .attr('stroke', 'white')
     .append('title')
     .html(d => `${translate(d.data[0])} (${d.data[1]})`)
@@ -238,7 +238,7 @@ const donutGrap = ({
     .attr('transform', (d, i) => `translate(0, ${(height + 15) + 20 * i})`)
 
   lg.append('rect')
-    .attr('fill', d => color(d.data[1]))
+    .attr('fill', d => color(d.data[0]))
     .attr('x', 0)
     .attr('y', 0)
     .attr('width', 10)
