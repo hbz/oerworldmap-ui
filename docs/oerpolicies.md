@@ -10,26 +10,14 @@ class: oerPolicies
 
 <div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
-## Statistic explorer
-<div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
-<iframe
-  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
-  data-scope="filter.about.@type=Policy"
-  height="750"
-  width="800"
-  style="border:0; width: 100%; margin: 0 auto;"
-></iframe>
-<a data-inject-newWindowLink>
-  Open in a new window
-</a>
+The OER Policy Registry records policies related to Open Education and Open Educational Resources from all educational sectors and levels.
 
-<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
+The registry is a powerful resource for policy makers, advocates and researchers interested in Open Education. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies <a href="/resource/?filter.about.%40type=Policy&size=20">here</a>.
 
 ## Latest policies added
 
 <div data-inject-feed></div>
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add-a-policy" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
-
 
 ## Latest policy related entries
 <div data-inject-policy-related></div>
