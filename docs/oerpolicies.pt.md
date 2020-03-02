@@ -7,29 +7,29 @@ class: oerPolicies
 <img style="width:auto;margin:0 auto;border:0px solid transparent;border-radius:10px;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
 
-<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#latest-policies-added">Latest</a> <a class="btn" href="#latest-policy-related-entries">Related</a> | <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
+<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#latest-policies-added">Últimas</a> <a class="btn" href="#latest-policy-related-entries">Relacionados</a> :trade_mark <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar política</a> ├ <a class="btn" href="#faq">FAQ</a> FAQ <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Todas as Políticas (lista)</a></div>
 
 <div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
-The OER Policy Registry records policies related to Open Education and Open Educational Resources from all educational sectors and levels.
+O Registro de Políticas REA inclui políticas relacionadas à Educação Aberta e Recursos Educacionais Abertos de todos os setores e níveis educacionais.
 
-The registry is a powerful resource for policy makers, advocates and researchers interested in Open Education. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies [here](/resource/?filter.about.%40type=Policy&size=20).
+O registro é um recurso poderoso para os gestores públicos, ativistas e pesquisadores interessados na Educação Aberta. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. Você pode pesquisar políticas disponíveis [aqui](/resource/?filter.about.%40type=Policy&size=20).
 
-## Latest policies added
+## Últimas políticas adicionadas
 
 <div data-inject-feed>
 </div>
 
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add-a-policy" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
 
-## Latest policy related entries
+## Últimas entradas relacionadas à políticas
 
 <div data-inject-policy-related>
 </div>
 
-<div style="display:none;"><a class="btn" href="" target="_blank">All related entries (list)</a></div>
+<div style="display:none;"><a class="btn" href="" target="_blank">Todas as entradas relacionadas (lista)</a></div>
 
-## FAQ
+## Perguntas frequentes (FAQ)
 
 ### Add a policy
 
@@ -51,9 +51,9 @@ We moved the OER Policy Registry from Creative Commons to the OER World Map in f
 
 The work is not done yet, we hope to gather feedback here: [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/). If you have feedback, contact us ( info@oerworldmap.org) or [submit an issue on github](https://github.com/hbz/oerworldmap/issues). Thanks in advance!
 
-## Mentioned / used by:
+## Mencionado / usado por:
 
 * [Cable Green](https://twitter.com/cgreen/status/1070343155000709120)
 * [Jennifer Englund](https://twitter.com/jmenglund03/status/1070334983624146944)
 
-<div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons and thanks for everyone participating!</div>
+<div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Obrigado, Creative Commons e obrigado à todos os participantes!</div>
