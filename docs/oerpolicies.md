@@ -6,9 +6,13 @@ class: oerPolicies
 <div style="width:100%;text-align:center;">
 <img style="width:auto;margin:0 auto;border:0px solid transparent;border-radius:10px;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
-<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> <a class="btn" href="#latest-policy-related-entries">Related</a> | <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
+<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#latest-policies-added">Latest</a> <a class="btn" href="#latest-policy-related-entries">Related</a> | <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
 
 <div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
+
+The OER Policy Registry records policies related to Open Education and Open Educational Resources from all educational sectors and levels.
+
+The registry is a powerful resource for policy makers, advocates and researchers interested in Open Education. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies <a href="/resource/?filter.about.%40type=Policy&size=20">here</a>.
 
 ## Statistic explorer
 <div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
@@ -25,7 +29,6 @@ class: oerPolicies
 
 <div data-inject-feed></div>
 <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies</a> | <a class="btn" href="#add-a-policy" target="_blank"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add a policy</a>
-
 
 ## Latest policy related entries
 <div data-inject-policy-related></div>
