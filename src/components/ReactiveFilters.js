@@ -506,6 +506,7 @@ const ReactiveFilters = ({
                 defaultQuery={() => {
                   const query = {
                     _source: 'feature.*',
+                    size: showFeatures ? 100 : 0,
                     query: {
                       bool: {
                         must: {
