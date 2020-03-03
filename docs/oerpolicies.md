@@ -12,7 +12,7 @@ class: oerPolicies
 
 The OER Policy Registry records policies related to Open Education and Open Educational Resources from all educational sectors and levels.
 
-The registry is a powerful resource for policy makers, advocates and researchers interested in Open Education. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies <a href="/resource/?filter.about.%40type=Policy&size=20">here</a>.
+The registry is a powerful resource for policy makers, advocates and researchers interested in Open Education. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies <a href='/resource/?filter.about.%40type="Policy"&size=20'>here</a>.
 
 ## Statistic explorer
 <div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
