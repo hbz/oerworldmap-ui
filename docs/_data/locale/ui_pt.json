@@ -402,10 +402,10 @@
   "Block.ShowLess": "Exibir menos",
   "Comments.joinUsToComment": "Junte-se a nós para comentar!",
   "WebPage.leaveEditView": "Você quer deixar a visualização de edição?",
-  "WebPageView.alsoAvailableIn": "Also available in:",
-  "WebPageView.missingDescription": "A description for this entry is missing.",
-  "WebPageView.helpUs": "Help us by adding some information!",
-  "WebPageView.takingPlace": "Currently taking place: Follow the discussion on Social Media!",
-  "WebPageView.partOfRegistry": "This policy is part of the OER policy registry",
-  "WebPageView.mapAlt": "Map showing the location of the resource."
+  "WebPageView.alsoAvailableIn": "Também disponível em:",
+  "WebPageView.missingDescription": "Uma descrição para essa entrada está faltando.",
+  "WebPageView.helpUs": "Nos ajude adicionando alguma informação!",
+  "WebPageView.takingPlace": "Atualmente em curso: Siga a discussão nas redes sociais!",
+  "WebPageView.partOfRegistry": "Esta política faz parte do registro de políticas REA",
+  "WebPageView.mapAlt": "Mapa mostrando a localização do recurso."
 }
