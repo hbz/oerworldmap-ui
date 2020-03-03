@@ -40,6 +40,7 @@ const ReactiveFilters = ({
   viewHash,
 }) => {
   const sizes = [20, 50, 100, 200, 9999]
+  const date = new Date().toJSON().split('T').shift()
   const sorts = [
     {
       label: translate('ClientTemplates.filter.dateCreated'),
@@ -496,6 +497,47 @@ const ReactiveFilters = ({
                       </div>
                     )
                   )
+                }}
+              />
+
+              {/* Query for live events */}
+              <ReactiveComponent
+                componentId="liveEvents"
+                defaultQuery={() => {
+                  const query = {
+                    _source: 'feature.*',
+                    query: {
+                      bool: {
+                        must: {
+                          exists: {
+                            field: 'feature',
+                          },
+                        },
+                        filter: [
+                          {
+                            query_string: {
+                              query: `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`,
+                            },
+                          },
+                          {
+                            term: {
+                              'about.@type': 'Event',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  }
+                  return query
+                }}
+                onData={({ aggregations, data = [], resultStats: { numberOfResults } }) => {
+                  if (data !== null) {
+                    const features = data.map(item => item.feature)
+                    emitter.emit('liveEventsData', { features, aggregations })
+                  }
+                }}
+                react={{
+                  and: filterIDs,
                 }}
               />
 

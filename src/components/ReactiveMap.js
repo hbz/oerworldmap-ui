@@ -2,6 +2,7 @@
 /* global window */
 /* global navigator */
 /* global requestAnimationFrame */
+/* global cancelAnimationFrame */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -68,6 +69,7 @@ class Map extends React.Component {
 
 
     this.updatePoints = this.updatePoints.bind(this)
+    this.updateLiveEventsPoints = this.updateLiveEventsPoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
     this.mouseMovePoints = this.mouseMovePoints.bind(this)
@@ -84,6 +86,7 @@ class Map extends React.Component {
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
     this.animateMarker = this.animateMarker.bind(this)
     this.setMapData = this.setMapData.bind(this)
+    this.setLiveEventsData = this.setLiveEventsData.bind(this)
     this.resize = this.resize.bind(this)
     this.isReady = false
     this.data = {}
@@ -120,6 +123,7 @@ class Map extends React.Component {
     } = this.props
 
     emitter.on('mapData', this.setMapData)
+    emitter.on('liveEventsData', this.setLiveEventsData)
 
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
     const {
@@ -304,6 +308,7 @@ class Map extends React.Component {
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
     emitter.off('mapData', this.setMapData)
+    emitter.off('liveEventsData', this.setLiveEventsData)
     emitter.off('resize', this.resize)
   }
 
@@ -315,6 +320,15 @@ class Map extends React.Component {
     } else {
       await timeout(10)
       this.setMapData(data)
+    }
+  }
+
+  async setLiveEventsData(data) {
+    if (this.isReady) {
+      this.updateLiveEventsPoints(data.features)
+    } else {
+      await timeout(10)
+      this.setLiveEventsData(data)
     }
   }
 
@@ -867,6 +881,16 @@ class Map extends React.Component {
     }
     this.popup && this.popup.remove()
     this.map.getSource('pointsSource').setData(pointsCollection)
+  }
+
+  updateLiveEventsPoints(features) {
+    cancelAnimationFrame(this.animatingMarkers)
+    const eventsCollection = {
+      type: 'FeatureCollection',
+      features,
+    }
+    this.map.getSource('eventsSource').setData(eventsCollection)
+    this.animatingMarkers = requestAnimationFrame(this.animateMarker)
   }
 
   animateCircleLayer(layerName, show) {
