@@ -38,7 +38,7 @@
   "CountryIndex.read.noChampion": "Ainda não há <a href=\"/contribute\">embaixador do país</a>para %{country}. <a href=\"mailto:info@oerworldmap.org\">Entre em contato</a> se quiser participar!",
   "CountryIndex.read.statistics": "Estatísticas",
   "CountryIndex.read.countryReports": "Relatórios por País",
-  "CountryIndex.read.entriesShown": "entries found",
+  "CountryIndex.read.entriesShown": "entradas encontradas",
   "CountryIndex.read.noRelatedEntries": "Nenhuma entrada relacionada encontrada",
   "CountryIndex.description": "Descubra o movimento REA em %{countryName}!",
   "LandigPage.index.welcome": "Bem vindo ao Mapa Global REA!",
