@@ -20,9 +20,7 @@ import expose from '../expose'
 import { types } from '../common'
 
 const WebPageEdit = ({
-  about, emitter, translate, action, mapboxConfig,
-  user, schema, closeLink, showOptionalFields, _self,
-  onSubmit,
+  about, emitter, translate, action, user, schema, closeLink, showOptionalFields, _self, onSubmit,
 }) => {
   const [type, setType] = useState(about['@type'])
   useEffect(() => setType(about['@type']), [about])
@@ -89,7 +87,6 @@ const WebPageEdit = ({
       )}
       <Builder
         schema={JsonSchema(schema).get(`#/definitions/${type}`)}
-        config={{ mapboxConfig }}
         key={uniqueId()}
         showOptionalFields={showOptionalFields}
       />
@@ -127,13 +124,6 @@ WebPageEdit.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   translate: PropTypes.func.isRequired,
   action: PropTypes.string,
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-      miniMapStyle: PropTypes.string,
-    },
-  ).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
   closeLink: PropTypes.string,

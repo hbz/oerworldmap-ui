@@ -1,6 +1,9 @@
 {
   "env": {"es6": true},
-  "parserOptions": {"ecmaVersion": 2017},
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
   "rules": {
     "react/button-has-type": [1, {
       "reset": true

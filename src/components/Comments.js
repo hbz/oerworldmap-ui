@@ -94,7 +94,7 @@ const Comments = ({
       <div>
         <em>
           <Link href="/user/register">
-            {translate('Join us to comment!')}
+            {translate('Comments.joinUsToComment')}
           </Link>
         </em>
       </div>

@@ -9,6 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import bbox from '@turf/bbox'
 import { point } from '@turf/helpers'
+import withConfig from './withConfig'
 import { emptyGeometry } from '../common'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -45,20 +46,19 @@ class MiniMap extends React.Component {
       && mo.observe(document.getElementById('edit'), { attributes: true })
 
     const {
-      geometry, mapboxConfig, boxZoom, draggable, isLiveEvent,
+      geometry, config: { mapboxConfig }, boxZoom, draggable, isLiveEvent,
     } = this.props
-    const mapboxgl = require('mapbox-gl')
-
-    mapboxgl.accessToken = mapboxConfig.token
+    const { Map, NavigationControl } = require('mapbox-gl')
 
     setTimeout(() => {
-      this.MiniMap = new mapboxgl.Map({
+      this.MiniMap = new Map({
         container: this.MiniMapContainer,
         center: [0, 0],
         zoom: 1,
         boxZoom,
         style: `mapbox://styles/${mapboxConfig.miniMapStyle}`,
         dragRotate: false,
+        accessToken: mapboxConfig.token,
         touchZoomRotate: false,
       })
       this.canvas = this.MiniMap.getCanvasContainer()
@@ -76,7 +76,7 @@ class MiniMap extends React.Component {
         this.start = null
 
         if (draggable) {
-          const nav = new mapboxgl.NavigationControl({ showCompass: false })
+          const nav = new NavigationControl({ showCompass: false })
           this.MiniMap.addControl(nav, 'bottom-left')
         }
 
@@ -292,13 +292,7 @@ class MiniMap extends React.Component {
 }
 
 MiniMap.propTypes = {
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-      miniMapStyle: PropTypes.string,
-    },
-  ).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   center: PropTypes.arrayOf(PropTypes.any), // eslint-disable-line react/no-unused-prop-types
   geometry: PropTypes.objectOf(PropTypes.any),
   draggable: PropTypes.bool,
@@ -320,4 +314,4 @@ MiniMap.defaultProps = {
   isLiveEvent: undefined,
 }
 
-export default MiniMap
+export default withConfig(MiniMap)

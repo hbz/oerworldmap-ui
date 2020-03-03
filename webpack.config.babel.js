@@ -28,7 +28,8 @@ const loaders = [
 
 const baseConfig = {
   mode: NODE_ENV,
-  devtool: isProduction ? 'cheap-source-map' : 'source-map',
+  devtool: 'cheap-source-map',
+  externals: ['bufferutil', 'utf-8-validate'],
   context: path.join(__dirname, 'src'),
   module: {
     exprContextCritical: false,
@@ -42,6 +43,7 @@ const baseConfig = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
+    new webpack.IgnorePlugin(/canvas/),
   ],
 }
 
@@ -65,9 +67,9 @@ const configServer = merge(baseConfig, {
         path.resolve(__dirname, 'node_modules/font-awesome'),
         path.resolve(__dirname, 'node_modules/source-sans-pro'),
         path.resolve(__dirname, 'node_modules/mapbox-gl/dist'),
-        path.resolve(__dirname, 'node_modules/rc-tooltip'),
         path.resolve(__dirname, 'node_modules/simplemde/dist'),
         path.resolve(__dirname, 'node_modules/react-select'),
+        path.resolve(__dirname, 'node_modules/c3'),
       ],
       use: [
         MiniCssExtractPlugin.loader,

@@ -71,7 +71,7 @@ class Block extends React.Component {
             className="show-all"
             onClick={() => this.setState({ collapsed: !collapsed })}
           >
-            {translate(collapsed ? 'Show all' : 'Show less')}
+            {translate(collapsed ? 'Block.showAll' : 'Block.ShowLess')}
           </div>
         )}
       </div>

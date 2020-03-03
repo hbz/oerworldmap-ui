@@ -34,7 +34,6 @@ const ResourceImage = ({
             e.target && (e.target.style.visibility = 'visible')
           }}
           onError={(e) => {
-            console.error(e)
             e.target && (e.target.style.visibility = 'hidden')
             disableDefault && e.target.parentElement.parentElement.remove()
           }}
@@ -101,7 +100,7 @@ ResourceImage.propTypes = {
 
 ResourceImage.defaultProps = {
   className: undefined,
-  view: false,
+  view: undefined,
   disableDefault: undefined,
 }
 

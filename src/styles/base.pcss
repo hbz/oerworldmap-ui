@@ -8,21 +8,12 @@ body {
   padding: 0;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 .container {
-  min-height: 100vh;
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-
-  & .content {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    background-image: url(/public/map-bg.png);
-    background-size: cover;
-    background-position: center center;
-  }
-
   &[data-userroles*="admin"] .Form .admin.only {
     display: block;
   }
@@ -335,17 +326,6 @@ a.item {
   opacity: 1;
   font-size: 10px;
   letter-spacing: 0.08em;
-
-  & .rc-tooltip-inner {
-    background-color: var(--grey-dark);
-    color: var(--white);
-    border: none;
-    padding: 15px;
-  }
-
-  & .rc-tooltip-arrow {
-    border-top-color: var(--grey-dark);
-  }
 }
 
 /* comma separated list */
@@ -482,9 +462,5 @@ a.item {
 @media print {
   @page {
     margin: 0;
-  }
-
-  .rc-tooltip {
-    display: none;
   }
 }

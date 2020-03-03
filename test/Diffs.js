@@ -6,16 +6,19 @@ import Diffs from '../src/components/Diffs'
 import data from './resources/diffs.json'
 import I18nProvider from '../src/components/I18nProvider'
 import EmittProvider from '../src/components/EmittProvider'
+import ConfigProvider from '../src/components/ConfigProvider'
 
 import mock from './helpers/mock'
 
 describe('<Diffs />', () => {
   const wrapper = render(
-    <I18nProvider i18n={mock.i18n}>
-      <EmittProvider emitter={mock.emitter}>
-        <Diffs {...data} phrases={{}} schema={mock.schema} />
-      </EmittProvider>
-    </I18nProvider>
+    <ConfigProvider config={mock.config}>
+      <I18nProvider i18n={mock.i18n}>
+        <EmittProvider emitter={mock.emitter}>
+          <Diffs {...data} phrases={{}} schema={mock.schema} />
+        </EmittProvider>
+      </I18nProvider>
+    </ConfigProvider>
   )
 
   test('creates 5 .logBlock items', () => {

@@ -7,7 +7,7 @@ import { hydrate } from 'react-dom'
 import mitt from 'mitt'
 
 import router from './router'
-import { getParams, getURL, updateUser } from './common'
+import { getParams, updateUser } from './common'
 import Api from './api'
 import Link from './components/Link'
 
@@ -39,7 +39,7 @@ const client = () => {
     Object.assign(context, window.__APP_INITIAL_STATE__)
     context.emitter = emitter
 
-    const api = new Api(context.apiConfig)
+    const api = new Api(context.config.apiConfig)
     const routes = router(api, emitter, window.location)
 
     let referrer = window.location.href
@@ -57,34 +57,19 @@ const client = () => {
       referrer = window.location.href
     }
 
-    // Log all emissions
-    emitter.on('*', (type, e) => console.info(type, e))
     // Transition to a new URL
-    emitter.on('navigate', (url) => {
+    const navigate = (url) => {
+      console.info('Navigate', url)
       const parser = document.createElement('a')
       parser.href = url
+      Link.back = referrer
+      window.history.pushState(null, null, url)
+      window.dispatchEvent(new window.PopStateEvent('popstate'))
+    }
+    emitter.on('navigate', navigate)
 
-      const newWindow = context.embed === 'true' || (
-        context.embed === 'country' && (
-          parser.pathname === '/resource/' || (
-            !window.location.pathname.startsWith('/resource/urn') && (
-              parser.pathname.startsWith('/country') && (window.location.pathname.toLowerCase() !== parser.pathname.toLowerCase())
-            )
-          )
-        )
-      )
-
-      if (newWindow) {
-        window.open(parser.href, '_blank')
-      } else if (parser.href !== window.location.href) {
-        Link.back = referrer
-
-        window.history.pushState(null, null, url)
-        window.dispatchEvent(new window.PopStateEvent('popstate'))
-      }
-    })
     // Form submission
-    emitter.on('submit', ({ url, data, redirect }) => {
+    const submit = ({ url, data, redirect }) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).post(data)
         .then(({ title, data, render }) => {
@@ -103,9 +88,11 @@ const client = () => {
             sendMatomoNavigate(title, redirect.url, 'submit')
           }
         })
-    })
+    }
+    emitter.on('submit', submit)
+
     // Deletion
-    emitter.on('delete', ({ url, redirect }) => {
+    const deleteResource = ({ url, redirect }) => {
       emitter.emit('setLoading', true)
       routes.route(url, context).delete()
         .then(({ title, data, render }) => {
@@ -124,9 +111,11 @@ const client = () => {
             sendMatomoNavigate(title, redirect.url, 'delete')
           }
         })
-    })
+    }
+    emitter.on('delete', deleteResource)
 
-    let lastActivity = (window.location.pathname === '/activity/' && state && state.length && state[0].id) || (localStorage.getItem('lastActivity'))
+    let lastActivity = (window.location.pathname === '/activity/' && state && state.length && state[0].id)
+      || (localStorage.getItem('lastActivity'))
     setInterval(() => {
       const until = lastActivity ? `?until=${lastActivity}` : ''
       api.get(`/activity/${until}`).then((response) => {
@@ -136,27 +125,6 @@ const client = () => {
         }
       })
     }, 60000)
-
-    window.addEventListener('message', (msg) => {
-      if (msg.data.filter && msg.data.key) {
-        const iframe = document.querySelector('iframe')
-        const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
-
-        const params = {
-          [`filter.${msg.data.filter}`]: msg.data.key,
-        }
-
-        if (scope) {
-          const [key, value] = scope.split('=')
-          params[key] = value
-        }
-
-        emitter.emit('navigate', getURL({
-          path: '/resource/',
-          params,
-        }))
-      }
-    })
 
     window.addEventListener('popstate', () => {
       emitter.emit('setLoading', true)
@@ -169,6 +137,12 @@ const client = () => {
           renderApp(title, render(data))
           sendMatomoNavigate(title, url, 'navigate')
         })
+    })
+
+    window.addEventListener('beforeunload', () => {
+      emitter.off('navigate', navigate)
+      emitter.off('submit', submit)
+      emitter.off('delete', deleteResource)
     })
 
     const url = window.location.pathname

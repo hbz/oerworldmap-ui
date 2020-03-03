@@ -14,6 +14,7 @@
 
     & a {
       color: var(--primary-color);
+      flex: 1;
 
       &:focus,
       &:hover {
@@ -69,6 +70,7 @@
 
       & .item {
         padding: 0.7em 0;
+        display: flex;
         align-items: center;
 
         & > i {
@@ -166,6 +168,7 @@
   & .itemListDescription {
     font-size: var(--font-size-small);
     font-weight: normal;
+    margin: 0;
   }
 }
 
@@ -186,10 +189,6 @@
   width: 500px;
   opacity: 1;
   z-index: 2;
-
-  & .rc-tooltip-inner {
-    overflow: hidden;
-  }
 
   @media screen and (--mobile-breakpoint) {
     display: none;

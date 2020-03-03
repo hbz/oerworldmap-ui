@@ -1,17 +1,17 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable prefer-destructuring */
 /* global window */
 /* global Headers */
 
 import React from 'react'
-import toRegExp from 'path-to-regexp'
+import { pathToRegexp } from 'path-to-regexp'
 import removeMd from 'remove-markdown'
 
 import Init from './components/Init'
 import WebPage from './components/WebPage'
-import Country from './components/Country'
 import Feed from './components/Feed'
 import Timeline from './components/Timeline'
-import Statistics from './components/Statistics'
-import ResourceIndex from './components/ResourceIndex'
+import ReactiveResourceIndex from './components/ReactiveResourceIndex'
 import Feedback from './components/Feedback'
 import FullModal from './components/FullModal'
 import ErrorPage from './components/ErrorPage'
@@ -21,7 +21,6 @@ import Link from './components/Link'
 import { getURL, getTwitterId } from './common'
 import { APIError } from './api'
 import i18nWrapper from './i18n'
-import MobileNavigation from './components/MobileNavigation'
 
 export default (api, emitter, location) => {
   Link.home = '/resource/'
@@ -31,9 +30,9 @@ export default (api, emitter, location) => {
   const routes = [
     {
       path: '/resource/',
-      get: async (params, context, state) => {
+      get: async (params, context) => {
         const {
-          mapboxConfig, schema, phrases, embed,
+          schema, phrases,
         } = context
         const url = getURL({
           path: '/resource/',
@@ -42,15 +41,20 @@ export default (api, emitter, location) => {
         if (!params.add) {
           Link.home = url
         }
-        const data = params.add ? {
-          about: {
+        Link.back = location.href.split('#')[0]
+
+        const data = {
+          _self: location.href.split('#')[0],
+        }
+
+        if (params.add) {
+          data.about = {
             '@type': params.add,
-          },
-          _self: location.href,
-        } : state || await api.get(url, new Headers(context.headers))
+          }
+        }
+
         const component = data => (params.add ? (
           <WebPage
-            mapboxConfig={mapboxConfig}
             {...data}
             view="edit"
             schema={schema}
@@ -58,32 +62,19 @@ export default (api, emitter, location) => {
             onSubmit={data => emitter.emit('submit', { url: '/resource/', data })}
           />
         ) : (
-          <ResourceIndex
+          <ReactiveResourceIndex
             {...data}
             phrases={phrases}
-            mapboxConfig={mapboxConfig}
             map={params.map}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="true"
-            isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current={
-                !url.endsWith('/resource/')
-                || (typeof window !== 'undefined' ? window.location.hash.substr(1) : '').length > 0
-                  ? 'list' : 'map'}
-            />
-          </ResourceIndex>
+          />
         ))
 
         const title = params.add
           ? context.i18n.translate('add', { type: context.i18n.translate(params.add) })
           : context.i18n.translate('ResourceIndex.index.showingEntities', {
-            number: data.totalItems,
-            query: data.filters
-              && data.filters['about.@type']
-              && context.i18n.translate(data.filters['about.@type'][0])
-              || '',
+            number: '',
+            query: '',
           })
 
         const metadata = {
@@ -92,25 +83,20 @@ export default (api, emitter, location) => {
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
         }
 
-        if (data && (data.query || (data.filters && Object.keys(data.filters).length > 0))) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
-        }
-
         return {
           title, data, component, metadata,
         }
       },
       post: async (params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post('/resource/', body, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            mapboxConfig={mapboxConfig}
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -124,17 +110,16 @@ export default (api, emitter, location) => {
     {
       path: '/resource/:id',
       get: async (id, params, context, state) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const url = getURL({ path: `/resource/${id}`, params })
         const data = state || await api.get(url, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
-            mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            embedValue="true"
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -153,15 +138,15 @@ export default (api, emitter, location) => {
         }
       },
       post: async (id, params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post(`/resource/${id}`, body, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            mapboxConfig={mapboxConfig}
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -172,6 +157,7 @@ export default (api, emitter, location) => {
       },
       delete: async (id, params, context) => {
         const data = await api.delete(`/resource/${id}`, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Feedback>
@@ -186,15 +172,15 @@ export default (api, emitter, location) => {
     {
       path: '/resource/:id/comment',
       post: async (id, params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post(`/resource/${id}/comment`, body, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const { about } = data
         const component = data => (
           <WebPage
             {...data}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
-            mapboxConfig={mapboxConfig}
             onSubmit={data => emitter.emit('submit', { url: `/resource/${about['@id'] || ''}`, data })}
           />
         )
@@ -207,49 +193,34 @@ export default (api, emitter, location) => {
     {
       path: '/country/:id',
       get: async (id, params, context, state) => {
-        const { phrases, mapboxConfig, embed } = context
+        const {
+          phrases,
+        } = context
         const url = getURL({
           path: `/country/${id}`,
           params,
         })
         Link.home = url
-        const data = state || await api.get(url, new Headers(context.headers))
-        const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === data.iso3166)
-        const countryData = data.aggregations['global#facets']['filter#country']
+        const data = state || {
+          _self: location.href.split('#')[0],
+        }
         const component = data => (
-          <ResourceIndex
+          <ReactiveResourceIndex
             {...data}
-            className="countryView"
             phrases={phrases}
-            mapboxConfig={mapboxConfig}
+            map={params.map}
+            iso3166={id.toUpperCase()}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="country"
-            isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current="list"
-              country={data.iso3166}
-            />
-            <Country
-              iso3166={data.iso3166}
-              countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
-              countryData={countryData}
-            />
-          </ResourceIndex>
+          />
+
         )
         const title = context.i18n.translate(id.toUpperCase())
         const metadata = {
           description: context.i18n.translate('CountryIndex.description', {
-            countryName: context.i18n.translate(data.iso3166),
+            countryName: context.i18n.translate(id.toUpperCase()),
           }),
           url: data._self,
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
-        }
-
-        if (data && (data.query || Object.keys(data.filters).length > 0)) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
         }
 
         return {
@@ -260,45 +231,26 @@ export default (api, emitter, location) => {
     {
       path: '/country/:country/:region',
       get: async (country, region, params, context, state) => {
-        const { phrases, mapboxConfig, embed } = context
+        const {
+          phrases,
+        } = context
         const url = getURL({
           path: `/country/${country}/${region}`,
           params,
         })
         Link.home = url
-        const data = state || await api.get(url, context.authorization)
-        const countryChampions = data.aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === data.iso3166)
-        const countryData = data.aggregations['global#facets']['filter#country']
-        const regionalChampions = data.aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
-          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
-        const regionData = data.aggregations['global#facets']['filter#feature.properties.location.address.addressRegion']['sterms#feature.properties.location.address.addressRegion']
-          .buckets.find(bucket => bucket.key === `${country.toUpperCase()}.${region.toUpperCase()}`)
+        const data = state || {
+          _self: location.href.split('#')[0],
+        }
         const component = data => (
-          <ResourceIndex
+          <ReactiveResourceIndex
             {...data}
-            className="regionView"
             phrases={phrases}
-            mapboxConfig={mapboxConfig}
-            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
-            embedValue="country"
+            map={params.map}
+            iso3166={country.toUpperCase()}
             region={region.toUpperCase()}
-            isEmbed={embed === 'true' || embed === 'country'}
-          >
-            <MobileNavigation
-              current="list"
-              country={data.iso3166}
-              region={region.toUpperCase()}
-            />
-            <Country
-              iso3166={data.iso3166}
-              region={region.toUpperCase()}
-              countryChampions={countryChampions && countryChampions['top_hits#country_champions'].hits.hits}
-              regionalChampions={regionalChampions && regionalChampions['top_hits#regional_champions'].hits.hits}
-              countryData={countryData}
-              regionData={regionData}
-            />
-          </ResourceIndex>
+            view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
+          />
         )
         const title = `${context.i18n.translate((`${country}.${region}`).toUpperCase())} (${context.i18n.translate(country.toUpperCase())})`
         const metadata = {
@@ -309,29 +261,16 @@ export default (api, emitter, location) => {
           image: 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataBig.png',
         }
 
-        if (data && (data.query || Object.keys(data.filters).length > 0)) {
-          metadata.image = 'https://raw.githubusercontent.com/hbz/oerworldmap-ui/master/docs/assets/images/metadataSmall.png'
-          metadata.summary = 'summary'
-        }
-
         return {
           title, data, component, metadata,
         }
       },
     },
     {
-      path: '/aggregation/',
-      get: async (params, context, state) => {
-        const data = state
-        const component = () => <Statistics />
-        const title = context.i18n.translate('ClientTemplates.app.statistics')
-        return { title, data, component }
-      },
-    },
-    {
       path: '/feed/',
       get: async (params, context, state) => {
         const data = state || await api.get('/resource/?size=20&sort=dateCreated:desc', new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Feed {...data} />
@@ -345,6 +284,7 @@ export default (api, emitter, location) => {
       path: '/activity/',
       get: async (params, context, state) => {
         const data = state || await api.get('/activity/', context.authorization)
+        data._self = location.href.split('#')[0]
         const component = data => (
           <FullModal closeLink={Link.home}>
             <Timeline entries={data} />
@@ -359,6 +299,7 @@ export default (api, emitter, location) => {
       get: async (params, context, state) => {
         const { i18n } = context
         const data = state || await api.get('/log/', new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const component = data => (
           <Log entries={data} />
         )
@@ -375,6 +316,7 @@ export default (api, emitter, location) => {
           ? getURL({ path: `/log/${id}`, params: { compare: params.compare, to: params.to } })
           : getURL({ path: `/log/${id}` })
         const data = state || await api.get(url, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const component = data => (
           <Diffs {...data} phrases={phrases} schema={schema} />
         )
@@ -385,13 +327,13 @@ export default (api, emitter, location) => {
     {
       path: '/user/profile',
       get: async (params, context, state) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = state || await api.get('/user/profile', new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const component = data => (
           <WebPage
             {...data.profile}
             _self="/user/profile"
-            mapboxConfig={mapboxConfig}
             view={typeof window !== 'undefined' ? window.location.hash.substr(1) : ''}
             schema={schema}
             onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
@@ -401,13 +343,13 @@ export default (api, emitter, location) => {
         return { title, data, component }
       },
       post: async (params, context, state, body) => {
-        const { mapboxConfig, schema } = context
+        const { schema } = context
         const data = await api.post('/user/profile', body, new Headers(context.headers))
+        data._self = location.href.split('#')[0]
         const component = data => (
           <WebPage
             {...data.profile}
             _self="/user/profile"
-            mapboxConfig={mapboxConfig}
             view="view"
             schema={schema}
             onSubmit={data => emitter.emit('submit', { url: '/user/profile', data })}
@@ -422,7 +364,7 @@ export default (api, emitter, location) => {
   ]
 
   const matchURI = (path, uri) => {
-    const match = toRegExp(path).exec(uri)
+    const match = pathToRegexp(path).exec(uri)
     return match ? match.slice(1) : null
   }
 
@@ -435,7 +377,6 @@ export default (api, emitter, location) => {
         context.err = null
         throw new APIError(message, status)
       }
-      // console.log(routes)
       // eslint-disable-next-line no-restricted-syntax
       for (const route of routes) {
         const uriParams = matchURI(route.path, uri)

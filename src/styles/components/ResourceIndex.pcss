@@ -1,0 +1,486 @@
+#wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.ReactiveFilters {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 20px;
+
+  & .filtersHeader {
+    width: 1000px;
+    max-width: 100%;
+    text-align: center;
+
+    & .basicFilters {
+      display: flex;
+
+      & .nameSearch {
+        flex: 1;
+      }
+    }
+
+    & .typeButtons {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      flex-wrap: wrap;
+
+      & a {
+        position: relative;
+        background-color: transparent;
+        font-weight: 400;
+        color: var(--grey);
+        text-transform: uppercase;
+        margin: 0;
+        padding: 0;
+        font-size: var(--font-size);
+        min-height: 100%;
+        padding-right: 5px;
+        transition: none;
+        cursor: pointer;
+
+        &.active {
+          color: var(--blue-dark);
+
+          &::before {
+            color: var(--blue-dark);
+          }
+        }
+
+        &:focus {
+          outline: 1px dotted var(--blue-dark);
+          border: none;
+          box-shadow: none;
+        }
+      }
+
+      & a::before {
+        font-family: FontAwesome;
+        content: "";
+        color: var(--grey-light);
+        margin-right: 10px;
+      }
+
+      & a:hover {
+        color: var(--orange);
+
+        &::before {
+          color: var(--orange);
+        }
+      }
+
+      & a:nth-child(1)::before {
+        content: "\f0c0";
+      }
+      & a:nth-child(2)::before {
+        content: "\f108";
+      }
+
+      & a:nth-child(3)::before {
+        content: "\f007";
+      }
+
+      & a:nth-child(4)::before {
+        content: "\f085";
+      }
+
+      & a:nth-child(5)::before {
+        content: "\f073";
+      }
+
+      & a:nth-child(6)::before {
+        content: "\f075";
+      }
+
+      & a:nth-child(7)::before {
+        content: "\f0ad";
+      }
+
+      & a:nth-child(8)::before {
+        content: "\f15b";
+      }
+
+      & a:nth-child(9)::before {
+        content: "\f24e";
+      }
+
+      @media only screen and (--mobile-breakpoint) {
+        flex-wrap: nowrap;
+
+        & a {
+          overflow: hidden;
+          width: 40px;
+          height: 40px;
+          color: transparent;
+          padding-right: 0;
+
+          &:hover {
+            color: transparent;
+          }
+
+          &.active {
+            color: transparent;
+          }
+        }
+
+        & a::before {
+          position: absolute;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  & .reactiveBase {
+    height: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  & .mainContent {
+    display: flex;
+    position: relative;
+
+    &.mapView {
+      @media only screen and (--desktop-breakpoint) {
+        & .toggleList {
+          display: block;
+        }
+
+        & .FilterBox {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+
+        &.collapsed {
+          & .toggleList {
+            left: 10px;
+          }
+
+          & aside {
+            min-width: 0;
+            width: 15px;
+            overflow: hidden;
+
+            /* Hide the content while is collapsed */
+            &::after {
+              content: "";
+              top: 0;
+              left: 0;
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              background-color: #fff;
+              background-color: var(--white);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & #Map {
+    display: none;
+  }
+
+  & .mainContent.mapView {
+    & #Map {
+      display: block;
+    }
+
+    @media only screen and (--desktop-breakpoint) {
+      & aside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        z-index: 2;
+        height: 75vh;
+        background-color: var(--white);
+        overflow: auto;
+        padding-right: 0;
+      }
+    }
+  }
+
+  & .toggleList {
+    display: none;
+    position: absolute;
+    left: 314px;
+    top: 0;
+    z-index: 2;
+    background-color: var(--white);
+    border: none;
+    padding: 5px;
+    color: var(--blue-dark);
+
+    & i {
+      pointer-events: none;
+    }
+  }
+
+  & .mainContent.listView {
+    & .listResults:not(.hidden-mobile) {
+      display: block;
+    }
+  }
+
+  & .mainContent.statisticsView {
+    & .statisticsContent {
+      display: block;
+    }
+
+    & .graphContainer {
+      text-align: center;
+      position: relative;
+
+      & h2 {
+        text-align: left;
+      }
+
+      & .graphControls {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        & .btn {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    & .graphContainer:last-child {
+      margin-bottom: 20px;
+    }
+  }
+
+  & aside {
+    min-width: 335px;
+    flex: 1;
+    padding-right: 20px;
+    font-size: 0.8rem;
+
+    @media screen and (--mobile-breakpoint) {
+      position: absolute;
+      padding-right: 0;
+      width: 100%;
+      background-color: var(--grey-lightest);
+      display: none;
+
+      &.show {
+        z-index: 5;
+        display: block;
+      }
+    }
+  }
+
+  & .right {
+    height: 100%;
+    flex: 3;
+  }
+
+  & .FilterBox {
+    margin-bottom: 10px;
+    border-radius: 2px;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    color: var(--blue-dark);
+
+    & h2 {
+      color: var(--blue-dark);
+    }
+
+    & .count {
+      color: var(--blue-light);
+    }
+  }
+
+  & .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    & h3 {
+      margin: 0;
+    }
+
+    & .rightButtons {
+      display: flex;
+      align-items: center;
+
+      & .ShareExport {
+        position: relative;
+        margin-left: 10px;
+      }
+    }
+
+    & .btn.active {
+      color: var(--blue-light);
+    }
+
+    & button,
+    & select {
+      border: none;
+      color: var(--blue-dark);
+      background-color: var(--blue-lightest);
+      margin-left: 5px;
+
+      &:disabled {
+        color: var(--blue-light);
+      }
+    }
+
+    & select {
+      -moz-appearance: none;
+    }
+  }
+
+  & .ResultList {
+    padding: 0;
+
+    & li {
+      background-color: var(--white);
+      border-radius: 2px;
+      padding: 20px;
+      border-bottom: none;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  & .ResultList + div {
+    margin-bottom: 40px;
+
+    & a {
+      &.active {
+        background-color: var(--blue-dark);
+        transition: none;
+      }
+
+      &:focus {
+        outline: 1px dotted var(--blue-dark);
+        box-shadow: none;
+        border: none;
+      }
+    }
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  & h3,
+  & h4 {
+    color: var(--blue-dark);
+  }
+
+  & .typeSearch {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+
+    & a {
+      color: rgb(152, 152, 152);
+      background-color: transparent;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin: 0;
+      padding: 0;
+      transition: none;
+
+      &:focus {
+        background-color: transparent;
+        transition: none;
+        outline: 1px dotted gray;
+        border: none;
+        box-shadow: none;
+      }
+
+      &.active {
+        color: var(--blue-dark);
+      }
+
+      &:hover {
+        background-color: transparent;
+        color: var(--orange);
+      }
+    }
+  }
+
+  & .selectedFilters {
+    background-color: #CBE8F8;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    color: var(--blue-dark);
+
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    & .clearAll {
+      margin-top: 5px;
+      border: none;
+      background-color: transparent;
+      color: var(--blue);
+    }
+
+    & .selectedFilter {
+
+      & button {
+        color: var(--blue-dark);
+        border: none;
+        background-color: transparent;
+        padding-left: 25px;
+        position: relative;
+        text-align: left;
+        margin-bottom: 10px;
+        width: 100%;
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          transform: translateY(-50%);
+          background-color: var(--white);
+          top: 50%;
+          left: 0;
+        }
+
+        &::after {
+          content: "x";
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          transform: translateY(-50%);
+          top: 50%;
+          left: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    & h2 {
+      color: var(--blue-dark);
+      font-size: 1rem;
+    }
+  }
+
+  & .ReactivePieChart {
+    margin-bottom: 20px;
+  }
+}

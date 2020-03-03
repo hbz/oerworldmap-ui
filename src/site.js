@@ -13,7 +13,7 @@ import mitt from 'mitt'
 import 'normalize.css'
 import { gsap } from 'gsap/all'
 
-import { getURL, updateUser } from './common'
+import { updateUser } from './common'
 import Header from './components/Header'
 import Link from './components/Link'
 import I18nProvider from './components/I18nProvider'
@@ -34,10 +34,16 @@ const baseURL = ENVIRONMENT === 'development'
   ? 'https://oerworldmap.org/'
   : '/'
 
-emitter.on('navigate', (url) => {
+const navigate = (url) => {
   const parser = document.createElement('a')
   parser.href = url
   window.open(url, '_self')
+}
+
+emitter.on('navigate', navigate)
+
+window.addEventListener('beforeunload', () => {
+  emitter.off('navigate', navigate)
 })
 
 const hideUserLoginButtons = (() => {
@@ -163,107 +169,6 @@ const createAccordeon = (() => {
 
   return { init }
 })()
-
-const createKibanaListener = (() => {
-  const init = () => {
-    const newWindowLink = document.querySelector('[data-inject-newWindowLink]')
-
-    if (newWindowLink) {
-      newWindowLink.addEventListener('click', (e) => {
-        e.preventDefault()
-
-        const documentBody = `
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Document</title>
-          </head>
-          <body>
-            <iframe
-              src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
-              height="750"
-              width="800"
-              style="border:0; width: 100%; margin: 0 auto;"
-              data-scope="filter.about.@type=Policy"
-            >
-            </iframe>
-            <script>
-
-            const getURL = (route) => {
-              let url = route.path
-              let params = []
-              for (const param in route.params) {
-                const value = route.params[param]
-                if (Array.isArray(value)) {
-                  value && (params = params.concat(value.map(value => param + '=' + encodeURIComponent(value))))
-                } else {
-                  value && params.push(param + '=' + encodeURIComponent(value))
-                }
-              }
-              if (params) {
-                url += '?' + params.join('&')
-              }
-              if (route.hash) {
-                url += '#' + route.hash
-              }
-              return url
-            }
-
-            window.addEventListener("message", (msg) => {
-
-              if (msg.data.filter && msg.data.key) {
-
-                const iframe = document.querySelector('iframe')
-                const { scope } = iframe && iframe.dataset
-
-                const info = {
-                  filter: msg.data.filter,
-                  key: msg.data.key,
-                  scope
-                }
-                window.opener.postMessage(info, "*")
-              }
-
-            })
-
-            </script>
-          </body>
-          </html>
-        `
-        const options = 'menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes,width=800,height=750'
-        const newWindow = window.open('', 'OER Policies', options)
-        newWindow.document.write(documentBody)
-        newWindow.document.close()
-      })
-
-      window.addEventListener('message', (msg) => {
-        if (msg.data.filter && msg.data.key) {
-          const iframe = document.querySelector('iframe')
-          const scope = msg.data.scope || (iframe && iframe.dataset && iframe.dataset.scope)
-
-          const params = {
-            [`filter.${msg.data.filter}`]: msg.data.key,
-          }
-
-          if (scope) {
-            const [key, value] = scope.split('=')
-            params[key] = value
-          }
-
-          window.location.href = getURL({
-            path: '/resource/',
-            params,
-          })
-        }
-      })
-    }
-  }
-  return { init }
-})()
-
 
 const createPoliciesFeed = (() => {
   const init = async () => {
@@ -446,7 +351,6 @@ $(async () => {
   createAccordeon.init()
   createPoliciesFeed.init()
   createPolicyRelated.init()
-  createKibanaListener.init()
   hideUserLoginButtons.init()
   createBlogPost.init()
   animateMap.init()

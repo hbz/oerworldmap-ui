@@ -114,15 +114,30 @@
     background-color: transparent;
     box-shadow: none;
 
+    & button {
+      position: relative;
+    }
+
     & .mapboxgl-ctrl-zoom-in::after,
     & .mapboxgl-ctrl-compass-arrow::after,
-    & .mapboxgl-ctrl-zoom-out::after {
+    & .mapboxgl-ctrl-zoom-out::after,
+    & .mapboxgl-ctrl-shrink::after,
+    & .mapboxgl-ctrl-fullscreen::after {
       font-family: FontAwesome;
       content: "\f067";
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    & .mapboxgl-ctrl-fullscreen::after {
+      content: "\f0b2";
+    }
+
+    & .mapboxgl-ctrl-shrink::after {
+      content: "\f066";
     }
 
     & .mapboxgl-ctrl-zoom-out::after {
@@ -159,12 +174,12 @@
 
   & .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     position: relative;
-    left: -15px;
+    left: 0;
   }
 
   & .mapboxgl-ctrl-logo {
     position: relative;
-    left: 10px;
+    left: 350px;
   }
 
   & .overlayList {
@@ -180,43 +195,6 @@
 
   & .mapboxgl-canvas {
     background-color: #59bdec;
-  }
-
-  & .mapLeyend {
-    width: 250px;
-    height: 30px;
-    background-color: #fff;
-    position: absolute;
-    right: 100px;
-    bottom: 43px;
-    border-radius: 2px;
-    border: 1px solid var(--blue);
-    z-index: 1;
-
-    & .infoContainer {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      color: var(--blue-dark);
-
-      & span {
-        padding: 0 10px;
-      }
-    }
-
-    & .stepsContainer {
-      display: flex;
-      width: 100%;
-      height: 100%;
-
-      & .step {
-        flex: 1;
-      }
-    }
   }
 
   & .goToMap {
@@ -373,7 +351,7 @@
 
   & .imprintLink {
     position: absolute;
-    right: 110px;
+    right: 340px;
     bottom: 0;
     z-index: 3;
     padding: 0 5px;
@@ -407,9 +385,6 @@
   }
 
   @media screen and (--mobile-breakpoint) {
-    height: calc(100% - 30px) !important;
-    top: 30px !important;
-
     & .goToMap {
       right: 10px;
       bottom: 42px;

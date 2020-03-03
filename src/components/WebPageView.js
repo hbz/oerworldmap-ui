@@ -10,6 +10,7 @@ import ResourceImage from './ResourceImage'
 
 import withI18n from './withI18n'
 import withUser from './withUser'
+import withConfig from './withConfig'
 import Block from './Block'
 import ItemList from './ItemList'
 import Link from './Link'
@@ -20,7 +21,6 @@ import Comments from './Comments'
 import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 import LinkOverride from './LinkOverride'
-import MiniMap from './MiniMap'
 
 import { formatURL, formatDate } from '../common'
 import centroids from '../json/centroids.json'
@@ -38,7 +38,7 @@ const WebPageView = ({
   locales,
   isLiveEvent,
   feature,
-  mapboxConfig,
+  config: { mapboxConfig },
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -63,8 +63,8 @@ const WebPageView = ({
     && about.location[0].address
     && about.location[0].address.addressCountry) || null
 
-  const geometry = feature && feature.geometry
-
+  const geometry = (feature && feature.geometry) || null
+  const centroid = (country && centroids[country]) || null
 
   return (
     <div className={`WebPageView ${about['@type']}`}>
@@ -89,7 +89,7 @@ const WebPageView = ({
 
             <br />
             <span className="hint">
-              {translate('Also available in:')}
+              {translate('WebPageView.alsoAvailableIn')}
               &nbsp;
             </span>
             <TabList>
@@ -134,7 +134,7 @@ const WebPageView = ({
             <button className="btn">
               <i className="fa fa-external-link" />
               &nbsp;
-              {translate('Currently taking place: Follow the discussion on Social Media!')}
+              {translate('WebPageView.takingPlace')}
             </button>
           </a>
         </div>
@@ -184,7 +184,7 @@ const WebPageView = ({
                     ))}
 
                     <span className="hint">
-                      {translate('Also available in:')}
+                      {translate('WebPageView.alsoAvailableIn')}
                       &nbsp;
                     </span>
                     <TabList>
@@ -215,17 +215,17 @@ const WebPageView = ({
               ) : (
                 <p>
                   <i>
-                    {translate('A description for this entry is missing.')}
+                    {translate('WebPageView.missingDescription')}
                     {expose('editEntry', user, about) && (
                       <Link href="#edit">
                         &nbsp;
-                        {translate('Help us by adding some information!')}
+                        {translate('WebPageView.helpUs')}
                       </Link>
                     )}
                     {!user && about['@type'] !== 'Person' && (
                       <Link href="/user/register">
                         &nbsp;
-                        {translate('Help us by adding some information!')}
+                        {translate('WebPageView.helpUs')}
                       </Link>
                     )}
                   </i>
@@ -256,7 +256,7 @@ const WebPageView = ({
                     ))}
 
                     <span className="hint">
-                      {translate('Also available in:')}
+                      {translate('WebPageView.alsoAvailableIn')}
                       &nbsp;
                     </span>
                     <TabList>
@@ -326,7 +326,7 @@ const WebPageView = ({
                 <ul className="spaceSeparatedList">
                   {about.keywords.sort((a, b) => a > b).map(keyword => (
                     <li key={keyword}>
-                      <Link href={`/resource/?filter.about.keywords=${encodeURIComponent(keyword.toLowerCase())}`}>
+                      <Link href={`/resource/?filter.about.keywords=["${encodeURIComponent(keyword.toLowerCase())}"]`}>
                         {keyword}
                       </Link>
                     </li>
@@ -345,7 +345,7 @@ const WebPageView = ({
                   concepts={require('../json/esc.json').hasTopConcept}
                   include={about.about.map(concept => concept['@id'])}
                   className="ItemList recursive"
-                  linkTemplate="/resource/?filter.about.about.@id={@id}"
+                  linkTemplate={'/resource/?filter.about.about.@id=["{@id}"]'}
                 />
               </Block>
             )}
@@ -360,7 +360,7 @@ const WebPageView = ({
                   concepts={require('../json/isced-1997.json').hasTopConcept}
                   include={about.audience.map(concept => concept['@id'])}
                   className="ItemList"
-                  linkTemplate="/resource/?filter.about.audience.@id={@id}"
+                  linkTemplate={'/resource/?filter.about.audience.@id=["{@id}"]'}
                 />
               </Block>
             )}
@@ -377,7 +377,7 @@ const WebPageView = ({
                     concepts={require('../json/sectors.json').hasTopConcept}
                     include={about[prop].map(concept => concept['@id'])}
                     className="ItemList"
-                    linkTemplate={`/resource/?filter.about.${prop}.@id={@id}`}
+                    linkTemplate={`/resource/?filter.about.${prop}.@id=["{@id}"]`}
                   />
                 </Block>
               )))}
@@ -393,7 +393,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.List.isAwardedBy'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={
                     [].concat(...about.isFundedBy.filter(grant => grant.isAwardedBy)
                       .map(grant => grant.isAwardedBy))
@@ -423,7 +422,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.List.contactPoint'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.contactPoint
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -438,7 +436,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.RemoteSelect.isPartOf'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={[about.isPartOf]
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -455,7 +452,6 @@ const WebPageView = ({
                 addButton={expose('editEntry', user, about) && '.RemoteSelect.isPartOf'}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.hasPart
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -475,7 +471,6 @@ const WebPageView = ({
                       title={translate(`${about['@type']}.${prop}`)}
                     >
                       <ItemList
-                        tooltip={false}
                         listItems={about[prop]
                           .sort((a, b) => translate(a.name) > translate(b.name))}
                         className="prominent"
@@ -493,7 +488,6 @@ const WebPageView = ({
                 title={translate(`${about['@type']}.agentIn`)}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.agentIn.filter(item => item['@type'] === 'Action')
                     .sort((a, b) => translate(a.name) > translate(b.name))}
                   className="prominent"
@@ -509,7 +503,6 @@ const WebPageView = ({
                 title={translate('Lighthouses')}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.agentIn.filter(action => action['@type'] === 'LighthouseAction')
                     .map(lighthouseAction => lighthouseAction.object)
                     .sort((a, b) => translate(a['@id']) > translate(b['@id']))
@@ -527,7 +520,6 @@ const WebPageView = ({
                 title={translate('Likes')}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={about.agentIn.filter(action => action['@type'] === 'LikeAction')
                     .filter(LikeAction => !!LikeAction.object)
                     .map(LikeAction => LikeAction.object)
@@ -548,7 +540,6 @@ const WebPageView = ({
                 title={translate(`${about['@type']}.funds`)}
               >
                 <ItemList
-                  tooltip={false}
                   listItems={
                     [].concat(...about.awards.filter(grant => grant.funds)
                       .map(grant => grant.funds))
@@ -572,7 +563,6 @@ const WebPageView = ({
                       addButton={expose('editEntry', user, about) && `.List.${prop}`}
                     >
                       <ItemList
-                        tooltip={false}
                         listItems={about[prop]
                           .sort((a, b) => translate(a.name) > translate(b.name))}
                         className="prominent"
@@ -596,7 +586,6 @@ const WebPageView = ({
                   addButton={expose('editEntry', user, about) && `.List.${prop}`}
                 >
                   <ItemList
-                    tooltip={false}
                     listItems={about[prop]
                       .sort((a, b) => translate(a.name) > translate(b.name))}
                     className="prominent"
@@ -634,7 +623,7 @@ const WebPageView = ({
                     <a className="item" href="/oerpolicies">
                       <i aria-hidden="true" className="fa fa-balance-scale bg-highlight-color bg-important" />
                       <span>
-                        {translate('This policy is part of the OER policy registry')}
+                        {translate('WebPageView.partOfRegistry')}
                       </span>
                     </a>
                   </li>
@@ -682,7 +671,7 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.additionalType`)}>
               {about.additionalType.map(type => (
                 <React.Fragment key={type['@id']}>
-                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id={@id}').expand(type)}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.additionalType.@id=["{@id}"]').expand(type)}>
                     {translate(type.name)}
                   </Link>
                   <br />
@@ -695,7 +684,7 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.scope`)}>
               {about.scope.map(scope => (
                 <React.Fragment key={scope['@id']}>
-                  <Link href={urlTemplate.parse('/resource/?filter.about.scope.@id={@id}').expand(scope)}>
+                  <Link href={urlTemplate.parse('/resource/?filter.about.scope.@id=["{@id}"]').expand(scope)}>
                     {translate(scope.name)}
                   </Link>
                   <br />
@@ -708,7 +697,7 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.focus`)}>
               {about.focus.map(focus => (
                 <React.Fragment key={focus}>
-                  <Link href={`/resource/?filter.about.focus.keyword=${focus}`}>
+                  <Link href={`/resource/?filter.about.focus.keyword=["${focus}"]`}>
                     {translate(focus)}
                   </Link>
                   <br />
@@ -756,7 +745,7 @@ const WebPageView = ({
 
           {about.status && (
             <Block title={translate(`${about['@type']}.status`)}>
-              <Link href={`/resource/?filter.about.status=${about.status}`}>
+              <Link href={`/resource/?filter.about.status=["${about.status}"]`}>
                 {about.status}
               </Link>
             </Block>
@@ -767,20 +756,23 @@ const WebPageView = ({
             <Block title={translate(`${about['@type']}.location`)} key={i}>
               <>
                 {about['@type'] !== 'Policy' && (
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      height: '200px',
-                    }}
-                  >
-                    <MiniMap
-                      mapboxConfig={mapboxConfig}
-                      geometry={geometry}
-                      center={geometry ? undefined : (country && centroids[country])}
-                      isLiveEvent={isLiveEvent}
-                    />
-                  </div>
+                  <>
+                    {geometry ? (
+                      <img
+                        alt={translate('WebPageView.mapAlt')}
+                        src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/geojson({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"%23f93","marker-size":"medium"},"geometry":${JSON.stringify(geometry)}}]})/${geometry.coordinates[0]},${geometry.coordinates[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
+                      />
+                    ) : (
+                      centroid ? (
+                        <img
+                          alt={translate('WebPageView.mapAlt')}
+                          src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/${centroid[0]},${centroid[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
+                        />
+                      ) : (
+                        <div>No location for this resource</div>
+                      )
+                    )}
+                  </>
                 )}
                 <p>
                   {location.address.streetAddress
@@ -819,14 +811,14 @@ const WebPageView = ({
                 concepts={require('../json/activities.json').hasTopConcept}
                 include={about.activityField.map(concept => concept['@id'])}
                 className="ItemList recursive"
-                linkTemplate="/resource/?filter.about.activityField.@id={@id}"
+                linkTemplate={'/resource/?filter.about.activityField.@id=["{@id}"]'}
               />
             </Block>
           )}
 
           {about.spatialCoverage && (
             <Block title={translate(`${about['@type']}.spatialCoverage`)}>
-              <Link href={`/resource/?filter.about.spatialCoverage=${about.spatialCoverage}`}>
+              <Link href={`/resource/?filter.about.spatialCoverage=["${about.spatialCoverage}"]`}>
                 {about.spatialCoverage}
               </Link>
             </Block>
@@ -872,7 +864,7 @@ const WebPageView = ({
               <ul className="commaSeparatedList">
                 {about.inLanguage.map(lang => (
                   <li key={lang}>
-                    <Link href={`/resource/?filter.about.inLanguage=${lang}`}>
+                    <Link href={`/resource/?filter.about.inLanguage=["${lang}"]`}>
                       {translate(lang)}
                     </Link>
                   </li>
@@ -888,7 +880,7 @@ const WebPageView = ({
                 {[].concat(...about.availableChannel.map(channel => channel.availableLanguage))
                   .map(lang => (
                     <li key={lang}>
-                      <Link href={`/resource/?filter.about.availableChannel.availableLanguage=${lang}`}>
+                      <Link href={`/resource/?filter.about.availableChannel.availableLanguage=["${lang}"]`}>
                         {translate(lang)}
                       </Link>
                     </li>
@@ -944,6 +936,7 @@ const WebPageView = ({
 
 WebPageView.propTypes = {
   translate: PropTypes.func.isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any),
@@ -953,13 +946,6 @@ WebPageView.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   isLiveEvent: PropTypes.bool,
   feature: PropTypes.objectOf(PropTypes.any),
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-      miniMapStyle: PropTypes.string,
-    },
-  ).isRequired,
 }
 
 WebPageView.defaultProps = {
@@ -969,4 +955,4 @@ WebPageView.defaultProps = {
   feature: null,
 }
 
-export default withI18n(withUser(WebPageView))
+export default withConfig(withI18n(withUser(WebPageView)))

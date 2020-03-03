@@ -12,6 +12,13 @@ import ConceptBlock from './ConceptBlock'
 import Icon from './Icon'
 import withUser from './withUser'
 
+import { hasTopConcept as organizationsConcepts } from '../json/organizations.json'
+import { hasTopConcept as personsConcepts } from '../json/persons.json'
+import { hasTopConcept as servicesConcepts } from '../json/services.json'
+import { hasTopConcept as publicationsConcepts } from '../json/publications.json'
+import { hasTopConcept as policyTypesConcepts } from '../json/policyTypes.json'
+import { hasTopConcept as projectsConcepts } from '../json/projects.json'
+
 import '../styles/components/Header.pcss'
 import '../styles/helpers.pcss'
 
@@ -29,34 +36,36 @@ class Header extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.setDropdown = this.setDropdown.bind(this)
+    this.setLoading = this.setLoading.bind(this)
+    this.newActivity = this.newActivity.bind(this)
+    this.clearActivity = this.clearActivity.bind(this)
   }
 
   componentDidMount() {
-    const { emitter, user } = this.props
+    const { emitter } = this.props
     document.addEventListener('click', this.handleClick)
 
-    emitter.on('setLoading', () => {
-      if (this.dropDown) {
-        this.setState({ showMobileMenu: false })
-        this.setDropdown('')
-      }
-    })
-
-    emitter.on('newActivity', (activities) => {
-      if (window.location.pathname !== '/activity/') {
-        const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
-        this.setState({ showNotification })
-      }
-    })
-
-    emitter.on('clearActivity', () => {
-      this.setState({ showNotification: false })
-    })
+    emitter.on('setLoading', this.setLoading)
+    emitter.on('newActivity', this.newActivity)
+    emitter.on('clearActivity', this.clearActivity)
   }
 
   componentWillUnmount() {
+    const { emitter } = this.props
+
+    emitter.off('setLoading', this.setLoading)
+    emitter.off('newActivity', this.newActivity)
+    emitter.off('clearActivity', this.clearActivity)
     document.removeEventListener('click', this.handleClick)
   }
+
+  setLoading() {
+    if (this.dropDown) {
+      this.setState({ showMobileMenu: false })
+      this.setDropdown('')
+    }
+  }
+
 
   setDropdown(name) {
     const { dropdowns } = this.state
@@ -67,6 +76,18 @@ class Header extends React.Component {
     })
 
     this.setState({ dropdowns: dropdownsState })
+  }
+
+  newActivity(activities) {
+    const { user } = this.props
+    if (window.location.pathname !== '/activity/') {
+      const showNotification = !user || activities.some(activity => activity.user && activity.user['@id'] !== user.id)
+      this.setState({ showNotification })
+    }
+  }
+
+  clearActivity() {
+    this.setState({ showNotification: false })
   }
 
   handleClick(e) {
@@ -186,10 +207,9 @@ class Header extends React.Component {
               <div className="dropdown">
                 <div className="inner">
                   <div className="popular">
-
                     <ul>
                       <li>
-                        <Link className="iconItem" href="/resource/?filter.about.objectIn.@type=LighthouseAction&sort=lighthouse_count:DESC">
+                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LighthouseAction"]&sort=lighthouse_count'}>
                           <div className="i">
                             <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                             <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
@@ -198,7 +218,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <Link className="iconItem" href="/resource/?filter.about.objectIn.@type=LikeAction&sort=like_count:DESC">
+                        <Link className="iconItem" href={'/resource/?filter.about.objectIn.%40type=["LikeAction"]&sort=like_count'}>
                           <i aria-hidden="true" className="fa fa-thumbs-up" />
                           {translate('menu.most_liked')}
                         </Link>
@@ -216,7 +236,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <Link className="iconItem" href="/resource/?q=_exists_:about.countryChampionFor">
+                        <Link className="iconItem" href={'/resource/?q="_exists_:about.countryChampionFor"'}>
                           <i className="fa fa-trophy" />
                           {translate('ClientTemplates.app.countryChampions')}
                         </Link>
@@ -232,7 +252,7 @@ class Header extends React.Component {
                     {user && (
                       <ul>
                         <li>
-                          <Link className="iconItem" href={`/resource/?filter.author.keyword=${user.id}`}>
+                          <Link className="iconItem" href={`/resource/?filter.author.keyword=["${user.id}"]`}>
                             <i aria-hidden="true" className="fa fa-pencil" />
                             {translate('menu.my_entries')}
                           </Link>
@@ -274,41 +294,41 @@ class Header extends React.Component {
                     <div className="col">
                       <ConceptBlock
                         type="Organization"
-                        conceptScheme={require('../json/organizations.json').hasTopConcept}
-                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                        conceptScheme={organizationsConcepts}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Person"
-                        conceptScheme={require('../json/persons.json').hasTopConcept}
-                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                        conceptScheme={personsConcepts}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Service"
-                        conceptScheme={require('../json/services.json').hasTopConcept}
-                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                        conceptScheme={servicesConcepts}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="WebPage"
-                        conceptScheme={require('../json/publications.json').hasTopConcept}
-                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                        conceptScheme={publicationsConcepts}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                       <ConceptBlock
                         type="Policy"
-                        conceptScheme={require('../json/policyTypes.json').hasTopConcept}
-                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                        conceptScheme={policyTypesConcepts}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
                     <div className="col">
                       <ConceptBlock
                         type="Action"
-                        conceptScheme={require('../json/projects.json').hasTopConcept}
-                        linkTemplate="/resource/?filter.about.additionalType.@id={@id}"
+                        conceptScheme={projectsConcepts}
+                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                       <ConceptBlock
                         type="Product"
@@ -568,19 +588,19 @@ class Header extends React.Component {
                       <div className="col one-half">
                         <ul className="linedList border-bottom">
                           <li>
-                            <Link className="item" href={`/resource/?filter.author.keyword=${user.id}`}>
+                            <Link className="item" href={`/resource/?filter.author.keyword=["${user.id}"]`}>
                               <i aria-hidden="true" className="fa fa-pencil" />
                               <span>{translate('menu.me.entries')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${user.id}&filter.about.objectIn.@type=LikeAction`}>
+                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=["${user.id}"]&filter.about.objectIn.%40type=["LikeAction"]`}>
                               <i aria-hidden="true" className="fa fa-thumbs-up" />
                               <span>{translate('menu.me.likes')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=${user.id}&filter.about.objectIn.@type=LighthouseAction`}>
+                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=["${user.id}"]&filter.about.objectIn.%40type=["LighthouseAction"]`}>
                               <div className="i">
                                 <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
                                 <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
@@ -589,13 +609,13 @@ class Header extends React.Component {
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.attendee.@id=${user.id}`}>
+                            <Link className="item" href={`/resource/?filter.about.attendee.@id=["${user.id}"]`}>
                               <i aria-hidden="true" className="fa fa-calendar" />
                               <span>{translate('menu.me.events')}</span>
                             </Link>
                           </li>
                           <li>
-                            <Link className="item" href={`/resource/?filter.about.affiliate.@id=${user.id}`}>
+                            <Link className="item" href={`/resource/?filter.about.affiliate.@id=["${user.id}"]`}>
                               <i aria-hidden="true" className="fa fa-users" />
                               <span>{translate('menu.me.organizations')}</span>
                             </Link>

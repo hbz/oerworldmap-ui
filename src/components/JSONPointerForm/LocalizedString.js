@@ -30,7 +30,7 @@ const LocalizedString = ({
       >
         {translate(title)}
         &nbsp;
-        {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+        {required ? <span className="asterisk" title={translate('Error.requiredField')}>*</span> : ''}
       </div>
       <span className="fieldDescription">
         {(description && translate(description) !== description)

@@ -14,6 +14,17 @@ The OER Policy Registry records policies related to Open Education and Open Educ
 
 The registry is a powerful resource for policy makers, advocates and researchers interested in Open Education. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies <a href="/resource/?filter.about.%40type=Policy&size=20">here</a>.
 
+## Statistic explorer
+<div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
+
+<div class="graphsContainer">
+  {% include graph.html title="Policies by Country" src="/stats?field=about.location.address.addressCountry&q=about.@type:Policy" %}
+  {% include graph.html title="Policies by Coverage" src="/stats?field=about.spatialCoverage&q=about.@type:Policy" %}
+  {% include graph.html title="Policies by Educational Sector" src="/stats?field=about.primarySector.@id&q=about.@type:Policy" %}
+</div>
+
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
+
 ## Latest policies added
 
 <div data-inject-feed></div>
@@ -24,6 +35,7 @@ The registry is a powerful resource for policy makers, advocates and researchers
 <div style="display:none;"><a class="btn" href="" target="_blank">All related entries (list)</a></div>
 
 ## FAQ
+
 ### Add a policy
 
 Any registered OER world map user can add a policy to the OER policy registry: <a href="/resource/?add=Policy" target="_blank">Add a policy</a>. If you're not registered yet, you can <a href="https://oerworldmap.org/user/register" target="_blank">join here</a>. See the Policy Registry Manual for a detailed description of all fields: <a href="https://kurzelinks.de/yuge" target="_blank">Editors guide (beta)</a>
@@ -37,7 +49,7 @@ Any registered OER world map user can add a policy to the OER policy registry: <
 The OER Policy Registry allows anybody to easily share, update, and browse open education policies and legislation. It also hosts supporting policy resources such as case studies and guides. Adding open policies as a new layer to the OER World Map enables open advocates and policy makers to get a more complete picture of all open education activities in a particular region. It also provides a starting point for policy makers, open education activists and initiatives.
 
 ### What was the origin of the OER policy registry @ OER World Map?
-We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map! We documented the conversion process [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map). 
+We moved the OER Policy Registry from Creative Commons to the OER World Map in fall 2018. Gratitude to Creative Commons for creating, maintaining and contributing its OER Policy Registry to the OER World Map! We documented the conversion process [on our blog](https://oerworldmap.wordpress.com/2018/10/11/moving-the-oer-policy-registry-to-the-oer-world-map).
 
 The work is not done yet, we hope to gather feedback here: [OER Policy Lab @ OER 19 Galway](https://oerworldmap.wordpress.com/2019/01/22/save-the-date-oer-policy-lab-oer19/). If you have feedback, contact us ( info@oerworldmap.org) or [submit an issue on github](https://github.com/hbz/oerworldmap/issues). Thanks in advance!
 

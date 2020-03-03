@@ -16,27 +16,27 @@ const TimelineBlock = ({
   let resource
 
   if (entry.about['@type'] === 'LighthouseAction') {
-    message = translate('marked as a lighthouse')
+    message = translate('TimelineBlock.markedAsLighthouse')
     resource = entry.about.object
   } else if (entry.about['@type'] === 'Comment') {
-    message = translate('commented on')
+    message = translate('TimelineBlock.commentedOn')
     resource = entry.about.commentOn
   } else if (entry.action.type === 'add' && entry.about['@type'] === 'Person') {
     user = entry.about
-    message = translate('joined the OER World Map')
+    message = translate('TimelineBlock.joinedTheOERWorldMap')
     resource = entry.about
   } else if (entry.action.type === 'add' && entry.about['@type'] === 'LikeAction') {
-    message = translate('liked')
+    message = translate('TimelineBlock.liked')
     resource = entry.about.object
   } else if (entry.action.type === 'add') {
-    message = translate('added')
+    message = translate('TimelineBlock.added')
     resource = entry.about
   } else if (entry.action.type === 'edit' && entry.about['@type'] === 'Person') {
     user = entry.about
-    message = translate('updated their profile')
+    message = translate('TimelineBlock.updatedTheirProfile')
     resource = entry.about
   } else if (entry.action.type === 'edit') {
-    message = translate('edited')
+    message = translate('TimelineBlock.edited')
     resource = entry.about
   }
 
@@ -56,17 +56,17 @@ const TimelineBlock = ({
           )}
           {user.name
             && <Link href={user['@id']}>{translate(user.name)}</Link>
-            || translate('someone')
+            || translate('TimelineBlock.someone')
           }
           &nbsp;
-          {translate('from')}
+          {translate('TimelineBlock.from')}
           &nbsp;
           {(user.location && user.location[0] && user.location[0].address)
             ? (
               <Link href={user.location[0].address.addressCountry}>
                 {translate(user.location[0].address.addressCountry)}
               </Link>
-            ) : translate('somewhere')}
+            ) : translate('TimelineBlock.somewhere')}
           &nbsp;
           {translate(message)}
           {entry.about['@type'] !== 'Person' && (

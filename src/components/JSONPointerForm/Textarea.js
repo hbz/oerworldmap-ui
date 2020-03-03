@@ -16,7 +16,7 @@ const Textarea = ({
     >
       {translate(title)}
       &nbsp;
-      {required ? <span className="asterisk" title={translate('This is a required field!')}>*</span> : ''}
+      {required ? <span className="asterisk" title={translate('Error.requiredField')}>*</span> : ''}
     </label>
     <span className="fieldDescription">
       {(description

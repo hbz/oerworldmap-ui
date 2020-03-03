@@ -3,12 +3,10 @@
 /* global navigator */
 /* global requestAnimationFrame */
 /* global cancelAnimationFrame */
-/* global Headers */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
-import fetch from 'isomorphic-fetch'
 
 import { scaleLog, quantile, interpolateHcl } from 'd3'
 
@@ -19,14 +17,17 @@ import Icon from './Icon'
 import Link from './Link'
 import withI18n from './withI18n'
 import withEmitter from './withEmitter'
+import withConfig from './withConfig'
 import EmittProvider from './EmittProvider'
-import { getProp, emptyGeometry } from '../common'
 import bounds from '../json/bounds.json'
 import ResourcePreview from './ResourcePreview'
 import I18nProvider from './I18nProvider'
 import i18n from '../i18n'
+import MapLeyend from './MapLeyend'
 
-import '../styles/components/Map.pcss'
+import '../styles/components/ReactiveMap.pcss'
+
+const timeout = async ms => new Promise(resolve => setTimeout(resolve, ms))
 
 let resizeTimer
 const pointsLayers = ['points', 'points-hover', 'points-select']
@@ -62,13 +63,18 @@ const renderTypes = types => (
 class Map extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      aggregations: {},
+    }
+
+
     this.updatePoints = this.updatePoints.bind(this)
+    this.updateLiveEventsPoints = this.updateLiveEventsPoints.bind(this)
     this.updateZoom = this.updateZoom.bind(this)
     this.updateActiveCountry = this.updateActiveCountry.bind(this)
     this.mouseMovePoints = this.mouseMovePoints.bind(this)
     this.mouseMove = this.mouseMove.bind(this)
-    this.moveEnd = this.moveEnd.bind(this)
+    // this.moveEnd = this.moveEnd.bind(this)
     this.mouseLeave = this.mouseLeave.bind(this)
     this.clickPoints = this.clickPoints.bind(this)
     this.clickCountries = this.clickCountries.bind(this)
@@ -79,6 +85,13 @@ class Map extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.animateCircleLayer = this.animateCircleLayer.bind(this)
     this.animateMarker = this.animateMarker.bind(this)
+    this.setMapData = this.setMapData.bind(this)
+    this.setLiveEventsData = this.setLiveEventsData.bind(this)
+    this.resize = this.resize.bind(this)
+    this.isReady = false
+    this.data = {}
+
+    props.emitter.on('resize', this.resize)
 
     this.layersOrder = [
       {
@@ -106,13 +119,17 @@ class Map extends React.Component {
 
   componentDidMount() {
     const {
-      mapboxConfig, map, locales,
-      aggregations, iso3166, home, emitter, initPins, region,
+      config: { mapboxConfig }, map, locales, iso3166, emitter, region,
     } = this.props
 
+    emitter.on('mapData', this.setMapData)
+    emitter.on('liveEventsData', this.setLiveEventsData)
+
     const bounds = [[Number.NEGATIVE_INFINITY, -60], [Number.POSITIVE_INFINITY, 84]]
-    const mapboxgl = require('mapbox-gl')
-    mapboxgl.accessToken = mapboxConfig.token
+    const {
+      LngLatBounds, Map, NavigationControl, FullscreenControl, Popup,
+    } = require('mapbox-gl')
+    this.mapboxTools = { LngLatBounds, Popup }
 
     const mapParameters = map
       && map.split(',')
@@ -124,12 +141,13 @@ class Map extends React.Component {
       center.zoom = (mapParameters[2] && !Number.isNaN(mapParameters[2])) ? mapParameters[2] : null
     }
 
-    this.map = new mapboxgl.Map({
+    this.map = new Map({
       container: 'Map',
       style: `mapbox://styles/${mapboxConfig.style}`,
-      center: (center.lng && center.lat) ? [center.lng, center.lat] : [-50, 42],
+      center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 42],
       zoom: center.zoom || 1,
       maxBounds: bounds,
+      accessToken: mapboxConfig.token,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1,
     })
 
@@ -188,9 +206,7 @@ class Map extends React.Component {
         pointsLayer.paint['circle-radius'] = this.initialRadius
 
         this.map.addLayer(pointsLayer)
-        initPins
-          ? this.map.setLayoutProperty(layer, 'visibility', 'visible')
-          : this.map.setLayoutProperty(layer, 'visibility', 'none')
+        this.map.setLayoutProperty(layer, 'visibility', 'visible')
       })
 
       this.map.addLayer({
@@ -217,7 +233,7 @@ class Map extends React.Component {
         },
       })
 
-      this.updatePoints(iso3166, region)
+      // this.updatePoints(iso3166, region)
 
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
@@ -228,8 +244,8 @@ class Map extends React.Component {
       this.map.addLayer(RegionsLayer, 'Regions')
 
       // Initialize choropleth layers
-      this.updateChoropleth(aggregations)
-      this.updateZoom(iso3166, home, map)
+      // this.updateChoropleth(aggregations)
+      // this.updateZoom(iso3166, home, map)
       this.updateActiveCountry(iso3166, region)
 
       window.addEventListener('resize', () => {
@@ -238,7 +254,7 @@ class Map extends React.Component {
       })
 
       // Update URL values
-      this.map.on('moveend', this.moveEnd)
+      // this.map.on('moveend', this.moveEnd)
 
       // Get features currently under the mouse
       this.map.on('mousemove', this.mouseMove)
@@ -252,29 +268,11 @@ class Map extends React.Component {
 
       this.map.on('click', this.handleClick)
 
-      // Receive event from ItemList
-      emitter.on('hoverPoint', (e) => {
-        this.map.setFilter('points-hover', ['in', '@id'].concat(e.id))
-      })
-
-      emitter.on('showFeatures', (show) => {
-        pointsLayers.forEach((layer) => {
-          if (show) {
-            this.map.setLayoutProperty(layer, 'visibility', 'visible')
-          } else {
-            this.map.setLayoutProperty(layer, 'visibility', 'none')
-          }
-        })
-      })
-
       // Add mapbox controls
-      const nav = new mapboxgl.NavigationControl({ showCompass: false })
+      const nav = new NavigationControl({ showCompass: false })
       this.map.addControl(nav, 'bottom-right')
-
-      // Receive event from Filters
-      emitter.on('hideOverlay', () => {
-        this.popup ? this.popup.remove() : null
-      })
+      this.map.addControl(new FullscreenControl(), 'bottom-right')
+      this.isReady = true
     })
 
     // Create popup for hover
@@ -288,7 +286,7 @@ class Map extends React.Component {
       'bottom-left': [0, -20],
       'bottom-right': [0, -20],
     }
-    this.hoverPopup = new mapboxgl.Popup(
+    this.hoverPopup = new Popup(
       {
         closeButton: false,
         offset: this.popupOffsets,
@@ -297,23 +295,45 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateChoropleth(nextProps.aggregations)
     this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
     this.updateActiveCountry(nextProps.iso3166, nextProps.region)
-    this.updatePoints(nextProps.iso3166, nextProps.region)
   }
 
   componentWillUnmount() {
+    const { emitter } = this.props
     this.map.off('zoom', this.zoom)
     this.map.off('mousemove', 'points', this.mouseMovePoints)
     this.map.off('mousemove', this.mouseMove)
-    this.map.off('moveend', this.moveEnd)
+    // this.map.off('moveend', this.moveEnd)
     this.map.off('mouseleave', 'points', this.mouseLeave)
     this.map.off('click', this.handleClick)
+    emitter.off('mapData', this.setMapData)
+    emitter.off('liveEventsData', this.setLiveEventsData)
+    emitter.off('resize', this.resize)
+  }
+
+  async setMapData(data) {
+    if (this.isReady) {
+      this.updateChoropleth(data.aggregations)
+      this.updatePoints(data.features)
+      this.setState(data)
+    } else {
+      await timeout(10)
+      this.setMapData(data)
+    }
+  }
+
+  async setLiveEventsData(data) {
+    if (this.isReady) {
+      this.updateLiveEventsPoints(data.features)
+    } else {
+      await timeout(10)
+      this.setLiveEventsData(data)
+    }
   }
 
   getBucket(location, aggregation) {
-    const { aggregations } = this.props
+    const { aggregations } = this.state
 
     return (aggregations && aggregations[aggregation]
       && aggregations[aggregation].buckets.find(agg => agg.key === location))
@@ -327,6 +347,16 @@ class Map extends React.Component {
       this.map.setPaintProperty(layer, 'circle-radius', this.initialRadius)
     })
     this.map.setPaintProperty('Events', 'circle-radius', this.initialRadius)
+  }
+
+  resize() {
+    if (this.map) {
+      this.map.resize()
+    } else {
+      window.setTimeout(() => {
+        this.resize()
+      }, 500)
+    }
   }
 
   animateMarker(timestamp) {
@@ -381,8 +411,9 @@ class Map extends React.Component {
 
     if (!overlayList) {
       const {
-        translate, iso3166, aggregations, phrases, locales, emitter, region,
+        translate, iso3166, phrases, locales, emitter, region,
       } = this.props
+      const { aggregations } = this.state
       const hoveredEvents = this.map.queryRenderedFeatures(e.point, { layers: ['Events'] })
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
@@ -494,7 +525,7 @@ class Map extends React.Component {
                   <>
                     <br />
                     <span className="tip">
-                      {translate('Click this region to explore')}
+                      {translate('Map.clickRegion')}
                     </span>
                   </>
                 )
@@ -506,11 +537,13 @@ class Map extends React.Component {
                   </>
                 )}
               </li>
-              {bucket && aggregations['global#champions']['sterms#about.regionalChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
-                <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
-              ) : (
-                <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-              )}
+              {bucket && aggregations['global#champions']['sterms#about.regionalChampionFor.keyword']
+                .buckets.some(b => b.key === bucket.key) ? (
+                  <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
+                ) : (
+                  <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+                )
+              }
             </ul>
           )
         } else if (currentRegionInactive) {
@@ -527,7 +560,7 @@ class Map extends React.Component {
                 </b>
                 <br />
                 <span className="tip">
-                  {translate('Click this region to explore')}
+                  {translate('Map.clickRegion')}
                 </span>
               </li>
             </ul>
@@ -544,7 +577,7 @@ class Map extends React.Component {
                 </b>
                 <br />
                 <span className="tip">
-                  {translate('Click this country to explore')}
+                  {translate('Map.clickCountry')}
                 </span>
               </li>
             </ul>
@@ -562,7 +595,7 @@ class Map extends React.Component {
                   <br />
                 </b>
                 <span className="tip">
-                  {translate('Click this country to explore')}
+                  {translate('Map.clickCountry')}
                 </span>
                 {bucket && (
                   <>
@@ -571,11 +604,13 @@ class Map extends React.Component {
                   </>
                 )}
               </li>
-              {bucket && aggregations['global#champions']['sterms#about.countryChampionFor.keyword'].buckets.some(b => b.key === bucket.key) ? (
-                <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
-              ) : (
-                <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
-              )}
+              {bucket && aggregations['global#champions']['sterms#about.countryChampionFor.keyword']
+                .buckets.some(b => b.key === bucket.key) ? (
+                  <li className="separator"><span>{translate('Map.countryChampionAvailable')}</span></li>
+                ) : (
+                  <li className="separator"><span>{translate('Map.noCountryChampionYet')}</span></li>
+                )
+              }
             </ul>
           )
         }
@@ -634,7 +669,6 @@ class Map extends React.Component {
   }
 
   updateZoom(iso3166, home, map) {
-    const mapboxgl = require('mapbox-gl')
     // Zoom if a country is selected
     if (iso3166) {
       if (this.map.isStyleLoaded()) {
@@ -663,7 +697,7 @@ class Map extends React.Component {
 
             const bounds = sumCoords
               .reduce((bounds, coord) => bounds
-                .extend(coord), new mapboxgl.LngLatBounds(sumCoords[0], sumCoords[0]))
+                .extend(coord), new this.mapboxTools.LngLatBounds(sumCoords[0], sumCoords[0]))
 
             this.map.fitBounds(bounds, {
               padding: 40,
@@ -724,6 +758,7 @@ class Map extends React.Component {
   }
 
   updateChoropleth(aggregations) {
+    const { emitter } = this.props
     if (aggregations) {
       const aggregation = aggregations['sterms#feature.properties.location.address.addressRegion']
         || aggregations['sterms#feature.properties.location.address.addressCountry']
@@ -733,8 +768,10 @@ class Map extends React.Component {
         .filter((value, index, self) => self.indexOf(value) === index)
         .concat('rgba(255, 255, 255)')
         .reverse()
-      const property = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'code_hasc' : 'iso_a2'
-      const layer = aggregations['sterms#feature.properties.location.address.addressRegion'] ? 'Regions' : 'countries'
+      const property = aggregations['sterms#feature.properties.location.address.addressRegion']
+        ? 'code_hasc' : 'iso_a2'
+      const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
+        ? 'Regions' : 'countries'
 
       this.map.setPaintProperty(layer, 'fill-color', {
         property,
@@ -742,7 +779,10 @@ class Map extends React.Component {
         type: 'categorical',
         default: 'rgb(255, 255, 255)',
       })
-      this.setState({ colors })
+
+      const max = (aggregations.length && aggregations[0].doc_count) || 0
+
+      emitter.emit('updateColors', { colors, max })
     }
   }
 
@@ -789,8 +829,7 @@ class Map extends React.Component {
       if (this.popup && this.popup.isOpen()) {
         this.popup.remove()
       } else {
-        const mapboxgl = require('mapbox-gl')
-        this.popup = new mapboxgl.Popup(
+        this.popup = new this.mapboxTools.Popup(
           {
             closeButton: false,
             offset: this.popupOffsets,
@@ -831,169 +870,27 @@ class Map extends React.Component {
     const { emitter } = this.props
     const [country, region] = features[0].properties.code_hasc.toLowerCase().split('.')
     if (features[0].properties.iso_a2 !== '-99') {
-      emitter.emit('navigate', `/country/${country}/${region}`)
+      emitter.emit('navigate', `/country/${country}/${region}${window.location.search}`)
     }
   }
 
-  async updatePoints(iso3166, region) {
-    const layers = ['points', 'Events', 'EventsGlow']
-    layers.map(layerName => this.animateCircleLayer(layerName, false))
-    this.map.getSource('eventsSource').setData(emptyGeometry)
-    cancelAnimationFrame(this.animatingMarkers)
-
-    const { searchParams } = new URL(Link.self)
-    const q = searchParams.get('q')
-    const type = searchParams.get('filter.about.@type')
-    const filters = [...searchParams].filter(param => param[0].startsWith('filter')
-      && (param[0] !== 'filter.about.@type')
-      && (param[0] !== 'filter.about.startDate.GTE'))
-      .reduce((acc, curr) => {
-        if (!acc[curr[0]]) acc[curr[0]] = []
-        acc[curr[0]].push(curr)
-        return acc
-      }, {})
-
-    const startDate = searchParams.get('filter.about.startDate.GTE')
-
-    const query = {
-      size: 9999,
-      _source: 'feature.*',
-      query: {
-        bool: {
-          filter: [
-            {
-              exists: {
-                field: 'feature',
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    if (q) {
-      query.query.bool.filter.push({
-        query_string: {
-          query: q,
-        },
-      })
-    }
-
-    if (type) {
-      query.query.bool.filter.push({
-        term: {
-          'about.@type': type,
-        },
-      })
-
-      if (type === 'Event' && !startDate) {
-        query.query.bool.filter.push({
-          range: {
-            'about.startDate': {
-              gte: 'now/d',
-            },
-          },
-        })
-      }
-    }
-
-    if (iso3166) {
-      query.query.bool.filter.push({
-        term: {
-          'feature.properties.location.address.addressCountry': iso3166.toUpperCase(),
-        },
-      })
-    }
-
-    if (region) {
-      query.query.bool.filter.push({
-        term: {
-          'feature.properties.location.address.addressRegion': `${iso3166.toUpperCase()}.${region.toUpperCase()}`,
-        },
-      })
-    }
-
-    if (Object.keys(filters).length) {
-      Object.keys(filters).forEach((filterName) => {
-        let formatedFilter
-        if (filters[filterName].length > 1) {
-          formatedFilter = {
-            bool: {
-              should: filters[filterName].map(f => (
-                {
-                  term: { [f[0].replace('filter.', '')]: f[1] },
-                }
-              )),
-            },
-          }
-        } else {
-          formatedFilter = {
-            term: {
-              [filters[filterName][0][0].replace('filter.', '')]: filters[filterName][0][1],
-            },
-          }
-        }
-        query.query.bool.filter.push(formatedFilter)
-      })
-    }
-    const date = new Date().toJSON().split('T').shift()
-
-    const queryEvents = {
-      _source: 'feature.*',
-      query: {
-        bool: {
-          must: {
-            exists: {
-              field: 'feature',
-            },
-          },
-          filter: [
-            {
-              query_string: {
-                query: `about.startDate:<=${date} AND about.endDate:>=${date} AND _exists_:about.hashtag`,
-              },
-            },
-            {
-              term: {
-                'about.@type': 'Event',
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    // Query elasticsearch with a multiple search fot the features and events
-    const response = await fetch('/elastic/_msearch', {
-      method: 'POST',
-      body: `{}\n${[JSON.stringify(query), '{}', JSON.stringify(queryEvents)].join('\n')}\n`,
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-    })
-
-    const json = await response.json()
-
-    const [points, events] = json.responses
-
+  updatePoints(features) {
     const pointsCollection = {
       type: 'FeatureCollection',
-      features: points.hits.hits.map(item => item._source.feature),
+      features,
     }
+    this.popup && this.popup.remove()
+    this.map.getSource('pointsSource').setData(pointsCollection)
+  }
 
+  updateLiveEventsPoints(features) {
+    cancelAnimationFrame(this.animatingMarkers)
     const eventsCollection = {
       type: 'FeatureCollection',
-      features: events.hits.hits.map(item => item._source.feature),
+      features,
     }
-
-    this.map.getSource('pointsSource').setData(pointsCollection)
-
-    if (eventsCollection.features && eventsCollection.features.length) {
-      this.map.getSource('eventsSource').setData(eventsCollection)
-      this.animatingMarkers = requestAnimationFrame(this.animateMarker)
-    }
-
-    layers.map(layerName => this.animateCircleLayer(layerName, true))
+    this.map.getSource('eventsSource').setData(eventsCollection)
+    this.animatingMarkers = requestAnimationFrame(this.animateMarker)
   }
 
   animateCircleLayer(layerName, show) {
@@ -1021,9 +918,9 @@ class Map extends React.Component {
 
   render() {
     const {
-      iso3166, emitter, translate, aggregations,
+      iso3166, emitter, translate,
     } = this.props
-    const { overlayList, colors } = this.state
+    const { overlayList } = this.state
 
     return (
       <div
@@ -1032,8 +929,8 @@ class Map extends React.Component {
         style={
           {
             position: 'absolute',
-            width: '101%',
-            height: '100%',
+            width: '100%',
+            height: '75vh',
             top: 0,
             left: 0,
           }}
@@ -1046,37 +943,9 @@ class Map extends React.Component {
       >
         {overlayList && <div className="overlayList" />}
 
-        {colors && (
-          (getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations) > 0)
-          || (getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-          || (getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations) > 0)
-        ) && (
-          <div className="mapLeyend">
-            <div className="infoContainer">
-              <span className="min">0</span>
-
-              <span className="description">
-                {aggregations['sterms#feature.properties.location.address.addressRegion']
-                && aggregations['sterms#feature.properties.location.address.addressRegion'].buckets.length
-                  ? translate('Map.entriesPerRegion') : translate('Map.entriesPerCountry')}
-              </span>
-
-              <span className="max">
-                {
-                  getProp(['sterms#feature.properties.location.address.addressRegion', 'buckets', 0, 'doc_count'], aggregations)
-                  || getProp(['sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations)
-                  || getProp(['country', 'sterms#feature.properties.location.address.addressCountry', 'buckets', 0, 'doc_count'], aggregations)
-                }
-              </span>
-            </div>
-
-            <div className="stepsContainer">
-              {colors.map(color => (
-                <div key={color} style={{ backgroundColor: color }} className="step" />
-              ))}
-            </div>
-          </div>
-        )}
+        <MapLeyend
+          iso3166={iso3166}
+        />
 
         <a className="imprintLink" href="/imprint">{translate('main.imprintPrivacy')}</a>
 
@@ -1086,21 +955,14 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  mapboxConfig: PropTypes.shape(
-    {
-      token: PropTypes.string,
-      style: PropTypes.string,
-    },
-  ).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
-  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   iso3166: PropTypes.string,
   translate: PropTypes.func.isRequired,
   map: PropTypes.string,
   home: PropTypes.bool.isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
-  initPins: PropTypes.bool.isRequired,
   region: PropTypes.string,
 }
 
@@ -1110,4 +972,4 @@ Map.defaultProps = {
   region: null,
 }
 
-export default withEmitter(withI18n(Map))
+export default withConfig(withEmitter(withI18n(Map)))

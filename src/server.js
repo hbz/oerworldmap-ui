@@ -12,9 +12,11 @@ import template from './views/index'
 import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
+import i18n from './i18n'
+import { createGraph } from './components/imgGraph'
 
 import Config, {
-  mapboxConfig, apiConfig, piwikConfig, i18nConfig,
+  mapboxConfig, apiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
 } from '../config'
 
 global.URL = require('url').URL
@@ -48,8 +50,14 @@ server.use((req, res, next) => {
 // Middleware to fetch labels
 server.use((req, res, next) => {
   api.get('/label')
-    .then(labels => (req.labels = labels) && next())
-    .catch(err => res.status(err.status).send(err.message))
+    .then((labels) => {
+      labels.results.bindings.forEach((label) => {
+        i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
+        i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
+      })
+      next()
+    })
+    .catch(err => console.log(err) || res.status(err.status).send(err.message))
 })
 
 // Middleware to fetch JSON schema
@@ -74,6 +82,9 @@ server.use((req, res, next) => {
   }
   req.locales = locales
   req.supportedLanguages = supportedLanguages
+  req.phrases = locales
+    .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
+
   next()
 })
 
@@ -96,31 +107,61 @@ server.get('/.login', (req, res) => {
   }
 })
 
+server.get('/stats', async (req, res) => {
+  const { translate } = i18n(req.locales, req.phrases)
+  const {
+    field, q, subField, sub, size, subSize, include, subInclude, w, download, filename, basePath,
+  } = req.query
+  const filters = Object.entries(req.query)
+    .filter(([param]) => param.startsWith('filter.'))
+    .map(([param, value]) => [param.replace(/^filter./, ''), JSON.parse(value)])
+
+  const image = await createGraph({
+    field,
+    q,
+    subField,
+    sub,
+    size,
+    subSize,
+    translate,
+    elasticsearchConfig,
+    include,
+    subInclude,
+    filters,
+    w,
+    basePath,
+  })
+
+  if (image) {
+    res.setHeader('content-type', 'image/svg+xml')
+    if (download && filename) {
+      res.setHeader('Content-Disposition', `attachment; filename=${filename}.svg`)
+    }
+    res.send(image)
+  } else {
+    res.sendStatus(404)
+  }
+})
+
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
   const headers = getHeaders(req.headers)
   headers.delete('Host')
   headers.delete('If-None-Match')
-  const { locales, supportedLanguages } = req
-  if (req.labels) {
-    req.labels.results.bindings.forEach((label) => {
-      i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
-      i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
-    })
+  const { locales, supportedLanguages, phrases } = req
+  const config = {
+    mapboxConfig,
+    elasticsearchConfig,
+    apiConfig,
   }
-
-  const phrases = locales
-    .slice(0).reverse().reduce((acc, curr) => Object.assign(acc, i18ns[curr]), {})
-  const { schema, embed } = req
+  const { schema } = req
   const context = {
     supportedLanguages,
     locales,
     headers,
-    mapboxConfig,
+    config,
     phrases,
-    apiConfig,
     schema,
-    embed,
   }
   // TODO: use actual request method
   router(api, null, req.location).route(req.path, context).get(req.query).then(({
@@ -132,19 +173,16 @@ server.get(/^(.*)$/, (req, res) => {
       body: renderToString(render(data)),
       initialState: JSON.stringify({
         supportedLanguages,
-        apiConfig,
+        config,
         locales,
-        mapboxConfig,
         data,
         err,
         phrases,
         schema,
-        embed,
       })
         .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029'),
       title,
       piwikConfig,
-      embed,
       metadata,
       locales,
     }))

@@ -7,8 +7,10 @@ import htmldiff from '../../vendor/htmldiff'
 import WebPageView from './WebPageView'
 import I18nProvider from './I18nProvider'
 import EmittProvider from './EmittProvider'
+import ConfigProvider from './ConfigProvider'
 import withEmitter from './withEmitter'
 import withI18n from './withI18n'
+import withConfig from './withConfig'
 import i18n from '../i18n'
 
 import { formatDate } from '../common'
@@ -16,34 +18,38 @@ import { formatDate } from '../common'
 import '../styles/components/Diff.pcss'
 
 const Diffs = ({
-  translate, locales, phrases, moment, emitter, log, compare, to, schema,
+  translate, locales, phrases, moment, emitter, log, compare, to, schema, config,
 }) => {
   const v1 = renderToString(
-    <I18nProvider i18n={i18n(locales, phrases)}>
-      <EmittProvider emitter={emitter}>
-        <WebPageView
-          view="view"
-          id="view"
-          about={compare.about}
-          schema={schema}
-          expandAll
-        />
-      </EmittProvider>
-    </I18nProvider>,
+    <ConfigProvider config={config}>
+      <I18nProvider i18n={i18n(locales, phrases)}>
+        <EmittProvider emitter={emitter}>
+          <WebPageView
+            view="view"
+            id="view"
+            about={compare.about}
+            schema={schema}
+            expandAll
+          />
+        </EmittProvider>
+      </I18nProvider>
+    </ConfigProvider>,
   )
 
   const v2 = renderToString(
-    <I18nProvider i18n={i18n(locales, phrases)}>
-      <EmittProvider emitter={emitter}>
-        <WebPageView
-          view="view"
-          id="view"
-          about={to.about}
-          schema={schema}
-          expandAll
-        />
-      </EmittProvider>
-    </I18nProvider>,
+    <ConfigProvider config={config}>
+      <I18nProvider i18n={i18n(locales, phrases)}>
+        <EmittProvider emitter={emitter}>
+          <WebPageView
+            view="view"
+            id="view"
+            about={to.about}
+            schema={schema}
+            expandAll
+          />
+        </EmittProvider>
+      </I18nProvider>
+    </ConfigProvider>,
   )
   const diff = htmldiff(v2, v1)
 
@@ -152,6 +158,7 @@ Diffs.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   phrases: PropTypes.objectOf(PropTypes.any).isRequired,
   schema: PropTypes.objectOf(PropTypes.any).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
-export default withEmitter(withI18n(Diffs))
+export default withConfig(withEmitter(withI18n(Diffs)))
