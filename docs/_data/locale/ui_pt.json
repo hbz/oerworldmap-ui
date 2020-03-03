@@ -385,7 +385,7 @@
   "filters.clearAll": "Limpar Todos",
   "graphs.noData": "Não há dados disponíveis para este gráfico",
   "graphs.downloadSVG": "Baixar no formato SVG.",
-  "graphs.copyToClipboard": "Copy image URL to clipboard.",
+  "graphs.copyToClipboard": "Copiar a imagem para a área de transferência",
   "Timeline.activity": "Activity",
   "Timeline.noEntries": "No entries",
   "TimelineBlock.someone": "someone",
