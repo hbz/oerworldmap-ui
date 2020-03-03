@@ -13,7 +13,7 @@ class: oerPolicies
 
 O Registro de Políticas REA inclui políticas relacionadas à Educação Aberta e Recursos Educacionais Abertos de todos os setores e níveis educacionais.
 
-O registro é um recurso poderoso para os gestores públicos, ativistas e pesquisadores interessados na Educação Aberta. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. Você pode pesquisar políticas disponíveis [aqui](/resource/?filter.about.%40type=Policy&size=20).
+O registro é um recurso poderoso para os gestores públicos, ativistas e pesquisadores interessados na Educação Aberta. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies [here](/resource/?filter.about.%40type="Policy"&size=20).
 
 ## Statistic explorer
 
