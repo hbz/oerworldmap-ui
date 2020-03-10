@@ -22,6 +22,7 @@ import UserProvider from './components/UserProvider'
 import i18n from './i18n'
 import ItemList from './components/ItemList'
 import Overview from './components/Overview'
+import Table from './components/Table'
 
 import './styles/main.pcss'
 import './styles/static.pcss'
@@ -32,7 +33,7 @@ const emitter = mitt()
 
 const baseURL = ENVIRONMENT === 'development'
   ? 'https://oerworldmap.org/'
-  : '/'
+  : 'https://oerworldmap.org/'
 
 const navigate = (url) => {
   const parser = document.createElement('a')
@@ -342,6 +343,43 @@ const animateMap = (() => {
 })()
 
 
+const createPoliciesTable = (() => {
+  const init = async () => {
+    if (window.location.pathname.includes('oerpolicies-table')) {
+      // Request data for policies
+      // ADD carry a tag called policy
+      const rawResponse = await fetch(`${baseURL}resource.json?q=about.@type:Policy&sort=dateCreated:DESC&size=300`, {
+        headers: {
+          accept: 'application/json',
+        },
+      })
+
+      const content = await rawResponse.json()
+
+      if (content) {
+        const tableContainer = document.querySelector('[data-inject-policies-table]')
+
+        ReactDOM.render(
+          <I18nProvider i18n={
+            i18n(
+              locales,
+              i18ns[locales[0]],
+            )}
+          >
+            <EmittProvider emitter={emitter}>
+              <Table tableItems={content.member.map(member => member.about)} />
+            </EmittProvider>
+          </I18nProvider>,
+          tableContainer,
+        )
+      }
+    }
+  }
+
+  return { init }
+})()
+
+
 $(async () => {
   await updateUser()
   animateScrollToFragment.init()
@@ -354,6 +392,7 @@ $(async () => {
   hideUserLoginButtons.init()
   createBlogPost.init()
   animateMap.init()
+  createPoliciesTable.init()
 
   $('[data-slick]').slick()
 })

@@ -481,4 +481,27 @@
       }
     }
   }
+
+  & .static-content.oerPoliciesTable {
+    & .inner {
+      max-width: calc(100% - 15px);
+    }
+
+    & table {
+      border: none;
+    }
+
+    & td,
+    & th {
+      padding: 5px;
+    }
+
+    & tr:nth-child(even) {
+      background-color: var(--blue-lightest);
+    }
+
+    & .tableItem-name {
+      max-width: 600px;
+    }
+  }
 }
