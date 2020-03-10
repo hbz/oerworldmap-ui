@@ -33,7 +33,7 @@ const emitter = mitt()
 
 const baseURL = ENVIRONMENT === 'development'
   ? 'https://oerworldmap.org/'
-  : 'https://oerworldmap.org/'
+  : '/'
 
 const navigate = (url) => {
   const parser = document.createElement('a')
