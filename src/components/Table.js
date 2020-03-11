@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import urlTemplate from 'url-template'
 import withI18n from './withI18n'
 import Link from './Link'
-import urlTemplate from 'url-template'
 
 const Table = ({
-  translate, tableItems, linkTemplate, className
+  translate, tableItems, linkTemplate, className,
 }) => (
   <table className={`Table BasicTable ${className}`}>
     <thead>
