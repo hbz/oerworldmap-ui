@@ -531,10 +531,10 @@ const ReactiveFilters = ({
                   }
                   return query
                 }}
-                onData={({ aggregations, data = [] }) => {
+                onData={({ data }) => {
                   if (data !== null) {
                     const features = data.map(item => item.feature)
-                    emitter.emit('liveEventsData', { features, aggregations })
+                    emitter.emit('liveEventsData', { features })
                   }
                 }}
                 react={{
