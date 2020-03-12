@@ -678,6 +678,21 @@ class Map extends React.Component {
     }
   }
 
+  fly(center, zoom) {
+    const { map } = this
+
+    map.flyTo({
+      center,
+      zoom,
+      speed: 1.6,
+      curve: 1,
+      easing(t) {
+        return t
+      },
+      essential: true,
+    })
+  }
+
   updateZoom(iso3166, map, home) {
     // Zoom if a country is selected
     if (iso3166) {
@@ -685,12 +700,7 @@ class Map extends React.Component {
         this.map.resize()
         if (iso3166 in bounds) {
           const bound = bounds[iso3166]
-          this.map.flyTo(
-            {
-              center: [bound[0], bound[1]],
-              zoom: [bound[2]],
-            },
-          )
+          this.fly(bound, bound[2])
         } else {
           const coutryFeatures = this.map.queryRenderedFeatures({
             layers: ['countries'],
@@ -714,15 +724,16 @@ class Map extends React.Component {
               padding: 40,
               maxZoom: 6.9,
               offset: [30, 0],
+              speed: 1.6,
+              curve: 1,
+              easing(t) {
+                return t
+              },
+              essential: true,
             })
           } else {
             const center = centroids[iso3166]
-            this.map.flyTo(
-              {
-                center: [center[0], center[1]],
-                zoom: 6.9,
-              },
-            )
+            this.fly(center, 6.9)
           }
         }
       } else {
@@ -737,12 +748,10 @@ class Map extends React.Component {
       center.lng = (mapParameters[0] && !Number.isNaN(mapParameters[0])) ? mapParameters[0] : null
       center.lat = (mapParameters[1] && !Number.isNaN(mapParameters[1])) ? mapParameters[1] : null
       center.zoom = (mapParameters[2] && !Number.isNaN(mapParameters[2])) ? mapParameters[2] : null
-
-      const pos = {
-        center: (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
-        zoom: center.zoom || 1,
-      }
-      this.map.flyTo(pos)
+      this.fly(
+        (center.lng && center.lat) ? [center.lng, center.lat] : [0, 0],
+        center.zoom || 1,
+      )
     } else if (home) {
       this.map.setCenter([0, 0])
       this.map.setZoom(1)
@@ -805,10 +814,7 @@ class Map extends React.Component {
   clickPoints(e, features) {
     const { translate, emitter } = this.props
     if (features.length > 6 && this.map.getZoom() !== this.map.getMaxZoom()) {
-      this.map.flyTo({
-        center: e.lngLat,
-        zoom: this.map.getZoom() + 5,
-      })
+      this.fly(e.lngLat, this.map.getZoom() + 5)
     } else if (features.length > 1) {
       const list = features.map(feature => (
         <li key={feature.properties['@id']}>
