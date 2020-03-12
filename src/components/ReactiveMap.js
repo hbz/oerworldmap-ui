@@ -233,8 +233,6 @@ class Map extends React.Component {
         },
       })
 
-      // this.updatePoints(iso3166, region)
-
       // Clone Regions layer and set the style of countries-inactive
       const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
       RegionsLayer.id = 'regions-inactive'
@@ -244,8 +242,7 @@ class Map extends React.Component {
       this.map.addLayer(RegionsLayer, 'Regions')
 
       // Initialize choropleth layers
-      // this.updateChoropleth(aggregations)
-      // this.updateZoom(iso3166, home, map)
+      this.updateZoom(iso3166, null, map)
       this.updateActiveCountry(iso3166, region)
 
       window.addEventListener('resize', () => {
@@ -294,9 +291,18 @@ class Map extends React.Component {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateZoom(nextProps.iso3166, nextProps.home, nextProps.map)
-    this.updateActiveCountry(nextProps.iso3166, nextProps.region)
+  componentDidUpdate(nextProps) {
+    const {
+      iso3166, map, region, home,
+    } = this.props
+
+    if (iso3166 !== nextProps.iso3166) {
+      this.updateZoom(iso3166, map, home)
+    }
+
+    if ((iso3166 !== nextProps.iso3166) || (region !== nextProps.region)) {
+      this.updateActiveCountry(iso3166, region)
+    }
   }
 
   componentWillUnmount() {
@@ -350,8 +356,12 @@ class Map extends React.Component {
   }
 
   resize() {
+    const { iso3166, map, home } = this.props
     if (this.map) {
       this.map.resize()
+      if (iso3166) {
+        this.updateZoom(iso3166, map, home)
+      }
     } else {
       window.setTimeout(() => {
         this.resize()
@@ -668,10 +678,11 @@ class Map extends React.Component {
     }
   }
 
-  updateZoom(iso3166, home, map) {
+  updateZoom(iso3166, map, home) {
     // Zoom if a country is selected
     if (iso3166) {
       if (this.map.isStyleLoaded()) {
+        this.map.resize()
         if (iso3166 in bounds) {
           const bound = bounds[iso3166]
           this.map.flyTo(
@@ -702,7 +713,7 @@ class Map extends React.Component {
             this.map.fitBounds(bounds, {
               padding: 40,
               maxZoom: 6.9,
-              offset: [60, 0],
+              offset: [30, 0],
             })
           } else {
             const center = centroids[iso3166]
@@ -716,7 +727,7 @@ class Map extends React.Component {
         }
       } else {
         window.setTimeout(() => {
-          this.updateZoom(iso3166, home, map)
+          this.updateZoom(iso3166, map, home)
         }, 500)
       }
     } else if (map) {
