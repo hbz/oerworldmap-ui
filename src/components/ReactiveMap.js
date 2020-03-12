@@ -242,7 +242,7 @@ class Map extends React.Component {
       this.map.addLayer(RegionsLayer, 'Regions')
 
       // Initialize choropleth layers
-      this.updateZoom(iso3166, null, map)
+      this.updateZoom(iso3166, map, map)
       this.updateActiveCountry(iso3166, region)
 
       window.addEventListener('resize', () => {
