@@ -7,6 +7,7 @@ import ReactiveMap from './ReactiveMap'
 import ReactiveFilters from './ReactiveFilters'
 
 import withEmitter from './withEmitter'
+import { urlParser } from '../common'
 
 import '../styles/components/ResourceIndex.pcss'
 
@@ -19,7 +20,8 @@ const ReactiveResourceIndex = ({
   region,
   view,
 }) => {
-  const home = _self.endsWith('/resource/?features=true')
+  const url = urlParser(_self)
+  const home = url.pathname.endsWith('/resource/')
   const initPins = (typeof localStorage !== 'undefined' && localStorage.getItem('showPins') === 'true')
 
   return (
