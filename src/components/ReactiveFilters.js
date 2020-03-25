@@ -48,6 +48,11 @@ const ReactiveFilters = ({
       sortBy: 'desc',
     },
     {
+      label: translate('ClientTemplates.filter.relevance'),
+      dataField: '_score',
+      sortBy: 'desc',
+    },
+    {
       label: translate('ClientTemplates.filter.alphabetical'),
       dataField: 'about.name.en.sort',
       sortBy: 'asc',
@@ -303,7 +308,9 @@ const ReactiveFilters = ({
                     <DataSearch
                       className="nameSearch"
                       componentId="q"
-                      dataField={['about.name.*', 'about.description.*']}
+                      queryFormat="and"
+                      debounce={200}
+                      dataField={['about.name.*', 'about.description.*', 'about.*.name.*', 'about.alternateName.*']}
                       placeholder={searchPlaceholder}
                       URLParams
                       react={{
@@ -695,7 +702,7 @@ const ReactiveFilters = ({
               >
                 {(params.view === 'list') && (
                   <StateProvider
-                    componentIds={['filter.about.@type']}
+                    componentIds={['filter.about.@type', 'q']}
                     strict={false}
                     render={({ searchState }) => {
                       const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
@@ -817,8 +824,9 @@ const ReactiveFilters = ({
 
                             return query
                           }}
-                          dataField={params.sort}
-                          sortBy={sorts.find(s => s.dataField === params.sort).sortBy}
+                          // FIXME: sorting by relevance when a search term is entered is currently not reflected in the UI
+                          dataField={searchState.q.value ? '_score' : params.sort}
+                          sortBy={searchState.q.value ? 'desc' : sorts.find(s => s.dataField === params.sort).sortBy}
                           showResultStats={false}
                           from={0}
                           size={+params.size}
