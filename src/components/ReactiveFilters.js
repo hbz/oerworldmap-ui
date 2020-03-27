@@ -824,7 +824,8 @@ const ReactiveFilters = ({
 
                             return query
                           }}
-                          // FIXME: sorting by relevance when a search term is entered is currently not reflected in the UI
+                          // FIXME: sorting by relevance when a search term is entered
+                          // is currently not reflected in the UI
                           dataField={searchState.q.value ? '_score' : params.sort}
                           sortBy={searchState.q.value ? 'desc' : sorts.find(s => s.dataField === params.sort).sortBy}
                           showResultStats={false}
