@@ -314,7 +314,7 @@ const ReactiveFilters = ({
                       onValueSelected={(value) => {
                         value && setParams({
                           ...getUrlParams(),
-                          sort: sorts[1].dataField
+                          sort: sorts[1].dataField,
                         })
                       }}
                       URLParams
