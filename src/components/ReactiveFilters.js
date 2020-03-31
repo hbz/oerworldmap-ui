@@ -102,8 +102,7 @@ const ReactiveFilters = ({
   const [params, setParams] = useState(getUrlParams())
   const handlePopState = () => {
     const p = getUrlParams()
-    console.log('params', p)
-    setParams(params)
+    setParams(p)
   }
 
   const [collapsed, setCollapsed] = useState(true)
@@ -320,6 +319,16 @@ const ReactiveFilters = ({
                       debounce={200}
                       dataField={['about.name.*', 'about.description.*', 'about.*.name.*', 'about.alternateName.*']}
                       placeholder={searchPlaceholder}
+                      onValueSelected={(value) => {
+                        const url = new URL(window.location.href)
+
+                        const p = getUrlParams()
+                        const sort = url.searchParams.get('sort')
+                          ? url.searchParams.get('sort')
+                          : (value && sorts[1].dataField) || sorts[0].dataField
+
+                        setParams({ ...p, sort })
+                      }}
                       URLParams
                       react={{
                         and: filterIDs.filter(id => id !== 'q'),
