@@ -81,7 +81,7 @@ const ReactiveFilters = ({
     return {
       view: url.searchParams.get('view') || 'list',
       size: url.searchParams.get('size') || 20,
-      sort: url.searchParams.get('sort') || sorts[0].dataField,
+      sort: url.searchParams.get('sort') || sorts[url.searchParams.get('q') ? 1 : 0].dataField,
     }
   }
 
@@ -363,22 +363,27 @@ const ReactiveFilters = ({
                       ))}
                     </select>
 
-                    <select
-                      value={params.sort}
-                      className="btn hidden-mobile"
-                      onChange={(e) => {
-                        setUrlParams({ ...getUrlParams(), sort: e.target.value })
-                      }}
-                    >
-                      {sorts.map(sort => (
-                        <option
-                          key={sort.dataField}
-                          value={sort.dataField}
+                    <StateProvider
+                      strict={false}
+                      render={() => (
+                        <select
+                          value={getUrlParams().sort}
+                          className="btn hidden-mobile"
+                          onChange={(e) => {
+                            setUrlParams({ ...getUrlParams(), sort: e.target.value })
+                          }}
                         >
-                          {sort.label}
-                        </option>
-                      ))}
-                    </select>
+                          {sorts.map(sort => (
+                            <option
+                              key={sort.dataField}
+                              value={sort.dataField}
+                            >
+                              {sort.label}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
                   </>
                 )}
 
@@ -826,8 +831,8 @@ const ReactiveFilters = ({
                           }}
                           // FIXME: sorting by relevance when a search term is entered
                           // is currently not reflected in the UI
-                          dataField={searchState.q.value ? '_score' : params.sort}
-                          sortBy={searchState.q.value ? 'desc' : sorts.find(s => s.dataField === params.sort).sortBy}
+                          dataField={getUrlParams().sort}
+                          sortBy={sorts.find(s => s.dataField === getUrlParams().sort).sortBy}
                           showResultStats={false}
                           from={0}
                           size={+params.size}
