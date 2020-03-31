@@ -78,10 +78,16 @@ const ReactiveFilters = ({
       }
     }
     const url = new URL(window.location.href)
+
+    const sort = url.searchParams.get('sort')
+      ? url.searchParams.get('sort')
+      : (url.searchParams.get('q') && sorts[1].dataField) || sorts[0].dataField
+    console.log(sort)
+
     return {
       view: url.searchParams.get('view') || 'list',
       size: url.searchParams.get('size') || 20,
-      sort: url.searchParams.get('sort') || sorts[0].dataField,
+      sort,
     }
   }
 
@@ -95,7 +101,9 @@ const ReactiveFilters = ({
   }
   const [params, setParams] = useState(getUrlParams())
   const handlePopState = () => {
-    setParams(getUrlParams())
+    const p = getUrlParams()
+    console.log('params', p)
+    setParams(params)
   }
 
   const [collapsed, setCollapsed] = useState(true)
@@ -826,8 +834,8 @@ const ReactiveFilters = ({
                           }}
                           // FIXME: sorting by relevance when a search term is entered
                           // is currently not reflected in the UI
-                          dataField={searchState.q.value ? '_score' : params.sort}
-                          sortBy={searchState.q.value ? 'desc' : sorts.find(s => s.dataField === params.sort).sortBy}
+                          dataField={params.sort}
+                          sortBy={sorts.find(s => s.dataField === params.sort).sortBy}
                           showResultStats={false}
                           from={0}
                           size={+params.size}
