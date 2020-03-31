@@ -308,7 +308,8 @@ const ReactiveFilters = ({
                       componentId="q"
                       queryFormat="and"
                       debounce={200}
-                      dataField={['about.name.*', 'about.description.*', 'about.*.name.*', 'about.alternateName.*']}
+                      dataField={['about.name.*', 'about.description.*', 'about.alternateName.*', 'about.*.name.*']}
+                      fieldWeights={[7, 5, 3, 1]}
                       placeholder={searchPlaceholder}
                       onValueSelected={(value) => {
                         value && setParams({
