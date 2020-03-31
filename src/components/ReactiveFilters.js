@@ -78,16 +78,10 @@ const ReactiveFilters = ({
       }
     }
     const url = new URL(window.location.href)
-
-    const sort = url.searchParams.get('sort')
-      ? url.searchParams.get('sort')
-      : (url.searchParams.get('q') && sorts[1].dataField) || sorts[0].dataField
-    console.log(sort)
-
     return {
       view: url.searchParams.get('view') || 'list',
       size: url.searchParams.get('size') || 20,
-      sort,
+      sort: url.searchParams.get('sort') || sorts[url.searchParams.get('q') ? 1 : 0].dataField,
     }
   }
 
@@ -100,10 +94,7 @@ const ReactiveFilters = ({
     window.dispatchEvent(new window.PopStateEvent('popstate'))
   }
   const [params, setParams] = useState(getUrlParams())
-  const handlePopState = () => {
-    const p = getUrlParams()
-    setParams(p)
-  }
+  const handlePopState = () => setParams(getUrlParams())
 
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
@@ -320,14 +311,10 @@ const ReactiveFilters = ({
                       dataField={['about.name.*', 'about.description.*', 'about.*.name.*', 'about.alternateName.*']}
                       placeholder={searchPlaceholder}
                       onValueSelected={(value) => {
-                        const url = new URL(window.location.href)
-
-                        const p = getUrlParams()
-                        const sort = url.searchParams.get('sort')
-                          ? url.searchParams.get('sort')
-                          : (value && sorts[1].dataField) || sorts[0].dataField
-
-                        setParams({ ...p, sort })
+                        value && setParams({
+                          ...getUrlParams(),
+                          sort: sorts[1].dataField
+                        })
                       }}
                       URLParams
                       react={{
@@ -719,7 +706,7 @@ const ReactiveFilters = ({
               >
                 {(params.view === 'list') && (
                   <StateProvider
-                    componentIds={['filter.about.@type', 'q']}
+                    componentIds={['filter.about.@type']}
                     strict={false}
                     render={({ searchState }) => {
                       const eventSelected = (searchState && searchState['filter.about.@type'] && searchState['filter.about.@type'].value === 'Event') || false
@@ -841,8 +828,6 @@ const ReactiveFilters = ({
 
                             return query
                           }}
-                          // FIXME: sorting by relevance when a search term is entered
-                          // is currently not reflected in the UI
                           dataField={params.sort}
                           sortBy={sorts.find(s => s.dataField === params.sort).sortBy}
                           showResultStats={false}
