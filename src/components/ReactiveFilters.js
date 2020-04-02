@@ -48,6 +48,11 @@ const ReactiveFilters = ({
       sortBy: 'desc',
     },
     {
+      label: translate('ClientTemplates.filter.relevance'),
+      dataField: '_score',
+      sortBy: 'desc',
+    },
+    {
       label: translate('ClientTemplates.filter.alphabetical'),
       dataField: 'about.name.en.sort',
       sortBy: 'asc',
@@ -76,7 +81,7 @@ const ReactiveFilters = ({
     return {
       view: url.searchParams.get('view') || 'list',
       size: url.searchParams.get('size') || 20,
-      sort: url.searchParams.get('sort') || sorts[0].dataField,
+      sort: url.searchParams.get('sort') || sorts[url.searchParams.get('q') ? 1 : 0].dataField,
     }
   }
 
@@ -89,9 +94,7 @@ const ReactiveFilters = ({
     window.dispatchEvent(new window.PopStateEvent('popstate'))
   }
   const [params, setParams] = useState(getUrlParams())
-  const handlePopState = () => {
-    setParams(getUrlParams())
-  }
+  const handlePopState = () => setParams(getUrlParams())
 
   const [collapsed, setCollapsed] = useState(true)
   const [showPastEvents, setShowPastEvents] = useState(false)
@@ -303,8 +306,17 @@ const ReactiveFilters = ({
                     <DataSearch
                       className="nameSearch"
                       componentId="q"
-                      dataField={['about.name.*', 'about.description.*']}
+                      queryFormat="and"
+                      debounce={200}
+                      dataField={['about.name.*', 'about.description.*', 'about.alternateName.*', 'about.*.name.*']}
+                      fieldWeights={[7, 5, 3, 1]}
                       placeholder={searchPlaceholder}
+                      onValueSelected={(value) => {
+                        value && setParams({
+                          ...getUrlParams(),
+                          sort: sorts[1].dataField,
+                        })
+                      }}
                       URLParams
                       react={{
                         and: filterIDs.filter(id => id !== 'q'),
