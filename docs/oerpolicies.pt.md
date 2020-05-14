@@ -7,25 +7,25 @@ class: oerPolicies
 <img style="width:auto;margin:0 auto;border:0px solid transparent;border-radius:10px;" src="/assets/images/oer_policy_registry_v01.png" title="The OER World Map Policy Registry">
 </div>
 
-<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#statistic-explorer"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistic explorer</a> <a class="btn" href="#latest-policies-added">Latest</a> <a class="btn" href="#latest-policy-related-entries">Related</a> | <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add policy</a> | <a class="btn" href="#faq">FAQ</a> | <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a></div>
+<div style="width:100%;text-align:center;margin-top:8px;"><a class="btn" href="#latest-policies-added">Últimas</a> <a class="btn" href="#latest-policy-related-entries">Relacionados</a> :trade_mark <a class="btn" href="#add-a-policy"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar política</a> ├ <a class="btn" href="#faq">FAQ</a> FAQ <a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Todas as Políticas (lista)</a></div>
 
 <div style="text-align:center;font-size:12px;margin-bottom:0px;margin-top:10px;"><i class="fa fa-heart" aria-hidden="true"></i> Thanks, Creative Commons!</div>
 
-## Statistic explorer
+O Registro de Políticas REA inclui políticas relacionadas à Educação Aberta e Recursos Educacionais Abertos de todos os setores e níveis educacionais.
 
-<div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> The statistics are interactive, you can click on it to get to the list of criteria matching policies!</div>
+O registro é um recurso poderoso para os gestores públicos, ativistas e pesquisadores interessados na Educação Aberta. It supports finding good practice policy examples for reuse and benchlearning and charts the growth in open educational policy making worldwide. You can search available policies [here](/resource/?filter.about.%40type="Policy"&size=20).
 
-<iframe
-  src="/kibana/app/kibana#/dashboard/3f24aa90-e370-11e8-bc1a-bd36147d8400?embed=true&_g=()"
-  data-scope="filter.about.@type=Policy"
-  height="750"
-  width="800"
-  style="border:0; width: 100%; margin: 0 auto;"
-></iframe> 
+## Explorador de estatísticas
 
-<a data-inject-newwindowlink> Open in a new window </a>
+<div style="font-size:18px; text-align:center;margin-bottom:15px;"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> As estatísticas são interativas, pode-se clicar nelas para chegar à lista de critérios que correspondem a políticas!</div>
 
-<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> All Policies (list)</a>
+<div class="graphsContainer">
+  {% include graph.html title="Políticas por País" src="/stats?field=about.location.address.addressCountry&q=about.@type:Policy" %}
+  {% include graph.html title="Políticas por Cobertura" src="/stats?field=about. patialCoverage&q=about.@type:Policy" %}
+  {% include graph.html title="Políticas pelo setor educacional" src="/stats?field=about.primarySector.@id&q=about.@type:Policy" %}
+</div>
+
+<a class="btn" href="/resource/?filter.about.%40type=Policy&size=20" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Todas as políticas (lista)</a>
 
 ## Latest policies added
 
