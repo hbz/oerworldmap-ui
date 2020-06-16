@@ -224,19 +224,19 @@ const ReactiveFilters = ({
       },
     ]
 
-    if (!iso3166 && !subFilters.find(filter => filter.componentId === 'filter.about.location.address.addressCountry')) {
+    if (!iso3166 && !subFilters.find(filter => filter.componentId === 'filter.feature.properties.location.address.addressCountry')) {
       subFilters.push({
-        componentId: 'filter.about.location.address.addressCountry',
-        dataField: 'about.location.address.addressCountry',
+        componentId: 'filter.feature.properties.location.address.addressCountry',
+        dataField: 'feature.properties.location.address.addressCountry',
         showSearch: false,
         title: 'country',
       })
     }
 
-    if (!region && !subFilters.find(filter => filter.componentId === 'filter.about.location.address.addressRegion')) {
+    if (!region && !subFilters.find(filter => filter.componentId === 'filter.feature.properties.location.address.addressRegion')) {
       subFilters.push({
-        componentId: 'filter.about.location.address.addressRegion',
-        dataField: 'about.location.address.addressRegion',
+        componentId: 'filter.feature.properties.location.address.addressRegion',
+        dataField: 'feature.properties.location.address.addressRegion',
         showSearch: false,
         title: 'filter.feature.properties.location.address.addressRegion',
       })
@@ -881,8 +881,8 @@ const ReactiveFilters = ({
                                 data={`/stats?field=${dataField}`
                                   .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
                                   .concat(filters ? `&${filters}` : '')
-                                  .concat(iso3166 ? `&filter.about.location.address.addressCountry=["${iso3166}"]` : '')
-                                  .concat(region ? `&filter.about.location.address.addressRegion=["${iso3166}.${region}"]` : '')
+                                  .concat(iso3166 ? `&filter.feature.properties.location.address.addressCountry=["${iso3166}"]` : '')
+                                  .concat(region ? `&filter.feature.properties.location.address.addressRegion=["${iso3166}.${region}"]` : '')
                                   .concat(iso3166 ? (region ? `&basePath=/country/${iso3166}/${region}` : `&basePath=/country/${iso3166}`) : '')
                                 }
                               >
@@ -897,8 +897,8 @@ const ReactiveFilters = ({
                                     el.value = `${elasticsearchConfig.url}stats?field=${dataField}`
                                       .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
                                       .concat(filters ? `&${filters}` : '')
-                                      .concat(iso3166 ? `&filter.about.location.address.addressCountry=["${iso3166}"]` : '')
-                                      .concat(region ? `&filter.about.location.address.addressRegion=["${iso3166}.${region}"]` : '')
+                                      .concat(iso3166 ? `&filter.feature.properties.location.address.addressCountry=["${iso3166}"]` : '')
+                                      .concat(region ? `&filter.feature.properties.location.address.addressRegion=["${iso3166}.${region}"]` : '')
                                       .concat(iso3166 ? (region ? `&basePath=/country/${iso3166}/${region}` : `&basePath=/country/${iso3166}`) : '')
                                     el.setAttribute('readonly', '')
                                     el.style = { position: 'absolute', left: '-9999px' }
@@ -917,8 +917,8 @@ const ReactiveFilters = ({
                                   href={`/stats?field=${dataField}`
                                     .concat(searchState.q && searchState.q.value ? `&q=${searchState.q.value}` : '')
                                     .concat(filters ? `&${filters}` : '')
-                                    .concat(iso3166 ? `&filter.about.location.address.addressCountry=["${iso3166}"]` : '')
-                                    .concat(region ? `&filter.about.location.address.addressRegion=["${iso3166}.${region}"]` : '')
+                                    .concat(iso3166 ? `&filter.feature.properties.location.address.addressCountry=["${iso3166}"]` : '')
+                                    .concat(region ? `&filter.feature.properties.location.address.addressRegion=["${iso3166}.${region}"]` : '')
                                     .concat(iso3166 ? (region ? `&basePath=/country/${iso3166}/${region}` : `&basePath=/country/${iso3166}`) : '')
                                     .concat(`&download=true&filename=${title ? translate(title) : translate(componentId)}`)}
                                 >
