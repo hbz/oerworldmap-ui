@@ -48,7 +48,7 @@ Es ist dann besonders sinnvoll ein Projekt einzutragen, wenn das Projekt entwede
 
 Wenn Sie Schwierigkeiten haben, eine bestimmte Konstellation auf der OER World Map abzubilden, zögern Sie nicht, sich an uns zu wenden unter info [at] oerworldmap.org.
 
-## Should this service be put on the map?
+## Soll dieser Dienst auf der Karte eingetragen werden?
 
 Manchmal ist es schwierig zu entscheiden, ob ein Service auf der OER World Map eingetragen werden sollte oder nicht. Stellen Sie sich die folgenden Fragen, um sich die Entscheidung zu erleichtern: - Sind die zur Verfügung gestellten Ressourcen explizit für die Bildung entwickelt worden? - Wie viele Ressourcen sind verfügbar? - Gibt es eine Suchfunktion für die Ressourcen auf der Website? Is it possible to search for education specific qualities, e.g. related curricula? - Sind die Materialien offen lizensiert? - Hat der Service einen Namen und eine eigene URL oder ist es eine großes Portal mit ein paar Ressourcen darauf? - Wie aktuell sind die Materialien und die Website? Sieht es wie das Zentrum einer Community aus oder eher inaktiv? Diese Fragen können als Indikatoren dienen, im Zweifel, nehmen Sie Kontakt zu uns auf.
 
