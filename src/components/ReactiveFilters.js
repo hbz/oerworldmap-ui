@@ -130,7 +130,7 @@ const ReactiveFilters = ({
         showMissing: true,
         showSearch: true,
         translate: false,
-        size: 100,
+        size: 9999,
       },
       {
         componentId: 'filter.about.award',
