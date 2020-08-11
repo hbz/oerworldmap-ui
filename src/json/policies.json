@@ -13,7 +13,7 @@
         },
         {
           "@language": "de",
-          "@value": "Dedicated OE/OER policy"
+          "@value": "Explizite OE/OER-Policy"
         },
         {
           "@language": "pt",
@@ -31,7 +31,7 @@
         },
         {
           "@language": "de",
-          "@value": "ICT policy with OE/OER component"
+          "@value": "IKT-Policy mit OE/OER-Komponente"
         },
         {
           "@language": "pt",
@@ -49,7 +49,7 @@
         },
         {
           "@language": "de",
-          "@value": "Educational policy with OE/OER component"
+          "@value": "Bildungs-Policy mit OE/OER-Komponente"
         },
         {
           "@language": "pt",
@@ -67,7 +67,7 @@
         },
         {
           "@language": "de",
-          "@value": "Openness policy with educational component"
+          "@value": "Offenheits-Policy mit Bildungskomponente"
         },
         {
           "@language": "pt",
@@ -85,7 +85,7 @@
         },
         {
           "@language": "de",
-          "@value": "Labour market policy with OE/OER component"
+          "@value": "Arbeitsmarkt-Policy mit OE/OER-Komponente"
         },
         {
           "@language": "pt",
