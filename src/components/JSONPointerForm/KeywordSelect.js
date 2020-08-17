@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
+import fetch from 'isomorphic-fetch'
 
 import 'react-select/dist/react-select.css'
 
 import withFormData from './withFormData'
-import withApi from '../withApi'
+import withConfig from '../withConfig'
 import { objectMap } from '../../common'
 
 class KeywordSelect extends React.Component {
@@ -17,13 +18,30 @@ class KeywordSelect extends React.Component {
   }
 
   componentDidMount() {
-    const { api } = this.props
+    const { config: { elasticsearchConfig } } = this.props
 
-    api.get('/resource/?size=0').then((response) => {
-      const options = response.aggregations['sterms#about.keywords'].buckets
-        .map(keyword => ({ value: keyword.key, label: keyword.key }))
-      this.setState({ options })
-    })
+    fetch(`${elasticsearchConfig.url}${elasticsearchConfig.index}/_search`, {
+      method: 'post',
+      body: JSON.stringify({
+        size: 0,
+        aggs: {
+          keywords: {
+            terms: {
+              field: 'about.keywords',
+              size: 9999,
+            },
+          },
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(response => response.json())
+      .then((data) => {
+        const options = data.aggregations.keywords.buckets
+          .map(keyword => ({ value: keyword.key, label: keyword.key }))
+        this.setState({ options })
+      })
   }
 
   render() {
@@ -83,7 +101,7 @@ KeywordSelect.propTypes = {
   className: PropTypes.string,
   translate: PropTypes.func.isRequired,
   value: PropTypes.arrayOf(PropTypes.any),
-  api: PropTypes.objectOf(PropTypes.any).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
   setValue: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
   required: PropTypes.bool,
@@ -100,4 +118,4 @@ KeywordSelect.defaultProps = {
   description: undefined,
 }
 
-export default withApi(withFormData(KeywordSelect))
+export default withConfig(withFormData(KeywordSelect))
