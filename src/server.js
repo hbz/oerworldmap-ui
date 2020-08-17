@@ -52,8 +52,10 @@ server.use((req, res, next) => {
   api.get('/label')
     .then((labels) => {
       labels.results.bindings.forEach((label) => {
-        i18ns[label.label['xml:lang']] || (i18ns[label.label['xml:lang']] = {})
-        i18ns[label.label['xml:lang']][label.uri.value] = label.label.value
+        i18ns[label.label['xml:lang']]
+          || (i18ns[label.label['xml:lang']] = {})
+        i18ns[label.label['xml:lang']][label.uri.value]
+          || (i18ns[label.label['xml:lang']][label.uri.value] = label.label.value)
       })
       next()
     })
