@@ -5,7 +5,7 @@ const { defaultLanguage } = i18nConfig
 const bundles = ['ui', 'iso3166-1-alpha-2', 'iso639-1', 'iso3166-2', 'labels', 'descriptions']
 const vocabs = [
   'esc', 'isced-1997', 'licenses', 'organizations', 'persons', 'projects', 'publications',
-  'sectors', 'services', 'activities',
+  'sectors', 'services', 'activities', 'policies',
 ]
 const extractLabels = (concepts, language) => concepts.reduce((acc, cur) => {
   const name = cur.name.find(name => name['@language'] === language)
