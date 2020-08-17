@@ -12,11 +12,11 @@
           "@value": "Dedicated OE/OER policy"
         },
         {
-          "@language": "pt",
-          "@value": "Dedicated OE/OER policy"
+          "@language": "de",
+          "@value": "Explizite OE/OER-Policy"
         },
         {
-          "@language": "de",
+          "@language": "pt",
           "@value": "Política exclusivamente de EA/REA"
         }
       ]
@@ -30,11 +30,11 @@
           "@value": "ICT policy with OE/OER component"
         },
         {
-          "@language": "pt",
-          "@value": "ICT policy with OE/OER component"
+          "@language": "de",
+          "@value": "IKT-Policy mit OE/OER-Komponente"
         },
         {
-          "@language": "de",
+          "@language": "pt",
           "@value": "Política de TIC com componente sobre EA/REA"
         }
       ]
@@ -48,11 +48,11 @@
           "@value": "Educational policy with OE/OER component"
         },
         {
-          "@language": "pt",
-          "@value": "Educational policy with OE/OER component"
+          "@language": "de",
+          "@value": "Bildungs-Policy mit OE/OER-Komponente"
         },
         {
-          "@language": "de",
+          "@language": "pt",
           "@value": "`Política educacional com componente sobre EA/REA"
         }
       ]
@@ -66,11 +66,11 @@
           "@value": "Openness policy with educational component"
         },
         {
-          "@language": "pt",
-          "@value": "Openness policy with educational component"
+          "@language": "de",
+          "@value": "Offenheits-Policy mit Bildungskomponente"
         },
         {
-          "@language": "de",
+          "@language": "pt",
           "@value": "Política de abertura com componente sobre EA/REA"
         }
       ]
@@ -84,11 +84,11 @@
           "@value": "Labour market policy with OE/OER component"
         },
         {
-          "@language": "pt",
-          "@value": "Labour market policy with OE/OER component"
+          "@language": "de",
+          "@value": "Arbeitsmarkt-Policy mit OE/OER-Komponente"
         },
         {
-          "@language": "de",
+          "@language": "pt",
           "@value": "Política de emprego com componente sobre EA/REA"
         }
       ]
