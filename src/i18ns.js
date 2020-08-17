@@ -14,29 +14,30 @@ const extractLabels = (concepts, language) => concepts.reduce((acc, cur) => {
   return acc
 }, {})
 const i18ns = {}
-i18ns[defaultLanguage] = {
-  descriptions: {},
-}
 
-bundles.forEach((bundle) => {
-  const obj = {}
-  try {
-    Object.assign(obj, require(`../docs/_data/locale/${bundle}.json`))
-  } catch (e) {
-    console.error(`Missing i18n file ${bundle}.json`)
-    return
+supportedLanguages.forEach((language) => {
+  i18ns[language] = {
+    descriptions: {},
   }
-  // FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
-  if (bundle === 'descriptions') {
-    Object.assign(i18ns[defaultLanguage].descriptions, obj)
-  } else {
-    Object.assign(i18ns[defaultLanguage], obj)
-  }
+  bundles.forEach((bundle) => {
+    const obj = {}
+    try {
+      Object.assign(obj, require(`../docs/_data/locale/${bundle}.json`))
+    } catch (e) {
+      console.error(`Missing i18n file ${bundle}.json`)
+      return
+    }
+    // FIXME: special case descriptions, refactor so that all l10ns are segmented by bundle name
+    if (bundle === 'descriptions') {
+      Object.assign(i18ns[language].descriptions, obj)
+    } else {
+      Object.assign(i18ns[language], obj)
+    }
+  })
+  vocabs.forEach(vocab => Object.assign(i18ns[language], extractLabels(
+    require(`./json/${vocab}.json`).hasTopConcept, language,
+  )))
 })
-
-vocabs.forEach(vocab => Object.assign(i18ns[defaultLanguage], extractLabels(
-  require(`./json/${vocab}.json`).hasTopConcept, defaultLanguage,
-)))
 
 supportedLanguages.filter(language => language !== defaultLanguage).forEach((language) => {
   const i18n = JSON.parse(JSON.stringify(i18ns[defaultLanguage]))
