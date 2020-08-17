@@ -800,7 +800,7 @@ class Map extends React.Component {
         default: 'rgb(255, 255, 255)',
       })
 
-      const max = (aggregations.length && aggregations[0].doc_count) || 0
+      const max = (aggregation.buckets.length && aggregation.buckets[0].doc_count) || 0
 
       emitter.emit('updateColors', { colors, max })
     }
