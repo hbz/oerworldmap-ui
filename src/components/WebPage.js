@@ -65,7 +65,10 @@ const WebPage = ({
 
         <div className="webPageContent">
           {expose('editEntry', user, about) && (view === 'edit') ? (
-            <div id="edit">
+            <div
+              id="edit"
+              data-userroles={user && user.groups ? user.groups.join(' ') : ''}
+            >
               <WebPageEdit
                 about={about}
                 action={about['@id'] ? 'edit' : 'add'}
