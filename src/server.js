@@ -92,11 +92,9 @@ server.use((req, res, next) => {
 
 // Middleware to set public URL
 server.use((req, res, next) => {
-  req.location = new URL(url.format({
-    protocol: req.get('x-forwarded-proto') || req.protocol,
-    host: req.get('x-forwarded-host') || req.get('host'),
-    pathname: req.originalUrl,
-  }))
+  const protocol = req.get('x-forwarded-proto') || req.protocol
+  const host = req.get('x-forwarded-host') || req.get('host')
+  req.location = new URL(`${protocol}://${host}${req.originalUrl}`)
   next()
 })
 
