@@ -6,7 +6,6 @@ import express from 'express'
 import compression from 'compression'
 import userAgent from 'express-useragent'
 import cookieParser from 'cookie-parser'
-import url from 'url'
 
 import template from './views/index'
 import router from './router'
