@@ -22,7 +22,7 @@ import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 import LinkOverride from './LinkOverride'
 
-import { formatURL, formatDate } from '../common'
+import { formatURL, formatDate, isNode } from '../common'
 import centroids from '../json/centroids.json'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
@@ -720,7 +720,7 @@ const WebPageView = ({
             </Block>
           )}
 
-          {about.email && (
+          {about.email && !isNode() && (
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
                 <a
