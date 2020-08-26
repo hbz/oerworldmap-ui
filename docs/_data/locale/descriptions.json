@@ -172,5 +172,6 @@
   "Policy.mentionedIn": "Policy can be linked to the OER world map data type stories (which are published on OER World Map) as well as to publications (which are published somewhere on the web).",
   "Policy.focus": "Please indicate here which topics are addressed by the policy.",
   "Policy.contact": "Please add here the name and or an e-mail address of the person responsible for the policy.",
-  "Policy.affiliate": "Please add yourself here, if you have special knowledge about or are somehow affilliated to this policy."
+  "Policy.affiliate": "Please add yourself here, if you have special knowledge about or are somehow affilliated to this policy.",
+  "Policy.identifier": "An existing reference number for the policy document"
 }
