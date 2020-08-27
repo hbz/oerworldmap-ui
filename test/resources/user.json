@@ -1,13 +1,28 @@
 {
+  "persistent": true,
   "username": "user@localhost",
   "groups": [
-    "editor",
     "admin"
   ],
-  "id": "FAKE-ID",
-  "name": {
-    "en": "Fake User"
+  "profile": {
+    "@type": "WebPage",
+    "about": {
+      "@type": "Person",
+      "@context": "https://oerworldmap.org/assets/json/context.json",
+      "name": {
+        "en": "Fake User"
+      },
+      "location": [{
+        "address": {
+          "addressCountry": "DE",
+          "addressRegion": "DE.BE"
+        }
+      }],
+      "@id": "urn:uuid:8082d2c7-8f40-449f-bd0b-581ce770ca27",
+      "email": "user@localhost"
+    },
+    "dateModified": "2020-08-10T09:59:25Z",
+    "@id": "urn:uuid:8082d2c7-8f40-449f-bd0b-581ce770ca27.about"
   },
-  "_self": "http://oerworldmap.local:80/user/profile",
-  "_status": "OK"
+  "id": "urn:uuid:8082d2c7-8f40-449f-bd0b-581ce770ca27"
 }

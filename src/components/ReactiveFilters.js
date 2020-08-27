@@ -130,7 +130,7 @@ const ReactiveFilters = ({
         showMissing: true,
         showSearch: true,
         translate: false,
-        size: 100,
+        size: 9999,
       },
       {
         componentId: 'filter.about.award',
@@ -306,10 +306,21 @@ const ReactiveFilters = ({
                     <DataSearch
                       className="nameSearch"
                       componentId="q"
-                      queryFormat="and"
+                      customQuery={value => value && ({
+                        query: {
+                          query_string: {
+                            query: value,
+                            fields: [
+                              'about.name.*',
+                              'about.description.*',
+                              'about.alternateName.*',
+                              'about.*.name.*',
+                            ],
+                            default_operator: 'AND',
+                          },
+                        },
+                      })}
                       debounce={200}
-                      dataField={['about.name.*', 'about.description.*', 'about.alternateName.*', 'about.*.name.*']}
-                      fieldWeights={[7, 5, 3, 1]}
                       placeholder={searchPlaceholder}
                       onValueSelected={(value) => {
                         value && setParams({

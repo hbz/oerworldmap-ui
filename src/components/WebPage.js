@@ -64,9 +64,11 @@ const WebPage = ({
 
 
         <div className="webPageContent">
-
-          {expose('editEntry', user, about) && (
-            <div id="edit" className={view === 'edit' ? '' : 'hidden'}>
+          {expose('editEntry', user, about) && (view === 'edit') ? (
+            <div
+              id="edit"
+              data-userroles={user && user.groups ? user.groups.join(' ') : ''}
+            >
               <WebPageEdit
                 about={about}
                 action={about['@id'] ? 'edit' : 'add'}
@@ -77,21 +79,20 @@ const WebPage = ({
                 onSubmit={onSubmit}
               />
             </div>
+          ) : (
+            <div id="view">
+              <WebPageView
+                id="view"
+                about={about}
+                view={view}
+                action={about['@id'] ? 'edit' : 'add'}
+                schema={schema}
+                _self={_self}
+                isLiveEvent={isLiveEvent}
+                feature={feature}
+              />
+            </div>
           )}
-
-          <div id="view" className={!user || view !== 'edit' ? '' : 'hidden'}>
-            <WebPageView
-              id="view"
-              about={about}
-              view={view}
-              action={about['@id'] ? 'edit' : 'add'}
-              schema={schema}
-              _self={_self}
-              isLiveEvent={isLiveEvent}
-              feature={feature}
-            />
-          </div>
-
         </div>
       </div>
     </div>
