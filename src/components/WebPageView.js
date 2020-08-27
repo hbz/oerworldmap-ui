@@ -39,6 +39,7 @@ const WebPageView = ({
   isLiveEvent,
   feature,
   config: { mapboxConfig },
+  _self,
 }) => {
   const lighthouses = (about.objectIn || []).filter(action => action['@type'] === 'LighthouseAction') || []
   const likes = (about.objectIn || []).filter(action => action['@type'] === 'LikeAction') || []
@@ -601,7 +602,7 @@ const WebPageView = ({
 
             {about['@id'] && about['@type'] !== 'Person' && (
               <Block title={translate('ResourceIndex.read.comments')}>
-                <Comments comments={about.comment} about={about} schema={schema} />
+                <Comments comments={about.comment} about={about} schema={schema} _self={_self} />
               </Block>
             )}
 
@@ -946,6 +947,7 @@ WebPageView.propTypes = {
   locales: PropTypes.arrayOf(PropTypes.any).isRequired,
   isLiveEvent: PropTypes.bool,
   feature: PropTypes.objectOf(PropTypes.any),
+  _self: PropTypes.string.isRequired,
 }
 
 WebPageView.defaultProps = {
