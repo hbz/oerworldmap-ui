@@ -80,7 +80,7 @@ const TimelineBlock = ({
         <div className={`timelineBlockContent${withBorder ? ' withBorder' : ''}`}>
           <ResourcePreview about={resource} />
 
-          {entry.about['@type'] === 'Comment' && (
+          {entry.about['@type'] === 'Comment' && entry.about.text && (
             <div className="comment">
               <div className="commentMetadata">
                 <Link href={user['@id']}>{translate(user.name)}</Link>
