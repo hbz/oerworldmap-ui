@@ -723,12 +723,7 @@ const WebPageView = ({
           {about.email && !isNode() && (
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
-                <a
-                  href={`mailto:${Buffer ? Buffer.from(about.email).toString('base64') : btoa(about.email)}`}
-                  onClick={(e) => {
-                    e.target.href = `mailto:${about.email}`
-                  }}
-                >
+                <a href={`mailto:${about.email}`}>
                   {about.email}
                 </a>
               </p>
