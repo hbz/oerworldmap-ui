@@ -11,7 +11,22 @@
     justify-content: space-evenly;
   }
 
-  & a {
+  & a,
+  & button {
     margin-top: 5px;
+  }
+
+  & .exportContent .exportBtn {
+    color: var(--action-color);
+    background-color: var(--white);
+    border: 1px solid var(--action-color);
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: var(--white);
+      background-color: var(--action-color);
+      outline: none;
+    }
   }
 }
