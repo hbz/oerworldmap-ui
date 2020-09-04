@@ -10,14 +10,8 @@ import '../styles/components/Export.pcss'
 const CsvFields = [
   '/@id',
   '/@type',
-  '/name/en',
-  '/name/de',
-  '/name/pt',
-  '/name/es',
-  '/description/en',
-  '/description/de',
-  '/description/pt',
-  '/description/es',
+  '/name/.*',
+  '/description/.*',
   '/provider/\\d+/name/en',
   '/url',
   '/additionalType/\\d+/name/en',
@@ -28,6 +22,7 @@ const CsvFields = [
   '/endTime',
   '/agent/\\d+/name/en',
   '/location/\\d+/address/.*',
+  '/availableChannel/\\d+/serviceUrl',
 ]
 
 const Export = ({ _links, translate }) => (
