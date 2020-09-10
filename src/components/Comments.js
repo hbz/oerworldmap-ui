@@ -94,9 +94,9 @@ const Comments = ({
     ) : (
       <div>
         <em>
-          <Link href={`/.login?continue=${_self}`}>
+          <a href={`/.login?continue=${_self}`}>
             {translate('Comments.joinUsToComment')}
-          </Link>
+          </a>
         </em>
       </div>
     )}
