@@ -18,7 +18,7 @@ const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response)
   }
-  return Promise.reject(new APIError(response.statusText, response.status))
+  return Promise.reject(new APIError(`${response.url} returned ${response.statusText}`, response.status))
 }
 
 const toJson = response => response.json().then((json) => {

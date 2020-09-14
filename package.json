@@ -4,9 +4,9 @@
   "description": "The user interface for https://oerworldmap.org/",
   "scripts": {
     "clean": "rimraf dist/",
-    "build:dev": "NODE_ENV=development webpack-cli -w",
+    "build:dev": "NODE_ENV=development webpack-cli -w --watch-poll",
     "build:prod": "NODE_ENV=production webpack-cli",
-    "server:dev": "NODE_ENV=development nodemon -w dev dev/server.js",
+    "server:dev": "NODE_ENV=development nodemon -w dev dev/server.js --watch-poll",
     "server:prod": "NODE_ENV=production node dist/server.js",
     "test": "eslint src --quiet && jest",
     "singleTest": "node --inspect-brk  node_modules/.bin/jest --verbose=false --runInBand -t ",
