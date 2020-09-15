@@ -63,7 +63,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Call for tender"
+          "@value": "Call for proposals/tenders/grants"
         },
         {
           "@language": "pt",
@@ -71,7 +71,7 @@
         },
         {
           "@language": "de",
-          "@value": "Call for tender"
+          "@value": "Ausschreibungen und Förderlinien"
         }
       ]
     },
