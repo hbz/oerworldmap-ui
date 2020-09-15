@@ -1,4 +1,3 @@
-/* global btoa */
 import React from 'react'
 import PropTypes from 'prop-types'
 import Markdown from 'markdown-to-jsx'
@@ -22,7 +21,7 @@ import Topline from './Topline'
 import Lighthouses from './Lighthouses'
 import LinkOverride from './LinkOverride'
 
-import { formatURL, formatDate } from '../common'
+import { formatURL, formatDate, isNode } from '../common'
 import centroids from '../json/centroids.json'
 import expose from '../expose'
 import '../styles/components/WebPageView.pcss'
@@ -721,15 +720,10 @@ const WebPageView = ({
             </Block>
           )}
 
-          {about.email && (
+          {about.email && !isNode() && (
             <Block title={translate(`${about['@type']}.email`)}>
               <p>
-                <a
-                  href={`mailto:${Buffer ? Buffer.from(about.email).toString('base64') : btoa(about.email)}`}
-                  onClick={(e) => {
-                    e.target.href = `mailto:${about.email}`
-                  }}
-                >
+                <a href={`mailto:${about.email}`}>
                   {about.email}
                 </a>
               </p>
