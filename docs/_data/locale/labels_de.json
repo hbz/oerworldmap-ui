@@ -210,6 +210,7 @@
   "Policy.contact": "Kontakt",
   "Policy.affiliate": "Affiliate",
   "Policy.endDate": "Enddatum",
+  "Policy.identifier": "Reference number",
   "Product.name": "Name",
   "Product.alternateName": "Abkürzung",
   "Product.description": "Beschreibung",
