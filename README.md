@@ -4,7 +4,7 @@ The user interface for https://oerworldmap.org/
 ## Prerequisits
 
 - git
-- Node v8
+- Node >=12.16.0
 
 ## Installation
 
