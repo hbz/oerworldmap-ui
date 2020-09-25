@@ -746,6 +746,12 @@ const WebPageView = ({
             </Block>
           )}
 
+          {about.identifier && (
+            <Block title={translate(`${about['@type']}.identifier`)}>
+              {about.identifier}
+            </Block>
+          )}
+
           {(about.location
           && about.location.filter(location => !!location.address).map((location, i) => (
             <Block title={translate(`${about['@type']}.location`)} key={i}>
