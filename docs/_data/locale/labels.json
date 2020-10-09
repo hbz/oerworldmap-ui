@@ -247,5 +247,9 @@
   "Tip.Article": "Learn from other peoples OER experiences",
   "Tip.showList": "Show List",
   "Tip.Policy": "OER related policies (OER Policy Registry)",
-  "Block.add": "Add"
+  "Block.add": "Add",
+  "Collection.name": "Name",
+  "Collection.description": "Description",
+  "Collection.item": "Items in this Collection",
+  "Collection.keywords": "Keywords"
 }
