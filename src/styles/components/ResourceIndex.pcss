@@ -27,7 +27,7 @@
 
     & .typeButtons {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       margin: 20px 0;
       flex-wrap: wrap;
 
@@ -38,10 +38,9 @@
         color: var(--grey);
         text-transform: uppercase;
         margin: 0;
-        padding: 0;
+        padding: 0 7px 0 0;
         font-size: var(--font-size);
         min-height: 100%;
-        padding-right: 5px;
         transition: none;
         cursor: pointer;
 
@@ -60,11 +59,15 @@
         }
       }
 
+      & a:last-child {
+        padding-right: 0;
+      }
+
       & a::before {
         font-family: FontAwesome;
         content: "";
         color: var(--grey-light);
-        margin-right: 10px;
+        margin-right: 5px;
       }
 
       & a:hover {
