@@ -756,24 +756,20 @@ const WebPageView = ({
           && about.location.filter(location => !!location.address).map((location, i) => (
             <Block title={translate(`${about['@type']}.location`)} key={i}>
               <>
-                {about['@type'] !== 'Policy' && (
-                  <>
-                    {geometry ? (
-                      <img
-                        alt={translate('WebPageView.mapAlt')}
-                        src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/geojson({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"%23f93","marker-size":"medium"},"geometry":${JSON.stringify(geometry)}}]})/${geometry.coordinates[0]},${geometry.coordinates[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
-                      />
-                    ) : (
-                      centroid ? (
-                        <img
-                          alt={translate('WebPageView.mapAlt')}
-                          src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/${centroid[0]},${centroid[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
-                        />
-                      ) : (
-                        <div>No location for this resource</div>
-                      )
-                    )}
-                  </>
+                {geometry ? (
+                  <img
+                    alt={translate('WebPageView.mapAlt')}
+                    src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/geojson({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"%23f93","marker-size":"medium"},"geometry":${JSON.stringify(geometry)}}]})/${geometry.coordinates[0]},${geometry.coordinates[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
+                  />
+                ) : (
+                  centroid ? (
+                    <img
+                      alt={translate('WebPageView.mapAlt')}
+                      src={`https://api.mapbox.com/styles/v1/${mapboxConfig.miniMapStyle}/static/${centroid[0]},${centroid[1]},1/230x200@2x?access_token=${mapboxConfig.token}`}
+                    />
+                  ) : (
+                    <div>No location for this resource</div>
+                  )
                 )}
                 <p>
                   {location.address.streetAddress
