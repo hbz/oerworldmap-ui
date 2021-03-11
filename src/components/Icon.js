@@ -13,6 +13,7 @@ const icons = {
   WebPage: 'file',
   Product: 'wrench',
   Policy: 'balance-scale',
+  Collection: 'list',
 }
 
 const Icon = ({ type }) => (

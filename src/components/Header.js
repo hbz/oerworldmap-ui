@@ -339,6 +339,9 @@ class Header extends React.Component {
                       <ConceptBlock
                         type="Event"
                       />
+                      <ConceptBlock
+                        type="Collection"
+                      />
                     </div>
                   </div>
                 </div>
