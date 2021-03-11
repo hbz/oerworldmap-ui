@@ -242,7 +242,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
                       <li>
-                        <a className="iconItem" href="/oerpolicies">
+                        <a className="iconItem" href={'/resource/?filter.about.@type="Policy"'}>
                           <i className="fa fa-balance-scale" />
                           {translate('ClientTemplates.app.oerpolicies')}
                         </a>

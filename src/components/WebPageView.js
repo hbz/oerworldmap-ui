@@ -620,7 +620,7 @@ const WebPageView = ({
               <ul className="ItemList prominent">
                 {about['@type'] === 'Policy' && (
                   <li>
-                    <a className="item" href="/oerpolicies">
+                    <a className="item" href={'/resource/?filter.about.@type="Policy"'}>
                       <i aria-hidden="true" className="fa fa-balance-scale bg-highlight-color bg-important" />
                       <span>
                         {translate('WebPageView.partOfRegistry')}
