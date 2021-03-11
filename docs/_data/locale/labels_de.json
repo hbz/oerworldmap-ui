@@ -247,5 +247,9 @@
   "Tip.Article": "Von den Erfahrungen anderer Personen mit OER lernen",
   "Tip.showList": "Liste anzeigen",
   "Tip.Policy": "OER Policies (OER-Policy-Verzeichnis)",
-  "Block.add": "Hinzufügen"
+  "Block.add": "Hinzufügen",
+  "Collection.name": "Name",
+  "Collection.description": "Description",
+  "Collection.item": "Items in this Collection",
+  "Collection.keywords": "Keywords"
 }
