@@ -247,5 +247,9 @@
   "Tip.Article": "Aprenda através da experiência dos outros com REA",
   "Tip.showList": "Exibir Lista",
   "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)",
-  "Block.add": "Adicionar"
+  "Block.add": "Adicionar",
+  "Collection.name": "Name",
+  "Collection.description": "Description",
+  "Collection.item": "Items in this Collection",
+  "Collection.keywords": "Keywords"
 }
