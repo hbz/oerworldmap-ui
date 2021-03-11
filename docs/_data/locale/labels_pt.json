@@ -248,8 +248,8 @@
   "Tip.showList": "Exibir Lista",
   "Tip.Policy": "Política de REA relacionada (Registro de Políticas REA)",
   "Block.add": "Adicionar",
-  "Collection.name": "Name",
-  "Collection.description": "Description",
-  "Collection.item": "Items in this Collection",
+  "Collection.name": "Nome",
+  "Collection.description": "Descrição",
+  "Collection.item": "Itens nesta Coleção",
   "Collection.keywords": "Keywords"
 }
