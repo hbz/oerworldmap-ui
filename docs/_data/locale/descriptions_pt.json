@@ -174,9 +174,9 @@
   "Policy.contact": "Por favor, adicione aqui o nome e/ou um endereço de e-mail da pessoa responsável pela política.",
   "Policy.affiliate": "Por favor adicione você mesmo aqui, se tiver conhecimento especial sobre ou estiver de alguma forma associado à esta política.",
   "Policy.identifier": "Um número de referência existente para o documento de política",
-  "Collection": "Collection of different documents from OER World Map.",
-  "Collection.name": "The title of collection",
-  "Collection.description": "A description of collection",
-  "Collection.item": "Items",
-  "Collection.keywords": "An arbitrary tag for the collection"
+  "Collection": "Coleção de diferentes documentos do Mapa Global REA.",
+  "Collection.name": "O título da coleção",
+  "Collection.description": "Uma descrição da coleção",
+  "Collection.item": "Itens",
+  "Collection.keywords": "Um descritor arbitrário para a coleção"
 }
