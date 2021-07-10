@@ -315,6 +315,7 @@ const ReactiveFilters = ({
                               'about.description.*',
                               'about.alternateName.*',
                               'about.*.name.*',
+                              'about.identifier',
                             ],
                             default_operator: 'AND',
                           },
