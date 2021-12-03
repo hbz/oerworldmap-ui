@@ -37,8 +37,7 @@ const baseConfig = {
   },
   output: {
     path: path.join(__dirname, directory),
-    publicPath: !isProduction ? `http://${config.host}:${config.port}/`
-      : `${publicApiConfig.scheme}://${publicApiConfig.host}`
+    publicPath: `${publicApiConfig.scheme}://${publicApiConfig.host}`
         .concat(publicApiConfig.port ? `:${publicApiConfig.port}/` : '/'),
   },
   plugins: [
