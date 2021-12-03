@@ -7,7 +7,7 @@ import safe from 'postcss-safe-parser'
 import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 
-import config, { apiConfig } from './config'
+import config, { publicApiConfig } from './config'
 
 const { NODE_ENV } = process.env
 const isProduction = NODE_ENV === 'production'
@@ -38,8 +38,8 @@ const baseConfig = {
   output: {
     path: path.join(__dirname, directory),
     publicPath: !isProduction ? `http://${config.host}:${config.port}/`
-      : `${apiConfig.scheme}://${apiConfig.host}`
-        .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
+      : `${publicApiConfig.scheme}://${publicApiConfig.host}`
+        .concat(publicApiConfig.port ? `:${publicApiConfig.port}/` : '/'),
   },
   plugins: [
     new webpack.ProgressPlugin(),

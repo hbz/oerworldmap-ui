@@ -15,7 +15,7 @@ import i18n from './i18n'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
-  mapboxConfig, apiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
+  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
 } from '../config'
 
 global.URL = require('url').URL
@@ -152,6 +152,7 @@ server.get(/^(.*)$/, (req, res) => {
     mapboxConfig,
     elasticsearchConfig,
     apiConfig,
+    publicApiConfig,
   }
   const { schema } = req
   const context = {

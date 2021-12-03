@@ -21,6 +21,12 @@ export const apiConfig = getenv.multi({
   scheme: ['API_SCHEME', 'http'],
 })
 
+export const publicApiConfig = getenv.multi({
+  host: 'PUBLIC_API_HOST',
+  port: ['PUBLIC_API_PORT', ''],
+  scheme: ['PUBLIC_API_SCHEME', 'http'],
+})
+
 export const piwikConfig = getenv.multi({
   id: ['PIWIK_ID', ''],
   url: ['PIWIK_URL', ''],
