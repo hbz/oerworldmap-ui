@@ -9,7 +9,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "School"
+          "@value": "Chapter"
         },
         {
           "@language": "pt",
@@ -27,11 +27,11 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Higher education institution"
+          "@value": "Hub"
         },
         {
           "@language": "pt",
-          "@value": "Instituição de ensino superior"
+          "@value": "Hub"
         },
         {
           "@language": "de",
@@ -45,7 +45,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Training provider"
+          "@value": "Thematic Organisation"
         },
         {
           "@language": "pt",
@@ -63,7 +63,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Funding body"
+          "@value": "User Group"
         },
         {
           "@language": "pt",

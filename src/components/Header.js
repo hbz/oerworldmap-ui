@@ -312,37 +312,6 @@ class Header extends React.Component {
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
-                    <div className="col">
-                      <ConceptBlock
-                        type="WebPage"
-                        conceptScheme={publicationsConcepts}
-                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
-                      />
-                      <ConceptBlock
-                        type="Policy"
-                        conceptScheme={policyTypesConcepts}
-                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
-                      />
-                    </div>
-                    <div className="col">
-                      <ConceptBlock
-                        type="Action"
-                        conceptScheme={projectsConcepts}
-                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
-                      />
-                      <ConceptBlock
-                        type="Product"
-                      />
-                      <ConceptBlock
-                        type="Article"
-                      />
-                      <ConceptBlock
-                        type="Event"
-                      />
-                      <ConceptBlock
-                        type="Collection"
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
