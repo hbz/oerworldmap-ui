@@ -137,7 +137,7 @@ class Header extends React.Component {
             <h1>
               <i aria-hidden="true" className="fa fa-globe" />
               &nbsp;
-              {translate('OER World Map')}
+              {translate('Capacity Exchange')}
             </h1>
           </Link>
 

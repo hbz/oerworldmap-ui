@@ -198,7 +198,7 @@ export const updateUser = async () => {
   setTimeout(updateUser, 1000 * 60 * 3)
 }
 
-export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy', 'Collection']
+export const types = ['Organization', 'Service', 'Person']
 
 export const isNode = () => (typeof window === 'undefined')
 

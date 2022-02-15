@@ -133,28 +133,8 @@ const ReactiveFilters = ({
         size: 9999,
       },
       {
-        componentId: 'filter.about.award',
-        dataField: 'about.award',
-        showSearch: false,
-      },
-      {
         componentId: 'filter.about.availableChannel.availableLanguage',
         dataField: 'about.availableChannel.availableLanguage',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.primarySector.@id',
-        dataField: 'about.primarySector.@id',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.secondarySector.@id',
-        dataField: 'about.secondarySector.@id',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.audience.@id',
-        dataField: 'about.audience.@id',
         showSearch: false,
       },
       {
@@ -170,11 +150,6 @@ const ReactiveFilters = ({
       {
         componentId: 'filter.about.activityField.@id',
         dataField: 'about.activityField.@id',
-        showSearch: false,
-      },
-      {
-        componentId: 'filter.about.scope.@id',
-        dataField: 'about.scope.@id',
         showSearch: false,
       },
       {
