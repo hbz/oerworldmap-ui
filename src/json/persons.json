@@ -9,7 +9,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Teacher"
+          "@value": "Wikipedia Editing"
         },
         {
           "@language": "pt",
@@ -27,7 +27,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Student"
+          "@value": "Wikimedia commons"
         },
         {
           "@language": "pt",
@@ -45,7 +45,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Librarian"
+          "@value": "Wikidata"
         },
         {
           "@language": "pt",
@@ -63,7 +63,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Instructional designer"
+          "@value": "MediaWiki+ setups"
         },
         {
           "@language": "pt",
@@ -81,7 +81,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "E-learning professional"
+          "@value": "Organising Events"
         },
         {
           "@language": "pt",
@@ -99,7 +99,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Policy maker"
+          "@value": "Starting an affiliate"
         },
         {
           "@language": "pt",
@@ -117,7 +117,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Scientist"
+          "@value": "Project Management"
         },
         {
           "@language": "pt",
@@ -135,7 +135,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "OER advocate"
+          "@value": "HR Management"
         },
         {
           "@language": "pt",
@@ -153,7 +153,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Consultant"
+          "@value": "Financial Management"
         },
         {
           "@language": "pt",
@@ -171,7 +171,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Developer"
+          "@value": "Organisational Development"
         },
         {
           "@language": "pt",
@@ -189,7 +189,7 @@
       "name": [
         {
           "@language": "en",
-          "@value": "Other"
+          "@value": "Fundraising"
         },
         {
           "@language": "pt",
