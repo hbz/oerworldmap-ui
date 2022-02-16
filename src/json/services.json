@@ -4,12 +4,12 @@
   "@type": "ConceptScheme",
   "hasTopConcept": [
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#repository",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Mentoring",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Repository"
+          "@value": "Mentoring"
         },
         {
           "@language": "pt",
@@ -22,12 +22,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#referatory",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Coaching",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Referatory"
+          "@value": "Coaching"
         },
         {
           "@language": "pt",
@@ -40,12 +40,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#authoringTool",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Tutoring",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Authoring tool"
+          "@value": "Tutoring"
         },
         {
           "@language": "pt",
@@ -58,12 +58,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#learningPlatform",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Consulting",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Learning platform"
+          "@value": "Consulting"
         },
         {
           "@language": "pt",
@@ -76,12 +76,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#learningManagementSystem",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Trainer",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Learning Management System"
+          "@value": "Trainer"
         },
         {
           "@language": "pt",
@@ -94,12 +94,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#information",
+      "@id": "https://oerworldmap.org/assets/json/services.json#TraintheTrainer",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Information, reflection or tutorial"
+          "@value": "Train the Trainer"
         },
         {
           "@language": "pt",
@@ -112,12 +112,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#communityPlatform",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Evaluation",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Community platform"
+          "@value": "Evaluation"
         },
         {
           "@language": "pt",
@@ -130,12 +130,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#contentSource",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Assesment",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Content Source"
+          "@value": "Assessment"
         },
         {
           "@language": "pt",
@@ -148,12 +148,30 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#other",
+      "@id": "https://oerworldmap.org/assets/json/services.json#Monitoring",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Other"
+          "@value": "Monitoring"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+    {
+      "@id": "https://oerworldmap.org/assets/json/services.json#Translation",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Translation"
         },
         {
           "@language": "pt",
