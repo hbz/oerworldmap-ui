@@ -4,7 +4,7 @@
   "@type": "ConceptScheme",
   "hasTopConcept": [
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Mentoring",
+      "@id": "https://oerworldmap.org/assets/json/services.json#mentoring",
       "@type": "Concept",
       "name": [
         {
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Coaching",
+      "@id": "https://oerworldmap.org/assets/json/services.json#coaching",
       "@type": "Concept",
       "name": [
         {
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Tutoring",
+      "@id": "https://oerworldmap.org/assets/json/services.json#tutoring",
       "@type": "Concept",
       "name": [
         {
@@ -58,7 +58,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Consulting",
+      "@id": "https://oerworldmap.org/assets/json/services.json#consulting",
       "@type": "Concept",
       "name": [
         {
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Trainer",
+      "@id": "https://oerworldmap.org/assets/json/services.json#trainer",
       "@type": "Concept",
       "name": [
         {
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#TraintheTrainer",
+      "@id": "https://oerworldmap.org/assets/json/services.json#trainthetrainer",
       "@type": "Concept",
       "name": [
         {
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Evaluation",
+      "@id": "https://oerworldmap.org/assets/json/services.json#evaluation",
       "@type": "Concept",
       "name": [
         {
@@ -130,7 +130,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Assesment",
+      "@id": "https://oerworldmap.org/assets/json/services.json#assesment",
       "@type": "Concept",
       "name": [
         {
@@ -148,7 +148,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Monitoring",
+      "@id": "https://oerworldmap.org/assets/json/services.json#monitoring",
       "@type": "Concept",
       "name": [
         {
@@ -166,12 +166,210 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/services.json#Translation",
+      "@id": "https://oerworldmap.org/assets/json/services.json#translation",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
           "@value": "Translation"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#simultaneousinterpretation",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Simultaneous Interpretation"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#editing",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Editing"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#proofreading",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Proofreading"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#research",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Research"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#legalreview",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Legal Review"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#prcommunications",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "PR & Communications"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#proposalwriting",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Proposal Writing"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#webdesign",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Web Design"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#softwaredevelopment",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Software Development"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#officemanagement",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Office Management"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/services.json#facilitation",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "facilitation"
         },
         {
           "@language": "pt",

@@ -4,7 +4,7 @@
   "@type": "ConceptScheme",
   "hasTopConcept": [
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#teacher",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#wikipediaediting",
       "@type": "Concept",
       "name": [
         {
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#student",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#wikimediacommons",
       "@type": "Concept",
       "name": [
         {
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#librarian",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#wikidata",
       "@type": "Concept",
       "name": [
         {
@@ -58,7 +58,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#instructionalDesigner",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#wikimediasetups",
       "@type": "Concept",
       "name": [
         {
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#eLearningProfessional",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#organisingevents",
       "@type": "Concept",
       "name": [
         {
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#policyMaker",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#policymaker",
       "@type": "Concept",
       "name": [
         {
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#scientist",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#projectmanagement",
       "@type": "Concept",
       "name": [
         {
@@ -130,7 +130,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#oerAdvocate",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#hrmanagement",
       "@type": "Concept",
       "name": [
         {
@@ -148,7 +148,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#consultant",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#financialmanagement",
       "@type": "Concept",
       "name": [
         {
@@ -166,7 +166,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#developer",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#organisationaldevelopment",
       "@type": "Concept",
       "name": [
         {
@@ -184,12 +184,227 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/persons.json#other",
+      "@id": "https://oerworldmap.org/assets/json/persons.json#fundraising",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
           "@value": "Fundraising"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#governance",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "governance"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#legal",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Legal"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#partnerships",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Partnerships"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#ethics",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Ethics"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#conflictresolution",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Conflict Resolution"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#diversityequityinclusion",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Diversity, Equity & Inclusion"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#privacysecuritygdpr",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Privacy, Security & GDPR"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#advocacypolicylobbying",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Advocacy, Policy & Lobbying"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#prandbranding",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "PR and Branding"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#facilitation",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Facilitation"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#volunteerprogrammanagement",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Volunteer program management"
+        },
+        {
+          "@language": "pt",
+          "@value": "Outros"
+        },
+        {
+          "@language": "de",
+          "@value": "Sonstige"
+        }
+      ]
+    },{
+      "@id": "https://oerworldmap.org/assets/json/persons.json#eventmanagement",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Event Management"
         },
         {
           "@language": "pt",

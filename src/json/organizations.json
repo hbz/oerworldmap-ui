@@ -4,7 +4,7 @@
   "@type": "ConceptScheme",
   "hasTopConcept": [
     {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#school",
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#chapter",
       "@type": "Concept",
       "name": [
         {
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#higherEducationInstitution",
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#hub",
       "@type": "Concept",
       "name": [
         {
@@ -40,12 +40,47 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#trainingProvider",
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#thematicorganisation",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
           "@value": "Thematic Organisation"
+        },
+        {
+          "@language": "pt",
+          "@value": "Fornecedor de formação"
+        },
+        {
+          "@language": "de",
+          "@value": "Schulungsanbieter"
+        }
+      ]
+    },
+{
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#usergroup",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "User Group"
+        },
+        {
+          "@language": "pt",
+          "@value": "Fornecedor de formação"
+        },
+        {
+          "@language": "de",
+          "@value": "Schulungsanbieter"
+        }
+      ]
+    },{
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#preapproval",
+      "@type": "Concept",
+      "name": [
+        {
+          "@language": "en",
+          "@value": "Pre-Approval"
         },
         {
           "@language": "pt",
