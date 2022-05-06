@@ -23,10 +23,6 @@ global.URL = require('url').URL
 const server = express()
 const api = new Api(apiConfig)
 
-const getHeaders = headers => new Headers(Object.entries(headers)
-  .filter(([key]) => !key.startsWith('oidc'))
-  .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}))
-
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -144,7 +140,7 @@ server.get('/stats', async (req, res) => {
 
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const headers = getHeaders(req.headers)
+  const headers = req.headers
   headers.delete('Host')
   headers.delete('If-None-Match')
   const { locales, supportedLanguages, phrases } = req
