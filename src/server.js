@@ -1,5 +1,3 @@
-/* global Headers */
-
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
@@ -140,9 +138,6 @@ server.get('/stats', async (req, res) => {
 
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const headers = req.headers
-  headers.delete('Host')
-  headers.delete('If-None-Match')
   const { locales, supportedLanguages, phrases } = req
   const config = {
     mapboxConfig,
@@ -154,7 +149,6 @@ server.get(/^(.*)$/, (req, res) => {
   const context = {
     supportedLanguages,
     locales,
-    headers,
     config,
     phrases,
     schema,
