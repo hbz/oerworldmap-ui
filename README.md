@@ -42,36 +42,6 @@ $ npm run build:dev
 & npm run server:dev
 ```
 
-Apache configuration
-
-Enable modules
-```
-sudo a2enmod rewrite #mod_rewrite
-sudo a2enmod proxy #mod_proxy
-sudo a2enmod proxy_http #mod_proxy_http
-```
-
-Add new VirtualHost config and enable it
-```
-<VirtualHost *:80>
-
-  ServerName oerworldmap.local
-
-  AllowEncodedSlashes NoDecode
-
-  RewriteEngine On
-
-  RewriteCond %{HTTP:Accept} application/json
-
-  RewriteRule (.*) http://oerworldmap.graphthinking.com$1 [P,L]
-
-  RewriteRule "(/.login|/.logout)" http://oerworldmap.graphthinking.com$1 [P,L]
-
-  RewriteRule (.*) http://localhost:3000$1 [P,L]
-
-</VirtualHost>
-```
-
 Add url to `/etc/hosts`
 
 ```
