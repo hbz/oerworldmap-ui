@@ -44,6 +44,9 @@ const baseConfig = {
     new webpack.ProgressPlugin(),
     new webpack.IgnorePlugin(/canvas/),
   ],
+  watchOptions: {
+    ignored: /node_modules/,
+  }
 }
 
 const configServer = merge(baseConfig, {
