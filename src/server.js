@@ -100,6 +100,45 @@ server.get('/.login', (req, res) => {
   }
 })
 
+var ClientOAuth2 = require('client-oauth2')
+var oauth = new ClientOAuth2({
+  clientId: 'foo',
+  clientSecret: 'bar',
+  accessTokenUri: 'http://dev.wiki/w/rest.php/oauth2/access_token',
+  authorizationUri: 'http://dev.wiki/w/rest.php/oauth2/authorize',
+  // authorizationUri: 'http://dev.wiki/w/rest.php/oauth2/authenticate',
+  redirectUri: 'http://localhost:3000/oauth2/callback',
+  scopes: ['mwoauth-authonly']
+})
+
+server.get('/oauth2/login', (req, res) => {
+  res.redirect(oauth.code.getUri())
+});
+
+server.get('/oauth2/callback', (req, res) => {
+  oauth.code.getToken(req.originalUrl)
+    .then(function (user) {
+      const url = 'http://dev.wiki/w/rest.php/oauth2/resource/profile'
+      // const url = 'http://dev.wiki/wiki/Special:OAuth/identify'
+      const signed = 
+        user.sign({
+          url
+        })
+
+      oauth.request(
+        'get',
+        url,
+        null,
+        signed.headers
+      ).then(response => {
+        const username = JSON.parse(response.body).username;
+
+        // We should store the access token into a database.
+        res.send("You are " + username)
+      })
+    })
+});
+
 server.get('/stats', async (req, res) => {
   const { translate } = i18n(req.locales, req.phrases)
   const {
