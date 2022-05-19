@@ -10,6 +10,7 @@ import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
 import i18n from './i18n'
+import { MediaWikiOAuth2Client } from './mediawiki-oauth2'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
@@ -100,23 +101,12 @@ server.get('/.login', (req, res) => {
   }
 })
 
-var ClientOAuth2 = require('client-oauth2')
-var oauth = new ClientOAuth2({
-  clientId: 'foo',
-  clientSecret: 'bar',
-  accessTokenUri: 'http://dev.wiki/w/rest.php/oauth2/access_token',
-  authorizationUri: 'http://dev.wiki/w/rest.php/oauth2/authorize',
-  // authorizationUri: 'http://dev.wiki/w/rest.php/oauth2/authenticate',
-  redirectUri: 'http://localhost:3000/oauth2/callback',
-  scopes: ['mwoauth-authonly']
-})
-
 server.get('/oauth2/login', (req, res) => {
-  res.redirect(oauth.code.getUri())
+  res.redirect(MediaWikiOAuth2Client.code.getUri())
 });
 
 server.get('/oauth2/callback', (req, res) => {
-  oauth.code.getToken(req.originalUrl)
+  MediaWikiOAuth2Client.code.getToken(req.originalUrl)
     .then(function (user) {
       const url = 'http://dev.wiki/w/rest.php/oauth2/resource/profile'
       // const url = 'http://dev.wiki/wiki/Special:OAuth/identify'
@@ -125,7 +115,7 @@ server.get('/oauth2/callback', (req, res) => {
           url
         })
 
-      oauth.request(
+      MediaWikiOAuth2Client.request(
         'get',
         url,
         null,

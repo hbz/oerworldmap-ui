@@ -37,6 +37,13 @@ export const i18nConfig = getenv.multi({
   defaultLanguage: ['LANG_DEFAULT', 'en'],
 })
 
+export const mediawikiConfig = getenv.multi({
+  restUrl: ['MEDIAWIKI_REST_URL', ''],
+  oauthConsumerKey: ['MEDIAWIKI_OAUTH_CONSUMER_KEY', ''],
+  oauthConsumerSecret: ['MEDIAWIKI_OAUTH_CONSUMER_SECRET', ''],
+  callbackUrl: ['MEDIAWIKI_OAUTH_CALLBACK_URL', ''],
+})
+
 // export server configuration
 export default getenv.multi({
   env: 'NODE_ENV',
