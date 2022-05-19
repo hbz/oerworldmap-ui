@@ -4,6 +4,7 @@ import express from 'express'
 import compression from 'compression'
 import userAgent from 'express-useragent'
 import cookieParser from 'cookie-parser'
+import session from 'express-session'
 
 import template from './views/index'
 import router from './router'
@@ -14,7 +15,7 @@ import { MediaWikiOAuth2Client } from './mediawiki-oauth2'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
-  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
+  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig, sessionConfig,
 } from '../config'
 
 global.URL = require('url').URL
@@ -92,22 +93,32 @@ server.use((req, res, next) => {
   next()
 })
 
+// Middleware to persist session
+server.use(session({
+  secret: sessionConfig.secret,
+  saveUninitialized: false,
+  resave: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
+}))
+
 // Handle login
 server.get('/.login', (req, res) => {
-  if (req.headers.oidc_claim_profile_id) {
+  if (req.session.username) {
     res.redirect(req.query.continue ? req.query.continue : '/resource/')
   } else {
-    res.redirect('/user/profile#edit')
+    res.redirect(MediaWikiOAuth2Client.code.getUri())
   }
 })
 
-server.get('/oauth2/login', (req, res) => {
-  res.redirect(MediaWikiOAuth2Client.code.getUri())
-});
-
 server.get('/oauth2/callback', (req, res) => {
+  if (req.query.error) {
+    console.error("callback received error", req.query.error)
+    // TODO: Send to an appropriate page.
+    return
+  }
+
   MediaWikiOAuth2Client.code.getToken(req.originalUrl)
-    .then(function (user) {
+    .then(user => {
       const url = 'http://dev.wiki/w/rest.php/oauth2/resource/profile'
       // const url = 'http://dev.wiki/wiki/Special:OAuth/identify'
       const signed = 
@@ -121,13 +132,25 @@ server.get('/oauth2/callback', (req, res) => {
         null,
         signed.headers
       ).then(response => {
-        const username = JSON.parse(response.body).username;
+        const userData = JSON.parse(response.body)
 
-        // We should store the access token into a database.
-        res.send("You are " + username)
-      })
-    })
-});
+        req.session.username = userData.username
+        req.session.userid = userData.sub
+
+        res.redirect('/.login')
+      }, error =>
+        console.error("Unhandled login error", error)
+      )
+    }, error =>
+      console.error("token stuff failed", error)
+    )
+})
+
+server.get('/logout', (req, res) => {
+  req.session.destroy();
+  // TODO: Logout of MediaWiki as well.
+  res.redirect(req.query.continue || '/');
+})
 
 server.get('/stats', async (req, res) => {
   const { translate } = i18n(req.locales, req.phrases)
@@ -174,6 +197,10 @@ server.get(/^(.*)$/, (req, res) => {
     apiConfig,
     publicApiConfig,
   }
+  const headers = {
+    'X-username': req.session.username,
+    'X-userid': req.session.userid,
+  }
   const { schema } = req
   const context = {
     supportedLanguages,
@@ -181,11 +208,23 @@ server.get(/^(.*)$/, (req, res) => {
     config,
     phrases,
     schema,
+    headers,
   }
   // TODO: use actual request method
   router(api, null, req.location).route(req.path, context).get(req.query).then(({
     title, data, render, err, metadata,
   }) => {
+    console.log("routing...")
+    if (req.accepts('application/json')) {
+      console.log("accepting json...")
+      // Delegate to the API.  TODO: Should also proxy for POST requests.
+      api.get(req.originalUrl, new Headers(context.headers))
+      .then(
+        response => res.json(response.json),
+        error => console.error("bad response from API", error)
+      )
+      console.log("should not reach")
+    }
     console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,

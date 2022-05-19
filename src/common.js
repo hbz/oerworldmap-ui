@@ -192,8 +192,9 @@ export const updateUser = async () => {
         'X-Requested-With': 'XMLHttpRequest',
       },
     }).then(res => res.json())
+    console.log("updated app user", window.__APP_USER__)
   } catch (e) {
-    // no op - user not logged in, but mod_auth_openidc redirects to login page
+    console.debug("Not logged in", e)
   }
   setTimeout(updateUser, 1000 * 60 * 3)
 }

@@ -44,6 +44,10 @@ export const mediawikiConfig = getenv.multi({
   callbackUrl: ['MEDIAWIKI_OAUTH_CALLBACK_URL', ''],
 })
 
+export const sessionConfig = getenv.multi({
+  secret: ['SESSION_SECRET', ''],
+})
+
 // export server configuration
 export default getenv.multi({
   env: 'NODE_ENV',
