@@ -168,10 +168,10 @@ class Map extends React.Component {
       this.map.on('zoom', this.zoom)
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('road-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('minor-place-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('major-place-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('place-label', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('road-labels', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('settlement-minor-label', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('settlement-major-label', 'text-field', `{name_${locales[0]}}`)
+      //this.map.setLayoutProperty('place-label', 'text-field', `{name_${locales[0]}}`)
 
       this.Map.addEventListener('mouseleave', () => {
         this.hoverPopup.remove()
@@ -396,9 +396,9 @@ class Map extends React.Component {
     const zoom = e.target.getZoom()
 
     if (zoom >= 7) {
-      e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
+      e.target.setPaintProperty('water', 'background-opacity', 0)
     } else {
-      e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+      e.target.setPaintProperty('water', 'background-opacity', 1)
     }
 
     if (zoom < 2 && iso3166) {
