@@ -40,8 +40,8 @@ export const i18nConfig = getenv.multi({
 
 export const mediawikiConfig = getenv.multi({
   restUrl: 'MEDIAWIKI_REST_URL',
-  oauthConsumerKey: 'MEDIAWIKI_OAUTH_CONSUMER_KEY',
-  oauthConsumerSecret: 'MEDIAWIKI_OAUTH_CONSUMER_SECRET',
+  oauthConsumerKey: ['MEDIAWIKI_OAUTH_CONSUMER_KEY', ''],
+  oauthConsumerSecret: ['MEDIAWIKI_OAUTH_CONSUMER_SECRET', ''],
   callbackUrl: 'MEDIAWIKI_OAUTH_CALLBACK_URL',
   debugOverride: ['MEDIAWIKI_OAUTH_DEBUG_OVERRIDE', ''],
 })
