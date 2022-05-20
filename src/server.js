@@ -168,9 +168,9 @@ server.get('/oauth2/callback', (req, res) => {
 })
 
 server.get('/logout', (req, res) => {
-  req.session.destroy();
-  // TODO: Logout of MediaWiki as well.
-  res.redirect(req.query.continue || '/');
+  req.session.destroy()
+  // TODO: Logout of MediaWiki as well.  But there seems to be no way to revoke?
+  res.redirect(req.query.continue || '/')
 })
 
 server.get('/stats', async (req, res) => {

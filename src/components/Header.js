@@ -547,9 +547,7 @@ class Header extends React.Component {
                           <li>
                             <a
                               className="item"
-                              href={'/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri='
-                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))
-                              }
+                              href={`/logout?continue=${Link.self}`}
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>
