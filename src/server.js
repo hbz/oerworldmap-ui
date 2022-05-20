@@ -16,7 +16,7 @@ import { MediaWikiOAuth2Client } from './mediawiki-oauth2'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
-  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig, sessionConfig,
+  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig, sessionConfig, mediawikiConfig,
 } from '../config'
 
 global.URL = require('url').URL
@@ -101,6 +101,20 @@ server.use(session({
   resave: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
 }))
+
+// Middleware to set auth headers
+server.use((req, res, next) => {
+  if (mediawikiConfig.debugOverride) {
+    req.session.username = 'Test User'
+    req.session.userid = '123'
+    req.headers['X-username'] = req.session.username
+    req.headers['X-userid'] = req.session.userid
+  } else if (req.session.username) {
+    req.headers['X-username'] = req.session.username
+    req.headers['X-userid'] = req.session.userid
+  }
+  next()
+})
 
 server.use('/elastic', createProxyMiddleware({
   target: elasticsearchConfig.internalUrl,
@@ -204,6 +218,7 @@ server.get(/^(.*)$/, (req, res) => {
     apiConfig,
     publicApiConfig,
   }
+  // FIXME: duplication, to prevent user from sneaking other headers to the API
   const headers = {
     'X-username': req.session.username,
     'X-userid': req.session.userid,
