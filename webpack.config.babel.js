@@ -97,6 +97,10 @@ const configServer = merge(baseConfig, {
           outputPath: 'public/',
         },
       },
+    }, {
+      include: /node_modules/,
+      test: /\.mjs$/,
+      type: 'javascript/auto',
     }),
   },
   plugins: [
