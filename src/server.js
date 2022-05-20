@@ -122,6 +122,15 @@ server.use('/elastic', createProxyMiddleware({
   pathRewrite: {'^/elastic/oerworldmap': ''},
 }))
 
+server.use(createProxyMiddleware(
+  (_path, req) => { return !req.accepts('text/html') },
+  {
+    // FIXME: format using URL
+    target: `${apiConfig.scheme}://${apiConfig.host}:${apiConfig.port}`,
+    changeOrigin: true,
+  }
+))
+
 // Handle login
 server.get('/.login', (req, res) => {
   if (req.session.username) {
@@ -236,18 +245,6 @@ server.get(/^(.*)$/, (req, res) => {
   router(api, null, req.location).route(req.path, context).get(req.query).then(({
     title, data, render, err, metadata,
   }) => {
-    console.log("routing...")
-    if (req.accepts('application/json')) {
-      console.log("accepting json...")
-      // Delegate to the API.  TODO: Should also proxy for POST requests.
-      api.get(req.originalUrl, new Headers(context.headers))
-      .then(
-        response => res.json(response.json),
-        error => console.error("bad response from API", error)
-      )
-      console.log("should not reach")
-    }
-    console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
