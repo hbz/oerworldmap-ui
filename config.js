@@ -13,6 +13,7 @@ export const mapboxConfig = getenv.multi({
 export const elasticsearchConfig = getenv.multi({
   index: 'ELASTICSEARCH_INDEX',
   url: 'ELASTICSEARCH_URL',
+  internalUrl: 'ELASTICSEARCH_INTERNAL_URL',
 })
 
 export const apiConfig = getenv.multi({

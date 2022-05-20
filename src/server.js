@@ -5,6 +5,7 @@ import compression from 'compression'
 import userAgent from 'express-useragent'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
 import template from './views/index'
 import router from './router'
@@ -99,6 +100,12 @@ server.use(session({
   saveUninitialized: false,
   resave: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
+}))
+
+server.use('/elastic', createProxyMiddleware({
+  target: elasticsearchConfig.internalUrl,
+  changeOrigin: true,
+  pathRewrite: {'^/elastic/oerworldmap': ''},
 }))
 
 // Handle login
