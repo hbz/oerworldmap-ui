@@ -109,7 +109,7 @@ class Form extends React.Component {
             ? onSubmit(formData)
             : this.setState(
               { formErrors: validate.errors },
-              () => console.error(validate.errors)
+              () => console.error("validation errors", validate.errors)
                 || onError(validate.errors),
             )
         }}
