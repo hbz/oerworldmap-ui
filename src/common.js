@@ -192,7 +192,7 @@ export const updateUser = async () => {
         'X-Requested-With': 'XMLHttpRequest',
       },
     }).then(res => res.json())
-    console.log("updated app user", window.__APP_USER__)
+    .then(data => data.error ? null : data)
   } catch (e) {
     console.debug("Not logged in", e)
   }
