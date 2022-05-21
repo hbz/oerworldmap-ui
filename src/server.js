@@ -125,7 +125,7 @@ server.use(/^\/(oerworldmap-ui|contribute|about|FAQ|editorsFAQ|imprint|api|oerpo
   })
 )
 
-server.use( /^\//,
+server.use( /^\/$/,
   createProxyMiddleware({
     target: pagesConfig.internalUrl,
     changeOrigin: true,
