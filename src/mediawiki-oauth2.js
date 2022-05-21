@@ -23,7 +23,7 @@ export default {
     const signed = authenticatedUser.sign({ url })
 
     return fetch(url, {
-      method: 'get',
+      method: 'GET',
       headers: signed.headers
     }).then(res => res.json())
   }
