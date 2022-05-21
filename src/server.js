@@ -12,7 +12,7 @@ import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
 import i18n from './i18n'
-import { MediaWikiOAuth2Client } from './mediawiki-oauth2'
+import oauth from './mediawiki-oauth2'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
@@ -136,43 +136,25 @@ server.get('/.login', (req, res) => {
   if (req.session.username) {
     res.redirect(req.query.continue ? req.query.continue : '/resource/')
   } else {
-    res.redirect(MediaWikiOAuth2Client.code.getUri())
+    res.redirect(oauth.getAuthRedirect())
   }
 })
 
 server.get('/oauth2/callback', (req, res) => {
   if (req.query.error) {
-    console.error("callback received error", req.query.error)
-    // TODO: Send to an appropriate page.
-    return
+    console.error("oauth callback received an error", req.query.error)
+    return res.redirect('/')
   }
 
-  MediaWikiOAuth2Client.code.getToken(req.originalUrl)
-    .then(user => {
-      const url = 'http://dev.wiki/w/rest.php/oauth2/resource/profile'
-      // const url = 'http://dev.wiki/wiki/Special:OAuth/identify'
-      const signed = 
-        user.sign({
-          url
-        })
+  oauth.processCallback(req.originalUrl)
+    .then(authenticatedUser => oauth.getUserProfile(authenticatedUser))
+    .then(userData => {
+      req.session.username = userData.username
+      req.session.userid = userData.sub
 
-      MediaWikiOAuth2Client.request(
-        'get',
-        url,
-        null,
-        signed.headers
-      ).then(response => {
-        const userData = JSON.parse(response.body)
-
-        req.session.username = userData.username
-        req.session.userid = userData.sub
-
-        res.redirect('/.login')
-      }, error =>
-        console.error("Unhandled login error", error)
-      )
+      res.redirect('/user/profile')
     }, error =>
-      console.error("token stuff failed", error)
+      console.error("Unhandled login error", error)
     )
 })
 
