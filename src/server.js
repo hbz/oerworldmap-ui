@@ -16,7 +16,8 @@ import oauth from './mediawiki-oauth2'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
-  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig, sessionConfig, mediawikiConfig,
+  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
+  sessionConfig, mediawikiConfig, pagesConfig,
 } from '../config'
 
 global.URL = require('url').URL
@@ -115,6 +116,21 @@ server.use((req, res, next) => {
   }
   next()
 })
+
+server.use(/^\/(oerworldmap-ui|contribute|about|FAQ|editorsFAQ|imprint|api|oerpolicies)/,
+  createProxyMiddleware({
+    target: pagesConfig.internalUrl,
+    changeOrigin: true,
+    pathRewrite: {'^/oerworldmap-ui': ''},
+  })
+)
+
+server.use( /^\//,
+  createProxyMiddleware({
+    target: pagesConfig.internalUrl,
+    changeOrigin: true,
+  })
+)
 
 server.use('/elastic', createProxyMiddleware({
   target: elasticsearchConfig.internalUrl,

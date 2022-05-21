@@ -50,6 +50,10 @@ export const sessionConfig = getenv.multi({
   secret: 'SESSION_SECRET',
 })
 
+export const pagesConfig = getenv.multi({
+  internalUrl: 'PAGES_URL',
+})
+
 // export server configuration
 export default getenv.multi({
   env: 'NODE_ENV',
