@@ -199,15 +199,22 @@ class Map extends React.Component {
       // Hack to use Mapbox studio styles with local data (source)
       const allLayers = this.map.getStyle().layers
       pointsLayers.forEach((layer) => {
-        const pointsLayer = allLayers.find(l => l.id === layer)
-        delete pointsLayer['source-layer']
-        this.map.removeLayer(layer)
-        pointsLayer.source = 'pointsSource'
-        pointsLayer.paint['circle-opacity'] = 1
-        pointsLayer.paint['circle-stroke-opacity'] = 1
-        pointsLayer.paint['circle-radius'] = this.initialRadius
+        let pointsLayer = allLayers.find(l => l.id === layer)
+        if (pointsLayer) {
+          delete pointsLayer['source-layer']
+          this.map.removeLayer(layer)
+        }
 
-        this.map.addLayer(pointsLayer)
+        this.map.addLayer({
+          id: layer,
+          source: 'pointsSource',
+          type: 'circle',
+          paint: {
+            'circle-opacity': 1,
+            'circle-stroke-opacity': 1,
+            'circle-radius': this.initialRadius,
+          },
+        })
         this.map.setLayoutProperty(layer, 'visibility', 'visible')
       })
 
