@@ -102,6 +102,7 @@ class Map extends React.Component {
         name: 'points',
         handler: this.clickPoints,
       },
+      /*
       {
         name: 'Regions',
         handler: this.clickRegions,
@@ -114,6 +115,7 @@ class Map extends React.Component {
         name: 'countries',
         handler: this.clickCountries,
       },
+      */
     ]
   }
 
@@ -168,7 +170,7 @@ class Map extends React.Component {
       this.map.on('zoom', this.zoom)
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('road-labels', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('road-label-simple', 'text-field', `{name_${locales[0]}}`)
       this.map.setLayoutProperty('settlement-minor-label', 'text-field', `{name_${locales[0]}}`)
       this.map.setLayoutProperty('settlement-major-label', 'text-field', `{name_${locales[0]}}`)
       //this.map.setLayoutProperty('place-label', 'text-field', `{name_${locales[0]}}`)
@@ -234,16 +236,18 @@ class Map extends React.Component {
       })
 
       // Clone Regions layer and set the style of countries-inactive
-      const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
+      /* FIXME: grab upstream styles
+      const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'admin-1-boundary')
       RegionsLayer.id = 'regions-inactive'
-      const countriesInactive = this.map.getStyle().layers.find(l => l.id === 'countries-inactive')
+      const countriesInactive = this.map.getStyle().layers.find(l => l.id === 'admin-0-boundary')
       RegionsLayer.paint = countriesInactive.paint
       RegionsLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
       this.map.addLayer(RegionsLayer, 'Regions')
+      */
 
       // Initialize choropleth layers
       this.updateZoom(iso3166, map, map)
-      this.updateActiveCountry(iso3166, region)
+      //this.updateActiveCountry(iso3166, region)
 
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer)
@@ -301,7 +305,7 @@ class Map extends React.Component {
     }
 
     if ((iso3166 !== nextProps.iso3166) || (region !== nextProps.region)) {
-      this.updateActiveCountry(iso3166, region)
+      //this.updateActiveCountry(iso3166, region)
     }
   }
 
@@ -402,9 +406,9 @@ class Map extends React.Component {
     }
 
     if (zoom < 2 && iso3166) {
-      iso3166 && this.map.setPaintProperty('countries', 'fill-opacity', 1)
+      //iso3166 && this.map.setPaintProperty('countries', 'fill-opacity', 1)
     } else if (iso3166) {
-      iso3166 && this.map.setPaintProperty('countries', 'fill-opacity', 0)
+      //iso3166 && this.map.setPaintProperty('countries', 'fill-opacity', 0)
     }
   }
 
@@ -426,6 +430,7 @@ class Map extends React.Component {
       const { aggregations } = this.state
       const hoveredEvents = this.map.queryRenderedFeatures(e.point, { layers: ['Events'] })
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+      /*
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
       const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
       const hoveredRegionsInactive = this.map.queryRenderedFeatures(e.point, { layers: ['regions-inactive'] })
@@ -436,6 +441,10 @@ class Map extends React.Component {
         && hoveredRegions[0].properties.code_hasc) || null
       const currentRegionInactive = (hoveredRegionsInactive.length
         && hoveredRegionsInactive[0].properties.code_hasc) || null
+			*/
+      const currentCountry = null
+      const currentRegion = null
+      const currentRegionInactive = null
 
       if (!currentCountry && !hoveredPoints.length) {
         // Water since there is no country
