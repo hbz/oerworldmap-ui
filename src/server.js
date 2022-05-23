@@ -135,7 +135,7 @@ server.use( /^\/$/,
 server.use('/elastic', createProxyMiddleware({
   target: elasticsearchConfig.internalUrl,
   changeOrigin: true,
-  pathRewrite: {'^/elastic/oerworldmap': ''},
+  pathRewrite: {'^/elastic': ''},
 }))
 
 server.use(createProxyMiddleware(
