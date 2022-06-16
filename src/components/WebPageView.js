@@ -720,16 +720,6 @@ const WebPageView = ({
             </Block>
           )}
 
-          {about.email && !isNode() && (
-            <Block title={translate(`${about['@type']}.email`)}>
-              <p>
-                <a href={`mailto:${about.email}`}>
-                  {about.email}
-                </a>
-              </p>
-            </Block>
-          )}
-
           {about.contact && (
             <Block title={translate(`${about['@type']}.contact`)}>
               <p>
