@@ -53,7 +53,7 @@
   "Organization.primarySector": "The educational sector the organisation is working for in the first place",
   "Organization.secondarySector": "Educational sectors the organisation is also working for",
   "Person": "An individual who relates personally to OER communities.",
-  "Person.name": "Your full name",
+  "Person.name": "Your screen name",
   "Person.url": "The URL of your homepage or blog",
   "Person.email": "Your email address",
   "Person.description": "A short bio of yourself with focus on OER activities",
