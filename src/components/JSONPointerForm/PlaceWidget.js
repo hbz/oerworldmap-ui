@@ -125,7 +125,6 @@ class PlaceWidget extends React.Component {
                 options={schema.properties.address.properties.addressCountry.enum}
                 title={schema.properties.address.properties.addressCountry.title}
                 setValue={country => setValue({ address: { addressCountry: country } })}
-                required
               />
               {getProp(['address', 'addressCountry'], value) && (
                 <div>
