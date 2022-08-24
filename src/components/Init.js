@@ -13,7 +13,7 @@ const Init = ({
   <ConfigProvider config={config}>
     <I18nProvider i18n={i18n}>
       <EmittProvider emitter={emitter}>
-        <ApiProvider config={config.apiConfig}>
+        <ApiProvider config={config.publicApiConfig}>
           <UserProvider>
             <App locales={i18n.locales} supportedLanguages={supportedLanguages}>
               {children}

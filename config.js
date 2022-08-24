@@ -13,12 +13,19 @@ export const mapboxConfig = getenv.multi({
 export const elasticsearchConfig = getenv.multi({
   index: 'ELASTICSEARCH_INDEX',
   url: 'ELASTICSEARCH_URL',
+  internalUrl: 'ELASTICSEARCH_INTERNAL_URL',
 })
 
 export const apiConfig = getenv.multi({
   host: 'API_HOST',
   port: ['API_PORT', ''],
   scheme: ['API_SCHEME', 'http'],
+})
+
+export const publicApiConfig = getenv.multi({
+  host: 'PUBLIC_API_HOST',
+  port: ['PUBLIC_API_PORT', ''],
+  scheme: ['PUBLIC_API_SCHEME', 'http'],
 })
 
 export const piwikConfig = getenv.multi({
@@ -29,6 +36,22 @@ export const piwikConfig = getenv.multi({
 export const i18nConfig = getenv.multi({
   supportedLanguages: ['LANG_SUPPORTED', 'en'],
   defaultLanguage: ['LANG_DEFAULT', 'en'],
+})
+
+export const mediawikiConfig = getenv.multi({
+  restUrl: 'MEDIAWIKI_REST_URL',
+  oauthConsumerKey: ['MEDIAWIKI_OAUTH_CONSUMER_KEY', ''],
+  oauthConsumerSecret: ['MEDIAWIKI_OAUTH_CONSUMER_SECRET', ''],
+  callbackUrl: 'MEDIAWIKI_OAUTH_CALLBACK_URL',
+  debugOverride: ['MEDIAWIKI_OAUTH_DEBUG_OVERRIDE', ''],
+})
+
+export const sessionConfig = getenv.multi({
+  secret: 'SESSION_SECRET',
+})
+
+export const pagesConfig = getenv.multi({
+  internalUrl: 'PAGES_URL',
 })
 
 // export server configuration

@@ -7,7 +7,7 @@ import safe from 'postcss-safe-parser'
 import cssnano from 'cssnano'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 
-import config, { apiConfig } from './config'
+import config, { publicApiConfig } from './config'
 
 const { NODE_ENV } = process.env
 const isProduction = NODE_ENV === 'production'
@@ -37,14 +37,16 @@ const baseConfig = {
   },
   output: {
     path: path.join(__dirname, directory),
-    publicPath: !isProduction ? `http://${config.host}:${config.port}/`
-      : `${apiConfig.scheme}://${apiConfig.host}`
-        .concat(apiConfig.port ? `:${apiConfig.port}/` : '/'),
+    publicPath: `${publicApiConfig.scheme}://${publicApiConfig.host}`
+        .concat(publicApiConfig.port ? `:${publicApiConfig.port}/` : '/'),
   },
   plugins: [
     new webpack.ProgressPlugin(),
     new webpack.IgnorePlugin(/canvas/),
   ],
+  watchOptions: {
+    ignored: /node_modules/,
+  }
 }
 
 const configServer = merge(baseConfig, {
@@ -95,6 +97,10 @@ const configServer = merge(baseConfig, {
           outputPath: 'public/',
         },
       },
+    }, {
+      include: /node_modules/,
+      test: /\.mjs$/,
+      type: 'javascript/auto',
     }),
   },
   plugins: [

@@ -137,7 +137,7 @@ class Header extends React.Component {
             <h1>
               <i aria-hidden="true" className="fa fa-globe" />
               &nbsp;
-              {translate('OER World Map')}
+              {translate('Capacity Exchange')}
             </h1>
           </Link>
 
@@ -312,37 +312,6 @@ class Header extends React.Component {
                         linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
                       />
                     </div>
-                    <div className="col">
-                      <ConceptBlock
-                        type="WebPage"
-                        conceptScheme={publicationsConcepts}
-                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
-                      />
-                      <ConceptBlock
-                        type="Policy"
-                        conceptScheme={policyTypesConcepts}
-                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
-                      />
-                    </div>
-                    <div className="col">
-                      <ConceptBlock
-                        type="Action"
-                        conceptScheme={projectsConcepts}
-                        linkTemplate={'/resource/?filter.about.additionalType.@id=["{@id}"]'}
-                      />
-                      <ConceptBlock
-                        type="Product"
-                      />
-                      <ConceptBlock
-                        type="Article"
-                      />
-                      <ConceptBlock
-                        type="Event"
-                      />
-                      <ConceptBlock
-                        type="Collection"
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -431,21 +400,6 @@ class Header extends React.Component {
                 <div className="inner">
                   <div className="row stack-700 stack-gutter-2em">
                     <div className="col one-forth">
-                      <ul className="linedList border-bottom">
-                        <li>
-                          <h3>{translate('menu.info.topical')}</h3>
-                        </li>
-                        <li>
-                          <a className="item" href="/about#newsletter">
-                            {translate('menu.info.topical.newsletter')}
-                          </a>
-                        </li>
-                        <li>
-                          <a className="item" href="https://oerworldmap.wordpress.com/" rel="noopener noreferrer" target="_blank">
-                            {translate('menu.info.topical.blog')}
-                          </a>
-                        </li>
-                      </ul>
                     </div>
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
@@ -454,7 +408,7 @@ class Header extends React.Component {
                         </li>
                         <li>
                           <a className="item" href="/about#the-vision">
-                            {translate('The OER World Map')}
+                            {translate('The Capacity Exchange')}
                           </a>
                         </li>
                         <li>
@@ -482,32 +436,10 @@ class Header extends React.Component {
                     <div className="col one-forth">
                       <ul className="linedList border-bottom">
                         <li>
-                          <h3>{translate('menu.info.social')}</h3>
-                        </li>
-                        <li>
-                          <a className="item" href="https://www.facebook.com/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            {translate('menu.info.social.facebook')}
-                          </a>
-                        </li>
-                        <li>
-                          <a className="item" href="https://twitter.com/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            {translate('menu.info.social.twitter')}
-                          </a>
-                        </li>
-                        <li>
-                          <a className="item" href="https://github.com/hbz/oerworldmap" rel="noopener noreferrer" target="_blank">
-                            {translate('menu.info.social.github')}
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="col one-forth">
-                      <ul className="linedList border-bottom">
-                        <li>
                           <h3>{translate('menu.info.legal')}</h3>
                         </li>
                         <li>
-                          <a className="item" href="mailto:info@oerworldmap.org">
+                          <a className="item" href="mailto:">
                             {translate('menu.info.legal.contact')}
                           </a>
                         </li>
@@ -517,6 +449,8 @@ class Header extends React.Component {
                           </a>
                         </li>
                       </ul>
+                    </div>
+                    <div className="col one-forth">
                     </div>
                   </div>
                 </div>
@@ -578,9 +512,7 @@ class Header extends React.Component {
                           <li>
                             <a
                               className="item"
-                              href={'/auth/realms/oerworldmap/protocol/openid-connect/logout?redirect_uri='
-                                .concat(encodeURIComponent(`/oauth2callback?logout=${Link.self}`))
-                              }
+                              href={`/logout?continue=${Link.self}`}
                             >
                               <i aria-hidden="true" className="fa fa-sign-out" />
                               <span>{translate('menu.me.logout')}</span>
@@ -600,15 +532,6 @@ class Header extends React.Component {
                             <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=["${user.id}"]&filter.about.objectIn.%40type=["LikeAction"]`}>
                               <i aria-hidden="true" className="fa fa-thumbs-up" />
                               <span>{translate('menu.me.likes')}</span>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="item" href={`/resource/?filter.about.objectIn.agent.@id=["${user.id}"]&filter.about.objectIn.%40type=["LighthouseAction"]`}>
-                              <div className="i">
-                                <img className="visible-hover-focus" src="/public/lighthouse_16px_orange.svg" alt="Lighthouse" />
-                                <img className="hidden-hover-focus" src="/public/lighthouse_16px_blue_dark.svg" alt="Lighthouse" />
-                              </div>
-                              <span>{translate('menu.me.lighthouses')}</span>
                             </Link>
                           </li>
                           <li>

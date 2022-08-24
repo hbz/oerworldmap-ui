@@ -36,7 +36,10 @@ class KeywordSelect extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(response => response.json())
+    }).then(
+      response => response.json(),
+      error => console.error("Failed to search", error)
+    )
       .then((data) => {
         const options = data.aggregations.keywords.buckets
           .map(keyword => ({ value: keyword.key, label: keyword.key }))

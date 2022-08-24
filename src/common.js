@@ -192,13 +192,14 @@ export const updateUser = async () => {
         'X-Requested-With': 'XMLHttpRequest',
       },
     }).then(res => res.json())
+    .then(data => data.error ? null : data)
   } catch (e) {
-    // no op - user not logged in, but mod_auth_openidc redirects to login page
+    console.debug("Not logged in", e)
   }
   setTimeout(updateUser, 1000 * 60 * 3)
 }
 
-export const types = ['Organization', 'Service', 'Person', 'Action', 'Event', 'Article', 'Product', 'WebPage', 'Policy', 'Collection']
+export const types = ['Organization', 'Service', 'Person']
 
 export const isNode = () => (typeof window === 'undefined')
 

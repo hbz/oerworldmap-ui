@@ -4,12 +4,12 @@
   "@type": "ConceptScheme",
   "hasTopConcept": [
     {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#school",
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#chapter",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "School"
+          "@value": "Chapter"
         },
         {
           "@language": "pt",
@@ -22,16 +22,16 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#higherEducationInstitution",
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#hub",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Higher education institution"
+          "@value": "Hub"
         },
         {
           "@language": "pt",
-          "@value": "Instituição de ensino superior"
+          "@value": "Hub"
         },
         {
           "@language": "de",
@@ -40,12 +40,12 @@
       ]
     },
     {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#trainingProvider",
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#thematicorganisation",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Training provider"
+          "@value": "Thematic Organisation"
         },
         {
           "@language": "pt",
@@ -57,201 +57,38 @@
         }
       ]
     },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#fundingBody",
+{
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#usergroup",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Funding body"
+          "@value": "User Group"
         },
         {
           "@language": "pt",
-          "@value": "Instituição financiadora"
+          "@value": "Fornecedor de formação"
         },
         {
           "@language": "de",
-          "@value": "Förderinstitution"
+          "@value": "Schulungsanbieter"
         }
       ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#researchInstitute",
+    },{
+      "@id": "https://oerworldmap.org/assets/json/organizations.json#preapproval",
       "@type": "Concept",
       "name": [
         {
           "@language": "en",
-          "@value": "Research institute"
+          "@value": "Pre-Approval"
         },
         {
           "@language": "pt",
-          "@value": "Instituto de Pesquisa"
+          "@value": "Fornecedor de formação"
         },
         {
           "@language": "de",
-          "@value": "Forschungsinstitut"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#infrastructureProvider",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Infrastructure provider"
-        },
-        {
-          "@language": "pt",
-          "@value": "Fornecedor de infraestrutura"
-        },
-        {
-          "@language": "de",
-          "@value": "Infrastrukturanbieter"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#governmentAgency",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Government agency"
-        },
-        {
-          "@language": "pt",
-          "@value": "Agência governamental"
-        },
-        {
-          "@language": "de",
-          "@value": "Behörde"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#privateAgency",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Private agency"
-        },
-        {
-          "@language": "pt",
-          "@value": "Agência privada"
-        },
-        {
-          "@language": "de",
-          "@value": "Private Einrichtung"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#commercialEnterprise",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Commercial Enterprise"
-        },
-        {
-          "@language": "pt",
-          "@value": "Empresa Comercial"
-        },
-        {
-          "@language": "de",
-          "@value": "Wirtschaftsunternehmen"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#socialEnterprise",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Social Enterprise or NGO"
-        },
-        {
-          "@language": "pt",
-          "@value": "Empresa Social ou OSC"
-        },
-        {
-          "@language": "de",
-          "@value": "Sozialunternehmen oder NGO"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#grassrootsInitiative",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Grassroots initiative"
-        },
-        {
-          "@language": "pt",
-          "@value": "Iniciativa de base"
-        },
-        {
-          "@language": "de",
-          "@value": "Graswurzelinitiative"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#specialInterestGroup",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Special Interest Group"
-        },
-        {
-          "@language": "pt",
-          "@value": "Grupo de Interesse Especial"
-        },
-        {
-          "@language": "de",
-          "@value": "Special Interest Group"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#communityOfPractice",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Community of practice"
-        },
-        {
-          "@language": "pt",
-          "@value": "Comunidade de prática"
-        },
-        {
-          "@language": "de",
-          "@value": "Community of Practice"
-        }
-      ]
-    },
-    {
-      "@id": "https://oerworldmap.org/assets/json/organizations.json#other",
-      "@type": "Concept",
-      "name": [
-        {
-          "@language": "en",
-          "@value": "Other"
-        },
-        {
-          "@language": "pt",
-          "@value": "Outros"
-        },
-        {
-          "@language": "de",
-          "@value": "Sonstige"
+          "@value": "Schulungsanbieter"
         }
       ]
     }

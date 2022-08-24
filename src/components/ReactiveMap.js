@@ -103,7 +103,7 @@ class Map extends React.Component {
         handler: this.clickPoints,
       },
       {
-        name: 'Regions',
+        name: 'regions',
         handler: this.clickRegions,
       },
       {
@@ -168,10 +168,10 @@ class Map extends React.Component {
       this.map.on('zoom', this.zoom)
 
       this.map.setLayoutProperty('country-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('road-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('minor-place-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('major-place-label', 'text-field', `{name_${locales[0]}}`)
-      this.map.setLayoutProperty('place-label', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('road-label-simple', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('settlement-minor-label', 'text-field', `{name_${locales[0]}}`)
+      this.map.setLayoutProperty('settlement-major-label', 'text-field', `{name_${locales[0]}}`)
+      //this.map.setLayoutProperty('place-labels', 'text-field', `{name_${locales[0]}}`)
 
       this.Map.addEventListener('mouseleave', () => {
         this.hoverPopup.remove()
@@ -197,15 +197,22 @@ class Map extends React.Component {
       // Hack to use Mapbox studio styles with local data (source)
       const allLayers = this.map.getStyle().layers
       pointsLayers.forEach((layer) => {
-        const pointsLayer = allLayers.find(l => l.id === layer)
-        delete pointsLayer['source-layer']
-        this.map.removeLayer(layer)
-        pointsLayer.source = 'pointsSource'
-        pointsLayer.paint['circle-opacity'] = 1
-        pointsLayer.paint['circle-stroke-opacity'] = 1
-        pointsLayer.paint['circle-radius'] = this.initialRadius
+        let pointsLayer = allLayers.find(l => l.id === layer)
+        if (pointsLayer) {
+          delete pointsLayer['source-layer']
+          this.map.removeLayer(layer)
+        }
 
-        this.map.addLayer(pointsLayer)
+        this.map.addLayer({
+          id: layer,
+          source: 'pointsSource',
+          type: 'circle',
+          paint: {
+            'circle-opacity': 1,
+            'circle-stroke-opacity': 1,
+            'circle-radius': this.initialRadius,
+          },
+        })
         this.map.setLayoutProperty(layer, 'visibility', 'visible')
       })
 
@@ -233,13 +240,36 @@ class Map extends React.Component {
         },
       })
 
+      const Admin0Layer = this.map.getStyle().layers.find(l => l.id === 'admin-0-boundary')
+      const CountriesLayer = Admin0Layer
+      const CountriesInactiveLayer = Admin0Layer
+      CountriesLayer.id = 'countries'
+      CountriesInactiveLayer.id = 'countries-inactive'
+      CountriesLayer.paint = Admin0Layer.paint
+      //CountriesLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
+      CountriesInactiveLayer.paint = Admin0Layer.paint
+      //CountriesInactiveLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
+      if (!this.map.getStyle().layers.find(l => l.id === 'countries-inactive')) {
+        // TODO: Can this be changed to a fill layer?
+        this.map.addLayer(CountriesInactiveLayer, 'admin-0-boundary')
+        //this.map.setPaintProperty('countries-inactive', 'fill-color', 'hsl(205, 80%, 90%)')
+        //this.map.addLayer(CountriesLayer)
+      }
+
       // Clone Regions layer and set the style of countries-inactive
-      const RegionsLayer = this.map.getStyle().layers.find(l => l.id === 'Regions')
-      RegionsLayer.id = 'regions-inactive'
-      const countriesInactive = this.map.getStyle().layers.find(l => l.id === 'countries-inactive')
-      RegionsLayer.paint = countriesInactive.paint
-      RegionsLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
-      this.map.addLayer(RegionsLayer, 'Regions')
+      const Admin1Layer = this.map.getStyle().layers.find(l => l.id === 'admin-1-boundary')
+      //RegionsLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
+      //RegionsInactiveLayer.paint['fill-color'] = 'hsl(205, 80%, 90%)'
+      if (!this.map.getStyle().layers.find(l => l.id === 'regions')) {
+        const RegionsLayer = Admin1Layer
+        RegionsLayer.id = 'regions'
+        this.map.addLayer(RegionsLayer)
+      }
+      if (!this.map.getStyle().layers.find(l => l.id === 'regions-inactive')) {
+        const RegionsInactiveLayer = Admin1Layer
+        RegionsInactiveLayer.id = 'regions-inactive'
+        this.map.addLayer(RegionsInactiveLayer, 'admin-1-boundary')
+      }
 
       // Initialize choropleth layers
       this.updateZoom(iso3166, map, map)
@@ -396,9 +426,9 @@ class Map extends React.Component {
     const zoom = e.target.getZoom()
 
     if (zoom >= 7) {
-      e.target.setPaintProperty('water-overlay', 'background-opacity', 0)
+      e.target.setPaintProperty('water', 'background-opacity', 0)
     } else {
-      e.target.setPaintProperty('water-overlay', 'background-opacity', 1)
+      e.target.setPaintProperty('water', 'background-opacity', 1)
     }
 
     if (zoom < 2 && iso3166) {
@@ -427,21 +457,23 @@ class Map extends React.Component {
       const hoveredEvents = this.map.queryRenderedFeatures(e.point, { layers: ['Events'] })
       const hoveredPoints = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
       const hoveredCountries = this.map.queryRenderedFeatures(e.point, { layers: ['countries'] })
-      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['Regions'] })
+      const hoveredRegions = this.map.queryRenderedFeatures(e.point, { layers: ['regions'] })
       const hoveredRegionsInactive = this.map.queryRenderedFeatures(e.point, { layers: ['regions-inactive'] })
 
       const currentCountry = (hoveredCountries.length
-        && hoveredCountries[0].properties.iso_a2) || null
+        && hoveredCountries[0].properties.iso_3166_1) || null
       const currentRegion = (hoveredRegions.length
         && hoveredRegions[0].properties.code_hasc) || null
       const currentRegionInactive = (hoveredRegionsInactive.length
         && hoveredRegionsInactive[0].properties.code_hasc) || null
 
+//console.log("hover", hoveredCountries, hoveredRegions, hoveredRegionsInactive)
       if (!currentCountry && !hoveredPoints.length) {
         // Water since there is no country
         this.hoverPopup.remove()
         this.map.getCanvas().style.cursor = ''
       } else {
+//console.log("have currentCountry", currentCountry)
         this.hoverPopup.setLngLat(e.lngLat)
         this.map.getCanvas().style.cursor = 'pointer'
 
@@ -656,23 +688,24 @@ class Map extends React.Component {
   }
 
   updateActiveCountry(iso3166, region) {
+//console.log("updateActiveCountry", iso3166, region)
     if (region) {
-      this.map.setFilter('regions-inactive', ['==', 'iso_a2', iso3166])
-      this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
-      this.map.setFilter('Regions', ['==', 'code_hasc', `${iso3166}.${region}`])
+      this.map.setFilter('regions-inactive', ['==', 'iso_3166_1', iso3166])
+      this.map.setFilter('countries-inactive', ['!=', 'iso_3166_1', iso3166])
+      this.map.setFilter('regions', ['==', 'code_hasc', `${iso3166}.${region}`])
       this.map.once('moveend', () => {
         this.map.setPaintProperty('countries', 'fill-opacity', 0)
       })
     } else if (iso3166) {
-      this.map.setFilter('countries-inactive', ['!=', 'iso_a2', iso3166])
-      this.map.setFilter('Regions', ['==', 'iso_a2', iso3166])
+      this.map.setFilter('countries-inactive', ['!=', 'iso_3166_1', iso3166])
+      this.map.setFilter('regions', ['==', 'iso_3166_1', iso3166])
       this.map.setFilter('regions-inactive', ['==', 'code_hasc', 'null'])
       this.map.once('moveend', () => {
         this.map.setPaintProperty('countries', 'fill-opacity', 0)
       })
     } else {
-      this.map.setFilter('countries-inactive', ['!has', 'iso_a2'])
-      this.map.setFilter('Regions', ['!has', 'iso_a2'])
+      this.map.setFilter('countries-inactive', ['!has', 'iso_3166_1'])
+      this.map.setFilter('regions', ['!has', 'iso_3166_1'])
       this.map.setFilter('regions-inactive', ['==', 'code_hasc', 'null'])
       this.map.setPaintProperty('countries', 'fill-opacity', 1)
     }
@@ -702,14 +735,14 @@ class Map extends React.Component {
           const bound = bounds[iso3166]
           this.fly(bound, bound[2])
         } else {
-          const coutryFeatures = this.map.queryRenderedFeatures({
+          const countryFeatures = this.map.queryRenderedFeatures({
             layers: ['countries'],
-            filter: ['in', 'iso_a2', iso3166],
+            filter: ['in', 'iso_3166_1', iso3166],
           })
-          if (coutryFeatures.length) {
+          if (countryFeatures.length) {
             const sumCoords = []
 
-            coutryFeatures.forEach((feature) => {
+            countryFeatures.forEach((feature) => {
               feature.geometry.coordinates.forEach((land) => {
                 // eslint-disable-next-line prefer-spread
                 sumCoords.push.apply(sumCoords, feature.geometry.type === 'MultiPolygon' ? land[0] : land)
@@ -789,9 +822,9 @@ class Map extends React.Component {
         .concat('rgba(255, 255, 255)')
         .reverse()
       const property = aggregations['sterms#feature.properties.location.address.addressRegion']
-        ? 'code_hasc' : 'iso_a2'
+        ? 'code_hasc' : 'iso_3166_1'
       const layer = aggregations['sterms#feature.properties.location.address.addressRegion']
-        ? 'Regions' : 'countries'
+        ? 'regions' : 'countries'
 
       this.map.setPaintProperty(layer, 'fill-color', {
         property,
@@ -876,8 +909,8 @@ class Map extends React.Component {
 
     const { emitter } = this.props
 
-    if (features[0].properties.iso_a2 !== '-99') {
-      emitter.emit('navigate', `/country/${features[0].properties.iso_a2.toLowerCase()}${window.location.search}`)
+    if (features[0].properties.iso_3166_1 !== '-99') {
+      emitter.emit('navigate', `/country/${features[0].properties.iso_3166_1.toLowerCase()}${window.location.search}`)
     }
   }
 
@@ -886,7 +919,7 @@ class Map extends React.Component {
 
     const { emitter } = this.props
     const [country, region] = features[0].properties.code_hasc.toLowerCase().split('.')
-    if (features[0].properties.iso_a2 !== '-99') {
+    if (features[0].properties.iso_3166_1 !== '-99') {
       emitter.emit('navigate', `/country/${country}/${region}${window.location.search}`)
     }
   }
@@ -897,6 +930,7 @@ class Map extends React.Component {
       features,
     }
     this.popup && this.popup.remove()
+//console.log("updatePoints", pointsCollection)
     this.map.getSource('pointsSource').setData(pointsCollection)
   }
 

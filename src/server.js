@@ -1,31 +1,29 @@
-/* global Headers */
-
 import { renderToString } from 'react-dom/server'
 import path from 'path'
 import express from 'express'
 import compression from 'compression'
 import userAgent from 'express-useragent'
 import cookieParser from 'cookie-parser'
+import session from 'express-session'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
 import template from './views/index'
 import router from './router'
 import Api from './api'
 import i18ns from './i18ns'
 import i18n from './i18n'
+import oauth from './mediawiki-oauth2'
 import { createGraph } from './components/imgGraph'
 
 import Config, {
-  mapboxConfig, apiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
+  mapboxConfig, apiConfig, publicApiConfig, piwikConfig, i18nConfig, elasticsearchConfig,
+  sessionConfig, mediawikiConfig, pagesConfig,
 } from '../config'
 
 global.URL = require('url').URL
 
 const server = express()
 const api = new Api(apiConfig)
-
-const getHeaders = headers => new Headers(Object.entries(headers)
-  .filter(([key]) => !key.startsWith('oidc'))
-  .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}))
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -97,13 +95,89 @@ server.use((req, res, next) => {
   next()
 })
 
+// Middleware to persist session
+server.use(session({
+  secret: sessionConfig.secret,
+  saveUninitialized: false,
+  resave: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
+}))
+
+// Middleware to set auth headers
+server.use((req, res, next) => {
+  if (mediawikiConfig.debugOverride) {
+    req.session.username = 'Test User'
+    req.session.userid = '123'
+    req.headers['X-username'] = req.session.username
+    req.headers['X-userid'] = req.session.userid
+  } else if (req.session.username) {
+    req.headers['X-username'] = req.session.username
+    req.headers['X-userid'] = req.session.userid
+  }
+  next()
+})
+
+server.use(/^\/(oerworldmap-ui|contribute|about|FAQ|editorsFAQ|imprint|api|oerpolicies)/,
+  createProxyMiddleware({
+    target: pagesConfig.internalUrl,
+    changeOrigin: true,
+    pathRewrite: {'^/oerworldmap-ui': ''},
+  })
+)
+
+server.use( /^\/$/,
+  createProxyMiddleware({
+    target: pagesConfig.internalUrl,
+    changeOrigin: true,
+  })
+)
+
+server.use('/elastic', createProxyMiddleware({
+  target: elasticsearchConfig.internalUrl,
+  changeOrigin: true,
+  pathRewrite: {'^/elastic': ''},
+}))
+
+server.use(createProxyMiddleware(
+  (_path, req) => { return !req.accepts('text/html') },
+  {
+    // FIXME: format using URL
+    target: `${apiConfig.scheme}://${apiConfig.host}:${apiConfig.port}`,
+    changeOrigin: true,
+  }
+))
+
 // Handle login
 server.get('/.login', (req, res) => {
-  if (req.headers.oidc_claim_profile_id) {
+  if (req.session.username) {
     res.redirect(req.query.continue ? req.query.continue : '/resource/')
   } else {
-    res.redirect('/user/profile#edit')
+    res.redirect(oauth.getAuthRedirect())
   }
+})
+
+server.get('/oauth2/callback', (req, res) => {
+  if (req.query.error) {
+    console.error("oauth callback received an error", req.query.error)
+    return res.redirect('/')
+  }
+
+  oauth.processCallback(req.originalUrl)
+    .then(authenticatedUser => oauth.getUserProfile(authenticatedUser))
+    .then(userData => {
+      req.session.username = userData.username
+      req.session.userid = userData.sub
+
+      res.redirect('/user/profile')
+    }, error =>
+      console.error("Unhandled login error", error)
+    )
+})
+
+server.get('/logout', (req, res) => {
+  req.session.destroy()
+  // TODO: Logout of MediaWiki as well.  But there seems to be no way to revoke?
+  res.redirect(req.query.continue || '/')
 })
 
 server.get('/stats', async (req, res) => {
@@ -144,29 +218,31 @@ server.get('/stats', async (req, res) => {
 
 // Server-side render request
 server.get(/^(.*)$/, (req, res) => {
-  const headers = getHeaders(req.headers)
-  headers.delete('Host')
-  headers.delete('If-None-Match')
   const { locales, supportedLanguages, phrases } = req
   const config = {
     mapboxConfig,
     elasticsearchConfig,
     apiConfig,
+    publicApiConfig,
+  }
+  // FIXME: duplication, to prevent user from sneaking other headers to the API
+  const headers = {
+    'X-username': req.session.username,
+    'X-userid': req.session.userid,
   }
   const { schema } = req
   const context = {
     supportedLanguages,
     locales,
-    headers,
     config,
     phrases,
     schema,
+    headers,
   }
   // TODO: use actual request method
   router(api, null, req.location).route(req.path, context).get(req.query).then(({
     title, data, render, err, metadata,
   }) => {
-    console.info('Render from Server:', req.url)
     res.send(template({
       env: process.env.NODE_ENV,
       body: renderToString(render(data)),
