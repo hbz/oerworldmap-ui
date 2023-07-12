@@ -1,6 +1,6 @@
 ---
 title: FAQ
-layout: página
+layout: page
 class: faq
 ---
 
